@@ -1,0 +1,7 @@
+include $HOME/.config/sway/*.conf
+
+exec swww init
+exec --no-startup-id /usr/lib/xdg-desktop-portal -r
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+
+include /etc/sway/config.d/*
