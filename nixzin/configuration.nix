@@ -78,7 +78,7 @@ in
     };
   };
 
-  nix.settings.experimental-features = ["flakes"];
+  nix.settings.experimental-features = ["flakes" "nix-command"];
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
@@ -99,6 +99,6 @@ in
   # and migrated your data accordingly.
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-  system.stateVersion = "${state}"; # Did you read the comment?
+  system.stateVersion = state; # Did you read the comment?
 }
 
