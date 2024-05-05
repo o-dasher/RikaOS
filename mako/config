@@ -1,0 +1,7 @@
+font=Jetbrains Mono Nerd 13
+default-timeout=5000
+output=HDMI-A-1
+anchor=top-right
+
+[urgency=high]
+ignore-timeout=1

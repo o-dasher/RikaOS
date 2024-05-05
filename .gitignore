@@ -1,0 +1,15 @@
+/*
+/*/
+
+!.gitignore
+!starship.toml
+
+!/nvim/
+!/fish/
+!/wofi/
+!/wlogout/
+!/sway/
+!/waybar/
+!/mako/
+!/home-manager/
+!/nixzin/

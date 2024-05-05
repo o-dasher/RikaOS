@@ -1,0 +1,50 @@
+*{
+    font-family: JetBrainsMono;
+    font-size: 13px;
+    min-height: 0;
+    color: white;
+}
+
+window#waybar {
+    background: alpha(@theme_base_color, 0.9)
+}
+
+#workspaces {
+    margin-top: 3px;
+    margin-bottom: 2px;
+    margin-right: 10px;
+    margin-left: 25px;
+}
+
+#workspaces button {
+    border-radius: 0px;
+    margin-right: 5px;
+    padding: 1px 10px;
+    font-weight: bolder;
+}
+
+.modules-left, .modules-center, .modules-right {
+    background: shade(@theme_base_color, 1);
+}
+
+#workspaces button {
+    background: shade(@theme_base_color, 1.5);
+}
+
+#workspaces button.active, #workspaces button.focused {
+    padding: 0 10px;
+    background: shade(@theme_base_color, 2.0);
+}
+
+#tray,
+#cpu, 
+#temperature, 
+#memory,
+#backlight, 
+#pulseaudio, 
+#disk,
+#battery, 
+#clock, 
+#network {
+    padding: 0 10px;
+}
