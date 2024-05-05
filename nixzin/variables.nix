@@ -14,7 +14,7 @@
 	username = "thiago";
 
 	# Pretty much the arch.
-	system = "x86_64_linux";
+	system = "x86_64-linux";
 
 	# System-wide font
 	font = "Jetbrains Mono Font";
