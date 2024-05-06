@@ -48,12 +48,16 @@ in
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${username} = {
     isNormalUser = true;
+	shell = pkgs.fish;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
   };
 
   environment = {
 	  sessionVariables = {
-		XDG_CONFIG_HOME = "\${HOME}/.config";
+		XDG_CACHE_HOME  = "\$HOME/.cache";
+		XDG_CONFIG_HOME = "\$HOME/.config";
+		XDG_BIN_HOME    = "\$HOME/.local/bin";
+		XDG_DATA_HOME   = "\$HOME/.local/share";
 	  };
 
 	  # This should be kept to a minimal. Don't ask me why, I think it is better this way.
@@ -68,6 +72,7 @@ in
   };
 
   programs = {
+	fish.enable = true;
     neovim = {
       enable = true;
       defaultEditor = true;
