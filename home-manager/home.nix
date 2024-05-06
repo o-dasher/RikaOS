@@ -21,7 +21,6 @@ in
 	packages = with pkgs; [
 		# General
 		firefox
-		mako
 		discord
 		xfce.thunar
 
@@ -45,6 +44,13 @@ in
 		# Disk space is not cheap okay?
 		(nerdfonts.override { fonts = [ "JetBrainsMono" "CascadiaCode" ]; })  
 	  ];
+  };
+
+  services.mako = {
+	  enable = true;
+	  defaultTimeout = 4000;
+	  output = "HDMI-A-1";
+	  anchor = "top-right";
   };
 
   programs = {
