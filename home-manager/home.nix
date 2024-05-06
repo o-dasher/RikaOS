@@ -5,8 +5,9 @@ let
 in
 {
   imports = [
-	./alacritty.nix
 	./theme.nix
+	./alacritty.nix
+	./shell.nix
 	inputs.catppuccin.homeManagerModules.catppuccin
   ];
 
@@ -48,6 +49,5 @@ in
 
   programs = {
 	home-manager.enable = true;
-	bash.enable = true;
   };
 }
