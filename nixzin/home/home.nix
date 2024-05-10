@@ -1,7 +1,7 @@
 { inputs, pkgs, ... }:
 let
 	inherit (import ./variables.nix) username;
-	inherit (import ../nixzin/variables.nix) state;
+	inherit (import ../system/variables.nix) state;
 in
 {
   imports = [
