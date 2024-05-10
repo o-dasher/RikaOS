@@ -4,7 +4,7 @@
 { inputs, pkgs, ... }:
 let
 	inherit (import ./variables.nix) state timezone hostname locale keymap;
-	inherit (import ../home-manager/variables.nix) username;
+	inherit (import ../home/variables.nix) username;
 in
 {
   imports =
@@ -62,6 +62,7 @@ in
 
 	  # This should be kept to a minimal. Don't ask me why, I think it is better this way.
 	  systemPackages = with pkgs; [
+		htop
 		cargo
 		gcc
 		tmux
