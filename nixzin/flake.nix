@@ -14,19 +14,19 @@
     home-manager,
     ...
   } @ inputs: let
-	inherit (import ./variables.nix) hostname system;
-	inherit (import ../home-manager/variables.nix) username;
+	inherit (import ./system/variables.nix) hostname system;
+	inherit (import ./home/variables.nix) username;
     pkgs = import nixpkgs {inherit system;};
   in {
 	homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
       extraSpecialArgs = {inherit inputs;};
-      modules = [../home-manager/home.nix];
+      modules = [../home/home.nix];
     };
 
     nixosConfigurations.${hostname} = nixpkgs.lib.nixosSystem {
       specialArgs = {inherit inputs;};
-      modules = [./configuration.nix];
+      modules = [./system/configuration.nix];
     };
   };
 }

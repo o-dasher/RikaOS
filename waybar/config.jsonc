@@ -37,9 +37,9 @@
         "format-alt": " {:%a,%b %d}"
     },
     "cpu": {
-        "format": "&#8239;{usage}%",
+        "format": "&#8239; {usage}%",
         "tooltip": false,
-        "on-click": "alacritty -e 'htop'"
+        "on-click": "xdg-terminal -e 'htop'"
     },
     "memory": {
         "interval": 30,
