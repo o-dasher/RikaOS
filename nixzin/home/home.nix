@@ -9,6 +9,7 @@ in
 	./alacritty.nix
 	./shell.nix
 	./waybar.nix
+	./wofi.nix
 	inputs.catppuccin.homeManagerModules.catppuccin
   ];
 
@@ -20,6 +21,9 @@ in
 	homeDirectory = "/home/${username}";
 	stateVersion = state;
 	packages = with pkgs; [
+		# System utils
+		xdg-terminal-exec
+
 		# General
 		firefox
 		discord
