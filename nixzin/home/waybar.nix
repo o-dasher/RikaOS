@@ -4,13 +4,13 @@
 		settings.main = {
 			layer = "top";
 			position = "top";
-			height = 5;
+			height = 35;
 			margin-bottom = 0;
 			margin-top = 0;
 
-			modules-left = ["cpu" "memory"];
-			modules-center = ["sway/workspaces"];
-			modules-right = ["tray" "pulseaudio" "backlight" "battery" "clock"];
+			modules-left = ["sway/workspaces"];
+			modules-center = ["clock"];
+			modules-right = ["cpu" "memory" "tray" "pulseaudio" "battery"];
 
 			battery = {
 				states = {
@@ -24,7 +24,8 @@
 				format-icons = [" " " " " " "" ""];
 			};
 
-			"wlr/workspaces" = {
+			"sway/workspaces" = {
+				all-outputs = true;
 				sort-by-name = true;
 				on-click = "activate";
 			};
@@ -39,15 +40,13 @@
 			};
 
 			clock = {
-				locale = "C";
-				format = " {:%I:%M %p}";
-				format-alt = " {:%a,%b %d}";
+				format = "{:%H:%M | %a %b %d}";
 			};
 
 			cpu = {
 				format = "&#8239; {usage}%";
 				tooltip = false;
-				on-click = "xdg-terminal -e 'htop'";
+				on-click = "xdg-terminal-exec htop";
 			};
 			
 			memory = {
@@ -59,13 +58,6 @@
 				critical = 95;
 			};
 
-			backlight = {
-				format = "{icon}&#8239;{percent}%";
-				format-icons = ["" ""];
-				on-scroll-down = "brightnessctl -c backlight set 1%-";
-				on-scroll-up = "brightnessctl -c backlight set +1%";
-			};
-			
 			pulseaudio = {
 				on-click = "pavucontrol";
 				format = "{icon} {volume}% {format_source}";
@@ -94,57 +86,84 @@
 			};
 		};
 		
-		style = ''
-		@import "." # todothis
+		style = let 
+			px = v: "${toString v}px";
+
+			u = px 4;
+			z = px 0;
+
+			gen_css_fn = fn_name: args: "${fn_name}(${args})";
+			apply_numeric_css_fn = 
+				fn_name: property: value:
+					gen_css_fn fn_name "${property}, ${toString value}";
+
+			alpha_fn = apply_numeric_css_fn "alpha";
+			shade_fn = apply_numeric_css_fn "shade";
+
+			border_definition = "1px solid ${alpha_fn "white" 0.1}";
+			right_module_selectors = ''
+				#tray,
+				#cpu, 
+				#temperature, 
+				#memory,
+				#backlight, 
+				#pulseaudio, 
+				#battery
+			'';
+		in ''
 		*{
 			font-family: JetBrainsMono;
-			font-size: 13px;
+			font-size: 12px;
 			min-height: 0;
-			color: white;
+			color: @theme_text_color;
 		}
 
 		window#waybar {
-			background: alpha(@theme_base_color, 0.9)
+			background: ${alpha_fn "@theme_bg_color" 0.9}
 		}
 
-		#workspaces {
-			margin-top: 3px;
-			margin-bottom: 2px;
-			margin-right: 10px;
-			margin-left: 25px;
+		.modules-left {
+			border-radius: ${z} ${u} ${u} ${z};
+			padding: ${u} ${z} ${u} ${u};
 		}
 
-		#workspaces button {
-			border-radius: 0px;
-			margin-right: 5px;
-			padding: 1px 10px;
-			font-weight: bolder;
+		.modules-center {
+			border-radius: ${z} ${z} ${u} ${u};
+			margin-bottom: ${u};
+		}
+
+		.modules-right {
+			border-radius: ${u} ${z} ${z} ${u};
+			transition: all 0.3s;
+		}
+
+		.modules-left, .modules-right {
+			margin: ${u} ${z} ${u} ${z};
 		}
 
 		.modules-left, .modules-center, .modules-right {
-			background: shade(@theme_base_color, 1);
+			background: ${shade_fn "@theme_base_color" 1.4};
+			border: ${border_definition};
 		}
 
 		#workspaces button {
-			background: shade(@theme_base_color, 1.5);
+			background: ${shade_fn "@theme_base_color" 2};
+			border-radius: 5%;
+			margin-right: ${u};
+			padding: 0px;
 		}
 
-		#workspaces button.active, #workspaces button.focused {
-			padding: 0 10px;
-			background: shade(@theme_base_color, 2.0);
+		#workspaces button.focused {
+			background: ${alpha_fn "@theme_selected_bg_color" 0.5};
+			padding: ${z} 6px;
 		}
 
-		#tray,
-		#cpu, 
-		#temperature, 
-		#memory,
-		#backlight, 
-		#pulseaudio, 
-		#disk,
-		#battery, 
-		#clock, 
-		#network {
+		${right_module_selectors}, #clock {
 			padding: 0 10px;
+		}
+
+		${right_module_selectors} {
+			border-right: ${border_definition};
 		}
 		'';
 	};
