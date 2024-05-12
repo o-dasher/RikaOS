@@ -8,6 +8,7 @@ in
 	./theme.nix
 	./alacritty.nix
 	./shell.nix
+	./waybar.nix
 	inputs.catppuccin.homeManagerModules.catppuccin
   ];
 
