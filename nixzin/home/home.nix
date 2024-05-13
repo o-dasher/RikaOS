@@ -4,11 +4,11 @@ let
 in
 {
   imports = [
-	./theme.nix
-	./alacritty.nix
-	./shell.nix
-	./waybar.nix
-	./wofi.nix
+	./theme/default.nix
+	./alacritty
+	./shell
+	./waybar
+	./wofi
 	inputs.catppuccin.homeManagerModules.catppuccin
   ];
 
