@@ -1,5 +1,5 @@
 let
-	inherit (import ./utils/default.nix) alpha_fn theme font_definition;
+	inherit (import ../utils/default.nix) alpha_fn theme font_definition;
 in
 {
 	programs.wofi = let 

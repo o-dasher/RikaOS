@@ -1,5 +1,5 @@
 let 
-	inherit (import ./utils/default.nix) shade_fn alpha_fn theme font_definition;
+	inherit (import ../utils/default.nix) shade_fn alpha_fn theme font_definition;
 in
 {
 	programs.waybar = {
