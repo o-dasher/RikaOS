@@ -3,8 +3,14 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 { inputs, pkgs, ... }:
 let
-	inherit (import ./variables.nix) state timezone hostname locale keymap;
-	inherit (import ../home/variables.nix) username;
+	inherit (import ../common/variables.nix) username hostname state;
+
+	# Some localy stuff
+	locale = "en_US.UTF-8";
+	timezone = "Brazil/East";
+
+	# Keymapping
+	keymap = "br-abnt2";
 in
 {
   imports =
@@ -44,6 +50,7 @@ in
 	  # Enable gnome keyring to store password and stuff?
 	  gnome.gnome-keyring.enable = true;
   };
+
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${username} = {
