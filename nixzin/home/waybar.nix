@@ -1,3 +1,6 @@
+let 
+	inherit (import ./utils/default.nix) shade_fn alpha_fn theme font_definition;
+in
 {
 	programs.waybar = {
 		enable = true;
@@ -87,18 +90,7 @@
 		};
 		
 		style = let 
-			px = v: "${toString v}px";
-
-			u = px 4;
-			z = px 0;
-
-			gen_css_fn = fn_name: args: "${fn_name}(${args})";
-			apply_numeric_css_fn = 
-				fn_name: property: value:
-					gen_css_fn fn_name "${property}, ${toString value}";
-
-			alpha_fn = apply_numeric_css_fn "alpha";
-			shade_fn = apply_numeric_css_fn "shade";
+			u = "4";
 
 			border_definition = "1px solid ${alpha_fn "white" 0.1}";
 			right_module_selectors = ''
@@ -112,54 +104,53 @@
 			'';
 		in ''
 		*{
-			font-family: JetBrainsMono;
+			${font_definition}
 			font-size: 12px;
 			min-height: 0;
 			color: @theme_text_color;
 		}
 
 		window#waybar {
-			background: ${alpha_fn "@theme_bg_color" 0.9}
+			background: ${alpha_fn theme.bg_color 0.9}
 		}
 
 		.modules-left {
-			border-radius: ${z} ${u} ${u} ${z};
-			padding: ${u} ${z} ${u} ${u};
+			border-radius: 0 ${u} ${u} 0;
+			padding: ${u} 0 ${u} ${u};
 		}
 
 		.modules-center {
-			border-radius: ${z} ${z} ${u} ${u};
+			border-radius: 0 0 ${u} ${u};
 			margin-bottom: ${u};
 		}
 
 		.modules-right {
-			border-radius: ${u} ${z} ${z} ${u};
-			transition: all 0.3s;
+			border-radius: ${u} 0 0 ${u};
 		}
 
 		.modules-left, .modules-right {
-			margin: ${u} ${z} ${u} ${z};
+			margin: ${u} 0 ${u} 0;
 		}
 
 		.modules-left, .modules-center, .modules-right {
-			background: ${shade_fn "@theme_base_color" 1.4};
+			background: ${shade_fn theme.base_color 1.4};
 			border: ${border_definition};
 		}
 
 		#workspaces button {
-			background: ${shade_fn "@theme_base_color" 2};
+			background: ${shade_fn theme.base_color 2};
 			border-radius: 5%;
 			margin-right: ${u};
-			padding: 0px;
+			padding: 0;
 		}
 
 		#workspaces button.focused {
-			background: ${alpha_fn "@theme_selected_bg_color" 0.5};
-			padding: ${z} 6px;
+			background: ${alpha_fn theme.selected_bg_color 0.5};
+			padding: 0 6;
 		}
 
 		${right_module_selectors}, #clock {
-			padding: 0 10px;
+			padding: 0 10;
 		}
 
 		${right_module_selectors} {
