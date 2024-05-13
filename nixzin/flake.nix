@@ -18,8 +18,9 @@
     home-manager,
     ...
   } @ inputs: let
-    inherit (import ./system/variables.nix) hostname system;
-    inherit (import ./home/variables.nix) username;
+    inherit (import ./common/variables.nix) hostname username;
+
+	system = "x86_64-linux";
 	pkgs = import nixpkgs {inherit system;};
   in {
     homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
