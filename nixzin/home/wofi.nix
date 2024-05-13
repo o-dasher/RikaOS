@@ -1,50 +1,64 @@
+let
+	inherit (import ./utils/default.nix) alpha_fn theme font_definition;
+in
 {
-	programs.wofi = {
+	programs.wofi = let 
+		decent_spacing = "8";
+		radius_definition = "10";
+	in {
 		enable = true;
+		settings = {
+			width = "25%";
+		};
 		style = ''
 		* {
-		    font-family: "JetBrainsMono";
+			${font_definition}
 		}
 		  
 		window {
-			margin: 1px;
-			border: 15px solid #7aa2f7;
-			border-radius: 15px 15px 15px 15px;
-			border-color: #A6ADC8
+			border: 1 solid ${theme.selected_bg_color};
 		}
 	  
 		#input {
-			margin: 5px;
-			border-radius: 0px;
-			border: none;
-			border-bottom: 0px solid black;
-			background-color: #24283b;
 			color: white;
 		}
 	  
 		#inner-box {
-			margin: 5px;
-		    background-color: #24283b;
+		    background-color: ${alpha_fn theme.selected_bg_color 0.25};
 		}
 	  
 		#outer-box {
-			margin: 3px;
-			padding: 20px;
-			background-color: #24283b;
-			border-radius: 10px 10px 10px 10px;
+			background-color: ${theme.bg_color};
+		}
+
+		#inner-box, #outer-box, #input, window {
+			margin: ${decent_spacing};
+			border-radius: ${radius_definition};
 		}
 		  
 		#text {
-			margin: 5px;
-			color: white;
+			margin: ${decent_spacing};
+			color: ${theme.text_color};
 		}
-		  
+
+		#entry {
+			border-radius: 0;
+		}
+
+		#entry:first-child {
+			border-radius: ${radius_definition} ${radius_definition} 0 0;
+		}
+	
+		#entry:last-child {
+			border-radius: 0 0 ${radius_definition} ${radius_definition};
+		}
+
 		#entry:selected {
-			background-color: #151718;
+			background-color: ${alpha_fn theme.selected_bg_color 0.5};
 		}
 		  
 		#text:selected {
-			text-decoration-color: white;
+			text-decoration-color: ${theme.text_color};
 		}
 		'';
 	};
