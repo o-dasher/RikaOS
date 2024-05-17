@@ -26,6 +26,8 @@ in
 	efi.canTouchEfiVariables = true;
   };
 
+  security.polkit.enable = true;
+
   networking = {
 	  hostName = hostname;
 	  networkmanager.enable = true;
@@ -56,7 +58,7 @@ in
   users.users.${username} = {
     isNormalUser = true;
 	shell = pkgs.fish;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "video" ]; # Enable ‘sudo’ for the user.
   };
 
   environment = {
@@ -80,16 +82,16 @@ in
   };
 
   programs = {
+	light.enable = true;
 	fish.enable = true;
+	dconf.enable = true;
     neovim = {
       enable = true;
       defaultEditor = true;
     };
-    sway = {
-      enable = true;
-      wrapperFeatures.gtk = true;
-    };
   };
+
+  hardware.opengl.enable = true;
 
   nix.settings.experimental-features = ["flakes" "nix-command"];
 

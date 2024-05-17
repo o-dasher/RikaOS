@@ -4,11 +4,12 @@ let
 in
 {
   imports = [
-	./theme/default.nix
+	./theme
 	./alacritty
-	./shell
+	./fish
 	./waybar
 	./wofi
+	./sway
 	inputs.catppuccin.homeManagerModules.catppuccin
   ];
 
@@ -22,6 +23,7 @@ in
 	packages = with pkgs; [
 		# System utils
 		xdg-terminal-exec
+		pamixer
 
 		# General
 		firefox
