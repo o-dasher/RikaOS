@@ -28,7 +28,6 @@ in
 		# General
 		firefox
 		discord
-		xfce.thunar
 
 		# Programming
 		rustup
@@ -39,11 +38,10 @@ in
 		wofi
 		waybar
 		swww
-
-		# Screenshoot 
-		grim
-		slurp
+		inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
 		wl-clipboard
+		xfce.thunar
+		whitesur-icon-theme
 
 		# fonts
 		jetbrains-mono
