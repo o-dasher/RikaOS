@@ -46,11 +46,13 @@ in
 		}
 
 		#entry:first-child {
-			border-radius: ${radius_definition} ${radius_definition} 0 0;
+			border-top-left-radius: ${radius_definition};
+			border-top-right-radius: ${radius_definition};
 		}
 	
 		#entry:last-child {
-			border-radius: 0 0 ${radius_definition} ${radius_definition};
+			border-bottom-left-radius: ${radius_definition};
+			border-bottom-right-radius: ${radius_definition};
 		}
 
 		#entry:selected {
