@@ -21,6 +21,10 @@ in
 			  tweaks = [];
 			  variant = c.flavour;
 			};
-      };
+		};
+		iconTheme = {
+			name = "WhiteSur";
+			package = pkgs.whitesur-icon-theme;
+		};
   };
 }

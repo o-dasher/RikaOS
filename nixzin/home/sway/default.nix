@@ -15,8 +15,14 @@
 					command = "waybar";
 				}
 			];
+			gaps = let 
+				gap = 2;
+			in {
+				vertical = gap;
+				horizontal = gap;
+			};
 			window = {
-				border = 0;
+				border = 1;
 				titlebar = false;
 			};
 			input = {
@@ -37,6 +43,7 @@
 				mod = config.wayland.windowManager.sway.config.modifier;
 				key = {
 					shift = "Shift";
+					myprint = "p";
 				};
 				combo = s: "${mod}+${
 					if builtins.typeOf s  == "string" then
@@ -51,7 +58,8 @@
 				runs = {
 					playerctl = run "playerctl";
 					pamixer = run "pamixer";
-					brightnessctl = run "brightnessctl";
+					brightnessctl = run "brightnessctl set";
+					grimblast = run "grimblast --notify copy";
 				};
 			in
 			# Default sway nix options are sane enough.
@@ -72,6 +80,11 @@
 				"${combo "f"}" = "fullscreen";
 				"${combo "c"}" = "kill";
 
+				# Screenshots
+				"${combo key.myprint}" = runs.grimblast "screen";
+				"${combo [key.shift key.myprint]}" = runs.grimblast "area";
+				"${combo ["Alt" key.myprint]}" = runs.grimblast "active";
+
 				# Media controls and other fns.
 				"XF86AudioPlay" = runs.playerctl "play-pause";
 				"XF86AudioPrev" = runs.playerctl "previous";
@@ -83,8 +96,8 @@
 				"XF86AudioMute" = runs.pamixer "--toggle-mute";
 				"XF86AudioMicMute" = runs.pamixer "--default-source --toggle-mute";
 
-				"XF86MonBrightnessUp" = runs.brightnessctl "set ${step}%+";
-				"XF86MonBrightnessDown" = runs.brightnessctl "set ${step}%-";
+				"XF86MonBrightnessUp" = runs.brightnessctl "${step}%+";
+				"XF86MonBrightnessDown" = runs.brightnessctl "${step}%-";
 			};
 		};
 	};
