@@ -1,8 +1,16 @@
-{config, lib, ...}:
+{config, lib, pkgs, ...}:
 {
 	wayland.windowManager.sway = {
 		enable = true;
+		package = pkgs.swayfx;
+		checkConfig = false;
 		wrapperFeatures.gtk = true;
+		extraConfig = ''
+			corner_radius 8
+
+			shadows enable
+			shadow_blur_radius 8
+		'';
 		config = {
 			modifier = "Mod4";
 			terminal = "xdg-terminal";
@@ -16,10 +24,12 @@
 				}
 			];
 			gaps = let 
-				gap = 2;
+				gap = 4;
 			in {
-				vertical = gap;
+				inner = gap;
+				outer = gap;
 				horizontal = gap;
+				vertical = gap;
 			};
 			window = {
 				border = 1;
