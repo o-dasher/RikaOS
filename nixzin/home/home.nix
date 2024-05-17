@@ -28,6 +28,7 @@ in
 		# General
 		firefox
 		discord
+		mpv
 
 		# Programming
 		rustup
@@ -41,6 +42,7 @@ in
 		inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
 		wl-clipboard
 		xfce.thunar
+		pavucontrol
 		whitesur-icon-theme
 
 		# fonts
@@ -48,6 +50,14 @@ in
 		# Disk space is not cheap okay?
 		(nerdfonts.override { fonts = [ "JetBrainsMono" "CascadiaCode" ]; })  
 	  ];
+  };
+
+  nix = {
+	  gc = {
+		  automatic = true;
+		  frequency = "daily";
+		  options = "--delete-older-than 1d";
+	  };
   };
 
   services.mako = {
