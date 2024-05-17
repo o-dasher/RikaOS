@@ -51,6 +51,22 @@ in
 
 	  # Enable gnome keyring to store password and stuff?
 	  gnome.gnome-keyring.enable = true;
+
+	  displayManager = {
+		sddm = {
+			enable = true;
+			theme = "catppuccin-sddm-corners";
+			wayland = {
+				enable = true;
+				compositor = "kwin";
+			};
+		};
+		sessionPackages = [ pkgs.sway ];
+	  };
+
+	  udev.packages = with pkgs; [
+		  vial
+	  ];
   };
 
 
@@ -67,10 +83,14 @@ in
 		XDG_CONFIG_HOME = "\$HOME/.config";
 		XDG_BIN_HOME    = "\$HOME/.local/bin";
 		XDG_DATA_HOME   = "\$HOME/.local/share";
+		SYSTEM_SHARE = "/run/current-system/sw/share/";
 	  };
 
 	  # This should be kept to a minimal. Don't ask me why, I think it is better this way.
 	  systemPackages = with pkgs; [
+		catppuccin-sddm-corners
+		kwin
+		sway
 		htop
 		cargo
 		gcc
@@ -93,7 +113,10 @@ in
 
   hardware.opengl.enable = true;
 
-  nix.settings.experimental-features = ["flakes" "nix-command"];
+  nix = {
+	settings.experimental-features = ["flakes" "nix-command"];
+	optimise.automatic = true;
+  };
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
