@@ -84,7 +84,6 @@
 				# Toggle second monitor for better performance when required.
 				"${combo "m"}" = "output \"eDP-1\" toggle";
 				"${combo "d"}" = run "wofi" "--show drun -I -m -i --style $HOME/.config/wofi/style.css";
-
 				
 				# Windows.
 				"${combo "f"}" = "fullscreen";

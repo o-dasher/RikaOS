@@ -10,6 +10,7 @@ in
 	./waybar
 	./wofi
 	./sway
+	./swaync
 	inputs.catppuccin.homeManagerModules.catppuccin
   ];
 
@@ -58,13 +59,6 @@ in
 		  frequency = "daily";
 		  options = "--delete-older-than 1d";
 	  };
-  };
-
-  services.mako = {
-	  enable = true;
-	  defaultTimeout = 4000;
-	  output = "HDMI-A-1";
-	  anchor = "top-right";
   };
 
   programs = {
