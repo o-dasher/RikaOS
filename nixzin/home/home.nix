@@ -34,13 +34,14 @@ in
 		# Programming
 		rustup
 		github-cli
+		ripgrep
 		git
 
 		# Desktop
 		wofi
 		waybar
 		swww
-		inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
+		grimblast
 		wl-clipboard
 		xfce.thunar
 		pavucontrol

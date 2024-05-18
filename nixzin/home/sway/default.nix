@@ -53,6 +53,7 @@
 				mod = config.wayland.windowManager.sway.config.modifier;
 				key = {
 					shift = "Shift";
+					alt = "Alt";
 					myprint = "p";
 				};
 				combo = s: "${mod}+${
@@ -65,11 +66,18 @@
 				step = toString 1;
 
 				run = s: a: "exec ${s} ${a}";
+				run_no_args = s: run s "";
+
 				runs = {
 					playerctl = run "playerctl";
 					pamixer = run "pamixer";
 					brightnessctl = run "brightnessctl set";
 					grimblast = run "grimblast --notify copy";
+					swaymsg = run "swaymsg";
+					restart_program = p: run "pkill" "${p} && ${p}";
+				};
+				standalones = {
+					swaync_show = "swaync-client -t -sw";
 				};
 			in
 			# Default sway nix options are sane enough.
@@ -78,8 +86,10 @@
 				${combo "Return"} = "exec xdg-terminal-exec";
 
 				# Reloading configurations.	
-				${combo [key.shift "b"]} = run "pkill" "waybar && waybar";
-				${combo [key.shift "c"]} = "swaymsg reload";
+				${combo [key.shift "b"]} = runs.restart_program "waybar";
+				${combo [key.shift "c"]} = runs.swaymsg "reload";
+				${combo [key.shift "n"]} = run_no_args standalones.swaync_show;
+				${combo [key.alt "n"]} = runs.restart_program "swaync";
 
 				# Toggle second monitor for better performance when required.
 				"${combo "m"}" = "output \"eDP-1\" toggle";
@@ -92,7 +102,7 @@
 				# Screenshots
 				"${combo key.myprint}" = runs.grimblast "screen";
 				"${combo [key.shift key.myprint]}" = runs.grimblast "area";
-				"${combo ["Alt" key.myprint]}" = runs.grimblast "active";
+				"${combo [key.alt key.myprint]}" = runs.grimblast "active";
 
 				# Media controls and other fns.
 				"XF86AudioPlay" = runs.playerctl "play-pause";

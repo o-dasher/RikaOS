@@ -12,29 +12,37 @@ in
 			margin-top = 0;
 
 			modules-left = ["sway/workspaces"];
-			modules-center = ["clock"];
+			modules-center = ["clock" "custom/notifications"];
 			modules-right = ["cpu" "memory" "tray" "pulseaudio" "battery"];
 
-			battery = {
-				states = {
-					warning = 20;
-					critical = 15;
-				};
-				format = "{icon}&#8239; {capacity}%";
-				format-charging = "&#8239; {capacity}%";
-				format-plugged = "&#8239; {capacity}%";
-				format-alt = "{icon} {time}";
-				format-icons = [" " " " " " "" ""];
-			};
-
+			# Left
 			"sway/workspaces" = {
 				all-outputs = true;
 				sort-by-name = true;
 				on-click = "activate";
 			};
 
-			"sway/mode" = {
-				format = "<span style=\"italic\">{}</span>";
+			# Center
+			clock = {
+				format = "{:%H:%M | %a %b %d}";
+			};
+
+			"custom/notifications" = {
+				format = "|  ";
+				on-click = "swaync-client -t -sw";
+			};
+
+			# Right
+			battery = {
+				states = {
+					warning = 20;
+					critical = 15;
+				};
+				format = "{icon}  {capacity}%";
+				format-charging = "  {capacity}%";
+				format-plugged = "  {capacity}%";
+				format-alt = "{icon}  {time}";
+				format-icons = [" " " " " " "" ""];
 			};
 
 			tray = {
@@ -42,15 +50,13 @@ in
 				spacing = 6;
 			};
 
-			clock = {
-				format = "{:%H:%M | %a %b %d}";
-			};
 
 			cpu = {
-				format = "&#8239; {usage}%";
+				format = "  {usage}%";
 				tooltip = false;
 				on-click = "xdg-terminal-exec htop";
 			};
+
 			
 			memory = {
 				interval = 30;
@@ -78,15 +84,6 @@ in
 					default = ["" "" ""];
 				};
 			};
-
-			"wlr/taskbar" = {
-				format = "{icon} {title:.32}";
-				icon-size = 14;
-				icon-theme = "Numix-Circle";
-				tooltip-format = "{title}";
-				on-click = "activate";
-				on-click-middle = "close";
-			};
 		};
 		
 		style = let 
@@ -107,7 +104,7 @@ in
 			${font_definition}
 			font-size: 12px;
 			min-height: 0;
-			color: @theme_text_color;
+			color: ${theme.text_color};
 		}
 
 		window#waybar {
