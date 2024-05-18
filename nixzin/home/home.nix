@@ -29,6 +29,8 @@ in
 		# General
 		firefox
 		discord
+		qbittorrent
+		obs-studio
 		mpv
 
 		# Programming
@@ -52,6 +54,11 @@ in
 		# Disk space is not cheap okay?
 		(nerdfonts.override { fonts = [ "JetBrainsMono" "CascadiaCode" ]; })  
 	  ];
+  };
+
+  xdg.portal = {
+	  enable = true;
+	  extraPortals = [pkgs.xdg-desktop-portal-wlr];
   };
 
   nix = {
