@@ -31,12 +31,14 @@ in
 		discord
 		qbittorrent
 		obs-studio
+		stremio
 		mpv
 
 		# Programming
 		rustup
 		github-cli
 		ripgrep
+		nodejs_22
 		git
 
 		# Desktop
@@ -58,6 +60,7 @@ in
 
   xdg.portal = {
 	  enable = true;
+	  config.common.default = "*";
 	  extraPortals = [pkgs.xdg-desktop-portal-wlr];
   };
 
