@@ -5,11 +5,13 @@
 		package = pkgs.swayfx;
 		checkConfig = false;
 		wrapperFeatures.gtk = true;
-		extraConfig = ''
-			corner_radius 8
+		extraConfig = let 
+			radius = toString 4;
+		in ''
+			corner_radius ${radius}
+			shadow_blur_radius ${radius} 
 
 			shadows enable
-			shadow_blur_radius 8
 		'';
 		config = {
 			modifier = "Mod4";
@@ -32,7 +34,7 @@
 				vertical = gap;
 			};
 			window = {
-				border = 1;
+				border = 2;
 				titlebar = false;
 			};
 			input = {
