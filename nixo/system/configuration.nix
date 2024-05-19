@@ -52,6 +52,7 @@ in
 	  # Enable gnome keyring to store password and stuff?
 	  gnome.gnome-keyring.enable = true;
 
+	  blueman.enable = true;
 	  displayManager = {
 		sddm = {
 			enable = true;
@@ -111,7 +112,10 @@ in
     };
   };
 
-  hardware.opengl.enable = true;
+  hardware = {
+	opengl.enable = true;
+	bluetooth.enable = true;
+  };
 
   nix = {
 	settings.experimental-features = ["flakes" "nix-command"];
