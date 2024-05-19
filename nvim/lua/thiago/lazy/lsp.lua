@@ -3,14 +3,27 @@ return {
 	dependencies = {
 		"neovim/nvim-lspconfig",
 		"VonHeikemen/lsp-zero.nvim",
-		"hrsh7th/cmp-nvim-lsp",
 		"hrsh7th/nvim-cmp",
-		"L3MON4D3/LuaSnip"
 	},
-	config = function()
+	opts = {
+		excluded_servers = {
+			"ccls",                    -- prefer clangd
+			"denols",                  -- prefer eslint and tsserver
+			"docker_compose_language_service", -- yamlls should be enough?
+			"flow",                    -- prefer eslint and tsserver
+			"ltex",                    -- grammar tool using too much CPU
+			"quick_lint_js",           -- prefer eslint and tsserver
+			"scry",                    -- archived on Jun 1, 2023
+		},
+		preferred_servers = {
+			markdown = {},
+			nix = { "nixd" },
+		},
+	},
+	config = function(_, opts)
 		local lsp_zero = require("lsp-zero")
 
-		lsp_zero.on_attach(function(client, bufnr)
+		lsp_zero.on_attach(function(_, bufnr)
 			-- see :help lsp-zero-keybindings to learn the available actions
 			lsp_zero.default_keymaps({
 				buffer = bufnr,
@@ -27,27 +40,6 @@ return {
 			end
 		end)
 
-		local cmp = require("cmp");
-		cmp.setup({
-			mapping = cmp.mapping.preset.insert({
-				["<enter>"] = cmp.mapping.confirm({ select = true })
-			})
-		})
-
-		require("lazy-lsp").setup {
-			excluded_servers = {
-				"ccls",                -- prefer clangd
-				"denols",              -- prefer eslint and tsserver
-				"docker_compose_language_service", -- yamlls should be enough?
-				"flow",                -- prefer eslint and tsserver
-				"ltex",                -- grammar tool using too much CPU
-				"quick_lint_js",       -- prefer eslint and tsserver
-				"scry",                -- archived on Jun 1, 2023
-			},
-			preferred_servers = {
-				markdown = {},
-				nix = { "nixd" },
-			},
-		}
-	end,
+		require("lazy-lsp").setup(opts)
+	end
 }
