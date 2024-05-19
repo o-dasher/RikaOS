@@ -1,7 +1,7 @@
 return {
 	"nvim-telescope/telescope.nvim",
 	config = function(plugin)
-		local plugin = require("telescope.builtin")
+		plugin = require("telescope.builtin");
 
 		vim.keymap.set("n", "<leader>pf", plugin.find_files, {})
 		vim.keymap.set("n", "<leader>ps", function()
