@@ -15,10 +15,10 @@
         radius = toString 4;
       in
       ''
-        	corner_radius ${radius}
-        	shadow_blur_radius ${radius} 
+        corner_radius ${radius}
+        shadow_blur_radius ${radius} 
 
-        	shadows enable
+        shadows enable
       '';
     config = {
       modifier = "Mod4";
