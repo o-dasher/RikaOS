@@ -12,11 +12,11 @@ in
   apply_numeric_css_fn = apply_numeric_css_fn;
   font_definition = "font-family: JetBrainsMono;";
   theme = {
-    bg_color = theme_string ("bg_color");
-    fg_color = theme_string ("fg_color");
-    base_color = theme_string ("base_color");
-    text_color = theme_string ("text_color");
-    selected_bg_color = theme_string ("selected_bg_color");
-    selected_fg_color = theme_string ("selected_fg_color");
+    bg_color = theme_string "bg_color";
+    fg_color = theme_string "fg_color";
+    base_color = theme_string "base_color";
+    text_color = theme_string "text_color";
+    selected_bg_color = theme_string "selected_bg_color";
+    selected_fg_color = theme_string "selected_fg_color";
   };
 }
