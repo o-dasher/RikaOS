@@ -3,34 +3,34 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 { inputs, pkgs, ... }:
 let
-	inherit (import ../common/variables.nix) username hostname state;
+  inherit (import ../common/variables.nix) username hostname state;
 
-	# Some localy stuff
-	locale = "en_US.UTF-8";
-	timezone = "Brazil/East";
+  # Some localy stuff
+  locale = "en_US.UTF-8";
+  timezone = "Brazil/East";
 
-	# Keymapping
-	keymap = "br-abnt2";
+  # Keymapping
+  keymap = "br-abnt2";
 in
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./audio.nix
-	  inputs.catppuccin.nixosModules.catppuccin
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./audio.nix
+    inputs.catppuccin.nixosModules.catppuccin
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader = {
-	systemd-boot.enable = true;
-	efi.canTouchEfiVariables = true;
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
   };
 
   security.polkit.enable = true;
 
   networking = {
-	  hostName = hostname;
-	  networkmanager.enable = true;
+    hostName = hostname;
+    networkmanager.enable = true;
   };
 
   time.timeZone = timezone;
@@ -41,71 +41,64 @@ in
     keyMap = keymap;
     # useXkbConfig = true; # I am using wayland...
   };
-  
+
   services = {
-	  # Enable CUPS to print documents.
-	  printing.enable = true;
+    # Enable CUPS to print documents.
+    printing.enable = true;
 
-	  # Enable touchpad support (enabled default in most desktopManager).
-	  libinput.enable = true;
+    # Enable touchpad support (enabled default in most desktopManager).
+    libinput.enable = true;
 
-	  # Enable gnome keyring to store password and stuff?
-	  gnome.gnome-keyring.enable = true;
+    # Enable gnome keyring to store password and stuff?
+    gnome.gnome-keyring.enable = true;
 
-	  blueman.enable = true;
-	  displayManager = {
-		sddm = {
-			enable = true;
-			theme = "catppuccin-sddm-corners";
-			wayland = {
-				enable = true;
-				compositor = "kwin";
-			};
-		};
-		sessionPackages = [ pkgs.sway ];
-	  };
+    blueman.enable = true;
+    displayManager = {
+      sddm = {
+        enable = true;
+        theme = "catppuccin-sddm-corners";
+        wayland = {
+          enable = true;
+          compositor = "kwin";
+        };
+      };
+      sessionPackages = [ pkgs.sway ];
+    };
 
-	  udev.packages = with pkgs; [
-		  vial
-	  ];
+    udev.packages = with pkgs; [ vial ];
   };
-
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${username} = {
     isNormalUser = true;
-	shell = pkgs.fish;
-    extraGroups = [ "wheel" "video" ]; # Enable ‘sudo’ for the user.
+    shell = pkgs.fish;
+    extraGroups = [
+      "wheel"
+      "video"
+    ]; # Enable ‘sudo’ for the user.
   };
 
   environment = {
-	  sessionVariables = {
-		XDG_CACHE_HOME  = "\$HOME/.cache";
-		XDG_CONFIG_HOME = "\$HOME/.config";
-		XDG_BIN_HOME    = "\$HOME/.local/bin";
-		XDG_DATA_HOME   = "\$HOME/.local/share";
-		SYSTEM_SHARE = "/run/current-system/sw/share/";
-	  };
+    sessionVariables = {
+      XDG_CACHE_HOME = "\$HOME/.cache";
+      XDG_CONFIG_HOME = "\$HOME/.config";
+      XDG_BIN_HOME = "\$HOME/.local/bin";
+      XDG_DATA_HOME = "\$HOME/.local/share";
+      SYSTEM_SHARE = "/run/current-system/sw/share/";
+    };
 
-	  # This should be kept to a minimal. Don't ask me why, I think it is better this way.
-	  systemPackages = with pkgs; [
-		catppuccin-sddm-corners
-		kwin
-		sway
-		htop
-		cargo
-		gcc
-		tmux
-		wget
-		hyfetch
-		killall
-	  ];
+    # This should be kept to a minimal. Don't ask me why, I think it is better this way.
+    systemPackages = with pkgs; [
+      catppuccin-sddm-corners
+      kwin
+      sway
+    ];
   };
 
   programs = {
-	light.enable = true;
-	fish.enable = true;
-	dconf.enable = true;
+    light.enable = true;
+    fish.enable = true;
+    dconf.enable = true;
     neovim = {
       enable = true;
       defaultEditor = true;
@@ -113,13 +106,16 @@ in
   };
 
   hardware = {
-	opengl.enable = true;
-	bluetooth.enable = true;
+    opengl.enable = true;
+    bluetooth.enable = true;
   };
 
   nix = {
-	settings.experimental-features = ["flakes" "nix-command"];
-	optimise.automatic = true;
+    settings.experimental-features = [
+      "flakes"
+      "nix-command"
+    ];
+    optimise.automatic = true;
   };
 
   # Enable the OpenSSH daemon.
@@ -143,4 +139,3 @@ in
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = state; # Did you read the comment?
 }
-
