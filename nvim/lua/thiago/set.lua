@@ -8,12 +8,11 @@ local tablength = 4
 vim.opt.tabstop = tablength
 vim.opt.softtabstop = tablength
 vim.opt.shiftwidth = tablength
-
 vim.opt.smartindent = true
 
 -- RIGHT COLUMN --
 vim.opt.signcolumn = "yes"
-vim.opt.colorcolumn = "100"
+vim.opt.colorcolumn = "80"
 
 -- SEARCH --
 vim.opt.hlsearch = false
@@ -25,8 +24,8 @@ vim.opt.ignorecase = true
 
 -- UNDOS --
 vim.opt.swapfile = false
--- i should probably setup a way to proper backup stuff... but i need to study
--- this before!
+vim.opt.backup = false;
+-- I need to study about undo files.
 
 -- SCROLL --
 vim.opt.scrolloff = 4
