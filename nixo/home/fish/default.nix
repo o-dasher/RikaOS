@@ -15,7 +15,7 @@
 					echo (set_color magenta; date)
 				end
 
-				alias hm "home-manager switch --flake ~/.config/nixzin"
+				alias hm "home-manager switch --flake ~/.config/nixo"
 			'';
 		};
 	};
