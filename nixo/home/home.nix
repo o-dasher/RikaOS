@@ -47,6 +47,8 @@ in
       nodejs_22
       git
       tree-sitter
+      eslint_d
+      prettierd
       nixfmt-rfc-style
 
       # Desktop
