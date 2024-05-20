@@ -1,13 +1,16 @@
-return {
-	"theprimeagen/harpoon",
-	config = function()
-		local mark = require("harpoon.mark")
-		local ui = require("harpoon.ui")
-
-		vim.keymap.set("n", "<leader>a", mark.add_file)
-		vim.keymap.set("n", "<leader>s", mark.rm_file)
-
-		vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu)
-	end
+local keys = {
+    { "<leader>a", function() require("harpoon"):list():add() end },
+    { "<leader>h", function() require("harpoon").ui:toggle_quick_menu(require("harpoon"):list()) end },
 }
 
+for i = 1, 5, 1 do
+    table.insert(keys, { "<leader>" .. i .. ">", function() require("harpoon"):list():select(i) end })
+end
+
+return {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    dependencies = "nvim-lua/plenary.nvim",
+    keys = keys,
+    config = function() require("harpoon"):setup() end
+}
