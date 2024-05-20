@@ -1,3 +1,4 @@
+-- TODO: Probably snippets?
 return {
 	{
 		"windwp/nvim-autopairs",

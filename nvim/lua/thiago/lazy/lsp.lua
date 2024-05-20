@@ -1,5 +1,6 @@
 return {
 	"dundalek/lazy-lsp.nvim",
+	event = "BufReadPost",
 	dependencies = {
 		"neovim/nvim-lspconfig",
 		"VonHeikemen/lsp-zero.nvim",
