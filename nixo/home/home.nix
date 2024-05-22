@@ -45,9 +45,6 @@ in
       nodejs_22
       git
       tree-sitter
-      eslint_d
-      prettierd
-      nixfmt-rfc-style
 
       # Desktop
       wofi
@@ -70,13 +67,20 @@ in
         ];
       })
 
+      #	My linters	
+      eslint_d
+
+      # My formatters
+      prettierd
+      nixfmt-rfc-style
+
       # My lsps
       # reference: https://github.com/dundalek/lazy-lsp.nvim/blob/master/servers.md#curated-servers
       nixd
       typescript
       phpactor
-	  pyright
-	  nodePackages.vscode-langservers-extracted
+      pyright
+      nodePackages.vscode-langservers-extracted
     ];
   };
 
