@@ -1,14 +1,10 @@
 let
-  inherit (import ../utils/default.nix)
-    shade_fn
-    alpha_fn
-    theme
-    font_definition
-    ;
+  inherit (import ../utils/default.nix) alpha_fn theme font_definition;
 in
 {
   programs.waybar = {
     enable = true;
+    catppuccin.enable = true;
     settings.main = {
       layer = "top";
       position = "top";
@@ -114,13 +110,13 @@ in
 
         border_definition = "1px solid ${alpha_fn "white" 0.1}";
         right_module_selectors = ''
-          	#tray,
-          	#cpu, 
-          	#temperature, 
-          	#memory,
-          	#backlight, 
-          	#pulseaudio, 
-          	#battery
+          #tray,
+          #cpu, 
+          #temperature, 
+          #memory,
+          #backlight, 
+          #pulseaudio, 
+          #battery
         '';
       in
       ''
@@ -128,11 +124,10 @@ in
         	${font_definition}
         	font-size: 12px;
         	min-height: 0;
-        	color: ${theme.text_color};
         }
 
         window#waybar {
-        	background: ${alpha_fn theme.bg_color 0.9}
+			background: ${alpha_fn theme.bg_color 0.5};
         }
 
         .modules-left {
@@ -154,19 +149,16 @@ in
         }
 
         .modules-left, .modules-center, .modules-right {
-        	background: ${shade_fn theme.base_color 1.4};
         	border: ${border_definition};
         }
 
         #workspaces button {
-        	background: ${shade_fn theme.base_color 2};
         	border-radius: 5%;
         	margin-right: ${u};
         	padding: 0;
         }
 
         #workspaces button.focused {
-        	background: ${alpha_fn theme.selected_bg_color 0.5};
         	padding: 0 6;
         }
 

@@ -19,6 +19,7 @@
         shadow_blur_radius ${radius} 
 
         shadows enable
+		layer_effects 'waybar' 'blur enable'
       '';
     config = {
       modifier = "Mod4";
