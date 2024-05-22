@@ -69,6 +69,14 @@ in
           "CascadiaCode"
         ];
       })
+
+      # My lsps
+      # reference: https://github.com/dundalek/lazy-lsp.nvim/blob/master/servers.md#curated-servers
+      nixd
+      typescript
+      phpactor
+	  pyright
+	  nodePackages.vscode-langservers-extracted
     ];
   };
 

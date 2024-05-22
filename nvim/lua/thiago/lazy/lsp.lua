@@ -1,25 +1,9 @@
 return {
-	"dundalek/lazy-lsp.nvim",
+	"VonHeikemen/lsp-zero.nvim",
 	event = "BufReadPost",
 	dependencies = {
 		"neovim/nvim-lspconfig",
-		"VonHeikemen/lsp-zero.nvim",
 		"hrsh7th/nvim-cmp",
-	},
-	opts = {
-		excluded_servers = {
-			"ccls",                    -- prefer clangd
-			"denols",                  -- prefer eslint and tsserver
-			"docker_compose_language_service", -- yamlls should be enough?
-			"flow",                    -- prefer eslint and tsserver
-			"ltex",                    -- grammar tool using too much CPU
-			"quick_lint_js",           -- prefer eslint and tsserver
-			"scry",                    -- archived on Jun 1, 2023
-		},
-		preferred_servers = {
-			markdown = {},
-			nix = { "nixd" },
-		},
 	},
 	config = function(_, opts)
 		local lsp_zero = require("lsp-zero")
@@ -40,7 +24,14 @@ return {
 				vim.keymap.set("n", "<leader>" .. key, fun, { buffer = bufnr, remap = false });
 			end
 		end)
+		
+		local lspcfg = require("lspconfig")
 
-		require("lazy-lsp").setup(opts)
+		lspcfg.rust_analyzer.setup {}
+		lspcfg.nixd.setup {}
+		lspcfg.tsserver.setup {}
+		lspcfg.pyright.setup {}
+		lspcfg.phpactor.setup {}
+		lspcfg.clangd.setup {}
 	end
 }
