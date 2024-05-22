@@ -32,7 +32,6 @@ in
       qbittorrent
       obs-studio
       stremio
-      mpv
       vial
       htop
       hyfetch
@@ -42,7 +41,6 @@ in
       github-cli
       ripgrep
       gcc
-      tmux
       wget
       nodejs_22
       git
@@ -55,6 +53,7 @@ in
       wofi
       waybar
       swww
+      jq
       grimblast
       wl-clipboard
       xfce.thunar
@@ -87,7 +86,16 @@ in
     };
   };
 
-  programs = {
-    home-manager.enable = true;
-  };
+  programs =
+    let
+      catfy = {
+        enable = true;
+        catppuccin.enable = true;
+      };
+    in
+    {
+      home-manager.enable = true;
+      mpv = catfy;
+      tmux = catfy;
+    };
 }

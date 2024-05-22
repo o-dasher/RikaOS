@@ -56,7 +56,7 @@ in
     displayManager = {
       sddm = {
         enable = true;
-        theme = "catppuccin-sddm-corners";
+		catppuccin.enable = true;
         wayland = {
           enable = true;
           compositor = "kwin";
