@@ -36,8 +36,9 @@ in
       htop
       hyfetch
 
+	  # TODO: See what should be removed and substituted by dev shells.
+
       # Programming
-      rustup
       github-cli
       ripgrep
       gcc

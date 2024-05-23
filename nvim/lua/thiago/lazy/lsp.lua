@@ -26,16 +26,12 @@ return {
 			end
 		end)
 
-		for lsp in {
-			"nixd",
-			"rust_analyzer",
-			"tsserver",
-			"pyright",
-			"phpactor",
-			"clangd",
-			"lua_ls"
-		} do
-			lspcfg[lsp].setup {}
-		end
+		lspcfg.rust_analyzer.setup {}
+		lspcfg.tsserver.setup {}
+		lspcfg.pyright.setup {}
+		lspcfg.nixd.setup {}
+		lspcfg.phpactor.setup {}
+		lspcfg.clangd.setup {}
+		lspcfg.lua_ls.setup {}
 	end
 }
