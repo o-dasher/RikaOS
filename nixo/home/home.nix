@@ -77,6 +77,7 @@ in
       # My lsps
       # reference: https://github.com/dundalek/lazy-lsp.nvim/blob/master/servers.md#curated-servers
       nixd
+	  lua-language-server
       typescript
       phpactor
       pyright
