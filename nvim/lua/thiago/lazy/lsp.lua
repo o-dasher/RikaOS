@@ -5,7 +5,8 @@ return {
 		"neovim/nvim-lspconfig",
 		"hrsh7th/nvim-cmp",
 	},
-	config = function(_, opts)
+	config = function()
+		local lspcfg = require("lspconfig")
 		local lsp_zero = require("lsp-zero")
 
 		lsp_zero.on_attach(function(_, bufnr)
@@ -24,14 +25,17 @@ return {
 				vim.keymap.set("n", "<leader>" .. key, fun, { buffer = bufnr, remap = false });
 			end
 		end)
-		
-		local lspcfg = require("lspconfig")
 
-		lspcfg.rust_analyzer.setup {}
-		lspcfg.nixd.setup {}
-		lspcfg.tsserver.setup {}
-		lspcfg.pyright.setup {}
-		lspcfg.phpactor.setup {}
-		lspcfg.clangd.setup {}
+		for lsp in {
+			"nixd",
+			"rust_analyzer",
+			"tsserver",
+			"pyright",
+			"phpactor",
+			"clangd",
+			"lua_ls"
+		} do
+			lspcfg[lsp].setup {}
+		end
 	end
 }
