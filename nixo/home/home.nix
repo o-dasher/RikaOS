@@ -34,16 +34,16 @@ in
       stremio
       vial
       htop
+      xfce.thunar
+	  gdu
+      pavucontrol
       hyfetch
 
-	  # TODO: See what should be removed and substituted by dev shells.
-
       # Programming
+	  gcc # Some programs such as neovim require the cpp compiler.
       github-cli
       ripgrep
-      gcc
       wget
-      nodejs_22
       git
       tree-sitter
 
@@ -54,8 +54,6 @@ in
       jq
       grimblast
       wl-clipboard
-      xfce.thunar
-      pavucontrol
       whitesur-icon-theme
 
       # fonts
@@ -68,17 +66,10 @@ in
         ];
       })
 
-      #	My linters	
-      eslint_d
-
-      # My formatters
-      prettierd
-      nixfmt-rfc-style
-
       # My lsps
       # reference: https://github.com/dundalek/lazy-lsp.nvim/blob/master/servers.md#curated-servers
       nixd
-	  lua-language-server
+      lua-language-server
       typescript
       phpactor
       pyright
@@ -111,5 +102,9 @@ in
       home-manager.enable = true;
       mpv = catfy;
       tmux = catfy;
+      direnv = {
+        enable = true;
+        nix-direnv.enable = true;
+      };
     };
 }

@@ -1,8 +1,10 @@
 /*
 /*/
 
+!flake.nix
+!flake.lock
 !.gitignore
-!starship.toml
+!.envrc
 
 !/nvim/
 !/nixo
