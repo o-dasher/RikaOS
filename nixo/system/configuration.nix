@@ -56,7 +56,7 @@ in
     displayManager = {
       sddm = {
         enable = true;
-		theme = "catppuccin-sddm-corners";
+        theme = "catppuccin-sddm-corners";
         wayland = {
           enable = true;
           compositor = "kwin";
@@ -66,6 +66,14 @@ in
     };
 
     udev.packages = with pkgs; [ vial ];
+  };
+
+  virtualisation.docker = {
+    enable = true;
+	rootless = {
+		enable = true;
+		setSocketVariable = true;
+	};
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.

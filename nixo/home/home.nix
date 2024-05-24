@@ -34,9 +34,13 @@ in
       stremio
       vial
       htop
+      xfce.thunar
+	  gdu
+      pavucontrol
       hyfetch
 
       # Programming
+	  gcc # Some programs such as neovim require the cpp compiler.
       github-cli
       ripgrep
       wget
@@ -50,8 +54,6 @@ in
       jq
       grimblast
       wl-clipboard
-      xfce.thunar
-      pavucontrol
       whitesur-icon-theme
 
       # fonts
