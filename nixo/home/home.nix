@@ -36,14 +36,10 @@ in
       htop
       hyfetch
 
-	  # TODO: See what should be removed and substituted by dev shells.
-
       # Programming
       github-cli
       ripgrep
-      gcc
       wget
-      nodejs_22
       git
       tree-sitter
 
@@ -68,17 +64,10 @@ in
         ];
       })
 
-      #	My linters	
-      eslint_d
-
-      # My formatters
-      prettierd
-      nixfmt-rfc-style
-
       # My lsps
       # reference: https://github.com/dundalek/lazy-lsp.nvim/blob/master/servers.md#curated-servers
       nixd
-	  lua-language-server
+      lua-language-server
       typescript
       phpactor
       pyright
@@ -111,5 +100,9 @@ in
       home-manager.enable = true;
       mpv = catfy;
       tmux = catfy;
+      direnv = {
+        enable = true;
+        nix-direnv.enable = true;
+      };
     };
 }

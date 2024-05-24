@@ -8,6 +8,7 @@
       enable = true;
       catppuccin.enable = true;
       interactiveShellInit = ''
+		direnv hook fish | source
         starship init fish | source
 
         if status is-interactive
