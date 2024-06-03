@@ -6,5 +6,6 @@
 !.gitignore
 !.envrc
 
-!/nvim/
+!/nvim
 !/nixo
+!/assets

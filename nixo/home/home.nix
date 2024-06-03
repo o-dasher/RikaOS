@@ -27,8 +27,8 @@ in
       pamixer
 
       # General
-      firefox
-      discord
+	  brave
+	  armcord
       qbittorrent
       obs-studio
       stremio
