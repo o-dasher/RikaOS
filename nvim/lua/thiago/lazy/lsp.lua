@@ -2,11 +2,11 @@ return {
 	"VonHeikemen/lsp-zero.nvim",
 	event = "BufReadPost",
 	dependencies = {
+		"dundalek/lazy-lsp.nvim",
 		"neovim/nvim-lspconfig",
 		"hrsh7th/nvim-cmp",
 	},
 	config = function()
-		local lspcfg = require("lspconfig")
 		local lsp_zero = require("lsp-zero")
 
 		lsp_zero.on_attach(function(_, bufnr)
@@ -26,12 +26,21 @@ return {
 			end
 		end)
 
-		lspcfg.rust_analyzer.setup {}
-		lspcfg.tsserver.setup {}
-		lspcfg.pyright.setup {}
-		lspcfg.nixd.setup {}
-		lspcfg.phpactor.setup {}
-		lspcfg.clangd.setup {}
-		lspcfg.lua_ls.setup {}
+		require("lazy-lsp").setup {
+			preferred_servers = {
+				markdown = {},
+				lua = { "luals" },
+				nix = { "nixd" },
+				php = { "phpactor" },
+				yaml = { "yamlls" },
+				c = { "clangd" },
+				cpp = { "clangd" },
+				css = { "cssls", "tailwindcss" },
+				typescript = { "tsserver" },
+				typescriptreact = { "tsserver", "tailwindcss" },
+				python = { "pyright", "ruff_lsp" },
+				rust = {"rust_analyzer"}
+			},
+		}
 	end
 }

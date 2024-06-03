@@ -27,20 +27,20 @@ in
       pamixer
 
       # General
-	  brave
-	  armcord
+      brave
+      armcord
       qbittorrent
       obs-studio
       stremio
       vial
       htop
       xfce.thunar
-	  gdu
+      gdu
       pavucontrol
       hyfetch
 
       # Programming
-	  gcc # Some programs such as neovim require the cpp compiler.
+      gcc # Some programs such as neovim require the cpp compiler.
       github-cli
       ripgrep
       wget
@@ -65,15 +65,6 @@ in
           "CascadiaCode"
         ];
       })
-
-      # My lsps
-      # reference: https://github.com/dundalek/lazy-lsp.nvim/blob/master/servers.md#curated-servers
-      nixd
-      lua-language-server
-      typescript
-      phpactor
-      pyright
-      nodePackages.vscode-langservers-extracted
     ];
   };
 
