@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 let
   inherit (import ../utils/default.nix) alpha_fn theme font_definition;
 in
@@ -69,7 +70,7 @@ in
       cpu = {
         format = "  {usage}%";
         tooltip = false;
-        on-click = "xdg-terminal-exec htop";
+        on-click = "${pkgs.xdg-terminal-exec} htop";
       };
 
       memory = {
@@ -82,8 +83,8 @@ in
       };
 
       pulseaudio = {
-        on-click = "pavucontrol";
-        format = "{icon} {volume}% {format_source}";
+        on-click = "${pkgs.pavucontrol}";
+        format = "{icon}  {volume}% {format_source}";
         format-bluetooth = "{icon} {volume}% {format_source}";
         format-bluetooth-muted = " {format_source}";
         format-muted = "  {format_source}";
@@ -120,55 +121,55 @@ in
         '';
       in
       ''
-        *{
-        	${font_definition}
-        	font-size: 12px;
-        	min-height: 0;
-        }
+                *{
+                	${font_definition}
+                	font-size: 12px;
+                	min-height: 0;
+                }
 
-        window#waybar {
-			background: ${alpha_fn theme.bg_color 0.5};
-        }
+                window#waybar {
+        			background: ${alpha_fn theme.bg_color 0.5};
+                }
 
-        .modules-left {
-        	border-radius: 0 ${u} ${u} 0;
-        	padding: ${u} 0 ${u} ${u};
-        }
+                .modules-left {
+                	border-radius: 0 ${u} ${u} 0;
+                	padding: ${u} 0 ${u} ${u};
+                }
 
-        .modules-center {
-        	border-radius: 0 0 ${u} ${u};
-        	margin-bottom: ${u};
-        }
+                .modules-center {
+                	border-radius: 0 0 ${u} ${u};
+                	margin-bottom: ${u};
+                }
 
-        .modules-right {
-        	border-radius: ${u} 0 0 ${u};
-        }
+                .modules-right {
+                	border-radius: ${u} 0 0 ${u};
+                }
 
-        .modules-left, .modules-right {
-        	margin: ${u} 0 ${u} 0;
-        }
+                .modules-left, .modules-right {
+                	margin: ${u} 0 ${u} 0;
+                }
 
-        .modules-left, .modules-center, .modules-right {
-        	border: ${border_definition};
-        }
+                .modules-left, .modules-center, .modules-right {
+                	border: ${border_definition};
+                }
 
-        #workspaces button {
-        	border-radius: 5%;
-        	margin-right: ${u};
-        	padding: 0;
-        }
+                #workspaces button {
+                	border-radius: 5%;
+                	margin-right: ${u};
+                	padding: 0;
+                }
 
-        #workspaces button.focused {
-        	padding: 0 6;
-        }
+                #workspaces button.focused {
+                	padding: 0 6;
+                }
 
-        ${right_module_selectors}, #clock {
-        	padding: 0 10;
-        }
+                ${right_module_selectors}, #clock {
+                	padding: 0 10;
+                }
 
-        ${right_module_selectors} {
-        	border-right: ${border_definition};
-        }
+                ${right_module_selectors} {
+                	border-right: ${border_definition};
+                }
       '';
   };
 }
