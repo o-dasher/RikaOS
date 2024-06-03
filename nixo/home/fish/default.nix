@@ -1,18 +1,19 @@
+{ ... }:
 {
   programs = {
     starship = {
       enable = true;
       catppuccin.enable = true;
-	  settings = {
-		  gcloud.disabled = true;
-	  };
+      settings = {
+        gcloud.disabled = true;
+      };
     };
     fish = {
       enable = true;
       catppuccin.enable = true;
       interactiveShellInit = ''
         		direnv hook fish | source
-                starshipt init fish | source
+                starship init fish | source
 
                 if status is-interactive
                 	# Commands to run in interactive sessions can go here
