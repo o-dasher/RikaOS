@@ -80,10 +80,10 @@
           run_no_args = s: run s "";
 
           runs = {
-            playerctl = run "${pkgs.playerctl}";
-            pamixer = run "${pkgs.pamixer}";
-            brightnessctl = run "${pkgs.brightnessctl} set";
-            grimblast = run "${pkgs.grimblast} --notify copy";
+            playerctl = run "playerctl";
+            pamixer = run "pamixer";
+            brightnessctl = run "brightnessctl set";
+            grimblast = run "grimblast --notify copy";
             swaymsg = run "swaymsg";
             restart_program = p: run "pkill" "${p} && ${p}";
           };
@@ -94,7 +94,7 @@
         # Default sway nix options are sane enough.
         lib.mkOptionDefault {
           # Opens user prefered terminal based on xdg-terminal.
-          ${combo "Return"} = "exec ${pkgs.xdg-terminal-exec}";
+          ${combo "Return"} = "exec xdg-terminal-exec";
 
           # Reloading configurations.	
           ${
@@ -102,7 +102,7 @@
               key.shift
               "b"
             ]
-          } = runs.restart_program "${pkgs.waybar}";
+          } = runs.restart_program "waybar";
           ${
             combo [
               key.shift
@@ -124,7 +124,7 @@
 
           # Toggle second monitor for better performance when required.
           "${combo "m"}" = "output \"eDP-1\" toggle";
-          "${combo "d"}" = run "${pkgs.wofi}" "--show drun -I -m -i --style $HOME/.config/wofi/style.css";
+          "${combo "d"}" = run "wofi" "--show drun -I -m -i --style $HOME/.config/wofi/style.css";
 
           # Windows.
           "${combo "f"}" = "fullscreen";

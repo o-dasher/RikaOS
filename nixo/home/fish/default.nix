@@ -1,4 +1,3 @@
-{pkgs, ...}:
 {
   programs = {
     starship = {
@@ -12,8 +11,8 @@
       enable = true;
       catppuccin.enable = true;
       interactiveShellInit = ''
-        		${pkgs.direnv} hook ${pkgs.fish} | source
-                ${pkgs.starship} init ${pkgs.fish} | source
+        		direnv hook fish | source
+                starshipt init fish | source
 
                 if status is-interactive
                 	# Commands to run in interactive sessions can go here

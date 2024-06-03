@@ -70,7 +70,7 @@ in
       cpu = {
         format = "  {usage}%";
         tooltip = false;
-        on-click = "${pkgs.xdg-terminal-exec} htop";
+        on-click = "xdg-terminal-exec htop";
       };
 
       memory = {
@@ -83,7 +83,7 @@ in
       };
 
       pulseaudio = {
-        on-click = "${pkgs.pavucontrol}";
+        on-click = "pavucontrol";
         format = "{icon}  {volume}% {format_source}";
         format-bluetooth = "{icon} {volume}% {format_source}";
         format-bluetooth-muted = " {format_source}";
