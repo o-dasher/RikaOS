@@ -64,7 +64,6 @@ in
       };
       sessionPackages = [ pkgs.sway ];
     };
-
     udev.packages = with pkgs; [ vial ];
   };
 
@@ -98,7 +97,6 @@ in
     # This should be kept to a minimal. Don't ask me why, I think it is better this way.
     systemPackages = with pkgs; [
       catppuccin-sddm-corners
-      kwin
       sway
     ];
   };
