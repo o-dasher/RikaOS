@@ -6,11 +6,11 @@ let
     gen_css_fn fn_name "${property}, ${toString value}";
 in
 {
+  font_definition = "font-family: JetBrainsMono;";
+  apply_numeric_css_fn = apply_numeric_css_fn;
   alpha_fn = apply_numeric_css_fn "alpha";
   shade_fn = apply_numeric_css_fn "shade";
   gen_css_fn = gen_css_fn;
-  apply_numeric_css_fn = apply_numeric_css_fn;
-  font_definition = "font-family: JetBrainsMono;";
   theme = {
     bg_color = theme_string "bg_color";
     fg_color = theme_string "fg_color";
