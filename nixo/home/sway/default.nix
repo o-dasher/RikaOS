@@ -28,7 +28,7 @@
       bars = [
         {
           position = "top";
-          command = "${pkgs.waybar}";
+          command = "waybar";
         }
       ];
       gaps =
