@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  inherit (import ../utils/default.nix) alpha_fn theme font_definition;
+  inherit (import ../../rika/utils/default.nix) alpha_fn theme font_definition;
 in
 {
   programs.waybar = {

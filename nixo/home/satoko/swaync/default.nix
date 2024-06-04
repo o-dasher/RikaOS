@@ -1,6 +1,6 @@
 { ... }:
 let
-  inherit (import ../utils/default.nix)
+  inherit (import ../../rika/utils/default.nix)
     theme
     alpha_fn
     shade_fn

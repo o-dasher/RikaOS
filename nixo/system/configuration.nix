@@ -3,7 +3,7 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 { inputs, pkgs, ... }:
 let
-  inherit (import ../common/variables.nix) username hostname state;
+  inherit (import ../common/config.nix) username system state;
 
   # Some localy stuff
   locale = "en_US.UTF-8";
@@ -16,9 +16,19 @@ in
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ./audio.nix
     inputs.catppuccin.nixosModules.catppuccin
   ];
+
+  # Audio setup
+  sound.enable = true;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    jack.enable = true;
+  };
 
   # Use the systemd-boot EFI boot loader.
   boot.loader = {
@@ -29,7 +39,7 @@ in
   security.polkit.enable = true;
 
   networking = {
-    hostName = hostname;
+    hostName = system.hostname;
     networkmanager.enable = true;
   };
 
@@ -69,10 +79,10 @@ in
 
   virtualisation.docker = {
     enable = true;
-	rootless = {
-		enable = true;
-		setSocketVariable = true;
-	};
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+    };
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.

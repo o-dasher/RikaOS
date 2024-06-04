@@ -11,16 +11,11 @@
   };
 
   outputs =
-    {
-      nixpkgs,
-      home-manager,
-      ...
-    }@inputs:
+    { nixpkgs, home-manager, ... }@inputs:
     let
-      inherit (import ./common/variables.nix) hostname username;
+      inherit (import ./common/config.nix) system username;
 
-	  system = "x86_64-linux";
-      pkgs = import nixpkgs { inherit system; };
+      pkgs = import nixpkgs { system = "x86_64-linux"; };
     in
     {
       homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
@@ -31,7 +26,7 @@
         modules = [ ./home/home.nix ];
       };
 
-      nixosConfigurations.${hostname} = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.${system.username} = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs;
         };
