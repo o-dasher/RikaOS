@@ -3,6 +3,7 @@
   imports = [
     ./alacritty
     ./fish
+	./theme
   ];
 
   home.packages = with pkgs; [

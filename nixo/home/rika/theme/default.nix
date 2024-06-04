@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 {
   xdg.enable = true;
   catppuccin = {
@@ -8,9 +8,5 @@
   gtk = {
     enable = true;
     catppuccin.enable = true;
-    iconTheme = {
-      name = "WhiteSur";
-      package = pkgs.whitesur-icon-theme;
-    };
   };
 }
