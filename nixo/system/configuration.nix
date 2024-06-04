@@ -39,7 +39,7 @@ in
   security.polkit.enable = true;
 
   networking = {
-    hostName = system.hostname;
+    hostName = hostname;
     networkmanager.enable = true;
   };
 

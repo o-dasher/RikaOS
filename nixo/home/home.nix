@@ -10,7 +10,7 @@ in
 {
   imports = [
     ./rika
-    ./satoko
+	./satoko
     inputs.catppuccin.homeManagerModules.catppuccin
   ];
 
