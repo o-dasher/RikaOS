@@ -87,7 +87,7 @@ in
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.${username} = {
+  users.users.${cfg.username} = {
     isNormalUser = true;
     shell = pkgs.fish;
     extraGroups = [
