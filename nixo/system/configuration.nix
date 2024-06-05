@@ -1,20 +1,21 @@
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-{ inputs, pkgs, ... }:
+{ inputs, pkgs, config, ... }:
 let
-  inherit (import ../common/config.nix) username hostname state;
-
   # Some localy stuff
   locale = "en_US.UTF-8";
   timezone = "Brazil/East";
 
   # Keymapping
   keymap = "br-abnt2";
+  
+  cfg = config.rika;
 in
 {
   imports = [
     # Include the results of the hardware scan.
+	../config/setconfig.nix
     ./hardware-configuration.nix
     inputs.catppuccin.nixosModules.catppuccin
   ];
@@ -39,7 +40,7 @@ in
   security.polkit.enable = true;
 
   networking = {
-    hostName = hostname;
+    hostName = cfg.hostname;
     networkmanager.enable = true;
   };
 
@@ -154,5 +155,5 @@ in
   # and migrated your data accordingly.
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-  system.stateVersion = state; # Did you read the comment?
+  system.stateVersion = cfg.state; # Did you read the comment?
 }

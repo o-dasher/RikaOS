@@ -13,10 +13,10 @@
   outputs =
     { nixpkgs, home-manager, ... }@inputs:
     let
-      inherit (import ./common/config.nix) system username;
+      inherit (import ./config/myconfig.nix) rika;
     in
     {
-      homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations.${rika.username} = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs { system = "x86_64-linux"; };
         extraSpecialArgs = {
           inherit inputs;
@@ -24,7 +24,7 @@
         modules = [ ./home/home.nix ];
       };
 
-      nixosConfigurations.${system.username} = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.${rika.hostname} = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs;
         };
