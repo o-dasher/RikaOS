@@ -5,9 +5,7 @@
   ...
 }:
 {
-  options = {
-    satoko.enable = lib.mkEnableOption "Enable Satoko";
-  };
+  options.satoko.enable = lib.mkEnableOption "Enable Satoko";
 
   imports = [
     ./sway

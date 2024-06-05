@@ -1,23 +1,24 @@
-{ inputs, ... }:
+{ inputs, config, ... }:
 let
-  inherit (import ../common/config.nix) username state hostname;
+  cfg = config.rika;
 in
 {
   imports = [
     ./rika
     ./satoko
+    ../config/setconfig.nix
     inputs.catppuccin.homeManagerModules.catppuccin
   ];
 
   # Even though open source is cool and all I still use some not libre software.
   nixpkgs.config.allowUnfree = true;
 
-  satoko.enable = (hostname == "nixo");
+  satoko.enable = (cfg.hostname == "nixo");
 
   home = {
-    username = username;
-    homeDirectory = "/home/${username}";
-    stateVersion = state;
+    username = cfg.username;
+    homeDirectory = "/home/${cfg.username}";
+    stateVersion = cfg.state;
   };
 
   nix = {
