@@ -3,7 +3,7 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 { inputs, pkgs, ... }:
 let
-  inherit (import ../common/config.nix) username system state;
+  inherit (import ../common/config.nix) username hostname state;
 
   # Some localy stuff
   locale = "en_US.UTF-8";
@@ -107,6 +107,7 @@ in
     # This should be kept to a minimal. Don't ask me why, I think it is better this way.
     systemPackages = with pkgs; [
       catppuccin-sddm-corners
+	  kwin
       sway
     ];
   };

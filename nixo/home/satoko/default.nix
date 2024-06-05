@@ -15,7 +15,7 @@
     ./waybar
     ./wofi
   ];
-  
+
   config = lib.mkIf config.satoko.enable {
     home.packages = with pkgs; [
       # Sys utils
@@ -66,9 +66,13 @@
       };
     };
 
-    gtk.iconTheme = {
-      name = "WhiteSur";
-      package = pkgs.whitesur-icon-theme;
+    gtk = {
+      enable = true;
+      catppuccin.enable = true;
+      iconTheme = {
+        name = "WhiteSur";
+        package = pkgs.whitesur-icon-theme;
+      };
     };
   };
 }

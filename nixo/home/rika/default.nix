@@ -3,7 +3,7 @@
   imports = [
     ./alacritty
     ./fish
-	./theme
+    ./theme
   ];
 
   home.packages = with pkgs; [
@@ -16,8 +16,22 @@
     tree-sitter
   ];
 
-  programs.tmux = {
+  xdg = {
     enable = true;
-    catppuccin.enable = true;
+    mime.enable = true;
+  };
+
+  targets.genericLinux.enable = false;
+  programs = {
+    bash.enable = true;
+    home-manager.enable = true;
+    tmux = {
+      enable = true;
+      catppuccin.enable = true;
+    };
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+    };
   };
 }

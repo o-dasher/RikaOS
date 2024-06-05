@@ -1,14 +1,11 @@
-{
-  inputs,
-  ...
-}:
+{ inputs, ... }:
 let
   inherit (import ../common/config.nix) username state hostname;
 in
 {
   imports = [
     ./rika
-	./satoko
+    ./satoko
     inputs.catppuccin.homeManagerModules.catppuccin
   ];
 
