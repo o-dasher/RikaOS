@@ -1,4 +1,7 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
+let
+  cfg = config.rika;
+in
 {
   imports = [
     ./alacritty
@@ -21,7 +24,7 @@
     mime.enable = true;
   };
 
-  targets.genericLinux.enable = false;
+  targets.genericLinux.enable = (cfg.hostname != "nixo");
   programs = {
     bash.enable = true;
     home-manager.enable = true;
