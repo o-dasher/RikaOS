@@ -17,6 +17,19 @@ in
     wget
     git
     tree-sitter
+
+    # I love my keyboard.
+    vial
+
+    # fonts
+    jetbrains-mono
+    # Disk space is not cheap okay?
+    (nerdfonts.override {
+      fonts = [
+        "JetBrainsMono"
+        "CascadiaCode"
+      ];
+    })
   ];
 
   xdg = {

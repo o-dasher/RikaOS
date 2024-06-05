@@ -34,30 +34,14 @@
       qbittorrent
       obs-studio
       stremio
-      vial
       htop
       xfce.thunar
       gdu
       pavucontrol
       hyfetch
-
-      # fonts
-      jetbrains-mono
-      # Disk space is not cheap okay?
-      (nerdfonts.override {
-        fonts = [
-          "JetBrainsMono"
-          "CascadiaCode"
-        ];
-      })
     ];
 
     programs = {
-      home-manager.enable = true;
-      direnv = {
-        enable = true;
-        nix-direnv.enable = true;
-      };
       mpv = {
         enable = true;
         catppuccin.enable = true;
