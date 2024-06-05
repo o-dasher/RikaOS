@@ -1,6 +1,6 @@
 { lib, ... }:
 let
-  inherit (import ./myconfig.nix) rika;
+  cfg = import ./myconfig.nix;
 in
 {
   options.rika = {
@@ -18,5 +18,5 @@ in
     };
   };
 
-  config.rika = rika;
+  config.rika = cfg;
 }
