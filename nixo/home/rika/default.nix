@@ -11,15 +11,12 @@ in
 
   home.packages = with pkgs; [
     # Programming
-    gcc # Some programs such as neovim require the cpp compiler.
     github-cli
-    ripgrep
     wget
     git
-    tree-sitter
 
     # I love my keyboard.
-	via
+    via
     vial
 
     # fonts
@@ -48,7 +45,12 @@ in
     };
     neovim = {
       enable = true;
-      plugins = [ pkgs.vimPlugins.nvim-treesitter.withAllGrammars ];
+      vimAlias = true;
+      extraPackages = with pkgs; [
+        tree-sitter
+        ripgrep
+        gcc
+      ];
     };
     direnv = {
       enable = true;
