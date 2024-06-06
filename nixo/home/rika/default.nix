@@ -14,6 +14,7 @@ in
     github-cli
     wget
     git
+	lazygit
 
     # I love my keyboard.
     via
