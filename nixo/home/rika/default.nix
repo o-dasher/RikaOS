@@ -11,6 +11,7 @@ in
 
   home.packages = with pkgs; [
     # Programming
+	neovim
     gcc # Some programs such as neovim require the cpp compiler.
     github-cli
     ripgrep
