@@ -11,7 +11,6 @@ in
 
   home.packages = with pkgs; [
     # Programming
-	neovim
     gcc # Some programs such as neovim require the cpp compiler.
     github-cli
     ripgrep
@@ -45,6 +44,10 @@ in
     tmux = {
       enable = true;
       catppuccin.enable = true;
+    };
+    neovim = {
+      enable = true;
+      plugins = [ pkgs.vimPlugins.nvim-treesitter.withAllGrammars ];
     };
     direnv = {
       enable = true;
