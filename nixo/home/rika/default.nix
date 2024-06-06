@@ -19,6 +19,7 @@ in
     tree-sitter
 
     # I love my keyboard.
+	via
     vial
 
     # fonts
