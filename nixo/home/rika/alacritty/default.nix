@@ -6,6 +6,9 @@
       window = {
         opacity = 0.9;
       };
+	  shell = {
+		  program = "fish";
+	  };
       font = {
         builtin_box_drawing = true;
         size = 12;

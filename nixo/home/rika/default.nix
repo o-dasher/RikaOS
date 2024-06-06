@@ -45,6 +45,10 @@ in
       enable = true;
       catppuccin.enable = true;
     };
+    neovim = {
+      enable = true;
+      plugins = [ pkgs.vimPlugins.nvim-treesitter.withAllGrammars ];
+    };
     direnv = {
       enable = true;
       nix-direnv.enable = true;
