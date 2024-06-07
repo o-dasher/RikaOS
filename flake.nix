@@ -22,6 +22,7 @@
           default = pkgs.mkShell {
             packages = with pkgs; [
               nixd
+              stylua
               nixfmt-rfc-style
             ];
           };

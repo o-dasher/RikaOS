@@ -40,9 +40,9 @@ in
     bash.enable = true;
     home-manager.enable = true;
     lazygit = {
-		enable = true;
-		catppuccin.enable = true;
-	};
+      enable = true;
+      catppuccin.enable = true;
+    };
     tmux = {
       enable = true;
       mouse = true;
@@ -53,6 +53,9 @@ in
       viAlias = true;
       vimAlias = true;
       extraPackages = with pkgs; [
+        prettierd
+        nixfmt-rfc-style
+        stylua
         tree-sitter
         ripgrep
         gcc
