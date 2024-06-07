@@ -14,6 +14,8 @@ return {
 		formatters_by_ft = {
 			nix = { "nixfmt" },
 			javascript = { "prettierd" },
+			lua = {"stylua"},
+			php = { "pint"}
 		}
 	}
 }
