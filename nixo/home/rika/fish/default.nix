@@ -12,6 +12,8 @@
       enable = true;
       catppuccin.enable = true;
       shellAliases = {
+		tls = "tmux ls";
+		tks = "tmux kill-session";
         hm = "home-manager switch --flake ~/.config/nixo";
 		lg = "lazygit";
         sail = "bash vendor/bin/sail";
