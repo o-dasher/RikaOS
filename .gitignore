@@ -7,8 +7,5 @@
 !.envrc
 
 !/nvim
-!/assets
-
 !/nixo
-/nixo/config/myconfig.nix
-
+!/assets
