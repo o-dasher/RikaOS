@@ -46,6 +46,7 @@ in
     };
     neovim = {
       enable = true;
+	  viAlias = true;
       vimAlias = true;
       extraPackages = with pkgs; [
         tree-sitter
