@@ -42,11 +42,12 @@ in
     home-manager.enable = true;
     tmux = {
       enable = true;
+      mouse = true;
       catppuccin.enable = true;
     };
     neovim = {
       enable = true;
-	  viAlias = true;
+      viAlias = true;
       vimAlias = true;
       extraPackages = with pkgs; [
         tree-sitter
