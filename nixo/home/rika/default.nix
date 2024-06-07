@@ -14,7 +14,6 @@ in
     github-cli
     wget
     git
-    lazygit
 
     # I love my keyboard.
     via
@@ -40,6 +39,10 @@ in
   programs = {
     bash.enable = true;
     home-manager.enable = true;
+    lazygit = {
+		enable = true;
+		catppuccin.enable = true;
+	};
     tmux = {
       enable = true;
       mouse = true;
