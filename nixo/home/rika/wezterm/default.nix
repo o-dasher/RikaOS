@@ -15,6 +15,11 @@
         local act = wezterm.action
         config.leader = { key="b", mods="CTRL" }
 
+		config.inactive_pane_hsb = {
+		  saturation = 1,
+		  brightness = 0.25,
+		}
+
         config.keys = {
       	{ key = "a", mods = "LEADER|CTRL",  action=act.SendString("\x01")},
       	{ key = "-", mods = "LEADER",       action=act.SplitVertical{domain="CurrentPaneDomain"}},
