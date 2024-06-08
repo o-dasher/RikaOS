@@ -19,22 +19,24 @@
     }@inputs:
     let
       cfg = import ./config/myconfig.nix;
-      passed_inputs = {
-        inherit inputs;
-      };
+      define_hm =
+        base:
+        home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs { system = "x86_64-linux"; };
+          modules = [
+            stylix.homeManagerModules.stylix
+            ./config/setconfig.nix
+          ] ++ base;
+          extraSpecialArgs = {
+            inherit inputs;
+          };
+        };
     in
     {
-      homeConfigurations.${cfg.username} = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs { system = "x86_64-linux"; };
-        extraSpecialArgs = passed_inputs;
-        modules = [
-          ./home/home.nix
-          stylix.homeManagerModules.stylix
-        ];
-      };
+      homeConfigurations."${cfg.username}@nixo" = define_hm [ ./home/satoko ];
+      homeConfigurations."${cfg.username}@fedora" = define_hm [ ./home/hanyuu ];
 
       nixosConfigurations.${cfg.hostname} = nixpkgs.lib.nixosSystem {
-        specialArgs = passed_inputs;
         modules = [
           ./system/configuration.nix
           stylix.nixosModules.stylix

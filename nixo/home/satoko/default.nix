@@ -1,20 +1,14 @@
+{ pkgs, ... }:
 {
-  pkgs,
-  lib,
-  config,
-  ...
-}:
-{
-  options.satoko.enable = lib.mkEnableOption "Enable Satoko";
-
   imports = [
     ./sway
     ./swaync
     ./waybar
     ./wofi
+	../rika
   ];
 
-  config = lib.mkIf config.satoko.enable {
+  config = {
     home.packages = with pkgs; [
       # Sys utils
       xdg-terminal-exec

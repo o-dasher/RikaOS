@@ -1,9 +1,9 @@
-{ lib, config, ... }:
+{ ... }:
 let
   inherit (import ../utils/css.nix) alpha_fn theme font_definition;
 in
 {
-  config = lib.mkIf config.satoko.enable {
+  config = {
     programs.wofi =
       let
         decent_spacing = "8";

@@ -5,7 +5,7 @@
   ...
 }:
 {
-  config = lib.mkIf config.satoko.enable {
+  config = {
     wayland.windowManager.sway = {
       enable = true;
       package = pkgs.swayfx;

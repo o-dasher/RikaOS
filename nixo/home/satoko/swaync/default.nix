@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ ... }:
 let
   inherit (import ../utils/css.nix)
     theme
@@ -8,7 +8,7 @@ let
     ;
 in
 {
-  config = lib.mkIf config.satoko.enable {
+  config = {
     services.swaync = {
       enable = true;
       settings =
