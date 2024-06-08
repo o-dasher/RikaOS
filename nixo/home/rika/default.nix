@@ -18,6 +18,7 @@ in
     stateVersion = cfg.state;
     packages = with pkgs; [
       # Programming
+      devenv
       github-cli
       wget
       git

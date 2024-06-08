@@ -9,3 +9,5 @@
 !/nvim
 !/nixo
 !/assets
+!devenv.*
+
