@@ -37,10 +37,7 @@
       homeConfigurations."${cfg.username}@fedora" = define_hm [ ./home/hanyuu ];
 
       nixosConfigurations.${cfg.hostname} = nixpkgs.lib.nixosSystem {
-        modules = [
-          ./system/configuration.nix
-          stylix.nixosModules.stylix
-        ];
+        modules = [ ./system/configuration.nix ];
       };
     };
 }
