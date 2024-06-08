@@ -22,11 +22,9 @@
 
       # Desktop
       wofi
-      swww
       jq
       grimblast
       wl-clipboard
-      whitesur-icon-theme
 
       # General
       brave
@@ -44,7 +42,6 @@
     programs = {
       mpv = {
         enable = true;
-        catppuccin.enable = true;
       };
     };
   };

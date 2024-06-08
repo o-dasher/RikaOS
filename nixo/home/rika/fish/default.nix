@@ -3,14 +3,12 @@
   programs = {
     starship = {
       enable = true;
-      catppuccin.enable = true;
       settings = {
         gcloud.disabled = true;
       };
     };
     fish = {
       enable = true;
-      catppuccin.enable = true;
       shellAliases = {
 		tls = "tmux ls";
 		tks = "tmux kill-session";

@@ -6,7 +6,6 @@ in
   config = lib.mkIf config.satoko.enable {
     programs.waybar = {
       enable = true;
-      catppuccin.enable = true;
       settings.main = {
         layer = "top";
         position = "top";

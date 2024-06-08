@@ -1,12 +1,24 @@
 { pkgs, ... }:
 {
-  catppuccin = {
-    flavour = "mocha";
-    accent = "pink";
+  stylix = {
+    polarity = "dark";
+    image = ../../../../assets/Wallpapers/ryo.png;
+	base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine-moon.yaml";
+    targets = {
+      vim.enable = false;
+    };
+    opacity =
+      let
+        v = 0.9;
+      in
+      {
+        popups = v;
+        desktop = v;
+        terminal = v;
+      };
   };
   gtk = {
     enable = true;
-    catppuccin.enable = true;
     iconTheme = {
       name = "WhiteSur";
       package = pkgs.whitesur-icon-theme;
