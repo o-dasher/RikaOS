@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
-    catppuccin.url = "github:catppuccin/nix";
+    stylix.url = "github:danth/stylix";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -11,24 +11,34 @@
   };
 
   outputs =
-    { nixpkgs, home-manager, ... }@inputs:
+    {
+      nixpkgs,
+      home-manager,
+      stylix,
+      ...
+    }@inputs:
     let
       cfg = import ./config/myconfig.nix;
+      passed_inputs = {
+        inherit inputs;
+      };
     in
     {
       homeConfigurations.${cfg.username} = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs { system = "x86_64-linux"; };
-        extraSpecialArgs = {
-          inherit inputs;
-        };
-        modules = [ ./home/home.nix ];
+        extraSpecialArgs = passed_inputs;
+        modules = [
+          ./home/home.nix
+          stylix.homeManagerModules.stylix
+        ];
       };
 
       nixosConfigurations.${cfg.hostname} = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit inputs;
-        };
-        modules = [ ./system/configuration.nix ];
+        specialArgs = passed_inputs;
+        modules = [
+          ./system/configuration.nix
+          stylix.nixosModules.stylix
+        ];
       };
     };
 }

@@ -4,7 +4,7 @@ let
 in
 {
   imports = [
-	./wezterm
+    ./wezterm
     ./fish
     ./theme
   ];
@@ -39,14 +39,10 @@ in
   programs = {
     bash.enable = true;
     home-manager.enable = true;
-    lazygit = {
-      enable = true;
-      catppuccin.enable = true;
-    };
+    lazygit.enable = true;
     tmux = {
       enable = true;
       mouse = true;
-      catppuccin.enable = true;
     };
     neovim = {
       enable = true;

@@ -1,4 +1,4 @@
-{ inputs, config, ... }:
+{  config, ... }:
 let
   cfg = config.rika;
 in
@@ -7,7 +7,6 @@ in
     ./rika
     ./satoko
     ../config/setconfig.nix
-    inputs.catppuccin.homeManagerModules.catppuccin
   ];
 
   # Even though open source is cool and all I still use some not libre software.

@@ -1,7 +1,7 @@
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-{ inputs, pkgs, config, ... }:
+{  pkgs, config, ... }:
 let
   # Some localy stuff
   locale = "en_US.UTF-8";
@@ -17,7 +17,6 @@ in
     # Include the results of the hardware scan.
 	../config/setconfig.nix
     ./hardware-configuration.nix
-    inputs.catppuccin.nixosModules.catppuccin
   ];
 
   # Audio setup

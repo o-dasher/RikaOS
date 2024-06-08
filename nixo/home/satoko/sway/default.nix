@@ -11,21 +11,13 @@
       package = pkgs.swayfx;
       checkConfig = false;
       wrapperFeatures.gtk = true;
-      extraConfig =
-        let
-          radius = toString 4;
-        in
-        ''
-          corner_radius ${radius}
-          shadow_blur_radius ${radius} 
-
-          shadows enable
-          layer_effects 'waybar' 'blur enable'
-        '';
+      extraConfig = ''
+        shadows enable
+        layer_effects 'waybar' 'blur enable'
+      '';
       config = {
         modifier = "Mod4";
         terminal = "xdg-terminal";
-        startup = [ { command = "swww init"; } ];
         bars = [
           {
             position = "top";
