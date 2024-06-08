@@ -1,7 +1,7 @@
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-{  pkgs, config, ... }:
+{ pkgs, config, ... }:
 let
   # Some localy stuff
   locale = "en_US.UTF-8";
@@ -9,13 +9,13 @@ let
 
   # Keymapping
   keymap = "br-abnt2";
-  
+
   cfg = config.rika;
 in
 {
   imports = [
     # Include the results of the hardware scan.
-	../config/setconfig.nix
+    ../config/setconfig.nix
     ./hardware-configuration.nix
   ];
 
@@ -107,7 +107,7 @@ in
     # This should be kept to a minimal. Don't ask me why, I think it is better this way.
     systemPackages = with pkgs; [
       catppuccin-sddm-corners
-	  kwin
+      kwin
       sway
     ];
   };
@@ -128,10 +128,16 @@ in
   };
 
   nix = {
-    settings.experimental-features = [
-      "flakes"
-      "nix-command"
-    ];
+    settings = {
+      experimental-features = [
+        "flakes"
+        "nix-command"
+      ];
+      trusted-users = [
+        "root"
+        cfg.username
+      ];
+    };
     optimise.automatic = true;
   };
 

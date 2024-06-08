@@ -1,8 +1,6 @@
 { pkgs, ... }:
 {
   packages = with pkgs; [
-    git
-    nixd
     stylua
     nixfmt-rfc-style
   ];
