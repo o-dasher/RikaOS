@@ -29,7 +29,7 @@ return {
 		require("lazy-lsp").setup {
 			preferred_servers = {
 				markdown = {},
-				lua = { "luals" },
+				lua = { "lua_ls" },
 				nix = { "nixd" },
 				php = { "phpactor" },
 				yaml = { "yamlls" },
