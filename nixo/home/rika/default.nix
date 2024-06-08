@@ -51,7 +51,6 @@ in
     mime.enable = true;
   };
 
-  targets.genericLinux.enable = (cfg.hostname != "nixo");
   programs = {
     bash.enable = true;
     home-manager.enable = true;
