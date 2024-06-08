@@ -65,11 +65,9 @@ in
       viAlias = true;
       vimAlias = true;
       extraPackages = with pkgs; [
-        prettierd
-        nixfmt-rfc-style
-        stylua
         tree-sitter
         ripgrep
+        stylua
         gcc
       ];
     };
