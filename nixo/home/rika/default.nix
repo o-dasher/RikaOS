@@ -4,7 +4,7 @@ let
 in
 {
   imports = [
-    ./alacritty
+	./wezterm
     ./fish
     ./theme
   ];
