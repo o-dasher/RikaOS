@@ -35,7 +35,7 @@
             vertical = gap;
           };
         window = {
-          border = 2;
+          border = 4;
           titlebar = false;
         };
         input = {
