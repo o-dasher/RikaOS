@@ -10,7 +10,7 @@
       nixd
       phpactor
       yaml-language-server
-      clang-tools_16
+	  ccls
       pyright
       ruff-lsp
       nodePackages."@tailwindcss/language-server"
