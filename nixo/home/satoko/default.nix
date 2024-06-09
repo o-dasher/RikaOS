@@ -8,7 +8,7 @@
     ../rika
   ];
 
-  stylix.image = ../../../assets/Wallpapers/ryo.png;
+  stylix.image = ../../../assets/Wallpapers/rikamoon.jpg;
   home.packages = with pkgs; [
     # Sys utils
     xdg-terminal-exec

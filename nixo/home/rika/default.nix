@@ -67,7 +67,6 @@ in
       extraPackages = with pkgs; [
         tree-sitter
         ripgrep
-        stylua
         gcc
       ];
     };

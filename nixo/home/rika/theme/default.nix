@@ -1,8 +1,9 @@
 { pkgs, ... }:
 {
   stylix = {
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-macchiato.yaml";
+
     polarity = "dark";
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine-moon.yaml";
     targets = {
       vim.enable = false;
     };

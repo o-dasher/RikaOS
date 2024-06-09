@@ -12,6 +12,10 @@
       shellAliases = {
 		tls = "tmux ls";
 		tks = "tmux kill-session";
+
+		ga = "git add";
+		gr = "git restore";
+
         hm = "home-manager switch --flake ~/.config/nixo";
 		lg = "lazygit";
         sail = "bash vendor/bin/sail";
