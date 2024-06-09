@@ -31,7 +31,7 @@ return {
 		lspcfg.lua_ls.setup({})
 		lspcfg.nixd.setup({})
 		lspcfg.phpactor.setup({})
-		lspcfg.clangd.setup({})
+		lspcfg.ccls.setup({})
 		lspcfg.pyright.setup({})
 		lspcfg.ruff_lsp.setup({})
 		lspcfg.yamlls.setup({})
