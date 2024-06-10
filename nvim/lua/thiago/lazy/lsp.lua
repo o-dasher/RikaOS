@@ -26,18 +26,36 @@ return {
 			end
 		end)
 
-		lspcfg = require("lspconfig")
+		local lspcfg = require("lspconfig")
 
-		lspcfg.lua_ls.setup({})
-		lspcfg.nixd.setup({})
-		lspcfg.phpactor.setup({})
+		-- php
+		lspcfg.intelephense.setup({})
+		lspcfg.phpactor.setup({
+			-- We only use phpactor for code actions and rename
+			init_options = {
+				["language_server.diagnostics_on_update"] = false,
+				["language_server.diagnostics_on_open"] = false,
+				["lanaguge_server.diagnostics_on_save"] = false,
+				["language_server_phpstan.enabled"] = false,
+				["language_server_psalm.enabled"] = false,
+			},
+		})
+
+		-- c and cpp
 		lspcfg.ccls.setup({})
+
+		-- python
 		lspcfg.pyright.setup({})
 		lspcfg.ruff_lsp.setup({})
-		lspcfg.yamlls.setup({})
+
+		-- css
 		lspcfg.tailwindcss.setup({})
 		lspcfg.cssls.setup({})
-		lspcfg.rust_analyzer.setup({})
-		lspcfg.tsserver.setup({})
+
+		lspcfg.tsserver.setup({}) -- typescript
+		lspcfg.rust_analyzer.setup({}) -- rust
+		lspcfg.yamlls.setup({}) -- yaml
+		lspcfg.lua_ls.setup({}) -- lua
+		lspcfg.nixd.setup({}) -- nix
 	end,
 }

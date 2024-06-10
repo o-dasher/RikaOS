@@ -10,9 +10,10 @@
       nixd
       phpactor
       yaml-language-server
-	  ccls
+      ccls
       pyright
       ruff-lsp
+      nodePackages.intelephense
       nodePackages."@tailwindcss/language-server"
       nodePackages.typescript-language-server
       nodePackages.vscode-langservers-extracted
