@@ -15,6 +15,9 @@
 
 		ga = "git add";
 		gr = "git restore";
+		gb = "git branch";
+		gp = "git push";
+		gs = "git status";
 
         hm = "home-manager switch --flake ~/.config/nixo";
 		lg = "lazygit";
