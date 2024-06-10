@@ -1,5 +1,5 @@
 {
-  "LuaSnip": { "branch": "master", "commit": "50fcf17db7c75af80e6b6109acfbfb4504768780" },
+  "LuaSnip": { "branch": "master", "commit": "03c8e67eb7293c404845b3982db895d59c0d1538" },
   "cmp-buffer": { "branch": "main", "commit": "3022dbc9166796b644a841a02de8dd1cc1d311fa" },
   "cmp-nvim-lsp": { "branch": "main", "commit": "39e2eda76828d88b773cc27a3f61d2ad782c922d" },
   "conform.nvim": { "branch": "master", "commit": "cf562dd160c27a7fc5342dfce7e1227746dd3aaa" },
@@ -15,6 +15,5 @@
   "nvim-treesitter": { "branch": "master", "commit": "9ebc589329083522f9594f408fc2652090b41139" },
   "plenary.nvim": { "branch": "master", "commit": "a3e3bc82a3f95c5ed0d7201546d5d2c19b20d683" },
   "rose-pine": { "branch": "main", "commit": "8c4660cfe697621bcc61d37b3651ffed94fe7fed" },
-  "telescope-luasnip.nvim": { "branch": "master", "commit": "11668478677de360dea45cf2b090d34f21b8ae07" },
   "telescope.nvim": { "branch": "master", "commit": "f12b15e1b3a33524eb06a1ae7bc852fb1fd92197" }
 }
