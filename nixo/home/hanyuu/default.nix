@@ -1,4 +1,9 @@
-{ inputs, pkgs, ... }:
+{
+  inputs,
+  pkgs,
+  config,
+  ...
+}:
 let
   nixGLIntel = inputs.nixGL.packages.${pkgs.system}.nixGLIntel;
 in
@@ -18,5 +23,8 @@ in
   nixGL.prefix = "${nixGLIntel}/bin/nixGLIntel";
   home.packages = [ nixGLIntel ];
 
-  programs.gnome-shell.enable = true;
+  programs = {
+    gnome-shell.enable = true;
+    wezterm.package = (config.lib.nixGL.wrap pkgs.wezterm);
+  };
 }
