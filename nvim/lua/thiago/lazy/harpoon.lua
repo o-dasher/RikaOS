@@ -12,7 +12,39 @@ local keys = {
 	{
 		"<leader>h",
 		function()
-			h().ui:toggle_quick_menu(h():list())
+			local finder = function()
+				local paths = {}
+				for _, item in ipairs(h():list().items) do
+					table.insert(paths, item.value)
+				end
+
+				return require("telescope.finders").new_table({
+					results = paths,
+				})
+			end
+
+			local telescope_cfg = require("telescope.config")
+
+			require("telescope.pickers")
+				.new({}, {
+					prompt_title = "Harpoon",
+					finder = finder(),
+					previewer = telescope_cfg.values.file_previewer({}),
+					sorter = telescope_cfg.values.generic_sorter({}),
+					attach_mappings = function(prompt_bufnr, map)
+						map("i", "<C-d>", function()
+							local state = require("telescope.actions.state")
+
+							local selected_entry = state.get_selected_entry()
+							local current_picker = state.get_current_picker(prompt_bufnr)
+
+							table.remove(h():list().items, selected_entry.index)
+							current_picker:refresh(finder())
+						end)
+						return true
+					end,
+				})
+				:find()
 		end,
 	},
 }
