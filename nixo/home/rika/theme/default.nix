@@ -1,6 +1,18 @@
 { pkgs, ... }:
 {
   stylix = {
+	autoEnable = false;
+
+	targets = {
+		tmux.enable = true;
+		firefox.enable = true;
+		fish.enable = true;
+		lazygit.enable = true;
+		wezterm.enable = true;
+		sway.enable = true;
+		waybar.enable = true;
+	};
+
     base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-macchiato.yaml";
 
     polarity = "dark";
@@ -16,12 +28,5 @@
         desktop = v;
         terminal = v;
       };
-  };
-  gtk = {
-    enable = true;
-    iconTheme = {
-      name = "WhiteSur";
-      package = pkgs.whitesur-icon-theme;
-    };
   };
 }
