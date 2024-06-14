@@ -18,6 +18,9 @@ return {
 		formatters_by_ft = {
 			nix = { "nixfmt" },
 			javascript = { "prettierd" },
+			javascriptreact = { "prettierd" },
+			typescript = { "prettierd" },
+			typescriptreact = { "prettierd" },
 			lua = { "stylua" },
 			php = { "pint" },
 		},
