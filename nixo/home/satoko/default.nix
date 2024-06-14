@@ -31,6 +31,9 @@
     gdu
     pavucontrol
     hyfetch
+
+    # Games
+    osu-lazer-bin
   ];
 
   gtk = {
