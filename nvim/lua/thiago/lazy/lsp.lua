@@ -55,7 +55,17 @@ return {
 		lspcfg.tsserver.setup({}) -- typescript
 		lspcfg.rust_analyzer.setup({}) -- rust
 		lspcfg.yamlls.setup({}) -- yaml
-		lspcfg.lua_ls.setup({}) -- lua
 		lspcfg.nixd.setup({}) -- nix
+
+		-- lua
+		lspcfg.lua_ls.setup({
+			settings = {
+				Lua = {
+					diagnostics = {
+						globals = { "vim" },
+					},
+				},
+			},
+		})
 	end,
 }
