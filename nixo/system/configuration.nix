@@ -116,6 +116,7 @@ in
     light.enable = true;
     fish.enable = true;
     dconf.enable = true;
+	nix-ld.enable = true;
     neovim = {
       enable = true;
       defaultEditor = true;
