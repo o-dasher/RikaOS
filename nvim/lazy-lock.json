@@ -14,5 +14,6 @@
   "nvim-lspconfig": { "branch": "master", "commit": "37f362ef42d1a604d332e8d3d7d47593852b4313" },
   "nvim-treesitter": { "branch": "master", "commit": "8dd40c7609c04d7bad7eb21d71f78c3fa4dc1c2c" },
   "plenary.nvim": { "branch": "master", "commit": "a3e3bc82a3f95c5ed0d7201546d5d2c19b20d683" },
+  "telescope-live-grep-args.nvim": { "branch": "master", "commit": "8ad632f793fd437865f99af5684f78300dac93fb" },
   "telescope.nvim": { "branch": "master", "commit": "f12b15e1b3a33524eb06a1ae7bc852fb1fd92197" }
 }
