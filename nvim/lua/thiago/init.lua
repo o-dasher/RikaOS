@@ -17,5 +17,10 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-	spec = "thiago.lazy"
+	spec = "thiago.lazy",
 })
+
+local alphahls = { "Normal", "NormalFloat" }
+for _, hi in pairs(alphahls) do
+	vim.api.nvim_set_hl(0, hi, { bg = "none"})
+end
