@@ -61,6 +61,7 @@ return {
 		lspcfg.lua_ls.setup({
 			settings = {
 				Lua = {
+					runtime = { version = "Lua 5.1" },
 					diagnostics = {
 						globals = { "vim" },
 					},
