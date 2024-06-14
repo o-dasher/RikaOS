@@ -17,4 +17,6 @@ in
   # Fix opengl on nox nixos system. Keep an eye on https://github.com/nix-community/home-manager/issues/3968
   nixGL.prefix = "${nixGLIntel}/bin/nixGLIntel";
   home.packages = [ nixGLIntel ];
+
+  programs.gnome-shell.enable = true;
 }
