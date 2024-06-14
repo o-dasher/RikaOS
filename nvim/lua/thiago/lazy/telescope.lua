@@ -17,7 +17,7 @@ return {
 		{
 			"<leader>ps",
 			function()
-				t().grep_string({ search = vim.fn.input("Search: ") })
+				t().live_grep()
 			end,
 		},
 	},
