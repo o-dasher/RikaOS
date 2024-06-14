@@ -24,7 +24,7 @@ vim.opt.ignorecase = true
 
 -- UNDOS --
 vim.opt.swapfile = false
-vim.opt.backup = false;
+vim.opt.backup = false
 -- I need to study about undo files.
 
 -- SCROLL --
