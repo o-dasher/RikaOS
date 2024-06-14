@@ -22,7 +22,6 @@
       in
       {
         popups = v;
-        desktop = v;
         terminal = v;
       };
   };
