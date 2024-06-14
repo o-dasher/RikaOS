@@ -4,6 +4,9 @@
     enable = true;
     viAlias = true;
     vimAlias = true;
+	extraLuaConfig = ''
+		require("thiago")
+	'';
     extraPackages = with pkgs; [
       # LSP
       lua-language-server

@@ -36,6 +36,7 @@
     osu-lazer-bin
   ];
 
+  stylix.targets.gtk.enable = true;
   gtk = {
     enable = true;
     iconTheme = {
