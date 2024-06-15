@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   imports = [
     ./sway
@@ -6,6 +6,7 @@
     ./waybar
     ./wofi
     ../rika
+    inputs.spicetify-nix.homeManagerModules.default
   ];
 
   stylix.image = ../../../assets/Wallpapers/rikamoon.jpg;
@@ -49,5 +50,17 @@
     mpv = {
       enable = true;
     };
+    spicetify =
+      let
+        spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
+      in
+      {
+        enable = true;
+        theme = spicePkgs.themes.text;
+        enabledExtensions = with spicePkgs.extensions; [
+          adblock
+          hidePodcasts
+        ];
+      };
   };
 }
