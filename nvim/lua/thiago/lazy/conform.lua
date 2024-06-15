@@ -23,6 +23,7 @@ return {
 			typescriptreact = { "prettierd" },
 			lua = { "stylua" },
 			php = { "pint" },
+			markdown = { "prettierd" },
 		},
 	},
 }
