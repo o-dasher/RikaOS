@@ -4,12 +4,11 @@ These are all my configurations that I use to manage my NixOS setup and Home Man
 
 # So what this does?
 
-    * Sets up all apps I use, such as neovim, wezterm, lazygit and everything else on all of my computers. * Styles everything on my computer using stylix, outside of GTK on my lab pc because for some reason it refuses to work properly.
+- Sets up all apps I use, such as neovim, wezterm, lazygit and everything else on all of my computers. \* Styles everything on my computer using stylix, outside of GTK on my lab pc because for some reason it refuses to work properly.
 
 # Hosts
 
-I actually only use NixOS on my home computer, so there is only a single proper NixOS host and it is called Nixo.
-The other hosts are for my lab, and they pretty much only rely on home-manager.
+I actually only use NixOS on my home computer, so there is only a single proper NixOS host and it is called Nixo. The other hosts are for my lab, and they pretty much only rely on home-manager.
 
 # FIle Strucutre
 
