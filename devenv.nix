@@ -3,6 +3,7 @@
   packages = with pkgs; [
     stylua
     nixfmt-rfc-style
+    prettierd
   ];
 
   languages = {
