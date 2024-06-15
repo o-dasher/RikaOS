@@ -5,6 +5,10 @@ return {
 		"hrsh7th/cmp-nvim-lsp",
 		"hrsh7th/nvim-cmp",
 	},
+	event = "BufReadPost",
+	cmd = {
+		"LspInfo",
+	},
 	config = function()
 		local lsp_zero = require("lsp-zero")
 
