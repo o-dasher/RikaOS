@@ -1,4 +1,4 @@
-{  ... }:
+{ lib, pkgs, ... }:
 let
   inherit (import ../utils/css.nix) alpha_fn theme font_definition;
 in
@@ -70,7 +70,7 @@ in
         cpu = {
           format = "  {usage}%";
           tooltip = false;
-          on-click = "xdg-terminal-exec htop";
+          on-click = "${lib.getExe pkgs.xdg-terminal-exec} htop";
         };
 
         memory = {
