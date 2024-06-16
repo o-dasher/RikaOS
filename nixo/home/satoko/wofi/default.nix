@@ -1,6 +1,7 @@
-{ ... }:
+{ utils, ... }:
 let
-  inherit (import ../utils/css.nix) alpha_fn theme font_definition;
+  inherit (utils) css;
+  inherit (css) alpha_fn theme font_definition;
 in
 {
   config = {
