@@ -4,7 +4,9 @@ These are all my configurations that I use to manage my NixOS setup and Home Man
 
 # So what this does?
 
-- Sets up all apps I use, such as neovim, wezterm, lazygit and everything else on all of my computers. \* Styles everything on my computer using stylix, outside of GTK on my lab pc because for some reason it refuses to work properly.
+- Sets up all apps I use, such as neovim, wezterm, lazygit and everything else on all of my computers.
+
+* Styles everything - outside of gtk - on my computer using stylix, for whatever reason gtk styling seems broken when trying to do it through home-manager on gnome, and yes I use gnome on some of my computers, mainly my research lab computers.
 
 # Hosts
 
