@@ -21,7 +21,7 @@
         bars = [
           {
             position = "top";
-            command = "waybar";
+            command = lib.getExe pkgs.waybar;
           }
         ];
         gaps =
@@ -73,22 +73,18 @@
             run_no_args = s: run s "";
 
             runs = {
+              swaymsg = run "swaymsg";
               playerctl = run (lib.getExe pkgs.playerctl);
               pamixer = run (lib.getExe pkgs.pamixer);
               brightnessctl = run "${lib.getExe pkgs.pamixer} set";
               grimblast = run "${lib.getExe pkgs.grimblast} --notify copy";
-              swaymsg = run "swaymsg";
               restart_program = p: run "pkill" "${p} && ${p}";
-            };
-
-            standalones = {
-              swaync_show = "swaync-client -t -sw";
             };
           in
           # Default sway nix options are sane enough.
           lib.mkOptionDefault {
             # Opens user prefered terminal based on xdg-terminal.
-            ${combo "Return"} = "exec ${lib.getExe pkgs.xdg-terminal-exec}";
+            ${combo "Return"} = run_no_args (lib.getExe pkgs.xdg-terminal-exec);
 
             # Reloading configurations.	
             ${
@@ -108,7 +104,7 @@
                 key.shift
                 "n"
               ]
-            } = run_no_args standalones.swaync_show;
+            } = run_no_args "swaync-client -t -sw";
             ${
               combo [
                 key.alt
