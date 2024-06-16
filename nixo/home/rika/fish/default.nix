@@ -1,4 +1,12 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  utils,
+  ...
+}:
+let
+  inherit (utils) prefixset;
+in
 {
   programs = {
     starship = {
@@ -10,21 +18,18 @@
     fish = {
       enable = true;
       shellAliases =
-        let
-          aliase = pkg: kvpairs: builtins.mapAttrs (name: value: (lib.getExe pkg) + " " + value) kvpairs;
-        in
         {
           # git
           lg = lib.getExe pkgs.lazygit;
           # dev
           sail = "bash vendor/bin/sail";
         }
-        // aliase pkgs.home-manager { hm = "switch --flake ~/.config/nixo"; }
-        // aliase pkgs.tmux {
+        // prefixset pkgs.home-manager { hm = "switch --flake ~/.config/nixo"; }
+        // prefixset pkgs.tmux {
           tls = "ls";
           tks = "kill-session";
         }
-        // aliase pkgs.git {
+        // prefixset pkgs.git {
           ga = "add";
           gr = "restore";
           gb = "branch";
