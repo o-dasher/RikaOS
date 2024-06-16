@@ -1,15 +1,15 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 {
   imports = [
+    ../rika
     ./sway
     ./swaync
     ./waybar
     ./wofi
-    ../rika
-    inputs.spicetify-nix.homeManagerModules.default
+    ./spotify
+    ./theme
   ];
 
-  stylix.image = ../../../assets/Wallpapers/rikamoon.jpg;
   home.packages = with pkgs; [
     # cli
     # general
@@ -35,14 +35,6 @@
     osu-lazer-bin
   ];
 
-  gtk = {
-    enable = true;
-    iconTheme = {
-      name = "WhiteSur";
-      package = pkgs.whitesur-icon-theme;
-    };
-  };
-
   programs = {
     hyfetch = {
       enable = true;
@@ -50,17 +42,5 @@
         preset = "bisexual";
       };
     };
-    spicetify =
-      let
-        spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
-      in
-      {
-        enable = true;
-        theme = spicePkgs.themes.text;
-        enabledExtensions = with spicePkgs.extensions; [
-          adblock
-          hidePodcasts
-        ];
-      };
   };
 }
