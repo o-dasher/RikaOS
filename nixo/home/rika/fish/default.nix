@@ -18,18 +18,21 @@ in
     fish = {
       enable = true;
       shellAliases =
+        let
+          aliase = pkg: kvpairs: prefixset (lib.getExe pkg) kvpairs;
+        in
         {
           # git
           lg = lib.getExe pkgs.lazygit;
           # dev
           sail = "bash vendor/bin/sail";
         }
-        // prefixset pkgs.home-manager { hm = "switch --flake ~/.config/nixo"; }
-        // prefixset pkgs.tmux {
+        // aliase pkgs.home-manager { hm = "switch --flake ~/.config/nixo"; }
+        // aliase pkgs.tmux {
           tls = "ls";
           tks = "kill-session";
         }
-        // prefixset pkgs.git {
+        // aliase pkgs.git {
           ga = "add";
           gr = "restore";
           gb = "branch";
