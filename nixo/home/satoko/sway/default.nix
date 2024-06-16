@@ -1,9 +1,12 @@
 {
-  config,
   lib,
   pkgs,
+  utils,
   ...
 }:
+let
+  inherit (utils) prefixset;
+in
 {
   config = {
     wayland.windowManager.sway = {
@@ -73,11 +76,6 @@
               combo = s: "${mod}+${if builtins.typeOf s == "string" then s else builtins.concatStringsSep "+" s}";
 
               run = s: "exec ${s}";
-              prefixset =
-                prefix: kvpairs:
-                builtins.mapAttrs (
-                  name: value: if builtins.typeOf prefix == "lambda" then prefix value else prefix + " " + value
-                ) kvpairs;
             in
             # Default sway nix options are sane enough.
             lib.mkOptionDefault (
