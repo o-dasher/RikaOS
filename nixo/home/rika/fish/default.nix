@@ -11,7 +11,7 @@
       enable = true;
       shellAliases =
         let
-          aliase = pkg: kvpairs: builtins.mapAttrs (name: value: (lib.getExe pkg) + value) kvpairs;
+          aliase = pkg: kvpairs: builtins.mapAttrs (name: value: (lib.getExe pkg) + " " + value) kvpairs;
         in
         {
           # git
