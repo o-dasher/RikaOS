@@ -15,137 +15,146 @@
         shadows enable
         layer_effects 'waybar' 'blur enable'
       '';
-      config = {
-        modifier = "Mod4";
-        terminal = lib.getExe pkgs.xdg-terminal-exec;
-        bars = [
-          {
-            position = "top";
-            command = lib.getExe pkgs.waybar;
-          }
-        ];
-        gaps =
-          let
-            gap = 4;
-          in
-          {
-            inner = gap;
-            outer = gap;
-            horizontal = gap;
-            vertical = gap;
-          };
-        window = {
-          border = 4;
-          titlebar = false;
-        };
-        input = {
-          "*" = {
-            tap = "enabled";
-            xkb_layout = "br";
-            xkb_variant = "abnt2";
-            xkb_model = "abnt2";
-          };
-        };
-        workspaceOutputAssign =
-          [
+      config =
+        let
+          mod = "Mod4";
+        in
+        {
+          modifier = mod;
+          terminal = lib.getExe pkgs.xdg-terminal-exec;
+          bars = [
             {
-              output = "eDP-1";
-              workspace = "10";
+              position = "top";
+              command = lib.getExe pkgs.waybar;
             }
-          ]
-          ++ builtins.map (i: {
-            output = "HDMI-A-1";
-            workspace = toString i;
-          }) (builtins.genList (x: x + 1) 9);
-        keybindings =
-          let
-            mod = config.wayland.windowManager.sway.config.modifier;
-            key = {
-              shift = "Shift";
-              alt = "Alt";
-              myprint = "p";
+          ];
+          gaps =
+            let
+              gap = 4;
+            in
+            {
+              inner = gap;
+              outer = gap;
+              horizontal = gap;
+              vertical = gap;
             };
-            combo = s: "${mod}+${if builtins.typeOf s == "string" then s else builtins.concatStringsSep "+" s}";
-
-            step = toString 1;
-
-            run = s: a: "exec ${s} ${a}";
-            run_no_args = s: run s "";
-
-            runs = {
-              swaymsg = run "swaymsg";
-              playerctl = run (lib.getExe pkgs.playerctl);
-              pamixer = run (lib.getExe pkgs.pamixer);
-              brightnessctl = run "${lib.getExe pkgs.pamixer} set";
-              grimblast = run "${lib.getExe pkgs.grimblast} --notify copy";
-              restart_program = p: run "pkill" "${p} && ${p}";
-            };
-          in
-          # Default sway nix options are sane enough.
-          lib.mkOptionDefault {
-            # Opens user prefered terminal based on xdg-terminal.
-            ${combo "Return"} = run_no_args (lib.getExe pkgs.xdg-terminal-exec);
-
-            # Reloading configurations.	
-            ${
-              combo [
-                key.shift
-                "b"
-              ]
-            } = runs.restart_program (lib.getExe pkgs.waybar);
-            ${
-              combo [
-                key.shift
-                "c"
-              ]
-            } = runs.swaymsg "reload";
-            ${
-              combo [
-                key.shift
-                "n"
-              ]
-            } = run_no_args "swaync-client -t -sw";
-            ${
-              combo [
-                key.alt
-                "n"
-              ]
-            } = runs.restart_program (lib.getExe pkgs.swaynotificationcenter);
-
-            # Toggle second monitor for better performance when required.
-            "${combo "m"}" = "output \"eDP-1\" toggle";
-            "${combo "d"}" = run (lib.getExe pkgs.wofi) "--show drun -I -m -i --style $HOME/.config/wofi/style.css";
-
-            # Windows.
-            "${combo "f"}" = "fullscreen";
-            "${combo "c"}" = "kill";
-
-            # Screenshots
-            "${combo key.myprint}" = runs.grimblast "screen";
-            "${combo [
-              key.shift
-              key.myprint
-            ]}" = runs.grimblast "area";
-            "${combo [
-              key.alt
-              key.myprint
-            ]}" = runs.grimblast "active";
-
-            # Media controls and other fns.
-            "XF86AudioPlay" = runs.playerctl "play-pause";
-            "XF86AudioPrev" = runs.playerctl "previous";
-            "XF86AudioNext" = runs.playerctl "next";
-            "XF86AudioStop" = runs.playerctl "stop";
-
-            "XF86AudioRaiseVolume" = runs.pamixer "--increase ${step}";
-            "XF86AudioLowerVolume" = runs.pamixer "--decrease ${step}";
-            "XF86AudioMute" = runs.pamixer "--toggle-mute";
-            "XF86AudioMicMute" = runs.pamixer "--default-source --toggle-mute";
-
-            "XF86MonBrightnessUp" = runs.brightnessctl "${step}%+";
-            "XF86MonBrightnessDown" = runs.brightnessctl "${step}%-";
+          window = {
+            border = 4;
+            titlebar = false;
           };
-      };
+          input = {
+            "*" = {
+              tap = "enabled";
+              xkb_layout = "br";
+              xkb_variant = "abnt2";
+              xkb_model = "abnt2";
+            };
+          };
+          workspaceOutputAssign =
+            [
+              {
+                output = "eDP-1";
+                workspace = "10";
+              }
+            ]
+            ++ builtins.map (i: {
+              output = "HDMI-A-1";
+              workspace = toString i;
+            }) (builtins.genList (x: x + 1) 9);
+          keybindings =
+            let
+              key = {
+                shift = "Shift";
+                alt = "Alt";
+                myprint = "p";
+              };
+
+              step = toString 5;
+              combo = s: "${mod}+${if builtins.typeOf s == "string" then s else builtins.concatStringsSep "+" s}";
+
+              run = s: "exec ${s}";
+              prefixset =
+                prefix: kvpairs:
+                builtins.mapAttrs (
+                  name: value: if builtins.typeOf prefix == "lambda" then prefix value else prefix + " " + value
+                ) kvpairs;
+            in
+            # Default sway nix options are sane enough.
+            lib.mkOptionDefault (
+              {
+                # Opens user prefered terminal based on xdg-terminal.
+                ${combo "Return"} = run (lib.getExe pkgs.xdg-terminal-exec);
+
+                # Reloading configurations.	
+
+                # Windows.
+                "${combo "f"}" = "fullscreen";
+                "${combo "c"}" = "kill";
+              }
+              // prefixset (p: run "pkill ${p} && ${p}") {
+                ${
+                  combo [
+                    key.shift
+                    "b"
+                  ]
+                } = lib.getExe pkgs.waybar;
+                ${
+                  combo [
+                    key.alt
+                    "n"
+                  ]
+                } = lib.getExe pkgs.swaynotificationcenter;
+              }
+              // prefixset "output" { "${combo "m"}" = "\"eDP-1\" toggle"; }
+              // prefixset (run "swaync-client") {
+                ${
+                  combo [
+                    key.shift
+                    "n"
+                  ]
+                } = "-t -sw";
+              }
+              // prefixset (run "swaymsg") {
+                ${
+                  combo [
+                    key.shift
+                    "c"
+                  ]
+                } = "reload";
+              }
+              // prefixset (run (lib.getExe pkgs.wofi)) {
+                ${combo "d"} = "--show drun -I -m -i --style $HOME/.config/wofi/style.css";
+              }
+              // prefixset (run "${lib.getExe pkgs.grimblast} --notify copy") {
+                "${combo key.myprint}" = "screen";
+                "${combo [
+                  key.shift
+                  key.myprint
+                ]}" = "area";
+                "${combo [
+                  key.alt
+                  key.myprint
+                ]}" = "active";
+              }
+              # Media keys
+              // prefixset (run "${lib.getExe pkgs.brightnessctl} set") {
+                "XF86MonBrightnessUp" = "${step}%+";
+                "XF86MonBrightnessDown" = "${step}%-";
+              }
+              // prefixset (run (lib.getExe pkgs.playerctl)) {
+                "XF86AudioPlay" = "play-pause";
+                "XF86AudioPrev" = "previous";
+                "XF86AudioNext" = "next";
+                "XF86AudioStop" = "stop";
+              }
+              // prefixset (run (lib.getExe pkgs.pamixer)) {
+                "XF86AudioMicMute" = "--default-source --toggle-mute";
+                "XF86AudioRaiseVolume" = "--increase ${step}";
+                "XF86AudioLowerVolume" = "--decrease ${step}";
+                "XF86AudioMute" = "--toggle-mute";
+              }
+            );
+        };
     };
   };
 }
