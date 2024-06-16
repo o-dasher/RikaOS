@@ -18,10 +18,10 @@ in
     homeDirectory = "/home/${cfg.username}";
     stateVersion = cfg.state;
     packages = with pkgs; [
-      # Programming
+      # cli
+      wget
       devenv
       github-cli
-      wget
       git
 
       # I love my keyboard.

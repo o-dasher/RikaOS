@@ -11,33 +11,36 @@
 
   stylix.image = ../../../assets/Wallpapers/rikamoon.jpg;
   home.packages = with pkgs; [
-    # Sys utils
+    # cli
+    # general
     xdg-terminal-exec
     pamixer
-
-    # Desktop
-    wofi
-    jq
+    # screenshot
     grimblast
     wl-clipboard
-
-    # General
-    brave
-    armcord
-    qbittorrent
-    obs-studio
-    stremio
+    # monitoring
     htop
-    xfce.thunar
     gdu
-    pavucontrol
-    hyfetch
 
-    # Games
+    # gui
+    # entertainment
+    stremio
+    # tools
+    qbittorrent
+    pavucontrol
+    obs-studio
+    mpv
+    # social media
+    brave
+    # browser
+    armcord
+    # files 
+    xfce.thunar
+
+    # gaming
     osu-lazer-bin
   ];
 
-  stylix.targets.gtk.enable = true;
   gtk = {
     enable = true;
     iconTheme = {
@@ -47,8 +50,11 @@
   };
 
   programs = {
-    mpv = {
+    hyfetch = {
       enable = true;
+      settings = {
+        preset = "bisexual";
+      };
     };
     spicetify =
       let
