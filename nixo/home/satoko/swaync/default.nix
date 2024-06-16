@@ -1,6 +1,7 @@
-{ ... }:
+{ utils, ... }:
 let
-  inherit (import ../utils/css.nix)
+  inherit (utils) css;
+  inherit (css)
     theme
     alpha_fn
     shade_fn
