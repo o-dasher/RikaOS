@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, pkgs, ... }:
 {
   programs = {
     starship = {
@@ -9,19 +9,28 @@
     };
     fish = {
       enable = true;
-      shellAliases = {
-        tls = "tmux ls";
-        tks = "tmux kill-session";
+      shellAliases =
+        let
+          aliase = pkg: kvpairs: builtins.mapAttrs (name: value: (lib.getExe pkg) + value) kvpairs;
+        in
+        {
+          # git
+          lg = lib.getExe pkgs.lazygit;
+          # dev
+          sail = "bash vendor/bin/sail";
+        }
+        // aliase pkgs.home-manager { hm = "switch --flake ~/.config/nixo"; }
+        // aliase pkgs.tmux {
+          tls = "ls";
+          tks = "kill-session";
+        }
+        // aliase pkgs.git {
+          ga = "add";
+          gr = "restore";
+          gb = "branch";
+          gs = "status";
+        };
 
-        ga = "git add";
-        gr = "git restore";
-        gb = "git branch";
-        gs = "git status";
-
-        hm = "home-manager switch --flake ~/.config/nixo";
-        lg = "lazygit";
-        sail = "bash vendor/bin/sail";
-      };
       interactiveShellInit = ''
         function fish_greeting
         	echo Welcome(set_color magenta) home(set_color normal) $USER how are you doing today\?
