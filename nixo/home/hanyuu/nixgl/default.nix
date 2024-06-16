@@ -1,11 +1,11 @@
 {
-  inputs,
   pkgs,
   config,
+  nixGL,
   ...
 }:
 let
-  nixGLIntel = inputs.nixGL.packages.${pkgs.system}.nixGLIntel;
+  nixGLIntel = nixGL.packages.${pkgs.system}.nixGLIntel;
 in
 {
   imports = [
