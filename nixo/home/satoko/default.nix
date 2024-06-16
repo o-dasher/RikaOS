@@ -13,12 +13,6 @@
   home.packages = with pkgs; [
     # cli
     # general
-    xdg-terminal-exec
-    pamixer
-    # screenshot
-    grimblast
-    wl-clipboard
-    # monitoring
     htop
     gdu
 

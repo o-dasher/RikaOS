@@ -17,7 +17,7 @@
       '';
       config = {
         modifier = "Mod4";
-        terminal = "xdg-terminal";
+        terminal = lib.getExe pkgs.xdg-terminal-exec;
         bars = [
           {
             position = "top";
@@ -73,13 +73,14 @@
             run_no_args = s: run s "";
 
             runs = {
-              playerctl = run "playerctl";
-              pamixer = run "pamixer";
-              brightnessctl = run "brightnessctl set";
-              grimblast = run "grimblast --notify copy";
+              playerctl = run (lib.getExe pkgs.playerctl);
+              pamixer = run (lib.getExe pkgs.pamixer);
+              brightnessctl = run "${lib.getExe pkgs.pamixer} set";
+              grimblast = run "${lib.getExe pkgs.grimblast} --notify copy";
               swaymsg = run "swaymsg";
               restart_program = p: run "pkill" "${p} && ${p}";
             };
+
             standalones = {
               swaync_show = "swaync-client -t -sw";
             };
@@ -87,7 +88,7 @@
           # Default sway nix options are sane enough.
           lib.mkOptionDefault {
             # Opens user prefered terminal based on xdg-terminal.
-            ${combo "Return"} = "exec xdg-terminal-exec";
+            ${combo "Return"} = "exec ${lib.getExe pkgs.xdg-terminal-exec}";
 
             # Reloading configurations.	
             ${
@@ -95,7 +96,7 @@
                 key.shift
                 "b"
               ]
-            } = runs.restart_program "waybar";
+            } = runs.restart_program (lib.getExe pkgs.waybar);
             ${
               combo [
                 key.shift
@@ -113,11 +114,11 @@
                 key.alt
                 "n"
               ]
-            } = runs.restart_program "swaync";
+            } = runs.restart_program (lib.getExe pkgs.swaynotificationcenter);
 
             # Toggle second monitor for better performance when required.
             "${combo "m"}" = "output \"eDP-1\" toggle";
-            "${combo "d"}" = run "wofi" "--show drun -I -m -i --style $HOME/.config/wofi/style.css";
+            "${combo "d"}" = run (lib.getExe pkgs.wofi) "--show drun -I -m -i --style $HOME/.config/wofi/style.css";
 
             # Windows.
             "${combo "f"}" = "fullscreen";
