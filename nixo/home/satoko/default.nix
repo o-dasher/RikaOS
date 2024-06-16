@@ -16,6 +16,9 @@
     htop
     gdu
 
+    # clipboard
+    wl-clipboard
+
     # gui
     # entertainment
     stremio
