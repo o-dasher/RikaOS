@@ -25,16 +25,6 @@ local keys = {
 
 			local telescope_cfg = require("telescope.config")
 
-			local function deleteCursorEntry(buffer)
-				local state = require("telescope.actions.state")
-
-				local selected_entry = state.get_selected_entry()
-				local current_picker = state.get_current_picker(buffer)
-
-				table.remove(h():list().items, selected_entry.index)
-				current_picker:refresh(finder())
-			end
-
 			require("telescope.pickers")
 				.new({}, {
 					prompt_title = "harpoon",
@@ -44,7 +34,13 @@ local keys = {
 					sorter = telescope_cfg.values.generic_sorter({}),
 					attach_mappings = function(buffer, map)
 						map("n", "<c-d>", function()
-							deleteCursorEntry(buffer)
+							local state = require("telescope.actions.state")
+
+							local selected_entry = state.get_selected_entry()
+							local current_picker = state.get_current_picker(buffer)
+
+							table.remove(h():list().items, selected_entry.index)
+							current_picker:refresh(finder())
 						end)
 						return true
 					end,
