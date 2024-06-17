@@ -3,18 +3,18 @@ let
   cfg = import ./myconfig.nix;
 in
 {
-  options.rika = {
-    username = lib.mkOption {
+  options.rika = with lib; {
+    username = mkOption {
       description = "The username of the main user of this machine.";
-      type = lib.types.str;
+      type = types.str;
     };
-    hostname = lib.mkOption {
+    hostname = mkOption {
       description = "The name of the host of this machine.";
-      type = lib.types.str;
+      type = types.str;
     };
-    state = lib.mkOption {
+    state = mkOption {
       description = "The nix state of this host, used for compatibility.";
-      type = lib.types.str;
+      type = types.str;
     };
   };
 
