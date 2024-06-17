@@ -7,7 +7,4 @@
   ];
 
   targets.genericLinux.enable = true;
-  programs = {
-    gnome-shell.enable = true;
-  };
 }
