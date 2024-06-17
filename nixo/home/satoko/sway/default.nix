@@ -83,11 +83,9 @@ in
                 # Opens user prefered terminal based on xdg-terminal.
                 ${combo "Return"} = run (lib.getExe pkgs.xdg-terminal-exec);
 
-                # Reloading configurations.	
-
                 # Windows.
-                "${combo "f"}" = "fullscreen";
-                "${combo "c"}" = "kill";
+                ${combo "f"} = "fullscreen";
+                ${combo "c"} = "kill";
               }
               // prefixset (p: run "pkill ${p} && ${p}") {
                 ${
@@ -124,32 +122,36 @@ in
                 ${combo "d"} = "--show drun -I -m -i --style $HOME/.config/wofi/style.css";
               }
               // prefixset (run "${lib.getExe pkgs.grimblast} --notify copy") {
-                "${combo key.myprint}" = "screen";
-                "${combo [
-                  key.shift
-                  key.myprint
-                ]}" = "area";
-                "${combo [
-                  key.alt
-                  key.myprint
-                ]}" = "active";
+                ${combo key.myprint} = "screen";
+                ${
+                  combo [
+                    key.shift
+                    key.myprint
+                  ]
+                } = "area";
+                ${
+                  combo [
+                    key.alt
+                    key.myprint
+                  ]
+                } = "active";
               }
               # Media keys
               // prefixset (run "${lib.getExe pkgs.brightnessctl} set") {
-                "XF86MonBrightnessUp" = "${step}%+";
-                "XF86MonBrightnessDown" = "${step}%-";
+                XF86MonBrightnessUp = "${step}%+";
+                XF86MonBrightnessDown = "${step}%-";
               }
               // prefixset (run (lib.getExe pkgs.playerctl)) {
-                "XF86AudioPlay" = "play-pause";
-                "XF86AudioPrev" = "previous";
-                "XF86AudioNext" = "next";
-                "XF86AudioStop" = "stop";
+                XF86AudioPlay = "play-pause";
+                XF86AudioPrev = "previous";
+                XF86AudioNext = "next";
+                XF86AudioStop = "stop";
               }
               // prefixset (run (lib.getExe pkgs.pamixer)) {
-                "XF86AudioMicMute" = "--default-source --toggle-mute";
-                "XF86AudioRaiseVolume" = "--increase ${step}";
-                "XF86AudioLowerVolume" = "--decrease ${step}";
-                "XF86AudioMute" = "--toggle-mute";
+                XF86AudioMicMute = "--default-source --toggle-mute";
+                XF86AudioRaiseVolume = "--increase ${step}";
+                XF86AudioLowerVolume = "--decrease ${step}";
+                XF86AudioMute = "--toggle-mute";
               }
             );
         };
