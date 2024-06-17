@@ -16,7 +16,7 @@ vim.opt.cursorline = true
 -- CHARS --
 vim.opt.showbreak = "↪ "
 vim.opt.list = true
-vim.opt.listchars = "tab:▎·,trail:."
+vim.opt.listchars = "tab:▎·,trail:.,lead:."
 
 -- RIGHT COLUMN --
 vim.opt.signcolumn = "yes"
