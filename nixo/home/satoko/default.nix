@@ -32,6 +32,7 @@
     # browser
     armcord
     # files 
+    yazi
     xfce.thunar
 
     # gaming
