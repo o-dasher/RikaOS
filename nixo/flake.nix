@@ -73,6 +73,7 @@
     {
       homeConfigurations."${cfg.username}@nixo" = define_hm [ ./home/satoko ];
       homeConfigurations."${cfg.username}@fedora" = define_hm [ ./home/hanyuu ];
+      homeConfigurations."${cfg.username}@gotec-MS-7D18" = define_hm [ ./home/hanyuu];
 
       nixosConfigurations.${cfg.hostname} = nixpkgs.lib.nixosSystem {
         modules = [ ./system/configuration.nix ];
