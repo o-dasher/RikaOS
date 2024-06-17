@@ -8,6 +8,19 @@ return {
 		"nvim-lua/plenary.nvim",
 		"nvim-telescope/telescope-live-grep-args.nvim",
 	},
+	config = function(_, _)
+		local actions = require("telescope.actions")
+		require("telescope").setup({
+			defaults = {
+				mappings = {
+					i = {
+						["<C-k>"] = actions.cycle_history_prev,
+						["<C-j>"] = actions.cycle_history_next,
+					},
+				},
+			},
+		})
+	end,
 	keys = {
 		{
 			"<leader>pf",
