@@ -1,6 +1,6 @@
 -- NUMBER LINES --
 vim.opt.nu = true
-vim.opt.relativenumber = true
+vim.opt.rnu = true
 
 -- TAB SIZES --
 local tablength = 4
@@ -9,6 +9,14 @@ vim.opt.tabstop = tablength
 vim.opt.softtabstop = tablength
 vim.opt.shiftwidth = tablength
 vim.opt.smartindent = true
+
+-- CURSOR --
+vim.opt.cursorline = true
+
+-- CHARS --
+vim.opt.showbreak = "↪ "
+vim.opt.list = true
+vim.opt.listchars = "space:.,tab:▎·,trail:."
 
 -- RIGHT COLUMN --
 vim.opt.signcolumn = "yes"

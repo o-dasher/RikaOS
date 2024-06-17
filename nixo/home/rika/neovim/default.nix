@@ -5,7 +5,7 @@
     viAlias = true;
     vimAlias = true;
     extraLuaConfig = ''
-      	require("thiago")
+      require("thiago")
     '';
     extraPackages = with pkgs; [
       # LSP
