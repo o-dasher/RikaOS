@@ -15,6 +15,8 @@
     # general
     htop
     gdu
+    # programming
+    cargo # mainly used to start new projects although I mainly use dev shells!
 
     # clipboard
     wl-clipboard
@@ -27,6 +29,8 @@
     pavucontrol
     obs-studio
     mpv
+    # monitor
+    mission-center
     # social media
     brave
     # browser
