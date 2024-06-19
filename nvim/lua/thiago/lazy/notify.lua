@@ -5,7 +5,7 @@ return {
 		lazy = false,
 		opts = {
 			fps = 60,
-			background_color = "#000000",
+			background_colour = "#000000",
 			render = "default",
 			timeout = 1000,
 			topDown = true,
