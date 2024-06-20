@@ -17,6 +17,7 @@ return {
 			lsp_zero.default_keymaps({
 				buffer = bufnr,
 				preserve_mappings = false,
+				omit = { "gl", "<F2>", "<F3>", "<F4>" },
 			})
 
 			for _, set in pairs({
