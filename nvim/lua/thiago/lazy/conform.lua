@@ -1,3 +1,13 @@
+local enable_format_on_save = false
+local format_on_save_table = {}
+
+if enable_format_on_save then
+	format_on_save_table = {
+		timeout_ms = 1000,
+		lsp_fallback = true,
+	}
+end
+
 return {
 	"stevearc/conform.nvim",
 	event = { "BufWritePre" },
@@ -11,10 +21,7 @@ return {
 		},
 	},
 	opts = {
-		format_on_save = {
-			timeout_ms = 1000,
-			lsp_fallback = true,
-		},
+		format_on_save = format_on_save_table,
 		formatters_by_ft = {
 			nix = { "nixfmt" },
 			javascript = { "prettierd" },
