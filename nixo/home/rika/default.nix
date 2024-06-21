@@ -24,6 +24,9 @@ in
       github-cli
       git
 
+      # database
+      beekeeper-studio
+
       # I love my keyboard.
       via
       vial
