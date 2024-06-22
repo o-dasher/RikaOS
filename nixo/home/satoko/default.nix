@@ -15,6 +15,7 @@
     # general
     htop
     gdu
+    unzip
     # programming
     cargo # mainly used to start new projects although I mainly use dev shells!
 

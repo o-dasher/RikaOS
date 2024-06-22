@@ -16,12 +16,18 @@
       ccls
       pyright
       ruff-lsp
+      texlab
       nodePackages.intelephense
       nodePackages."@tailwindcss/language-server"
       nodePackages.typescript-language-server
       nodePackages.vscode-langservers-extracted
 
+      # latex
+      texliveFull
+      nodejs
+
       # Some tools
+      tree-sitter # Tree-sitting
       ripgrep # Telescope fzf
       gcc # Installing tree-sitteer grammars
     ];

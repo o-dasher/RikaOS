@@ -61,6 +61,7 @@ return {
 		lspcfg.rust_analyzer.setup({}) -- rust
 		lspcfg.yamlls.setup({}) -- yaml
 		lspcfg.nixd.setup({}) -- nix
+		lspcfg.texlab.setup({}) -- tex
 
 		-- lua
 		lspcfg.lua_ls.setup({
