@@ -31,6 +31,9 @@ in
       via
       vial
 
+      # documents
+      zathura
+
       # fonts
       jetbrains-mono
       # Disk space is not cheap okay?
