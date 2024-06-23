@@ -33,6 +33,7 @@ in
 
       # documents
       zathura
+      foliate
 
       # fonts
       jetbrains-mono
