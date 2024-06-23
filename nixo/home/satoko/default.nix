@@ -22,6 +22,10 @@
     # clipboard
     wl-clipboard
 
+    # gaming
+    lutris
+    gamemode
+
     # gui
     # entertainment
     stremio
