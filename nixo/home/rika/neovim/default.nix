@@ -30,6 +30,11 @@
       tree-sitter # Tree-sitting
       ripgrep # Telescope fzf
       gcc # Installing tree-sitteer grammars
+
+      # global formatters
+      prettierd
+      nixfmt-rfc-style
+      stylua
     ];
   };
 }
