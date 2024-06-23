@@ -8,6 +8,7 @@ local tablength = 4
 vim.opt.tabstop = tablength
 vim.opt.softtabstop = tablength
 vim.opt.shiftwidth = tablength
+vim.opt.expandtab = true
 vim.opt.smartindent = true
 
 -- CURSOR --

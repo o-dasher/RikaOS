@@ -8,7 +8,7 @@ return {
 	},
 	{
 		"windwp/nvim-ts-autotag",
-		event = { "InsertEnter", "CmdlineEnter" },
+		event = "InsertEnter",
 		opts = {},
 	},
 }
