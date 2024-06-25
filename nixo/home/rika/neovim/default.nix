@@ -30,6 +30,7 @@
       tree-sitter # Tree-sitting
       ripgrep # Telescope fzf
       gcc # Installing tree-sitteer grammars
+      luarocks
 
       # global formatters
       prettierd
