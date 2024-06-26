@@ -10,7 +10,7 @@ in
 {
   imports = [
     (builtins.fetchurl {
-      url = "https://raw.githubusercontent.com/Smona/home-manager/nixgl-compat/modules/misc/nixgl.nix";
+      url = "https://raw.githubusercontent.com/nix-community/home-manager/5e59fe27d938a8c2d5e215f64f5d937c2f863fed/modules/misc/nixgl.nix";
       sha256 = "74f9fb98f22581eaca2e3c518a0a3d6198249fb1490ab4a08f33ec47827e85db";
     })
   ];
