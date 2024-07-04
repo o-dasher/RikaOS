@@ -31,6 +31,7 @@ return {
 			lua = { "stylua" },
 			php = { "pint" },
 			markdown = { "prettierd" },
+			json = { "prettierd" },
 		},
 	},
 }
