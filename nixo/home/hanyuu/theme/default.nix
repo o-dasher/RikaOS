@@ -1,6 +1,7 @@
 { ... }:
 {
   stylix = {
+    enable = true;
     autoEnable = false;
     image = ../../../assets/Wallpapers/purplyu.jpg;
 

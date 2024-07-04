@@ -4,13 +4,13 @@
     with pkgs;
     [
       dconf
+      dconf-editor
+      nautilus
       gnome-extension-manager
     ]
     ++ (with gnome; [
-      dconf-editor
       gnome-shell-extensions
       gnome-control-center
-      nautilus
     ]);
 
   programs.gnome-shell = {
