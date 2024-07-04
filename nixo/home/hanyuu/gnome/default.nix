@@ -42,5 +42,13 @@
     "org/gnome/shell/extensions/pop-shell" = {
       tile-enter = [ "<Super>?" ];
     };
+
+    "org/gnome/shell" = {
+      favorite-apps = [
+        "org.gnome.Nautilus.desktop"
+        "org.wezfurlong.wezterm.desktop"
+        "firefox_firefox.desktop"
+      ];
+    };
   };
 }
