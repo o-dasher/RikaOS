@@ -6,7 +6,7 @@
       dconf
       dconf-editor
       nautilus
-      gnome-extension-manager
+      gnome-tweaks
     ]
     ++ (with gnome; [
       gnome-shell-extensions
