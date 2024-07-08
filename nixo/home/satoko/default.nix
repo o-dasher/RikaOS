@@ -17,10 +17,7 @@
     gdu
     unzip
     # programming
-    cargo # mainly used to start new projects although I mainly use dev shells!
-
-    # clipboard
-    wl-clipboard
+    cargo # Used to start new projects although I mainly use dev shells!
 
     # gaming
     lutris

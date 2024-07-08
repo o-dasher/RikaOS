@@ -24,6 +24,7 @@ in
       github-cli
       git
       heroku
+      wl-clipboard # global because I main wayland
 
       # database
       beekeeper-studio
