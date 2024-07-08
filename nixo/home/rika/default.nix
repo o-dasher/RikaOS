@@ -23,6 +23,7 @@ in
       devenv
       github-cli
       git
+      heroku
 
       # database
       beekeeper-studio
