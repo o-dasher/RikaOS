@@ -1,9 +1,8 @@
 { ... }:
 {
   stylix = {
-    enable = true;
     autoEnable = false;
-    image = ../../../assets/Wallpapers/purplyu.jpg;
+    image = ../../../../assets/Wallpapers/purplyu.jpg;
 
     # We opt-in because gtk theming is broken on gnome?
     targets = {
