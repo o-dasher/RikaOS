@@ -72,7 +72,7 @@ in
           compositor = "kwin";
         };
       };
-      sessionPackages = [ pkgs.sway ];
+      sessionPackages = with pkgs; [ sway ];
     };
     udev.packages = with pkgs; [ vial ];
   };
@@ -96,7 +96,6 @@ in
   };
 
   environment = {
-    # This should be kept to a minimal. Don't ask me why, I think it is better this way.
     systemPackages = with pkgs; [
       catppuccin-sddm-corners
       kwin
@@ -108,7 +107,7 @@ in
     light.enable = true;
     fish.enable = true;
     dconf.enable = true;
-	nix-ld.enable = true;
+    nix-ld.enable = true;
     neovim = {
       enable = true;
       defaultEditor = true;
@@ -116,7 +115,7 @@ in
   };
 
   hardware = {
-    opengl.enable = true;
+    graphics.enable = true;
     bluetooth.enable = true;
   };
 

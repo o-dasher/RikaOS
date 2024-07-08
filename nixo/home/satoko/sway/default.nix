@@ -42,7 +42,7 @@ in
               vertical = gap;
             };
           window = {
-            border = 4;
+            border = 2;
             titlebar = false;
           };
           input = {
