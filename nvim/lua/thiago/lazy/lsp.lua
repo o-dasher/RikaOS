@@ -58,7 +58,7 @@ return {
 		lspcfg.cssls.setup({})
 
 		lspcfg.tsserver.setup({}) -- typescript
-		lspcfg.rust_analyzer.setup({}) -- rust
+		-- lspcfg.rust_analyzer.setup({}) -- rust using rustacean
 		lspcfg.yamlls.setup({}) -- yaml
 		lspcfg.nixd.setup({}) -- nix
 		lspcfg.texlab.setup({}) -- tex
