@@ -25,6 +25,7 @@ return {
 			php = { "pint" },
 			markdown = { "prettierd" },
 			json = { "prettierd" },
+			rust = { "rustfmt" },
 		},
 	},
 }
