@@ -14,6 +14,7 @@
       sway.enable = true;
       waybar.enable = true;
       vim.enable = true;
+      gnome.enable = true;
     };
   };
 }
