@@ -1,7 +1,7 @@
 { utils, ... }:
 let
   inherit (utils) css;
-  inherit (css) theme font_definition;
+  inherit (css) font_definition;
 in
 {
   config = {
@@ -31,7 +31,6 @@ in
             
           #text {
           	margin: ${decent_spacing};
-          	color: ${theme.text_color};
           }
 
           #entry:first-child {
