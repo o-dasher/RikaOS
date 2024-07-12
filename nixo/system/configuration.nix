@@ -3,7 +3,7 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 { pkgs, config, ... }:
 let
-  inherit (config.rika) hostName username;
+  inherit (config.rika) hostName username state;
 
   # Some localy stuff
   locale = "en_US.UTF-8";
@@ -152,5 +152,5 @@ in
   # and migrated your data accordingly.
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-  system.stateVersion = cfg.state; # Did you read the comment?
+  system.stateVersion = state; # Did you read the comment?
 }
