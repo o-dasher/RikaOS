@@ -1,7 +1,7 @@
 { utils, ... }:
 let
   inherit (utils) css;
-  inherit (css) alpha_fn theme font_definition;
+  inherit (css) theme font_definition;
 in
 {
   config = {
@@ -21,19 +21,7 @@ in
           }
             
           window {
-          	border: 1 solid ${theme.selected_bg_color};
-          }
-
-          #input {
-          	color: white;
-          }
-
-          #inner-box {
-              background-color: ${alpha_fn theme.selected_bg_color 0.25};
-          }
-
-          #outer-box {
-          	background-color: ${theme.bg_color};
+          	border: 1 solid; 
           }
 
           #inner-box, #outer-box, #input, window {
@@ -46,10 +34,6 @@ in
           	color: ${theme.text_color};
           }
 
-          #entry {
-          	border-radius: 0;
-          }
-
           #entry:first-child {
           	border-top-left-radius: ${radius_definition};
           	border-top-right-radius: ${radius_definition};
@@ -58,14 +42,6 @@ in
           #entry:last-child {
           	border-bottom-left-radius: ${radius_definition};
           	border-bottom-right-radius: ${radius_definition};
-          }
-
-          #entry:selected {
-          	background-color: ${alpha_fn theme.selected_bg_color 0.5};
-          }
-            
-          #text:selected {
-          	text-decoration-color: ${theme.text_color};
           }
         '';
       };
