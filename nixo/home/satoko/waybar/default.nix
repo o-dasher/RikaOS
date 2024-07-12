@@ -126,53 +126,50 @@ in
         in
         ''
           *{
-          ${font_definition}
-          font-size: 12px;
-          min-height: 0;
+              ${font_definition}
+              font-size: 12px;
+              min-height: 0;
           }
 
           window#waybar {
-          background: ${alpha_fn theme.bg_color 0.5};
+              background: ${alpha_fn theme.bg_color 0.5};
           }
 
           .modules-left {
-          border-radius: 0 4 4 0;
-          padding: 4 0 4 4;
+              border-radius: 0 4 4 0;
+              padding: 4 0 4 4;
           }
 
           .modules-center {
-          border-radius: 0 0 4 4;
-          margin-bottom: 4;
+              border-radius: 0 0 4 4;
+              margin-bottom: 4;
           }
 
           .modules-right {
-          border-radius: 4 0 0 4;
+              border-radius: 4 0 0 4;
           }
 
           .modules-left, .modules-right {
-          margin: 4 0 4 0;
+              margin: 4 0 4 0;
           }
 
           .modules-left, .modules-center, .modules-right {
-          border: ${border_definition};
+              border: ${border_definition};
           }
 
           #workspaces button {
-          border-radius: 5%;
-          margin-right: 4;
-          padding: 0;
+              border-radius: 5%;
+              margin-right: 4;
+              padding: 0;
           }
 
           #workspaces button.focused {
-          padding: 0 6;
-          }
-
-          ${right_module_selectors}, #clock {
-          padding: 0 10;
+              padding: 0 6;
           }
 
           ${right_module_selectors} {
-          border-right: ${border_definition};
+              padding: 0 10;
+              border-right: ${border_definition};
           }
         '';
     };
