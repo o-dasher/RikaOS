@@ -113,8 +113,6 @@ in
 
       style =
         let
-          u = "4";
-
           border_definition = "1px solid ${alpha_fn "white" 0.1}";
           right_module_selectors = ''
             #tray,
@@ -138,21 +136,21 @@ in
           }
 
           .modules-left {
-          border-radius: 0 ${u} ${u} 0;
-          padding: ${u} 0 ${u} ${u};
+          border-radius: 0 4 4 0;
+          padding: 4 0 4 4;
           }
 
           .modules-center {
-          border-radius: 0 0 ${u} ${u};
-          margin-bottom: ${u};
+          border-radius: 0 0 4 4;
+          margin-bottom: 4;
           }
 
           .modules-right {
-          border-radius: ${u} 0 0 ${u};
+          border-radius: 4 0 0 4;
           }
 
           .modules-left, .modules-right {
-          margin: ${u} 0 ${u} 0;
+          margin: 4 0 4 0;
           }
 
           .modules-left, .modules-center, .modules-right {
@@ -161,7 +159,7 @@ in
 
           #workspaces button {
           border-radius: 5%;
-          margin-right: ${u};
+          margin-right: 4;
           padding: 0;
           }
 
