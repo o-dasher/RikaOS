@@ -2,11 +2,13 @@
   lib,
   pkgs,
   utils,
+  config,
   ...
 }:
 let
   inherit (utils) css;
-  inherit (css) font_definition alpha_fn theme;
+  inherit (config.lib.stylix.colors) base00;
+  inherit (css) font_definition alpha_fn;
 in
 {
   config = {
@@ -120,14 +122,14 @@ in
           '';
         in
         ''
-          *{
+          * {
               ${font_definition}
               font-size: 12px;
               min-height: 0;
           }
 
           window#waybar {
-              background: ${alpha_fn theme.bg_color 0.5};
+              background: ${alpha_fn "#${base00}" 0.5};
           }
 
           .modules-left {

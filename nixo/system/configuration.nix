@@ -107,10 +107,13 @@ in
     fish.enable = true;
     dconf.enable = true;
     nix-ld.enable = true;
-    sway.enable = true;
     neovim = {
       enable = true;
       defaultEditor = true;
+    };
+    sway = {
+      enable = true;
+      extraPackages = [ ];
     };
   };
 
