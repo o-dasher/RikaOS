@@ -24,7 +24,7 @@ in
         in
         {
           modifier = mod;
-          terminal = lib.getExe pkgs.xdg-terminal-exec;
+          terminal = lib.getExe pkgs.wezterm;
           bars = [
             {
               position = "top";
@@ -80,8 +80,8 @@ in
             # Default sway nix options are sane enough.
             lib.mkOptionDefault (
               {
-                # Opens user prefered terminal based on xdg-terminal.
-                ${combo "Return"} = run (lib.getExe pkgs.xdg-terminal-exec);
+                # Opens terminal
+                ${combo "Return"} = run (lib.getExe pkgs.wezterm);
 
                 # Windows.
                 ${combo "f"} = "fullscreen";

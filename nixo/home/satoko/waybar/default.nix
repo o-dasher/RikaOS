@@ -76,7 +76,7 @@ in
         cpu = {
           format = "  {usage}%";
           tooltip = false;
-          on-click = "${lib.getExe pkgs.xdg-terminal-exec} htop";
+          on-click = "${lib.getExe pkgs.wezterm} htop";
         };
 
         memory = {
