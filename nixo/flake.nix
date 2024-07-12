@@ -29,7 +29,8 @@
       ...
     }@inputs:
     let
-      cfg = import ./config/myconfig.nix;
+      inherit (import ./config/myconfig.nix) username hostName;
+
       define_hm =
         base:
         home-manager.lib.homeManagerConfiguration {
@@ -75,14 +76,14 @@
     in
     {
       # Personal
-      homeConfigurations."${cfg.username}@nixo" = define_hm [ ./home/satoko ];
-      nixosConfigurations.${cfg.hostname} = nixpkgs.lib.nixosSystem {
+      homeConfigurations."${username}@nixo" = define_hm [ ./home/satoko ];
+      nixosConfigurations.${hostName} = nixpkgs.lib.nixosSystem {
         modules = [ ./system/configuration.nix ];
       };
 
       # Research lab
-      homeConfigurations."${cfg.username}@fedora" = define_hm [ ./home/hanyuu ];
-      homeConfigurations."${cfg.username}@gotec-MS-7D18" = define_hm [ ./home/hanyuu ];
-      homeConfigurations."${cfg.username}@gotec" = define_hm [ ./home/hanyuu ];
+      homeConfigurations."${username}@fedora" = define_hm [ ./home/hanyuu ];
+      homeConfigurations."${username}@gotec-MS-7D18" = define_hm [ ./home/hanyuu ];
+      homeConfigurations."${username}@gotec" = define_hm [ ./home/hanyuu ];
     };
 }
