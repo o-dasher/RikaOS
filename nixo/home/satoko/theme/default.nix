@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  stylix.image = ../../../../assets/Wallpapers/rikamoon.jpg;
+  stylix.image = ../../../../assets/Wallpapers/flan.jpg;
   gtk = {
     enable = true;
     iconTheme = {
