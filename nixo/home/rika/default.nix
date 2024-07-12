@@ -13,6 +13,19 @@ in
   # Even though open source is cool and all I still use some not libre software.
   nixpkgs.config.allowUnfree = true;
 
+  xdg.portal = with pkgs; {
+    enable = true;
+    xdgOpenUsePortal = true;
+    configPackages = [
+      xdg-desktop-portal-gtk
+      xdg-desktop-portal-wlr
+    ];
+    extraPortals = [
+      xdg-desktop-portal-gtk
+      xdg-desktop-portal-wlr
+    ];
+  };
+
   home = {
     username = cfg.username;
     homeDirectory = "/home/${cfg.username}";
