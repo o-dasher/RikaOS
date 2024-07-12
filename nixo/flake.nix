@@ -52,7 +52,7 @@
     in
     {
       # Personal
-      homeConfigurations."${username}@nixo" = define_hm [ ./home/satoko ];
+      homeConfigurations."${username}@${hostName}" = define_hm [ ./home/satoko ];
       nixosConfigurations.${hostName} = nixpkgs.lib.nixosSystem {
         modules = [ ./system/configuration.nix ];
       };
