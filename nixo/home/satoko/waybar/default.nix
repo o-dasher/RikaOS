@@ -44,11 +44,6 @@ in
           format = "{:%H:%M | %a %b %d}";
         };
 
-        "custom/notifications" = {
-          format = "|  ";
-          on-click = "swaync-client -t -sw";
-        };
-
         # Right
         battery = {
           states = {

@@ -3,7 +3,7 @@
   imports = [
     ../rika
     ./sway
-    ./swaync
+    ./mako
     ./waybar
     ./wofi
     ./spotify

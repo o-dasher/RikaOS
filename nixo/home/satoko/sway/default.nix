@@ -102,14 +102,6 @@ in
                 } = lib.getExe pkgs.swaynotificationcenter;
               }
               // prefixset "output" { "${combo "m"}" = "\"eDP-1\" toggle"; }
-              // prefixset (run "swaync-client") {
-                ${
-                  combo [
-                    key.shift
-                    "n"
-                  ]
-                } = "-t -sw";
-              }
               // prefixset (run "swaymsg") {
                 ${
                   combo [
