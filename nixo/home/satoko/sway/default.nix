@@ -17,6 +17,9 @@ in
       extraConfig = ''
         shadows enable
         layer_effects 'waybar' 'blur enable'
+        output HDMI-A-1 {
+            mode 1920x1080@239.760Hz
+        }
       '';
       config =
         let
@@ -53,17 +56,6 @@ in
               xkb_model = "abnt2";
             };
           };
-          workspaceOutputAssign =
-            [
-              {
-                output = "eDP-1";
-                workspace = "10";
-              }
-            ]
-            ++ builtins.map (i: {
-              output = "HDMI-A-1";
-              workspace = toString i;
-            }) (builtins.genList (x: x + 1) 9);
           keybindings =
             let
               key = {
@@ -101,7 +93,6 @@ in
                   ]
                 } = lib.getExe pkgs.swaynotificationcenter;
               }
-              // prefixset "output" { "${combo "m"}" = "\"eDP-1\" toggle"; }
               // prefixset (run "swaymsg") {
                 ${
                   combo [
