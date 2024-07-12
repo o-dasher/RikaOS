@@ -24,20 +24,9 @@ in
         {
           # git
           lg = lib.getExe pkgs.lazygit;
-          # dev
-          sail = "bash vendor/bin/sail";
         }
-        // aliase pkgs.home-manager { hm = "switch --flake ~/.config/nixo"; }
-        // aliase pkgs.tmux {
-          tls = "ls";
-          tks = "kill-session";
-        }
-        // aliase pkgs.git {
-          ga = "add";
-          gr = "restore";
-          gb = "branch";
-          gs = "status";
-        };
+        // aliase pkgs.bash { sail = "vendor/bin/sail"; }
+        // aliase pkgs.home-manager { hm = "switch --flake ~/.config/nixo"; };
 
       interactiveShellInit = ''
         function fish_greeting
