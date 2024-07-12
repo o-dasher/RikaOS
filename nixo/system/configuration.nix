@@ -72,7 +72,6 @@ in
           compositor = "kwin";
         };
       };
-      sessionPackages = with pkgs; [ sway ];
     };
     udev.packages = with pkgs; [ vial ];
   };
@@ -99,7 +98,6 @@ in
     systemPackages = with pkgs; [
       catppuccin-sddm-corners
       kwin
-      sway
     ];
   };
 
@@ -108,6 +106,7 @@ in
     fish.enable = true;
     dconf.enable = true;
     nix-ld.enable = true;
+    sway.enable = true;
     neovim = {
       enable = true;
       defaultEditor = true;
