@@ -8,7 +8,7 @@ in
       description = "The username of the main user of this machine.";
       type = types.str;
     };
-    hostname = mkOption {
+    hostName = mkOption {
       description = "The name of the host of this machine.";
       type = types.str;
     };

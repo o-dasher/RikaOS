@@ -3,14 +3,14 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 { pkgs, config, ... }:
 let
+  inherit (config.rika) hostName username;
+
   # Some localy stuff
   locale = "en_US.UTF-8";
   timezone = "Brazil/East";
 
   # Keymapping
   keymap = "br-abnt2";
-
-  cfg = config.rika;
 in
 {
   imports = [
@@ -39,7 +39,7 @@ in
   security.polkit.enable = true;
 
   networking = {
-    hostName = cfg.hostname;
+    inherit hostName;
     networkmanager.enable = true;
   };
 
@@ -73,6 +73,7 @@ in
         };
       };
     };
+
     udev.packages = with pkgs; [ vial ];
   };
 
@@ -85,7 +86,7 @@ in
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.${cfg.username} = {
+  users.users.${username} = {
     isNormalUser = true;
     shell = pkgs.fish;
     extraGroups = [
@@ -126,7 +127,7 @@ in
       ];
       trusted-users = [
         "root"
-        cfg.username
+        username
       ];
     };
     optimise.automatic = true;
