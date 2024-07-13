@@ -1,5 +1,6 @@
 { pkgs, ... }:
 {
+  home.packages = with pkgs; [ omnisharp-roslyn ];
   programs.neovim = {
     enable = true;
     viAlias = true;

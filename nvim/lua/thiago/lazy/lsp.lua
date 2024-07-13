@@ -63,6 +63,43 @@ return {
 		lspcfg.nixd.setup({}) -- nix
 		lspcfg.texlab.setup({}) -- tex
 
+		-- dotnet
+		lspcfg.omnisharp.setup({
+			cmd = {
+				vim.fn.expand("~") .. "/.nix-profile/bin/OmniSharp",
+				"--languageserver",
+				"--hostPID",
+				tostring(vim.fn.getpid()),
+			},
+
+			settings = {
+				FormattingOptions = {
+					-- Enables support for reading code style, naming convention and analyzer
+					-- settings from .editorconfig.
+					EnableEditorConfigSupport = true,
+					-- Specifies whether 'using' directives should be grouped and sorted during
+					-- document formatting.
+					OrganizeImports = nil,
+				},
+				RoslynExtensionsOptions = {
+					-- Enables support for roslyn analyzers, code fixes and rulesets.
+					EnableAnalyzersSupport = true,
+					-- Enables support for showing unimported types and unimported extension
+					-- methods in completion lists. When committed, the appropriate using
+					-- directive will be added at the top of the current file. This option can
+					-- have a negative impact on initial completion responsiveness,
+					-- particularly for the first few completion sessions after opening a
+					-- solution.
+					EnableImportCompletion = true,
+				},
+				Sdk = {
+					-- Specifies whether to include preview versions of the .NET SDK when
+					-- determining which version to use for project loading.
+					IncludePrereleases = true,
+				},
+			},
+		})
+
 		-- lua
 		lspcfg.lua_ls.setup({
 			settings = {
