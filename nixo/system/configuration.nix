@@ -19,6 +19,8 @@ in
     ./hardware-configuration.nix
   ];
 
+  nixpkgs.config.allowUnfree = true;
+
   # Audio setup
   security.rtkit.enable = true;
   services.pipewire = {
@@ -102,6 +104,7 @@ in
   };
 
   programs = {
+    steam.enable = true;
     light.enable = true;
     fish.enable = true;
     dconf.enable = true;
