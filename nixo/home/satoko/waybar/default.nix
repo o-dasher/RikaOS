@@ -14,99 +14,109 @@ in
   config = {
     programs.waybar = {
       enable = true;
-      settings.main = {
-        layer = "top";
-        position = "top";
-        height = 35;
-        margin-bottom = 0;
-        margin-top = 0;
-
-        modules-left = [ "sway/workspaces" ];
-        modules-center = [
-          "clock"
-          "custom/notifications"
-        ];
-        modules-right = [
-          "cpu"
-          "memory"
-          "tray"
-          "pulseaudio"
-          "battery"
-        ];
-
-        # Left
-        "sway/workspaces" = {
-          all-outputs = true;
-          sort-by-name = true;
-          on-click = "activate";
-        };
-
-        # Center
-        clock = {
-          format = "{:%H:%M | %a %b %d}";
-        };
-
-        # Right
-        battery = {
-          states = {
-            warning = 20;
-            critical = 15;
+      settings.main =
+        let
+          define_temperature_sensor = name: i: j: {
+            hwmon-path = "/sys/class/hwmon/hwmon${toString i}/temp${toString j}_input";
+            critical-threshold = "80";
+            format-critical = "  ${name} {temperatureC}°C";
+            format = "${name} {temperatureC}°C";
           };
-          format = "{icon}  {capacity}%";
-          format-charging = "  {capacity}%";
-          format-plugged = "  {capacity}%";
-          format-alt = "{icon}  {time}";
-          format-icons = [
-            " "
-            " "
-            " "
-            ""
-            ""
+        in
+        {
+          layer = "top";
+          position = "top";
+          margin-bottom = 0;
+          margin-top = 0;
+
+          modules-left = [ "sway/workspaces" ];
+          modules-center = [ "clock" ];
+          modules-right = [
+            "temperature#cpu"
+            "temperature#gpu"
+            "cpu"
+            "memory"
+            "tray"
+            "pulseaudio"
+            "battery"
           ];
-        };
 
-        tray = {
-          icon-size = 16;
-          spacing = 6;
-        };
+          "temperature#cpu" = define_temperature_sensor "CPU" 0 3;
+          "temperature#gpu" = define_temperature_sensor "GPU" 1 1;
 
-        cpu = {
-          format = "  {usage}%";
-          tooltip = false;
-          on-click = "${lib.getExe pkgs.wezterm} htop";
-        };
+          # Left
+          "sway/workspaces" = {
+            all-outputs = true;
+            sort-by-name = true;
+            on-click = "activate";
+          };
 
-        memory = {
-          interval = 30;
-          format = " {used:0.2f}GB";
-          max-length = 10;
-          tooltip = false;
-          warning = 90;
-          critical = 95;
-        };
+          # Center
+          clock = {
+            format = "{:%H:%M | %a %b %d}";
+          };
 
-        pulseaudio = {
-          on-click = "pavucontrol";
-          format = "{icon}  {volume}% {format_source}";
-          format-bluetooth = "{icon} {volume}% {format_source}";
-          format-bluetooth-muted = " {format_source}";
-          format-muted = "  {format_source}";
-          format-source = " {volume}%";
-          format-source-muted = "";
-          format-icons = {
-            headphone = "";
-            hands-free = "";
-            headset = "🎧";
-            phone = "";
-            portable = "";
-            default = [
-              ""
-              ""
-              ""
+          # Right
+          battery = {
+            states = {
+              warning = 20;
+              critical = 15;
+            };
+            format = "{icon}  {capacity}%";
+            format-charging = "  {capacity}%";
+            format-plugged = "  {capacity}%";
+            format-alt = "{icon}  {time}";
+            format-icons = [
+              " "
+              " "
+              " "
+              ""
+              ""
             ];
           };
+
+          tray = {
+            icon-size = 16;
+            spacing = 6;
+          };
+
+          cpu = {
+            format = "  {usage}%";
+            tooltip = false;
+            on-click = "${lib.getExe pkgs.wezterm} htop";
+          };
+
+          memory = {
+            interval = 30;
+            format = " {used:0.2f}GB";
+            max-length = 10;
+            tooltip = false;
+            warning = 90;
+            critical = 95;
+          };
+
+          pulseaudio = {
+            on-click = "pavucontrol";
+            format = "{icon}  {volume}% {format_source}";
+            format-bluetooth = "{icon} {volume}% {format_source}";
+            format-bluetooth-muted = " {format_source}";
+            format-muted = "  {format_source}";
+            format-source = " {volume}%";
+            format-source-muted = "";
+            format-icons = {
+              headphone = "";
+              hands-free = "";
+              headset = "🎧";
+              phone = "";
+              portable = "";
+              default = [
+                ""
+                ""
+                ""
+              ];
+            };
+          };
         };
-      };
 
       style =
         let
@@ -133,21 +143,21 @@ in
           }
 
           .modules-left {
-              border-radius: 0 4 4 0;
-              padding: 4 0 4 4;
+              border-radius: 0 4px 4px 0;
+              padding: 4px 0 4px 4px;
           }
 
           .modules-center {
-              border-radius: 0 0 4 4;
-              margin-bottom: 4;
+              border-radius: 0 0 4px 4px;
+              margin-bottom: 4px;
           }
 
           .modules-right {
-              border-radius: 4 0 0 4;
+              border-radius: 4px 0 0 4px;
           }
 
           .modules-left, .modules-right {
-              margin: 4 0 4 0;
+              margin: 4px 0 4px 0;
           }
 
           .modules-left, .modules-center, .modules-right {
@@ -156,16 +166,16 @@ in
 
           #workspaces button {
               border-radius: 5%;
-              margin-right: 4;
+              margin-right: 4px;
               padding: 0;
           }
 
           #workspaces button.focused {
-              padding: 0 6;
+              padding: 0 6px;
           }
 
           ${right_module_selectors} {
-              padding: 0 10;
+              padding: 0 10px;
               border-right: ${border_definition};
           }
         '';
