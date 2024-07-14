@@ -67,19 +67,20 @@ in
               step = toString 5;
               combo = s: "${mod}+${if builtins.typeOf s == "string" then s else builtins.concatStringsSep "+" s}";
 
-              run = s: "exec ${s}";
+              exec = s: "exec ${s}";
+              execset = prefix: set: prefixset (exec prefix) set;
             in
             # Default sway nix options are sane enough.
             lib.mkOptionDefault (
               {
                 # Opens terminal
-                ${combo "Return"} = run (lib.getExe pkgs.wezterm);
+                ${combo "Return"} = exec (lib.getExe pkgs.wezterm);
 
                 # Windows.
                 ${combo "f"} = "fullscreen";
                 ${combo "c"} = "kill";
               }
-              // prefixset (p: run "pkill ${p} && ${p}") {
+              // prefixset (p: exec "pkill ${p} && ${p}") {
                 ${
                   combo [
                     key.shift
@@ -93,7 +94,7 @@ in
                   ]
                 } = lib.getExe pkgs.swaynotificationcenter;
               }
-              // prefixset (run "swaymsg") {
+              // execset "swaymsg" {
                 ${
                   combo [
                     key.shift
@@ -101,10 +102,10 @@ in
                   ]
                 } = "reload";
               }
-              // prefixset (run (lib.getExe pkgs.wofi)) {
+              // execset (lib.getExe pkgs.wofi) {
                 ${combo "d"} = "--show drun -I -m -i --style $HOME/.config/wofi/style.css";
               }
-              // prefixset (run "${lib.getExe pkgs.grimblast} --notify copy") {
+              // execset "${lib.getExe pkgs.grimblast} --notify copy" {
                 ${combo key.myprint} = "screen";
                 ${
                   combo [
@@ -120,17 +121,17 @@ in
                 } = "active";
               }
               # Media keys
-              // prefixset (run "${lib.getExe pkgs.brightnessctl} set") {
+              // execset "${lib.getExe pkgs.brightnessctl} set" {
                 XF86MonBrightnessUp = "${step}%+";
                 XF86MonBrightnessDown = "${step}%-";
               }
-              // prefixset (run (lib.getExe pkgs.playerctl)) {
+              // execset (lib.getExe pkgs.playerctl) {
                 XF86AudioPlay = "play-pause";
                 XF86AudioPrev = "previous";
                 XF86AudioNext = "next";
                 XF86AudioStop = "stop";
               }
-              // prefixset (run (lib.getExe pkgs.pamixer)) {
+              // execset (lib.getExe pkgs.pamixer) {
                 XF86AudioMicMute = "--default-source --toggle-mute";
                 XF86AudioRaiseVolume = "--increase ${step}";
                 XF86AudioLowerVolume = "--decrease ${step}";
