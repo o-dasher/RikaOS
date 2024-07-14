@@ -90,7 +90,7 @@ return {
 					-- have a negative impact on initial completion responsiveness,
 					-- particularly for the first few completion sessions after opening a
 					-- solution.
-					EnableImportCompletion = true,
+					EnableImportCompletion = false, -- when I get an ssd I may change.
 				},
 				Sdk = {
 					-- Specifies whether to include preview versions of the .NET SDK when

@@ -1,5 +1,7 @@
 { pkgs, ... }:
 {
+  # Will likely remove, it is so utter slow, and does not have proper resharper
+  # support, maybe I need to test this again once I have an ssd.
   home.packages = with pkgs; [ omnisharp-roslyn ];
   programs.neovim = {
     enable = true;
