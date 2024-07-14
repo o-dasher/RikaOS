@@ -63,7 +63,10 @@ in
     # Enable gnome keyring to store password and stuff?
     gnome.gnome-keyring.enable = true;
 
+    # Bluetooth
     blueman.enable = true;
+
+    # Display manager
     displayManager = {
       sddm = {
         enable = true;
@@ -73,8 +76,13 @@ in
           compositor = "kwin";
         };
       };
+
     };
 
+    # Rgb controller
+    hardware.openrgb.enable = true;
+
+    # Keyboard
     udev.packages = with pkgs; [ vial ];
   };
 
