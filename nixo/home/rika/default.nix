@@ -16,14 +16,8 @@ in
   xdg.portal = with pkgs; {
     enable = true;
     xdgOpenUsePortal = true;
-    configPackages = [
-      xdg-desktop-portal-gtk
-      xdg-desktop-portal-wlr
-    ];
-    extraPortals = [
-      xdg-desktop-portal-gtk
-      xdg-desktop-portal-wlr
-    ];
+    config.common.default = "*";
+    extraPortals = [ xdg-desktop-portal-gtk ];
   };
 
   home = {

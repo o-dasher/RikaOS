@@ -18,6 +18,8 @@
     extensions = [ { package = pkgs.gnomeExtensions.pop-shell; } ];
   };
 
+  xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal-gnome ];
+
   dconf.settings = {
     "org/gnome/desktop/wm/keybindings" = {
       close = [ "<Super>c" ];
