@@ -18,8 +18,10 @@
     htop
     gdu
     unzip
+
     # programming
     cargo # Used to start new projects although I mainly use dev shells!
+    jetbrains.rider
 
     # gaming
     lutris
