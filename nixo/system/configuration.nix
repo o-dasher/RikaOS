@@ -63,6 +63,10 @@ in
     # Enable gnome keyring to store password and stuff?
     gnome.gnome-keyring.enable = true;
 
+    # Thunar
+    gvfs.enable = true; # Mount, trash, and other functionalities
+    tumbler.enable = true; # Thumbnail support for images
+
     # Bluetooth
     blueman.enable = true;
 
@@ -76,7 +80,6 @@ in
           compositor = "kwin";
         };
       };
-
     };
 
     # Rgb controller
@@ -117,6 +120,10 @@ in
     fish.enable = true;
     dconf.enable = true;
     nix-ld.enable = true;
+    thunar = {
+      enable = true;
+      plugins = with pkgs.xfce; [ thunar-volman ];
+    };
     neovim = {
       enable = true;
       defaultEditor = true;

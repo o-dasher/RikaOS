@@ -43,7 +43,6 @@
     armcord
     # files 
     yazi
-    xfce.thunar
 
     # gaming
     osu-lazer-bin
