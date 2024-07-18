@@ -121,15 +121,6 @@ in
       style =
         let
           border_definition = "1px solid ${alpha_fn "white" 0.1}";
-          right_module_selectors = ''
-            #tray,
-            #cpu, 
-            #temperature, 
-            #memory,
-            #backlight, 
-            #pulseaudio, 
-            #battery
-          '';
         in
         ''
           * {
@@ -174,7 +165,13 @@ in
               padding: 0 6px;
           }
 
-          ${right_module_selectors} {
+          #tray,
+          #cpu, 
+          #temperature, 
+          #memory,
+          #backlight, 
+          #pulseaudio, 
+          #battery {
               padding: 0 10px;
               border-right: ${border_definition};
           }
