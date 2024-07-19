@@ -23,10 +23,6 @@
     cargo # Used to start new projects although I mainly use dev shells!
     jetbrains.rider
 
-    # gaming
-    lutris
-    gamemode
-
     # gui
     # entertainment
     stremio
@@ -43,9 +39,6 @@
     armcord
     # files 
     yazi
-
-    # gaming
-    osu-lazer-bin
   ];
 
   programs = {

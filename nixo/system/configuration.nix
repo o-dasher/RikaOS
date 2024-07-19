@@ -115,7 +115,6 @@ in
   };
 
   programs = {
-    steam.enable = true;
     light.enable = true;
     fish.enable = true;
     dconf.enable = true;
