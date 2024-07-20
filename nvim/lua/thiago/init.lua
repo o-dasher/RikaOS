@@ -1,4 +1,3 @@
-require("thiago.remap")
 require("thiago.set")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
