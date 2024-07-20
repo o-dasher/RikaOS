@@ -3,12 +3,12 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
+    flake-compat.url = "github:edolstra/flake-compat";
+    flake-utils.url = "github:numtide/flake-utils";
     nixGL = {
       url = "github:nix-community/nixGL";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    flake-compat = {
-      url = "github:edolstra/flake-compat";
+      inputs.flake-utils.follows = "flake-utils";
     };
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -25,6 +25,12 @@
       inputs.flake-compat.follows = "flake-compat";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.1";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-compat.follows = "flake-compat";
+      inputs.flake-utils.follows = "flake-utils";
+    };
   };
 
   outputs =
@@ -32,6 +38,7 @@
       nixpkgs,
       home-manager,
       stylix,
+      lanzaboote,
       ...
     }@inputs:
     let
@@ -54,7 +61,10 @@
       # Personal
       homeConfigurations."${username}@${hostName}" = define_hm [ ./home/satoko ];
       nixosConfigurations.${hostName} = nixpkgs.lib.nixosSystem {
-        modules = [ ./system/configuration.nix ];
+        modules = [
+          lanzaboote.nixosModules.lanzaboote
+          ./system/configuration.nix
+        ];
       };
 
       # Research lab
