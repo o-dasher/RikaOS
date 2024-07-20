@@ -162,6 +162,10 @@ in
         username
       ];
     };
+    gc = {
+      automatic = true;
+      options = "-d";
+    };
     optimise.automatic = true;
   };
 
