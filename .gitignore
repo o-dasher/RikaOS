@@ -11,5 +11,4 @@
 !/nixo
 !/assets
 !/nix
-!devenv.*
-
+!/ideavim

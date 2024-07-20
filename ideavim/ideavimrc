@@ -1,0 +1,49 @@
+" Searching
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+
+" Lines
+set linebreak
+
+" Relative lines
+set relativenumber
+set number
+
+" Tabs
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+
+" Leader
+let mapleader = " "
+
+" Copy to clipboard
+vnoremap  <leader>y  "+y
+nnoremap  <leader>Y  "+yg_
+nnoremap  <leader>y  "+y
+
+" Paste from clipboard
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+vnoremap <leader>p "+p
+vnoremap <leader>P "+P
+
+"" -- Suggested options --
+" Show a few lines of context around the cursor. Note that this makes the
+" text scroll if you mouse-click near the start or end of the window.
+set scrolloff=4
+
+" comment a line, similar to tpope/vim-commentary
+nmap gcc <Action>(CommentByLineComment)
+vmap gcc <Action>(CommentByLineComment)
+
+map gd   <Action>(GotoDeclaration)
+
+map <Leader>pf <Action>(FindInPath)
+map <leader>ps <Action>(SearchEverywhere)
+
+map <Leader>rn <Action>(RenameElement)
+
