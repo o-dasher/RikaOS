@@ -1,4 +1,4 @@
-vim.api.nvim_command("source " .. '~/.config/nvim/lua/thiago/set.vim')
+vim.api.nvim_command("source " .. "~/.config/nvim/lua/thiago/set.vim")
 
 -- CHARS --
 vim.opt.showbreak = "↪ "
