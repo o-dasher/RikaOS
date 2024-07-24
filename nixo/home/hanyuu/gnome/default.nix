@@ -15,7 +15,10 @@
 
   programs.gnome-shell = {
     enable = true;
-    extensions = [ { package = pkgs.gnomeExtensions.pop-shell; } ];
+    extensions = [
+      { package = pkgs.gnomeExtensions.pop-shell; }
+      { package = pkgs.gnomeExtensions.hide-top-bar; }
+    ];
   };
 
   xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal-gnome ];
