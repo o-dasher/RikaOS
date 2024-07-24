@@ -23,6 +23,7 @@
   dconf.settings = {
     "org/gnome/desktop/wm/keybindings" = {
       close = [ "<Super>c" ];
+      toggle-fullscreen = [ "<Super>f" ];
       move-to-workspace-1 = [ "<Shift><Super>1" ];
       move-to-workspace-2 = [ "<Shift><Super>2" ];
       move-to-workspace-3 = [ "<Shift><Super>3" ];
@@ -43,13 +44,13 @@
 
     "org/gnome/shell/extensions/pop-shell" = {
       tile-enter = [ "<Super>?" ];
+      toggle-stacking-global = [ "<Super>w" ];
     };
 
     "org/gnome/shell" = {
       favorite-apps = [
         "org.gnome.Nautilus.desktop"
         "org.wezfurlong.wezterm.desktop"
-        "firefox_firefox.desktop"
       ];
     };
   };
