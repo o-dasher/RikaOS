@@ -7,6 +7,7 @@
       dconf-editor
       nautilus
       gnome-tweaks
+      gnome-extension-manager
     ]
     ++ (with gnome; [
       gnome-shell-extensions
@@ -17,7 +18,7 @@
     enable = true;
     extensions = [
       { package = pkgs.gnomeExtensions.pop-shell; }
-      { package = pkgs.gnomeExtensions.hide-top-bar; }
+      { package = pkgs.gnomeExtensions.unite; }
     ];
   };
 
