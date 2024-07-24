@@ -19,7 +19,11 @@ require("lazy").setup({
 	spec = "thiago.lazy",
 })
 
-local alphahls = { "Normal", "NormalFloat" }
-for _, hi in pairs(alphahls) do
-	vim.api.nvim_set_hl(0, hi, { bg = "none" })
+if vim.g.neovide then
+	vim.g.neovide_transparency = 0.9
+else
+	local alphahls = { "Normal", "NormalFloat" }
+	for _, hi in pairs(alphahls) do
+		vim.api.nvim_set_hl(0, hi, { bg = "none" })
+	end
 end

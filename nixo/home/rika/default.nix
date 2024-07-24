@@ -33,6 +33,9 @@ in
       heroku
       wl-clipboard # global because I main wayland
 
+      # editor
+      neovide
+
       # database
       beekeeper-studio
 
