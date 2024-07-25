@@ -9,6 +9,14 @@ in
     settings = {
       exec-once = lib.getExe pkgs.waybar;
       monitor = [ "HDMI-A-1,1920x1080@239.76,0x0,1" ];
+      general =
+        let
+          gap = 5;
+        in
+        {
+          gaps_out = gap;
+          gaps_in = gap;
+        };
       input = {
         kb_layout = "br";
         kb_variant = "abnt2";
@@ -30,6 +38,8 @@ in
           "${mod}, L, movefocus, r"
           "${mod}, K, movefocus, u"
           "${mod}, J, movefocus, d"
+          "${mod}, H, changegroupactive, b"
+          "${mod}, L, changegroupactive, f"
 
           "${mod}, D, exec, pkill ${getExe pkgs.wofi} || ${getExe pkgs.wofi} --show drun -I -m -i --style $HOME/.config/wofi/style.css"
 
