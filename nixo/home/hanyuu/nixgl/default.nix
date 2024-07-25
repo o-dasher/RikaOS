@@ -19,5 +19,5 @@ in
   nixGL.prefix = "${nixGLIntel}/bin/nixGLIntel";
   home.packages = [ nixGLIntel ];
 
-  programs.kitty.package = (config.lib.nixGL.wrap pkgs.kitty);
+  programs.alacritty.package = (config.lib.nixGL.wrap pkgs.alacritty);
 }
