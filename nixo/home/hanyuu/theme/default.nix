@@ -10,7 +10,7 @@
       firefox.enable = true;
       fish.enable = true;
       lazygit.enable = true;
-      kitty.enable = true;
+      alacritty.enable = true;
       sway.enable = true;
       waybar.enable = true;
       vim.enable = true;

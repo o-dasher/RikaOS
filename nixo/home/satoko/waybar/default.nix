@@ -41,7 +41,7 @@ in
             "battery"
           ];
 
-          "temperature#cpu" = define_temperature_sensor "CPU" 0 3;
+          "temperature#cpu" = define_temperature_sensor "CPU" 1 1;
           "temperature#gpu" = define_temperature_sensor "GPU" 1 1;
 
           # Left
@@ -86,7 +86,7 @@ in
           cpu = {
             format = "  {usage}%";
             tooltip = false;
-            on-click = "${lib.getExe pkgs.kitty} htop";
+            on-click = "${lib.getExe pkgs.alacritty} htop";
           };
 
           memory = {
