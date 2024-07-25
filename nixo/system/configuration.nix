@@ -132,6 +132,7 @@ in
     fish.enable = true;
     dconf.enable = true;
     nix-ld.enable = true;
+    hyprland.enable = true;
     thunar = {
       enable = true;
       plugins = with pkgs.xfce; [ thunar-volman ];
@@ -139,10 +140,6 @@ in
     neovim = {
       enable = true;
       defaultEditor = true;
-    };
-    sway = {
-      enable = true;
-      extraPackages = [ ];
     };
   };
 

@@ -2,7 +2,7 @@
 {
   imports = [
     ../rika
-    ./sway
+    ./hyprland
     ./mako
     ./waybar
     ./wofi
