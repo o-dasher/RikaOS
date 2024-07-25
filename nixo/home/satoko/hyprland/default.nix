@@ -8,6 +8,7 @@ in
     xwayland.enable = true;
     settings = {
       exec-once = lib.getExe pkgs.waybar;
+      monitor = [ "HDMI-A-1,1920x1080@239.76,0x0,1" ];
       input = {
         kb_layout = "br";
         kb_variant = "abnt2";
@@ -21,6 +22,8 @@ in
 
           "${mod}, F, fullscreen"
           "${mod}, C, killactive"
+
+          "${mod}, S, togglegroup"
           "${mod}, F, togglefloating"
 
           "${mod}, H, movefocus, l"
