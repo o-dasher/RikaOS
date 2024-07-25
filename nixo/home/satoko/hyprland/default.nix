@@ -38,8 +38,11 @@ in
           "${mod}, L, movefocus, r"
           "${mod}, K, movefocus, u"
           "${mod}, J, movefocus, d"
+
           "${mod}, H, changegroupactive, b"
           "${mod}, L, changegroupactive, f"
+          "${mod} SHIFT, H, movegroupwindow, b"
+          "${mod} SHIFT, L, movegroupwindow, f"
 
           "${mod}, D, exec, pkill ${getExe pkgs.wofi} || ${getExe pkgs.wofi} --show drun -I -m -i --style $HOME/.config/wofi/style.css"
 
