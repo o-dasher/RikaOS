@@ -19,5 +19,5 @@ in
   nixGL.prefix = "${nixGLIntel}/bin/nixGLIntel";
   home.packages = [ nixGLIntel ];
 
-  programs.wezterm.package = (config.lib.nixGL.wrap pkgs.wezterm);
+  programs.kitty.package = (config.lib.nixGL.wrap pkgs.kitty);
 }
