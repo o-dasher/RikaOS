@@ -49,6 +49,9 @@ in
             all-outputs = true;
             sort-by-name = true;
             on-click = "activate";
+            persistent-workspaces = {
+              "*" = 6;
+            };
           };
 
           # Center
