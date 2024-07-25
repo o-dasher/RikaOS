@@ -15,10 +15,9 @@ in
       bind =
         let
           mod = "SUPER";
-          eachworkspace = fn: builtins.map (i: fn (toString i)) (builtins.genList (x: x + 1) 10);
         in
         [
-          "${mod}, RETURN, exec, ${lib.getExe pkgs.wezterm}"
+          "${mod}, RETURN, exec, ${getExe pkgs.kitty}"
 
           "${mod}, F, fullscreen"
           "${mod}, C, killactive"
@@ -29,7 +28,7 @@ in
           "${mod}, K, movefocus, u"
           "${mod}, J, movefocus, d"
 
-          "${mod}, D, exec, pkill ${getExe pkgs.wofi} || ${getExe pkgs.wofi} --show durn -I -m -i --style $HOME/.config/wofi/style.css"
+          "${mod}, D, exec, pkill ${getExe pkgs.wofi} || ${getExe pkgs.wofi} --show drun -I -m -i --style $HOME/.config/wofi/style.css"
 
           "${mod}, P, exec, ${getExe pkgs.grimblast} --notify copy screen"
           "${mod} SHIFT, P, exec, ${getExe pkgs.grimblast} --notify copy area"
@@ -40,8 +39,19 @@ in
           ", XF86AudioNext, exec, ${getExe pkgs.playerctl} next"
           ", XF86AudioStop, exec, ${getExe pkgs.playerctl} stop"
         ]
-        ++ eachworkspace (i: "${mod}, ${i}, workspace, ${i}")
-        ++ eachworkspace (i: "${mod} SHIFT, ${i}, movetoworkspace, ${i}")
+        ++ (builtins.concatLists (
+          builtins.genList (
+            x:
+            let
+              workspace = x + 1;
+              key = builtins.toString (workspace - ((workspace / 10) * 10));
+            in
+            [
+              "${mod}, ${key}, workspace, ${toString workspace}"
+              "${mod} SHIFT, ${key}, movetoworkspace, ${toString workspace}"
+            ]
+          ) 10
+        ))
         ++ (
           let
             audioStep = toString 5;

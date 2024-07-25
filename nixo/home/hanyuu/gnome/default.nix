@@ -42,7 +42,7 @@
 
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
       binding = "<Super>Return";
-      command = lib.getExe pkgs.wezterm;
+      command = lib.getExe pkgs.kitty;
       name = "Terminal";
     };
 
@@ -52,10 +52,7 @@
     };
 
     "org/gnome/shell" = {
-      favorite-apps = [
-        "org.gnome.Nautilus.desktop"
-        "org.wezfurlong.wezterm.desktop"
-      ];
+      favorite-apps = [ "org.gnome.Nautilus.desktop" ];
     };
   };
 }

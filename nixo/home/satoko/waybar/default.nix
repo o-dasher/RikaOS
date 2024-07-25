@@ -29,7 +29,7 @@ in
           margin-bottom = 0;
           margin-top = 0;
 
-          modules-left = [ "sway/workspaces" ];
+          modules-left = [ "hyprland/workspaces" ];
           modules-center = [ "clock" ];
           modules-right = [
             "temperature#cpu"
@@ -45,7 +45,7 @@ in
           "temperature#gpu" = define_temperature_sensor "GPU" 1 1;
 
           # Left
-          "sway/workspaces" = {
+          "hyprland/workspaces" = {
             all-outputs = true;
             sort-by-name = true;
             on-click = "activate";
@@ -83,7 +83,7 @@ in
           cpu = {
             format = "  {usage}%";
             tooltip = false;
-            on-click = "${lib.getExe pkgs.wezterm} htop";
+            on-click = "${lib.getExe pkgs.kitty} htop";
           };
 
           memory = {
