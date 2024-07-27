@@ -9,8 +9,8 @@ nmap gcc <Action>(CommentByLineComment)
 vmap gcc <Action>(CommentByLineComment)
 
 
-map <Leader>pf <Action>(FindInPath)
-map <leader>ps <Action>(SearchEverywhere)
+map <Leader>ps <Action>(FindInPath)
+map <leader>pf <Action>(SearchEverywhere)
 
 map <Leader>rn  <Action>(RenameElement)
 nmap <Leader>ca <Action>(ShowIntentionActions)
@@ -18,4 +18,3 @@ nmap <Leader>ca <Action>(ShowIntentionActions)
 nmap <Leader>f <Action>(ReformatCode)
 
 map gd <Action>(GotoDeclaration)
-
