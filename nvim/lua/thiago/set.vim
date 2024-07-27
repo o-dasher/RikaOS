@@ -9,6 +9,11 @@ set shiftwidth=4
 set expandtab
 set smartindent
 
+" Enable display of whitespace characters
+set list
+set listchars=tab:▎·,trail:.,lead:.
+set showbreak=↪ 
+
 " Cursor
 set cursorline
 

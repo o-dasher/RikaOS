@@ -1,4 +1,4 @@
-require("thiago.set")
+vim.api.nvim_command("source " .. "~/.config/nvim/lua/thiago/set.vim")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
