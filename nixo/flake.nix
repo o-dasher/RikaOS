@@ -5,11 +5,6 @@
     nixpkgs.url = "nixpkgs/nixos-unstable";
     flake-compat.url = "github:edolstra/flake-compat";
     flake-utils.url = "github:numtide/flake-utils";
-    nixGL = {
-      url = "github:nix-community/nixGL";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -66,10 +61,5 @@
           ./system/configuration.nix
         ];
       };
-
-      # Research lab
-      homeConfigurations."${username}@fedora" = define_hm [ ./home/hanyuu ];
-      homeConfigurations."${username}@gotec-MS-7D18" = define_hm [ ./home/hanyuu ];
-      homeConfigurations."${username}@gotec" = define_hm [ ./home/hanyuu ];
     };
 }

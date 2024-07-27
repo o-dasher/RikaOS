@@ -16,11 +16,35 @@ in
         {
           gaps_out = gap;
           gaps_in = gap;
+
         };
       input = {
         kb_layout = "br";
         kb_variant = "abnt2";
       };
+      animations = {
+        enabled = true;
+        animation = builtins.map (name: "${name}, 1, 1, default") [
+          "windows"
+          "border"
+          "layers"
+          "borderangle"
+          "fade"
+          "workspaces"
+        ];
+      };
+      bindm = [
+        "SUPER, mouse:272, movewindow"
+        "SUPER, mouse:273, resizewindow"
+      ];
+      binde =
+        let
+          audioStep = toString 5;
+        in
+        [
+          ", XF86AudioRaiseVolume, exec, ${getExe pkgs.pamixer} --increase ${audioStep}"
+          ", XF86AudioLowerVolume, exec, ${getExe pkgs.pamixer} --decrease ${audioStep}"
+        ];
       bind =
         let
           mod = "SUPER";
@@ -32,7 +56,7 @@ in
           "${mod}, C, killactive"
 
           "${mod}, S, togglegroup"
-          "${mod}, F, togglefloating"
+          "${mod} SHIFT, F, togglefloating"
 
           "${mod}, H, movefocus, l"
           "${mod}, L, movefocus, r"
@@ -68,17 +92,10 @@ in
             ]
           ) 10
         ))
-        ++ (
-          let
-            audioStep = toString 5;
-          in
-          [
-            ", XF86AudioRaiseVolume, exec, ${getExe pkgs.pamixer} --increase ${audioStep}"
-            ", XF86AudioLowerVolume, exec, ${getExe pkgs.pamixer} --decrease ${audioStep}"
-            ", XF86AudioMicMute, exec, ${getExe pkgs.pamixer} --default-source --toggle-mute"
-            ", XF86AudioMute, exec, ${getExe pkgs.pamixer} --toggle-mute"
-          ]
-        );
+        ++ [
+          ", XF86AudioMicMute, exec, ${getExe pkgs.pamixer} --default-source --toggle-mute"
+          ", XF86AudioMute, exec, ${getExe pkgs.pamixer} --toggle-mute"
+        ];
     };
   };
 }
