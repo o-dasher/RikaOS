@@ -27,7 +27,6 @@ in
     packages = with pkgs; [
       # cli
       wget
-      devenv
       github-cli
       git
       heroku
