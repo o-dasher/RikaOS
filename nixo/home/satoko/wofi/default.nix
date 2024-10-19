@@ -1,4 +1,4 @@
-{ utils, ... }:
+{ utils, lib, ... }:
 let
   inherit (utils) css;
   inherit (css) font_definition;
@@ -15,7 +15,7 @@ in
         settings = {
           width = "25%";
         };
-        style = ''
+        style = lib.mkForce ''
           * {
           	${font_definition}
           }

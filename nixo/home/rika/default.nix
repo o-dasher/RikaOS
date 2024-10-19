@@ -76,10 +76,6 @@ in
     bash.enable = true;
     home-manager.enable = true;
     lazygit.enable = true;
-    tmux = {
-      enable = true;
-      mouse = true;
-    };
     direnv = {
       enable = true;
       nix-direnv.enable = true;

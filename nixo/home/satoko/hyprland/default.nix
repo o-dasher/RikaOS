@@ -21,6 +21,7 @@ in
       input = {
         kb_layout = "br";
         kb_variant = "abnt2";
+        sensitivity = -0.6;
       };
       animations = {
         enabled = true;
