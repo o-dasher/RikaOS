@@ -14,13 +14,11 @@ I actually only use NixOS on my home computer, so there is only a single proper 
 
 # FIle Strucutre
 
-| Location         | Description                                                                                                           |
-| ---------------- | --------------------------------------------------------------------------------------------------------------------- |
-| nixo             | All my home-manager and nixos related configuration this is pretty much the main part of this repository              |
-| nixo/home        | This directory contains all of my home-manager configuration                                                          |
-| nixo/home/rika   | Global home manager configuration                                                                                     |
-| nixo/home/satoko | This is my personal computer configuration, I have QBitTorrent, osu! and some other stuff here.                       |
-| nixo/home/hanyuu | This is my research project lab computer, there I use gnome with Ubuntu/Fedora, so I have some specific setups for it |
-| nixo/system      | My personal computer nixos system configuration                                                                       |
-| nvim             | My Neovim configuration, I still manage it without nix because I use lazy.nvim but I might migrate sometime           |
-| assets           | I find convenient to put my assets on this repository, such as my keyboard configuration and wallpapers               |
+| Location       | Description                                                                                                 |
+| -------------- | ----------------------------------------------------------------------------------------------------------- |
+| nixo           | All my home-manager and nixos related configuration this is pretty much the main part of this repository    |
+| nixo/home      | This directory contains all of my home-manager configuration                                                |
+| nixo/home/rika | Global home manager configuration                                                                           |
+| nixo/system    | My personal computer nixos system configuration                                                             |
+| nvim           | My Neovim configuration, I still manage it without nix because I use lazy.nvim but I might migrate sometime |
+| assets         | I find convenient to put my assets on this repository, such as my keyboard configuration and wallpapers     |
