@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ inputs, pkgs, lib, ... }:
 {
   imports = [ inputs.spicetify-nix.homeManagerModules.default ];
 
@@ -8,7 +8,7 @@
     in
     {
       enable = true;
-      theme = spicePkgs.themes.text;
+      theme = lib.mkForce spicePkgs.themes.text;
       enabledExtensions = with spicePkgs.extensions; [
         adblock
         hidePodcasts

@@ -16,7 +16,6 @@ in
         {
           gaps_out = gap;
           gaps_in = gap;
-
         };
       input = {
         kb_layout = "br";

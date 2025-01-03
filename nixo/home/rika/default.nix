@@ -47,13 +47,8 @@ in
 
       # fonts
       jetbrains-mono
+      cascadia-code
       # Disk space is not cheap okay?
-      (nerdfonts.override {
-        fonts = [
-          "JetBrainsMono"
-          "CascadiaCode"
-        ];
-      })
     ];
   };
 
