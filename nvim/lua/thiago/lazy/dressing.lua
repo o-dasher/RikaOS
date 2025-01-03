@@ -5,5 +5,6 @@ return {
 	},
 	{
 		"RRethy/base16-nvim",
+		"echasnovski/mini.base16",
 	},
 }

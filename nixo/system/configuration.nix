@@ -5,6 +5,7 @@
   pkgs,
   config,
   lib,
+  inputs,
   ...
 }:
 let
@@ -133,10 +134,15 @@ in
     fish.enable = true;
     dconf.enable = true;
     nix-ld.enable = true;
-    hyprland.enable = true;
     thunar = {
       enable = true;
       plugins = with pkgs.xfce; [ thunar-volman ];
+    };
+    hyprland = {
+      enable = true;
+      package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+      portalPackage =
+        inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
     };
     neovim = {
       enable = true;

@@ -36,7 +36,7 @@
     # social media
     brave
     # browser
-    armcord
+    legcord
     # files 
     yazi
   ];

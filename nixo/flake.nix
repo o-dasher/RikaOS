@@ -20,6 +20,7 @@
       inputs.flake-compat.follows = "flake-compat";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hyprland.url = "github:hyprwm/Hyprland";
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.1";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -56,6 +57,9 @@
       # Personal
       homeConfigurations."${username}@${hostName}" = define_hm [ ./home/satoko ];
       nixosConfigurations.${hostName} = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit inputs;
+        };
         modules = [
           lanzaboote.nixosModules.lanzaboote
           ./system/configuration.nix
