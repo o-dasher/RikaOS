@@ -40,11 +40,12 @@ in
       ];
       binde =
         let
-          audioStep = toString 5;
+          audioStep = toString 0.1;
+          pactl = "${pkgs.pulseaudio}/bin/pactl";
         in
         [
-          ", XF86AudioRaiseVolume, exec, ${getExe pkgs.pamixer} --increase ${audioStep}"
-          ", XF86AudioLowerVolume, exec, ${getExe pkgs.pamixer} --decrease ${audioStep}"
+          ", XF86AudioRaiseVolume, exec, ${pactl} -- set-sink-volume @DEFAULT_SINK@ +${audioStep}dB"
+          ", XF86AudioLowerVolume, exec, ${pactl} -- set-sink-volume @DEFAULT_SINK@ -${audioStep}dB"
         ];
       bind =
         let
