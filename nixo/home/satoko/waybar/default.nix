@@ -98,27 +98,34 @@ in
             critical = 95;
           };
 
-          pulseaudio = {
-            on-click = "pavucontrol";
-            format = "{icon}  {volume}% {format_source}";
-            format-bluetooth = "{icon} {volume}% {format_source}";
-            format-bluetooth-muted = " {format_source}";
-            format-muted = "  {format_source}";
-            format-source = " {volume}%";
-            format-source-muted = "";
-            format-icons = {
-              headphone = "";
-              hands-free = "";
-              headset = "🎧";
-              phone = "";
-              portable = "";
-              default = [
-                ""
-                ""
-                ""
-              ];
+          pulseaudio =
+            let
+              wheelstep = toString 0.1;
+              pactl = "${pkgs.pulseaudio}/bin/pactl";
+            in
+            {
+              on-click = "pavucontrol";
+              on-scroll-up = "${pactl} -- set-sink-volume @DEFAULT_SINK@ +${wheelstep}dB";
+              on-scroll-down = "${pactl} -- set-sink-volume @DEFAULT_SINK@ -${wheelstep}dB";
+              format = "{icon}  {volume}% {format_source}";
+              format-bluetooth = "{icon} {volume}% {format_source}";
+              format-bluetooth-muted = " {format_source}";
+              format-muted = "  {format_source}";
+              format-source = " {volume}%";
+              format-source-muted = "";
+              format-icons = {
+                headphone = "";
+                hands-free = "";
+                headset = "🎧";
+                phone = "";
+                portable = "";
+                default = [
+                  ""
+                  ""
+                  ""
+                ];
+              };
             };
-          };
         };
 
       style =
