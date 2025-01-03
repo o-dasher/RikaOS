@@ -55,6 +55,7 @@ in
 
           "${mod}, F, fullscreen"
           "${mod}, C, killactive"
+          "${mod}, M, fullscreen, 1"
 
           "${mod}, S, togglegroup"
           "${mod} SHIFT, F, togglefloating"
@@ -66,8 +67,15 @@ in
 
           "${mod}, H, changegroupactive, b"
           "${mod}, L, changegroupactive, f"
+
           "${mod} SHIFT, H, movegroupwindow, b"
           "${mod} SHIFT, L, movegroupwindow, f"
+
+          "${mod} SHIFT, H, moveintogroup, l"
+          "${mod} SHIFT, L, moveintogroup, r"
+          "${mod} SHIFT, K, moveintogroup, u"
+          "${mod} SHIFT, J, moveintogroup, d"
+          "${mod} SHIFT, U, moveoutofgroup"
 
           "${mod}, D, exec, pkill ${getExe pkgs.wofi} || ${getExe pkgs.wofi} --show drun -I -m -i --style $HOME/.config/wofi/style.css"
 
