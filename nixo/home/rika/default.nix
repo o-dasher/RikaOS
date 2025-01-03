@@ -43,9 +43,7 @@ in
       vial
 
       # documents
-      libsForQt5.okular
       zathura
-      foliate
 
       # fonts
       jetbrains-mono
