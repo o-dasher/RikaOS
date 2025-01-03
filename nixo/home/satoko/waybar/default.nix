@@ -86,7 +86,7 @@ in
           cpu = {
             format = "  {usage}%";
             tooltip = false;
-            on-click = "${lib.getExe pkgs.alacritty} htop";
+            on-click = "${lib.getExe pkgs.ghostty} htop";
           };
 
           memory = {

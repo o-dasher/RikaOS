@@ -51,7 +51,7 @@ in
           mod = "SUPER";
         in
         [
-          "${mod}, RETURN, exec, ${getExe pkgs.alacritty}"
+          "${mod}, RETURN, exec, ${getExe pkgs.ghostty}"
 
           "${mod}, F, fullscreen"
           "${mod}, C, killactive"

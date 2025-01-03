@@ -4,7 +4,7 @@ let
 in
 {
   imports = [
-    ./wezterm
+    ./ghostty
     ./fish
     ./theme
     ./neovim
@@ -31,6 +31,9 @@ in
       git
       heroku
       wl-clipboard # global because I main wayland
+
+      # Security and mailing
+      bitwarden-desktop
 
       # editor
       neovide

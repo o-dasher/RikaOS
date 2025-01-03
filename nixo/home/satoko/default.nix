@@ -33,9 +33,9 @@
     mpv
     # monitor
     mission-center
-    # social media
+    # browser 
     brave
-    # browser
+    # social media 
     legcord
     # files 
     yazi
