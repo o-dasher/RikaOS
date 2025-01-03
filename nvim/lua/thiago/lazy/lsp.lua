@@ -51,13 +51,13 @@ return {
 
 		-- python
 		lspcfg.pyright.setup({})
-		lspcfg.ruff_lsp.setup({})
+		lspcfg.ruff.setup({})
 
 		-- css
 		lspcfg.tailwindcss.setup({})
 		lspcfg.cssls.setup({})
 
-		lspcfg.tsserver.setup({}) -- typescript
+		lspcfg.ts_ls.setup({}) -- typescript
 		-- lspcfg.rust_analyzer.setup({}) -- rust using rustacean
 		lspcfg.yamlls.setup({}) -- yaml
 		lspcfg.nixd.setup({}) -- nix
