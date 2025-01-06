@@ -23,6 +23,9 @@
     cargo # Used to start new projects although I mainly use dev shells!
     jetbrains.rider
 
+    # android
+    universal-android-debloater
+
     # gui
     # entertainment
     stremio
