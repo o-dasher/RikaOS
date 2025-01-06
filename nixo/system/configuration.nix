@@ -117,6 +117,7 @@ in
     extraGroups = [
       "wheel"
       "video"
+      "adbusers"
     ]; # Enable ‘sudo’ for the user.
   };
 
@@ -130,6 +131,7 @@ in
   };
 
   programs = {
+    adb.enable = true;
     light.enable = true;
     fish.enable = true;
     dconf.enable = true;
