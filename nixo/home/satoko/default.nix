@@ -30,6 +30,8 @@
     # entertainment
     stremio
     # tools
+    gimp
+    nomacs
     qbittorrent
     pavucontrol
     obs-studio
