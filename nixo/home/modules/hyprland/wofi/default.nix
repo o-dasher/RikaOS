@@ -1,10 +1,15 @@
-{ utils, lib, ... }:
+{
+  config,
+  utils,
+  lib,
+  ...
+}:
 let
   inherit (utils) css;
   inherit (css) font_definition;
 in
 {
-  config = {
+  config = lib.mkIf (config.hyprland.enable && config.hyprland.wofi.enable) {
     programs.wofi =
       let
         decent_spacing = "8";

@@ -11,7 +11,7 @@ let
   inherit (css) font_definition alpha_fn;
 in
 {
-  config = {
+  config = lib.mkIf (config.hyprland.enable && config.hyprland.waybar.enable) {
     programs.waybar = {
       enable = true;
       settings.main =
@@ -132,7 +132,7 @@ in
         let
           border_definition = "1px solid ${alpha_fn "white" 0.1}";
         in
-        ''
+        lib.mkForce ''
           * {
               ${font_definition}
               font-size: 12px;

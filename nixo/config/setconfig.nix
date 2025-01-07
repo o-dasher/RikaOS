@@ -1,7 +1,4 @@
 { lib, ... }:
-let
-  cfg = import ./myconfig.nix;
-in
 {
   options.rika = with lib; {
     username = mkOption {
@@ -18,5 +15,5 @@ in
     };
   };
 
-  config.rika = cfg;
+  config.rika = import ./myconfig.nix;
 }
