@@ -78,67 +78,62 @@ in
           let
             mod = "SUPER";
           in
-          [
-            "${mod}, RETURN, exec, ${getExe pkgs.ghostty}"
+          lib.mkMerge [
+            (lib.mkIf (config.hyprland.wofi.enable) [
+              "${mod}, D, exec, pkill ${getExe pkgs.wofi} || ${getExe pkgs.wofi} --show drun -I -m -i --style $HOME/.config/wofi/style.css"
+            ])
+            (lib.mkIf (config.terminal.ghostty.enable) [ "${mod}, RETURN, exec, ${getExe pkgs.ghostty}" ])
+            [
 
-            "${mod}, F, fullscreen"
-            "${mod}, C, killactive"
-            "${mod}, M, fullscreen, 1"
+              "${mod}, F, fullscreen"
+              "${mod}, C, killactive"
+              "${mod}, M, fullscreen, 1"
 
-            "${mod}, S, togglegroup"
-            "${mod} SHIFT, F, togglefloating"
+              "${mod}, S, togglegroup"
+              "${mod} SHIFT, F, togglefloating"
 
-            "${mod}, H, movefocus, l"
-            "${mod}, L, movefocus, r"
-            "${mod}, K, movefocus, u"
-            "${mod}, J, movefocus, d"
+              "${mod}, H, movefocus, l"
+              "${mod}, L, movefocus, r"
+              "${mod}, K, movefocus, u"
+              "${mod}, J, movefocus, d"
 
-            "${mod}, H, changegroupactive, b"
-            "${mod}, L, changegroupactive, f"
+              "${mod}, H, changegroupactive, b"
+              "${mod}, L, changegroupactive, f"
 
-            "${mod} SHIFT, H, movegroupwindow, b"
-            "${mod} SHIFT, L, movegroupwindow, f"
+              "${mod} SHIFT, H, movegroupwindow, b"
+              "${mod} SHIFT, L, movegroupwindow, f"
 
-            "${mod} SHIFT, H, moveintogroup, l"
-            "${mod} SHIFT, L, moveintogroup, r"
-            "${mod} SHIFT, K, moveintogroup, u"
-            "${mod} SHIFT, J, moveintogroup, d"
-            "${mod} SHIFT, U, moveoutofgroup"
+              "${mod} SHIFT, H, moveintogroup, l"
+              "${mod} SHIFT, L, moveintogroup, r"
+              "${mod} SHIFT, K, moveintogroup, u"
+              "${mod} SHIFT, J, moveintogroup, d"
+              "${mod} SHIFT, U, moveoutofgroup"
 
-            "${mod}, P, exec, ${getExe pkgs.grimblast} --notify copy screen"
-            "${mod} SHIFT, P, exec, ${getExe pkgs.grimblast} --notify copy area"
-            "${mod} ALT, P, exec, ${getExe pkgs.grimblast} --notify copy active"
+              "${mod}, P, exec, ${getExe pkgs.grimblast} --notify copy screen"
+              "${mod} SHIFT, P, exec, ${getExe pkgs.grimblast} --notify copy area"
+              "${mod} ALT, P, exec, ${getExe pkgs.grimblast} --notify copy active"
 
-            ", XF86AudioPlay, exec, ${getExe pkgs.playerctl} play-pause"
-            ", XF86AudioPrev, exec, ${getExe pkgs.playerctl} previous"
-            ", XF86AudioNext, exec, ${getExe pkgs.playerctl} next"
-            ", XF86AudioStop, exec, ${getExe pkgs.playerctl} stop"
-          ]
-          ++ (
-            # This needs to be changed to a mkIf expression so the inside packages aren't unnecessary downloaded
-            if (config.hyprland.wofi.enable) then
-              [
-                "${mod}, D, exec, pkill ${getExe pkgs.wofi} || ${getExe pkgs.wofi} --show drun -I -m -i --style $HOME/.config/wofi/style.css"
-              ]
-            else
-              [ ]
-          )
-          ++ (builtins.concatLists (
-            builtins.genList (
-              x:
-              let
-                workspace = x + 1;
-                key = builtins.toString (workspace - ((workspace / 10) * 10));
-              in
-              [
-                "${mod}, ${key}, workspace, ${toString workspace}"
-                "${mod} SHIFT, ${key}, movetoworkspace, ${toString workspace}"
-              ]
-            ) 10
-          ))
-          ++ [
-            ", XF86AudioMicMute, exec, ${getExe pkgs.pamixer} --default-source --toggle-mute"
-            ", XF86AudioMute, exec, ${getExe pkgs.pamixer} --toggle-mute"
+              ", XF86AudioPlay, exec, ${getExe pkgs.playerctl} play-pause"
+              ", XF86AudioPrev, exec, ${getExe pkgs.playerctl} previous"
+              ", XF86AudioNext, exec, ${getExe pkgs.playerctl} next"
+              ", XF86AudioStop, exec, ${getExe pkgs.playerctl} stop"
+
+              ", XF86AudioMicMute, exec, ${getExe pkgs.pamixer} --default-source --toggle-mute"
+              ", XF86AudioMute, exec, ${getExe pkgs.pamixer} --toggle-mute"
+            ]
+            (builtins.concatLists (
+              builtins.genList (
+                x:
+                let
+                  workspace = x + 1;
+                  key = builtins.toString (workspace - ((workspace / 10) * 10));
+                in
+                [
+                  "${mod}, ${key}, workspace, ${toString workspace}"
+                  "${mod} SHIFT, ${key}, movetoworkspace, ${toString workspace}"
+                ]
+              ) 10
+            ))
           ];
       };
     };
