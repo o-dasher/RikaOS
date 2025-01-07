@@ -42,7 +42,7 @@ in
           ];
 
           "temperature#cpu" = define_temperature_sensor "CPU" 1 1;
-          "temperature#gpu" = define_temperature_sensor "GPU" 1 1;
+          "temperature#gpu" = define_temperature_sensor "GPU" 2 1;
 
           # Left
           "hyprland/workspaces" = {
@@ -132,7 +132,7 @@ in
         let
           border_definition = "1px solid ${alpha_fn "white" 0.1}";
         in
-        lib.mkForce ''
+        lib.mkAfter ''
           * {
               ${font_definition}
               font-size: 12px;
