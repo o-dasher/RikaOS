@@ -15,19 +15,22 @@ in
   ];
 
   options.hyprland = with lib; {
-    enable = mkOption { type = types.bool; };
-    mako.enable = mkOption { type = types.bool; };
-    wofi.enable = mkOption { type = types.bool; };
-    waybar.enable = mkOption { type = types.bool; };
+    enable = mkEnableOption { type = types.bool; };
+    mako.enable = mkOption {
+      type = types.bool;
+      default = true;
+    };
+    wofi.enable = mkOption {
+      type = types.bool;
+      default = true;
+    };
+    waybar.enable = mkOption {
+      type = types.bool;
+      default = true;
+    };
   };
 
   config = lib.mkIf (config.hyprland.enable) {
-    hyprland = with lib; {
-      mako.enable = mkDefault true;
-      wofi.enable = mkDefault true;
-      waybar.enable = mkDefault true;
-    };
-
     wayland.windowManager.hyprland = {
       enable = true;
       xwayland.enable = true;
