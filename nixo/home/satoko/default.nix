@@ -2,58 +2,60 @@
 {
   imports = [
     ../rika
-    ./hyprland
-    ./mako
-    ./waybar
-    ./wofi
+    ../modules
     ./spotify
     ./theme
   ];
 
-  xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal-wlr ];
+  config = {
+    hyprland.enable = true;
 
-  home.packages = with pkgs; [
-    # cli
-    # general
-    htop
-    gdu
-    unzip
+    xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal-wlr ];
 
-    # programming
-    cargo # Used to start new projects although I mainly use dev shells!
-    jetbrains.rider
+    home.packages = with pkgs; [
+      # cli
+      # general
+      htop
+      gdu
+      unzip
 
-    # android
-    universal-android-debloater
+      # programming
+      cargo # Used to start new projects although I mainly use dev shells!
+      jetbrains.rider
 
-    # gui
-    # entertainment
-    stremio
-    # tools
-    gimp
-    nomacs
-    qbittorrent
-    pavucontrol
-    obs-studio
-    mpv
-    # monitor
-    mission-center
-    # browser 
-    brave
-    # social media 
-    legcord
-    # files 
-    yazi
-  ];
+      # android
+      universal-android-debloater
 
-  programs = {
-    hyfetch = {
-      enable = true;
-      settings = {
-        preset = "bisexual";
-        mode = "rgb";
-        color_align.mode = "horizontal";
+      # gui
+      # entertainment
+      stremio
+      # tools
+      gimp
+      nomacs
+      qbittorrent
+      pavucontrol
+      obs-studio
+      mpv
+      # monitor
+      mission-center
+      # browser 
+      brave
+      # social media 
+      legcord
+      # files 
+      yazi
+    ];
+
+    programs = {
+      hyfetch = {
+        enable = true;
+        settings = {
+          preset = "bisexual";
+          mode = "rgb";
+          color_align.mode = "horizontal";
+        };
       };
     };
   };
+
 }
