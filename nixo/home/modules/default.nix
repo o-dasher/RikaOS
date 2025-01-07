@@ -1,1 +1,8 @@
-{ imports = [ ./hyprland ]; }
+{
+  imports = [
+    ./hyprland
+    ./spotify
+    ./neovim
+    ./terminal
+  ];
+}

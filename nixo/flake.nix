@@ -40,22 +40,22 @@
     let
       inherit (import ./config/myconfig.nix) username hostName;
       define_hm =
-        base:
+        profile:
         home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs { system = "x86_64-linux"; };
           modules = [
             stylix.homeManagerModules.stylix
             ./config/setconfig.nix
-          ] ++ base;
+          ] ++ [ ./home/profiles/${profile} ];
           extraSpecialArgs = {
             inherit inputs;
-            utils = import ./home/rika/utils;
+            utils = import ./home/utils;
           };
         };
     in
     {
       # Personal
-      homeConfigurations."${username}@${hostName}" = define_hm [ ./home/satoko ];
+      homeConfigurations."${username}@${hostName}" = define_hm "satoko";
       nixosConfigurations.${hostName} = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs;

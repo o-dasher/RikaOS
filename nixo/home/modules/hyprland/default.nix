@@ -9,9 +9,9 @@ let
 in
 {
   imports = [
-    ./wofi
-    ./mako
-    ./waybar
+    ./wofi.nix
+    ./mako.nix
+    ./waybar.nix
   ];
 
   options.hyprland = with lib; {
