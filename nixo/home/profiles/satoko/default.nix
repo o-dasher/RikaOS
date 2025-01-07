@@ -2,13 +2,12 @@
 {
   imports = [
     ../rika
-    ../modules
-    ./spotify
     ./theme
   ];
 
   config = {
     hyprland.enable = true;
+    spotify.enable = true;
 
     xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal-wlr ];
 
@@ -57,5 +56,4 @@
       };
     };
   };
-
 }
