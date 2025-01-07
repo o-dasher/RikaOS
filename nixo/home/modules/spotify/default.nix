@@ -8,7 +8,7 @@
 {
   imports = [ inputs.spicetify-nix.homeManagerModules.default ];
 
-  options.spotify.enable = lib.mkOption { type = lib.types.bool; };
+  options.spotify.enable = lib.mkEnableOption "spotify";
   config = lib.mkIf (config.spotify.enable) {
     programs.spicetify =
       let

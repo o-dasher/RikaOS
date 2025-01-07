@@ -5,7 +5,7 @@
   ...
 }:
 {
-  options.neovim.enable = lib.mkOption { type = lib.types.bool; };
+  options.neovim.enable = lib.mkEnableOption "neovim";
   config = lib.mkIf (config.neovim.enable) {
     # Will likely remove, it is so utter slow, and does not have proper resharper
     # support, maybe I need to test this again once I have an ssd.

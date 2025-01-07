@@ -15,17 +15,14 @@ in
   ];
 
   options.hyprland = with lib; {
-    enable = mkEnableOption { type = types.bool; };
-    mako.enable = mkOption {
-      type = types.bool;
+    enable = mkEnableOption "hyprland";
+    mako.enable = (mkEnableOption "mako") // {
       default = true;
     };
-    wofi.enable = mkOption {
-      type = types.bool;
+    wofi.enable = (mkEnableOption "wofi") // {
       default = true;
     };
-    waybar.enable = mkOption {
-      type = types.bool;
+    waybar.enable = (mkEnableOption "waybar") // {
       default = true;
     };
   };
