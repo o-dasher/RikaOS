@@ -6,13 +6,11 @@
   ];
 
   options.terminal = with lib; {
-    enable = mkOption { type = lib.types.bool; };
-    fish.enable = mkOption {
-      type = lib.types.bool;
+    enable = mkEnableOption "terminal";
+    fish.enable = (mkEnableOption "fish") // {
       default = true;
     };
-    ghostty.enable = mkOption {
-      type = lib.types.bool;
+    ghostty.enable = (mkEnableOption "ghostty") // {
       default = true;
     };
   };
