@@ -43,6 +43,9 @@
       legcord
       # files 
       yazi
+
+      # Disk partitioning
+      gparted
     ];
 
     programs = {
