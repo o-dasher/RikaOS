@@ -58,6 +58,7 @@ return {
 		lspcfg.cssls.setup({})
 
 		lspcfg.ts_ls.setup({}) -- typescript
+		lspcfg.svelte.setup({})
 		lspcfg.rust_analyzer.setup({}) -- rust using rustacean
 		lspcfg.yamlls.setup({}) -- yaml
 		lspcfg.nixd.setup({}) -- nix
