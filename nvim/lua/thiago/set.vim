@@ -38,6 +38,8 @@ vnoremap  <leader>y  "+y
 nnoremap  <leader>y  "+y
 vnoremap <leader>Y "+yg_
 nnoremap  <leader>Y  "+yg_
+nnoremap <esc> :nohlsearch<CR>
+
 
 " Paste from clipboard
 nnoremap <leader>p "+p
