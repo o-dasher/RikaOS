@@ -29,8 +29,11 @@
         texlab
         nodePackages.intelephense
         nodePackages."@tailwindcss/language-server"
-        nodePackages.typescript-language-server
         nodePackages.vscode-langservers-extracted
+        # typescript support
+        svelte-language-server
+        typescript
+        nodePackages.typescript-language-server
 
         # latex
         texliveFull
