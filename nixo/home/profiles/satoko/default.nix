@@ -24,6 +24,7 @@
       cargo
       nodejs
       bun
+      pnpm
 
       # android
       universal-android-debloater
