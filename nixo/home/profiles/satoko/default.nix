@@ -19,8 +19,11 @@
       unzip
 
       # programming
-      cargo # Used to start new projects although I mainly use dev shells!
       jetbrains.rider
+      # Used to start new projects although I mainly use dev shells!
+      cargo
+      nodejs
+      bun
 
       # android
       universal-android-debloater
