@@ -10,6 +10,7 @@
     spotify.enable = true;
 
     xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal-wlr ];
+    nixpkgs.config.android_sdk.accept_license = true;
 
     home.packages = with pkgs; [
       # cli
@@ -20,7 +21,9 @@
 
       # programming
       jetbrains.rider
+      android-studio
       # Used to start new projects although I mainly use dev shells!
+      openjdk17
       cargo
       nodejs
       bun
@@ -41,11 +44,11 @@
       mpv
       # monitor
       mission-center
-      # browser 
+      # browser
       brave
-      # social media 
+      # social media
       legcord
-      # files 
+      # files
       yazi
 
       # Disk partitioning
