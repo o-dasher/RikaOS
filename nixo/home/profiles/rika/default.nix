@@ -27,6 +27,9 @@ in
       homeDirectory = "/home/${cfg.username}";
       stateVersion = cfg.state;
       packages = with pkgs; [
+        # audio
+        easyeffects
+
         # cli
         wget
         github-cli
