@@ -38,32 +38,38 @@
       ...
     }@inputs:
     let
-      inherit (import ./config/myconfig.nix) username hostName;
       define_hm =
-        profile:
+        profile: cfg:
         home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs { system = "x86_64-linux"; };
           modules = [
             stylix.homeManagerModules.stylix
-            ./config/setconfig.nix
           ] ++ [ ./home/profiles/${profile} ];
           extraSpecialArgs = {
             inherit inputs;
             utils = import ./home/utils;
+            cfg = import cfg;
           };
         };
+
+      define_system =
+        modules: cfg:
+        nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit inputs;
+            cfg = import cfg;
+          };
+          modules = modules;
+        };
+
+      inherit (import ./system/home/settings.nix) username hostName;
     in
     {
       # Personal
-      homeConfigurations."${username}@${hostName}" = define_hm "satoko";
-      nixosConfigurations.${hostName} = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit inputs;
-        };
-        modules = [
-          lanzaboote.nixosModules.lanzaboote
-          ./system/configuration.nix
-        ];
-      };
+      homeConfigurations."${username}@${hostName}" = define_hm "satoko" ./system/home/settings.nix;
+      nixosConfigurations.${hostName} = define_system [
+        lanzaboote.nixosModules.lanzaboote
+        ./system/home/configuration.nix
+      ] ./system/home/settings.nix;
     };
 }

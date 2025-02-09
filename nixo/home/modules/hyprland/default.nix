@@ -32,7 +32,10 @@ in
       enable = true;
       xwayland.enable = true;
       settings = {
-        exec-once = (lib.mkIf (config.hyprland.waybar.enable)) (lib.getExe pkgs.waybar);
+        exec-once = [
+          ((lib.mkIf (config.hyprland.waybar.enable)) (lib.getExe pkgs.waybar))
+          (lib.getExe pkgs.qbittorrent)
+        ];
         monitor = [ "HDMI-A-1,1920x1080@239.76,0x0,1" ];
         general =
           let

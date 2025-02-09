@@ -1,7 +1,4 @@
-{ pkgs, config, ... }:
-let
-  cfg = config.rika;
-in
+{ pkgs, cfg, ... }:
 {
   imports = [
     ./theme
