@@ -3,6 +3,7 @@ source ~/.config/nvim/lua/thiago/set.vim
 set multiple-cursors
 set highlightedyank
 set quickscope
+set ideavim
 
 " comment a line, similar to tpope/vim-commentary
 nmap gcc <Action>(CommentByLineComment)
@@ -11,6 +12,9 @@ vmap gcc <Action>(CommentByLineComment)
 
 map <Leader>ps <Action>(FindInPath)
 map <leader>pf <Action>(SearchEverywhere)
+map <Leader>pv <Action>(ActivateProjectToolWindow)
+
+nmap <Leader>vd <Action>(ShowErrorDescription)
 
 map <Leader>rn  <Action>(RenameElement)
 nmap <Leader>ca <Action>(ShowIntentionActions)
@@ -18,3 +22,9 @@ nmap <Leader>ca <Action>(ShowIntentionActions)
 nmap <Leader>f <Action>(ReformatCode)
 
 map gd <Action>(GotoDeclaration)
+
+nmap <C-w> <Action>(CloseEditor)
+nnoremap <C-h> :tabprevious<CR>
+nnoremap <C-l> :tabnext<CR>
+
+
