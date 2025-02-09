@@ -117,6 +117,8 @@ in
     udev.packages = with pkgs; [ vial ];
   };
 
+  virtualisation.spiceUSBRedirection.enable = true;
+  virtualisation.libvirtd.enable = true;
   virtualisation.docker = {
     enable = true;
     rootless = {
@@ -126,6 +128,7 @@ in
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.groups.libvirtd.members = [ username ];
   users.users.${username} = {
     isNormalUser = true;
     shell = pkgs.fish;
@@ -146,6 +149,7 @@ in
   };
 
   programs = {
+    virt-manager.enable = true;
     adb.enable = true;
     light.enable = true;
     fish.enable = true;
