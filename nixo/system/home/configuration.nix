@@ -3,13 +3,13 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 {
   pkgs,
-  config,
+  cfg,
   lib,
   inputs,
   ...
 }:
 let
-  inherit (config.rika) hostName username state;
+  inherit (cfg) hostName username state;
 
   # Some localy stuff
   locale = "en_US.UTF-8";
@@ -21,7 +21,6 @@ in
 {
   imports = [
     # Include the results of the hardware scan.
-    ../config/setconfig.nix
     ./hardware-configuration.nix
   ];
 
@@ -46,7 +45,7 @@ in
     loader.systemd-boot.enable = lib.mkForce false;
     lanzaboote = {
       enable = true;
-      pkiBundle = "/var/lib/sbctl";
+      pkiBundle = "/etc/secureboot";
     };
   };
 
