@@ -27,6 +27,9 @@
       inputs.flake-compat.follows = "flake-compat";
       inputs.flake-utils.follows = "flake-utils";
     };
+    ghostty = {
+      url = "github:ghostty-org/ghostty";
+    };
   };
 
   outputs =
@@ -35,6 +38,7 @@
       home-manager,
       stylix,
       lanzaboote,
+      ghostty,
       ...
     }@inputs:
     let
@@ -47,6 +51,7 @@
           ] ++ [ ./home/profiles/${profile} ];
           extraSpecialArgs = {
             inherit inputs;
+            ghostty = ghostty;
             utils = import ./home/utils;
             cfg = import cfg;
           };
