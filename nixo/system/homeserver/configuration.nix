@@ -23,6 +23,8 @@ in
   ];
 
   nixpkgs.config.allowUnfree = true;
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
   security.polkit.enable = true;
   networking = {
@@ -52,12 +54,10 @@ in
   users.groups.libvirtd.members = [ username ];
   users.users.${username} = {
     isNormalUser = true;
-    shell = pkgs.fish;
     extraGroups = [
       "wheel"
       "video"
-      "adbusers"
-    ]; # Enable ‘sudo’ for the user.
+    ];
   };
 
   environment = {
