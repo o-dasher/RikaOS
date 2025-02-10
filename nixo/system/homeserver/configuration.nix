@@ -4,6 +4,7 @@
 {
   pkgs,
   cfg,
+  config,
   inputs,
   ...
 }:
@@ -110,7 +111,7 @@ in
     enable = true;
     user = "playit";
     group = "playit";
-    secretPath = ../../../playit_gg/playit.toml;
+    secretPath = config.age.secrets.playit-secret.path;
   };
 
   # This option defines the first version of NixOS you have installed on this particular machine,
