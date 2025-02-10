@@ -32,9 +32,8 @@ in
     networkmanager.enable = true;
     firewall = {
       enable = true;
-      allowedTCPPorts = [
-        25565
-      ];
+      allowedTCPPorts = [ 25565 ];
+      allowedUDPPorts = [ 25565 ];
     };
   };
 
@@ -71,6 +70,7 @@ in
       git
       openjdk
       udev
+      tmux
     ];
   };
 
