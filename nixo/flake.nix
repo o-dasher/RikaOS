@@ -50,6 +50,7 @@
       nixpkgs,
       home-manager,
       stylix,
+      agenix,
       ghostty,
       ...
     }@inputs:
@@ -76,7 +77,11 @@
             inherit inputs;
             cfg = import ./${path}/settings.nix;
           };
-          modules = [ ./${path}/configuration.nix ];
+          modules = [
+            agenix.nixosModules.default
+            ./secrets/set.nix
+            ./${path}/configuration.nix
+          ];
         };
 
       home-cfg = import ./system/home/settings.nix;
