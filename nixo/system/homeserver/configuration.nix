@@ -4,6 +4,7 @@
 {
   pkgs,
   cfg,
+  inputs,
   ...
 }:
 let
@@ -18,48 +19,18 @@ let
 in
 {
   imports = [
-    # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    inputs.playit-nixos-module.nixosModules.default
   ];
 
   nixpkgs.config.allowUnfree = true;
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  systemd.timers."update-ddns" = {
-    wantedBy = [ "timers.target" ];
-    timerConfig = {
-      OnBootSec = "5m";
-      OnUnitActiveSec = "5m";
-      Unit = "update-ddns.service";
-    };
-  };
-
-  systemd.services."update-ddns" = {
-    script = ''
-      ./home/${username}/duckdns/duck.sh
-    '';
-    serviceConfig = {
-      Type = "oneshot";
-      User = "root";
-    };
-  };
-
   security.polkit.enable = true;
   networking = {
     inherit hostName;
     networkmanager.enable = true;
-    firewall = {
-      enable = true;
-      allowedTCPPorts = [
-        25565
-        19132
-      ];
-      allowedUDPPorts = [
-        25565
-        19132
-      ];
-    };
   };
 
   time.timeZone = timezone;

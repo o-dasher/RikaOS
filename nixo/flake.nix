@@ -1,6 +1,14 @@
 {
   description = "RikaOS";
 
+  # Optional step. Binary cache to improve the build time
+  nixConfig = {
+    extra-substituters = [ "https://playit-nixos-module.cachix.org" ];
+    extra-trusted-public-keys = [
+      "playit-nixos-module.cachix.org-1:22hBXWXBbd/7o1cOnh+p0hpFUVk9lPdRLX3p5YSfRz4="
+    ];
+  };
+
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
     flake-compat.url = "github:edolstra/flake-compat";
@@ -30,6 +38,7 @@
     ghostty = {
       url = "github:ghostty-org/ghostty";
     };
+    playit-nixos-module.url = "github:pedorich-n/playit-nixos-module";
   };
 
   outputs =
@@ -37,7 +46,6 @@
       nixpkgs,
       home-manager,
       stylix,
-      lanzaboote,
       ghostty,
       ...
     }@inputs:
@@ -58,13 +66,13 @@
         };
 
       define_system =
-        modules: path:
+        path:
         nixpkgs.lib.nixosSystem {
           specialArgs = {
             inherit inputs;
             cfg = import ./${path}/settings.nix;
           };
-          modules = modules ++ [ ./${path}/configuration.nix ];
+          modules = [ ./${path}/configuration.nix ];
         };
 
       home-cfg = import ./system/home/settings.nix;
@@ -72,13 +80,11 @@
     in
     {
       # Personal
-      nixosConfigurations.${home-cfg.hostName} = define_system [
-        lanzaboote.nixosModules.lanzaboote
-      ] "system/home";
+      nixosConfigurations.${home-cfg.hostName} = define_system "system/home";
       homeConfigurations."${home-cfg.username}@${home-cfg.hostName}" =
         define_hm "satoko" ./system/home/settings.nix;
 
       # Home server
-      nixosConfigurations.${home-server-cfg.hostName} = define_system [ ] "system/homeserver";
+      nixosConfigurations.${home-server-cfg.hostName} = define_system "system/homeserver";
     };
 }
