@@ -26,6 +26,25 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  systemd.timers."update-ddns" = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnBootSec = "5m";
+      OnUnitActiveSec = "5m";
+      Unit = "update-ddns.service";
+    };
+  };
+
+  systemd.services."update-ddns" = {
+    script = ''
+      ./home/${username}/duckdns/duck.sh
+    '';
+    serviceConfig = {
+      Type = "oneshot";
+      User = "root";
+    };
+  };
+
   security.polkit.enable = true;
   networking = {
     inherit hostName;
