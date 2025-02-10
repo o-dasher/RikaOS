@@ -20,6 +20,7 @@ in
 {
   imports = [
     ./hardware-configuration.nix
+    inputs.agenix.nixosModules.default
     inputs.playit-nixos-module.nixosModules.default
   ];
 

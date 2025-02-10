@@ -38,6 +38,10 @@
     ghostty = {
       url = "github:ghostty-org/ghostty";
     };
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     playit-nixos-module.url = "github:pedorich-n/playit-nixos-module";
   };
 
