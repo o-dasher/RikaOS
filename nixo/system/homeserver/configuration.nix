@@ -30,6 +30,12 @@ in
   networking = {
     inherit hostName;
     networkmanager.enable = true;
+    firewall = {
+      enable = true;
+      allowedTCPPorts = [
+        25565
+      ];
+    };
   };
 
   time.timeZone = timezone;
