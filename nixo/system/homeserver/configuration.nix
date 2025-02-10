@@ -108,7 +108,7 @@ in
     enable = true;
     user = "playit";
     group = "playit";
-    secretPath = "$HOME/.config/playit_gg/playit.toml";
+    secretPath = ../../../playit_gg/playit.toml;
   };
 
   # This option defines the first version of NixOS you have installed on this particular machine,
