@@ -58,23 +58,27 @@
         };
 
       define_system =
-        modules: cfg:
+        modules: path:
         nixpkgs.lib.nixosSystem {
           specialArgs = {
             inherit inputs;
-            cfg = import cfg;
+            cfg = import ./${path}/settings.nix;
           };
-          modules = modules;
+          modules = modules ++ [ ./${path}/configuration.nix ];
         };
 
-      inherit (import ./system/home/settings.nix) username hostName;
+      home-cfg = import ./system/home/settings.nix;
+      home-server-cfg = import ./system/homeserver/settings.nix;
     in
     {
       # Personal
-      homeConfigurations."${username}@${hostName}" = define_hm "satoko" ./system/home/settings.nix;
-      nixosConfigurations.${hostName} = define_system [
+      nixosConfigurations.${home-cfg.hostName} = define_system [
         lanzaboote.nixosModules.lanzaboote
-        ./system/home/configuration.nix
-      ] ./system/home/settings.nix;
+      ] "system/home";
+      homeConfigurations."${home-cfg.username}@${home-cfg.hostName}" =
+        define_hm "satoko" ./system/home/settings.nix;
+
+      # Home server
+      nixosConfigurations.${home-server-cfg.hostName} = define_system [ ] "system/homeserver";
     };
 }
