@@ -69,6 +69,8 @@ in
   environment = {
     systemPackages = with pkgs; [
       git
+      openjdk
+      udev
     ];
   };
 
