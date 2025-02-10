@@ -21,6 +21,7 @@ in
 {
   imports = [
     ./hardware-configuration.nix
+    inputs.agenix.nixosModules.default
     inputs.lanzaboote.nixosModules.lanzaboote
   ];
 
@@ -144,6 +145,7 @@ in
       catppuccin-sddm-corners
       git
       kwin
+      inputs.agenix.packages.x86_64-linux.default
     ];
   };
 
