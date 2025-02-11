@@ -59,9 +59,9 @@ in
     };
   };
 
-  programs.bash.initExtra = ''
-    export IPV6PREFIX="$(cat ${config.sops.secrets.ipv6prefix.path})"
-  '';
+  environment.variables = {
+    IPV6PREFIX = "$(cat ${config.sops.secrets.ipv6prefix.path})";
+  };
 
   systemd.network.enable = true;
   systemd.network.networks."lan" =
