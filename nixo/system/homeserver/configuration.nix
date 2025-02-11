@@ -21,9 +21,19 @@ in
 {
   imports = [
     ./hardware-configuration.nix
-    inputs.agenix.nixosModules.default
+    inputs.sops-nix.nixosModules.sops
     inputs.playit-nixos-module.nixosModules.default
   ];
+
+  sops = {
+    secrets.ipv6prefix = { };
+    defaultSopsFile = ../../secrets/store/homeserver.yaml;
+    age = {
+      sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+      keyFile = "/var/lib/sops-nix/key.txt";
+      age.generateKey = true;
+    };
+  };
 
   nixpkgs.config.allowUnfree = true;
   boot.loader.systemd-boot.enable = true;
@@ -106,7 +116,6 @@ in
       openjdk
       udev
       tmux
-      inputs.agenix.packages.x86_64-linux.default
     ];
   };
 

@@ -38,8 +38,8 @@
     ghostty = {
       url = "github:ghostty-org/ghostty";
     };
-    agenix = {
-      url = "github:ryantm/agenix";
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     playit-nixos-module.url = "github:pedorich-n/playit-nixos-module";
@@ -50,7 +50,6 @@
       nixpkgs,
       home-manager,
       stylix,
-      agenix,
       ghostty,
       ...
     }@inputs:
@@ -78,8 +77,6 @@
             cfg = import ./${path}/settings.nix;
           };
           modules = [
-            agenix.nixosModules.default
-            ./secrets/set.nix
             ./${path}/configuration.nix
           ];
         };
