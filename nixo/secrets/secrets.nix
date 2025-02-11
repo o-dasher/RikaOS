@@ -7,4 +7,9 @@ in
     home
     homeserver
   ];
+
+  "homeserverip.age".publicKeys = [
+    home
+    homeserver
+  ];
 }
