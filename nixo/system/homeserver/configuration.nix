@@ -25,19 +25,6 @@ in
     inputs.playit-nixos-module.nixosModules.default
   ];
 
-  sops = {
-    defaultSopsFile = ../../secrets/store/homeserver.yaml;
-    age = {
-      sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-      keyFile = "/var/lib/sops-nix/key.txt";
-      generateKey = true;
-    };
-    secrets = {
-      ipv6prefix = { };
-      playit_secret = { };
-    };
-  };
-
   nixpkgs.config.allowUnfree = true;
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -59,10 +46,27 @@ in
     };
   };
 
+  sops = {
+    defaultSopsFile = ../../secrets/store/homeserver.yaml;
+    age = {
+      sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+      keyFile = "/var/lib/sops-nix/key.txt";
+      generateKey = true;
+    };
+    secrets = {
+      ipv6prefix = { };
+      playit_secret = { };
+    };
+  };
+
+  programs.bash.initExtra = ''
+    export IPV6PREFIX="$(cat ${config.sops.secrets.ipv6prefix.path})"
+  '';
+
   systemd.network.enable = true;
   systemd.network.networks."lan" =
     let
-      ipv6prefix = config.sops.placeholder.ipv6prefix;
+      ipv6prefix = builtins.getEnv "IPV6PREFIX";
     in
     {
       matchConfig.Name = "enp1s0";
