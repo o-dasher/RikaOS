@@ -25,16 +25,6 @@ in
     inputs.playit-nixos-module.nixosModules.default
   ];
 
-  sops = {
-    secrets.ipv6prefix = { };
-    defaultSopsFile = ../../secrets/store/homeserver.yaml;
-    age = {
-      sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-      keyFile = "/var/lib/sops-nix/key.txt";
-      age.generateKey = true;
-    };
-  };
-
   nixpkgs.config.allowUnfree = true;
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -56,10 +46,27 @@ in
     };
   };
 
+  sops = {
+    defaultSopsFile = ../../secrets/store/homeserver.yaml;
+    age = {
+      sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+      keyFile = "/var/lib/sops-nix/key.txt";
+      generateKey = true;
+    };
+    secrets = {
+      ipv6prefix = { };
+      playit_secret = { };
+    };
+  };
+
+  environment.variables = {
+    IPV6PREFIX = "$(cat ${config.sops.secrets.ipv6prefix.path})";
+  };
+
   systemd.network.enable = true;
   systemd.network.networks."lan" =
     let
-      ipv6prefix = builtins.readFile config.age.secrets.homeserverip.path;
+      ipv6prefix = builtins.getEnv "IPV6PREFIX";
     in
     {
       matchConfig.Name = "enp1s0";
@@ -157,7 +164,7 @@ in
     enable = true;
     user = "playit";
     group = "playit";
-    secretPath = config.age.secrets.playit-secret.path;
+    secretPath = config.sops.secrets.playit_secret.path;
   };
 
   # This option defines the first version of NixOS you have installed on this particular machine,
