@@ -26,12 +26,15 @@ in
   ];
 
   sops = {
-    secrets.ipv6prefix = { };
     defaultSopsFile = ../../secrets/store/homeserver.yaml;
     age = {
       sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
       keyFile = "/var/lib/sops-nix/key.txt";
       age.generateKey = true;
+    };
+    secrets = {
+      ipv6prefix = { };
+      playit_secret = { };
     };
   };
 
@@ -59,7 +62,7 @@ in
   systemd.network.enable = true;
   systemd.network.networks."lan" =
     let
-      ipv6prefix = builtins.readFile config.age.secrets.homeserverip.path;
+      ipv6prefix = config.sops.placeholder.ipv6prefix;
     in
     {
       matchConfig.Name = "enp1s0";
@@ -157,7 +160,7 @@ in
     enable = true;
     user = "playit";
     group = "playit";
-    secretPath = config.age.secrets.playit-secret.path;
+    secretPath = config.sops.secrets.playit_secret.path;
   };
 
   # This option defines the first version of NixOS you have installed on this particular machine,
