@@ -32,6 +32,7 @@ in
   security.polkit.enable = true;
   networking = {
     inherit hostName;
+    useDHCP = false;
     firewall = {
       enable = true;
       allowedTCPPorts = [
@@ -43,7 +44,6 @@ in
         60927
       ];
     };
-
   };
 
   systemd.network.enable = true;
