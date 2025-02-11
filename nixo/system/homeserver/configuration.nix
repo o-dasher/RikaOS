@@ -32,8 +32,45 @@ in
   security.polkit.enable = true;
   networking = {
     inherit hostName;
-    networkmanager.enable = true;
+    firewall = {
+      enable = true;
+      allowedTCPPorts = [
+        60926
+        60927
+      ];
+      allowedUDPPorts = [
+        60926
+        60927
+      ];
+    };
+
   };
+
+  systemd.network.enable = true;
+  systemd.network.networks."lan" =
+    let
+      ipv6prefix = builtins.readFile config.age.secrets.homeserverip.path;
+    in
+    {
+      matchConfig.Name = "enp1s0";
+      address = [
+        "192.168.0.67/24"
+        "${ipv6prefix}::8/64"
+      ];
+
+      ipv6Prefixes = [
+        { ipv6PrefixConfig.Prefix = "${ipv6prefix}::/64"; }
+      ];
+
+      networkConfig = {
+        IPv6SendRA = true;
+      };
+
+      routes = [
+        { Gateway = "fe80::10"; }
+        { Gateway = "192.168.0.1"; }
+      ];
+    };
 
   time.timeZone = timezone;
 
