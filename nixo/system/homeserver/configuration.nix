@@ -16,7 +16,6 @@ let
 
   # Keymapping
   keymap = "br-abnt2";
-  local_secrets = import ./local-secret.nix;
 in
 {
   imports = [
@@ -46,26 +45,30 @@ in
   };
 
   systemd.network.enable = true;
-  systemd.network.networks."lan" = {
-    matchConfig.Name = "enp1s0";
-    address = [
-      "192.168.0.67/24"
-      "${local_secrets.ipv6prefix}::8/64"
-    ];
+  systemd.network.networks."lan" =
+    let
+      ipv6prefix = "";
+    in
+    {
+      matchConfig.Name = "enp1s0";
+      address = [
+        "192.168.0.67/24"
+        "${ipv6prefix}::8/64"
+      ];
 
-    ipv6Prefixes = [
-      { Prefix = "${local_secrets.ipv6prefix}::/64"; }
-    ];
+      ipv6Prefixes = [
+        { Prefix = "${ipv6prefix}::/64"; }
+      ];
 
-    networkConfig = {
-      IPv6SendRA = true;
+      networkConfig = {
+        IPv6SendRA = true;
+      };
+
+      routes = [
+        { Gateway = "fe80::"; }
+        { Gateway = "192.168.0.1"; }
+      ];
     };
-
-    routes = [
-      { Gateway = "fe80::"; }
-      { Gateway = "192.168.0.1"; }
-    ];
-  };
 
   time.timeZone = timezone;
 
