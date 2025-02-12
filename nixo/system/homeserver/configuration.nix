@@ -31,6 +31,7 @@ in
   security.polkit.enable = true;
   networking = {
     inherit hostName;
+    useDHCP = false;
     firewall = {
       enable = true;
       allowedTCPPorts = [
@@ -53,7 +54,7 @@ in
     ];
 
     ipv6Prefixes = [
-      { ipv6PrefixConfig.Prefix = "${local_secrets.ipv6prefix}::/64"; }
+      { Prefix = "${local_secrets.ipv6prefix}::/64"; }
     ];
 
     networkConfig = {
