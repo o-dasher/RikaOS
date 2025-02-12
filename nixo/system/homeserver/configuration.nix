@@ -45,7 +45,7 @@ in
   };
 
   systemd.network.enable = true;
-  systemd.network.networks."10-lan" =
+  systemd.network.networks."10-main" =
     let
       ipv6prefix = "";
     in
