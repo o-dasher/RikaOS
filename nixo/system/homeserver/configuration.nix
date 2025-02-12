@@ -49,7 +49,7 @@ in
   sops = {
     defaultSopsFile = ../../secrets/store/homeserver.yaml;
     age = {
-      sshKeyPaths = [ "$HOME/.ssh/id_ed25519" ];
+      sshKeyPaths = [ "~/.ssh/id_ed25519" ];
       keyFile = "/var/lib/sops-nix/key.txt";
       generateKey = true;
     };
