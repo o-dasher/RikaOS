@@ -24,6 +24,7 @@ in
   ];
 
   nixpkgs.config.allowUnfree = true;
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -79,18 +80,6 @@ in
     keyMap = keymap;
   };
 
-  virtualisation.spiceUSBRedirection.enable = true;
-  virtualisation.libvirtd.enable = true;
-  virtualisation.docker = {
-    enable = true;
-    rootless = {
-      enable = true;
-      setSocketVariable = true;
-    };
-  };
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.groups.libvirtd.members = [ username ];
   users.users.${username} = {
     isNormalUser = true;
     extraGroups = [
@@ -109,8 +98,6 @@ in
   };
 
   programs = {
-    virt-manager.enable = true;
-    light.enable = true;
     neovim = {
       enable = true;
       defaultEditor = true;
