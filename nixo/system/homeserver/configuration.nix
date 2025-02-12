@@ -45,7 +45,7 @@ in
   };
 
   systemd.network.enable = true;
-  systemd.network.networks."lan" =
+  systemd.network.networks."10-lan" =
     let
       ipv6prefix = "";
     in
@@ -61,6 +61,7 @@ in
       ];
 
       networkConfig = {
+        DHCP = "no";
         IPv6SendRA = true;
       };
 
