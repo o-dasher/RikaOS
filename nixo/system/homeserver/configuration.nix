@@ -4,7 +4,6 @@
 {
   pkgs,
   cfg,
-  config,
   inputs,
   ...
 }:
@@ -21,7 +20,6 @@ in
 {
   imports = [
     ./hardware-configuration.nix
-    inputs.sops-nix.nixosModules.sops
     inputs.playit-nixos-module.nixosModules.default
   ];
 
@@ -54,19 +52,14 @@ in
       generateKey = true;
     };
     secrets = {
-      ipv6prefix.neededForUsers = true;
       playit_secret = { };
     };
-  };
-
-  environment.variables = {
-    IPV6PREFIX = "$(cat ${config.sops.secrets.ipv6prefix.path})";
   };
 
   systemd.network.enable = true;
   systemd.network.networks."lan" =
     let
-      ipv6prefix = builtins.getEnv "IPV6PREFIX";
+      ipv6prefix = "2804:14d:cc84:8175";
     in
     {
       matchConfig.Name = "enp1s0";
@@ -159,13 +152,6 @@ in
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-
-  services.playit = {
-    enable = true;
-    user = "playit";
-    group = "playit";
-    secretPath = config.sops.secrets.playit_secret.path;
-  };
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
