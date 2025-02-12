@@ -54,7 +54,7 @@ in
       generateKey = true;
     };
     secrets = {
-      ipv6prefix = { };
+      ipv6prefix.neededForUsers = true;
       playit_secret = { };
     };
   };
