@@ -31,6 +31,7 @@ in
   security.polkit.enable = true;
   networking = {
     inherit hostName;
+    useDHCP = false;
     firewall = {
       enable = true;
       allowedTCPPorts = [
