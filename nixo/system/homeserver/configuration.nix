@@ -4,7 +4,6 @@
 {
   pkgs,
   cfg,
-  config,
   inputs,
   ...
 }:
@@ -17,11 +16,11 @@ let
 
   # Keymapping
   keymap = "br-abnt2";
+  local_secrets = import ./local-secret.nix;
 in
 {
   imports = [
     ./hardware-configuration.nix
-    inputs.sops-nix.nixosModules.sops
     inputs.playit-nixos-module.nixosModules.default
   ];
 
@@ -54,40 +53,31 @@ in
       generateKey = true;
     };
     secrets = {
-      ipv6prefix.neededForUsers = true;
       playit_secret = { };
     };
   };
 
-  environment.variables = {
-    IPV6PREFIX = "$(cat ${config.sops.secrets.ipv6prefix.path})";
-  };
-
   systemd.network.enable = true;
-  systemd.network.networks."lan" =
-    let
-      ipv6prefix = builtins.getEnv "IPV6PREFIX";
-    in
-    {
-      matchConfig.Name = "enp1s0";
-      address = [
-        "192.168.0.67/24"
-        "${ipv6prefix}::8/64"
-      ];
+  systemd.network.networks."lan" = {
+    matchConfig.Name = "enp1s0";
+    address = [
+      "192.168.0.67/24"
+      "${local_secrets.ipv6prefix}::8/64"
+    ];
 
-      ipv6Prefixes = [
-        { ipv6PrefixConfig.Prefix = "${ipv6prefix}::/64"; }
-      ];
+    ipv6Prefixes = [
+      { ipv6PrefixConfig.Prefix = "${local_secrets.ipv6prefix}::/64"; }
+    ];
 
-      networkConfig = {
-        IPv6SendRA = true;
-      };
-
-      routes = [
-        { Gateway = "fe80::10"; }
-        { Gateway = "192.168.0.1"; }
-      ];
+    networkConfig = {
+      IPv6SendRA = true;
     };
+
+    routes = [
+      { Gateway = "fe80::"; }
+      { Gateway = "192.168.0.1"; }
+    ];
+  };
 
   time.timeZone = timezone;
 
@@ -159,13 +149,6 @@ in
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-
-  services.playit = {
-    enable = true;
-    user = "playit";
-    group = "playit";
-    secretPath = config.sops.secrets.playit_secret.path;
-  };
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
