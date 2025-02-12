@@ -54,7 +54,7 @@ in
     ];
 
     ipv6Prefixes = [
-      { ipv6PrefixConfig.Prefix = "${local_secrets.ipv6prefix}::/64"; }
+      { Prefix = "${local_secrets.ipv6prefix}::/64"; }
     ];
 
     networkConfig = {
