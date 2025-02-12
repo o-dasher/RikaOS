@@ -31,7 +31,6 @@ in
   security.polkit.enable = true;
   networking = {
     inherit hostName;
-    useDHCP = false;
     firewall = {
       enable = true;
       allowedTCPPorts = [
@@ -42,18 +41,6 @@ in
         60926
         60927
       ];
-    };
-  };
-
-  sops = {
-    defaultSopsFile = ../../secrets/store/homeserver.yaml;
-    age = {
-      sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-      keyFile = "/var/lib/sops-nix/key.txt";
-      generateKey = true;
-    };
-    secrets = {
-      playit_secret = { };
     };
   };
 
