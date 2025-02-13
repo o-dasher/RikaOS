@@ -4,7 +4,6 @@
 {
   pkgs,
   cfg,
-  config,
   ...
 }:
 let
@@ -23,15 +22,6 @@ in
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
-  sops = {
-    defaultSopsFile = ./secrets/homeserver.yaml;
-    age = {
-      sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-      keyFile = "/var/lib/sops-nix/key.txt";
-      generateKey = true;
-    };
-  };
 
   security.polkit.enable = true;
   networking = {
