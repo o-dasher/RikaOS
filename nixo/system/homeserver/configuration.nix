@@ -9,19 +9,16 @@
 }:
 let
   inherit (cfg) hostName username state;
-
-  # Some localy stuff
-  locale = "en_US.UTF-8";
-  timezone = "Brazil/East";
-
-  # Keymapping
-  keymap = "br-abnt2";
 in
 {
   imports = [
     ./hardware-configuration.nix
     inputs.playit-nixos-module.nixosModules.default
   ];
+
+  time.timeZone = "Brazil/East";
+  i18n.defaultLocale = "en_US.UTF-8";
+  console.keyMap = "br-abnt2";
 
   nixpkgs.config.allowUnfree = true;
 
@@ -72,14 +69,6 @@ in
       ];
     };
 
-  time.timeZone = timezone;
-
-  i18n.defaultLocale = locale;
-  console = {
-    font = "Lat2-Terminus16";
-    keyMap = keymap;
-  };
-
   users.users.${username} = {
     isNormalUser = true;
     extraGroups = [
@@ -92,7 +81,6 @@ in
     systemPackages = with pkgs; [
       git
       openjdk
-      udev
       tmux
     ];
   };
@@ -104,9 +92,7 @@ in
     };
   };
 
-  hardware = {
-    graphics.enable = true;
-  };
+  hardware.graphics.enable = true;
 
   nix = {
     settings = {

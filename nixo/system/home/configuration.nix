@@ -24,6 +24,10 @@ in
     inputs.lanzaboote.nixosModules.lanzaboote
   ];
 
+  time.timeZone = "Brazil/East";
+  i18n.defaultLocale = "en_US.UTF-8";
+  console.keyMap = "br-abnt2";
+
   nixpkgs.config.allowUnfree = true;
 
   # Audio setup
@@ -69,15 +73,6 @@ in
   networking = {
     inherit hostName;
     networkmanager.enable = true;
-  };
-
-  time.timeZone = timezone;
-
-  i18n.defaultLocale = locale;
-  console = {
-    font = "Lat2-Terminus16";
-    keyMap = keymap;
-    # useXkbConfig = true; # I am using wayland...
   };
 
   services = {
