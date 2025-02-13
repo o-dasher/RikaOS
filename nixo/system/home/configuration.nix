@@ -10,13 +10,6 @@
 }:
 let
   inherit (cfg) hostName username state;
-
-  # Some localy stuff
-  locale = "en_US.UTF-8";
-  timezone = "Brazil/East";
-
-  # Keymapping
-  keymap = "br-abnt2";
 in
 {
   imports = [
