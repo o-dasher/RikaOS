@@ -15,6 +15,7 @@ in
   imports = [
     ./hardware-configuration.nix
     inputs.lanzaboote.nixosModules.lanzaboote
+    inputs.sops-nix.nixosModules.sops
   ];
 
   time.timeZone = "Brazil/East";
