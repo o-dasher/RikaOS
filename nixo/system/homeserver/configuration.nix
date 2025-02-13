@@ -62,7 +62,7 @@ in
       ];
 
       networkConfig = {
-        DHCP = "no";
+        DHCP = "yes";
         IPv6SendRA = true;
       };
 
