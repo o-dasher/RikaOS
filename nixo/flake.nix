@@ -3,8 +3,16 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs";
     flake-compat.url = "github:edolstra/flake-compat";
     systems.url = "github:nix-systems/default";
+    git-hooks = {
+      url = "github:cachix/git-hooks.nix";
+      inputs = {
+        flake-compat.follows = "flake-compat";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
     flake-utils = {
       url = "github:numtide/flake-utils";
       inputs.systems.follows = "systems";
@@ -27,8 +35,8 @@
     stylix = {
       url = "github:danth/stylix";
       inputs = {
+        git-hooks.follows = "git-hooks";
         home-manager.follows = "home-manager";
-        flake-parts.follows = "flake-parts";
         flake-compat.follows = "flake-compat";
         flake-utils.follows = "flake-utils";
         nixpkgs.follows = "nixpkgs";
@@ -40,6 +48,7 @@
       inputs = {
         systems.follows = "systems";
         nixpkgs.follows = "nixpkgs";
+        pre-commit-hooks.follows = "git-hooks";
       };
     };
     lanzaboote = {
@@ -48,6 +57,7 @@
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
         flake-compat.follows = "flake-compat";
+        pre-commit-hooks-nix.follows = "git-hooks";
       };
     };
     ghostty = {
@@ -55,9 +65,8 @@
       inputs = {
         flake-compat.follows = "flake-compat";
         flake-utils.follows = "flake-utils";
-        systems.follows = "systems";
-        nixpkgs-stable.follows = "nixpkgs";
         nixpkgs-unstable.follows = "nixpkgs";
+        nixpkgs-stable.follows = "nixpkgs-stable";
       };
     };
     sops-nix = {
