@@ -104,13 +104,15 @@ in
     udev.packages = with pkgs; [ vial ];
   };
 
-  virtualisation.spiceUSBRedirection.enable = true;
-  virtualisation.libvirtd.enable = true;
-  virtualisation.docker = {
-    enable = true;
-    rootless = {
+  virtualisation = {
+    spiceUSBRedirection.enable = true;
+    libvirtd.enable = true;
+    docker = {
       enable = true;
-      setSocketVariable = true;
+      rootless = {
+        enable = true;
+        setSocketVariable = true;
+      };
     };
   };
 
