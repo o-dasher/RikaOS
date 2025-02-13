@@ -4,7 +4,7 @@
 {
   pkgs,
   cfg,
-  inputs,
+  config,
   ...
 }:
 let
@@ -23,6 +23,17 @@ in
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  sops = {
+    defaultSopsFile = ./secrets/homeserver.yaml;
+    secrets.ipv6prefix = { };
+    sops.templates.ipv6prefix.content = ''${config.sops.placeholder.ipv6prefix}'';
+    age = {
+      sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+      keyFile = "/var/lib/sops-nix/key.txt";
+      generateKey = true;
+    };
+  };
 
   security.polkit.enable = true;
   networking = {
@@ -44,7 +55,7 @@ in
   systemd.network.enable = true;
   systemd.network.networks."10-main" =
     let
-      ipv6prefix = "";
+      ipv6prefix = config.sops.templates.ipv6prefix.content;
     in
     {
       matchConfig.Name = "enp1s0";
