@@ -13,7 +13,6 @@ in
 {
   imports = [
     ./hardware-configuration.nix
-    inputs.playit-nixos-module.nixosModules.default
   ];
 
   time.timeZone = "Brazil/East";
