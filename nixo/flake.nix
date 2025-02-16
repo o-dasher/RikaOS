@@ -85,7 +85,7 @@
     }@inputs:
     let
       define_hm =
-        profile: cfg:
+        profile: path:
         home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs { system = "x86_64-linux"; };
           modules = [
@@ -93,9 +93,9 @@
           ] ++ [ ./home/profiles/${profile} ];
           extraSpecialArgs = {
             inherit inputs;
-            ghostty = ghostty;
+            inherit ghostty;
+            cfg = import ./${path}/settings.nix;
             utils = import ./home/utils;
-            cfg = import cfg;
           };
         };
 
@@ -117,8 +117,7 @@
     {
       # Personal
       nixosConfigurations.${home-cfg.hostName} = define_system "system/home";
-      homeConfigurations."${home-cfg.username}@${home-cfg.hostName}" =
-        define_hm "satoko" ./system/home/settings.nix;
+      homeConfigurations."${home-cfg.username}@${home-cfg.hostName}" = define_hm "satoko" "system/home";
 
       # Home server
       nixosConfigurations.${home-server-cfg.hostName} = define_system "system/homeserver";
