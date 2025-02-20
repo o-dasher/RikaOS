@@ -85,30 +85,31 @@
     }@inputs:
     let
       define_hm =
-        path: profile:
+        cfg: profile:
         home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs { system = "x86_64-linux"; };
           modules = [
             stylix.homeManagerModules.stylix
-          ] ++ [ ./system/${path}/profiles/${profile} ];
+            ./system/${cfg.hostName}/profiles/${profile}
+          ];
           extraSpecialArgs = {
             inherit inputs;
             inherit ghostty;
-            cfg = import ./system/${path}/settings.nix;
+            inherit cfg;
             utils = import ./home/utils;
           };
         };
 
       define_system =
-        path:
+        cfg:
         nixpkgs.lib.nixosSystem {
           specialArgs = {
             inherit inputs;
-            cfg = import ./system/${path}/settings.nix;
+            inherit cfg;
           };
           modules = [
             stylix.nixosModules.stylix
-            ./system/${path}/configuration.nix
+            ./system/${cfg.hostName}/configuration.nix
           ];
         };
 
@@ -119,9 +120,9 @@
     in
     {
       # Personal
-      nixosConfigurations.${cfgs.hinamizawa.hostName} = define_system "hinamizawa";
+      nixosConfigurations.${cfgs.hinamizawa.hostName} = define_system cfgs.hinamizawa;
       homeConfigurations."${cfgs.hinamizawa.username}@${cfgs.hinamizawa.hostName}" =
-        define_hm "hinamizawa" "rika";
+        define_hm cfgs.hinamizawa "rika";
 
       # Home server
       nixosConfigurations.${cfgs.gensokyo.hostName} = define_system "gensokyo";
