@@ -7,7 +7,7 @@
   ...
 }:
 let
-  inherit (cfg) hostName username state;
+  inherit (cfg) hostName state;
 in
 {
   imports = [
@@ -67,7 +67,7 @@ in
       ];
     };
 
-  users.users.${username} = {
+  users.users.${cfg.profiles.nue} = {
     isNormalUser = true;
     extraGroups = [
       "wheel"
@@ -100,7 +100,7 @@ in
       ];
       trusted-users = [
         "root"
-        username
+        cfg.profiles.nue
       ];
     };
     gc = {
