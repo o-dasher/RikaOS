@@ -8,15 +8,23 @@
   config = {
     neovim.enable = true;
     terminal.enable = true;
+    hyprland.enable = true;
+    spotify.enable = true;
 
     # Even though open source is cool and all I still use some not libre software.
-    nixpkgs.config.allowUnfree = true;
+    nixpkgs.config = {
+      allowUnfree = true;
+      android_sdk.accept_license = true;
+    };
 
     xdg.portal = with pkgs; {
       enable = true;
       xdgOpenUsePortal = true;
       config.common.default = "*";
-      extraPortals = [ xdg-desktop-portal-gtk ];
+      extraPortals = [
+        xdg-desktop-portal-wlr
+        xdg-desktop-portal-gtk
+      ];
     };
 
     home = {
@@ -53,6 +61,47 @@
         # fonts
         jetbrains-mono
         cascadia-code
+
+        # cli
+        # general
+        htop
+        gdu
+        unzip
+
+        # programming
+        jetbrains.rider
+        android-studio
+        # Used to start new projects although I mainly use dev shells!
+        openjdk17
+        cargo
+        nodejs
+        bun
+        pnpm
+
+        # android
+        universal-android-debloater
+
+        # gui
+        # entertainment
+        stremio
+        # tools
+        gimp
+        nomacs
+        qbittorrent
+        pavucontrol
+        obs-studio
+        mpv
+        # monitor
+        mission-center
+        # browser
+        brave
+        # social media
+        legcord
+        # files
+        yazi
+
+        # Disk partitioning
+        gparted
       ];
     };
 
@@ -77,7 +126,14 @@
         enable = true;
         nix-direnv.enable = true;
       };
+      hyfetch = {
+        enable = true;
+        settings = {
+          preset = "bisexual";
+          mode = "rgb";
+          color_align.mode = "horizontal";
+        };
+      };
     };
   };
-
 }
