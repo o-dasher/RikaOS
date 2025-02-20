@@ -1,6 +1,6 @@
 {
   # The main user name
-  username = "thiago";
+  username = "rika";
 
   # The system host name.
   hostName = "hinamizawa";
