@@ -107,6 +107,7 @@
             cfg = import ./system/${path}/settings.nix;
           };
           modules = [
+            stylix.nixosModules.stylix
             ./system/${path}/configuration.nix
           ];
         };
@@ -118,7 +119,7 @@
     in
     {
       # Personal
-      nixosConfigurations.youmu = define_system "hinamizawa";
+      nixosConfigurations.${cfgs.hinamizawa.hostName} = define_system "hinamizawa";
       homeConfigurations."${cfgs.hinamizawa.username}@${cfgs.hinamizawa.hostName}" =
         define_hm "hinamizawa" "satoko";
 
