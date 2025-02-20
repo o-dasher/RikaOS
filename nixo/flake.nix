@@ -94,7 +94,7 @@
           extraSpecialArgs = {
             inherit inputs;
             inherit ghostty;
-            cfg = import ./${path}/settings.nix;
+            cfg = import ./system/${path}/settings.nix;
             utils = import ./home/utils;
           };
         };
@@ -104,22 +104,25 @@
         nixpkgs.lib.nixosSystem {
           specialArgs = {
             inherit inputs;
-            cfg = import ./${path}/settings.nix;
+            cfg = import ./system/${path}/settings.nix;
           };
           modules = [
-            ./${path}/configuration.nix
+            ./system/${path}/configuration.nix
           ];
         };
 
-      home-cfg = import ./system/home/settings.nix;
-      home-server-cfg = import ./system/homeserver/settings.nix;
+      cfgs = {
+        hinamizawa = import ./system/hinamizawa/settings.nix;
+        gensokyo = import ./system/gensokyo/settings.nix;
+      };
     in
     {
       # Personal
-      nixosConfigurations.${home-cfg.hostName} = define_system "system/home";
-      homeConfigurations."${home-cfg.username}@${home-cfg.hostName}" = define_hm "satoko" "system/home";
+      nixosConfigurations.youmu = define_system "hinamizawa";
+      homeConfigurations."${cfgs.hinamizawa.username}@${cfgs.hinamizawa.hostName}" =
+        define_hm "satoko" "hinamizawa";
 
       # Home server
-      nixosConfigurations.${home-server-cfg.hostName} = define_system "system/homeserver";
+      nixosConfigurations.${cfgs.gensokyo.hostName} = define_system "gensokyo";
     };
 }
