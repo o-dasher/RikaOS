@@ -121,7 +121,7 @@
       # Personal
       nixosConfigurations.${cfgs.hinamizawa.hostName} = define_system "hinamizawa";
       homeConfigurations."${cfgs.hinamizawa.username}@${cfgs.hinamizawa.hostName}" =
-        define_hm "hinamizawa" "satoko";
+        define_hm "hinamizawa" "rika";
 
       # Home server
       nixosConfigurations.${cfgs.gensokyo.hostName} = define_system "gensokyo";
