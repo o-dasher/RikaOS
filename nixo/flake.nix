@@ -95,8 +95,10 @@
           extraSpecialArgs = {
             inherit inputs;
             inherit ghostty;
-            inherit cfg;
             utils = import ./home/utils;
+            cfg = cfg // {
+              username = profile;
+            };
           };
         };
 
@@ -113,18 +115,26 @@
           ];
         };
 
-      cfgs = {
-        hinamizawa = import ./system/hinamizawa/settings.nix;
-        gensokyo = import ./system/gensokyo/settings.nix;
+      hinamizawa = {
+        hostName = "hinamizawa";
+        state = "24.05";
+        profiles = {
+          rika = "rika";
+        };
+      };
+
+      gensokyo = {
+        hostName = "gensokyo";
+        state = "24.05";
       };
     in
     {
       # Personal
-      nixosConfigurations.${cfgs.hinamizawa.hostName} = define_system cfgs.hinamizawa;
-      homeConfigurations."${cfgs.hinamizawa.username}@${cfgs.hinamizawa.hostName}" =
-        define_hm cfgs.hinamizawa "rika";
+      nixosConfigurations.${hinamizawa.hostName} = define_system hinamizawa;
+      homeConfigurations."${hinamizawa.profiles.rika}@${hinamizawa.hostName}" =
+        define_hm hinamizawa hinamizawa.profiles.rika;
 
       # Home server
-      nixosConfigurations.${cfgs.gensokyo.hostName} = define_system "gensokyo";
+      nixosConfigurations.${gensokyo.hostName} = define_system gensokyo;
     };
 }

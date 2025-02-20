@@ -9,7 +9,7 @@
   ...
 }:
 let
-  inherit (cfg) hostName username state;
+  inherit (cfg) hostName state;
 in
 {
   imports = [
@@ -121,15 +121,15 @@ in
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.groups.libvirtd.members = [ username ];
-  users.users.${username} = {
+  users.groups.libvirtd.members = [ cfg.profiles.rika ];
+  users.users.${cfg.profiles.rika} = {
     isNormalUser = true;
     shell = pkgs.fish;
     extraGroups = [
       "wheel"
       "video"
       "adbusers"
-    ]; # Enable ‘sudo’ for the user.
+    ];
   };
 
   environment = {
@@ -176,7 +176,7 @@ in
       ];
       trusted-users = [
         "root"
-        username
+        cfg.profiles.rika
       ];
     };
     gc = {
