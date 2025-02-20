@@ -136,7 +136,6 @@ in
     systemPackages = with pkgs; [
       sbctl # Secure boot
       catppuccin-sddm-corners
-      git
       kwin
     ];
   };
