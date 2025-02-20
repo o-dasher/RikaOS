@@ -2,7 +2,7 @@
 {
   imports = [
     ./theme
-    ../../modules
+    ../../../../home/modules
   ];
 
   config = {
