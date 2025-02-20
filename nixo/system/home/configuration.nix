@@ -40,10 +40,13 @@ in
     # This setting is usually set to true in configuration.nix
     # generated at installation time. So we force it to false
     # for now.
-    loader.systemd-boot.enable = lib.mkForce false;
+    loader.systemd-boot = {
+      enable = lib.mkForce false;
+      consoleMode = "max";
+    };
     lanzaboote = {
       enable = true;
-      pkiBundle = "/etc/secureboot";
+      pkiBundle = "/var/lib/sbctl";
     };
   };
 
