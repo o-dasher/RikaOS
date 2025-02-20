@@ -3,7 +3,7 @@
   username = "thiago";
 
   # The system host name.
-  hostName = "thiagohome";
+  hostName = "gensokyo";
 
   # Do not modify the variable below.
   # We're using it to make sure that home-manager's stateVersion is in sync with the system's stateVersion.
