@@ -126,6 +126,9 @@
       gensokyo = {
         hostName = "gensokyo";
         state = "24.05";
+        profiles = {
+          nue = "thiago";
+        };
       };
     in
     {

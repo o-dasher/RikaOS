@@ -90,22 +90,23 @@ in
     blueman.enable = true;
 
     # Display manager
-    displayManager = {
-      sddm = {
-        enable = true;
-        theme = "catppuccin-sddm-corners";
-        wayland = {
-          enable = true;
-          compositor = "kwin";
-        };
-      };
-    };
+
+    xserver.displayManager.gdm.enable = true;
 
     # Rgb controller
     hardware.openrgb.enable = true;
 
     # Keyboard
     udev.packages = with pkgs; [ vial ];
+  };
+
+  stylix = {
+    enable = true;
+    autoEnable = false;
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/windows-highcontrast.yaml";
+    targets = {
+      gnome.enable = true;
+    };
   };
 
   virtualisation = {
