@@ -2,7 +2,6 @@
 {
   imports = [
     ./theme
-    ../../../../home/modules
   ];
 
   config = {
@@ -10,21 +9,18 @@
     terminal.enable = true;
     hyprland.enable = true;
     spotify.enable = true;
+    nixSetup.enable = true;
+
+    xdgSetup.enable = true;
+    xdg.portal.extraPortals = with pkgs; [
+      xdg-desktop-portal-wlr
+      xdg-desktop-portal-gtk
+    ];
 
     # Even though open source is cool and all I still use some not libre software.
     nixpkgs.config = {
       allowUnfree = true;
       android_sdk.accept_license = true;
-    };
-
-    xdg.portal = with pkgs; {
-      enable = true;
-      xdgOpenUsePortal = true;
-      config.common.default = "*";
-      extraPortals = [
-        xdg-desktop-portal-wlr
-        xdg-desktop-portal-gtk
-      ];
     };
 
     home = {
@@ -103,19 +99,6 @@
         # Disk partitioning
         gparted
       ];
-    };
-
-    nix = {
-      gc = {
-        automatic = true;
-        frequency = "daily";
-        options = "--delete-older-than 1d";
-      };
-    };
-
-    xdg = {
-      enable = true;
-      mime.enable = true;
     };
 
     programs = {
