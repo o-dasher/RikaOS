@@ -13,7 +13,6 @@ in
 {
   imports = [
     ./hardware-configuration.nix
-    inputs.sops-nix.nixosModules.sops
   ];
 
   # Modules
