@@ -16,8 +16,6 @@ in
     inputs.sops-nix.nixosModules.sops
   ];
 
-  nixpkgs.config.allowUnfree = true;
-
   # Modules
   userPreferences.enable = true;
   secureBoot.enable = true;
@@ -121,7 +119,6 @@ in
   programs = {
     virt-manager.enable = true;
     adb.enable = true;
-    light.enable = true;
     fish.enable = true;
     dconf.enable = true;
     nix-ld.enable = true;
