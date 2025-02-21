@@ -21,10 +21,10 @@ in
     trusted-users = [ cfg.profiles.nue ];
   };
 
-  nixpkgs.config.allowUnfree = true;
-
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+  };
 
   security.polkit.enable = true;
   networking = {
@@ -43,32 +43,34 @@ in
     };
   };
 
-  systemd.network.enable = true;
-  systemd.network.networks."10-main" =
-    let
-      ipv6prefix = "";
-    in
-    {
-      matchConfig.Name = "enp1s0";
-      address = [
-        "192.168.0.67/24"
-        "${ipv6prefix}::8/64"
-      ];
+  systemd.network = {
+    enable = true;
+    network.networks."10-main" =
+      let
+        ipv6prefix = "";
+      in
+      {
+        matchConfig.Name = "enp1s0";
+        address = [
+          "192.168.0.67/24"
+          "${ipv6prefix}::8/64"
+        ];
 
-      ipv6Prefixes = [
-        { Prefix = "${ipv6prefix}::/64"; }
-      ];
+        ipv6Prefixes = [
+          { Prefix = "${ipv6prefix}::/64"; }
+        ];
 
-      networkConfig = {
-        DHCP = "yes";
-        IPv6SendRA = true;
+        networkConfig = {
+          DHCP = "yes";
+          IPv6SendRA = true;
+        };
+
+        routes = [
+          { Gateway = "fe80::"; }
+          { Gateway = "192.168.0.1"; }
+        ];
       };
-
-      routes = [
-        { Gateway = "fe80::"; }
-        { Gateway = "192.168.0.1"; }
-      ];
-    };
+  };
 
   users.users.${cfg.profiles.nue} = {
     isNormalUser = true;
