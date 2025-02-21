@@ -81,6 +81,7 @@
       home-manager,
       stylix,
       ghostty,
+      sops-nix,
       ...
     }@inputs:
     let
@@ -90,6 +91,7 @@
           pkgs = import nixpkgs { system = "x86_64-linux"; };
           modules = [
             stylix.homeManagerModules.stylix
+            ./home/modules
             ./system/${cfg.hostName}/profiles/${profile}
           ];
           extraSpecialArgs = {
@@ -111,6 +113,7 @@
           };
           modules = [
             stylix.nixosModules.stylix
+            sops-nix.nixosModules.sops
             ./system/modules
             ./system/${cfg.hostName}/configuration.nix
           ];
