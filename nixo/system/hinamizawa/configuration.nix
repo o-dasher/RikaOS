@@ -4,7 +4,6 @@
 {
   pkgs,
   cfg,
-  lib,
   inputs,
   ...
 }:
@@ -14,7 +13,6 @@ in
 {
   imports = [
     ./hardware-configuration.nix
-    inputs.lanzaboote.nixosModules.lanzaboote
     inputs.sops-nix.nixosModules.sops
   ];
 
@@ -24,6 +22,8 @@ in
 
   nixpkgs.config.allowUnfree = true;
 
+  secureBoot.enable = true;
+
   # Audio setup
   security.rtkit.enable = true;
   services.pipewire = {
@@ -32,22 +32,6 @@ in
     alsa.support32Bit = true;
     pulse.enable = true;
     jack.enable = true;
-  };
-
-  # Use the systemd-boot EFI boot loader.
-  boot = {
-    # Lanzaboote currently replaces the systemd-boot module.
-    # This setting is usually set to true in configuration.nix
-    # generated at installation time. So we force it to false
-    # for now.
-    loader.systemd-boot = {
-      enable = lib.mkForce false;
-      consoleMode = "max";
-    };
-    lanzaboote = {
-      enable = true;
-      pkiBundle = "/var/lib/sbctl";
-    };
   };
 
   security.polkit.enable = true;
@@ -133,13 +117,10 @@ in
     ];
   };
 
-  environment = {
-    systemPackages = with pkgs; [
-      sbctl # Secure boot
-      catppuccin-sddm-corners
-      kwin
-    ];
-  };
+  environment.systemPackages = with pkgs; [
+    catppuccin-sddm-corners
+    kwin
+  ];
 
   programs = {
     virt-manager.enable = true;
