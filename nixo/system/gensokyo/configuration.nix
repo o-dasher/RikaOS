@@ -14,11 +14,8 @@ in
     ./hardware-configuration.nix
   ];
 
-  time.timeZone = "Brazil/East";
-  i18n.defaultLocale = "en_US.UTF-8";
-  console.keyMap = "br-abnt2";
-
   # Modules
+  userPreferences.enable = true;
   nixSetup = {
     enable = true;
     trusted-users = [ cfg.profiles.nue ];

@@ -16,13 +16,10 @@ in
     inputs.sops-nix.nixosModules.sops
   ];
 
-  time.timeZone = "Brazil/East";
-  i18n.defaultLocale = "en_US.UTF-8";
-  console.keyMap = "br-abnt2";
-
   nixpkgs.config.allowUnfree = true;
 
   # Modules
+  userPreferences.enable = true;
   secureBoot.enable = true;
   nixSetup = {
     enable = true;
@@ -79,7 +76,6 @@ in
     blueman.enable = true;
 
     # Display manager
-
     xserver.displayManager.gdm.enable = true;
 
     # Rgb controller
