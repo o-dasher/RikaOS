@@ -18,6 +18,12 @@ in
   i18n.defaultLocale = "en_US.UTF-8";
   console.keyMap = "br-abnt2";
 
+  # Modules
+  nixSetup = {
+    enable = true;
+    trusted-users = [ cfg.profiles.nue ];
+  };
+
   nixpkgs.config.allowUnfree = true;
 
   boot.loader.systemd-boot.enable = true;
@@ -75,13 +81,11 @@ in
     ];
   };
 
-  environment = {
-    systemPackages = with pkgs; [
-      git
-      openjdk
-      tmux
-    ];
-  };
+  environment.systemPackages = with pkgs; [
+    git
+    openjdk
+    tmux
+  ];
 
   programs = {
     neovim = {
@@ -91,24 +95,6 @@ in
   };
 
   hardware.graphics.enable = true;
-
-  nix = {
-    settings = {
-      experimental-features = [
-        "flakes"
-        "nix-command"
-      ];
-      trusted-users = [
-        "root"
-        cfg.profiles.nue
-      ];
-    };
-    gc = {
-      automatic = true;
-      options = "-d";
-    };
-    optimise.automatic = true;
-  };
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
