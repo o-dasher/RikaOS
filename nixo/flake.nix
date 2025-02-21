@@ -111,6 +111,7 @@
           };
           modules = [
             stylix.nixosModules.stylix
+            ./system/modules
             ./system/${cfg.hostName}/configuration.nix
           ];
         };
