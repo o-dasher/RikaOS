@@ -22,7 +22,12 @@ in
 
   nixpkgs.config.allowUnfree = true;
 
+  # Modules
   secureBoot.enable = true;
+  nixSetup = {
+    enable = true;
+    trusted-users = [ cfg.profiles.rika ];
+  };
 
   # Audio setup
   security.rtkit.enable = true;
@@ -148,24 +153,6 @@ in
   hardware = {
     graphics.enable = true;
     bluetooth.enable = true;
-  };
-
-  nix = {
-    settings = {
-      experimental-features = [
-        "flakes"
-        "nix-command"
-      ];
-      trusted-users = [
-        "root"
-        cfg.profiles.rika
-      ];
-    };
-    gc = {
-      automatic = true;
-      options = "-d";
-    };
-    optimise.automatic = true;
   };
 
   # Enable the OpenSSH daemon.
