@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  terminal.enable = true;
+  fish.enable = true;
   spotify.enable = true;
   nixSetup.enable = true;
 
@@ -11,7 +11,6 @@
   ];
 
   home.packages = with pkgs; [
-    easyeffects
     pavucontrol
     mpv
     mission-center
@@ -19,7 +18,7 @@
   ];
 
   programs = {
-    bash.enable = true;
+    easyeffects.enable = true;
     home-manager.enable = true;
   };
 }

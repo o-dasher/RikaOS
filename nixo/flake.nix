@@ -101,6 +101,7 @@
         nixpkgs.lib.nixosSystem {
           specialArgs = {
             inherit inputs;
+            inherit ghostty;
             inherit cfg;
           };
           modules = [
