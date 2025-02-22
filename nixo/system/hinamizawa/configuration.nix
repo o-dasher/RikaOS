@@ -18,6 +18,7 @@ in
   # Modules
   userPreferences.enable = true;
   secureBoot.enable = true;
+  sharedFolders.folderNames = [ "/shared/Games" ];
   nixSetup = {
     enable = true;
     trusted-users = [ cfg.profiles.rika ];
@@ -32,24 +33,6 @@ in
     trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
-  };
-
-  # Defining shared folders
-  systemd.tmpfiles.settings = {
-    "shared_folders" =
-      let
-        sharedConf = {
-          d = {
-            mode = "0750";
-            user = cfg.profiles.rika;
-            group = "users";
-          };
-        };
-      in
-      {
-        "/shared/.config" = sharedConf;
-        "/shared/Games" = sharedConf;
-      };
   };
 
   # Audio setup
