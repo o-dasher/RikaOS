@@ -34,6 +34,24 @@ in
     ];
   };
 
+  # Defining shared folders
+  systemd.tmpfiles.settings = {
+    "shared_folders" =
+      let
+        sharedConf = {
+          d = {
+            mode = "0750";
+            user = cfg.profiles.rika;
+            group = "users";
+          };
+        };
+      in
+      {
+        "/shared/.config" = sharedConf;
+        "/shared/Games" = sharedConf;
+      };
+  };
+
   # Audio setup
   security.rtkit.enable = true;
   services.pipewire = {
