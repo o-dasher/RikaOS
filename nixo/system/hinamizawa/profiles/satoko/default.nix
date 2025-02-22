@@ -1,5 +1,6 @@
 { pkgs, ... }:
 {
+  gnome.enable = true;
   fish.enable = true;
   spotify.enable = true;
   nixSetup.enable = true;
@@ -11,7 +12,6 @@
   ];
 
   home.packages = with pkgs; [
-    pavucontrol
     mpv
     mission-center
     brave
