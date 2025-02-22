@@ -23,6 +23,17 @@ in
     trusted-users = [ cfg.profiles.rika ];
   };
 
+  # Nix caching
+  nix.settings = {
+    substituters = [
+      "https://nix-community.cachix.org"
+      "https://cache.nixos.org/"
+    ];
+    trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    ];
+  };
+
   # Audio setup
   security.rtkit.enable = true;
   services.pipewire = {
@@ -59,18 +70,12 @@ in
     # Enable CUPS to print documents.
     printing.enable = true;
 
-    # Enable touchpad support (enabled default in most desktopManager).
-    libinput.enable = true;
-
     # Enable gnome keyring to store password and stuff?
     gnome.gnome-keyring.enable = true;
 
     # Thunar
     gvfs.enable = true; # Mount, trash, and other functionalities
     tumbler.enable = true; # Thumbnail support for images
-
-    # Bluetooth
-    blueman.enable = true;
 
     # Display manager
     xserver.displayManager.gdm.enable = true;
@@ -104,19 +109,31 @@ in
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.groups.libvirtd.members = [ cfg.profiles.rika ];
-  users.users.${cfg.profiles.rika} = {
-    isNormalUser = true;
-    shell = pkgs.fish;
-    extraGroups = [
-      "wheel"
-      "video"
-      "adbusers"
-    ];
+  users = {
+    groups.libvirtd.members = [ cfg.profiles.rika ];
+    users = {
+      ${cfg.profiles.rika} = {
+        isNormalUser = true;
+        shell = pkgs.fish;
+        extraGroups = [
+          "wheel"
+          "video"
+          "adbusers"
+        ];
+      };
+      ${cfg.profiles.satoko} = {
+        isNormalUser = true;
+        shell = pkgs.fish;
+        extraGroups = [
+          "video"
+        ];
+      };
+    };
   };
 
   programs = {
     virt-manager.enable = true;
+    hyprland.enable = true;
     adb.enable = true;
     fish.enable = true;
     dconf.enable = true;
@@ -124,12 +141,6 @@ in
     thunar = {
       enable = true;
       plugins = with pkgs.xfce; [ thunar-volman ];
-    };
-    hyprland = {
-      enable = true;
-      package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-      portalPackage =
-        inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
     };
     neovim = {
       enable = true;
@@ -139,7 +150,6 @@ in
 
   hardware = {
     graphics.enable = true;
-    bluetooth.enable = true;
   };
 
   # This option defines the first version of NixOS you have installed on this particular machine,

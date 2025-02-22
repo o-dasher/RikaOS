@@ -2,7 +2,7 @@
   description = "RikaOS";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs";
     flake-compat.url = "github:edolstra/flake-compat";
     systems.url = "github:nix-systems/default";
@@ -41,14 +41,6 @@
         flake-utils.follows = "flake-utils";
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
-      };
-    };
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
-      inputs = {
-        systems.follows = "systems";
-        nixpkgs.follows = "nixpkgs";
-        pre-commit-hooks.follows = "git-hooks";
       };
     };
     lanzaboote = {
@@ -124,6 +116,7 @@
         state = "24.05";
         profiles = {
           rika = "rika";
+          satoko = "satoko";
         };
       };
 
@@ -138,6 +131,8 @@
     {
       # Personal
       nixosConfigurations.${hinamizawa.hostName} = define_system hinamizawa;
+      homeConfigurations."${hinamizawa.profiles.satoko}@${hinamizawa.hostName}" =
+        define_hm hinamizawa hinamizawa.profiles.satoko;
       homeConfigurations."${hinamizawa.profiles.rika}@${hinamizawa.hostName}" =
         define_hm hinamizawa hinamizawa.profiles.rika;
 

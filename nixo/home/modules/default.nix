@@ -4,7 +4,8 @@
     ./spotify
     ./neovim
     ./terminal
-    ./xdg_setup
-    ./nix_setup
+    ./setup_nix
+    ./setup_home
+    ./setup_xdg
   ];
 }
