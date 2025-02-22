@@ -4,7 +4,7 @@
 {
   pkgs,
   cfg,
-  inputs,
+  ghostty,
   ...
 }:
 let
@@ -71,13 +71,17 @@ in
     printing.enable = true;
 
     # Enable gnome keyring to store password and stuff?
-    gnome.gnome-keyring.enable = true;
+    gnome = {
+      gnome-keyring.enable = true;
+      core-utilities.enable = false;
+    };
 
     # Thunar
     gvfs.enable = true; # Mount, trash, and other functionalities
     tumbler.enable = true; # Thumbnail support for images
 
     # Display manager
+    xserver.desktopManager.gnome.enable = true;
     xserver.displayManager.gdm.enable = true;
 
     # Rgb controller
@@ -147,6 +151,10 @@ in
       defaultEditor = true;
     };
   };
+
+  environment.systemPackages = with pkgs; [
+    ghostty.packages.${pkgs.stdenv.hostPlatform.system}.default
+  ];
 
   hardware = {
     graphics.enable = true;

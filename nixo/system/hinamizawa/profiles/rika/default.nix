@@ -96,7 +96,6 @@
   ];
 
   programs = {
-    bash.enable = true;
     home-manager.enable = true;
     lazygit.enable = true;
     direnv = {
