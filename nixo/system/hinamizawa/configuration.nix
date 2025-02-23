@@ -35,6 +35,16 @@ in
     ];
   };
 
+  # Gaming and gpu stuff
+  nixpkgs.config.allowUnfree = true;
+  programs = {
+    gamemode.enable = true;
+    steam = {
+      enable = true;
+      gamescopeSession.enable = true;
+    };
+  };
+
   # Audio setup
   security.rtkit.enable = true;
   services.pipewire = {
