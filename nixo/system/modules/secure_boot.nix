@@ -15,7 +15,7 @@
     enable = mkEnableOption "secureBoot";
   };
 
-  config = lib.mkIf (config.secureBoot.enable) {
+  config = lib.mkIf config.secureBoot.enable {
 
     environment.systemPackages = [ pkgs.sbctl ];
 

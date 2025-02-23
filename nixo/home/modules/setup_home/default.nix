@@ -11,7 +11,7 @@
     };
   };
 
-  config = lib.mkIf (config.homeSetup.enable) {
+  config = lib.mkIf config.homeSetup.enable {
     home = {
       username = cfg.username;
       homeDirectory = "/home/${cfg.username}";

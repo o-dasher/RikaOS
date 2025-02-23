@@ -2,6 +2,7 @@
   imports = [
     ./hyprland
     ./spotify
+    ./gnome
     ./neovim
     ./terminal
     ./system
