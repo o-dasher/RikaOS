@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   gnome.enable = true;
-  fish.enable = true;
+  terminal.enable = true;
   spotify.enable = true;
   nixSetup.enable = true;
 
