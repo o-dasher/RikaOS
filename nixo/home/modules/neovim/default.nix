@@ -7,6 +7,11 @@
 {
   options.neovim.enable = lib.mkEnableOption "neovim";
   config = lib.mkIf (config.neovim.enable) {
+    home.file.".config/nvim" = {
+      source = ../../../../nvim;
+      recursive = true;
+    };
+
     programs.neovim = {
       enable = true;
       viAlias = true;
