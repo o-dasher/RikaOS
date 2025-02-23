@@ -17,7 +17,7 @@
           clipboard-read = "allow";
           clipboard-paste-protection = false;
         }
-        (lib.mkIf !config.gnome.enable {
+        (lib.mkIf (!config.gnome.enable) {
           gtk-titlebar = false;
           window-decoration = false;
         })
