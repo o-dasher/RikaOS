@@ -11,14 +11,18 @@
     xdg-desktop-portal-gtk
   ];
 
+  nixpkgs.config = {
+    allowUnfree = true;
+  };
+
   home.packages = with pkgs; [
+    easyeffects
     mpv
     mission-center
     brave
   ];
 
   programs = {
-    easyeffects.enable = true;
     home-manager.enable = true;
   };
 }
