@@ -32,7 +32,6 @@
     # cli
     wget
     github-cli
-    git
     heroku
     wl-clipboard # global because I main wayland
 
@@ -101,6 +100,10 @@
   programs = {
     home-manager.enable = true;
     lazygit.enable = true;
+    git = {
+      enable = true;
+      extraConfig.safe.directory = "/shared/.config";
+    };
     direnv = {
       enable = true;
       nix-direnv.enable = true;
