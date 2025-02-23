@@ -31,7 +31,7 @@ in
             }
             (aliase pkgs.bash { sail = "vendor/bin/sail"; })
             ((lib.mkIf config.sharedFolders.enable) (
-              aliase pkgs.home-manager { hm = "switch --flake ${config.sharedFolders.configurationRoot}"; }
+              aliase pkgs.home-manager { hm = "switch --flake ${config.sharedFolders.configurationRoot}/nixo"; }
             ))
           ];
 

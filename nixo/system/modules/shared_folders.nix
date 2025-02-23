@@ -11,7 +11,12 @@
     };
   };
 
-  config = lib.mkIf (config.sharedFolders.enable) {
+  config = lib.mkIf config.sharedFolders.enable {
+    programs.git = {
+      enable = true;
+      config.safe.directory = config.sharedFolders.configurationRoot;
+    };
+
     systemd.tmpfiles.rules = map (f: "d ${f} 0777 - wheel - -") (
       [
         config.sharedFolders.configurationRoot

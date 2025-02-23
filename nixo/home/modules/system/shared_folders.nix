@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, ... }:
 {
   options.sharedFolders = with lib; {
     enable = (mkEnableOption "sharedFolders") // {
@@ -7,13 +7,6 @@
     configurationRoot = mkOption {
       default = "/shared/.config";
       type = types.str;
-    };
-  };
-
-  config = lib.mkIf (config.sharedFolders.enable) {
-    programs.git = {
-      enable = true;
-      extraConfig.safe.directory = "/shared/.config";
     };
   };
 }
