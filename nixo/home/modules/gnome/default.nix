@@ -5,11 +5,11 @@
   };
 
   config = lib.mkIf config.gnome.enable {
-    dconf.settings = with lib; {
+    dconf.settings = {
       "org/gnome/desktop/input-sources" = {
         show-all-sources = true;
         sources = [
-          (mkTuple [
+          (lib.hm.gvariant.mkTuple [
             "xkb"
             "br"
           ])
