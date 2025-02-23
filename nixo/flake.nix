@@ -148,5 +148,7 @@
 
       # Home server
       nixosConfigurations.${gensokyo.hostName} = define_system gensokyo;
+      homeConfigurations."${gensokyo.profiles.nue}@${gensokyo.hostName}" =
+        define_hm gensokyo gensokyo.profiles.nue;
     };
 }
