@@ -5,5 +5,6 @@
     ./desktop
     ./terminal
     ./applications
+    ./games
   ];
 }

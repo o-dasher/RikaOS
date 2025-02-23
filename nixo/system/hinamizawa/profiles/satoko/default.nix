@@ -4,6 +4,7 @@
     ./theme
   ];
 
+  games.enable = true;
   gnome.enable = true;
   terminal.enable = true;
   spotify.enable = true;

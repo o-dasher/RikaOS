@@ -16,6 +16,11 @@
     xdg-desktop-portal-gtk
   ];
 
+  games = {
+    enable = true;
+    minecraft.enable = true;
+  };
+
   # Even though open source is cool and all I still use some not libre software.
   nixpkgs.config = {
     allowUnfree = true;
