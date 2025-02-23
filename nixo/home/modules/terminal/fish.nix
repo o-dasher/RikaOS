@@ -24,12 +24,16 @@ in
           let
             aliase = pkg: kvpairs: prefixset (lib.getExe pkg) kvpairs;
           in
-          {
-            # git
-            lg = lib.getExe pkgs.lazygit;
-          }
-          // aliase pkgs.bash { sail = "vendor/bin/sail"; }
-          // aliase pkgs.home-manager { hm = "switch --flake /shared/.config/nixo"; };
+          lib.mkMerge [
+            {
+              # git
+              lg = lib.getExe pkgs.lazygit;
+            }
+            (aliase pkgs.bash { sail = "vendor/bin/sail"; })
+            ((lib.mkIf config.sharedFolders.enable) (
+              aliase pkgs.home-manager { hm = "switch --flake ${config.sharedFolders.configurationRoot}"; }
+            ))
+          ];
 
         interactiveShellInit = ''
           function fish_greeting
