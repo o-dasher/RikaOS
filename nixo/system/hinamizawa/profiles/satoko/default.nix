@@ -1,5 +1,9 @@
 { pkgs, ... }:
 {
+  imports = [
+    ./theme
+  ];
+
   gnome.enable = true;
   terminal.enable = true;
   spotify.enable = true;
