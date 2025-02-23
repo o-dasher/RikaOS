@@ -2,8 +2,8 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 {
-  pkgs,
   cfg,
+  RikaOS-private,
   ...
 }:
 let
@@ -30,24 +30,25 @@ in
   networking = {
     inherit hostName;
     useDHCP = false;
-    firewall = {
-      enable = true;
-      allowedTCPPorts = [
-        60926
-        60927
-      ];
-      allowedUDPPorts = [
-        60926
-        60927
-      ];
-    };
+    firewall =
+      let
+        minecraftPorts = [
+          60926
+          60927
+        ];
+      in
+      {
+        enable = true;
+        allowedTCPPorts = minecraftPorts;
+        allowedUDPPorts = minecraftPorts;
+      };
   };
 
   systemd.network = {
     enable = true;
     network.networks."10-main" =
       let
-        ipv6prefix = "";
+        inherit (RikaOS-private.gensokyo) ipv6prefix;
       in
       {
         matchConfig.Name = "enp1s0";
@@ -76,15 +77,8 @@ in
     isNormalUser = true;
     extraGroups = [
       "wheel"
-      "video"
     ];
   };
-
-  environment.systemPackages = with pkgs; [
-    git
-    openjdk
-    tmux
-  ];
 
   programs = {
     neovim = {
@@ -92,8 +86,6 @@ in
       defaultEditor = true;
     };
   };
-
-  hardware.graphics.enable = true;
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;

@@ -6,6 +6,12 @@
     nixpkgs-stable.url = "github:NixOS/nixpkgs";
     flake-compat.url = "github:edolstra/flake-compat";
     systems.url = "github:nix-systems/default";
+    RikaOS-private = {
+      type = "git";
+      url = "git@github.com:o-dasher/RikaOS-private.git";
+      ref = "main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     git-hooks = {
       url = "github:cachix/git-hooks.nix";
       inputs = {
@@ -74,6 +80,7 @@
       stylix,
       ghostty,
       sops-nix,
+      RikaOS-private,
       ...
     }@inputs:
     let
@@ -89,6 +96,7 @@
           extraSpecialArgs = {
             inherit inputs;
             inherit ghostty;
+            inherit RikaOS-private;
             utils = import ./home/utils;
             cfg = cfg // {
               username = profile;
@@ -100,6 +108,7 @@
         cfg:
         nixpkgs.lib.nixosSystem {
           specialArgs = {
+            inherit RikaOS-private;
             inherit inputs;
             inherit ghostty;
             inherit cfg;
