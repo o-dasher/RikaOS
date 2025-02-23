@@ -29,7 +29,7 @@ in
             lg = lib.getExe pkgs.lazygit;
           }
           // aliase pkgs.bash { sail = "vendor/bin/sail"; }
-          // aliase pkgs.home-manager { hm = "switch --flake ~/.config/nixo"; };
+          // aliase pkgs.home-manager { hm = "switch --flake /shared/.config/nixo"; };
 
         interactiveShellInit = ''
           function fish_greeting

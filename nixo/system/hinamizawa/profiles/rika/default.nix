@@ -22,10 +22,13 @@
     android_sdk.accept_license = true;
   };
 
-  home.packages = with pkgs; [
-    # audio
-    easyeffects
+  home.file.".config/ideavim" = {
+    source = ../../../../../ideavim;
+    recursive = true;
+  };
 
+  home.packages = with pkgs; [
+    easyeffects
     # cli
     wget
     github-cli
