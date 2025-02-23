@@ -27,7 +27,7 @@ in
     };
   };
 
-  config = lib.mkIf (config.hyprland.enable) {
+  config = lib.mkIf config.hyprland.enable {
     wayland.windowManager.hyprland = {
       enable = true;
       xwayland.enable = true;
@@ -79,10 +79,10 @@ in
             mod = "SUPER";
           in
           lib.mkMerge [
-            (lib.mkIf (config.hyprland.wofi.enable) [
+            (lib.mkIf config.hyprland.wofi.enable [
               "${mod}, D, exec, pkill ${getExe pkgs.wofi} || ${getExe pkgs.wofi} --show drun -I -m -i --style $HOME/.config/wofi/style.css"
             ])
-            (lib.mkIf (config.terminal.ghostty.enable) [ "${mod}, RETURN, exec, ${getExe pkgs.ghostty}" ])
+            (lib.mkIf config.terminal.ghostty.enable [ "${mod}, RETURN, exec, ${getExe pkgs.ghostty}" ])
             [
 
               "${mod}, F, fullscreen"

@@ -154,7 +154,7 @@ in
     };
   };
 
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = [
     ghostty.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 
