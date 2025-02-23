@@ -7,9 +7,16 @@
 {
   options.neovim.enable = lib.mkEnableOption "neovim";
   config = lib.mkIf config.neovim.enable {
-    home.file.".config/nvim" = {
-      source = ../../../../nvim;
-      recursive = true;
+    xdg.configFile = {
+      "nvim/lua" = {
+        recursive = true;
+        source = config.lib.file.mkOutOfStoreSymlink ../../../../nvim/lua;
+      };
+
+      "nvim/ftplugin" = {
+        recursive = true;
+        source = config.lib.file.mkOutOfStoreSymlink ../../../../nvim/ftplugin;
+      };
     };
 
     programs.neovim = {

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   imports = [
     ./theme
@@ -22,8 +22,8 @@
     android_sdk.accept_license = true;
   };
 
-  home.file.".config/ideavim" = {
-    source = ../../../../../ideavim;
+  xdg.configFile."ideavim" = {
+    source = config.lib.file.mkOutOfStoreSymlink ../../../../../ideavim;
     recursive = true;
   };
 
