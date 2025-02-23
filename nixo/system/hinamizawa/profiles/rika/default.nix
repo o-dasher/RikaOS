@@ -31,7 +31,6 @@
     easyeffects
     # cli
     wget
-    github-cli
     heroku
     wl-clipboard # global because I main wayland
 
@@ -98,6 +97,7 @@
   ];
 
   programs = {
+    gh.enable = true;
     home-manager.enable = true;
     lazygit.enable = true;
     direnv = {

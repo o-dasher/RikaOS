@@ -5,7 +5,6 @@
   pkgs,
   cfg,
   ghostty,
-  config,
   ...
 }:
 let
