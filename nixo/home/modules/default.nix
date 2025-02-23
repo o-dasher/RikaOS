@@ -1,13 +1,9 @@
 {
   imports = [
-    ./hyprland
-    ./spotify
-    ./gnome
-    ./neovim
-    ./terminal
+    ./setup
     ./system
-    ./setup_nix
-    ./setup_home
-    ./setup_xdg
+    ./desktop
+    ./terminal
+    ./applications
   ];
 }

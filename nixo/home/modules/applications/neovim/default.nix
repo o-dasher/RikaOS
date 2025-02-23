@@ -20,7 +20,7 @@
         );
     in
     lib.mkIf config.neovim.enable {
-      home.file = selectiveSymLink ../../../../nvim ".config/nvim" [
+      home.file = selectiveSymLink ../../../../../nvim ".config/nvim" [
         "lua"
         "ftplugin"
         "lazylock.json"
