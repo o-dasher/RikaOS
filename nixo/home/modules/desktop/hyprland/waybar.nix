@@ -42,7 +42,7 @@ in
           ];
 
           "temperature#cpu" = define_temperature_sensor "CPU" 1 1;
-          "temperature#gpu" = define_temperature_sensor "GPU" 2 1;
+          "temperature#gpu" = define_temperature_sensor "GPU" 3 1;
 
           # Left
           "hyprland/workspaces" = {
