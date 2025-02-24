@@ -15,10 +15,12 @@
   config = lib.mkIf config.games.enable {
     home.packages = with pkgs; [
       heroic
+      mangohud
+      goverlay
       (lib.mkIf config.games.minecraft.enable (
         prismlauncher.override {
           jdks = [
-            openjdk21
+            temurin-bin-21
           ];
         }
       ))
