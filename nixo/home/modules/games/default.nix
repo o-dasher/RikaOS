@@ -9,17 +9,19 @@
     enable = mkEnableOption "games";
     minecraft = {
       enable = mkEnableOption "minecraft";
-      username = mkOption {
-        default = "Daishes";
-        type = types.str;
-      };
     };
   };
 
   config = lib.mkIf config.games.enable {
     home.packages = with pkgs; [
       heroic
-      (lib.mkIf config.games.minecraft.enable prismlauncher)
+      (lib.mkIf config.games.minecraft.enable (
+        prismlauncher.override {
+          jdks = [
+            openjdk21
+          ];
+        }
+      ))
     ];
   };
 }
