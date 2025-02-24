@@ -9,21 +9,24 @@
   config =
     let
       selectiveSymLink =
-        from: to: paths:
+        from: to: paths: opts:
         lib.mkMerge (
           map (path: {
             "${to}/${path}" = {
-              recursive = true;
               source = config.lib.file.mkOutOfStoreSymlink (builtins.toPath /. + "${from}/${path}");
-            };
+            } // opts;
           }) paths
         );
+
+      symLinkNeovim = selectiveSymLink ../../../../../nvim ".config/nvim";
     in
     lib.mkIf config.neovim.enable {
-      home.file = selectiveSymLink ../../../../../nvim ".config/nvim" [
-        "lua"
-        "ftplugin"
-        "lazylock.json"
+      home.file = lib.mkMerge [
+        (symLinkNeovim [
+          "lua"
+          "ftplugin"
+        ] { recursive = true; })
+        (symLinkNeovim [ "lazy-lock.json" ] { })
       ];
 
       programs.neovim = {
