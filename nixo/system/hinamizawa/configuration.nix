@@ -37,6 +37,10 @@ in
 
   # Gaming and gpu stuff
   nixpkgs.config.allowUnfree = true;
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
   programs = {
     gamemode.enable = true;
     steam = {
@@ -166,10 +170,6 @@ in
   environment.systemPackages = [
     ghostty.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
-
-  hardware = {
-    graphics.enable = true;
-  };
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
