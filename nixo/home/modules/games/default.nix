@@ -14,9 +14,13 @@
 
   config = lib.mkIf config.games.enable {
     home.packages = with pkgs; [
-      heroic
       mangohud
       goverlay
+      (heroic.override {
+        extraPkgs = pkgs: [
+          pkgs.gamescope
+        ];
+      })
       (lib.mkIf config.games.minecraft.enable (
         prismlauncher.override {
           jdks = [
