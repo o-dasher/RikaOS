@@ -9,13 +9,7 @@
   hyprland.enable = true;
   spotify.enable = true;
   nixSetup.enable = true;
-
   xdgSetup.enable = true;
-  xdg.portal.extraPortals = with pkgs; [
-    xdg-desktop-portal-hyprland
-    xdg-desktop-portal-wlr
-    xdg-desktop-portal-gtk
-  ];
 
   games = {
     enable = true;

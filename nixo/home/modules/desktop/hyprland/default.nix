@@ -28,6 +28,15 @@ in
   };
 
   config = lib.mkIf config.hyprland.enable {
+    xdg.portal.extraPortals = (
+      with pkgs;
+      [
+        xdg-desktop-portal-hyprland
+        xdg-desktop-portal-wlr
+        xdg-desktop-portal-gtk
+      ]
+    );
+
     wayland.windowManager.hyprland = {
       enable = true;
       xwayland.enable = true;
