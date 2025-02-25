@@ -24,6 +24,16 @@ in
     trusted-users = [ cfg.profiles.rika ];
   };
 
+  # Setup ntfs
+  boot.supportedFilesystems = {
+    ntfs = true;
+  };
+
+  fileSystems."/windows-shared" = {
+    device = "/dev/disk/by-uuid/2CDA3C8EDA3C55F4";
+    fsType = "ntfs";
+  };
+
   # Nix caching
   nix.settings = {
     substituters = [
@@ -43,6 +53,7 @@ in
   };
   programs = {
     gamemode.enable = true;
+    gamescope.enable = true;
     steam = {
       enable = true;
       gamescopeSession.enable = true;
