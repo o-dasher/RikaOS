@@ -7,9 +7,8 @@
 {
   options.games = with lib; {
     enable = mkEnableOption "games";
-    minecraft = {
-      enable = mkEnableOption "minecraft";
-    };
+    osu.enable = mkEnableOption "osu-lazer";
+    minecraft.enable = mkEnableOption "minecraft";
   };
 
   config = lib.mkIf config.games.enable {
@@ -21,6 +20,7 @@
           pkgs.gamescope
         ];
       })
+      (lib.mkIf config.games.osu.enable osu-lazer-bin)
       (lib.mkIf config.games.minecraft.enable (
         prismlauncher.override {
           jdks = [
