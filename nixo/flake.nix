@@ -91,7 +91,7 @@
           modules = [
             stylix.homeManagerModules.stylix
             ./home/modules
-            ./system/${cfg.hostName}/profiles/${profile}
+            ./system/${cfg.targetHostName}/profiles/${profile}
           ];
           extraSpecialArgs = {
             inherit inputs;
@@ -117,13 +117,14 @@
             stylix.nixosModules.stylix
             sops-nix.nixosModules.sops
             ./system/modules
-            ./system/${cfg.hostName}/configuration.nix
+            ./system/${cfg.targetHostName}/configuration.nix
           ];
         };
 
       hinamizawa = {
+        targetHostName = "hinamizawa";
         hostName = "hinamizawa";
-        state = "24.05";
+        state = "24.11";
         profiles = {
           rika = "rika";
           satoko = "satoko";
@@ -131,6 +132,7 @@
       };
 
       gensokyo = {
+        targetHostName = "gensokyo";
         hostName = "gensokyo";
         state = "24.05";
         profiles = {
@@ -143,8 +145,7 @@
       nixosConfigurations.${hinamizawa.hostName} = define_system hinamizawa;
       homeConfigurations."${hinamizawa.profiles.satoko}@${hinamizawa.hostName}" =
         define_hm hinamizawa hinamizawa.profiles.satoko;
-      homeConfigurations."${hinamizawa.profiles.rika}@${hinamizawa.hostName}" =
-        define_hm hinamizawa hinamizawa.profiles.rika;
+      homeConfigurations.${hinamizawa.profiles.rika} = define_hm hinamizawa hinamizawa.profiles.rika;
 
       # Home server
       nixosConfigurations.${gensokyo.hostName} = define_system gensokyo;
