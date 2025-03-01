@@ -8,7 +8,7 @@
   ...
 }:
 let
-  inherit (cfg) hostName state;
+  inherit (cfg) targetHostName state;
 in
 {
   imports = [
@@ -28,6 +28,8 @@ in
   boot.supportedFilesystems = {
     ntfs = true;
   };
+  boot.initrd.luks.devices."luks-36bb58a5-3907-4ecc-99b8-3133907e4ab3".device =
+    "/dev/disk/by-uuid/36bb58a5-3907-4ecc-99b8-3133907e4ab3";
 
   fileSystems."/windows-shared" = {
     device = "/dev/disk/by-uuid/2CDA3C8EDA3C55F4";
@@ -88,7 +90,7 @@ in
   };
 
   networking = {
-    inherit hostName;
+    hostName = targetHostName;
     networkmanager.enable = true;
   };
 
