@@ -24,12 +24,13 @@ in
     trusted-users = [ cfg.profiles.rika ];
   };
 
-  # Setup ntfs
-  boot.supportedFilesystems = {
-    ntfs = true;
+  boot = {
+    # Setup ntfs
+    supportedFilesystems.ntfs = true;
+    # Disk encryption
+    initrd.luks.devices."luks-36bb58a5-3907-4ecc-99b8-3133907e4ab3".device =
+      "/dev/disk/by-uuid/36bb58a5-3907-4ecc-99b8-3133907e4ab3";
   };
-  boot.initrd.luks.devices."luks-36bb58a5-3907-4ecc-99b8-3133907e4ab3".device =
-    "/dev/disk/by-uuid/36bb58a5-3907-4ecc-99b8-3133907e4ab3";
 
   fileSystems."/windows-shared" = {
     device = "/dev/disk/by-uuid/2CDA3C8EDA3C55F4";
@@ -73,22 +74,6 @@ in
   };
 
   security.polkit.enable = true;
-  systemd = {
-    user.services.polkit-gnome-authentication-agent-1 = {
-      description = "polkit-gnome-authentication-agent-1";
-      wantedBy = [ "graphical-session.target" ];
-      wants = [ "graphical-session.target" ];
-      after = [ "graphical-session.target" ];
-      serviceConfig = {
-        Type = "simple";
-        ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-        Restart = "on-failure";
-        RestartSec = 1;
-        TimeoutStopSec = 10;
-      };
-    };
-  };
-
   networking = {
     hostName = targetHostName;
     networkmanager.enable = true;
