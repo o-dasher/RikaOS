@@ -18,7 +18,6 @@ in
   # Modules
   userPreferences.enable = true;
   secureBoot.enable = true;
-  sharedFolders.folderNames = [ "/shared/Games" ];
   nixSetup = {
     enable = true;
     trusted-users = [ cfg.profiles.rika ];
@@ -32,10 +31,21 @@ in
       "/dev/disk/by-uuid/36bb58a5-3907-4ecc-99b8-3133907e4ab3";
   };
 
-  fileSystems."/windows-shared" = {
-    device = "/dev/disk/by-uuid/2CDA3C8EDA3C55F4";
-    fsType = "ntfs";
-  };
+  fileSystems =
+    let
+      btrfsOpts = [
+        "compress=zstd:1"
+        "noatime"
+      ];
+    in
+    {
+      "/".options = btrfsOpts;
+      "/home".options = btrfsOpts;
+      "/windows-shared" = {
+        device = "/dev/disk/by-uuid/2CDA3C8EDA3C55F4";
+        fsType = "ntfs";
+      };
+    };
 
   # Nix caching
   nix.settings = {
