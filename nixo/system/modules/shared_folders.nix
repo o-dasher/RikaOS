@@ -17,7 +17,7 @@
       config.safe.directory = config.sharedFolders.configurationRoot;
     };
 
-    systemd.tmpfiles.rules = map (f: "d ${f} 0777 - wheel - -") (
+    systemd.tmpfiles.rules = map (f: "d ${f} 2777 - users - -") (
       [
         config.sharedFolders.configurationRoot
       ]
