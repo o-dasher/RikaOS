@@ -7,6 +7,7 @@
   neovim.enable = true;
   terminal.enable = true;
   hyprland.enable = true;
+  gnome.enable = true;
   spotify.enable = true;
   nixSetup.enable = true;
   xdgSetup.enable = true;
