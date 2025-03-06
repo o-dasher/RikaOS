@@ -15,6 +15,18 @@
       xdg-desktop-portal-gtk
     ];
 
+    programs.gnome-shell = {
+      enable = true;
+      extensions = with pkgs; [
+        { package = gnomeExtensions.pop-shell; }
+        { package = gnomeExtensions.unite; }
+        { package = gnomeExtensions.blur-my-shell; }
+        { package = gnomeExtensions.dash-to-dock; }
+        { package = gnomeExtensions.tray-icons-reloaded; }
+        { package = gnomeExtensions.freon; }
+      ];
+    };
+
     dconf.settings = {
       "org/gnome/desktop/input-sources" = {
         show-all-sources = true;
