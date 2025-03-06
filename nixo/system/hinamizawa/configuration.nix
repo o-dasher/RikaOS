@@ -18,6 +18,10 @@ in
   # Modules
   userPreferences.enable = true;
   secureBoot.enable = true;
+  sharedFolders.folderNames = [
+    "/steam-games"
+    "/shared/Games"
+  ];
   nixSetup = {
     enable = true;
     trusted-users = [ cfg.profiles.rika ];
@@ -67,6 +71,8 @@ in
   programs = {
     gamemode.enable = true;
     gamescope.enable = true;
+    # Reference for multi user installation
+    # https://github.com/ValveSoftware/Proton/issues/4820#issuecomment-2569535495
     steam = {
       enable = true;
       gamescopeSession.enable = true;
