@@ -53,9 +53,9 @@
     # documents
     zathura
 
-    # fonts
-    jetbrains-mono
-    cascadia-code
+    # Fonts
+    pkgs.jetbrains-mono
+    pkgs.nerd-fonts.jetbrains-mono
 
     # cli
     # general
