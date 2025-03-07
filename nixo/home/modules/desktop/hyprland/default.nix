@@ -47,15 +47,25 @@ in
           "[workspace 9 silent] ${lib.getExe pkgs.qbittorrent}"
         ];
         monitor = [ "HDMI-A-1,1920x1080@239.76,0x0,1" ];
+        # render.direct_scanout = true; maybe some day, I still get graphical glitches
+        windowrulev2 = [ "immediate, fullscreen:1" ];
+        misc = {
+          render_ahead_of_time = true;
+          render_ahead_safezone = 4;
+        };
         general =
-          let
-            gap = 5;
-          in
           {
-            border_size = 3;
-            gaps_out = gap;
-            gaps_in = gap;
-          };
+            allow_tearing = true;
+          }
+          // (
+            let
+              gap = 5;
+            in
+            {
+              gaps_out = gap;
+              gaps_in = gap;
+            }
+          );
         input = {
           kb_layout = "br";
           kb_variant = "abnt2";
