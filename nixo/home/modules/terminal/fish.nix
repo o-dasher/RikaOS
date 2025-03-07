@@ -37,8 +37,9 @@ in
 
         interactiveShellInit = ''
           function fish_greeting
-          	echo Welcome(set_color magenta) home(set_color normal) $USER how are you doing today\?
-          	echo (set_color magenta; date)
+          	echo Welcome (set_color magenta)home(set_color normal) $USER how are you doing today\?
+          	echo (set_color magenta; date; set_color normal)
+            ${lib.getExe pkgs.jp2a} --height=32 --colors ${../../../../assets/Ascii/rika.jpg}
           end
         '';
       };
