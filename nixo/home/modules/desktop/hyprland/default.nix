@@ -52,6 +52,7 @@ in
             gap = 5;
           in
           {
+            border_size = 3;
             gaps_out = gap;
             gaps_in = gap;
           };
@@ -94,7 +95,6 @@ in
             ])
             (lib.mkIf config.terminal.ghostty.enable [ "${mod}, RETURN, exec, ${getExe pkgs.ghostty}" ])
             [
-
               "${mod}, F, fullscreen"
               "${mod}, C, killactive"
               "${mod}, M, fullscreen, 1"
