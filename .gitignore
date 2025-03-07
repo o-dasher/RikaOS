@@ -12,5 +12,3 @@
 !/assets
 !/nix
 !/ideavim
-
-/nixo/system/homeserver/localsecret.nix
