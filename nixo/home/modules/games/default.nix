@@ -2,6 +2,7 @@
   lib,
   config,
   pkgs,
+  utils,
   ...
 }:
 {
@@ -34,14 +35,17 @@
         ];
       }
       (lib.mkIf config.games.steam.enable {
-        home.file."Games/Steam/steamapps/common".source =
-          config.lib.file.mkOutOfStoreSymlink "/steam-games/SteamLibrary/steamapps/common";
-
-        home.file."Games/Steam/steamapps/downloading".source =
-          config.lib.file.mkOutOfStoreSymlink "/steam-games/SteamLibrary/steamapps/downloading";
-
-        home.file."Games/Steam/steamapps/shadercache".source =
-          config.lib.file.mkOutOfStoreSymlink "/steam-games/SteamLibrary/steamapps/shadercache";
+        home.file =
+          let
+            symLinkSteam = utils.selectiveSymLink "/steam-games/SteamLibrary/steamapps" "Games/Steam/steamapps";
+          in
+          lib.mkMerge [
+            (symLinkSteam [
+              "common"
+              "downloading"
+              "shadercache"
+            ] { recursive = true; })
+          ];
       })
     ]
   );

@@ -75,6 +75,7 @@
 
   outputs =
     {
+      self,
       nixpkgs,
       home-manager,
       stylix,
@@ -85,21 +86,24 @@
     }@inputs:
     let
       define_hm =
-        cfg: profile:
+        cfg: username:
         home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs { system = "x86_64-linux"; };
           modules = [
             stylix.homeManagerModules.stylix
             ./home/modules
-            ./system/${cfg.targetHostName}/profiles/${profile}
+            ./system/${cfg.targetHostName}/profiles/${username}
           ];
           extraSpecialArgs = {
             inherit inputs;
             inherit ghostty;
             inherit RikaOS-private;
-            utils = import ./home/utils;
+            utils = import ./home/utils {
+              lib = nixpkgs.lib;
+              config = self.homeConfigurations.${username}.config;
+            };
             cfg = cfg // {
-              username = profile;
+              inherit username;
             };
           };
         };
