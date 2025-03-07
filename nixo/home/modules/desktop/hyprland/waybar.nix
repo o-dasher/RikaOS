@@ -50,7 +50,7 @@ in
             sort-by-name = true;
             on-click = "activate";
             persistent-workspaces = {
-              "*" = 6;
+              "*" = 9;
             };
           };
 
