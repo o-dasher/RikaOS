@@ -43,8 +43,8 @@ in
       settings = {
         exec-once = [
           ((lib.mkIf (config.hyprland.waybar.enable)) (lib.getExe pkgs.waybar))
-          (lib.getExe pkgs.qbittorrent)
           (lib.getExe pkgs.lxqt.lxqt-policykit)
+          "[workspace 9 silent] ${lib.getExe pkgs.qbittorrent}"
         ];
         monitor = [ "HDMI-A-1,1920x1080@239.76,0x0,1" ];
         general =
