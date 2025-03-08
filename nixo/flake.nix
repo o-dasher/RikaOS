@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs";
+    nixpkgs-hydra.url = "github:HeitorAugustoLN/nixpkgs/hydralauncher";
     flake-compat.url = "github:edolstra/flake-compat";
     systems.url = "github:nix-systems/default";
     nix-gaming.url = "github:fufexan/nix-gaming";
@@ -78,6 +79,7 @@
     {
       self,
       nixpkgs,
+      nixpkgs-hydra,
       home-manager,
       stylix,
       ghostty,
@@ -88,8 +90,11 @@
     let
       define_hm =
         cfg: username:
+        let
+          system = "x86_64-linux";
+        in
         home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs { system = "x86_64-linux"; };
+          pkgs = import nixpkgs { inherit system; };
           modules = [
             stylix.homeManagerModules.stylix
             ./home/modules
@@ -99,6 +104,7 @@
             inherit inputs;
             inherit ghostty;
             inherit RikaOS-private;
+            nixpkgs-hydra = import nixpkgs-hydra { inherit system; };
             utils = import ./home/utils {
               lib = nixpkgs.lib;
               config = self.homeConfigurations.${username}.config;

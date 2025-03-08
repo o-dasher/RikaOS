@@ -4,6 +4,7 @@
   pkgs,
   utils,
   inputs,
+  nixpkgs-hydra,
   ...
 }:
 {
@@ -17,25 +18,30 @@
   config = lib.mkIf config.games.enable (
     lib.mkMerge [
       {
-        home.packages = with pkgs; [
-          mangohud
-          goverlay
-          (heroic.override {
-            extraPkgs = pkgs: [
-              pkgs.gamescope
-            ];
-          })
-          (lib.mkIf config.games.osu.enable
-            inputs.nix-gaming.packages.${pkgs.hostPlatform.system}.osu-lazer-bin
-          )
-          (lib.mkIf config.games.minecraft.enable (
-            prismlauncher.override {
-              jdks = [
-                temurin-bin-21
+
+        home.packages =
+          (with pkgs; [
+            mangohud
+            goverlay
+            (heroic.override {
+              extraPkgs = pkgs: [
+                pkgs.gamescope
               ];
-            }
-          ))
-        ];
+            })
+            (lib.mkIf config.games.osu.enable
+              inputs.nix-gaming.packages.${pkgs.hostPlatform.system}.osu-lazer-bin
+            )
+            (lib.mkIf config.games.minecraft.enable (
+              prismlauncher.override {
+                jdks = [
+                  temurin-bin-21
+                ];
+              }
+            ))
+          ])
+          ++ [
+            nixpkgs-hydra.hydralauncher
+          ];
       }
       (lib.mkIf config.games.steam.enable {
         home.file =
