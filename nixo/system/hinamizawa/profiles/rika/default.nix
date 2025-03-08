@@ -31,7 +31,6 @@
   };
 
   home.packages = with pkgs; [
-    easyeffects
     # cli
     wget
     heroku
@@ -91,7 +90,7 @@
     # browser
     brave
     # social media
-    legcord
+    discord
     # files
     yazi
 
@@ -99,6 +98,7 @@
     gparted
   ];
 
+  services.easyeffects.enable = true;
   programs = {
     gh.enable = true;
     home-manager.enable = true;
