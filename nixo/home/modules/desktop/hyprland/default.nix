@@ -37,10 +37,20 @@ in
       ]
     );
 
+    home.pointerCursor.hyprcursor.enable = true;
     wayland.windowManager.hyprland = {
       enable = true;
       xwayland.enable = true;
       settings = {
+        env = [
+          "HYPRCURSOR_SIZE, 24"
+          "XCURSOR_SIZE, 24"
+
+          # Wayland stuff.
+          "NIXOS_WAYLAND,1" # Enable Wayland support in NixOS
+          "NIXOS_OZONE_WL,1" # Enable Ozone Wayland support in NixOS
+          "ELECTRON_OZONE_PLATFORM_HINT,auto" # Set Electron to automatically choose between Wayland and X11
+        ];
         exec-once = [
           ((lib.mkIf (config.hyprland.waybar.enable)) (lib.getExe pkgs.waybar))
           (lib.getExe pkgs.lxqt.lxqt-policykit)
@@ -56,6 +66,7 @@ in
         general =
           {
             allow_tearing = true;
+            border_size = 3;
           }
           // (
             let
