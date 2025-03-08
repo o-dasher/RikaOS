@@ -6,6 +6,7 @@
     nixpkgs-stable.url = "github:NixOS/nixpkgs";
     flake-compat.url = "github:edolstra/flake-compat";
     systems.url = "github:nix-systems/default";
+    nix-gaming.url = "github:fufexan/nix-gaming";
     RikaOS-private = {
       type = "git";
       url = "git@github.com:o-dasher/RikaOS-private.git";
