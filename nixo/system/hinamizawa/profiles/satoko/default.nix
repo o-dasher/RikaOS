@@ -17,11 +17,11 @@
   };
 
   home.packages = with pkgs; [
-    easyeffects
     mpv
     mission-center
   ];
 
+  services.easyeffects.enable = true;
   programs = {
     home-manager.enable = true;
     librewolf.enable = true;
