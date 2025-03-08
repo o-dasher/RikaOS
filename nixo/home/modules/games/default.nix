@@ -3,6 +3,7 @@
   config,
   pkgs,
   utils,
+  inputs,
   ...
 }:
 {
@@ -24,7 +25,9 @@
               pkgs.gamescope
             ];
           })
-          (lib.mkIf config.games.osu.enable osu-lazer-bin)
+          (lib.mkIf config.games.osu.enable
+            inputs.nix-gaming.packages.${pkgs.hostPlatform.system}.osu-lazer-bin
+          )
           (lib.mkIf config.games.minecraft.enable (
             prismlauncher.override {
               jdks = [

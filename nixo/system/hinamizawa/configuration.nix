@@ -5,6 +5,7 @@
   pkgs,
   cfg,
   ghostty,
+  inputs,
   ...
 }:
 let
@@ -13,6 +14,7 @@ in
 {
   imports = [
     ./hardware-configuration.nix
+    inputs.nix-gaming.nixosModules.pipewireLowLatency
   ];
 
   # Modules
@@ -56,9 +58,11 @@ in
     substituters = [
       "https://nix-community.cachix.org"
       "https://cache.nixos.org/"
+      "https://nix-gaming.cachix.org"
     ];
     trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
     ];
   };
 
@@ -80,13 +84,13 @@ in
   };
 
   # Audio setup
-  security.rtkit.enable = true;
+  security.rtkit.enable = true; # make pipewire realtime-capable
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    jack.enable = true;
+    lowLatency.enable = true;
   };
 
   security.polkit.enable = true;
@@ -152,6 +156,7 @@ in
           "wheel"
           "video"
           "adbusers"
+          "gamemode"
         ];
       };
       ${cfg.profiles.satoko} = {
@@ -159,6 +164,7 @@ in
         shell = pkgs.fish;
         extraGroups = [
           "video"
+          "gamemode"
         ];
       };
     };
