@@ -37,7 +37,9 @@ in
       ]
     );
 
+    programs.hyprlock.enable = true;
     home.pointerCursor.hyprcursor.enable = true;
+
     wayland.windowManager.hyprland = {
       enable = true;
       xwayland.enable = true;
@@ -144,6 +146,8 @@ in
               "${mod}, P, exec, ${getExe pkgs.grimblast} --notify copy screen"
               "${mod} SHIFT, P, exec, ${getExe pkgs.grimblast} --notify copy area"
               "${mod} ALT, P, exec, ${getExe pkgs.grimblast} --notify copy active"
+
+              "CTRL ALT, L, exec, ${getExe pkgs.hyprlock}"
 
               ", XF86AudioPlay, exec, ${getExe pkgs.playerctl} play-pause"
               ", XF86AudioPrev, exec, ${getExe pkgs.playerctl} previous"
