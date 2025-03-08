@@ -410,6 +410,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-hydra": {
+      "locked": {
+        "lastModified": 1740233891,
+        "narHash": "sha256-4Ct67SOnRFndPEZvgg8H6hPHYCAIQabQF865O7HTIT8=",
+        "owner": "HeitorAugustoLN",
+        "repo": "nixpkgs",
+        "rev": "a32f0976372bb1a74bbf9e128cd164fac7774a12",
+        "type": "github"
+      },
+      "original": {
+        "owner": "HeitorAugustoLN",
+        "ref": "hydralauncher",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1740872140,
@@ -488,6 +504,7 @@
         "lanzaboote": "lanzaboote",
         "nix-gaming": "nix-gaming",
         "nixpkgs": "nixpkgs_2",
+        "nixpkgs-hydra": "nixpkgs-hydra",
         "nixpkgs-stable": "nixpkgs-stable",
         "sops-nix": "sops-nix_2",
         "spicetify-nix": "spicetify-nix",
