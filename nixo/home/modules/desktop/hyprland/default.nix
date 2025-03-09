@@ -10,7 +10,6 @@ let
 in
 {
   imports = [
-    ./wofi.nix
     ./mako.nix
     ./waybar.nix
   ];
@@ -20,7 +19,7 @@ in
     mako.enable = (mkEnableOption "mako") // {
       default = true;
     };
-    wofi.enable = (mkEnableOption "wofi") // {
+    fuzzel.enable = (mkEnableOption "fuzzel") // {
       default = true;
     };
     waybar.enable = (mkEnableOption "waybar") // {
@@ -31,6 +30,16 @@ in
   config = lib.mkIf config.hyprland.enable {
     programs.hyprlock.enable = true;
     home.pointerCursor.hyprcursor.enable = true;
+
+    programs.fuzzel = lib.mkIf config.hyprland.fuzzel.enable {
+      enable = true;
+      settings = {
+        main = {
+          font = lib.mkForce "JetbrainsMono:size=16";
+          width = 48;
+        };
+      };
+    };
 
     wayland.windowManager.hyprland = {
       enable = true;
@@ -108,8 +117,8 @@ in
             mod = "SUPER";
           in
           lib.mkMerge [
-            (lib.mkIf config.hyprland.wofi.enable [
-              "${mod}, D, exec, pkill ${getExe pkgs.wofi} || ${getExe pkgs.wofi} --show drun -I -m -i --style $HOME/.config/wofi/style.css"
+            (lib.mkIf config.hyprland.fuzzel.enable [
+              "${mod}, D, exec, pkill ${getExe pkgs.fuzzel} || ${getExe pkgs.fuzzel}"
             ])
             (lib.mkIf config.terminal.ghostty.enable [ "${mod}, RETURN, exec, ${getExe pkgs.ghostty}" ])
             [
