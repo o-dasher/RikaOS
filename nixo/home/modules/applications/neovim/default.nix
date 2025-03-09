@@ -12,7 +12,7 @@ in
   config = lib.mkIf config.neovim.enable {
     home.file =
       let
-        symLinkNeovim = utils.selectiveSymLink ../../../../../nvim ".config/nvim";
+        symLinkNeovim = utils.xdgConfigSelectiveSymLink "nvim";
       in
       lib.mkMerge [
         (symLinkNeovim [
