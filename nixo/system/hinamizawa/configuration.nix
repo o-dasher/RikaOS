@@ -61,25 +61,18 @@ in
       };
     };
 
-  # Nix caching
-  nix.settings = {
-    substituters = [
-      "https://nix-community.cachix.org"
-      "https://cache.nixos.org/"
-      "https://nix-gaming.cachix.org"
-    ];
-    trusted-public-keys = [
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
-    ];
-  };
-
   # Gaming and gpu stuff
   nixpkgs.config.allowUnfree = true;
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
-  };
+  hardware.graphics =
+    let
+      hypr-pkgs = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+    in
+    {
+      enable = true;
+      enable32Bit = true;
+      package = hypr-pkgs.mesa.drivers;
+      package32 = hypr-pkgs.pkgsi686Linux.mesa.drivers;
+    };
   programs = {
     gamemode.enable = true;
     gamescope.enable = true;
@@ -180,7 +173,6 @@ in
 
   programs = {
     virt-manager.enable = true;
-    hyprland.enable = true;
     adb.enable = true;
     fish.enable = true;
     dconf.enable = true;
@@ -188,6 +180,12 @@ in
     thunar = {
       enable = true;
       plugins = with pkgs.xfce; [ thunar-volman ];
+    };
+    hyprland = {
+      enable = true;
+      package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+      portalPackage =
+        inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
     };
     neovim = {
       enable = true;

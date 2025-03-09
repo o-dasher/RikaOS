@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  inputs,
   ...
 }:
 let
@@ -28,21 +29,15 @@ in
   };
 
   config = lib.mkIf config.hyprland.enable {
-    xdg.portal.extraPortals = (
-      with pkgs;
-      [
-        xdg-desktop-portal-hyprland
-        xdg-desktop-portal-wlr
-        xdg-desktop-portal-gtk
-      ]
-    );
-
     programs.hyprlock.enable = true;
     home.pointerCursor.hyprcursor.enable = true;
 
     wayland.windowManager.hyprland = {
       enable = true;
       xwayland.enable = true;
+      package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+      portalPackage =
+        inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
       settings = {
         env = [
           "HYPRCURSOR_SIZE, 24"

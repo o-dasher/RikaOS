@@ -8,6 +8,13 @@
     flake-compat.url = "github:edolstra/flake-compat";
     systems.url = "github:nix-systems/default";
     nix-gaming.url = "github:fufexan/nix-gaming";
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      inputs = {
+        pre-commit-hooks.follows = "git-hooks";
+        systems.follows = "systems";
+      };
+    };
     RikaOS-private = {
       type = "git";
       url = "git@github.com:o-dasher/RikaOS-private.git";
@@ -69,10 +76,19 @@
         nixpkgs-stable.follows = "nixpkgs-stable";
       };
     };
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+  };
+
+  nixConfig = {
+    extra-substituters = [
+      "https://nix-community.cachix.org"
+      "https://nix-gaming.cachix.org"
+      "https://hyprland.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+    ];
   };
 
   outputs =
@@ -83,7 +99,6 @@
       home-manager,
       stylix,
       ghostty,
-      sops-nix,
       RikaOS-private,
       ...
     }@inputs:
@@ -126,7 +141,6 @@
           };
           modules = [
             stylix.nixosModules.stylix
-            sops-nix.nixosModules.sops
             ./system/modules
             ./system/${cfg.targetHostName}/configuration.nix
           ];
