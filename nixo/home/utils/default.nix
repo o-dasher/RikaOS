@@ -1,5 +1,5 @@
 { lib, config, ... }:
-{
+rec {
   css = import ./css.nix;
 
   selectiveSymLink =
@@ -11,6 +11,10 @@
         } // opts;
       }) paths
     );
+
+  xdgConfigSelectiveSymLink =
+    to: paths: opts:
+    selectiveSymLink (../../../dotfiles + "/${to}") ".config/${to}" paths opts;
 
   prefixset =
     prefix: kvpairs:
