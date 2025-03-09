@@ -28,6 +28,8 @@
       loader.systemd-boot = {
         enable = lib.mkForce false;
         consoleMode = "max";
+        configurationLimit = 3;
+        edk2-uefi-shell.enable = true;
       };
       lanzaboote = {
         enable = true;
