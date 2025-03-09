@@ -117,7 +117,6 @@
           ];
           extraSpecialArgs = {
             inherit inputs;
-            inherit ghostty;
             inherit RikaOS-private;
             nixpkgs-hydra = import nixpkgs-hydra { inherit system; };
             utils = import ./home/utils {
@@ -136,7 +135,6 @@
           specialArgs = {
             inherit RikaOS-private;
             inherit inputs;
-            inherit ghostty;
             inherit cfg;
           };
           modules = [

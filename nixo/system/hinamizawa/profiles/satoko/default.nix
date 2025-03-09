@@ -5,9 +5,9 @@
   ];
 
   games.enable = true;
-  gnome.enable = true;
   terminal.enable = true;
   spotify.enable = true;
+  desktop.gnome.enable = true;
 
   nixSetup.enable = true;
   xdgSetup.enable = true;

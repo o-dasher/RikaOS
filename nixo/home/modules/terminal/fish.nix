@@ -20,7 +20,7 @@ in
       };
       fish = {
         enable = true;
-        shellAliases =
+        shellAbbrs =
           let
             aliase = pkg: kvpairs: prefixset (lib.getExe pkg) kvpairs;
           in
@@ -34,7 +34,6 @@ in
               aliase pkgs.home-manager { hm = "switch --flake ${config.sharedFolders.configurationRoot}/nixo"; }
             ))
           ];
-
         interactiveShellInit = ''
           function fish_greeting
           	echo Welcome (set_color magenta)home(set_color normal) $USER how are you doing today\?

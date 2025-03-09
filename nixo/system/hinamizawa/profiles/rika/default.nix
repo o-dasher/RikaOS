@@ -6,11 +6,14 @@
 
   neovim.enable = true;
   terminal.enable = true;
-  hyprland.enable = true;
-  gnome.enable = true;
   spotify.enable = true;
   nixSetup.enable = true;
   xdgSetup.enable = true;
+
+  desktop = {
+    gnome.enable = true;
+    hyprland.enable = true;
+  };
 
   games = {
     enable = true;
