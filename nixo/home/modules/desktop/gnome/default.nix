@@ -5,11 +5,11 @@
   ...
 }:
 {
-  options.gnome = with lib; {
+  options.desktop.gnome = with lib; {
     enable = mkEnableOption "gnome";
   };
 
-  config = lib.mkIf config.gnome.enable {
+  config = lib.mkIf config.desktop.gnome.enable {
     xdg.portal.extraPortals = with pkgs; [
       xdg-desktop-portal-gnome
       xdg-desktop-portal-gtk

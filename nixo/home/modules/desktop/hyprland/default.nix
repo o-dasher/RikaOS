@@ -12,35 +12,13 @@ in
   imports = [
     ./mako.nix
     ./waybar.nix
+    ./fuzzel.nix
   ];
 
-  options.hyprland = with lib; {
-    enable = mkEnableOption "hyprland";
-    mako.enable = (mkEnableOption "mako") // {
-      default = true;
-    };
-    fuzzel.enable = (mkEnableOption "fuzzel") // {
-      default = true;
-    };
-    waybar.enable = (mkEnableOption "waybar") // {
-      default = true;
-    };
-  };
-
-  config = lib.mkIf config.hyprland.enable {
+  options.desktop.hyprland.enable = lib.mkEnableOption "hyprland";
+  config = lib.mkIf config.desktop.hyprland.enable {
     programs.hyprlock.enable = true;
     home.pointerCursor.hyprcursor.enable = true;
-
-    programs.fuzzel = lib.mkIf config.hyprland.fuzzel.enable {
-      enable = true;
-      settings = {
-        main = {
-          font = lib.mkForce "JetbrainsMono:size=16";
-          width = 48;
-        };
-      };
-    };
-
     wayland.windowManager.hyprland = {
       enable = true;
       xwayland.enable = true;
@@ -58,7 +36,7 @@ in
           "ELECTRON_OZONE_PLATFORM_HINT,auto" # Set Electron to automatically choose between Wayland and X11
         ];
         exec-once = [
-          ((lib.mkIf (config.hyprland.waybar.enable)) (lib.getExe pkgs.waybar))
+          ((lib.mkIf (config.desktop.hyprland.waybar.enable)) (lib.getExe pkgs.waybar))
           (lib.getExe pkgs.lxqt.lxqt-policykit)
           "[workspace 9 silent] ${lib.getExe pkgs.qbittorrent}"
         ];
@@ -117,11 +95,12 @@ in
             mod = "SUPER";
           in
           lib.mkMerge [
-            (lib.mkIf config.hyprland.fuzzel.enable [
+            (lib.mkIf config.desktop.hyprland.fuzzel.enable [
               "${mod}, D, exec, pkill ${getExe pkgs.fuzzel} || ${getExe pkgs.fuzzel}"
             ])
-            (lib.mkIf config.terminal.ghostty.enable [ "${mod}, RETURN, exec, ${getExe pkgs.ghostty}" ])
             [
+              "${mod}, RETURN, exec, ${getExe pkgs.xdg-terminal-exec}"
+
               "${mod}, F, fullscreen"
               "${mod}, C, killactive"
               "${mod}, M, fullscreen, 1"
