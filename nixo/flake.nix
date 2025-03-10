@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs";
-    nixpkgs-hydra.url = "github:HeitorAugustoLN/nixpkgs/hydralauncher";
+    nixpkgs-bleeding.url = "github:NixOS/nixpkgs/master";
     flake-compat.url = "github:edolstra/flake-compat";
     systems.url = "github:nix-systems/default";
     nix-gaming.url = "github:fufexan/nix-gaming";
@@ -83,11 +83,13 @@
       "https://nix-community.cachix.org"
       "https://nix-gaming.cachix.org"
       "https://hyprland.cachix.org"
+      "https://ghostty.cachix.org"
     ];
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+      "ghostty.cachix.org-1:QB389yTa6gTyneehvqG58y0WnHjQOqgnA+wBnpWWxns="
     ];
   };
 
@@ -95,10 +97,9 @@
     {
       self,
       nixpkgs,
-      nixpkgs-hydra,
       home-manager,
       stylix,
-      ghostty,
+      nixpkgs-bleeding,
       RikaOS-private,
       ...
     }@inputs:
@@ -118,7 +119,7 @@
           extraSpecialArgs = {
             inherit inputs;
             inherit RikaOS-private;
-            nixpkgs-hydra = import nixpkgs-hydra { inherit system; };
+            pkgs-bleeding = import nixpkgs-bleeding { inherit system; };
             utils = import ./home/utils {
               lib = nixpkgs.lib;
               config = self.homeConfigurations.${username}.config;
