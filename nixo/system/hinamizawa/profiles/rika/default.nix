@@ -78,9 +78,6 @@
     # android
     universal-android-debloater
 
-    # gui
-    # entertainment
-    stremio
     # tools
     gimp
     nomacs
@@ -96,6 +93,7 @@
     discord
     # files
     yazi
+    nautilus
 
     # Disk partitioning
     gparted
