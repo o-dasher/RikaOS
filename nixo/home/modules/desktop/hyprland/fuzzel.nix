@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 {
@@ -16,9 +17,14 @@
       enable = true;
       settings = {
         main = {
-          font = lib.mkForce "JetbrainsMono:size=16";
-          width = 48;
+          terminal = lib.getExe pkgs.xdg-terminal-exec;
+
           icon-theme = config.stylix.iconTheme.${config.stylix.polarity};
+          font = lib.mkForce "JetbrainsMono:size=16";
+
+          width = 48;
+          lines = 10;
+          line-height = 32;
         };
       };
     };
