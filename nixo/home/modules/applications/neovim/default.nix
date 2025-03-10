@@ -19,7 +19,6 @@ in
           "lua"
           "ftplugin"
         ] { recursive = true; })
-        (symLinkNeovim [ "lazy-lock.json" ] { })
       ];
 
     programs.neovim = {
