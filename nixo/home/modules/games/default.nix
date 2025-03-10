@@ -2,9 +2,9 @@
   lib,
   config,
   pkgs,
+  pkgs-bleeding,
   utils,
   inputs,
-  nixpkgs-hydra,
   ...
 }:
 {
@@ -20,7 +20,8 @@
       {
 
         home.packages =
-          (with pkgs; [
+          [ pkgs-bleeding.hydralauncher ]
+          ++ (with pkgs; [
             mangohud
             goverlay
             (heroic.override {
@@ -38,10 +39,7 @@
                 ];
               }
             ))
-          ])
-          ++ [
-            nixpkgs-hydra.hydralauncher
-          ];
+          ]);
       }
       (lib.mkIf config.games.steam.enable {
         home.file =
