@@ -14,12 +14,11 @@ rec {
 
   xdgConfigSelectiveSymLink =
     to: paths: opts:
-    selectiveSymLink (../../../dotfiles + "/${to}") ".config/${to}" paths opts;
+    selectiveSymLink ../../../dotfiles/${to} ".config/${to}" paths opts;
 
   prefixset =
     prefix: kvpairs:
     builtins.mapAttrs (
       name: value: if builtins.typeOf prefix == "lambda" then prefix value else prefix + " " + value
     ) kvpairs;
-
 }
