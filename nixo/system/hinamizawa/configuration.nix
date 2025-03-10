@@ -71,6 +71,10 @@ in
       enable32Bit = true;
       package = hypr-pkgs.mesa.drivers;
       package32 = hypr-pkgs.pkgsi686Linux.mesa.drivers;
+      extraPackages = with pkgs; [
+        # Required by davinci resolve
+        rocmPackages_6.clr.icd
+      ];
     };
   programs = {
     gamemode.enable = true;
@@ -184,8 +188,8 @@ in
     };
   };
 
-  environment.systemPackages = [
-    inputs.ghostty.packages.${pkgs.stdenv.hostPlatform.system}.default
+  environment.systemPackages = with pkgs; [
+    inputs.ghostty.packages.${stdenv.hostPlatform.system}.default
   ];
 
   # This option defines the first version of NixOS you have installed on this particular machine,

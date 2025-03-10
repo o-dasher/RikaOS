@@ -45,6 +45,9 @@
     # editor
     neovide
 
+    # Video
+    davinci-resolve
+
     # database
     beekeeper-studio
 
