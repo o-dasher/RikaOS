@@ -126,11 +126,7 @@ in
 
   stylix = {
     enable = true;
-    autoEnable = false;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/windows-highcontrast.yaml";
-    targets = {
-      gnome.enable = true;
-    };
   };
 
   virtualisation = {
@@ -176,10 +172,6 @@ in
     fish.enable = true;
     dconf.enable = true;
     nix-ld.enable = true;
-    thunar = {
-      enable = true;
-      plugins = with pkgs.xfce; [ thunar-volman ];
-    };
     hyprland = {
       enable = true;
       package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
