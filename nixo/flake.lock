@@ -8,11 +8,11 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1740339403,
-        "narHash": "sha256-0EmN7mWv3NnlsXm4AiA5OpeHgH/S4tGEpjmL1wdVUu8=",
+        "lastModified": 1741668469,
+        "narHash": "sha256-ETz8wVXONgLjc98xYL9R6OU/2dGU4WtPp96cRDkWDVI=",
         "ref": "main",
-        "rev": "64863e8f9c361fd6b3ea19671d82db673a8fa978",
-        "revCount": 3,
+        "rev": "4ec6498d6f432d6ed3881d7fbd2a801fe412200c",
+        "revCount": 10,
         "type": "git",
         "url": "ssh://git@github.com/o-dasher/RikaOS-private.git"
       },
