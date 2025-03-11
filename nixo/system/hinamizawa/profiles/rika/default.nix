@@ -52,6 +52,8 @@
     neovide
 
     # Video
+    ardour
+    audacity
     (import RikaOS-private.davinci-resolve {
       inherit lib;
       inherit pkgs;
