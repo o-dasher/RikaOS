@@ -110,7 +110,9 @@
           system = "x86_64-linux";
         in
         home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs { inherit system; };
+          pkgs = import nixpkgs {
+            inherit system;
+          };
           modules = [
             stylix.homeManagerModules.stylix
             ./home/modules

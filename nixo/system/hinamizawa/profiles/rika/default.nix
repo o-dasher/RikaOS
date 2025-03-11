@@ -1,4 +1,10 @@
-{ pkgs, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  RikaOS-private,
+  ...
+}:
 {
   imports = [
     ./theme
@@ -46,7 +52,10 @@
     neovide
 
     # Video
-    davinci-resolve
+    (import RikaOS-private.davinci-resolve {
+      inherit lib;
+      inherit pkgs;
+    })
 
     # database
     beekeeper-studio
