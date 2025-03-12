@@ -190,5 +190,7 @@
 
       # New research lab
       nixosConfigurations.${grandline.hostName} = define_system grandline;
+      homeConfigurations."${grandline.profiles.zoro}@${grandline.hostName}" =
+        define_hm grandline grandline.profiles.zoro;
     };
 }

@@ -1,0 +1,6 @@
+{
+  ...
+}:
+{
+  neovim.enable = true;
+}
