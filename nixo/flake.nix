@@ -7,6 +7,7 @@
     nixpkgs-bleeding.url = "github:NixOS/nixpkgs/master";
     flake-compat.url = "github:edolstra/flake-compat";
     systems.url = "github:nix-systems/default";
+    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
     nix-gaming.url = "github:fufexan/nix-gaming";
     hyprland = {
       url = "github:hyprwm/Hyprland";
@@ -104,11 +105,10 @@
       ...
     }@inputs:
     let
+      system = "x86_64-linux";
+
       define_hm =
         cfg: username:
-        let
-          system = "x86_64-linux";
-        in
         home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
             inherit system;
@@ -133,8 +133,9 @@
         };
 
       define_system =
-        cfg:
+        cfg: 
         nixpkgs.lib.nixosSystem {
+	  inherit system;
           specialArgs = {
             inherit RikaOS-private;
             inherit inputs;
@@ -165,6 +166,15 @@
           nue = "thiago";
         };
       };
+
+      grandline = {
+      	targetHostName = "grandline";
+	hostName = "nixos";
+	state = "24.05";
+	profiles = {
+	  zoro = "zoro";
+	};
+      };
     in
     {
       # Personal
@@ -177,5 +187,8 @@
       nixosConfigurations.${gensokyo.hostName} = define_system gensokyo;
       homeConfigurations."${gensokyo.profiles.nue}@${gensokyo.hostName}" =
         define_hm gensokyo gensokyo.profiles.nue;
+
+      # New research lab
+      nixosConfigurations.${grandline.hostName} = define_system grandline;
     };
 }
