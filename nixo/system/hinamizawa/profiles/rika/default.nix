@@ -11,10 +11,14 @@
   ];
 
   neovim.enable = true;
-  terminal.enable = true;
   spotify.enable = true;
   nixSetup.enable = true;
   xdgSetup.enable = true;
+
+  terminal = {
+    enable = true;
+    ghostty.enable = true;
+  };
 
   desktop = {
     gnome.enable = true;
