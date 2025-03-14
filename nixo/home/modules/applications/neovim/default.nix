@@ -32,24 +32,33 @@ in
         '';
         extraPackages = with pkgs; [
           # LSP
+          # Lua
           lua-language-server
-          nixd
-          phpactor
-          yaml-language-server
-          ccls
+
+          nixd # Nix
+          yaml-language-server # Yaml
+          ccls # C
+
+          # Python
           pyright
           ruff-lsp
-          texlab
-          nodePackages.intelephense
+
+          # Web development
           nodePackages."@tailwindcss/language-server"
           nodePackages.vscode-langservers-extracted
-          # typescript support
+
+          # Typescript
           svelte-language-server
           typescript
           nodePackages.typescript-language-server
 
+          # PHP
+          nodePackages.intelephense
+          phpactor
+
           # latex
           texliveFull
+          texlab
           nodejs
 
           # Some tools
