@@ -148,9 +148,9 @@
           ];
         };
 
-      hinamizawa = {
+      hinamizawa = rec {
         targetHostName = "hinamizawa";
-        hostName = "hinamizawa";
+        hostName = targetHostName;
         state = "24.11";
         profiles = {
           rika = "rika";
@@ -158,18 +158,18 @@
         };
       };
 
-      gensokyo = {
+      gensokyo = rec {
         targetHostName = "gensokyo";
-        hostName = "gensokyo";
+        hostName = targetHostName;
         state = "24.05";
         profiles = {
           nue = "thiago";
         };
       };
 
-      grandline = {
+      grandline = rec {
         targetHostName = "grandline";
-        hostName = "nixos";
+        hostName = targetHostName;
         state = "24.05";
         profiles = {
           zoro = "zoro";

@@ -6,15 +6,13 @@
 # https://github.com/nix-community/NixOS-WSL
 
 {
-  config,
-  lib,
   pkgs,
   cfg,
   inputs,
   ...
 }:
 let
-  inherit (cfg) state;
+  inherit (cfg) targetHostName state;
 in
 {
   imports = [
@@ -38,6 +36,11 @@ in
         "wheel"
       ];
     };
+  };
+
+  networking = {
+    hostName = targetHostName;
+    networkmanager.enable = true;
   };
 
   stylix = {
