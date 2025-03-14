@@ -117,7 +117,6 @@
   programs = {
     gh.enable = true;
     home-manager.enable = true;
-    lazygit.enable = true;
     direnv = {
       enable = true;
       nix-direnv.enable = true;

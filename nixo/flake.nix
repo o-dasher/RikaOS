@@ -133,9 +133,9 @@
         };
 
       define_system =
-        cfg: 
+        cfg:
         nixpkgs.lib.nixosSystem {
-	  inherit system;
+          inherit system;
           specialArgs = {
             inherit RikaOS-private;
             inherit inputs;
@@ -168,29 +168,26 @@
       };
 
       grandline = {
-      	targetHostName = "grandline";
-	hostName = "nixos";
-	state = "24.05";
-	profiles = {
-	  zoro = "zoro";
-	};
+        targetHostName = "grandline";
+        hostName = "nixos";
+        state = "24.05";
+        profiles = {
+          zoro = "zoro";
+        };
       };
     in
     {
       # Personal
       nixosConfigurations.${hinamizawa.hostName} = define_system hinamizawa;
-      homeConfigurations."${hinamizawa.profiles.satoko}@${hinamizawa.hostName}" =
-        define_hm hinamizawa hinamizawa.profiles.satoko;
+      homeConfigurations.${hinamizawa.profiles.satoko} = define_hm hinamizawa hinamizawa.profiles.satoko;
       homeConfigurations.${hinamizawa.profiles.rika} = define_hm hinamizawa hinamizawa.profiles.rika;
 
       # Home server
       nixosConfigurations.${gensokyo.hostName} = define_system gensokyo;
-      homeConfigurations."${gensokyo.profiles.nue}@${gensokyo.hostName}" =
-        define_hm gensokyo gensokyo.profiles.nue;
+      homeConfigurations.${gensokyo.profiles.nue} = define_hm gensokyo gensokyo.profiles.nue;
 
       # New research lab
       nixosConfigurations.${grandline.hostName} = define_system grandline;
-      homeConfigurations."${grandline.profiles.zoro}@${grandline.hostName}" =
-        define_hm grandline grandline.profiles.zoro;
+      homeConfigurations.${grandline.profiles.zoro} = define_hm grandline grandline.profiles.zoro;
     };
 }

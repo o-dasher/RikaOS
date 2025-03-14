@@ -11,7 +11,7 @@
       default = true;
     };
     ghostty.enable = (mkEnableOption "ghostty") // {
-      default = true;
+      default = false;
     };
   };
 }
