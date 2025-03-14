@@ -10,8 +10,6 @@
     fish.enable = (mkEnableOption "fish") // {
       default = true;
     };
-    ghostty.enable = (mkEnableOption "ghostty") // {
-      default = false;
-    };
+    ghostty.enable = (mkEnableOption "ghostty");
   };
 }
