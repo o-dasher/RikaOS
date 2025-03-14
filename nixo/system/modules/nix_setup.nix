@@ -1,7 +1,7 @@
 { lib, config, ... }:
 {
   options.nixSetup = with lib; {
-    enable = mkEnableOption "secureBoot";
+    enable = mkEnableOption "nixSetup";
     trusted-users = mkOption {
       default = [ ];
       type = types.listOf types.str;

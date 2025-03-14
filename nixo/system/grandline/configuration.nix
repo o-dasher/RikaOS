@@ -5,17 +5,58 @@
 # NixOS-WSL specific options are documented on the NixOS-WSL repository:
 # https://github.com/nix-community/NixOS-WSL
 
-{ config, lib, pkgs, cfg, inputs, ... }:
+{
+  pkgs,
+  cfg,
+  inputs,
+  ...
+}:
 let
-  inherit (cfg) state;
+  inherit (cfg) targetHostName state;
 in
 {
   imports = [
     inputs.nixos-wsl.nixosModules.default
+    ./shared.nix
   ];
 
   wsl.enable = true;
   wsl.defaultUser = cfg.profiles.zoro;
+
+  nixSetup = {
+    enable = true;
+    trusted-users = [ cfg.profiles.zoro ];
+  };
+
+  users.users = {
+    ${cfg.profiles.zoro} = {
+      isNormalUser = true;
+      shell = pkgs.fish;
+      extraGroups = [
+        "wheel"
+      ];
+    };
+  };
+
+  networking = {
+    hostName = targetHostName;
+    networkmanager.enable = true;
+  };
+
+  stylix = {
+    enable = true;
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
+  };
+
+  programs = {
+    dconf.enable = true;
+    fish.enable = true;
+    nix-ld.enable = true;
+    neovim = {
+      enable = true;
+      defaultEditor = true;
+    };
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
