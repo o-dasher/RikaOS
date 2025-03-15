@@ -9,6 +9,7 @@
     systems.url = "github:nix-systems/default";
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
     nix-gaming.url = "github:fufexan/nix-gaming";
+    zen-browser.url = "github:0xc000022070/zen-browser-flake";
     hyprland = {
       url = "github:hyprwm/Hyprland";
       inputs = {

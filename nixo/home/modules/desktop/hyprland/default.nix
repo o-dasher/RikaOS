@@ -18,7 +18,6 @@ in
   options.desktop.hyprland.enable = lib.mkEnableOption "hyprland";
   config = lib.mkIf config.desktop.hyprland.enable {
     programs.hyprlock.enable = true;
-    home.pointerCursor.hyprcursor.enable = true;
     wayland.windowManager.hyprland = {
       enable = true;
       xwayland.enable = true;
