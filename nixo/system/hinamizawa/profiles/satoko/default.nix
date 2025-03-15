@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
-    ./theme
+    ./stylix.nix
   ];
 
   games.enable = true;

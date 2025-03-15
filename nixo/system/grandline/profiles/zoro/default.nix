@@ -4,7 +4,7 @@
 {
   imports = [
     ../../shared.nix
-    ./theme
+    ./stylix.nix
   ];
 
   nixpkgs.config.allowUnfree = true;

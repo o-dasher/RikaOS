@@ -7,7 +7,7 @@
 }:
 {
   imports = [
-    ./theme
+    ./stylix.nix
   ];
 
   neovim.enable = true;
