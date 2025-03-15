@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   lib,
   config,
@@ -86,15 +87,12 @@
     # programming
     jetbrains.rider
     android-studio
-    # Used to start new projects although I mainly use dev shells!
-    openjdk17
-    cargo
-    nodejs
-    bun
-    pnpm
 
     # android
     universal-android-debloater
+
+    # Browser
+    inputs.zen-browser.packages."${system}".twilight
 
     # tools
     gimp
@@ -105,8 +103,6 @@
     mpv
     # monitor
     mission-center
-    # browser
-    brave
     # social media
     discord
     # files
