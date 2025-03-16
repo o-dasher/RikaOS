@@ -1,5 +1,5 @@
 return {
-	"saghen/blink.cmp",
+	"blink.cmp",
 	dep_of = { "nvim-lspconfig" },
 	lazy = false,
 	after = function()
