@@ -1,5 +1,7 @@
 return {
-	"MeanderingProgrammer/markdown.nvim",
+	"render-markdown",
 	ft = "markdown",
-	name = "render-markdown", -- Only needed if you have another plugin named markdown.nvim
+	after = function()
+		require("render-markdown").setup()
+	end,
 }

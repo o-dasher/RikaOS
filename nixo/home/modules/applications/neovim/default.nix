@@ -35,7 +35,7 @@ in
           nvim-web-devicons
           lazygit-nvim
           nvim-lint
-          markdown-nvim
+          render-markdown-nvim
           oil-nvim
           snacks-nvim
           friendly-snippets
@@ -45,6 +45,8 @@ in
           telescope-nvim
           telescope-live-grep-args-nvim
           blink-cmp
+          rose-pine
+          mini-pairs
         ];
         extraBinPath = with pkgs; [
           # LSP
