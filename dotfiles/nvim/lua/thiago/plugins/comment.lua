@@ -1,3 +1,0 @@
-return {
-	"comment.nvim",
-}

@@ -27,7 +27,6 @@ in
         ];
         plugins = with pkgs.vimPlugins; [
           lze
-          comment-nvim
           conform-nvim
           fidget-nvim
           harpoon2
