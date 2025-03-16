@@ -1,5 +1,4 @@
 require("lze").load({
-	{ import = "thiago.plugins.autopairs" },
 	{ import = "thiago.plugins.comment" },
 	{ import = "thiago.plugins.completions" },
 	{ import = "thiago.plugins.lsp" },
