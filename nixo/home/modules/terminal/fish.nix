@@ -14,9 +14,10 @@ in
       tmux = {
         enable = true;
         mouse = true;
-        extraConfig = ''
-          bind-key v split-window -h
-        '';
+        extraConfig = # tmux
+          ''
+            bind-key v split-window -h
+          '';
       };
       starship = {
         enable = true;
@@ -40,13 +41,15 @@ in
               aliase pkgs.home-manager { hm = "switch --flake ${config.sharedFolders.configurationRoot}/nixo"; }
             ))
           ];
-        interactiveShellInit = ''
-          function fish_greeting
-          	echo Welcome (set_color magenta)home(set_color normal) $USER how are you doing today\?
-          	echo (set_color magenta; date; set_color normal)
-            ${lib.getExe pkgs.jp2a} --height=32 --colors ${../../../../assets/Ascii/rika.jpg}
-          end
-        '';
+        interactiveShellInit = # fish
+          ''
+            ${lib.getExe pkgs.tmux}
+            function fish_greeting
+            	echo Welcome (set_color magenta)home(set_color normal) $USER how are you doing today\?
+            	echo (set_color magenta; date; set_color normal)
+              ${lib.getExe pkgs.jp2a} --height=32 --colors ${../../../../assets/Ascii/rika.jpg}
+            end
+          '';
       };
     };
   };
