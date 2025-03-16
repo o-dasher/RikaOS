@@ -27,7 +27,6 @@ in
         ];
         plugins = with pkgs.vimPlugins; [
           lze
-          auto-pairs
           comment-nvim
           conform-nvim
           fidget-nvim
