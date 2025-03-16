@@ -13,7 +13,4 @@ return {
 	keys = {
 		{ "<leader>lg", ":LazyGit<cr>", desc = "LazyGit" },
 	},
-	after = function()
-		require("lazygit").setup()
-	end,
 }
