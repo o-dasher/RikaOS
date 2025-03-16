@@ -11,7 +11,13 @@ in
 {
   config = lib.mkIf (config.terminal.enable && config.terminal.fish.enable) {
     programs = {
-      zellij.enable = true;
+      tmux = {
+        enable = true;
+        mouse = true;
+        extraConfig = ''
+          bind-key v split-window -h
+        '';
+      };
       starship = {
         enable = true;
         settings = {
