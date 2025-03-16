@@ -92,7 +92,7 @@
     universal-android-debloater
 
     # Browser
-    inputs.zen-browser.packages."${system}".twilight
+    inputs.zen-browser.packages.${system}.twilight
 
     # tools
     gimp
