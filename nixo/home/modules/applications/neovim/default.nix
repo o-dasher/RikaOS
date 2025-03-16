@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   config,
   lib,
@@ -10,27 +11,44 @@ in
 {
   options.neovim.enable = lib.mkEnableOption "neovim";
   config = lib.mkIf config.neovim.enable {
-    home.file =
-      let
-        symLinkNeovim = utils.xdgConfigSelectiveSymLink "nvim";
-      in
-      lib.mkMerge [
-        (symLinkNeovim [
-          "lua"
-          "ftplugin"
-        ] { recursive = true; })
-      ];
+    home.file = (utils.xdgConfigSelectiveSymLink "nvim/lua/thiago") [
+      "set.vim"
+    ] { };
 
     programs = {
       lazygit.enable = true;
-      neovim = {
+      mnw = {
         enable = true;
-        viAlias = true;
-        vimAlias = true;
-        extraLuaConfig = ''
-          require("thiago")
-        '';
-        extraPackages = with pkgs; [
+        neovim = inputs.neovim-nightly.packages.${pkgs.system}.neovim;
+        initLua = # lua
+          ''require("thiago")'';
+        devExcludedPlugins = [
+          ../../../../../dotfiles/nvim
+        ];
+        plugins = with pkgs.vimPlugins; [
+          lze
+          auto-pairs
+          comment-nvim
+          conform-nvim
+          fidget-nvim
+          harpoon2
+          indent-blankline-nvim
+          nvim-lspconfig
+          nvim-web-devicons
+          lazygit-nvim
+          nvim-lint
+          markdown-nvim
+          oil-nvim
+          snacks-nvim
+          friendly-snippets
+          luasnip
+          nvim-treesitter.withAllGrammars
+          vimtex
+          telescope-nvim
+          telescope-live-grep-args-nvim
+          blink-cmp
+        ];
+        extraBinPath = with pkgs; [
           # LSP
           # Lua
           lua-language-server
@@ -64,7 +82,6 @@ in
           # Some tools
           tree-sitter # Tree-sitting
           ripgrep # Telescope fzf
-          gcc # Installing tree-sitteer grammars
           luarocks
 
           # global formatters
