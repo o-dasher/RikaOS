@@ -5,7 +5,7 @@ return {
 	after = function()
 		require("blink.cmp").setup({
 			keymap = {
-				preset = "default",
+				preset = "enter",
 			},
 			appearance = {
 				use_nvim_cmp_as_default = true,
@@ -17,7 +17,6 @@ return {
 			},
 			completion = {
 				accept = { auto_brackets = { enabled = true } },
-				list = { selection = { preselect = false } },
 				documentation = {
 					auto_show = true,
 					auto_show_delay_ms = 250,
