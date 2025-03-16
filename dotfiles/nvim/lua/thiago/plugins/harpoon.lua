@@ -62,9 +62,8 @@ end
 return {
 	"theprimeagen/harpoon",
 	branch = "harpoon2",
-	dependencies = "nvim-lua/plenary.nvim",
 	keys = keys,
-	config = function()
+	after = function()
 		h():setup()
 	end,
 }

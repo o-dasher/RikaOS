@@ -1,7 +1,7 @@
 return {
 	"mfussenegger/nvim-lint",
 	event = "BufRead",
-	config = function()
+	after = function()
 		require("lint").linters_by_ft = {
 			javascript = { "eslint_d" },
 		}

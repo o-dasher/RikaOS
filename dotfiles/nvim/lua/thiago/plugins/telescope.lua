@@ -4,11 +4,7 @@ end
 
 return {
 	"nvim-telescope/telescope.nvim",
-	dependencies = {
-		"nvim-lua/plenary.nvim",
-		"nvim-telescope/telescope-live-grep-args.nvim",
-	},
-	config = function(_, _)
+	after = function(_, _)
 		local actions = require("telescope.actions")
 		require("telescope").setup({
 			defaults = {

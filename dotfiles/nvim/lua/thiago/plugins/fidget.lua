@@ -1,8 +1,7 @@
 return {
-	{
-		"j-hui/fidget.nvim",
-		event = "VeryLazy",
-		opts = {
+	"j-hui/fidget.nvim",
+	after = function()
+		require("fidget").setup({
 			progress = {
 				suppress_on_insert = true, -- Suppress new messages while in insert mode
 				ignore_done_already = false, -- Ignore new tasks that are already complete
@@ -16,6 +15,6 @@ return {
 					border = "none", -- none, single, double, rounded, solid, shadow
 				},
 			},
-		},
-	},
+		})
+	end,
 }

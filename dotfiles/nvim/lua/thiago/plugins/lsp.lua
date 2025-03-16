@@ -1,41 +1,38 @@
 return {
-	"VonHeikemen/lsp-zero.nvim",
-	dependencies = {
-		"neovim/nvim-lspconfig",
-		"hrsh7th/cmp-nvim-lsp",
-		"hrsh7th/nvim-cmp",
-	},
+	"neovim/nvim-lspconfig.nvim",
 	event = "BufRead",
 	cmd = {
 		"LspInfo",
 	},
-	config = function()
-		local lsp_zero = require("lsp-zero")
-
-		lsp_zero.on_attach(function(_, bufnr)
-			-- see :help lsp-zero-keybindings to learn the available actions
-			lsp_zero.default_keymaps({
-				buffer = bufnr,
-				preserve_mappings = false,
-				omit = { "gl", "<F2>", "<F3>", "<F4>" },
-			})
-
-			for _, set in pairs({
-				{ "vd", vim.diagnostic.open_float },
-				{ "vr", vim.lsp.buf.references },
-				{ "rn", vim.lsp.buf.rename },
-				{ "ca", vim.lsp.buf.code_action },
-			}) do
-				local key, fun = unpack(set)
-				vim.keymap.set("n", "<leader>" .. key, fun, { buffer = bufnr, remap = false })
-			end
-		end)
-
+	after = function()
+		local capabilities = require("blink.cmp").get_lsp_capabilities()
 		local lspcfg = require("lspconfig")
 
+		vim.api.nvim_create_autocmd("LspAttach", {
+			desc = "LSP actions",
+			callback = function(event)
+				local opts = { buffer = event.buf }
+
+				for _, set in pairs({
+					{ "vd", vim.diagnostic.open_float },
+					{ "vr", vim.lsp.buf.references },
+					{ "rn", vim.lsp.buf.rename },
+					{ "ca", vim.lsp.buf.code_action },
+					{ "gd", vim.lsp.buf.definition },
+					{ "gD", vim.lsp.buf.declaration },
+					{ "gi", vim.lsp.buf.type_definition },
+					{ "gs", vim.lsp.buf.signature_help },
+				}) do
+					local key, fun = unpack(set)
+					vim.keymap.set("n", "<leader>" .. key, fun, opts)
+				end
+			end,
+		})
+
 		-- php
-		lspcfg.intelephense.setup({})
+		lspcfg.intelephense.setup({ capabilities = capabilities })
 		lspcfg.phpactor.setup({
+			capabilities = capabilities,
 			-- We only use phpactor for code actions and rename
 			init_options = {
 				["language_server.diagnostics_on_update"] = false,
@@ -47,25 +44,27 @@ return {
 		})
 
 		-- c and cpp
-		lspcfg.ccls.setup({})
+		lspcfg.ccls.setup({ capabilities = capabilities })
 
 		-- python
-		lspcfg.pyright.setup({})
-		lspcfg.ruff.setup({})
+		lspcfg.pyright.setup({ capabilities = capabilities })
+		lspcfg.ruff.setup({ capabilities = capabilities })
 
 		-- css
-		lspcfg.tailwindcss.setup({})
-		lspcfg.cssls.setup({})
+		lspcfg.tailwindcss.setup({ capabilities = capabilities })
+		lspcfg.cssls.setup({ capabilities = capabilities })
 
-		lspcfg.ts_ls.setup({}) -- typescript
-		lspcfg.svelte.setup({})
-		lspcfg.rust_analyzer.setup({}) -- rust using rustacean
-		lspcfg.yamlls.setup({}) -- yaml
-		lspcfg.nixd.setup({}) -- nix
-		lspcfg.texlab.setup({}) -- tex
+		lspcfg.ts_ls.setup({ capabilities = capabilities }) -- typescript
+		lspcfg.svelte.setup({ capabilities = capabilities })
+		lspcfg.rust_analyzer.setup({ capabilities = capabilities }) -- rust using rustacean
+		lspcfg.yamlls.setup({ capabilities = capabilities }) -- yaml
+		lspcfg.nixd.setup({ capabilities = capabilities }) -- nix
+		lspcfg.texlab.setup({ capabilities = capabilities }) -- tex
 
 		-- dotnet
 		lspcfg.omnisharp.setup({
+			capabilities = capabilities,
+
 			cmd = {
 				vim.fn.expand("~") .. "/.nix-profile/bin/OmniSharp",
 				"--languageserver",
@@ -103,6 +102,7 @@ return {
 
 		-- lua
 		lspcfg.lua_ls.setup({
+			capabilities = capabilities,
 			settings = {
 				Lua = {
 					runtime = { version = "Lua 5.1" },

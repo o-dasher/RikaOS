@@ -7,6 +7,16 @@
     nixpkgs-bleeding.url = "github:NixOS/nixpkgs/master";
     flake-compat.url = "github:edolstra/flake-compat";
     systems.url = "github:nix-systems/default";
+    mnw.url = "github:Gerg-L/mnw";
+    neovim-nightly = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat";
+        flake-parts.follows = "flake-parts";
+        git-hooks.follows = "git-hooks";
+      };
+    };
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
       inputs = {
@@ -118,6 +128,7 @@
       stylix,
       nixpkgs-bleeding,
       RikaOS-private,
+      mnw,
       ...
     }@inputs:
     let
@@ -131,6 +142,7 @@
           };
           modules = [
             stylix.homeManagerModules.stylix
+            mnw.homeManagerModules.mnw
             ./home/modules
             ./system/${cfg.targetHostName}/profiles/${username}
           ];
