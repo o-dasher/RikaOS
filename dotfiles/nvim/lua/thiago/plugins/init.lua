@@ -1,5 +1,4 @@
 require("lze").load({
-	{ import = "thiago.plugins.comment" },
 	{ import = "thiago.plugins.blink_cmp" },
 	{ import = "thiago.plugins.lsp" },
 	{ import = "thiago.plugins.conform" },
