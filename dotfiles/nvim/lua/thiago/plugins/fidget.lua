@@ -1,5 +1,5 @@
 return {
-	"j-hui/fidget.nvim",
+	"fidget.nvim",
 	after = function()
 		require("fidget").setup({
 			progress = {

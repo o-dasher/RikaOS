@@ -1,5 +1,5 @@
 return {
-	"folke/snacks.nvim",
+	"snacks.nvim",
 	priority = 1000,
 	lazy = false,
 	after = function()

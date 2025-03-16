@@ -1,5 +1,5 @@
 return {
-	"kdheepak/lazygit.nvim",
+	"lazygit.nvim",
 	lazy = false,
 	cmd = {
 		"LazyGit",

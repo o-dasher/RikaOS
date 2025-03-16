@@ -1,5 +1,5 @@
 return {
-	"stevearc/oil.nvim",
+	"oil.nvim",
 	keys = {
 		{
 			"<Leader>pv",
