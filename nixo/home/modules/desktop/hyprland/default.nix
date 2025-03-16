@@ -18,6 +18,11 @@ in
   options.desktop.hyprland.enable = lib.mkEnableOption "hyprland";
   config = lib.mkIf config.desktop.hyprland.enable {
     programs.hyprlock.enable = true;
+    home.pointerCursor = {
+      name = "BreezeX-RosePine-Linux";
+      hyprcursor.enable = true;
+      package = pkgs.rose-pine-cursor;
+    };
     wayland.windowManager.hyprland = {
       enable = true;
       xwayland.enable = true;
@@ -26,15 +31,16 @@ in
         inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
       settings = {
         env = [
-          "HYPRCURSOR_SIZE, 24"
-          "XCURSOR_SIZE, 24"
-
           # Wayland stuff.
           "NIXOS_WAYLAND,1" # Enable Wayland support in NixOS
           "NIXOS_OZONE_WL,1" # Enable Ozone Wayland support in NixOS
           "ELECTRON_OZONE_PLATFORM_HINT,auto" # Set Electron to automatically choose between Wayland and X11
         ];
         exec-once = [
+          "gsettings set org.gnome.desktop.interface cursor-theme '${config.home.pointerCursor.name}'"
+          "gsettings set org.gnome.desktop.interface cursor-size ${
+            toString (config.home.pointerCursor.size - 8)
+          }"
           ((lib.mkIf (config.desktop.hyprland.waybar.enable)) (lib.getExe pkgs.waybar))
           (lib.getExe pkgs.lxqt.lxqt-policykit)
           "[workspace 9 silent] ${lib.getExe pkgs.qbittorrent}"
