@@ -3,7 +3,7 @@ return {
 	priority = 1000,
 	lazy = false,
 	after = function()
-		require("snacks").setup({
+		local opts = {
 			bigfile = { enabled = true },
 			dashboard = { enabled = true },
 			indent = { enabled = true },
@@ -12,11 +12,17 @@ return {
 			notify = { enabled = true },
 			quickfile = { enabled = true },
 			scope = { enabled = true },
-			scroll = { enabled = true },
 			statuscolumn = { enabled = true },
 			words = { enabled = true },
 			notifier = { enabled = true },
-		})
+		}
+
+		if not vim.g.neovide then
+			opts.scroll = { enabled = true }
+			opts.animate = { enabled = true }
+		end
+
+		require("snacks").setup(opts)
 		vim.api.nvim_create_autocmd("LspProgress", {
 			callback = function(ev)
 				local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
