@@ -30,7 +30,6 @@ in
           conform-nvim
           fidget-nvim
           harpoon2
-          indent-blankline-nvim
           nvim-lspconfig
           nvim-web-devicons
           lazygit-nvim
