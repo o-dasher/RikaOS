@@ -23,7 +23,7 @@ in
         initLua = # lua
           ''require("thiago")'';
         devExcludedPlugins = [
-          (config.lib.file.mkOutOfStoreSymlink ../../../../../dotfiles/nvim)
+          ../../../../../dotfiles/nvim
         ];
         plugins = with pkgs.vimPlugins; [
           lze
