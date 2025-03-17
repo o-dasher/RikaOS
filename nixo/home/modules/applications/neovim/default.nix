@@ -47,15 +47,15 @@ in
           blink-cmp
           rose-pine
           mini-pairs
+          rustaceanvim
         ];
         extraBinPath = with pkgs; [
           # LSP
-          # Lua
-          lua-language-server
-
+          lua-language-server # Lua
           nixd # Nix
           yaml-language-server # Yaml
           ccls # C
+          rust-analyzer # Rust
 
           # Python
           pyright
@@ -82,7 +82,7 @@ in
           # Some tools
           tree-sitter # Tree-sitting
           ripgrep # Telescope fzf
-          luarocks
+          luarocks # I am not sure
 
           # global formatters
           prettierd
