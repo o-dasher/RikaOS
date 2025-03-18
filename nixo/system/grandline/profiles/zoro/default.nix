@@ -12,6 +12,7 @@
   terminal.enable = true;
 
   programs = {
+    gh.enable = true;
     home-manager.enable = true;
     direnv = {
       enable = true;
