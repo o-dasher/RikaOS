@@ -71,7 +71,9 @@
     via
     vial
 
-    # documents
+    # documents / study
+    imagemagick
+    anki-bin
     zathura
 
     # Fonts
