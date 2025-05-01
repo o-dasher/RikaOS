@@ -22,6 +22,8 @@ return {
 				javascriptreact = { "prettierd" },
 				typescript = { "prettierd" },
 				typescriptreact = { "prettierd" },
+				html = { "prettierd" },
+				css = { "prettierd" },
 				lua = { "stylua" },
 				php = { "pint" },
 				markdown = { "prettierd" },
