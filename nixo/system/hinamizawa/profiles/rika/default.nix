@@ -12,7 +12,6 @@
   ];
 
   neovim.enable = true;
-  spotify.enable = true;
   nixSetup.enable = true;
   xdgSetup.enable = true;
 
@@ -67,9 +66,6 @@
       inherit pkgs;
     })
 
-    # database
-    beekeeper-studio
-
     # I love my keyboard.
     via
     vial
@@ -113,6 +109,7 @@
     # files
     yazi
     nautilus
+    spotify
 
     # Disk partitioning
     gparted

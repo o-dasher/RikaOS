@@ -5,7 +5,6 @@
   ];
 
   games.enable = true;
-  spotify.enable = true;
   desktop.gnome.enable = true;
   terminal = {
     enable = true;
