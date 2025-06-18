@@ -47,10 +47,13 @@ in
           rose-pine
           mini-pairs
           rustaceanvim
+          copilot-lua
+          avante-nvim
+          nui-nvim
         ];
         extraBinPath = with pkgs; [
           # LSP
-          lua-language-server # Lua
+          lua-language-server
           nixd # Nix
           yaml-language-server # Yaml
           ccls # C
@@ -69,7 +72,6 @@ in
           typescript
           nodePackages.typescript-language-server
 
-          # PHP
           nodePackages.intelephense
           phpactor
 

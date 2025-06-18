@@ -10,5 +10,6 @@ return {
 	end,
 	dep_of = {
 		"markdown",
+		"avante",
 	},
 }
