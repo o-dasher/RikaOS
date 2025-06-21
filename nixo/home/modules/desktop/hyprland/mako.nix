@@ -8,6 +8,8 @@
     lib.mkIf (config.desktop.hyprland.enable && config.desktop.hyprland.mako.enable)
       {
         enable = true;
-        defaultTimeout = 3000;
+        settings = {
+          default-timeout = 3000;
+        };
       };
 }

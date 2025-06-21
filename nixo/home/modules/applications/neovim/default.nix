@@ -22,35 +22,36 @@ in
         neovim = inputs.neovim-nightly.packages.${pkgs.system}.neovim;
         initLua = # lua
           ''require("thiago")'';
-        devExcludedPlugins = [
-          ../../../../../dotfiles/nvim
-        ];
-        plugins = with pkgs.vimPlugins; [
-          lze
-          conform-nvim
-          fidget-nvim
-          harpoon2
-          nvim-lspconfig
-          nvim-web-devicons
-          lazygit-nvim
-          nvim-lint
-          render-markdown-nvim
-          oil-nvim
-          snacks-nvim
-          friendly-snippets
-          luasnip
-          nvim-treesitter.withAllGrammars
-          vimtex
-          telescope-nvim
-          telescope-live-grep-args-nvim
-          blink-cmp
-          rose-pine
-          mini-pairs
-          rustaceanvim
-          copilot-lua
-          avante-nvim
-          nui-nvim
-        ];
+        plugins = {
+          start = with pkgs.vimPlugins; [
+            lze
+            conform-nvim
+            fidget-nvim
+            harpoon2
+            nvim-lspconfig
+            nvim-web-devicons
+            lazygit-nvim
+            nvim-lint
+            render-markdown-nvim
+            oil-nvim
+            snacks-nvim
+            friendly-snippets
+            luasnip
+            nvim-treesitter.withAllGrammars
+            vimtex
+            telescope-nvim
+            telescope-live-grep-args-nvim
+            blink-cmp
+            rose-pine
+            mini-pairs
+            rustaceanvim
+            copilot-lua
+            avante-nvim
+            nui-nvim
+          ];
+
+          dev.config.pure = ../../../../../dotfiles/nvim;
+        };
         extraBinPath = with pkgs; [
           # LSP
           lua-language-server
@@ -61,7 +62,6 @@ in
 
           # Python
           pyright
-          ruff-lsp
 
           # Web development
           nodePackages."@tailwindcss/language-server"

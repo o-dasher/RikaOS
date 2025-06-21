@@ -80,7 +80,6 @@
         git-hooks.follows = "git-hooks";
         home-manager.follows = "home-manager";
         flake-compat.follows = "flake-compat";
-        flake-utils.follows = "flake-utils";
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
       };
@@ -99,8 +98,7 @@
       inputs = {
         flake-compat.follows = "flake-compat";
         flake-utils.follows = "flake-utils";
-        nixpkgs-unstable.follows = "nixpkgs";
-        nixpkgs-stable.follows = "nixpkgs-stable";
+        nixpkgs.follows = "nixpkgs";
       };
     };
   };
@@ -141,7 +139,7 @@
             inherit system;
           };
           modules = [
-            stylix.homeManagerModules.stylix
+            stylix.homeModules.stylix
             mnw.homeManagerModules.mnw
             ./home/modules
             ./system/${cfg.targetHostName}/profiles/${username}

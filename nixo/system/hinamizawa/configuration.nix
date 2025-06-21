@@ -69,8 +69,8 @@ in
     {
       enable = true;
       enable32Bit = true;
-      package = hypr-pkgs.mesa.drivers;
-      package32 = hypr-pkgs.pkgsi686Linux.mesa.drivers;
+      package = hypr-pkgs.mesa;
+      package32 = hypr-pkgs.pkgsi686Linux.mesa;
       extraPackages = with pkgs; [
         # Required by davinci resolve
         rocmPackages_6.clr.icd
@@ -101,6 +101,10 @@ in
   networking = {
     hostName = targetHostName;
     networkmanager.enable = true;
+    nameservers = [
+      "1.1.1.1"
+      "1.0.0.1"
+    ];
   };
 
   services = {
@@ -110,7 +114,7 @@ in
     # Enable gnome keyring to store password and stuff?
     gnome = {
       gnome-keyring.enable = true;
-      core-utilities.enable = false;
+      core-apps.enable = false;
     };
 
     # Thunar
@@ -118,8 +122,8 @@ in
     tumbler.enable = true; # Thumbnail support for images
 
     # Display manager
-    xserver.desktopManager.gnome.enable = true;
-    xserver.displayManager.gdm.enable = true;
+    desktopManager.gnome.enable = true;
+    displayManager.gdm.enable = true;
 
     # Rgb controller
     hardware.openrgb.enable = true;
