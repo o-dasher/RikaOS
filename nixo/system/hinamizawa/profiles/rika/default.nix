@@ -44,9 +44,6 @@
   };
 
   home.packages = with pkgs; [
-    # Local gaming
-    torzu
-
     # cli
     wget
     heroku

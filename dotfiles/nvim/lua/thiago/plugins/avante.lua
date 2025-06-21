@@ -12,7 +12,7 @@ return {
 		"zbirenbaum/copilot.lua",
 		event = "InsertEnter",
 		after = function()
-			require("copilot").setup({})
+			require("copilot").setup()
 		end,
 		dep_of = { "avante" },
 	},
