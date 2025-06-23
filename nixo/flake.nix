@@ -132,6 +132,8 @@
     let
       system = "x86_64-linux";
 
+      pkgs-bleeding = import nixpkgs-bleeding { inherit system; };
+
       define_hm =
         cfg: username:
         home-manager.lib.homeManagerConfiguration {
@@ -147,7 +149,7 @@
           extraSpecialArgs = {
             inherit inputs;
             inherit RikaOS-private;
-            pkgs-bleeding = import nixpkgs-bleeding { inherit system; };
+            inherit pkgs-bleeding;
             utils = import ./home/utils {
               lib = nixpkgs.lib;
               config = self.homeConfigurations.${username}.config;
@@ -164,6 +166,7 @@
           inherit system;
           specialArgs = {
             inherit RikaOS-private;
+            inherit pkgs-bleeding;
             inherit inputs;
             inherit cfg;
           };
