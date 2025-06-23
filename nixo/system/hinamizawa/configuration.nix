@@ -5,6 +5,7 @@
   pkgs,
   cfg,
   inputs,
+  pkgs-bleeding,
   ...
 }:
 let
@@ -71,7 +72,7 @@ in
       enable32Bit = true;
       package = hypr-pkgs.mesa;
       package32 = hypr-pkgs.pkgsi686Linux.mesa;
-      extraPackages = with pkgs; [
+      extraPackages = with pkgs-bleeding; [
         # Required by davinci resolve
         rocmPackages_6.clr.icd
       ];
@@ -100,11 +101,13 @@ in
   security.polkit.enable = true;
   networking = {
     hostName = targetHostName;
-    networkmanager.enable = true;
-    nameservers = [
-      "1.1.1.1"
-      "1.0.0.1"
-    ];
+    networkmanager = {
+      enable = true;
+      insertNameservers = [
+        "1.1.1.1"
+        "1.0.0.1"
+      ];
+    };
   };
 
   services = {
