@@ -74,6 +74,7 @@
 
     # Fonts
     pkgs.jetbrains-mono
+    pkgs.nerd-fonts.fira-mono
     pkgs.nerd-fonts.jetbrains-mono
 
     # cli
