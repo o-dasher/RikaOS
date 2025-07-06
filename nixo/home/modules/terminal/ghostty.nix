@@ -10,14 +10,12 @@
     programs.ghostty = {
       enable = true;
       package = inputs.ghostty.packages.${pkgs.stdenv.hostPlatform.system}.default;
-      settings = lib.mkMerge [
-        {
-          font-size = 14;
-          scrollback-limit = 10000;
-          clipboard-read = "allow";
-          clipboard-paste-protection = false;
-        }
-      ];
+      settings = lib.mkAfter {
+        font-size = 12;
+        scrollback-limit = 10000;
+        clipboard-read = "allow";
+        clipboard-paste-protection = false;
+      };
     };
   };
 }
