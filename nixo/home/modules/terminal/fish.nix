@@ -43,7 +43,6 @@ in
           ];
         interactiveShellInit = # fish
           ''
-            ${lib.getExe pkgs.tmux}
             function fish_greeting
             	echo Welcome (set_color magenta)home(set_color normal) $USER how are you doing today\?
             	echo (set_color magenta; date; set_color normal)
