@@ -204,6 +204,15 @@
           zoro = "zoro";
         };
       };
+
+      silly = rec {
+        targetHostName = "silly";
+        hostName = "gpmecatronica-System-Product-Name";
+        state = "24.05";
+        profiles = {
+          gleep = "othiago";
+        };
+      };
     in
     {
       # Personal
@@ -218,5 +227,7 @@
       # New research lab
       nixosConfigurations.${grandline.hostName} = define_system grandline;
       homeConfigurations.${grandline.profiles.zoro} = define_hm grandline grandline.profiles.zoro;
+
+      homeConfigurations.${silly.profiles.gleep} = define_hm silly silly.profiles.gleep;
     };
 }
