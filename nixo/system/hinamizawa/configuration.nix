@@ -6,6 +6,7 @@
   cfg,
   inputs,
   pkgs-bleeding,
+  pkgs-stable,
   ...
 }:
 let
@@ -26,8 +27,13 @@ in
   ];
   nixSetup = {
     enable = true;
-    trusted-users = [ cfg.profiles.rika ];
+    trusted-users = [
+      cfg.profiles.rika
+      cfg.profiles.satoko
+    ];
   };
+
+  # Overclock
 
   boot = {
     # Setup ntfs
@@ -35,6 +41,8 @@ in
     # Disk encryption
     initrd.luks.devices."luks-36bb58a5-3907-4ecc-99b8-3133907e4ab3".device =
       "/dev/disk/by-uuid/36bb58a5-3907-4ecc-99b8-3133907e4ab3";
+
+    kernelPackages = pkgs.linuxPackages_latest;
 
     loader.systemd-boot.windows = {
       "nvme0n1p1" = {
@@ -80,6 +88,7 @@ in
   programs = {
     gamemode.enable = true;
     gamescope.enable = true;
+    corectrl.enable = true;
     # Reference for multi user installation
     # https://github.com/ValveSoftware/Proton/issues/4820#issuecomment-2569535495
     steam = {
@@ -132,7 +141,10 @@ in
     hardware.openrgb.enable = true;
 
     # Keyboard
-    udev.packages = with pkgs; [ vial ];
+    udev.packages = with pkgs; [
+      qmk-udev-rules
+      via
+    ];
   };
 
   stylix = {

@@ -84,7 +84,6 @@
     unzip
 
     # programming
-    jetbrains.rider
     android-studio
 
     # android

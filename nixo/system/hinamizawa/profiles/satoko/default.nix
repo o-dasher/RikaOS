@@ -18,9 +18,12 @@
     allowUnfree = true;
   };
 
+  xdg.portal.config.common.default = "*";
+
   home.packages = with pkgs; [
     mpv
     mission-center
+    nautilus
   ];
 
   services.easyeffects.enable = true;
