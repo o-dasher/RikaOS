@@ -6,6 +6,7 @@
     nixpkgs-stable.url = "github:NixOS/nixpkgs";
     nixpkgs-bleeding.url = "github:NixOS/nixpkgs/master";
     flake-compat.url = "github:edolstra/flake-compat";
+    nixgl.url = "github:nix-community/nixGL";
     systems.url = "github:nix-systems/default";
     mnw.url = "github:Gerg-L/mnw";
     neovim-nightly = {
@@ -77,9 +78,6 @@
     stylix = {
       url = "github:danth/stylix";
       inputs = {
-        git-hooks.follows = "git-hooks";
-        home-manager.follows = "home-manager";
-        flake-compat.follows = "flake-compat";
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
       };
@@ -93,14 +91,6 @@
         pre-commit-hooks-nix.follows = "git-hooks";
       };
     };
-    ghostty = {
-      url = "github:ghostty-org/ghostty";
-      inputs = {
-        flake-compat.follows = "flake-compat";
-        flake-utils.follows = "flake-utils";
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
   };
 
   nixConfig = {
@@ -108,13 +98,11 @@
       "https://nix-community.cachix.org"
       "https://nix-gaming.cachix.org"
       "https://hyprland.cachix.org"
-      "https://ghostty.cachix.org"
     ];
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-      "ghostty.cachix.org-1:QB389yTa6gTyneehvqG58y0WnHjQOqgnA+wBnpWWxns="
     ];
   };
 
@@ -127,6 +115,7 @@
       nixpkgs-bleeding,
       RikaOS-private,
       mnw,
+      nixgl,
       ...
     }@inputs:
     let
@@ -150,6 +139,7 @@
             inherit inputs;
             inherit RikaOS-private;
             inherit pkgs-bleeding;
+            inherit nixgl;
             utils = import ./home/utils {
               lib = nixpkgs.lib;
               config = self.homeConfigurations.${username}.config;
