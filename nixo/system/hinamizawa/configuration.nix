@@ -208,7 +208,7 @@ in
   };
 
   environment.systemPackages = with pkgs; [
-    inputs.ghostty.packages.${stdenv.hostPlatform.system}.default
+    ghostty
   ];
 
   # This option defines the first version of NixOS you have installed on this particular machine,
