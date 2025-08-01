@@ -200,7 +200,7 @@
         hostName = "gpmecatronica-System-Product-Name";
         state = "24.05";
         profiles = {
-          gleep = "othiago";
+          gleep = "thiagogpm";
         };
       };
     in

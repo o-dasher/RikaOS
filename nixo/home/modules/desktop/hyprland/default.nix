@@ -52,24 +52,19 @@ in
           "immediate, fullscreen:1"
           "float, class:org.gnome.Nautilus"
         ];
-        misc = {
-          render_ahead_of_time = true;
-          render_ahead_safezone = 4;
-        };
-        general =
+        general = {
+          allow_tearing = true;
+          border_size = 3;
+        }
+        // (
+          let
+            gap = 5;
+          in
           {
-            allow_tearing = true;
-            border_size = 3;
+            gaps_out = gap;
+            gaps_in = gap;
           }
-          // (
-            let
-              gap = 5;
-            in
-            {
-              gaps_out = gap;
-              gaps_in = gap;
-            }
-          );
+        );
         input = {
           kb_layout = "br";
           kb_variant = "abnt2";
