@@ -22,9 +22,9 @@
           icon-theme = config.stylix.iconTheme.${config.stylix.polarity};
           font = lib.mkForce "JetbrainsMono:size=16";
 
-          width = 48;
+          width = 40;
           lines = 10;
-          line-height = 32;
+          line-height = 24;
         };
       };
     };

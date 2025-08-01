@@ -1,16 +1,22 @@
 {
   config,
+  lib,
   pkgs,
   inputs,
   nixgl,
   ...
 }:
 {
+  imports = [
+    ./stylix.nix
+  ];
+
   nixGL.packages = nixgl.packages;
+  nixGL.defaultWrapper = "mesa";
 
-  sharedFolders.configurationRoot = "~/RikaOS";
+  sharedFolders.configurationRoot = "~/Programming/RikaOS";
 
-  desktop.gnome.enable = true;
+  desktop.hyprland.enable = true;
 
   nixpkgs.config.allowUnfree = true;
   neovim.enable = true;
@@ -18,6 +24,8 @@
   terminal.ghostty.enable = true;
 
   programs.ghostty.package = config.lib.nixGL.wrap pkgs.ghostty;
+
+  wayland.windowManager.hyprland.package = lib.mkForce (config.lib.nixGL.wrap pkgs.hyprland);
 
   home.packages = with pkgs; [
     jetbrains-mono
