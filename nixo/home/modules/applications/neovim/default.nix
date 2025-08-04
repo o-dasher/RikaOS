@@ -44,7 +44,6 @@ in
             blink-cmp
             rose-pine
             mini-pairs
-            rustaceanvim
             copilot-lua
             inputs.avante-nvim-nightly.packages.${pkgs.system}.default
             nui-nvim

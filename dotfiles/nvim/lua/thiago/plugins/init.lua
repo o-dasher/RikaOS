@@ -24,8 +24,4 @@ require("lze").load({
 		"rose-pine",
 		colorscheme = "rose-pine",
 	},
-	{
-		"rustaceanvim",
-		lazy = false, -- This plugin is already lazy
-	},
 })

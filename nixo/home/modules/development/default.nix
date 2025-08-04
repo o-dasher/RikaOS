@@ -23,9 +23,9 @@
       ghostty.enable = true;
     };
 
-    nixpkgs.config = (lib.mkIf (config.development.android.enable)) {
+    nixpkgs.config = {
       allowUnfree = true;
-      android_sdk.accept_license = true;
+      android_sdk.accept_license = config.development.android.enable;
     };
 
     xdg.configFile."ideavim" = (lib.mkIf (config.development.android.enable)) {

@@ -114,28 +114,4 @@ return {
 			})
 		end,
 	},
-	{
-		"mrcjkb/rustaceanvim",
-		version = "^4",
-		ft = { "rust" },
-		config = function()
-			local capabilities = require("blink.cmp").get_lsp_capabilities()
-			vim.g.rustaceanvim = {
-				capabilities = capabilities,
-				server = {
-					settings = {
-						-- rust-analyzer language server configuration
-						["rust-analyzer"] = {
-							cargo = { allFeatures = true },
-							checkOnSave = {
-								-- default: `cargo check`
-								command = "clippy",
-								allFeatures = true,
-							},
-						},
-					},
-				},
-			}
-		end,
-	},
 }
