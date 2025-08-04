@@ -1,3 +1,0 @@
-{
-  sharedFolders.configurationRoot = "~/RikaOS";
-}
