@@ -9,15 +9,15 @@ return {
 		end,
 	},
 	{
-		"zbirenbaum/copilot.lua",
+		"zbirembau/copilot.lua",
 		event = "InsertEnter",
 		after = function()
-			require("copilot").setup()
+			require("copilot").setup({})
 		end,
 		dep_of = { "avante" },
 	},
 	{
-		"avante.nvim",
+		"yetone/avante.nvim",
 		after = function()
 			require("avante_lib").load()
 			require("avante").setup({
