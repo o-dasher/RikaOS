@@ -5,7 +5,7 @@ require("thiago.plugins")
 vim.cmd("colorscheme rose-pine")
 
 if vim.g.neovide then
-	vim.g.neovide_transparency = 0.9
+	vim.g.neovide_opacity = 0.9
 	vim.opt.guifont = { "JetbrainsMono Nerd Font", ":h12" }
 else
 	local use_cli_transparency = false
