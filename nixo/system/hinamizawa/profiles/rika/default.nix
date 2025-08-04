@@ -32,7 +32,6 @@
     # cli
     wget
     heroku
-    wl-clipboard # global because I main wayland
 
     # Security and mailing
     bitwarden-desktop
