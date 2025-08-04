@@ -9,6 +9,13 @@
     nixgl.url = "github:nix-community/nixGL";
     systems.url = "github:nix-systems/default";
     mnw.url = "github:Gerg-L/mnw";
+    avante-nvim-nightly = {
+      url = "github:vinnymeller/avante-nvim-nightly-flake";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
+    };
     neovim-nightly = {
       url = "github:nix-community/neovim-nightly-overlay";
       inputs = {

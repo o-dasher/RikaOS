@@ -55,6 +55,46 @@
         "type": "github"
       }
     },
+    "avante": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1754228078,
+        "narHash": "sha256-ynqKy5IEQPb4weISOl6/3IY51ik5kOKsyk1loV2bmds=",
+        "owner": "yetone",
+        "repo": "avante.nvim",
+        "rev": "66cfbb4c190da1b558c0e2f6dda59b89002f0c24",
+        "type": "github"
+      },
+      "original": {
+        "owner": "yetone",
+        "repo": "avante.nvim",
+        "type": "github"
+      }
+    },
+    "avante-nvim-nightly": {
+      "inputs": {
+        "avante": "avante",
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1754245042,
+        "narHash": "sha256-TK6xOzrjOcT2fscIZRYsnS5gILz/ZzFrGbYoITO43ig=",
+        "owner": "vinnymeller",
+        "repo": "avante-nvim-nightly-flake",
+        "rev": "441c7c616b98306a6c11508fe026c1d35b469ce9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "vinnymeller",
+        "repo": "avante-nvim-nightly-flake",
+        "type": "github"
+      }
+    },
     "base16": {
       "inputs": {
         "fromYaml": "fromYaml"
@@ -938,6 +978,7 @@
     "root": {
       "inputs": {
         "RikaOS-private": "RikaOS-private",
+        "avante-nvim-nightly": "avante-nvim-nightly",
         "flake-compat": "flake-compat",
         "flake-parts": "flake-parts",
         "flake-utils": "flake-utils",

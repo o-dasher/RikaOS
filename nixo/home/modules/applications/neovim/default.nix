@@ -46,7 +46,7 @@ in
             mini-pairs
             rustaceanvim
             copilot-lua
-            avante-nvim
+            inputs.avante-nvim-nightly.packages.${pkgs.system}.default
             nui-nvim
           ];
 
