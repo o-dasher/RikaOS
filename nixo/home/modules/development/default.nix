@@ -11,6 +11,11 @@
   };
 
   config = (lib.mkIf config.development.enable) {
+    cli = {
+      enable = true;
+      hyfetch.enable = true;
+    };
+
     terminal = {
       enable = true;
       ghostty.enable = true;
