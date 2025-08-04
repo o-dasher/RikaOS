@@ -6,7 +6,6 @@
   cfg,
   inputs,
   pkgs-bleeding,
-  pkgs-stable,
   ...
 }:
 let
@@ -123,6 +122,9 @@ in
     # Enable CUPS to print documents.
     printing.enable = true;
 
+    # Bluetooth.
+    blueman.enable = true;
+
     # Enable gnome keyring to store password and stuff?
     gnome = {
       gnome-keyring.enable = true;
@@ -206,10 +208,6 @@ in
       defaultEditor = true;
     };
   };
-
-  environment.systemPackages = with pkgs; [
-    ghostty
-  ];
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
