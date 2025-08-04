@@ -6,9 +6,12 @@
     nixpkgs-stable.url = "github:NixOS/nixpkgs";
     nixpkgs-bleeding.url = "github:NixOS/nixpkgs/master";
     flake-compat.url = "github:edolstra/flake-compat";
-    nixgl.url = "github:nix-community/nixGL";
     systems.url = "github:nix-systems/default";
     mnw.url = "github:Gerg-L/mnw";
+    nixgl = {
+      url = "github:nix-community/nixGL";
+      inputs.flake-utils.follows = "flake-utils";
+    };
     avante-nvim-nightly = {
       url = "github:vinnymeller/avante-nvim-nightly-flake";
       inputs = {
@@ -42,6 +45,7 @@
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
     };
     hyprland = {
       url = "github:hyprwm/Hyprland";
@@ -74,13 +78,6 @@
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    spicetify-nix = {
-      url = "github:Gerg-L/spicetify-nix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
     };
     stylix = {
       url = "github:danth/stylix";
