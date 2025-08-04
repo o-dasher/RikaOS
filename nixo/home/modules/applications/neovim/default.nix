@@ -59,6 +59,7 @@ in
           yaml-language-server # Yaml
           ccls # C
           rust-analyzer # Rust
+          ruff
 
           # Python
           pyright
