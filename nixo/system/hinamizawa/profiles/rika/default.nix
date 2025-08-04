@@ -13,7 +13,6 @@
   development.enable = true;
   development.android.enable = true;
 
-  neovim.enable = true;
   nixSetup.enable = true;
   xdgSetup.enable = true;
 
