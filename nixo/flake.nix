@@ -199,7 +199,7 @@
         };
       };
 
-      silly = rec {
+      silly = {
         targetHostName = "silly";
         hostName = "gpmecatronica-System-Product-Name";
         state = "24.05";
