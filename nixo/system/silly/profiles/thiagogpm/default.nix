@@ -8,7 +8,7 @@
 }:
 {
   imports = [
-    ./stylix.nix
+    ../../../../home/modules/theme/graduation.nix
   ];
 
   nixGL.packages = nixgl.packages;
