@@ -6,5 +6,6 @@
     ./terminal
     ./applications
     ./games
+    ./development
   ];
 }
