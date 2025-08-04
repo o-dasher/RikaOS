@@ -2,7 +2,6 @@
   inputs,
   pkgs,
   lib,
-  config,
   RikaOS-private,
   ...
 }:
@@ -11,14 +10,12 @@
     ../../../../home/modules/theme/graduation.nix
   ];
 
+  development.enable = true;
+  development.android.enable = true;
+
   neovim.enable = true;
   nixSetup.enable = true;
   xdgSetup.enable = true;
-
-  terminal = {
-    enable = true;
-    ghostty.enable = true;
-  };
 
   desktop = {
     gnome.enable = true;
@@ -32,17 +29,6 @@
     steam.enable = true;
   };
 
-  # Even though open source is cool and all I still use some not libre software.
-  nixpkgs.config = {
-    allowUnfree = true;
-    android_sdk.accept_license = true;
-  };
-
-  xdg.configFile."ideavim" = {
-    source = config.lib.file.mkOutOfStoreSymlink ../../../../../ideavim;
-    recursive = true;
-  };
-
   home.packages = with pkgs; [
     # cli
     wget
@@ -51,9 +37,6 @@
 
     # Security and mailing
     bitwarden-desktop
-
-    # editor
-    neovide
 
     # Video
     ardour
@@ -72,19 +55,11 @@
     anki-bin
     zathura
 
-    # Fonts
-    pkgs.jetbrains-mono
-    pkgs.nerd-fonts.fira-mono
-    pkgs.nerd-fonts.jetbrains-mono
-
     # cli
     # general
     htop
     gdu
     unzip
-
-    # programming
-    android-studio
 
     # android
     universal-android-debloater
@@ -114,12 +89,7 @@
 
   services.easyeffects.enable = true;
   programs = {
-    gh.enable = true;
     home-manager.enable = true;
-    direnv = {
-      enable = true;
-      nix-direnv.enable = true;
-    };
     hyfetch = {
       enable = true;
       settings = {
