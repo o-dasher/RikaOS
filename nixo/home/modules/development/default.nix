@@ -11,6 +11,8 @@
   };
 
   config = (lib.mkIf config.development.enable) {
+    neovim.enable = true;
+
     cli = {
       enable = true;
       hyfetch.enable = true;
