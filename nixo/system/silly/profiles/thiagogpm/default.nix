@@ -28,13 +28,5 @@
 
   programs = {
     home-manager.enable = true;
-    hyfetch = {
-      enable = true;
-      settings = {
-        preset = "bisexual";
-        mode = "rgb";
-        color_align.mode = "horizontal";
-      };
-    };
   };
 }

@@ -9,7 +9,7 @@ let
   inherit (utils) prefixset;
 in
 {
-  config = lib.mkIf (config.terminal.enable && config.terminal.fish.enable) {
+  config = lib.mkIf (config.cli.enable && config.cli.fish.enable) {
     programs = {
       tmux = {
         enable = true;

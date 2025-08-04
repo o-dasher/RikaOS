@@ -7,5 +7,6 @@
     ./applications
     ./games
     ./development
+    ./cli
   ];
 }
