@@ -35,6 +35,7 @@ in
           "NIXOS_WAYLAND,1" # Enable Wayland support in NixOS
           "NIXOS_OZONE_WL,1" # Enable Ozone Wayland support in NixOS
           "ELECTRON_OZONE_PLATFORM_HINT,auto" # Set Electron to automatically choose between Wayland and X11
+          "XDG_CURRENT_DESKTOP,Hyprland" # Set xdg desktop to hyprland
         ];
         exec-once = [
           "gsettings set org.gnome.desktop.interface cursor-theme '${config.home.pointerCursor.name}'"
@@ -52,19 +53,20 @@ in
           "immediate, fullscreen:1"
           "float, class:org.gnome.Nautilus"
         ];
-        general = {
-          allow_tearing = true;
-          border_size = 3;
-        }
-        // (
-          let
-            gap = 5;
-          in
+        general =
           {
-            gaps_out = gap;
-            gaps_in = gap;
+            allow_tearing = true;
+            border_size = 3;
           }
-        );
+          // (
+            let
+              gap = 5;
+            in
+            {
+              gaps_out = gap;
+              gaps_in = gap;
+            }
+          );
         input = {
           kb_layout = "br";
           kb_variant = "abnt2";
