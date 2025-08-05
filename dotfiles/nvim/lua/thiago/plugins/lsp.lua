@@ -61,6 +61,9 @@ return {
 			lspcfg.nixd.setup({ capabilities = capabilities }) -- nix
 			lspcfg.texlab.setup({ capabilities = capabilities }) -- tex
 
+			-- Rust
+			lspcfg.rust_analyzer.setup({ capabilities = capabilities })
+
 			-- dotnet
 			lspcfg.omnisharp.setup({
 				capabilities = capabilities,
