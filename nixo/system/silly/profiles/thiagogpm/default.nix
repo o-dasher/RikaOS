@@ -11,9 +11,12 @@
     ../../../../home/modules/theme/graduation.nix
   ];
 
-  nixGL.packages = nixgl.packages;
-  nixGL.defaultWrapper = "mesa";
+  targets.genericLinux.enable = true;
 
+  xdgSetup.enable = true;
+  nixSetup.enable = true;
+
+  nixGL.packages = nixgl.packages;
   sharedFolders.configurationRoot = "~/Programming/RikaOS";
 
   development.enable = true;
@@ -29,5 +32,6 @@
 
   programs = {
     home-manager.enable = true;
+    bash.enable = true;
   };
 }
