@@ -70,6 +70,7 @@ in
           # Typescript
           svelte-language-server
           typescript
+          biome
           nodePackages.typescript-language-server
 
           nodePackages.intelephense

@@ -55,7 +55,10 @@ return {
 			lspcfg.tailwindcss.setup({ capabilities = capabilities })
 			lspcfg.cssls.setup({ capabilities = capabilities })
 
-			lspcfg.ts_ls.setup({ capabilities = capabilities }) -- typescript
+			-- Typescript
+			lspcfg.ts_ls.setup({ capabilities = capabilities })
+			lspcfg.biome.setup({ capabilities = capabilities })
+
 			lspcfg.svelte.setup({ capabilities = capabilities }) -- svelte
 			lspcfg.yamlls.setup({ capabilities = capabilities }) -- yaml
 			lspcfg.nixd.setup({ capabilities = capabilities }) -- nix
