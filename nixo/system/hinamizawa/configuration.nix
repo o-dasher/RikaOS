@@ -6,6 +6,7 @@
   cfg,
   inputs,
   pkgs-bleeding,
+  config,
   ...
 }:
 let
@@ -16,6 +17,12 @@ in
     ./hardware-configuration.nix
     inputs.nix-gaming.nixosModules.pipewireLowLatency
   ];
+
+  age = {
+    secrets = {
+      playit-secret.file = ../../secrets/playit-secret.age;
+    };
+  };
 
   # Modules
   userPreferences.enable = true;
@@ -118,6 +125,13 @@ in
     };
   };
 
+  services.playit = {
+    enable = true;
+    user = "playit";
+    group = "playit";
+    secretPath = config.age.secrets.playit-secret.path;
+  };
+
   services = {
     # Enable CUPS to print documents.
     printing.enable = true;
@@ -130,6 +144,9 @@ in
       gnome-keyring.enable = true;
       core-apps.enable = false;
     };
+
+    # Open ssh
+    openssh.enable = true;
 
     # Thunar
     gvfs.enable = true; # Mount, trash, and other functionalities
@@ -190,6 +207,10 @@ in
       };
     };
   };
+
+  environment.systemPackages = [
+    inputs.agenix.packages.x86_64-linux.default
+  ];
 
   programs = {
     virt-manager.enable = true;
