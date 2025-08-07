@@ -8,6 +8,11 @@
     flake-compat.url = "github:edolstra/flake-compat";
     systems.url = "github:nix-systems/default";
     mnw.url = "github:Gerg-L/mnw";
+    playit-nixos-module.url = "github:pedorich-n/playit-nixos-module";
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixgl = {
       url = "github:nix-community/nixGL";
       inputs.flake-utils.follows = "flake-utils";
@@ -102,17 +107,20 @@
       "https://nix-community.cachix.org"
       "https://nix-gaming.cachix.org"
       "https://hyprland.cachix.org"
+      "https://playit-nixos-module.cachix.org"
     ];
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+      "playit-nixos-module.cachix.org-1:22hBXWXBbd/7o1cOnh+p0hpFUVk9lPdRLX3p5YSfRz4="
     ];
   };
 
   outputs =
     {
       self,
+      agenix,
       nixpkgs,
       home-manager,
       stylix,
@@ -120,6 +128,7 @@
       RikaOS-private,
       mnw,
       nixgl,
+      playit-nixos-module,
       ...
     }@inputs:
     let
@@ -134,6 +143,7 @@
             inherit system;
           };
           modules = [
+            agenix.homeManagerModules.default
             stylix.homeModules.stylix
             mnw.homeManagerModules.mnw
             ./home/modules
@@ -166,6 +176,8 @@
           };
           modules = [
             stylix.nixosModules.stylix
+            agenix.nixosModules.default
+            playit-nixos-module.nixosModules.default
             ./system/modules
             ./system/${cfg.targetHostName}/configuration.nix
           ];
@@ -209,6 +221,14 @@
       };
     in
     {
+
+      age = {
+        identityPaths = [ "/var/lib/persistent/ssh_host_ed25519_key" ];
+        secrets = {
+          playit-secret.file = ./secrets/playit-secret.age;
+        };
+      };
+
       # Personal
       nixosConfigurations.${hinamizawa.hostName} = define_system hinamizawa;
       homeConfigurations.${hinamizawa.profiles.satoko} = define_hm hinamizawa hinamizawa.profiles.satoko;
