@@ -39,6 +39,12 @@ in
           "NIXOS_OZONE_WL,1" # Enable Ozone Wayland support in NixOS
           "ELECTRON_OZONE_PLATFORM_HINT,auto" # Set Electron to automatically choose between Wayland and X11
           "XDG_CURRENT_DESKTOP,Hyprland" # Set xdg desktop to hyprland
+          "PATH,${config.home.profileDirectory}/bin:${
+            pkgs.lib.makeBinPath [
+              pkgs.coreutils
+              pkgs.bash
+            ]
+          }:$PATH"
           "XDG_DATA_DIRS,${config.home.profileDirectory}/share:/usr/share:$XDG_DATA_DIRS"
           "XDG_CONFIG_DIRS,${config.home.profileDirectory}/etc/xdg:/etc/xdg"
         ];
