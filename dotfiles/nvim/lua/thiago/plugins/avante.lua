@@ -17,7 +17,7 @@ return {
 		dep_of = { "avante" },
 	},
 	{
-		"yetone/avante.nvim",
+		"avante-nvim",
 		after = function()
 			require("avante_lib").load()
 			require("avante").setup({
