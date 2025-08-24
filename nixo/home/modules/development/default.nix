@@ -38,10 +38,13 @@
       (lib.mkMerge [
         [
           neovide
+
           # Some monospaced fonts
           jetbrains-mono
           nerd-fonts.fira-mono
           nerd-fonts.jetbrains-mono
+
+          gemini-cli
         ]
         ((lib.mkIf config.development.android.enable) [ android-studio ])
       ]);

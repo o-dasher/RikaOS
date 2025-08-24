@@ -17,13 +17,6 @@
       url = "github:nix-community/nixGL";
       inputs.flake-utils.follows = "flake-utils";
     };
-    avante-nvim-nightly = {
-      url = "github:vinnymeller/avante-nvim-nightly-flake";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-      };
-    };
     neovim-nightly = {
       url = "github:nix-community/neovim-nightly-overlay";
       inputs = {

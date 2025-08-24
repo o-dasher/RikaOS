@@ -3,6 +3,10 @@ return {
 	dep_of = { "nvim-lspconfig" },
 	lazy = false,
 	after = function()
+		vim.keymap.set("i", "<C-Space>", function()
+			require("blink.cmp").show()
+		end, { silent = true })
+
 		require("blink.cmp").setup({
 			keymap = {
 				preset = "enter",
