@@ -13,10 +13,10 @@ require("lze").load({
 	{ import = "thiago.plugins.treesitter" },
 	{ import = "thiago.plugins.vimtex" },
 	{ import = "thiago.plugins.mini" },
-	{ import = "thiago.plugins.avante" },
+	{ import = "thiago.plugins.copilot" },
 	{
 		"plenary.nvim",
-		dep_of = { "harpoon", "lazygit", "telescope", "avante" },
+		dep_of = { "harpoon", "lazygit", "telescope" },
 	},
 	{ "nvim-web-devicons", dep_of = { "oil" } },
 	{ "telescope-live-grep-args.nvim", dep_of = "telescope" },

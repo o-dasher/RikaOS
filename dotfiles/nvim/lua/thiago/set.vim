@@ -1,3 +1,6 @@
+set noswapfile
+set nobackup
+
 " Number lines
 set nu
 set rnu

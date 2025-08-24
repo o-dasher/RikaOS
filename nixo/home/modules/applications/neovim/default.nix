@@ -45,8 +45,6 @@ in
             rose-pine
             mini-pairs
             copilot-lua
-            inputs.avante-nvim-nightly.packages.${pkgs.system}.default
-            nui-nvim
           ];
 
           dev.config.pure = ../../../../../dotfiles/nvim;
