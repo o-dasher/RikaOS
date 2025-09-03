@@ -26,6 +26,12 @@ in
     home.packages = with pkgs; [
       wl-clipboard
     ];
+
+    xdg.portal = {
+      enable = true;
+      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    };
+
     wayland.windowManager.hyprland = {
       enable = true;
       xwayland.enable = true;
