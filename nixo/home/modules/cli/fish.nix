@@ -16,6 +16,7 @@ in
         mouse = true;
         extraConfig = # tmux
           ''
+            set-option -g default-shell "${lib.getExe pkgs.fish}"
             bind-key v split-window -h
           '';
       };
