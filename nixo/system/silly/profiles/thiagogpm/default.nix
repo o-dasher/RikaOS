@@ -31,14 +31,6 @@
     spotify
   ];
 
-  age.secrets.tavily-api-key.file = ../../../../secrets/tavily-api-key.age;
-
-  home.sessionVariables = {
-    TAVILY_API_KEY = ''
-      $(${pkgs.coreutils}/bin/cat ${config.age.secrets.tavily-api-key.path})
-    '';
-  };
-
   programs = {
     home-manager.enable = true;
     bash.enable = true;
