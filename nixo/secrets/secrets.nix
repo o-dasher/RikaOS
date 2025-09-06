@@ -14,4 +14,9 @@ in
     rika_user
     gpm_user
   ];
+
+  "gemini-api-key.age".publicKeys = [
+    rika_user
+    gpm_user
+  ];
 }

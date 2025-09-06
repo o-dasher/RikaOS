@@ -13,6 +13,18 @@
   config = (lib.mkIf config.development.enable) {
     neovim.enable = true;
 
+    age.secrets.tavily-api-key.file = ../../../secrets/tavily-api-key.age;
+    age.secrets.gemini-api-key.file = ../../../secrets/gemini-api-key.age;
+
+    home.sessionVariables = {
+      TAVILY_API_KEY = ''
+        $(${pkgs.coreutils}/bin/cat ${config.age.secrets.tavily-api-key.path})
+      '';
+      GEMINI_API_KEY = ''
+        $(${pkgs.coreutils}/bin/cat ${config.age.secrets.gemini-api-key.path})
+      '';
+    };
+
     cli = {
       enable = true;
       hyfetch.enable = true;
