@@ -192,6 +192,7 @@ in
         shell = pkgs.fish;
         extraGroups = [
           "wheel"
+          "dialout" # Serial devices (zmk)
           "video"
           "adbusers"
           "gamemode"
