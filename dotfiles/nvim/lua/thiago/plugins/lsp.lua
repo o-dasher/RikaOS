@@ -30,6 +30,9 @@ return {
 				end,
 			})
 
+			-- yaml
+			lspcfg.yamlls.setup({ capabilities = capabilities })
+
 			-- php
 			lspcfg.intelephense.setup({ capabilities = capabilities })
 			lspcfg.phpactor.setup({
