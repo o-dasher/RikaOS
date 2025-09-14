@@ -58,6 +58,9 @@ in
           rust-analyzer # Rust
           ruff
 
+          # Yaml
+          yaml-language-server
+
           # Python
           pyright
 
@@ -85,7 +88,6 @@ in
           luarocks # I am not sure
 
           # global formatters
-          prettierd
           nixfmt-rfc-style
           stylua
         ];

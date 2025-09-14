@@ -18,6 +18,7 @@ return {
 			},
 			formatters_by_ft = {
 				nix = { "nixfmt" },
+				yaml = { "yamlls" },
 				conformjavascript = { "biome", "biome-organize-imports" },
 				javascriptreact = { "biome", "biome-organize-imports" },
 				typescript = { "biome", "biome-organize-imports" },
