@@ -46,7 +46,6 @@
 
     # documents / study
     imagemagick
-    anki-bin
     zathura
 
     # cli

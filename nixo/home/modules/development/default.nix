@@ -51,6 +51,9 @@
         [
           neovide
 
+          # Database management
+          lazysql
+
           # Some monospaced fonts
           jetbrains-mono
           nerd-fonts.fira-mono
