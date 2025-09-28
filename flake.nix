@@ -128,11 +128,35 @@
     }@inputs:
     let
       system = "x86_64-linux";
-
       pkgs-bleeding = import nixpkgs-bleeding { inherit system; };
 
-      define_hm =
-        cfg: username:
+      inherit (import ./nixo/systems.nix) systemCfgs homeCfgs;
+
+      # Helper to build a NixOS system
+      mkSystem =
+        targetHostName: cfg:
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = {
+            inherit RikaOS-private;
+            inherit pkgs-bleeding;
+            inherit inputs;
+            cfg = cfg // {
+              inherit targetHostName;
+            };
+          };
+          modules = [
+            stylix.nixosModules.stylix
+            agenix.nixosModules.default
+            playit-nixos-module.nixosModules.default
+            ./nixo/system/modules
+            ./nixo/system/${targetHostName}/configuration.nix
+          ];
+        };
+
+      # Helper to build a home-manager configuration
+      mkHome =
+        targetHostName: cfg: username:
         home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
             inherit system;
@@ -142,7 +166,8 @@
             stylix.homeModules.stylix
             mnw.homeManagerModules.mnw
             ./nixo/home/modules
-            ./nixo/system/${cfg.targetHostName}/profiles/${username}
+            # The path to user profile
+            ./nixo/system/${targetHostName}/profiles/${username}
           ];
           extraSpecialArgs = {
             inherit inputs;
@@ -155,65 +180,32 @@
             };
             cfg = cfg // {
               inherit username;
+              inherit targetHostName;
             };
           };
         };
 
-      define_system =
-        cfg:
-        nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = {
-            inherit RikaOS-private;
-            inherit pkgs-bleeding;
-            inherit inputs;
-            inherit cfg;
-          };
-          modules = [
-            stylix.nixosModules.stylix
-            agenix.nixosModules.default
-            playit-nixos-module.nixosModules.default
-            ./nixo/system/modules
-            ./nixo/system/${cfg.targetHostName}/configuration.nix
-          ];
-        };
+      # Generate all nixosConfigurations
+      nixosConfigurations = nixpkgs.lib.mapAttrs' (
+        targetHostName: cfg:
+        nixpkgs.lib.nameValuePair (cfg.hostName or targetHostName) (mkSystem targetHostName cfg)
+      ) systemCfgs;
 
-      hinamizawa = rec {
-        targetHostName = "hinamizawa";
-        hostName = targetHostName;
-        state = "24.11";
-        profiles = {
-          rika = "rika";
-          satoko = "satoko";
-        };
-      };
-
-      gensokyo = rec {
-        targetHostName = "gensokyo";
-        hostName = targetHostName;
-        state = "24.05";
-        profiles = {
-          nue = "thiago";
-        };
-      };
-
-      grandline = rec {
-        targetHostName = "grandline";
-        hostName = targetHostName;
-        state = "24.05";
-        profiles = {
-          zoro = "zoro";
-        };
-      };
-
-      silly = {
-        targetHostName = "silly";
-        hostName = "gpmecatronica-System-Product-Name";
-        state = "24.05";
-        profiles = {
-          gleep = "thiagogpm";
-        };
-      };
+      # Generate all homeConfigurations
+      homeConfigurations =
+        let
+          allCfgs = systemCfgs // homeCfgs;
+          users = nixpkgs.lib.flatten (
+            nixpkgs.lib.mapAttrsToList (
+              targetHostName: cfg:
+              nixpkgs.lib.mapAttrsToList (_: username: {
+                name = username;
+                value = mkHome targetHostName cfg username;
+              }) cfg.profiles
+            ) allCfgs
+          );
+        in
+        nixpkgs.lib.listToAttrs users;
     in
     (
       (flake-parts.lib.mkFlake { inherit inputs; } {
@@ -242,20 +234,7 @@
           };
         };
 
-        # Personal
-        nixosConfigurations.${hinamizawa.hostName} = define_system hinamizawa;
-        homeConfigurations.${hinamizawa.profiles.satoko} = define_hm hinamizawa hinamizawa.profiles.satoko;
-        homeConfigurations.${hinamizawa.profiles.rika} = define_hm hinamizawa hinamizawa.profiles.rika;
-
-        # Home server
-        nixosConfigurations.${gensokyo.hostName} = define_system gensokyo;
-        homeConfigurations.${gensokyo.profiles.nue} = define_hm gensokyo gensokyo.profiles.nue;
-
-        # New research lab
-        nixosConfigurations.${grandline.hostName} = define_system grandline;
-        homeConfigurations.${grandline.profiles.zoro} = define_hm grandline grandline.profiles.zoro;
-
-        homeConfigurations.${silly.profiles.gleep} = define_hm silly silly.profiles.gleep;
+        inherit nixosConfigurations homeConfigurations;
       }
     );
 }
