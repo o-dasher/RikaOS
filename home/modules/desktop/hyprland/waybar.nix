@@ -7,7 +7,6 @@
 }:
 let
   inherit (utils) css;
-  inherit (config.lib.stylix.colors) base00;
   inherit (css) font_definition alpha_fn;
 in
 {
@@ -135,61 +134,121 @@ in
 
         style =
           let
-            border_definition = "1px solid ${alpha_fn "white" 0.1}";
+            inherit (config.lib.stylix.colors)
+              base00
+              base01
+              base02
+              base03
+              base04
+              base05
+              base06
+              base07
+              base08
+              base09
+              base0A
+              base0B
+              base0C
+              base0D
+              base0E
+              base0F
+              ;
+
+            tailwindCSS =
+              content:
+              pkgs.runCommand "waybar-style.css"
+                {
+                  nativeBuildInputs = [ pkgs.nodePackages.tailwindcss ];
+                  tailwindConfig =
+                    pkgs.writeText "tailwind.config.js"
+                      # js
+                      ''
+                        module.exports = {
+                          content: ["./input.css"],
+                          theme: {
+                            extend: {
+                              colors: {
+                                base00: "#${base00}", base01: "#${base01}", base02: "#${base02}", base03: "#${base03}",
+                                base04: "#${base04}", base05: "#${base05}", base06: "#${base06}", base07: "#${base07}",
+                                base08: "#${base08}", base09: "#${base09}", base0A: "#${base0A}", base0B: "#${base0B}",
+                                base0C: "#${base0C}", base0D: "#${base0D}", base0E: "#${base0E}", base0F: "#${base0F}"
+                              }
+                            }
+                          },
+                          plugins: [],
+                        }
+                      '';
+                }
+                ''
+                  ln -s $tailwindConfig tailwind.config.js
+                  cat > input.css <<EOF
+                  ${content}
+                  EOF
+                  ${pkgs.nodePackages.tailwindcss}/bin/tailwindcss -i input.css -o $out
+                '';
+
+            border_definition =
+              # css
+              ''
+                border-color: ${alpha_fn "white" 0.25};
+                @apply border-solid;
+              '';
           in
-          lib.mkAfter ''
-            * {
-                ${font_definition}
-                font-size: 12px;
-                min-height: 0;
-            }
+          lib.mkAfter (
+            builtins.readFile (tailwindCSS
+            # css
+            ''
+              @tailwind utilities;
 
-            window#waybar {
-                background: ${alpha_fn "#${base00}" 0.5};
-            }
+              * {
+                  ${font_definition}
+                  font-size: 12px;
+                  @apply min-h-0;
+              }
 
-            .modules-left {
-                border-radius: 0 4px 4px 0;
-                padding: 4px 0 4px 4px;
-            }
+              window#waybar {
+                  background: ${alpha_fn "#${base00}" 0.5};
+              }
 
-            .modules-center {
-                border-radius: 0 0 4px 4px;
-                margin-bottom: 4px;
-            }
+              .modules-left {
+                  @apply rounded-r-lg py-1 pl-1;
+              }
 
-            .modules-right {
-                border-radius: 4px 0 0 4px;
-            }
+              .modules-center {
+                  @apply rounded-b-lg mb-1;
+              }
 
-            .modules-left, .modules-right {
-                margin: 4px 0 4px 0;
-            }
+              .modules-right {
+                  @apply rounded-l-lg;
+              }
 
-            .modules-left, .modules-center, .modules-right {
-                border: ${border_definition};
-            }
+              .modules-left, .modules-right {
+                  @apply my-1 mx-0;
+              }
 
-            #workspaces button {
-                border-radius: 5%;
-                margin-right: 4px;
-                padding: 0;
-            }
+              .modules-left, .modules-center, .modules-right {
+                  @apply border;
+                  ${border_definition}
+              }
 
-            #workspaces button.focused {
-                padding: 0 6px;
-            }
+              #workspaces button {
+                  @apply rounded-[5%] mr-1 p-0;
+              }
 
-            #tray,
-            #cpu, 
-            #temperature, 
-            #memory,
-            #backlight, 
-            #pulseaudio, 
-            #battery {
-                padding: 0 10px;
-                border-right: ${border_definition};
-            }
-          '';
+              #workspaces button.focused {
+                  @apply py-0 px-1.5;
+              }
+
+              #tray,
+              #cpu,
+              #temperature,
+              #memory,
+              #backlight,
+              #pulseaudio,
+              #battery {
+                  @apply py-0 px-2.5 border-r;
+                  ${border_definition}
+              }
+            '')
+          );
       };
 }
