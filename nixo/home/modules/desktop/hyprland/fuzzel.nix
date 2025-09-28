@@ -26,6 +26,11 @@
           lines = 10;
           line-height = 24;
         };
+
+        border = {
+          width = 2;
+          radius = 0;
+        };
       };
     };
   };
