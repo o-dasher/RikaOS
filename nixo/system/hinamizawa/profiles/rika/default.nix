@@ -1,13 +1,11 @@
 {
   inputs,
   pkgs,
-  lib,
-  RikaOS-private,
   ...
 }:
 {
   imports = [
-    ../../../../home/modules/theme/graduation.nix
+    ../../../../home/modules/theme/cirnold.nix
   ];
 
   development.enable = true;
