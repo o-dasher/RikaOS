@@ -182,7 +182,7 @@ in
                   }
 
                   #workspaces button {
-                      @apply rounded-[5%] mr-1 p-0;
+                      @apply rounded-sm mr-1 p-0;
                   }
 
                   #workspaces button.focused {
