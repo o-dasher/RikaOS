@@ -33,13 +33,6 @@
         flake-parts.follows = "flake-parts";
       };
     };
-    nixos-wsl = {
-      url = "github:nix-community/NixOS-WSL/main";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-compat.follows = "flake-compat";
-      };
-    };
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -166,7 +159,6 @@
             stylix.homeModules.stylix
             mnw.homeManagerModules.mnw
             ./nixo/home/modules
-            # The path to user profile
             ./nixo/system/${targetHostName}/profiles/${username}
           ];
           extraSpecialArgs = {

@@ -16,12 +16,6 @@
         nue = "thiago";
       };
     };
-    grandline = {
-      state = "24.05";
-      profiles = {
-        zoro = "zoro";
-      };
-    };
   };
 
   # Home manager only configurations
