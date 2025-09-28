@@ -1,13 +1,1 @@
-/*
-/*/
-
-!README.md
-!flake.nix
-!flake.lock
-!.gitignore
-!.envrc
-
-!/nvim
-!/nixo
-!/assets
-!/dotfiles
+.direnv/
