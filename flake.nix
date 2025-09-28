@@ -168,8 +168,8 @@
             stylix.nixosModules.stylix
             agenix.nixosModules.default
             playit-nixos-module.nixosModules.default
-            ./hosts/modules
-            ./hosts/${targetHostName}/configuration.nix
+            ./nixos/modules
+            ./nixos/hosts/${targetHostName}/configuration.nix
           ];
         };
 
@@ -185,7 +185,7 @@
             stylix.homeModules.stylix
             mnw.homeManagerModules.mnw
             ./home/modules
-            ./hosts/${targetHostName}/profiles/${username}
+            ./nixos/hosts/${targetHostName}/users/${username}
           ];
           extraSpecialArgs = {
             inherit inputs;

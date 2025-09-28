@@ -5,7 +5,7 @@
 }:
 {
   imports = [
-    ../../../../home/modules/theme/cirnold.nix
+    ../../../../../home/modules/theme/cirnold.nix
   ];
 
   development.enable = true;
