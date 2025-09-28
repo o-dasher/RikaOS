@@ -123,7 +123,33 @@
       system = "x86_64-linux";
       pkgs-bleeding = import nixpkgs-bleeding { inherit system; };
 
-      inherit (import ./nixo/systems.nix) systemCfgs homeCfgs;
+      # Hosts configurations
+      systemCfgs = {
+        hinamizawa = {
+          state = "24.11";
+          profiles = {
+            rika = "rika";
+            satoko = "satoko";
+          };
+        };
+        gensokyo = {
+          state = "24.05";
+          profiles = {
+            nue = "thiago";
+          };
+        };
+      };
+
+      # Home manager only configurations
+      homeCfgs = {
+        silly = {
+          hostName = "gpmecatronica-System-Product-Name";
+          state = "24.05";
+          profiles = {
+            thiagogpm = "thiagogpm";
+          };
+        };
+      };
 
       # Helper to build a NixOS system
       mkSystem =
@@ -142,8 +168,8 @@
             stylix.nixosModules.stylix
             agenix.nixosModules.default
             playit-nixos-module.nixosModules.default
-            ./nixo/system/modules
-            ./nixo/system/${targetHostName}/configuration.nix
+            ./nixo/hosts/modules
+            ./nixo/hosts/${targetHostName}/configuration.nix
           ];
         };
 
@@ -159,7 +185,7 @@
             stylix.homeModules.stylix
             mnw.homeManagerModules.mnw
             ./nixo/home/modules
-            ./nixo/system/${targetHostName}/profiles/${username}
+            ./nixo/hosts/${targetHostName}/profiles/${username}
           ];
           extraSpecialArgs = {
             inherit inputs;
