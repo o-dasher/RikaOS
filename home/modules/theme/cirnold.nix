@@ -5,7 +5,7 @@ in
 {
   stylix = {
     image = pkgs.runCommand "dimmed-background.png" { } ''
-      ${lib.getExe' pkgs.imagemagick "magick"} "${../../../../assets/Wallpapers/cirnold.png}" -brightness-contrast ${brightness},0 $out
+      ${lib.getExe' pkgs.imagemagick "magick"} "${../../../assets/Wallpapers/cirnold.png}" -brightness-contrast ${brightness},0 $out
     '';
     enable = true;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-macchiato.yaml";

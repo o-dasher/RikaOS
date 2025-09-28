@@ -8,13 +8,14 @@ rec {
       map (path: {
         "${to}/${path}" = {
           source = config.lib.file.mkOutOfStoreSymlink (builtins.toPath /. + "${from}/${path}");
-        } // opts;
+        }
+        // opts;
       }) paths
     );
 
   xdgConfigSelectiveSymLink =
     to: paths: opts:
-    selectiveSymLink ../../../dotfiles/${to} ".config/${to}" paths opts;
+    selectiveSymLink ../../dotfiles/${to} ".config/${to}" paths opts;
 
   prefixset =
     prefix: kvpairs:

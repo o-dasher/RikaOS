@@ -168,8 +168,8 @@
             stylix.nixosModules.stylix
             agenix.nixosModules.default
             playit-nixos-module.nixosModules.default
-            ./nixo/hosts/modules
-            ./nixo/hosts/${targetHostName}/configuration.nix
+            ./hosts/modules
+            ./hosts/${targetHostName}/configuration.nix
           ];
         };
 
@@ -184,15 +184,15 @@
             agenix.homeManagerModules.default
             stylix.homeModules.stylix
             mnw.homeManagerModules.mnw
-            ./nixo/home/modules
-            ./nixo/hosts/${targetHostName}/profiles/${username}
+            ./home/modules
+            ./hosts/${targetHostName}/profiles/${username}
           ];
           extraSpecialArgs = {
             inherit inputs;
             inherit RikaOS-private;
             inherit pkgs-bleeding;
             inherit nixgl;
-            utils = import ./nixo/home/utils {
+            utils = import ./home/utils {
               lib = nixpkgs.lib;
               config = self.homeConfigurations.${username}.config;
             };
@@ -248,7 +248,7 @@
         age = {
           identityPaths = [ "/var/lib/persistent/ssh_host_ed25519_key" ];
           secrets = {
-            playit-secret.file = ./nixo/secrets/playit-secret.age;
+            playit-secret.file = ./secrets/playit-secret.age;
           };
         };
 
