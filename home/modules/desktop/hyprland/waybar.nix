@@ -7,7 +7,7 @@
 }:
 let
   inherit (utils) css;
-  inherit (css) font_definition alpha_fn;
+  inherit (css) font_definition alpha_fn tailwindCSS;
 in
 {
   options.desktop.hyprland.waybar.enable = (lib.mkEnableOption "waybar") // {
@@ -134,57 +134,7 @@ in
 
         style =
           let
-            inherit (config.lib.stylix.colors)
-              base00
-              base01
-              base02
-              base03
-              base04
-              base05
-              base06
-              base07
-              base08
-              base09
-              base0A
-              base0B
-              base0C
-              base0D
-              base0E
-              base0F
-              ;
-
-            tailwindCSS =
-              content:
-              pkgs.runCommand "waybar-style.css"
-                {
-                  nativeBuildInputs = [ pkgs.nodePackages.tailwindcss ];
-                  tailwindConfig =
-                    pkgs.writeText "tailwind.config.js"
-                      # js
-                      ''
-                        module.exports = {
-                          content: ["./input.css"],
-                          theme: {
-                            extend: {
-                              colors: {
-                                base00: "#${base00}", base01: "#${base01}", base02: "#${base02}", base03: "#${base03}",
-                                base04: "#${base04}", base05: "#${base05}", base06: "#${base06}", base07: "#${base07}",
-                                base08: "#${base08}", base09: "#${base09}", base0A: "#${base0A}", base0B: "#${base0B}",
-                                base0C: "#${base0C}", base0D: "#${base0D}", base0E: "#${base0E}", base0F: "#${base0F}"
-                              }
-                            }
-                          },
-                          plugins: [],
-                        }
-                      '';
-                }
-                ''
-                  ln -s $tailwindConfig tailwind.config.js
-                  cat > input.css <<EOF
-                  ${content}
-                  EOF
-                  ${pkgs.nodePackages.tailwindcss}/bin/tailwindcss -i input.css -o $out
-                '';
+            inherit (config.lib.stylix.colors) base00;
 
             border_definition =
               # css
@@ -194,61 +144,63 @@ in
               '';
           in
           lib.mkAfter (
-            builtins.readFile (tailwindCSS
-            # css
-            ''
-              @tailwind utilities;
+            builtins.readFile (
+              tailwindCSS pkgs config.lib.stylix.colors
+                # css
+                ''
+                  @tailwind utilities;
 
-              * {
-                  ${font_definition}
-                  font-size: 12px;
-                  @apply min-h-0;
-              }
+                  * {
+                      ${font_definition}
+                      font-size: 12px;
+                      @apply min-h-0;
+                  }
 
-              window#waybar {
-                  background: ${alpha_fn "#${base00}" 0.5};
-              }
+                  window#waybar {
+                      background: ${alpha_fn "#${base00}" 0.5};
+                  }
 
-              .modules-left {
-                  @apply rounded-r-lg py-1 pl-1;
-              }
+                  .modules-left {
+                      @apply rounded-r-lg py-1 pl-1;
+                  }
 
-              .modules-center {
-                  @apply rounded-b-lg mb-1;
-              }
+                  .modules-center {
+                      @apply rounded-b-lg mb-1;
+                  }
 
-              .modules-right {
-                  @apply rounded-l-lg;
-              }
+                  .modules-right {
+                      @apply rounded-l-lg;
+                  }
 
-              .modules-left, .modules-right {
-                  @apply my-1 mx-0;
-              }
+                  .modules-left, .modules-right {
+                      @apply my-1 mx-0;
+                  }
 
-              .modules-left, .modules-center, .modules-right {
-                  @apply border;
-                  ${border_definition}
-              }
+                  .modules-left, .modules-center, .modules-right {
+                      @apply border;
+                      ${border_definition}
+                  }
 
-              #workspaces button {
-                  @apply rounded-[5%] mr-1 p-0;
-              }
+                  #workspaces button {
+                      @apply rounded-[5%] mr-1 p-0;
+                  }
 
-              #workspaces button.focused {
-                  @apply py-0 px-1.5;
-              }
+                  #workspaces button.focused {
+                      @apply py-0 px-1.5;
+                  }
 
-              #tray,
-              #cpu,
-              #temperature,
-              #memory,
-              #backlight,
-              #pulseaudio,
-              #battery {
-                  @apply py-0 px-2.5 border-r;
-                  ${border_definition}
-              }
-            '')
+                  #tray,
+                  #cpu,
+                  #temperature,
+                  #memory,
+                  #backlight,
+                  #pulseaudio,
+                  #battery {
+                      @apply py-0 px-2.5 border-r;
+                      ${border_definition}
+                  }
+                ''
+            )
           );
       };
 }
