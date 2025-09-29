@@ -70,20 +70,31 @@ in
           "immediate, fullscreen:1"
           "float, class:org.gnome.Nautilus"
         ];
-        general =
+        group.groupbar =
+          let
+            indicator_height = 24;
+          in
           {
-            allow_tearing = true;
-            border_size = 3;
+            height = 1;
+            font_size = 12;
+
+            # Render text inside group bar indicator
+            text_offset = -(indicator_height / 2);
+            indicator_height = indicator_height;
+          };
+        general = {
+          allow_tearing = true;
+          border_size = 3;
+        }
+        // (
+          let
+            gap = 5;
+          in
+          {
+            gaps_out = gap;
+            gaps_in = gap;
           }
-          // (
-            let
-              gap = 5;
-            in
-            {
-              gaps_out = gap;
-              gaps_in = gap;
-            }
-          );
+        );
         input = {
           kb_layout = "br";
           kb_variant = "abnt2";
