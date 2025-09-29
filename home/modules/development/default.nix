@@ -52,7 +52,7 @@
           neovide
 
           # Database management
-          lazysql
+          jetbrains.datagrip
 
           # Some monospaced fonts
           jetbrains-mono
@@ -60,6 +60,7 @@
           nerd-fonts.jetbrains-mono
 
           gemini-cli
+
         ]
         ((lib.mkIf config.development.android.enable) [ android-studio ])
       ]);
