@@ -8,6 +8,7 @@
   options.development = with lib; {
     enable = mkEnableOption "development";
     android.enable = mkEnableOption "android";
+    games.enable = mkEnableOption "games";
   };
 
   config = (lib.mkIf config.development.enable) {
@@ -62,6 +63,7 @@
           gemini-cli
 
         ]
+        ((lib.mkIf config.development.games.enable) [ godot ])
         ((lib.mkIf config.development.android.enable) [ android-studio ])
       ]);
 

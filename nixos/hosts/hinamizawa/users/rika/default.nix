@@ -10,6 +10,7 @@
 
   development.enable = true;
   development.android.enable = true;
+  development.games.enable = true;
 
   nixSetup.enable = true;
   xdgSetup.enable = true;
@@ -41,6 +42,10 @@
     # I love my keyboard.
     via
     vial
+
+    # Drawing
+    aseprite
+    krita
 
     # documents / study
     imagemagick
