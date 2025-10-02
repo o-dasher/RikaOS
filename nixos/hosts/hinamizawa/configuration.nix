@@ -20,7 +20,7 @@ in
 
   age = {
     secrets = {
-      playit-secret.file = ../../secrets/playit-secret.age;
+      playit-secret.file = ../../../secrets/playit-secret.age;
     };
   };
 
@@ -77,6 +77,7 @@ in
 
   # Gaming and gpu stuff
   nixpkgs.config.allowUnfree = true;
+  hardware.bluetooth.enable = true;
   hardware.graphics =
     let
       hypr-pkgs = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
@@ -111,6 +112,26 @@ in
     alsa.support32Bit = true;
     pulse.enable = true;
     lowLatency.enable = true;
+    wireplumber = {
+      enable = true;
+      extraConfig = {
+        "10-bluez" = {
+          "monitor.bluez.properties" = {
+            "bluez5.enable-sbc-xq" = true;
+            "bluez5.enable-msbc" = true;
+            "bluez5.enable-hw-volume" = true;
+            "bluez5.codecs" = [
+              "sbc"
+              "sbc_xq"
+              "aac"
+              "ldac"
+              "aptx"
+              "aptx_hd"
+            ];
+          };
+        };
+      };
+    };
   };
 
   security.polkit.enable = true;
