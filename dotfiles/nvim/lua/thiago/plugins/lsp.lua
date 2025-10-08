@@ -7,7 +7,6 @@ return {
 		},
 		after = function()
 			local capabilities = require("blink.cmp").get_lsp_capabilities()
-			local lspcfg = require("lspconfig")
 
 			vim.api.nvim_create_autocmd("LspAttach", {
 				desc = "LSP actions",
@@ -30,96 +29,36 @@ return {
 				end,
 			})
 
-			-- yaml
-			lspcfg.yamlls.setup({ capabilities = capabilities })
+			vim.lsp.enable({
+				"yamlls", -- yaml
 
-			-- php
-			lspcfg.intelephense.setup({ capabilities = capabilities })
-			lspcfg.phpactor.setup({
-				capabilities = capabilities,
-				-- We only use phpactor for code actions and rename
-				init_options = {
-					["language_server.diagnostics_on_update"] = false,
-					["language_server.diagnostics_on_open"] = false,
-					["language_server.diagnostics_on_save"] = false,
-					["language_server_phpstan.enabled"] = false,
-					["language_server_psalm.enabled"] = false,
-				},
-			})
+				-- php
+				"intelephense",
+				"phpactor",
 
-			-- c and cpp
-			lspcfg.ccls.setup({ capabilities = capabilities })
+				"ccls", -- C and cpp
 
-			-- python
-			lspcfg.pyright.setup({ capabilities = capabilities })
-			lspcfg.ruff.setup({ capabilities = capabilities })
+				-- python
+				"pyright",
+				"ruff",
 
-			-- css
-			lspcfg.tailwindcss.setup({ capabilities = capabilities })
-			lspcfg.cssls.setup({ capabilities = capabilities })
+				-- css
+				"tailwindcss",
+				"cssls",
 
-			-- Typescript
-			lspcfg.ts_ls.setup({ capabilities = capabilities })
-			lspcfg.biome.setup({ capabilities = capabilities })
+				-- typescript
+				"ts_ls",
+				"biome",
 
-			lspcfg.svelte.setup({ capabilities = capabilities }) -- svelte
-			lspcfg.yamlls.setup({ capabilities = capabilities }) -- yaml
-			lspcfg.nixd.setup({ capabilities = capabilities }) -- nix
-			lspcfg.texlab.setup({ capabilities = capabilities }) -- tex
+				"svelte", -- svelte
+				"yamlls", -- yaml
+				"nixd", -- nix
+				"texlab", -- tex
 
-			-- Rust
-			lspcfg.rust_analyzer.setup({ capabilities = capabilities })
+				"rust_analyzer", -- rust
 
-			-- dotnet
-			lspcfg.omnisharp.setup({
-				capabilities = capabilities,
-
-				cmd = {
-					vim.fn.expand("~") .. "/.nix-profile/bin/OmniSharp",
-					"--languageserver",
-					"--hostPID",
-					tostring(vim.fn.getpid()),
-				},
-
-				settings = {
-					FormattingOptions = {
-						-- Enables support for reading code style, naming convention and analyzer
-						-- settings from .editorconfig.
-						EnableEditorConfigSupport = true,
-						-- Specifies whether 'using' directives should be grouped and sorted during
-						-- document formatting.
-						OrganizeImports = nil,
-					},
-					RoslynExtensionsOptions = {
-						-- Enables support for roslyn analyzers, code fixes and rulesets.
-						EnableAnalyzersSupport = true,
-						-- Enables support for showing unimported types and unimported extension
-						-- methods in completion lists. When committed, the appropriate using
-						-- directive will be added at the top of the current file. This option can
-						-- have a negative impact on initial completion responsiveness,
-						-- particularly for the first few completion sessions after opening a
-						-- solution.
-						EnableImportCompletion = false, -- when I get an ssd I may change.
-					},
-					Sdk = {
-						-- Specifies whether to include preview versions of the .NET SDK when
-						-- determining which version to use for project loading.
-						IncludePrereleases = true,
-					},
-				},
-			})
-
-			-- lua
-			lspcfg.lua_ls.setup({
-				capabilities = capabilities,
-				settings = {
-					Lua = {
-						runtime = { version = "Lua 5.1" },
-						diagnostics = {
-							globals = { "vim" },
-						},
-					},
-				},
+				"luals", -- lua
+				"omnisharp", -- dotnet
 			})
 		end,
 	},

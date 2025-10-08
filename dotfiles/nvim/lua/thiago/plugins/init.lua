@@ -14,6 +14,7 @@ require("lze").load({
 	{ import = "thiago.plugins.vimtex" },
 	{ import = "thiago.plugins.mini" },
 	{ import = "thiago.plugins.copilot" },
+	{ "vim-be-good" },
 	{
 		"plenary.nvim",
 		dep_of = { "harpoon", "lazygit", "telescope" },

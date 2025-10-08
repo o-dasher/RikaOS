@@ -32,6 +32,8 @@ in
             nvim-web-devicons
             lazygit-nvim
             nvim-lint
+            plenary-nvim
+            vim-be-good
             render-markdown-nvim
             oil-nvim
             snacks-nvim
@@ -56,13 +58,13 @@ in
           yaml-language-server # Yaml
           ccls # C
           rust-analyzer # Rust
-          ruff
 
           # Yaml
           yaml-language-server
 
           # Python
           pyright
+          ruff
 
           # Web development
           nodePackages."@tailwindcss/language-server"
