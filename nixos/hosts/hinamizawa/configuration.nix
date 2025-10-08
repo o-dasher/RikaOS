@@ -78,6 +78,7 @@ in
   # Gaming and gpu stuff
   nixpkgs.config.allowUnfree = true;
   hardware.bluetooth.enable = true;
+  hardware.opentabletdriver.enable = true;
   hardware.graphics =
     let
       hypr-pkgs = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
