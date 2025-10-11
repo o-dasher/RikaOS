@@ -33,7 +33,6 @@ in
             lazygit-nvim
             nvim-lint
             plenary-nvim
-            vim-be-good
             render-markdown-nvim
             oil-nvim
             snacks-nvim
