@@ -13,7 +13,6 @@ require("lze").load({
 	{ import = "thiago.plugins.treesitter" },
 	{ import = "thiago.plugins.vimtex" },
 	{ import = "thiago.plugins.mini" },
-	{ import = "thiago.plugins.copilot" },
 	{ "vim-be-good" },
 	{
 		"plenary.nvim",
