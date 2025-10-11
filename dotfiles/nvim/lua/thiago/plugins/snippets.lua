@@ -1,20 +1,17 @@
 return {
-	{
-		"rafamadriz/friendly-snippets",
-		dep_of = { "luasnip" },
-		after = function()
-			require("luasnip.loaders.from_vscode").lazy_load()
-		end,
-	},
-	{
+	"luasnip",
+	event = "InsertEnter",
+	after = function()
+		local ls = require("luasnip")
 
-		"L3MON4D3/LuaSnip",
-		event = "InsertEnter",
-		after = function()
-			require("luasnip").setup({
-				history = true,
-				delete_check_events = "TextChanged",
-			})
-		end,
-	},
+		require("luasnip.loaders.from_vscode").lazy_load()
+		ls.config.setup({})
+
+		vim.keymap.set({ "i", "s" }, "<M-n>", function()
+			if ls.choice_active() then
+				ls.change_choice(1)
+			end
+		end)
+	end,
+	dep_of = "blink.cmp",
 }

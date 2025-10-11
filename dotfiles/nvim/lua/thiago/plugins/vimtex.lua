@@ -1,5 +1,5 @@
 return {
-	"lervag/vimtex",
+	"vimtex",
 	ft = { "tex" },
 	init = function()
 		vim.g["vimtex_view_method"] = "zathura"

@@ -1,13 +1,10 @@
 return {
 	{
-		"neovim/nvim-lspconfig.nvim",
-		event = "BufRead",
+		"nvim-lspconfig",
 		cmd = {
 			"LspInfo",
 		},
 		after = function()
-			local capabilities = require("blink.cmp").get_lsp_capabilities()
-
 			vim.api.nvim_create_autocmd("LspAttach", {
 				desc = "LSP actions",
 				callback = function(event)
@@ -57,7 +54,7 @@ return {
 
 				"rust_analyzer", -- rust
 
-				"luals", -- lua
+				"lua_ls", -- lua
 				"omnisharp", -- dotnet
 			})
 		end,

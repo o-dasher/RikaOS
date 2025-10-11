@@ -26,21 +26,13 @@ in
           start = [
             lze
             lzextras
-            fidget-nvim
-            nvim-lspconfig
-            nvim-web-devicons
-            nvim-lint
-            plenary-nvim
-            render-markdown-nvim
-            snacks-nvim
-            friendly-snippets
-            luasnip
-            vimtex
-            blink-cmp
           ];
 
           opt = [
             conform-nvim
+            nvim-lspconfig
+            blink-cmp
+            plenary-nvim
             nvim-treesitter.withAllGrammars
             telescope-live-grep-args-nvim
             telescope-nvim
@@ -49,6 +41,13 @@ in
             rose-pine
             lazygit-nvim
             harpoon2
+            nvim-web-devicons
+            fidget-nvim
+            nvim-lint
+            render-markdown-nvim
+            snacks-nvim
+            luasnip
+            vimtex
           ];
 
           dev.config.pure = ../../../../dotfiles/nvim;
@@ -59,28 +58,23 @@ in
           nixd # Nix
           yaml-language-server # Yaml
           ccls # C
+          omnisharp-roslyn # C-sharp
           rust-analyzer # Rust
-
-          # Yaml
-          yaml-language-server
-
+          yaml-language-server # Yaml
           # Python
           pyright
           ruff
-
+          # PHP
+          nodePackages.intelephense
+          phpactor
           # Web development
           nodePackages."@tailwindcss/language-server"
           nodePackages.vscode-langservers-extracted
-
           # Typescript
           svelte-language-server
           typescript
           biome
           nodePackages.typescript-language-server
-
-          nodePackages.intelephense
-          phpactor
-
           # latex
           texliveFull
           texlab
