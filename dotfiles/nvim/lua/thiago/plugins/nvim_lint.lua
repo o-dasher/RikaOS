@@ -1,5 +1,5 @@
 return {
-	"mfussenegger/nvim-lint",
+	"nvim-lint",
 	event = "BufRead",
 	after = function()
 		require("lint").linters_by_ft = {

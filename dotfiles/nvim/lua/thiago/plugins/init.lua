@@ -15,10 +15,9 @@ return {
 	{ import = "thiago.plugins.mini" },
 	{
 		"plenary.nvim",
-		dep_of = { "harpoon", "lazygit", "telescope" },
+		dep_of = { "harpoon2", "lazygit.nvim", "telescope.nvim" },
 	},
-	{ "nvim-web-devicons", dep_of = { "oil" } },
-	{ "telescope-live-grep-args.nvim", dep_of = "telescope" },
+	{ "nvim-web-devicons", dep_of = { "oil.nvim", "render-markdown.nvim" } },
 	{
 		"rose-pine",
 		colorscheme = "rose-pine",

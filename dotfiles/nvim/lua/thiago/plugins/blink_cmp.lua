@@ -19,6 +19,9 @@ return {
 			sources = {
 				default = { "lsp", "path", "snippets", "buffer" },
 			},
+			snippets = {
+				preset = "luasnip",
+			},
 			completion = {
 				accept = { auto_brackets = { enabled = true } },
 				documentation = {
