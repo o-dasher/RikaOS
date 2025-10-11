@@ -3,7 +3,6 @@ return {
 	{ import = "thiago.plugins.lsp" },
 	{ import = "thiago.plugins.conform" },
 	{ import = "thiago.plugins.harpoon" },
-	{ import = "thiago.plugins.lazygit" },
 	{ import = "thiago.plugins.nvim_lint" },
 	{ import = "thiago.plugins.markdown" },
 	{ import = "thiago.plugins.oil" },
@@ -15,7 +14,7 @@ return {
 	{ import = "thiago.plugins.mini" },
 	{
 		"plenary.nvim",
-		dep_of = { "harpoon2", "lazygit.nvim", "telescope.nvim" },
+		dep_of = { "harpoon2", "telescope.nvim" },
 	},
 	{ "nvim-web-devicons", dep_of = { "oil.nvim", "render-markdown.nvim" } },
 	{

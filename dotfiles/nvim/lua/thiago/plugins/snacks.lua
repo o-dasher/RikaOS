@@ -1,11 +1,23 @@
+local function s()
+	return require("snacks")
+end
+
 return {
 	"snacks.nvim",
 	priority = 1000,
 	lazy = false,
+	keys = {
+		{
+			"<leader>lg",
+			function()
+				s().lazygit()
+			end,
+			desc = "LazyGit",
+		},
+	},
 	after = function()
 		local opts = {
 			bigfile = { enabled = true },
-			dashboard = { enabled = true },
 			indent = { enabled = true },
 			input = { enabled = true },
 			picker = { enabled = true },
@@ -22,7 +34,7 @@ return {
 			opts.animate = { enabled = true }
 		end
 
-		require("snacks").setup(opts)
+		s().setup(opts)
 		vim.api.nvim_create_autocmd("LspProgress", {
 			callback = function(ev)
 				local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }

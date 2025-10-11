@@ -39,7 +39,6 @@ in
             oil-nvim
             mini-pairs
             rose-pine
-            lazygit-nvim
             harpoon2
             nvim-web-devicons
             fidget-nvim
