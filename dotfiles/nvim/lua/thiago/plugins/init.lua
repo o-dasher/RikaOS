@@ -1,4 +1,4 @@
-require("lze").load({
+return {
 	{ import = "thiago.plugins.blink_cmp" },
 	{ import = "thiago.plugins.lsp" },
 	{ import = "thiago.plugins.conform" },
@@ -23,4 +23,4 @@ require("lze").load({
 		"rose-pine",
 		colorscheme = "rose-pine",
 	},
-})
+}

@@ -1,6 +1,6 @@
 vim.api.nvim_command("source " .. "~/.config/nvim/lua/thiago/set.vim")
 
-require("thiago.plugins")
+require("lze").load("thiago.plugins")
 
 vim.cmd("colorscheme rose-pine")
 

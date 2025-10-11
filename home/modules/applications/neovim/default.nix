@@ -22,8 +22,8 @@ in
         neovim = inputs.neovim-nightly.packages.${pkgs.system}.neovim;
         initLua = # lua
           ''require("thiago")'';
-        plugins = {
-          start = with pkgs.vimPlugins; [
+        plugins = with pkgs.vimPlugins; {
+          start = [
             lze
             conform-nvim
             fidget-nvim
@@ -40,11 +40,14 @@ in
             luasnip
             nvim-treesitter.withAllGrammars
             vimtex
-            telescope-nvim
-            telescope-live-grep-args-nvim
             blink-cmp
             rose-pine
             mini-pairs
+          ];
+
+          opt = [
+            telescope-live-grep-args-nvim
+            telescope-nvim
           ];
 
           dev.config.pure = ../../../../dotfiles/nvim;
