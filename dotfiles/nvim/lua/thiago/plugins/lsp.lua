@@ -1,5 +1,6 @@
 return {
 	"nvim-lspconfig",
+	event = { "BufReadPre", "BufReadPost", "BufNewFile" },
 	cmd = {
 		"LspInfo",
 	},
