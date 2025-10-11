@@ -1,12 +1,12 @@
 return {
 	"oil.nvim",
+	lazy = false, -- Default file explorer != lazy
 	keys = {
 		{
 			"<Leader>pv",
 			"<CMD>Oil<CR>",
 		},
 	},
-	lazy = false,
 	after = function()
 		require("oil").setup({
 			default_file_explorer = true,
