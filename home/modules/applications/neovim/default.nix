@@ -46,7 +46,6 @@ in
             blink-cmp
             rose-pine
             mini-pairs
-            copilot-lua
           ];
 
           dev.config.pure = ../../../../dotfiles/nvim;
