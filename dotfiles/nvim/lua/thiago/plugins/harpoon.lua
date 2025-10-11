@@ -60,8 +60,7 @@ for i = 1, 5, 1 do
 end
 
 return {
-	"theprimeagen/harpoon",
-	branch = "harpoon2",
+	"harpoon2",
 	keys = keys,
 	after = function()
 		h():setup()

@@ -25,29 +25,30 @@ in
         plugins = with pkgs.vimPlugins; {
           start = [
             lze
-            conform-nvim
+            lzextras
             fidget-nvim
-            harpoon2
             nvim-lspconfig
             nvim-web-devicons
-            lazygit-nvim
             nvim-lint
             plenary-nvim
             render-markdown-nvim
-            oil-nvim
             snacks-nvim
             friendly-snippets
             luasnip
-            nvim-treesitter.withAllGrammars
             vimtex
             blink-cmp
-            rose-pine
-            mini-pairs
           ];
 
           opt = [
+            conform-nvim
+            nvim-treesitter.withAllGrammars
             telescope-live-grep-args-nvim
             telescope-nvim
+            oil-nvim
+            mini-pairs
+            rose-pine
+            lazygit-nvim
+            harpoon2
           ];
 
           dev.config.pure = ../../../../dotfiles/nvim;

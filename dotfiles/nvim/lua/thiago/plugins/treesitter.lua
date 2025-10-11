@@ -1,6 +1,6 @@
 return {
-	"nvim-treesitter/nvim-treesitter",
-	event = "BufRead",
+	"nvim-treesitter",
+	event = "DeferredUIEnter",
 	after = function()
 		require("nvim-treesitter.configs").setup({
 			highlight = {
