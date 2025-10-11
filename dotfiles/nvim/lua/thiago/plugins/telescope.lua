@@ -6,8 +6,10 @@ return {
 	"telescope.nvim",
 	on_require = "telescope",
 	load = function(name)
-		vim.cmd.packadd(name)
-		vim.cmd.packadd("telescope-live-grep-args.nvim")
+		require("lzextras").loaders.multi({
+			name,
+			"telescope-live-grep-args.nvim",
+		})
 	end,
 	after = function(_, _)
 		local telescope = require("telescope")
@@ -46,4 +48,5 @@ return {
 			end,
 		},
 	},
+	dep_of = { "harpoon2" },
 }
