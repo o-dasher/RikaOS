@@ -1,10 +1,4 @@
 return {
-	cmd = {
-		vim.fn.expand("~") .. "/.nix-profile/bin/OmniSharp",
-		"--languageserver",
-		"--hostPID",
-		tostring(vim.fn.getpid()),
-	},
 
 	settings = {
 		FormattingOptions = {
