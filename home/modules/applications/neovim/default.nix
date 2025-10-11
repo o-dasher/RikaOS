@@ -47,6 +47,7 @@ in
             render-markdown-nvim
             snacks-nvim
             luasnip
+            friendly-snippets
             vimtex
           ];
 
