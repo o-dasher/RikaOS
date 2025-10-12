@@ -108,6 +108,7 @@
       self,
       agenix,
       nixpkgs,
+      nixpkgs-stable,
       home-manager,
       stylix,
       nixpkgs-bleeding,
@@ -121,7 +122,17 @@
     }@inputs:
     let
       system = "x86_64-linux";
-      pkgs-bleeding = import nixpkgs-bleeding { inherit system; };
+
+      get_pkgs =
+        nixpkgs:
+        import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        };
+
+      pkgs = get_pkgs nixpkgs;
+      pkgs-bleeding = get_pkgs nixpkgs-bleeding;
+      pkgs-stable = get_pkgs nixpkgs-stable;
 
       # Hosts configurations
       systemCfgs = {
@@ -158,6 +169,7 @@
           inherit system;
           specialArgs = {
             inherit RikaOS-private;
+            inherit pkgs-stable;
             inherit pkgs-bleeding;
             inherit inputs;
             cfg = cfg // {
@@ -177,9 +189,7 @@
       mkHome =
         targetHostName: cfg: username:
         home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
-            inherit system;
-          };
+          inherit pkgs;
           modules = [
             agenix.homeManagerModules.default
             stylix.homeModules.stylix
@@ -189,6 +199,7 @@
           ];
           extraSpecialArgs = {
             inherit inputs;
+            inherit pkgs-stable;
             inherit RikaOS-private;
             inherit pkgs-bleeding;
             inherit nixgl;

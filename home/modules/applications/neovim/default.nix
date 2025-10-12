@@ -57,7 +57,7 @@ in
           lua-language-server
           nixd # Nix
           yaml-language-server # Yaml
-          ccls # C
+          llvmPackages.clang-tools # C and CPP
           omnisharp-roslyn # C-sharp
           rust-analyzer # Rust
           yaml-language-server # Yaml
