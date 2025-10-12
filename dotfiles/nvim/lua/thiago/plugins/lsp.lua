@@ -33,7 +33,7 @@ return {
 			"intelephense",
 			"phpactor",
 
-			"ccls", -- C and cpp
+			"clangd", -- C and cpp
 
 			-- python
 			"pyright",

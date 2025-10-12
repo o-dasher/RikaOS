@@ -14,15 +14,21 @@
   config = lib.mkIf (config.nixSetup.enable) {
     nix = lib.mkMerge [
       {
-        settings = {
-          experimental-features = [
-            "flakes"
-            "nix-command"
-          ];
-          trusted-users = [
-            "root"
-          ] ++ config.nixSetup.trusted-users;
-        };
+        settings = lib.mkMerge [
+          {
+            experimental-features = [
+              "flakes"
+              "nix-command"
+            ];
+            trusted-users = [
+              "root"
+            ]
+            ++ config.nixSetup.trusted-users;
+          }
+          (lib.mkIf config.nixSetup.optimise {
+            auto-optimise-store = true;
+          })
+        ];
       }
       (lib.mkIf config.nixSetup.optimise {
         gc = {
