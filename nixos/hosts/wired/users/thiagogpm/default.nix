@@ -8,7 +8,7 @@
 }:
 {
   imports = [
-    ../../../../home/modules/theme/graduation.nix
+    ../../../../../home/modules/theme/cirnold.nix
   ];
 
   targets.genericLinux.enable = true;

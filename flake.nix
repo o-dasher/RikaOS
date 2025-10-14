@@ -153,7 +153,7 @@
 
       # Home manager only configurations
       homeCfgs = {
-        silly = {
+        wired = {
           hostName = "gpmecatronica-System-Product-Name";
           state = "24.05";
           profiles = {
