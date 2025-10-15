@@ -25,7 +25,9 @@ in
         plugins = with pkgs.vimPlugins; {
           start = [
             lze
-            lzextras
+
+            # Plugins that already handle lazy-loading
+            rustaceanvim
           ];
 
           opt = [

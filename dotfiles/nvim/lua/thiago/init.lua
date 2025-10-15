@@ -6,6 +6,17 @@ lze.load("thiago.plugins")
 
 vim.cmd("colorscheme rose-pine")
 
+vim.g.rustaceanvim = {
+	server = {
+		on_attach = function(_, bufnr)
+			vim.lsp.inlay_hint.enable(true, { bufnr })
+		end,
+	},
+	tools = {
+		enable_clippy = true,
+	},
+}
+
 if vim.g.neovide then
 	vim.g.neovide_opacity = 0.9
 	vim.opt.guifont = { "JetbrainsMono Nerd Font", ":h12" }
