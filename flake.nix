@@ -8,14 +8,28 @@
     flake-compat.url = "github:edolstra/flake-compat";
     systems.url = "github:nix-systems/default";
     mnw.url = "github:Gerg-L/mnw";
-    playit-nixos-module.url = "github:pedorich-n/playit-nixos-module";
+    playit-nixos-module = {
+      url = "github:pedorich-n/playit-nixos-module";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
+    };
     agenix = {
       url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+        systems.follows = "systems";
+      };
     };
     nixgl = {
       url = "github:nix-community/nixGL";
-      inputs.flake-utils.follows = "flake-utils";
+      inputs = {
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+      };
     };
     neovim-nightly = {
       url = "github:nix-community/neovim-nightly-overlay";
@@ -41,6 +55,7 @@
     hyprland = {
       url = "github:hyprwm/Hyprland";
       inputs = {
+        nixpkgs.follows = "nixpkgs";
         pre-commit-hooks.follows = "git-hooks";
         systems.follows = "systems";
       };
@@ -75,6 +90,7 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
+        flake-parts.follows = "flake-parts";
       };
     };
     lanzaboote = {
