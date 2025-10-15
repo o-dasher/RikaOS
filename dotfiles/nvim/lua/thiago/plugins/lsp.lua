@@ -52,8 +52,6 @@ return {
 			"nixd", -- nix
 			"texlab", -- tex
 
-			"rust_analyzer", -- rust
-
 			"lua_ls", -- lua
 			"omnisharp", -- dotnet
 		})
