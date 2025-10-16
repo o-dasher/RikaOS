@@ -72,6 +72,7 @@
     nomacs
 
     # videos
+    davinci-resolve-studio
     obs-studio
     mpv
     # monitor
