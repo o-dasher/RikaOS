@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-bleeding.url = "github:NixOS/nixpkgs/master";
     flake-compat.url = "github:edolstra/flake-compat";
     systems.url = "github:nix-systems/default";
@@ -66,6 +66,7 @@
       ref = "main";
       inputs = {
         nixpkgs.follows = "nixpkgs";
+        nixpkgs-davinci.follows = "nixpkgs";
         home-manager.follows = "home-manager";
         flake-parts.follows = "flake-parts";
         systems.follows = "systems";
