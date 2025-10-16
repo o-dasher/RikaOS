@@ -237,49 +237,46 @@
             };
           };
         };
-
-      # Generate all nixosConfigurations
-      nixosConfigurations = nixpkgs.lib.mapAttrs' (
-        targetHostName: cfg:
-        nixpkgs.lib.nameValuePair (cfg.hostName or targetHostName) (mkSystem targetHostName cfg)
-      ) systemCfgs;
-
-      # Generate all homeConfigurations
-      homeConfigurations =
-        let
-          allCfgs = systemCfgs // homeCfgs;
-          users = nixpkgs.lib.flatten (
-            nixpkgs.lib.mapAttrsToList (
-              targetHostName: cfg:
-              nixpkgs.lib.mapAttrsToList (_: username: {
-                name = username;
-                value = mkHome targetHostName cfg username;
-              }) cfg.profiles
-            ) allCfgs
-          );
-        in
-        nixpkgs.lib.listToAttrs users;
     in
-    (
-      (flake-parts.lib.mkFlake { inherit inputs; } {
-        systems = import systems;
-        perSystem =
-          { pkgs, ... }:
-          {
-            devShells.default = pkgs.mkShell {
-              packages = (
-                with pkgs;
-                [
-                  nixfmt-rfc-style
-                  stylua
-                  prettierd
-                ]
-              );
-            };
+    (flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = import systems;
+      perSystem =
+        { pkgs, ... }:
+        {
+          devShells.default = pkgs.mkShell {
+            packages = (
+              with pkgs;
+              [
+                nixfmt-rfc-style
+                stylua
+                prettierd
+              ]
+            );
           };
-      })
-      // {
-        inherit nixosConfigurations homeConfigurations;
-      }
-    );
+        };
+
+      flake = {
+        # Generate all nixosConfigurations
+        nixosConfigurations = nixpkgs.lib.mapAttrs' (
+          targetHostName: cfg:
+          nixpkgs.lib.nameValuePair (cfg.hostName or targetHostName) (mkSystem targetHostName cfg)
+        ) systemCfgs;
+
+        # Generate all homeConfigurations
+        homeConfigurations =
+          let
+            allCfgs = systemCfgs // homeCfgs;
+            users = nixpkgs.lib.flatten (
+              nixpkgs.lib.mapAttrsToList (
+                targetHostName: cfg:
+                nixpkgs.lib.mapAttrsToList (_: username: {
+                  name = username;
+                  value = mkHome targetHostName cfg username;
+                }) cfg.profiles
+              ) allCfgs
+            );
+          in
+          nixpkgs.lib.listToAttrs users;
+      };
+    });
 }
