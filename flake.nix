@@ -184,16 +184,19 @@
         };
       };
 
+      commonArgs = {
+        inherit RikaOS-private;
+        inherit pkgs-stable;
+        inherit pkgs-bleeding;
+        inherit inputs;
+      };
+
       # Helper to build a NixOS system
       mkSystem =
         targetHostName: cfg:
         nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = {
-            inherit RikaOS-private;
-            inherit pkgs-stable;
-            inherit pkgs-bleeding;
-            inherit inputs;
+          specialArgs = commonArgs // {
             cfg = cfg // {
               inherit targetHostName;
             };
@@ -221,11 +224,7 @@
             ./home/modules
             ./nixos/hosts/${targetHostName}/users/${username}
           ];
-          extraSpecialArgs = {
-            inherit inputs;
-            inherit pkgs-stable;
-            inherit RikaOS-private;
-            inherit pkgs-bleeding;
+          extraSpecialArgs = commonArgs // {
             inherit nixgl;
             utils = import ./home/utils {
               lib = nixpkgs.lib;
