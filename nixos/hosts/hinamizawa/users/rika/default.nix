@@ -64,10 +64,14 @@
     inputs.zen-browser.packages.${system}.twilight
 
     # tools
-    gimp
-    nomacs
     qbittorrent
     pavucontrol
+
+    # images
+    gimp
+    nomacs
+
+    # videos
     obs-studio
     mpv
     # monitor
