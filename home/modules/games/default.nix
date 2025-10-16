@@ -2,7 +2,6 @@
   lib,
   config,
   pkgs,
-  pkgs-bleeding,
   utils,
   inputs,
   ...
@@ -19,27 +18,28 @@
     lib.mkMerge [
       {
 
-        home.packages =
-          [ pkgs-bleeding.hydralauncher ]
-          ++ (with pkgs; [
-            mangohud
-            goverlay
-            (heroic.override {
-              extraPkgs = pkgs: [
-                pkgs.gamescope
+        home.packages = [
+          pkgs.hydralauncher
+        ]
+        ++ (with pkgs; [
+          mangohud
+          goverlay
+          (heroic.override {
+            extraPkgs = pkgs: [
+              pkgs.gamescope
+            ];
+          })
+          (lib.mkIf config.games.osu.enable
+            inputs.nix-gaming.packages.${pkgs.hostPlatform.system}.osu-lazer-bin
+          )
+          (lib.mkIf config.games.minecraft.enable (
+            prismlauncher.override {
+              jdks = [
+                temurin-bin-21
               ];
-            })
-            (lib.mkIf config.games.osu.enable
-              inputs.nix-gaming.packages.${pkgs.hostPlatform.system}.osu-lazer-bin
-            )
-            (lib.mkIf config.games.minecraft.enable (
-              prismlauncher.override {
-                jdks = [
-                  temurin-bin-21
-                ];
-              }
-            ))
-          ]);
+            }
+          ))
+        ]);
       }
       (lib.mkIf config.games.steam.enable {
         home.file =

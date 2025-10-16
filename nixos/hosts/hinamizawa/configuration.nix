@@ -5,7 +5,6 @@
   pkgs,
   cfg,
   inputs,
-  pkgs-bleeding,
   config,
   ...
 }:
@@ -82,7 +81,7 @@ in
       enable32Bit = true;
       package = hypr-pkgs.mesa;
       package32 = hypr-pkgs.pkgsi686Linux.mesa;
-      extraPackages = with pkgs-bleeding; [
+      extraPackages = with pkgs; [
         # Required by davinci resolve
         rocmPackages_6.clr.icd
       ];
