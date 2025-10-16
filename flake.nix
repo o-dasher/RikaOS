@@ -16,14 +16,6 @@
         systems.follows = "systems";
       };
     };
-    agenix = {
-      url = "github:ryantm/agenix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home-manager";
-        systems.follows = "systems";
-      };
-    };
     nixgl = {
       url = "github:nix-community/nixGL";
       inputs = {
@@ -60,11 +52,25 @@
         systems.follows = "systems";
       };
     };
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+        systems.follows = "systems";
+      };
+    };
     RikaOS-private = {
       type = "git";
       url = "git@github.com:o-dasher/RikaOS-private.git";
       ref = "main";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+        flake-parts.follows = "flake-parts";
+        systems.follows = "systems";
+        agenix.follows = "agenix";
+      };
     };
     git-hooks = {
       url = "github:cachix/git-hooks.nix";
@@ -122,12 +128,12 @@
   outputs =
     {
       self,
-      agenix,
       nixpkgs,
       nixpkgs-stable,
       home-manager,
       stylix,
       nixpkgs-bleeding,
+      agenix,
       RikaOS-private,
       mnw,
       nixgl,
@@ -195,6 +201,7 @@
           modules = [
             stylix.nixosModules.stylix
             agenix.nixosModules.default
+            RikaOS-private.nixosModules.default
             playit-nixos-module.nixosModules.default
             ./nixos/modules
             ./nixos/hosts/${targetHostName}/configuration.nix
@@ -207,6 +214,7 @@
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = [
+            RikaOS-private.homeModules.default
             agenix.homeManagerModules.default
             stylix.homeModules.stylix
             mnw.homeManagerModules.mnw
@@ -268,17 +276,9 @@
                 ]
               );
             };
-
           };
       })
       // {
-        age = {
-          identityPaths = [ "/var/lib/persistent/ssh_host_ed25519_key" ];
-          secrets = {
-            playit-secret.file = ./secrets/playit-secret.age;
-          };
-        };
-
         inherit nixosConfigurations homeConfigurations;
       }
     );

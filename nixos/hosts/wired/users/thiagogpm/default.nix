@@ -27,7 +27,6 @@
 
   home.packages = with pkgs; [
     inputs.zen-browser.packages.${system}.twilight
-    inputs.agenix.packages.${system}.default
     spotify
   ];
 

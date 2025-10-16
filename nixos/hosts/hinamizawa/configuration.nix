@@ -18,12 +18,6 @@ in
     inputs.nix-gaming.nixosModules.pipewireLowLatency
   ];
 
-  age = {
-    secrets = {
-      playit-secret.file = ../../../secrets/playit-secret.age;
-    };
-  };
-
   # Modules
   userPreferences.enable = true;
   secureBoot.enable = true;
@@ -230,10 +224,6 @@ in
       };
     };
   };
-
-  environment.systemPackages = [
-    inputs.agenix.packages.x86_64-linux.default
-  ];
 
   programs = {
     virt-manager.enable = true;
