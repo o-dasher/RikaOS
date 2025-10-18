@@ -16,16 +16,21 @@ in
   ];
 
   options.desktop.hyprland.enable = lib.mkEnableOption "hyprland";
+
   config = lib.mkIf config.desktop.hyprland.enable {
     programs.hyprlock.enable = true;
-    home.pointerCursor = {
-      name = "BreezeX-RosePine-Linux";
-      hyprcursor.enable = true;
-      package = pkgs.rose-pine-cursor;
+
+    home = {
+      packages = with pkgs; [
+        wl-clipboard
+      ];
+
+      pointerCursor = {
+        name = "BreezeX-RosePine-Linux";
+        hyprcursor.enable = true;
+        package = pkgs.rose-pine-cursor;
+      };
     };
-    home.packages = with pkgs; [
-      wl-clipboard
-    ];
 
     xdg.portal = {
       enable = true;
