@@ -16,16 +16,21 @@ in
   ];
 
   options.desktop.hyprland.enable = lib.mkEnableOption "hyprland";
+
   config = lib.mkIf config.desktop.hyprland.enable {
     programs.hyprlock.enable = true;
-    home.pointerCursor = {
-      name = "BreezeX-RosePine-Linux";
-      hyprcursor.enable = true;
-      package = pkgs.rose-pine-cursor;
+
+    home = {
+      packages = with pkgs; [
+        wl-clipboard
+      ];
+
+      pointerCursor = {
+        name = "BreezeX-RosePine-Linux";
+        hyprcursor.enable = true;
+        package = pkgs.rose-pine-cursor;
+      };
     };
-    home.packages = with pkgs; [
-      wl-clipboard
-    ];
 
     xdg.portal = {
       enable = true;
@@ -61,7 +66,7 @@ in
           }"
           ((lib.mkIf (config.desktop.hyprland.waybar.enable)) (lib.getExe pkgs.waybar))
           (lib.getExe pkgs.lxqt.lxqt-policykit)
-          "[workspace 9 silent] ${lib.getExe pkgs.qbittorrent}"
+          (lib.getExe pkgs.qbittorrent)
         ];
         debug.disable_logs = false;
         monitor = [ "HDMI-A-1,1920x1080@239.76,0x0,1" ];
