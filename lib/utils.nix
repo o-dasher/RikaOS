@@ -1,7 +1,5 @@
 { lib, config, ... }:
 rec {
-  css = import ./css.nix;
-
   selectiveSymLink =
     from: to: paths: opts:
     lib.mkMerge (
@@ -15,7 +13,7 @@ rec {
 
   xdgConfigSelectiveSymLink =
     to: paths: opts:
-    selectiveSymLink ../../dotfiles/${to} ".config/${to}" paths opts;
+    selectiveSymLink ../dotfiles/${to} ".config/${to}" paths opts;
 
   prefixset =
     prefix: kvpairs:

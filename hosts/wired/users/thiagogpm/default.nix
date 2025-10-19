@@ -5,7 +5,7 @@
 }:
 {
   imports = [
-    ../../../../../home/modules/theme/cirnold.nix
+    ../../../../modules/home/theme/cirnold.nix
   ];
 
   targets.genericLinux.enable = true;
