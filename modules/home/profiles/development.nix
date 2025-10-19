@@ -19,6 +19,7 @@
       gemini.enable = true;
       fish.enable = true;
       starship.enable = true;
+      tmux.enable = true;
     };
 
     terminal.ghostty.enable = true;

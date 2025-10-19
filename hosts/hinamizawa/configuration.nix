@@ -144,7 +144,6 @@ in
     enable = true;
     user = "playit";
     group = "playit";
-    secretPath = config.age.secrets.playit-secret.path;
   };
 
   services = {
