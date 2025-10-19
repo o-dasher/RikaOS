@@ -4,9 +4,7 @@
   ...
 }:
 {
-  imports = [
-    ../../../../modules/home/theme/cirnold.nix
-  ];
+  theme.cirnold.enable = true;
 
   targets.genericLinux.enable = true;
 
