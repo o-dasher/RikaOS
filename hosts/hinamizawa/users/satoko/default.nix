@@ -1,8 +1,6 @@
 { pkgs, ... }:
 {
-  imports = [
-    ./stylix.nix
-  ];
+  theme.sakuyadaora.enable = true;
 
   games.enable = true;
   desktop.gnome.enable = true;

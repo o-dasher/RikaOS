@@ -4,9 +4,7 @@
   ...
 }:
 {
-  imports = [
-    ../../../../modules/home/theme/cirnold.nix
-  ];
+  theme.cirnold.enable = true;
 
   development.enable = true;
   development.android.enable = true;

@@ -8,5 +8,6 @@
     ./games
     ./development
     ./cli
+    ./theme
   ];
 }
