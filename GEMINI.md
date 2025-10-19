@@ -28,6 +28,8 @@ home-manager switch --flake .#<username>
 
 Replace `<username>` with one of the defined user profiles in `flake.nix` (e.g., `thiago`, `rika`, `satoko`).
 
+Don't forget that for rebuilding to work, if files where changed you need to add then to git stage. So do `git add .` before a rebuild takes place.
+
 **Development Shell:**
 
 The repository provides a development shell with formatting tools. To use it, run:

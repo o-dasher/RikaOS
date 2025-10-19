@@ -230,7 +230,7 @@
             utils = (import ./lib/utils.nix {
               lib = nixpkgs.lib;
               config = self.homeConfigurations.${username}.config;
-            }) // { css = import ./modules/home/theme/utils.nix; };
+            }) // { css = import ./modules/home/features/desktop/theme/utils.nix; };
             cfg = cfg // {
               inherit username;
               inherit targetHostName;
