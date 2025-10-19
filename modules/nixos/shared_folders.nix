@@ -1,7 +1,7 @@
 { lib, config, ... }:
 {
   imports = [
-    ../../home/modules/system/shared_folders.nix
+    ../home/core/shared_folders.nix
   ];
 
   options.sharedFolders = with lib; {

@@ -6,12 +6,9 @@
 {
   theme.cirnold.enable = true;
 
-  development.enable = true;
-  development.android.enable = true;
-  development.games.enable = true;
-
-  nixSetup.enable = true;
-  xdgSetup.enable = true;
+  profiles.development.enable = true;
+  editors.jetbrains.android-studio.enable = true;
+  profiles.gaming.enable = true;
 
   desktop = {
     gnome.enable = true;
@@ -19,10 +16,8 @@
   };
 
   games = {
-    enable = true;
     minecraft.enable = true;
     osu.enable = true;
-    steam.enable = true;
   };
 
   home.packages = with pkgs; [

@@ -1,13 +1,7 @@
 {
   imports = [
-    ./setup
-    ./system
-    ./desktop
-    ./terminal
-    ./applications
-    ./games
-    ./development
-    ./cli
-    ./theme
+    ./core
+    ./features
+    ./profiles
   ];
 }

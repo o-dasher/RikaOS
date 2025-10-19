@@ -8,7 +8,7 @@
 
   targets.genericLinux.enable = true;
 
-  development.enable = true;
+  profiles.development.enable = true;
   desktop.hyprland.enable = true;
 
   home.packages = with pkgs; [
