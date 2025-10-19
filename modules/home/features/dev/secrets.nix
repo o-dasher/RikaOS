@@ -5,9 +5,7 @@
   ...
 }:
 {
-  options.dev.secrets.enable = lib.mkEnableOption "secrets" // {
-    default = true;
-  };
+  options.dev.secrets.enable = lib.mkEnableOption "secrets";
 
   config = lib.mkIf config.dev.secrets.enable {
     home.sessionVariables = {
