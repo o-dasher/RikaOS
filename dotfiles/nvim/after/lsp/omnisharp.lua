@@ -1,5 +1,4 @@
 return {
-
 	settings = {
 		FormattingOptions = {
 			-- Enables support for reading code style, naming convention and analyzer
