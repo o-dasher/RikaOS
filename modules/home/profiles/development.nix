@@ -6,7 +6,10 @@
     editors = {
       neovim.enable = true;
       neovide.enable = true;
-      jetbrains.enable = true;
+      jetbrains = {
+        enable = true;
+        datagrip.enable = true;
+      };
     };
 
     dev = {
