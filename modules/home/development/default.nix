@@ -36,7 +36,7 @@
     };
 
     xdg.configFile."ideavim" = (lib.mkIf (config.development.android.enable)) {
-      source = config.lib.file.mkOutOfStoreSymlink ../../../../../ideavim;
+      source = config.lib.file.mkOutOfStoreSymlink ../../../ideavim;
       recursive = true;
     };
 

@@ -207,8 +207,8 @@
             agenix.nixosModules.default
             RikaOS-private.nixosModules.default
             playit-nixos-module.nixosModules.default
-            ./nixos/modules
-            ./nixos/hosts/${targetHostName}/configuration.nix
+            ./modules/nixos
+            ./hosts/${targetHostName}/configuration.nix
           ];
         };
 
@@ -222,15 +222,15 @@
             agenix.homeManagerModules.default
             stylix.homeModules.stylix
             mnw.homeManagerModules.mnw
-            ./home/modules
-            ./nixos/hosts/${targetHostName}/users/${username}
+            ./modules/home
+            ./hosts/${targetHostName}/users/${username}
           ];
           extraSpecialArgs = commonArgs // {
             inherit nixgl;
-            utils = import ./home/utils {
+            utils = (import ./lib/utils.nix {
               lib = nixpkgs.lib;
               config = self.homeConfigurations.${username}.config;
-            };
+            }) // { css = import ./modules/home/theme/utils.nix; };
             cfg = cfg // {
               inherit username;
               inherit targetHostName;
