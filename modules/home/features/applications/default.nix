@@ -1,5 +1,1 @@
-{
-  imports = [
-    ./datagrip.nix
-  ];
-}
+{ }
