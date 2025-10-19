@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  pkgs-bleeding,
   config,
   ...
 }:
@@ -40,26 +41,26 @@
       recursive = true;
     };
 
-    home.packages =
-      with pkgs;
-      (lib.mkMerge [
-        [
-          neovide
+    home.packages = lib.mkMerge [
+      (with pkgs; [
+        neovide
 
-          # Database management
-          jetbrains.datagrip
+        # Database management
+        jetbrains.datagrip
 
-          # Some monospaced fonts
-          jetbrains-mono
-          nerd-fonts.fira-mono
-          nerd-fonts.jetbrains-mono
+        # Some monospaced fonts
+        jetbrains-mono
+        nerd-fonts.fira-mono
+        nerd-fonts.jetbrains-mono
+      ])
 
-          gemini-cli
+      (with pkgs-bleeding; [
+        gemini-cli
+      ])
 
-        ]
-        ((lib.mkIf config.development.games.enable) [ godot ])
-        ((lib.mkIf config.development.android.enable) [ android-studio ])
-      ]);
+      (lib.mkIf config.development.games.enable (with pkgs; [ godot ]))
+      (lib.mkIf config.development.android.enable (with pkgs; [ android-studio ]))
+    ];
 
     programs = {
       gh.enable = true;
