@@ -19,6 +19,7 @@
     };
 
     cli = {
+      hyfetch.enable = true;
       gemini.enable = true;
       fish.enable = true;
       starship.enable = true;
