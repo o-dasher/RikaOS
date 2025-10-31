@@ -205,7 +205,6 @@
           modules = [
             stylix.nixosModules.stylix
             agenix.nixosModules.default
-            RikaOS-private.nixosModules.default
             playit-nixos-module.nixosModules.default
             ./modules/nixos
             ./hosts/${targetHostName}/configuration.nix
@@ -227,10 +226,14 @@
           ];
           extraSpecialArgs = commonArgs // {
             inherit nixgl;
-            utils = (import ./lib/utils.nix {
-              lib = nixpkgs.lib;
-              config = self.homeConfigurations.${username}.config;
-            }) // { css = import ./modules/home/features/desktop/theme/utils.nix; };
+            utils =
+              (import ./lib/utils.nix {
+                lib = nixpkgs.lib;
+                config = self.homeConfigurations.${username}.config;
+              })
+              // {
+                css = import ./modules/home/features/desktop/theme/utils.nix;
+              };
             cfg = cfg // {
               inherit username;
               inherit targetHostName;

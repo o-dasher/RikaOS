@@ -140,11 +140,11 @@ in
     };
   };
 
-  services.playit = {
-    enable = true;
-    user = "playit";
-    group = "playit";
-  };
+  # services.playit = {
+  #   enable = true;
+  #   user = "playit";
+  #   group = "playit";
+  # };
 
   services = {
     # Enable CUPS to print documents.
