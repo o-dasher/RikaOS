@@ -12,7 +12,7 @@
   desktop.hyprland.enable = true;
 
   home.packages = with pkgs; [
-    inputs.zen-browser.packages.${system}.twilight
+    inputs.zen-browser.packages.${stdenv.hostPlatform.system}.twilight
     spotify
   ];
 
