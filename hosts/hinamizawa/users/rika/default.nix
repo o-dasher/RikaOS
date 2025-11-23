@@ -54,7 +54,7 @@
     universal-android-debloater
 
     # Browser
-    inputs.zen-browser.packages.${system}.twilight
+    inputs.zen-browser.packages.${stdenv.hostPlatform.system}.twilight
 
     # tools
     qbittorrent

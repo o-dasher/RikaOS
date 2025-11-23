@@ -71,9 +71,9 @@ in
         debug.disable_logs = false;
         monitor = [ "HDMI-A-1,1920x1080@239.76,0x0,1" ];
         # render.direct_scanout = true; I get bugs here and then still on csgo, when idling for too long e.g.
-        windowrulev2 = [
-          "immediate, fullscreen:1"
-          "float, class:org.gnome.Nautilus"
+        windowrule = [
+          "match:content game, immediate on"
+          "match:class org.gnome.Nautilus, float true"
         ];
         group.groupbar =
           let

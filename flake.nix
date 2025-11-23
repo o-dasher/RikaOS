@@ -27,9 +27,7 @@
       url = "github:nix-community/neovim-nightly-overlay";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-compat.follows = "flake-compat";
         flake-parts.follows = "flake-parts";
-        git-hooks.follows = "git-hooks";
       };
     };
     nix-gaming = {
@@ -104,9 +102,6 @@
       url = "github:nix-community/lanzaboote";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-        flake-compat.follows = "flake-compat";
-        pre-commit-hooks-nix.follows = "git-hooks";
       };
     };
   };
