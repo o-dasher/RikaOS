@@ -4,7 +4,7 @@
 
   config = lib.mkIf config.games.osu.enable {
     home.packages = [
-      inputs.nix-gaming.packages.${pkgs.hostPlatform.system}.osu-lazer-bin
+      inputs.nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.osu-lazer-bin
     ];
   };
 }

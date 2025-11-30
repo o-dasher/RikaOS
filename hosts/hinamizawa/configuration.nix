@@ -28,7 +28,6 @@ in
     enable = true;
     trusted-users = [
       cfg.profiles.rika
-      cfg.profiles.satoko
     ];
   };
 
@@ -105,6 +104,7 @@ in
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+
     lowLatency.enable = true;
     wireplumber = {
       enable = true;
@@ -149,6 +149,9 @@ in
   services = {
     # Enable CUPS to print documents.
     printing.enable = true;
+
+    # For some reason scren reader is on by default. Disabling it.
+    orca.enable = false;
 
     # Bluetooth.
     blueman.enable = true;
@@ -209,14 +212,6 @@ in
           "dialout" # Serial devices (zmk)
           "video"
           "adbusers"
-          "gamemode"
-        ];
-      };
-      ${cfg.profiles.satoko} = {
-        isNormalUser = true;
-        shell = pkgs.fish;
-        extraGroups = [
-          "video"
           "gamemode"
         ];
       };

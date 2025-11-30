@@ -35,10 +35,8 @@ in
             conform-nvim
             nvim-lspconfig
             blink-cmp
-            plenary-nvim
             nvim-treesitter.withAllGrammars
             telescope-live-grep-args-nvim
-            telescope-nvim
             oil-nvim
             mini-pairs
             rose-pine
