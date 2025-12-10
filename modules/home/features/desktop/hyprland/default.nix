@@ -56,6 +56,7 @@ in
               pkgs.bash
             ]
           }:$PATH"
+          "GTK_IM_MODULE, simple"
           "XDG_DATA_DIRS,${config.home.profileDirectory}/share:/usr/share:$XDG_DATA_DIRS"
           "XDG_CONFIG_DIRS,${config.home.profileDirectory}/etc/xdg:/etc/xdg"
         ];
