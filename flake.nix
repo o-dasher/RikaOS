@@ -126,6 +126,7 @@
       self,
       nixpkgs,
       nixpkgs-stable,
+      nix-gaming,
       home-manager,
       stylix,
       nixpkgs-bleeding,
@@ -199,6 +200,7 @@
           modules = [
             stylix.nixosModules.stylix
             agenix.nixosModules.default
+            nix-gaming.nixosModules.pipewireLowLatency
             playit-nixos-module.nixosModules.default
             ./modules/nixos
             ./hosts/${targetHostName}/configuration.nix
