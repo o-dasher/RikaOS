@@ -148,9 +148,6 @@ in
     # Enable CUPS to print documents.
     printing.enable = true;
 
-    # For some reason scren reader is on by default. Disabling it.
-    orca.enable = false;
-
     # Bluetooth.
     blueman.enable = true;
 
