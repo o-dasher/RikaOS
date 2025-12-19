@@ -7,7 +7,7 @@
   ...
 }:
 let
-  inherit (cfg) hostName state;
+  inherit (cfg) targetHostName state;
 in
 {
   imports = [
@@ -28,7 +28,7 @@ in
 
   security.polkit.enable = true;
   networking = {
-    inherit hostName;
+    hostName = targetHostName;
     useDHCP = false;
     firewall =
       let
@@ -46,7 +46,7 @@ in
 
   systemd.network = {
     enable = true;
-    network.networks."10-main" =
+    networks."10-main" =
       let
         inherit (RikaOS-private.gensokyo) ipv6prefix;
       in
