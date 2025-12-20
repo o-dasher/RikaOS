@@ -8,9 +8,7 @@
   config = lib.mkIf config.theme.sakuyadaora.enable {
     stylix = {
       image = ../../../../../assets/Wallpapers/sakuyadaora.jpg;
-      enable = true;
       base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
-      polarity = "dark";
       opacity =
         let
           v = 0.9;
