@@ -87,12 +87,6 @@ in
     gamemode.enable = true;
     gamescope.enable = true;
     corectrl.enable = true;
-    # Reference for multi user installation
-    # https://github.com/ValveSoftware/Proton/issues/4820#issuecomment-2569535495
-    steam = {
-      enable = true;
-      gamescopeSession.enable = true;
-    };
   };
 
   # Audio setup
