@@ -51,6 +51,11 @@ in
           # Wayland stuff.
           "NIXOS_WAYLAND,1" # Enable Wayland support in NixOS
           "NIXOS_OZONE_WL,1" # Enable Ozone Wayland support in NixOS
+
+          # For native wayland support on osu!
+          "OSU_SDL3,1"
+          "SDL_VIDEO_DRIVER,wayland"
+
           "ELECTRON_OZONE_PLATFORM_HINT,auto" # Set Electron to automatically choose between Wayland and X11
           "XDG_CURRENT_DESKTOP,Hyprland" # Set xdg desktop to hyprland
           "PATH,${config.home.profileDirectory}/bin:${
@@ -74,7 +79,7 @@ in
         ];
         debug.disable_logs = false;
         monitor = [ "HDMI-A-1,1920x1080@239.76,0x0,1" ];
-        # render.direct_scanout = true; I get bugs here and then still on csgo, when idling for too long e.g.
+        render.direct_scanout = 1;
         windowrule = [
           "match:content game, immediate on"
           "match:class org.gnome.Nautilus, float true"
