@@ -836,6 +836,32 @@
         "type": "github"
       }
     },
+    "nixcord": {
+      "inputs": {
+        "flake-compat": [
+          "flake-compat"
+        ],
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1766190493,
+        "narHash": "sha256-UJEA2RLhXzcKFiTPDRJttLL522HfS0V27v16q4Bk2FI=",
+        "owner": "kaylorben",
+        "repo": "nixcord",
+        "rev": "d72b2c0fc75af068da3f3ac2d14011c4f7f0bd43",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kaylorben",
+        "repo": "nixcord",
+        "type": "github"
+      }
+    },
     "nixgl": {
       "inputs": {
         "flake-utils": [
@@ -1012,6 +1038,7 @@
         "mnw": "mnw",
         "neovim-nightly": "neovim-nightly",
         "nix-gaming": "nix-gaming",
+        "nixcord": "nixcord",
         "nixgl": "nixgl",
         "nixpkgs": "nixpkgs",
         "nixpkgs-bleeding": "nixpkgs-bleeding",

@@ -70,8 +70,6 @@
     mpv
     # monitor
     mission-center
-    # social media
-    discord
     # files
     yazi
     nautilus
@@ -81,8 +79,23 @@
     gparted
   ];
 
-  services.easyeffects.enable = true;
+  services = {
+    easyeffects.enable = true;
+    arrpc.enable = true;
+  };
+
   programs = {
     home-manager.enable = true;
+    nixcord = {
+      enable = true;
+      discord.enable = false;
+      vesktop.enable = true;
+      config = {
+        plugins = {
+          webRichPresence.enable = true;
+        };
+      };
+    };
   };
+
 }
