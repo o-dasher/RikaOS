@@ -1,9 +1,11 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 {
   config = lib.mkIf config.theme.sakuyadaora.enable {
-    gtk = {
-      enable = true;
-    };
     stylix = {
       image = ../../../../../assets/Wallpapers/sakuyadaora.jpg;
       enable = true;

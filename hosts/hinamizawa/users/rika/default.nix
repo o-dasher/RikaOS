@@ -11,7 +11,6 @@
   profiles.gaming.enable = true;
 
   desktop = {
-    gnome.enable = true;
     hyprland.enable = true;
   };
 

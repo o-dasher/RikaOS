@@ -90,7 +90,7 @@ in
             cpu = {
               format = "  {usage}%";
               tooltip = false;
-              on-click = "${lib.getExe pkgs.ghostty} htop";
+              on-click = "${lib.getExe pkgs.ghostty} ${lib.getExe pkgs.htop}";
             };
 
             memory = {

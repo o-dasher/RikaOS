@@ -32,9 +32,12 @@ in
       };
     };
 
+    gtk.enable = true;
     xdg.portal = {
       enable = true;
-      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-gtk
+      ];
     };
 
     wayland.windowManager.hyprland = {
@@ -56,7 +59,7 @@ in
               pkgs.bash
             ]
           }:$PATH"
-          "GTK_IM_MODULE, simple"
+          "GTK_IM_MODULE, simple" # Fixes dead keys. e.g ~.
           "XDG_DATA_DIRS,${config.home.profileDirectory}/share:/usr/share:$XDG_DATA_DIRS"
           "XDG_CONFIG_DIRS,${config.home.profileDirectory}/etc/xdg:/etc/xdg"
         ];
