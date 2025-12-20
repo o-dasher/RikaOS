@@ -8,6 +8,7 @@
       goverlay.enable = true;
       heroic.enable = true;
       hydralauncher.enable = true;
+      ps4.enable = true;
     };
   };
 }
