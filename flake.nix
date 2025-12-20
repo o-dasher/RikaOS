@@ -219,7 +219,7 @@
             {
               home-manager = {
                 useGlobalPkgs = true;
-                useUserPackages = true;
+                useUserPackages = false; # I prefer ~/.nix-profile because of gh auth, etc.
                 extraSpecialArgs = commonArgs // {
                   inherit nixgl;
                 };
