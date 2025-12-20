@@ -7,5 +7,6 @@
     ./goverlay.nix
     ./heroic.nix
     ./hydralauncher.nix
+    ./ps4.nix
   ];
 }
