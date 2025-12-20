@@ -23,6 +23,14 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
+    nixcord = {
+      url = "github:kaylorben/nixcord";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        flake-compat.follows = "flake-compat";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
     neovim-nightly = {
       url = "github:nix-community/neovim-nightly-overlay";
       inputs = {
@@ -137,6 +145,7 @@
       playit-nixos-module,
       flake-parts,
       systems,
+      nixcord,
       ...
     }@inputs:
     let
@@ -216,6 +225,7 @@
             RikaOS-private.homeModules.default
             agenix.homeManagerModules.default
             stylix.homeModules.stylix
+            nixcord.homeModules.nixcord
             mnw.homeManagerModules.mnw
             ./modules/home
             ./hosts/${targetHostName}/users/${username}
