@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, config, osConfig ? null, ... }:
 {
   options.nixSetup.enable = lib.mkEnableOption "nixSetup" // {
     default = true;
@@ -14,8 +14,8 @@
         };
       };
     })
-    {
+    (lib.mkIf (osConfig == null || !osConfig.home-manager.useGlobalPkgs) {
       nixpkgs.config.allowUnfree = true;
-    }
+    })
   ];
 }
