@@ -148,7 +148,6 @@ in
     # Enable gnome keyring to store password and stuff?
     gnome = {
       gnome-keyring.enable = true;
-      core-apps.enable = false;
     };
 
     # Open ssh
