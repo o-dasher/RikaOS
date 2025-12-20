@@ -196,6 +196,14 @@
         inherit inputs;
       };
 
+      commonHomeModules = [
+        RikaOS-private.homeModules.default
+        agenix.homeManagerModules.default
+        nixcord.homeModules.nixcord
+        mnw.homeManagerModules.mnw
+        ./modules/home
+      ];
+
       # Helper to build a NixOS system
       mkSystem =
         targetHostName: cfg:
@@ -207,6 +215,33 @@
             };
           };
           modules = [
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = commonArgs // {
+                  inherit nixgl;
+                };
+                users = nixpkgs.lib.mapAttrs (
+                  _: username:
+                  { config, lib, ... }:
+                  {
+                    _module.args.utils = (import ./lib/utils.nix { inherit config lib; }) // {
+                      css = import ./modules/home/features/desktop/theme/utils.nix;
+                    };
+                    _module.args.cfg = cfg // {
+                      inherit username;
+                      inherit targetHostName;
+                    };
+                    imports = commonHomeModules ++ [
+                      ./hosts/${targetHostName}/users/${username}
+                    ];
+                    home.stateVersion = cfg.state;
+                  }
+                ) cfg.profiles;
+              };
+            }
             stylix.nixosModules.stylix
             agenix.nixosModules.default
             nix-gaming.nixosModules.pipewireLowLatency
@@ -221,13 +256,8 @@
         targetHostName: cfg: username:
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          modules = [
-            RikaOS-private.homeModules.default
-            agenix.homeManagerModules.default
+          modules = commonHomeModules ++ [
             stylix.homeModules.stylix
-            nixcord.homeModules.nixcord
-            mnw.homeManagerModules.mnw
-            ./modules/home
             ./hosts/${targetHostName}/users/${username}
           ];
           extraSpecialArgs = commonArgs // {
@@ -274,7 +304,7 @@
         # Generate all homeConfigurations
         homeConfigurations =
           let
-            allCfgs = systemCfgs // homeCfgs;
+            allCfgs = homeCfgs;
             users = nixpkgs.lib.flatten (
               nixpkgs.lib.mapAttrsToList (
                 targetHostName: cfg:
