@@ -2,6 +2,7 @@
 {
   imports = [
     ./osu.nix
+    ./steam.nix
     ./minecraft.nix
     ./mangohud.nix
     ./goverlay.nix
