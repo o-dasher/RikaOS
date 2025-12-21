@@ -69,6 +69,12 @@ in
   nixpkgs.config.allowUnfree = true;
   hardware.bluetooth.enable = true;
   hardware.opentabletdriver.enable = true;
+  hardware.amdgpu = {
+    initrd.enable = true;
+    opencl.enable = true;
+    overdrive.enable = true;
+  };
+  services.lact.enable = true;
   hardware.graphics =
     let
       hypr-pkgs = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
@@ -78,15 +84,10 @@ in
       enable32Bit = true;
       package = hypr-pkgs.mesa;
       package32 = hypr-pkgs.pkgsi686Linux.mesa;
-      extraPackages = with pkgs; [
-        # Required by davinci resolve
-        rocmPackages_6.clr.icd
-      ];
     };
   programs = {
     gamemode.enable = true;
     gamescope.enable = true;
-    corectrl.enable = true;
   };
 
   # Audio setup
