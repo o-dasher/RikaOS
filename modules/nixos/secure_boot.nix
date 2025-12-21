@@ -27,7 +27,7 @@
       # for now.
       loader.systemd-boot = {
         enable = lib.mkForce false;
-        consoleMode = "max";
+        consoleMode = "keep";
         configurationLimit = 3;
         edk2-uefi-shell.enable = true;
       };
