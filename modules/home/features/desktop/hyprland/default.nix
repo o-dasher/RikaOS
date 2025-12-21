@@ -48,6 +48,10 @@ in
         inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
       settings = {
         env = [
+          # Logging
+          "AQ_TRACE,1"
+          "HYPRLAND_TRACE,1"
+
           # Wayland stuff.
           "NIXOS_WAYLAND,1" # Enable Wayland support in NixOS
           "NIXOS_OZONE_WL,1" # Enable Ozone Wayland support in NixOS
@@ -77,9 +81,14 @@ in
           (lib.getExe pkgs.lxqt.lxqt-policykit)
           "[workspace 9 silent] ${lib.getExe pkgs.qbittorrent}"
         ];
-        debug.disable_logs = false;
+        debug = {
+          disable_logs = false;
+          full_cm_proto = 1; # Gamescope.
+        };
         monitor = [ "HDMI-A-1,1920x1080@239.76,0x0,1" ];
-        render.direct_scanout = 1; # I still have issues with direct scanout lol.
+        # BUG: Can only pick either DS or Tearing.
+        # https://github.com/hyprwm/Hyprland/pull/10020
+        render.direct_scanout = 1;
         windowrule = [
           "match:content game, immediate on"
           "match:class org.gnome.Nautilus, float true"
@@ -97,7 +106,7 @@ in
             indicator_height = indicator_height;
           };
         general = {
-          allow_tearing = true;
+          allow_tearing = false;
           border_size = 3;
         }
         // (
