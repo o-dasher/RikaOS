@@ -168,7 +168,6 @@ in
     tumbler.enable = true; # Thumbnail support for images
 
     # Display manager
-    desktopManager.gnome.enable = true;
     displayManager.gdm.enable = true;
 
     # Keyboard
