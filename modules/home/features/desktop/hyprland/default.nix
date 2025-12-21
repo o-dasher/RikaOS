@@ -79,7 +79,7 @@ in
         ];
         debug.disable_logs = false;
         monitor = [ "HDMI-A-1,1920x1080@239.76,0x0,1" ];
-        render.direct_scanout = 0; # I still have issues with direct scanout lol.
+        render.direct_scanout = 1; # I still have issues with direct scanout lol.
         windowrule = [
           "match:content game, immediate on"
           "match:class org.gnome.Nautilus, float true"
