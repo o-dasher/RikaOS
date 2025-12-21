@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 {
   options.profiles.gaming.enable = lib.mkEnableOption "Gaming profile";
 
@@ -10,6 +15,7 @@
       hydralauncher.enable = true;
       ps4.enable = true;
       steam.enable = true;
+      lutris.enable = true;
     };
   };
 }

@@ -9,5 +9,6 @@
     ./heroic.nix
     ./hydralauncher.nix
     ./ps4.nix
+    ./lutris.nix
   ];
 }

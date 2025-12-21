@@ -97,7 +97,7 @@ in
             indicator_height = indicator_height;
           };
         general = {
-          allow_tearing = true;
+          allow_tearing = false;
           border_size = 3;
         }
         // (
