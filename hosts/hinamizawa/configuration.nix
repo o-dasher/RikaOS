@@ -138,6 +138,15 @@ in
   #   group = "playit";
   # };
 
+  # Setup OpenRGB
+  services.hardware.openrgb.enable = true;
+  services.hardware.openrgb.startupProfile = "black.orp";
+
+  systemd.tmpfiles.rules = [
+    "d /var/lib/OpenRGB 0755 root root -"
+    "L+ /var/lib/OpenRGB/black.orp - - - - ${../../assets/OpenRGB/black.orp}"
+  ];
+
   services = {
     # Enable CUPS to print documents.
     printing.enable = true;
@@ -160,9 +169,6 @@ in
     # Display manager
     desktopManager.gnome.enable = true;
     displayManager.gdm.enable = true;
-
-    # Rgb controller
-    hardware.openrgb.enable = true;
 
     # Keyboard
     udev.packages = with pkgs; [
