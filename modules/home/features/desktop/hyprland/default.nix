@@ -79,7 +79,7 @@ in
         ];
         debug.disable_logs = false;
         monitor = [ "HDMI-A-1,1920x1080@239.76,0x0,1" ];
-        render.direct_scanout = 1;
+        render.direct_scanout = 0; # I still have issues with direct scanout lol.
         windowrule = [
           "match:content game, immediate on"
           "match:class org.gnome.Nautilus, float true"
@@ -97,7 +97,7 @@ in
             indicator_height = indicator_height;
           };
         general = {
-          allow_tearing = false;
+          allow_tearing = true;
           border_size = 3;
         }
         // (
