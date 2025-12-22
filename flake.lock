@@ -22,11 +22,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1766434713,
-        "narHash": "sha256-AnqlMPliViZb6hpKp6i1DghkMJfqCkpODV+PUKS+gzk=",
+        "lastModified": 1766436334,
+        "narHash": "sha256-F+ZDi7l2niW4GAU7gqrSB1mJK0uVlxpenOMYZpwv3HI=",
         "ref": "main",
-        "rev": "c538bcce35eacc0a88db36e1e7181612cba62780",
-        "revCount": 40,
+        "rev": "dbe74b5aee12754fa5420aa47def2b6fd9d46d39",
+        "revCount": 44,
         "type": "git",
         "url": "ssh://git@github.com/o-dasher/RikaOS-private.git"
       },
@@ -903,11 +903,11 @@
     },
     "nixpkgs-bleeding": {
       "locked": {
-        "lastModified": 1766434182,
-        "narHash": "sha256-dg8GYahUBzdTtZf9ySRKZCQT4mJ7yoz/9BNoysKQynw=",
+        "lastModified": 1766435206,
+        "narHash": "sha256-UpiadL71dszu0d6m+Uu/oP/dGfQuLDL+VqcP57AOvKI=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "a835ddd44918eb89fc1ac9b0be0ee68801189ac5",
+        "rev": "f195abcc45a4350e484bc67db34b11c28e5867c6",
         "type": "github"
       },
       "original": {

@@ -58,7 +58,7 @@ in
 
           # For native wayland support on osu!
           "OSU_SDL3,1"
-          "SDL_VIDEO_DRIVER,wayland"
+          "SDL_VIDEODRIVER,wayland"
 
           "ELECTRON_OZONE_PLATFORM_HINT,auto" # Set Electron to automatically choose between Wayland and X11
           "XDG_CURRENT_DESKTOP,Hyprland" # Set xdg desktop to hyprland
