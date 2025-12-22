@@ -246,6 +246,7 @@
             agenix.nixosModules.default
             nix-gaming.nixosModules.pipewireLowLatency
             playit-nixos-module.nixosModules.default
+            RikaOS-private.nixosModules.default
             ./modules/nixos
             ./hosts/${targetHostName}/configuration.nix
           ];

@@ -5,6 +5,7 @@
   pkgs,
   cfg,
   inputs,
+  config,
   ...
 }:
 let
@@ -133,11 +134,10 @@ in
     };
   };
 
-  # services.playit = {
-  #   enable = true;
-  #   user = "playit";
-  #   group = "playit";
-  # };
+  services.playit = {
+    enable = true;
+    secretPath = config.age.secrets.playit-secret.path;
+  };
 
   # Setup OpenRGB
   services.hardware.openrgb.enable = true;
