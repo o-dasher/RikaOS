@@ -14,10 +14,13 @@
   config = lib.mkIf config.sharedFolders.enable {
     programs.git = {
       enable = true;
-      config.safe.directory = config.sharedFolders.configurationRoot;
+      config.safe.directory = [ config.sharedFolders.configurationRoot ];
     };
 
-    systemd.tmpfiles.rules = map (f: "z ${f} 2770 - users - -") (
+    systemd.tmpfiles.rules = lib.concatMap (f: [
+      "d ${f} 2770 - users - -"
+      "a+ ${f} - - - - default:group:users:rwx"
+    ]) (
       [
         config.sharedFolders.configurationRoot
       ]
