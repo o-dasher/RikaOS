@@ -31,6 +31,11 @@ in
     systemd.tmpfiles.rules = [
       "d ${cfg.path} 2770 root ${cfg.group} - -"
       "a+ ${cfg.path} - - - - default:group:${cfg.group}:rwx"
-    ];
+    ] ++ (
+      lib.concatMap (user: [
+        "d /home/${user}/.steam/shared/steamapps 0755 ${user} users - -"
+        "L+ /home/${user}/.steam/shared/steamapps/common - - - - ${cfg.path}"
+      ]) cfg.users
+    );
   };
 }
