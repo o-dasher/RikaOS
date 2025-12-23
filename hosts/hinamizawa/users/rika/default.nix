@@ -85,11 +85,6 @@
       enable = true;
       discord.enable = true;
       vesktop.enable = true;
-      config = {
-        plugins = {
-          webRichPresence.enable = true;
-        };
-      };
     };
   };
 

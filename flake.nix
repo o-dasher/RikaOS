@@ -72,7 +72,6 @@
       ref = "main";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        nixpkgs-davinci.follows = "nixpkgs";
         home-manager.follows = "home-manager";
         flake-parts.follows = "flake-parts";
         systems.follows = "systems";
