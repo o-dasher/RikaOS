@@ -87,6 +87,8 @@ in
       package32 = hypr-pkgs.pkgsi686Linux.mesa;
     };
   programs = {
+    steam.enable = true;
+    steam.remotePlay.openFirewall = true;
     gamemode.enable = true;
     gamescope.enable = true;
   };
