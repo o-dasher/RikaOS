@@ -19,8 +19,11 @@ in
   # Modules
   userPreferences.enable = true;
   secureBoot.enable = true;
+  services.shared-steam-library = {
+    enable = true;
+    users = [ cfg.profiles.rika ];
+  };
   sharedFolders.folderNames = [
-    "/steam-games"
     "/shared/Games"
   ];
   nixSetup = {
