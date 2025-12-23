@@ -12,7 +12,7 @@ in
 
   tailwindCSS =
     pkgs: colors: content:
-    pkgs.runCommand "waybar-style.css"
+    pkgs.runCommand "tailwindify.css"
       {
         nativeBuildInputs = [ pkgs.nodePackages.tailwindcss ];
         tailwindConfig =
