@@ -78,22 +78,13 @@
     gparted
   ];
 
-  services = {
-    easyeffects.enable = true;
-    arrpc.enable = true;
-  };
-
+  services.easyeffects.enable = true;
   programs = {
     home-manager.enable = true;
     nixcord = {
       enable = true;
-      discord.enable = false;
+      discord.enable = true;
       vesktop.enable = true;
-      config = {
-        plugins = {
-          webRichPresence.enable = true;
-        };
-      };
     };
   };
 
