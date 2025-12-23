@@ -95,9 +95,9 @@ in
           full_cm_proto = 1; # Gamescope.
         };
         monitor = [ "HDMI-A-1,1920x1080@239.76,0x0,1" ];
-        # BUG: Can only pick either DS or Tearing. + DS is extremely buggy and stuttery on my machine.
+        # BUG: Can only pick either DS or Tearing.
         # https://github.com/hyprwm/Hyprland/pull/10020
-        render.direct_scanout = 0;
+        render.direct_scanout = 1;
         windowrule = [
           "match:content game, immediate on"
           "match:class org.gnome.Nautilus, float on"
