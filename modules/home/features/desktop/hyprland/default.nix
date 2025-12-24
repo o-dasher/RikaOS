@@ -79,15 +79,12 @@ in
           }"
           ((lib.mkIf (config.desktop.hyprland.waybar.enable)) (lib.getExe pkgs.waybar))
           (lib.getExe pkgs.lxqt.lxqt-policykit)
-          "[workspace 3 silent] ${lib.getExe pkgs.vesktop} --start-minimized"
+          "[workspace 10 silent] ${lib.getExe pkgs.vesktop} --start-minimized"
           "[workspace 10 silent] ${lib.getExe pkgs.discord} --start-minimized"
           "[workspace 10 silent] ${lib.getExe pkgs.qbittorrent}"
           "[workspace 10 silent] ${lib.getExe pkgs.steam} -silent"
         ];
         workspace = [
-          "2, on-created-empty:${
-            lib.getExe inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.twilight
-          }"
           "3, on-created-empty:${lib.getExe pkgs.vesktop}"
         ];
         debug = {
