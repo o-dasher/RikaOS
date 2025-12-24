@@ -92,22 +92,6 @@ in
   programs = {
     steam.enable = true;
     steam.remotePlay.openFirewall = true;
-    steam.gamescopeSession.enable = true;
-    steam.gamescopeSession.steamArgs = [
-      "-tenfoot"
-      "-pipewire-dmabuf"
-      "-console"
-    ];
-    steam.gamescopeSession.args = [
-      "-f"
-      "-w"
-      "1920"
-      "-h"
-      "1080"
-      "-r"
-      "240"
-    ];
-
     gamemode.enable = true;
     gamescope.enable = true;
     gamescope.capSysNice = false;
