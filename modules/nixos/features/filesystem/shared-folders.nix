@@ -2,8 +2,7 @@
   lib,
   config,
   pkgs,
-  ...
-}:
+  ...}:
 let
   cfg = config.sharedFolders;
   # Gather all paths into a single list
@@ -11,7 +10,7 @@ let
 in
 {
   imports = [
-    ../home/core/shared_folders.nix
+    ../../../home/core/shared_folders.nix
   ];
 
   options.sharedFolders = with lib; {
