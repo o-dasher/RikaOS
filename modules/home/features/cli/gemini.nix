@@ -8,6 +8,9 @@
   options.cli.gemini.enable = lib.mkEnableOption "gemini-cli";
 
   config = lib.mkIf config.cli.gemini.enable {
-    home.packages = [ pkgs-bleeding.gemini-cli ];
+    programs.gemini = {
+      enable = true;
+      package = pkgs-bleeding.gemini-cli;
+    };
   };
 }
