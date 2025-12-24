@@ -92,8 +92,34 @@ in
   programs = {
     steam.enable = true;
     steam.remotePlay.openFirewall = true;
+    steam.gamescopeSession.enable = true;
+    steam.gamescopeSession.steamArgs = [
+      "-tenfoot"
+      "-pipewire-dmabuf"
+      "-console"
+    ];
+    steam.gamescopeSession.args = [
+      "-f"
+      "-w"
+      "1920"
+      "-h"
+      "1080"
+      "-r"
+      "240"
+    ];
+
     gamemode.enable = true;
     gamescope.enable = true;
+    gamescope.capSysNice = false;
+  };
+
+  # work around for issue with capSysNice not working in gamescope.  even though it still
+  # complains that it doesn't have cap nice ability to set it its own nice value.  ananicy
+  # is setting it -20 (highest priority).
+  services.ananicy = {
+    enable = true;
+    package = pkgs.ananicy-cpp;
+    rulesProvider = pkgs.ananicy-rules-cachyos;
   };
 
   # Audio setup
@@ -210,6 +236,7 @@ in
           "wheel"
           "dialout" # Serial devices (zmk)
           "video"
+          "render"
           "adbusers"
           "gamemode"
         ];

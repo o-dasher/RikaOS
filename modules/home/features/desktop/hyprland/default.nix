@@ -97,7 +97,7 @@ in
         monitor = [ "HDMI-A-1,1920x1080@239.76,0x0,1" ];
         # BUG: Can only pick either DS or Tearing.
         # https://github.com/hyprwm/Hyprland/pull/10020
-        render.direct_scanout = 1;
+        render.direct_scanout = 0;
         windowrule = [
           "match:content game, immediate on"
           "match:class org.gnome.Nautilus, float on"
