@@ -1,6 +1,5 @@
 {
   imports = [
-    ./applications
     ./cli
     ./desktop
     ./editors

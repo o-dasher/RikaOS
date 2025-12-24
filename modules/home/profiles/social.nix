@@ -1,4 +1,4 @@
-{ pkgs, lib, config, inputs, ... }:
+{ lib, config, ... }:
 {
   options.profiles.social = {
     enable = lib.mkEnableOption "social profile";

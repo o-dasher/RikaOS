@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 {
   options.profiles.multimedia = {
     enable = lib.mkEnableOption "multimedia profile";
@@ -20,7 +25,6 @@
       zathura
     ];
 
-    # Enable easyeffects if audio is relevant
     services.easyeffects.enable = true;
   };
 }
