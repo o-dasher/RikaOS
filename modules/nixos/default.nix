@@ -5,5 +5,18 @@
     ./user_preferences.nix
     ./shared_folders.nix
     ./steam_shared.nix
+    ./features/gaming/default.nix
+    ./features/audio/default.nix
+    ./features/virtualization/default.nix
+    ./features/desktop/hyprland.nix
+    ./features/desktop/stylix.nix
+    ./features/services/bluetooth.nix
+    ./features/services/printing.nix
+    ./features/services/openrgb.nix
+    ./features/services/playit.nix
+    ./features/services/gnome-keyring.nix
+    ./features/services/thunar.nix
+    ./features/networking/default.nix
+    ./features/boot/default.nix
   ];
 }
