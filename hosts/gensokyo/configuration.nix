@@ -21,6 +21,13 @@ in
     trusted-users = [ cfg.profiles.nue ];
   };
 
+  features = {
+    networking = {
+      enable = true;
+      networkManager.enable = false;
+    };
+  };
+
   boot.loader = {
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
@@ -86,9 +93,6 @@ in
       defaultEditor = true;
     };
   };
-
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
 
   system.stateVersion = state;
 }

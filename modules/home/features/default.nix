@@ -7,6 +7,5 @@
     ./dev
     ./games
     ./terminal
-    ./suites
   ];
 }

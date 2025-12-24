@@ -1,10 +1,10 @@
 { pkgs, lib, config, inputs, ... }:
 {
-  options.suites.browser = {
-    enable = lib.mkEnableOption "browser suite";
+  options.profiles.browser = {
+    enable = lib.mkEnableOption "browser profile";
   };
 
-  config = lib.mkIf config.suites.browser.enable {
+  config = lib.mkIf config.profiles.browser.enable {
     home.packages = [
       inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.twilight
     ];

@@ -20,11 +20,5 @@
 
     # Enable GDM by default when Hyprland is enabled, but allow it to be disabled if user wants another DM
     features.desktop.displayManager.gdm.enable = lib.mkDefault true;
-
-    # Keyboard stuff often goes with desktop
-    services.udev.packages = with pkgs; [
-      qmk-udev-rules
-      via
-    ];
   };
 }

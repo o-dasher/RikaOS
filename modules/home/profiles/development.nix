@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ pkgs, lib, config, ... }:
 {
   options.profiles.development.enable = lib.mkEnableOption "Development profile";
 
@@ -27,5 +27,24 @@
     };
 
     terminal.ghostty.enable = true;
+
+    home.packages = with pkgs; [
+      wget
+      heroku
+      # general
+      htop
+      gdu
+      unzip
+      # android
+      universal-android-debloater
+      # tools
+      qbittorrent
+      # monitor
+      mission-center
+      # files
+      yazi
+      # Disk partitioning
+      gparted
+    ];
   };
 }

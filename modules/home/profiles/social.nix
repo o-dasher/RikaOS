@@ -1,10 +1,10 @@
 { pkgs, lib, config, inputs, ... }:
 {
-  options.suites.social = {
-    enable = lib.mkEnableOption "social suite";
+  options.profiles.social = {
+    enable = lib.mkEnableOption "social profile";
   };
 
-  config = lib.mkIf config.suites.social.enable {
+  config = lib.mkIf config.profiles.social.enable {
     programs.nixcord = {
       enable = true;
       discord.enable = true;

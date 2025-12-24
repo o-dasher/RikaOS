@@ -20,5 +20,7 @@
     ./features/services/thunar.nix
     ./features/networking/default.nix
     ./features/boot/default.nix
+    ./features/hardware/amdgpu.nix
+    ./features/hardware/keyboard.nix
   ];
 }
