@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 {
   options.profiles.development.enable = lib.mkEnableOption "Development profile";
 
@@ -28,11 +33,15 @@
 
     terminal.ghostty.enable = true;
 
+    programs = {
+      htop.enable = true;
+      yazi.enable = true;
+    };
+
     home.packages = with pkgs; [
       wget
       heroku
       # general
-      htop
       gdu
       unzip
       # android
@@ -41,8 +50,6 @@
       qbittorrent
       # monitor
       mission-center
-      # files
-      yazi
       # Disk partitioning
       gparted
     ];
