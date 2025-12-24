@@ -12,7 +12,6 @@
     development.enable = true;
     gaming.enable = true;
     multimedia.enable = true;
-    productivity.enable = true;
     social.enable = true;
     browser.enable = true;
     security.enable = true;
