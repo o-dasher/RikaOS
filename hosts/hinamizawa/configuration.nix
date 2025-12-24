@@ -36,6 +36,10 @@ in
   };
 
   features = {
+    graphics = {
+      enable = true;
+      backend = "hyprland";
+    };
     gaming.enable = true;
     audio.enable = true;
     virtualization.enable = true;

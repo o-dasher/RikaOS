@@ -6,8 +6,10 @@
     ./shared_folders.nix
     ./steam_shared.nix
     ./features/gaming/default.nix
+    ./features/graphics/default.nix
     ./features/audio/default.nix
     ./features/virtualization/default.nix
+    ./features/desktop/display-manager.nix
     ./features/desktop/hyprland.nix
     ./features/desktop/stylix.nix
     ./features/services/bluetooth.nix

@@ -2,7 +2,6 @@
   pkgs,
   lib,
   config,
-  inputs,
   ...
 }:
 {
@@ -14,22 +13,7 @@
     nixpkgs.config.allowUnfree = true;
 
     hardware.opentabletdriver.enable = true;
-    hardware.amdgpu = {
-      initrd.enable = true;
-      opencl.enable = true;
-      overdrive.enable = true;
-    };
-    services.lact.enable = true;
-    hardware.graphics =
-      let
-        hypr-pkgs = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
-      in
-      {
-        enable = true;
-        enable32Bit = true;
-        package = hypr-pkgs.mesa;
-        package32 = hypr-pkgs.pkgsi686Linux.mesa;
-      };
+
     programs = {
       steam.enable = true;
       steam.remotePlay.openFirewall = true;
