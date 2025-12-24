@@ -11,7 +11,7 @@ in
 {
   options.editors.neovim.enable = lib.mkEnableOption "neovim";
   config = lib.mkIf config.editors.neovim.enable {
-    cli.lazygit.enable = true;
+    programs.lazygit.enable = true;
 
     home.file = (utils.xdgConfigSelectiveSymLink "nvim/lua/thiago") [
       "set.vim"
@@ -51,7 +51,7 @@ in
             vimtex
           ];
 
-          dev.config.pure = ../../../../../dotfiles/nvim;
+          dev.config.pure = ../../../../dotfiles/nvim;
         };
         extraBinPath = with pkgs; [
           # LSP

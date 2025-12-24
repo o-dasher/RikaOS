@@ -1,4 +1,10 @@
-{ lib, config, pkgs, inputs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 {
   options.games.osu.enable = lib.mkEnableOption "osu-lazer";
 
