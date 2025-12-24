@@ -1,10 +1,10 @@
 { pkgs, lib, config, ... }:
 {
-  options.suites.multimedia = {
-    enable = lib.mkEnableOption "multimedia suite";
+  options.profiles.multimedia = {
+    enable = lib.mkEnableOption "multimedia profile";
   };
 
-  config = lib.mkIf config.suites.multimedia.enable {
+  config = lib.mkIf config.profiles.multimedia.enable {
     home.packages = with pkgs; [
       ardour
       audacity
