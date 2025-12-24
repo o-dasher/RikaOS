@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 {
@@ -8,12 +9,13 @@
 
   config = lib.mkIf config.profiles.gaming.enable {
     games = {
-      mangohud.enable = true;
       goverlay.enable = true;
       heroic.enable = true;
-      hydralauncher.enable = true;
-      ps4.enable = true;
       lutris.enable = true;
+      programs.mangohud.enable = true;
+      home.packages = with pkgs; [
+        shadps4
+      ];
     };
   };
 }

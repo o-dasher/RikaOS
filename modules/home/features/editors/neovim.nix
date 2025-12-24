@@ -11,7 +11,7 @@ in
 {
   options.editors.neovim.enable = lib.mkEnableOption "neovim";
   config = lib.mkIf config.editors.neovim.enable {
-    cli.lazygit.enable = true;
+    programs.lazygit.enable = true;
 
     home.file = (utils.xdgConfigSelectiveSymLink "nvim/lua/thiago") [
       "set.vim"
