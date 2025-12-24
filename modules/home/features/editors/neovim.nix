@@ -51,7 +51,7 @@ in
             vimtex
           ];
 
-          dev.config.pure = ../../../../../dotfiles/nvim;
+          dev.config.pure = ../../../../dotfiles/nvim;
         };
         extraBinPath = with pkgs; [
           # LSP

@@ -1,6 +1,6 @@
 {
   imports = [
-    ./neovim
+    ./neovim.nix
     ./jetbrains.nix
     ./neovide.nix
   ];
