@@ -20,11 +20,11 @@
           enable = true;
           enable32Bit = true;
         }
-        (lib.mkIf config.features.desktop.hyprland.enable)
-        {
+
+        (lib.mkIf config.features.desktop.hyprland.enable {
           package = hypr-pkgs.mesa;
           package32 = hypr-pkgs.pkgsi686Linux.mesa;
-        }
+        })
       ];
   };
 }
