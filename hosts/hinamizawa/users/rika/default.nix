@@ -1,5 +1,4 @@
 {
-  inputs,
   pkgs,
   ...
 }:
@@ -7,7 +6,6 @@
   theme.cirnold.enable = true;
   editors.jetbrains.android-studio.enable = true;
 
-  # Profiles
   profiles = {
     development.enable = true;
     gaming.enable = true;
@@ -32,7 +30,7 @@
     vial
 
     # tools
-    pavucontrol
+    pwvucontrol
 
     # images
     nomacs
@@ -44,5 +42,4 @@
   programs = {
     home-manager.enable = true;
   };
-
 }
