@@ -4,35 +4,45 @@
 {
   pkgs,
   cfg,
-  inputs,
-  config,
   ...
 }:
 let
-  inherit (cfg) targetHostName state;
+  inherit (cfg) state;
 in
 {
   imports = [
     ./hardware-configuration.nix
   ];
 
-  networking.hostName = targetHostName;
-
-  # Modules
   userPreferences.enable = true;
   secureBoot.enable = true;
-  services.shared-steam-library = {
-    enable = true;
-    users = [ cfg.profiles.rika ];
-  };
-  sharedFolders.folderNames = [
-    "/shared/Games"
-  ];
+
   nixSetup = {
     enable = true;
     trusted-users = [
       cfg.profiles.rika
     ];
+  };
+
+  multiUserFiles = {
+    sharedFolders.folderNames = [
+      "/shared/Games"
+    ];
+    shared-steam-library = {
+      enable = true;
+      users = [ cfg.profiles.rika ];
+    };
+  };
+
+  stylix = {
+    enable = true;
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
+  };
+
+  services = {
+    printing.enable = true;
+    openssh.enable = true;
+    displayManager.gdm.enable = true;
   };
 
   features = {
@@ -44,10 +54,8 @@ in
     audio.enable = true;
     virtualization.enable = true;
     desktop.hyprland.enable = true;
-    desktop.stylix.enable = true;
     services = {
       bluetooth.enable = true;
-      printing.enable = true;
       openrgb.enable = true;
       playit.enable = true;
       gnome-keyring.enable = true;
@@ -56,8 +64,6 @@ in
     networking.enable = true;
     boot.enable = true;
   };
-
-  # Overclock
 
   boot = {
     # Disk encryption

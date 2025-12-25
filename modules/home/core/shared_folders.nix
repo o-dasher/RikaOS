@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  options.sharedFolders = with lib; {
+  options.multiUserFiles.sharedFolders = with lib; {
     enable = (mkEnableOption "sharedFolders") // {
       default = true;
     };

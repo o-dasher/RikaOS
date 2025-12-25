@@ -14,7 +14,6 @@ in
     ./hardware-configuration.nix
   ];
 
-  # Modules
   userPreferences.enable = true;
   nixSetup = {
     enable = true;
