@@ -14,6 +14,8 @@ in
     ./hardware-configuration.nix
   ];
 
+  nixpkgs.config.allowUnfree = true;
+
   userPreferences.enable = true;
   secureBoot.enable = true;
 
