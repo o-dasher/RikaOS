@@ -7,7 +7,7 @@
 }:
 {
   config = (lib.mkIf config.targets.genericLinux.enable) {
-    sharedFolders.configurationRoot = "~/Programming/RikaOS";
+    multiUserFiles.sharedFolders.configurationRoot = "~/Programming/RikaOS";
 
     # https://github.com/nix-community/home-manager/issues/7027
     # Fixes PAM on Ubuntu desktops.

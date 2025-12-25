@@ -17,8 +17,5 @@
       portalPackage =
         inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
     };
-
-    # Enable GDM by default when Hyprland is enabled, but allow it to be disabled if user wants another DM
-    features.desktop.displayManager.gdm.enable = lib.mkDefault true;
   };
 }

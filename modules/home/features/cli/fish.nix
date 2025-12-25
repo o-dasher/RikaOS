@@ -24,8 +24,10 @@ in
             lg = lib.getExe pkgs.lazygit;
           }
           (aliase pkgs.bash { sail = "vendor/bin/sail"; })
-          ((lib.mkIf config.sharedFolders.enable) (
-            aliase pkgs.home-manager { hm = "switch --flake ${config.sharedFolders.configurationRoot}"; }
+          ((lib.mkIf config.multiUserFiles.sharedFolders.enable) (
+            aliase pkgs.home-manager {
+              hm = "switch --flake ${config.multiUserFiles.sharedFolders.configurationRoot}";
+            }
           ))
         ];
       interactiveShellInit = # fish
