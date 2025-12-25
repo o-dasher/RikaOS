@@ -1,4 +1,9 @@
-{ lib, config, osConfig ? null, ... }:
+{
+  lib,
+  config,
+  osConfig ? null,
+  ...
+}:
 {
   options.nixSetup.enable = lib.mkEnableOption "nixSetup" // {
     default = true;
@@ -6,12 +11,10 @@
 
   config = lib.mkMerge [
     (lib.mkIf config.nixSetup.enable {
-      nix = {
-        gc = {
-          automatic = true;
-          dates = "daily";
-          options = "--delete-older-than 1d";
-        };
+      programs.nh = {
+        enable = true;
+        clean.enable = true;
+        flake = "${config.multiUserFiles.sharedFolders.configurationRoot}/private";
       };
     })
     (lib.mkIf (osConfig == null || !osConfig.home-manager.useGlobalPkgs) {
