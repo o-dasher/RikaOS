@@ -10,21 +10,29 @@
   };
 
   config = lib.mkIf config.profiles.multimedia.enable {
+    services.easyeffects.enable = true;
     home.packages = with pkgs; [
-      ardour
-      audacity
-      aseprite
-      krita
-      imagemagick
-      gimp
-      davinci-resolve-studio
+      # downloading
+      qbittorrent
+
+      # video
+      kdePackages.kdenlive
       obs-studio
       mpv
+
+      # drawing
+      aseprite
+      krita
+
+      # images
+      imagemagick
+      gimp
+
+      # music
       spotify
+
       # documents / study
       zathura
     ];
-
-    services.easyeffects.enable = true;
   };
 }

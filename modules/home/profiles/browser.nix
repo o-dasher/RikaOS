@@ -1,8 +1,6 @@
 {
-  pkgs,
   lib,
   config,
-  inputs,
   ...
 }:
 {
@@ -11,8 +9,6 @@
   };
 
   config = lib.mkIf config.profiles.browser.enable {
-    home.packages = [
-      inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.twilight
-    ];
+    programs.zen-browser.enable = true;
   };
 }
