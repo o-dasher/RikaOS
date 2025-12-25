@@ -92,9 +92,11 @@ in
           full_cm_proto = 1; # Gamescope.
         };
         monitor = [ "HDMI-A-1,1920x1080@239.76,0x0,1" ];
-        # BUG: Can only pick either DS or Tearing.
-        # https://github.com/hyprwm/Hyprland/pull/10020
-        render.direct_scanout = 1;
+        # BUG: DS and tearing are mutually exclusive. It picks one depending on context.
+        # e.g. Gamescope and majority of apps will tear. But native applications like
+        # osu! will try to direct scanout. This can be better in the future. See:
+        # https://github.com/hyprwm/Hyprland/pull/10020 for reference.
+        render.direct_scanout = true;
         windowrule = [
           "match:content game, immediate on"
           "match:class org.gnome.Nautilus, float on"
@@ -114,7 +116,7 @@ in
             indicator_height = indicator_height;
           };
         general = {
-          allow_tearing = false;
+          allow_tearing = true;
           border_size = 3;
         }
         // (
