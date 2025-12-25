@@ -17,30 +17,31 @@ in
       enable = true;
       shellAbbrs =
         let
-
           aliase = pkg: kvpairs: prefixset (lib.getExe pkg) kvpairs;
 
-          getRootFolderSub = sub: "${config.multiUserFiles.sharedFolders.configurationRoot}/${sub}";
-          privateRepoFolder = getRootFolderSub "private";
+          privateRepoFolder = "${config.multiUserFiles.sharedFolders.configurationRoot}/private";
         in
-        lib.mkMerge [
-          {
-            lg = lib.getExe pkgs.lazygit;
-            yay = "nix flake update --flake ${privateRepoFolder} && sudo nixos-rebuild switch --flake ${privateRepoFolder}";
-          }
-          (aliase pkgs.bash { sail = "vendor/bin/sail"; })
-          (
-            (lib.mkIf (
-              config.multiUserFiles.sharedFolders.enable
-              && (osConfig == null || !osConfig.home-manager.useGlobalPkgs)
-            ))
+        lib.mkMerge (
+          with pkgs;
+          [
+            {
+              lg = lib.getExe lazygit;
+              yay = "${lib.getExe nix} flake update --flake ${privateRepoFolder} && ${lib.getExe nh} os switch ${privateRepoFolder}";
+            }
+            (aliase bash { sail = "vendor/bin/sail"; })
             (
-              aliase pkgs.home-manager {
-                hm = "switch --flake ${privateRepoFolder}";
-              }
+              (lib.mkIf (
+                config.multiUserFiles.sharedFolders.enable
+                && (osConfig == null || !osConfig.home-manager.useGlobalPkgs)
+              ))
+              (
+                aliase pkgs.home-manager {
+                  hm = "switch --flake ${privateRepoFolder}";
+                }
+              )
             )
-          )
-        ];
+          ]
+        );
       interactiveShellInit = # fish
         ''
           set -gx EDITOR nvim
