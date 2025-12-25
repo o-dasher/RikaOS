@@ -5,10 +5,12 @@
   ...
 }:
 {
-  options.nixSetup.enable = lib.mkEnableOption "nixSetup" // {
-    default = true;
+  options.nixSetup = {
+    enable = lib.mkEnableOption "nixSetup" // {
+      default = true;
+    };
+    nixpkgs.enable = lib.mkEnableOption "nixpkgs";
   };
-
   config = lib.mkMerge [
     (lib.mkIf config.nixSetup.enable {
       programs.nh = {
@@ -17,8 +19,11 @@
         flake = "${config.multiUserFiles.sharedFolders.configurationRoot}/private";
       };
     })
-    (lib.mkIf (osConfig == null || !osConfig.home-manager.useGlobalPkgs) {
-      nixpkgs.config.allowUnfree = true;
-    })
+    (lib.mkIf
+      (config.nixSetup.nixpkgs.enable && (osConfig == null || !osConfig.home-manager.useGlobalPkgs))
+      {
+        nixpkgs.config.allowUnfree = true;
+      }
+    )
   ];
 }

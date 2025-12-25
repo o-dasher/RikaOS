@@ -10,8 +10,6 @@
   };
 
   config = lib.mkIf config.features.gaming.enable {
-    nixpkgs.config.allowUnfree = true;
-
     hardware.opentabletdriver.enable = true;
 
     programs = {

@@ -1,7 +1,12 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  ...
+}:
 {
   options.nixSetup = with lib; {
     enable = mkEnableOption "nixSetup";
+    nixpkgs.enable = mkEnableOption "nixpkgs";
     trusted-users = mkOption {
       default = [ ];
       type = types.listOf types.str;
@@ -12,6 +17,9 @@
   };
 
   config = lib.mkIf (config.nixSetup.enable) {
+    nixpkgs.config = lib.mkIf config.nixSetup.nixpkgs.enable {
+      allowUnfree = true;
+    };
     nix = lib.mkMerge [
       {
         settings = lib.mkMerge [
