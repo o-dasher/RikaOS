@@ -37,7 +37,6 @@
       url = "github:nix-community/nixGL";
       inputs = {
         flake-utils.follows = "flake-utils";
-        nixpkgs.follows = "nixpkgs";
       };
     };
     nixcord = {
@@ -51,7 +50,6 @@
     neovim-nightly = {
       url = "github:nix-community/neovim-nightly-overlay";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
       };
     };
@@ -63,7 +61,6 @@
     };
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
     agenix = {
@@ -78,7 +75,6 @@
       url = "github:cachix/git-hooks.nix";
       inputs = {
         flake-compat.follows = "flake-compat";
-        nixpkgs.follows = "nixpkgs";
         gitignore.follows = "gitignore";
       };
     };
@@ -105,7 +101,6 @@
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
         pre-commit.follows = "git-hooks";
       };
     };
@@ -119,6 +114,8 @@
       "https://playit-nixos-module.cachix.org"
       "https://attic.xuyh0120.win/lantian"
       "https://cache.garnix.io"
+      "https://zen-browser.cachix.org"
+      "https://pre-commit-hooks.cachix.org"
     ];
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
@@ -127,6 +124,8 @@
       "playit-nixos-module.cachix.org-1:22hBXWXBbd/7o1cOnh+p0hpFUVk9lPdRLX3p5YSfRz4="
       "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
       "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+      "zen-browser.cachix.org-1:z/QLGrEkiBYF/7zoHX1Hpuv0B26QrmbVBSy9yDD2tSs="
+      "pre-commit-hooks.cachix.org-1:Pkk3Panw5AW24TOv6kz3PvLhlH8puAsJTBbOPmBo7Rc="
     ];
   };
 
