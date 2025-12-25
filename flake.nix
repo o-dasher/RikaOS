@@ -70,18 +70,6 @@
         systems.follows = "systems";
       };
     };
-    RikaOS-private = {
-      type = "git";
-      url = "git@github.com:o-dasher/RikaOS-private.git";
-      ref = "main";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home-manager";
-        flake-parts.follows = "flake-parts";
-        systems.follows = "systems";
-        agenix.follows = "agenix";
-      };
-    };
     git-hooks = {
       url = "github:cachix/git-hooks.nix";
       inputs = {
@@ -144,7 +132,6 @@
       stylix,
       nixpkgs-bleeding,
       agenix,
-      RikaOS-private,
       mnw,
       nixgl,
       playit-nixos-module,
@@ -195,14 +182,12 @@
       };
 
       commonArgs = {
-        inherit RikaOS-private;
         inherit pkgs-stable;
         inherit pkgs-bleeding;
         inherit inputs;
       };
 
       commonHomeModules = [
-        RikaOS-private.homeModules.default
         agenix.homeManagerModules.default
         nixcord.homeModules.nixcord
         mnw.homeManagerModules.mnw
@@ -258,7 +243,6 @@
             agenix.nixosModules.default
             nix-gaming.nixosModules.pipewireLowLatency
             playit-nixos-module.nixosModules.default
-            RikaOS-private.nixosModules.default
             ./modules/nixos
             ./hosts/${targetHostName}/configuration.nix
           ];
