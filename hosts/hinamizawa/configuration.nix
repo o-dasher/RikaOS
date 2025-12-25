@@ -51,7 +51,6 @@ in
     graphics.enable = true;
     hardware.amdgpu.enable = true;
     hardware.keyboard.enable = true;
-
     gaming.enable = true;
     audio.enable = true;
     virtualization.enable = true;
@@ -63,8 +62,11 @@ in
       gnome-keyring.enable = true;
       thunar.enable = true;
     };
+    boot = {
+      enable = true;
+      cachy.enable = true;
+    };
     networking.enable = true;
-    boot.enable = true;
   };
 
   boot = {
