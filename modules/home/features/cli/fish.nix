@@ -3,6 +3,7 @@
   config,
   pkgs,
   utils,
+  osConfig ? null,
   ...
 }:
 let
@@ -16,19 +17,29 @@ in
       enable = true;
       shellAbbrs =
         let
+
           aliase = pkg: kvpairs: prefixset (lib.getExe pkg) kvpairs;
+
+          getRootFolderSub = sub: "${config.multiUserFiles.sharedFolders.configurationRoot}/${sub}";
+          privateRepoFolder = getRootFolderSub "private";
         in
         lib.mkMerge [
           {
-            # git
             lg = lib.getExe pkgs.lazygit;
+            yay = "nix flake update --flake ${privateRepoFolder} && sudo nixos-rebuild switch --flake ${privateRepoFolder}";
           }
           (aliase pkgs.bash { sail = "vendor/bin/sail"; })
-          ((lib.mkIf config.multiUserFiles.sharedFolders.enable) (
-            aliase pkgs.home-manager {
-              hm = "switch --flake ${config.multiUserFiles.sharedFolders.configurationRoot}";
-            }
-          ))
+          (
+            (lib.mkIf (
+              config.multiUserFiles.sharedFolders.enable
+              && (osConfig == null || !osConfig.home-manager.useGlobalPkgs)
+            ))
+            (
+              aliase pkgs.home-manager {
+                hm = "switch --flake ${privateRepoFolder}";
+              }
+            )
+          )
         ];
       interactiveShellInit = # fish
         ''
