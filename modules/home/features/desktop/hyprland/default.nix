@@ -94,14 +94,21 @@ in
         monitor = [ "HDMI-A-1,1920x1080@239.76,0x0,1" ];
         # BUG: DS and tearing are mutually exclusive. It picks one depending on context.
         # e.g. Gamescope and majority of apps will tear. But native applications like
-        # osu! will try to direct scanout. This can be better in the future. See:
+        # osu! will try to direct scanout unless specified to tear. This can be better in the future. See:
         # https://github.com/hyprwm/Hyprland/pull/10020 for reference.
         render.direct_scanout = true;
         windowrule = [
-          "match:content game, immediate on"
+          "tag +games, match:content game"
+          "tag +games, match:class ^(steam_app_.*|gamescope|osu!)$"
+
+          "sync_fullscreen on,match:tag games"
+          "fullscreen on, match:tag games"
+          "no_shadow on, match:tag games"
+          "no_blur on, match:tag games"
+          "no_anim on, match:tag games"
+          "immediate on, match:tag games"
+
           "match:class org.gnome.Nautilus, float on"
-          "match:class ^(gamescope)$, immediate on"
-          "match:class ^(gamescope)$, fullscreen on"
         ];
         group.groupbar =
           let
