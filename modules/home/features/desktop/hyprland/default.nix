@@ -102,7 +102,6 @@ in
           "tag +games, match:class ^(steam_app_.*|gamescope|osu!)$"
 
           "sync_fullscreen on,match:tag games"
-          "fullscreen on, match:tag games"
           "no_shadow on, match:tag games"
           "no_blur on, match:tag games"
           "no_anim on, match:tag games"
