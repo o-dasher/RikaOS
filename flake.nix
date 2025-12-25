@@ -253,11 +253,6 @@
             playit-nixos-module.nixosModules.default
             ./modules/nixos
             ./hosts/${targetHostName}/configuration.nix
-            {
-              nixpkgs.overlays = [
-                inputs.nix-cachyos-kernel.overlays.pinned
-              ];
-            }
           ];
         };
 
