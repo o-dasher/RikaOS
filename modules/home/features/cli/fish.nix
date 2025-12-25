@@ -35,8 +35,8 @@ in
                 && (osConfig == null || !osConfig.home-manager.useGlobalPkgs)
               ))
               (
-                aliase pkgs.home-manager {
-                  hm = "switch --flake ${privateRepoFolder}";
+                aliase pkgs.nh {
+                  hm = "home switch --flake ${privateRepoFolder}";
                 }
               )
             )

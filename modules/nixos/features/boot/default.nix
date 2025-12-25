@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  inputs,
   ...
 }:
 {
@@ -10,14 +11,22 @@
     cachy.enable = lib.mkEnableOption "cachy kernel";
   };
 
-  config = lib.mkIf config.features.boot.enable {
-    boot = {
-      supportedFilesystems.ntfs = true;
-      kernelPackages =
-        if config.features.boot.cachy.enable then
-          pkgs.cachyosKernels.linuxPackages-cachyos-latest
-        else
-          pkgs.linuxPackages_latest;
+  config =
+    let
+      cfg = config.features.boot;
+    in
+    lib.mkIf cfg.enable {
+      boot = {
+        supportedFilesystems.ntfs = true;
+        kernelPackages =
+          if cfg.cachy.enable then
+            pkgs.cachyosKernels.linuxPackages-cachyos-latest
+          else
+            pkgs.linuxPackages_latest;
+      };
+
+      nixpkgs.overlays = lib.mkIf cfg.cachy.enable [
+        inputs.nix-cachyos-kernel.overlays.pinned
+      ];
     };
-  };
 }
