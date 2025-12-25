@@ -15,6 +15,10 @@
         systems.follows = "systems";
       };
     };
+    gitignore = {
+      url = "github:hercules-ci/gitignore.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-cachyos-kernel = {
       url = "github:xddxdd/nix-cachyos-kernel/release";
       inputs = {
@@ -28,10 +32,6 @@
         flake-parts.follows = "flake-parts";
         systems.follows = "systems";
       };
-    };
-    gitignore = {
-      url = "github:hercules-ci/gitignore.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     nixgl = {
       url = "github:nix-community/nixGL";
@@ -50,16 +50,11 @@
     };
     neovim-nightly = {
       url = "github:nix-community/neovim-nightly-overlay";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-      };
+      inputs.flake-parts.follows = "flake-parts";
     };
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
-      inputs = {
-        flake-parts.follows = "flake-parts";
-      };
+      inputs.flake-parts.follows = "flake-parts";
     };
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
@@ -78,7 +73,6 @@
       url = "github:cachix/git-hooks.nix";
       inputs = {
         flake-compat.follows = "flake-compat";
-        nixpkgs.follows = "nixpkgs";
         gitignore.follows = "gitignore";
       };
     };
@@ -88,7 +82,7 @@
     };
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
-      inputs.nixpkgs-lib.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -119,6 +113,8 @@
       "https://playit-nixos-module.cachix.org"
       "https://attic.xuyh0120.win/lantian"
       "https://cache.garnix.io"
+      "https://pre-commit-hooks.cachix.org"
+      "https://hercules-ci.cachix.org"
     ];
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
@@ -127,6 +123,8 @@
       "playit-nixos-module.cachix.org-1:22hBXWXBbd/7o1cOnh+p0hpFUVk9lPdRLX3p5YSfRz4="
       "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
       "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+      "pre-commit-hooks.cachix.org-1:Pkk3Panw5AW24TOv6kz3PvLhlH8puAsJTBbOPmBo7Rc="
+      "hercules-ci.cachix.org-1:ZZeDl9Va+xe9j+KqdzoBZMFJHVQ42Uu/c/1/KMC5Lw0="
     ];
   };
 
@@ -156,7 +154,6 @@
         nixpkgs:
         import nixpkgs {
           inherit system;
-          config.allowUnfree = true;
         };
 
       pkgs = get_pkgs nixpkgs;

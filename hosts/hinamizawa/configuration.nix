@@ -14,13 +14,12 @@ in
     ./hardware-configuration.nix
   ];
 
-  nixpkgs.config.allowUnfree = true;
-
   userPreferences.enable = true;
   secureBoot.enable = true;
 
   nixSetup = {
     enable = true;
+    nixpkgs.enable = true;
     trusted-users = [
       cfg.profiles.rika
     ];
