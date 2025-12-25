@@ -140,6 +140,7 @@
       stylix,
       nixpkgs-bleeding,
       agenix,
+      zen-browser,
       mnw,
       nixgl,
       playit-nixos-module,
@@ -200,6 +201,7 @@
         nixcord.homeModules.nixcord
         mnw.homeManagerModules.mnw
         stylix.homeModules.stylix
+        zen-browser.homeModules.twilight
         ./modules/home
       ];
 

@@ -33,25 +33,9 @@
 
     terminal.ghostty.enable = true;
 
-    programs = {
-      htop.enable = true;
-      yazi.enable = true;
-    };
-
     home.packages = with pkgs; [
       wget
       heroku
-      # general
-      gdu
-      unzip
-      # android
-      universal-android-debloater
-      # tools
-      qbittorrent
-      # monitor
-      mission-center
-      # Disk partitioning
-      gparted
     ];
   };
 }
