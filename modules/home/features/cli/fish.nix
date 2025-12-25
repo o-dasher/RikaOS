@@ -26,7 +26,7 @@ in
           [
             {
               lg = lib.getExe lazygit;
-              yay = "${lib.getExe nix} flake update --flake ${privateRepoFolder} && ${lib.getExe nh} os switch ${privateRepoFolder}";
+              yay = "${lib.getExe nix} flake update --flake ${privateRepoFolder} && ${lib.getExe nh} os switch";
             }
             (aliase bash { sail = "vendor/bin/sail"; })
             (
