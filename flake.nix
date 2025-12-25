@@ -8,11 +8,24 @@
     flake-compat.url = "github:edolstra/flake-compat";
     systems.url = "github:nix-systems/default";
     mnw.url = "github:Gerg-L/mnw";
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      inputs = {
+        pre-commit-hooks.follows = "git-hooks";
+        systems.follows = "systems";
+      };
+    };
+    nix-cachyos-kernel = {
+      url = "github:xddxdd/nix-cachyos-kernel/release";
+      inputs = {
+        flake-compat.follows = "flake-compat";
+        flake-parts.follows = "flake-parts";
+      };
+    };
     playit-nixos-module = {
       url = "github:pedorich-n/playit-nixos-module";
       inputs = {
         flake-parts.follows = "flake-parts";
-        nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
       };
     };
@@ -45,7 +58,6 @@
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
       };
     };
@@ -53,14 +65,6 @@
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
-    };
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        pre-commit-hooks.follows = "git-hooks";
-        systems.follows = "systems";
-      };
     };
     agenix = {
       url = "github:ryantm/agenix";
@@ -113,12 +117,16 @@
       "https://nix-gaming.cachix.org"
       "https://hyprland.cachix.org"
       "https://playit-nixos-module.cachix.org"
+      "https://attic.xuyh0120.win/lantian"
+      "https://cache.garnix.io"
     ];
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       "playit-nixos-module.cachix.org-1:22hBXWXBbd/7o1cOnh+p0hpFUVk9lPdRLX3p5YSfRz4="
+      "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
+      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
     ];
   };
 
@@ -245,6 +253,11 @@
             playit-nixos-module.nixosModules.default
             ./modules/nixos
             ./hosts/${targetHostName}/configuration.nix
+            {
+              nixpkgs.overlays = [
+                inputs.nix-cachyos-kernel.overlays.pinned
+              ];
+            }
           ];
         };
 
