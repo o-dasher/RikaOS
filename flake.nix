@@ -16,6 +16,10 @@
         systems.follows = "systems";
       };
     };
+    gitignore = {
+      url = "github:hercules-ci/gitignore.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixgl = {
       url = "github:nix-community/nixGL";
       inputs = {
@@ -83,6 +87,7 @@
       inputs = {
         flake-compat.follows = "flake-compat";
         nixpkgs.follows = "nixpkgs";
+        gitignore.follows = "gitignore";
       };
     };
     flake-utils = {
@@ -109,6 +114,7 @@
       url = "github:nix-community/lanzaboote";
       inputs = {
         nixpkgs.follows = "nixpkgs";
+        pre-commit.follows = "git-hooks";
       };
     };
   };
