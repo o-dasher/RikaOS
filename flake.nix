@@ -206,6 +206,7 @@
         agenix.homeManagerModules.default
         nixcord.homeModules.nixcord
         mnw.homeManagerModules.mnw
+        stylix.homeModules.stylix
         ./modules/home
       ];
 
@@ -228,22 +229,28 @@
                 extraSpecialArgs = commonArgs // {
                   inherit nixgl;
                 };
-                users = nixpkgs.lib.mapAttrs (
+                users = nixpkgs.lib.mapAttrs' (
                   _: username:
-                  { config, lib, ... }:
-                  {
-                    _module.args.utils = (import ./lib/utils.nix { inherit config lib; }) // {
-                      css = import ./modules/home/features/desktop/theme/utils.nix;
-                    };
-                    _module.args.cfg = cfg // {
-                      inherit username;
-                      inherit targetHostName;
-                    };
-                    imports = commonHomeModules ++ [
-                      ./hosts/${targetHostName}/users/${username}
-                    ];
-                    home.stateVersion = cfg.state;
-                  }
+                  nixpkgs.lib.nameValuePair username (
+                    { config, lib, ... }:
+                    {
+                      _module.args.utils = (import ./lib/utils.nix { inherit config lib; }) // {
+                        css = import ./modules/home/features/desktop/theme/utils.nix;
+                      };
+                      _module.args.cfg = cfg // {
+                        inherit username;
+                        inherit targetHostName;
+                      };
+                      imports = commonHomeModules ++ [
+                        ./hosts/${targetHostName}/users/${username}
+                      ];
+                      home = {
+                        inherit username;
+                        homeDirectory = "/home/${username}";
+                        stateVersion = cfg.state;
+                      };
+                    }
+                  )
                 ) cfg.profiles;
               };
             }
@@ -263,7 +270,6 @@
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = commonHomeModules ++ [
-            stylix.homeModules.stylix
             ./hosts/${targetHostName}/users/${username}
           ];
           extraSpecialArgs = commonArgs // {
