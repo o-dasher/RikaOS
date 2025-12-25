@@ -1,39 +1,5 @@
 {
   "nodes": {
-    "RikaOS-private": {
-      "inputs": {
-        "agenix": [
-          "agenix"
-        ],
-        "flake-parts": [
-          "flake-parts"
-        ],
-        "home-manager": [
-          "home-manager"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "nixpkgs-davinci": "nixpkgs-davinci",
-        "systems": [
-          "systems"
-        ]
-      },
-      "locked": {
-        "lastModified": 1766436334,
-        "narHash": "sha256-F+ZDi7l2niW4GAU7gqrSB1mJK0uVlxpenOMYZpwv3HI=",
-        "ref": "main",
-        "rev": "dbe74b5aee12754fa5420aa47def2b6fd9d46d39",
-        "revCount": 44,
-        "type": "git",
-        "url": "ssh://git@github.com/o-dasher/RikaOS-private.git"
-      },
-      "original": {
-        "ref": "main",
-        "type": "git",
-        "url": "ssh://git@github.com/o-dasher/RikaOS-private.git"
-      }
-    },
     "agenix": {
       "inputs": {
         "darwin": "darwin",
@@ -880,22 +846,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-davinci": {
-      "locked": {
-        "lastModified": 1758410083,
-        "narHash": "sha256-f9Di87TN2FiOCrC0usE0nO/fMILJAh/7q4WRdrAFjoY=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "d457818da697aa7711ff3599be23ab8850573a46",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "d457818da697aa7711ff3599be23ab8850573a46",
-        "type": "github"
-      }
-    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1766399428,
@@ -982,7 +932,6 @@
     },
     "root": {
       "inputs": {
-        "RikaOS-private": "RikaOS-private",
         "agenix": "agenix",
         "flake-compat": "flake-compat",
         "flake-parts": "flake-parts",

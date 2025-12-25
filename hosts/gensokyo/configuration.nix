@@ -3,7 +3,8 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 {
   cfg,
-  RikaOS-private,
+  lib,
+  config,
   ...
 }:
 let
@@ -14,57 +15,60 @@ in
     ./hardware-configuration.nix
   ];
 
-  userPreferences.enable = true;
-  nixSetup = {
-    enable = true;
-    trusted-users = [ cfg.profiles.nue ];
+  options.gensokyo.networking.ipv6prefix = lib.mkOption {
+    type = lib.types.str;
+    default = "SECRET";
+    description = "IPv6 prefix for the main network interface";
   };
 
-  features = {
-    networking = {
+  config = {
+    userPreferences.enable = true;
+    nixSetup = {
       enable = true;
-      networkManager.enable = false;
+      trusted-users = [ cfg.profiles.nue ];
     };
-  };
 
-  boot.loader = {
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = true;
-  };
-
-  security.polkit.enable = true;
-  networking = {
-    hostName = targetHostName;
-    useDHCP = false;
-    firewall =
-      let
-        minecraftPorts = [
-          60926
-          60927
-        ];
-      in
-      {
+    features = {
+      networking = {
         enable = true;
-        allowedTCPPorts = minecraftPorts;
-        allowedUDPPorts = minecraftPorts;
+        networkManager.enable = false;
       };
-  };
+    };
 
-  systemd.network = {
-    enable = true;
-    networks."10-main" =
-      let
-        inherit (RikaOS-private.gensokyo) ipv6prefix;
-      in
-      {
+    boot.loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+
+    security.polkit.enable = true;
+    networking = {
+      hostName = targetHostName;
+      useDHCP = false;
+      firewall =
+        let
+          minecraftPorts = [
+            60926
+            60927
+          ];
+        in
+        {
+          enable = true;
+          allowedTCPPorts = minecraftPorts;
+          allowedUDPPorts = minecraftPorts;
+        };
+    };
+
+    systemd.network = {
+      enable = true;
+      networks."10-main" = {
         matchConfig.Name = "enp1s0";
         address = [
           "192.168.0.67/24"
-          "${ipv6prefix}::8/64"
+          "${config.gensokyo.networking.ipv6prefix}::8/64"
         ];
 
         ipv6Prefixes = [
-          { Prefix = "${ipv6prefix}::/64"; }
+          { Prefix = "${config.gensokyo.networking.ipv6prefix}::/64"; }
         ];
 
         networkConfig = {
@@ -77,21 +81,22 @@ in
           { Gateway = "192.168.0.1"; }
         ];
       };
-  };
-
-  users.users.${cfg.profiles.nue} = {
-    isNormalUser = true;
-    extraGroups = [
-      "wheel"
-    ];
-  };
-
-  programs = {
-    neovim = {
-      enable = true;
-      defaultEditor = true;
     };
-  };
 
-  system.stateVersion = state;
+    users.users.${cfg.profiles.nue} = {
+      isNormalUser = true;
+      extraGroups = [
+        "wheel"
+      ];
+    };
+
+    programs = {
+      neovim = {
+        enable = true;
+        defaultEditor = true;
+      };
+    };
+
+    system.stateVersion = state;
+  };
 }
