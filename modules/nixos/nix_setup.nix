@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  nixCaches,
   ...
 }:
 {
@@ -23,6 +24,7 @@
     nix = lib.mkMerge [
       {
         settings = lib.mkMerge [
+          nixCaches
           {
             experimental-features = [
               "flakes"

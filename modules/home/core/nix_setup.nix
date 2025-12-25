@@ -2,6 +2,7 @@
   lib,
   config,
   osConfig ? null,
+  nixCaches,
   ...
 }:
 {
@@ -13,6 +14,7 @@
   };
   config = lib.mkMerge [
     (lib.mkIf config.nixSetup.enable {
+      nix.settings = nixCaches;
       programs.nh = {
         enable = true;
         clean.enable = true;
