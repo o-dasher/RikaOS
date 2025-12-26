@@ -25,8 +25,8 @@
       nixpkgs.config.allowUnfree = cfg.nixpkgs.enable;
       nix = {
         settings = {
-          substituters = lib.mkForce nixCaches.substituters;
-          trusted-public-keys = lib.mkForce nixCaches.trusted-public-keys;
+          substituters = nixCaches.substituters;
+          trusted-public-keys = nixCaches.trusted-public-keys;
 
           experimental-features = [
             "flakes"
