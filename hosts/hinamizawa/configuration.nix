@@ -35,6 +35,7 @@ in
   stylix = {
     enable = true;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
+    image = ../../assets/Wallpapers/lain.jpg;
   };
 
   services = {
@@ -69,11 +70,6 @@ in
     # Disk encryption
     initrd.luks.devices."luks-36bb58a5-3907-4ecc-99b8-3133907e4ab3".device =
       "/dev/disk/by-uuid/36bb58a5-3907-4ecc-99b8-3133907e4ab3";
-
-    loader.systemd-boot.windows."11" = {
-      efiDeviceHandle = "HD0b";
-      sortKey = "00";
-    };
   };
 
   fileSystems =
