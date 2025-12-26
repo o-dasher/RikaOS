@@ -17,36 +17,35 @@
     };
   };
 
-  config = lib.mkIf (config.nixSetup.enable) {
-    nixpkgs.config = lib.mkIf config.nixSetup.nixpkgs.enable {
-      allowUnfree = true;
-    };
-    nix = lib.mkMerge [
-      {
-        settings = lib.mkMerge [
-          nixCaches
-          {
-            experimental-features = [
-              "flakes"
-              "nix-command"
-            ];
-            trusted-users = [
-              "root"
-            ]
-            ++ config.nixSetup.trusted-users;
-          }
-          (lib.mkIf config.nixSetup.optimise {
-            auto-optimise-store = true;
-          })
-        ];
-      }
-      (lib.mkIf config.nixSetup.optimise {
-        gc = {
+  config =
+    let
+      cfg = config.nixSetup;
+    in
+    lib.mkIf (cfg.enable) {
+      nixpkgs.config.allowUnfree = cfg.nixpkgs.enable;
+      nix = {
+        settings = {
+          substituters = lib.mkForce nixCaches.substituters;
+          trusted-public-keys = lib.mkForce nixCaches.trusted-public-keys;
+
+          experimental-features = [
+            "flakes"
+            "nix-command"
+          ];
+          trusted-users = [
+            "root"
+            "@wheel"
+          ]
+          ++ cfg.trusted-users;
+          auto-optimise-store = cfg.optimise;
+        };
+
+        gc = lib.mkIf cfg.optimise {
           automatic = true;
           options = "-d";
         };
-        optimise.automatic = true;
-      })
-    ];
-  };
+
+        optimise.automatic = cfg.optimise;
+      };
+    };
 }

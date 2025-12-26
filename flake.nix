@@ -128,7 +128,7 @@
       system = "x86_64-linux";
 
       nixCaches = {
-        extra-substituters = [
+        substituters = [
           "https://nix-community.cachix.org"
           "https://nix-gaming.cachix.org"
           "https://hyprland.cachix.org"
@@ -138,7 +138,7 @@
           "https://pre-commit-hooks.cachix.org"
           "https://hercules-ci.cachix.org"
         ];
-        extra-trusted-public-keys = [
+        trusted-public-keys = [
           "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
           "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
           "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
@@ -195,11 +195,11 @@
       };
 
       commonHomeModules = [
+        ./modules/home
         agenix.homeManagerModules.default
         nixcord.homeModules.nixcord
         mnw.homeManagerModules.mnw
         zen-browser.homeModules.twilight
-        ./modules/home
       ];
 
       # Helper to build a NixOS system
@@ -213,7 +213,13 @@
             };
           };
           modules = [
+            ./modules/nixos
+            ./hosts/${targetHostName}/configuration.nix
             home-manager.nixosModules.home-manager
+            stylix.nixosModules.stylix
+            agenix.nixosModules.default
+            nix-gaming.nixosModules.pipewireLowLatency
+            playit-nixos-module.nixosModules.default
             {
               home-manager = {
                 useGlobalPkgs = true;
@@ -246,12 +252,6 @@
                 ) cfg.profiles;
               };
             }
-            stylix.nixosModules.stylix
-            agenix.nixosModules.default
-            nix-gaming.nixosModules.pipewireLowLatency
-            playit-nixos-module.nixosModules.default
-            ./modules/nixos
-            ./hosts/${targetHostName}/configuration.nix
           ];
         };
 
