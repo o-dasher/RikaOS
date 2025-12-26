@@ -23,26 +23,27 @@ in
           privateFlake = "${config.multiUserFiles.sharedFolders.configurationRoot}/private";
 
           updateFlake = flake: "${lib.getExe pkgs.nix} flake update --flake ${flake}";
+          mkUpdateUtils =
+            suffix: with pkgs; {
+              yay = "${updateFlake publicFlake} && ${updateFlake privateFlake} && ${lib.getExe nh} ${suffix}";
+              meh = "nix flake update rikaos --flake ${privateFlake} && ${lib.getExe nh} ${suffix}";
+            };
         in
         lib.mkMerge (
           with pkgs;
           [
-            {
-              lg = lib.getExe lazygit;
-              yay = "${updateFlake publicFlake} && ${updateFlake privateFlake} && ${lib.getExe nh} os switch";
-            }
             (aliase bash { sail = "vendor/bin/sail"; })
+            (lib.mkIf (osConfig != null) (mkUpdateUtils "os switch"))
             (
               (lib.mkIf (
                 config.multiUserFiles.sharedFolders.enable
                 && (osConfig == null || !osConfig.home-manager.useGlobalPkgs)
               ))
-              (
-                aliase pkgs.nh {
-                  hm = "home switch --flake ${privateFlake}";
-                }
-              )
+              (mkUpdateUtils "home switch")
             )
+            {
+              lg = lib.getExe lazygit;
+            }
           ]
         );
       interactiveShellInit = # fish
