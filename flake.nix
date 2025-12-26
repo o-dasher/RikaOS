@@ -10,58 +10,54 @@
     mnw.url = "github:Gerg-L/mnw";
     hyprland = {
       url = "github:hyprwm/Hyprland";
-      inputs = {
-        pre-commit-hooks.follows = "git-hooks";
-        systems.follows = "systems";
-      };
-    };
-    gitignore = {
-      url = "github:hercules-ci/gitignore.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.pre-commit-hooks.follows = "git-hooks";
+      inputs.systems.follows = "systems";
     };
     nix-cachyos-kernel = {
       url = "github:xddxdd/nix-cachyos-kernel/release";
-      inputs = {
-        flake-compat.follows = "flake-compat";
-        flake-parts.follows = "flake-parts";
-      };
-    };
-    playit-nixos-module = {
-      url = "github:pedorich-n/playit-nixos-module";
-      inputs = {
-        flake-parts.follows = "flake-parts";
-        systems.follows = "systems";
-      };
-    };
-    nixgl = {
-      url = "github:nix-community/nixGL";
-      inputs.flake-utils.follows = "flake-utils";
-    };
-    neovim-nightly = {
-      url = "github:nix-community/neovim-nightly-overlay";
+      inputs.flake-compat.follows = "flake-compat";
       inputs.flake-parts.follows = "flake-parts";
     };
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
       inputs.flake-parts.follows = "flake-parts";
     };
+    playit-nixos-module = {
+      url = "github:pedorich-n/playit-nixos-module";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.systems.follows = "systems";
+    };
+    nixgl = {
+      url = "github:nix-community/nixGL";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
+    neovim-nightly = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+    };
     git-hooks = {
       url = "github:cachix/git-hooks.nix";
-      inputs = {
-        flake-compat.follows = "flake-compat";
-        gitignore.follows = "gitignore";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-compat.follows = "flake-compat";
+      inputs.gitignore.follows = "gitignore";
     };
     flake-utils = {
       url = "github:numtide/flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
       inputs.systems.follows = "systems";
     };
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
     };
     home-manager = {
       url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    gitignore = {
+      url = "github:hercules-ci/gitignore.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     zen-browser = {
@@ -71,34 +67,26 @@
     };
     nixcord = {
       url = "github:kaylorben/nixcord";
-      inputs = {
-        flake-parts.follows = "flake-parts";
-        flake-compat.follows = "flake-compat";
-        nixpkgs.follows = "nixpkgs";
-      };
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.flake-compat.follows = "flake-compat";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     stylix = {
       url = "github:danth/stylix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-        flake-parts.follows = "flake-parts";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.systems.follows = "systems";
+      inputs.flake-parts.follows = "flake-parts";
     };
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        pre-commit.follows = "git-hooks";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.pre-commit.follows = "git-hooks";
     };
     agenix = {
       url = "github:ryantm/agenix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home-manager";
-        systems.follows = "systems";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+      inputs.systems.follows = "systems";
     };
   };
 
