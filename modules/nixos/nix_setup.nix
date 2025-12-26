@@ -33,7 +33,6 @@
             "nix-command"
           ];
           trusted-users = [
-            "root"
             "@wheel"
           ]
           ++ cfg.trusted-users;
