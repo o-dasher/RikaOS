@@ -2,14 +2,9 @@
   config,
   lib,
   pkgs,
-  inputs,
   ...
 }:
 {
-
-  imports = [
-    inputs.lanzaboote.nixosModules.lanzaboote
-  ];
 
   options.secureBoot = with lib; {
     enable = mkEnableOption "secureBoot";
