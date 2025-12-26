@@ -25,9 +25,6 @@
       nixpkgs.config.allowUnfree = cfg.nixpkgs.enable;
       nix = {
         settings = {
-          substituters = nixCaches.substituters;
-          trusted-public-keys = nixCaches.trusted-public-keys;
-
           experimental-features = [
             "flakes"
             "nix-command"
@@ -37,7 +34,8 @@
           ]
           ++ cfg.trusted-users;
           auto-optimise-store = cfg.optimise;
-        };
+        }
+        // nixCaches;
 
         gc = lib.mkIf cfg.optimise {
           automatic = true;

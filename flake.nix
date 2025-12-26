@@ -27,6 +27,10 @@
       inputs.flake-parts.follows = "flake-parts";
       inputs.systems.follows = "systems";
     };
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "systems";
+    };
     nixgl = {
       url = "github:nix-community/nixGL";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -42,11 +46,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-compat.follows = "flake-compat";
       inputs.gitignore.follows = "gitignore";
-    };
-    flake-utils = {
-      url = "github:numtide/flake-utils";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.systems.follows = "systems";
     };
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
@@ -112,17 +111,20 @@
     let
       system = "x86_64-linux";
 
+      substituters = [
+        "https://nix-community.cachix.org"
+        "https://nix-gaming.cachix.org"
+        "https://hyprland.cachix.org"
+        "https://playit-nixos-module.cachix.org"
+        "https://attic.xuyh0120.win/lantian"
+        "https://cache.garnix.io"
+        "https://pre-commit-hooks.cachix.org"
+        "https://hercules-ci.cachix.org"
+      ];
+
       nixCaches = {
-        substituters = [
-          "https://nix-community.cachix.org"
-          "https://nix-gaming.cachix.org"
-          "https://hyprland.cachix.org"
-          "https://playit-nixos-module.cachix.org"
-          "https://attic.xuyh0120.win/lantian"
-          "https://cache.garnix.io"
-          "https://pre-commit-hooks.cachix.org"
-          "https://hercules-ci.cachix.org"
-        ];
+        inherit substituters;
+        trusted-substituters = substituters;
         trusted-public-keys = [
           "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
           "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="

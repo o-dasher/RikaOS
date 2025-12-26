@@ -23,10 +23,7 @@ in
 
   config = {
     userPreferences.enable = true;
-    nixSetup = {
-      enable = true;
-      trusted-users = [ cfg.profiles.nue ];
-    };
+    nixSetup.enable = true;
 
     features = {
       networking = {
