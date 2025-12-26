@@ -37,7 +37,6 @@
       url = "github:nix-community/nixGL";
       inputs = {
         flake-utils.follows = "flake-utils";
-        nixpkgs.follows = "nixpkgs";
       };
     };
     nixcord = {
@@ -58,7 +57,6 @@
     };
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
     agenix = {
