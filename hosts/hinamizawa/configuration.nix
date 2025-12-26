@@ -70,6 +70,12 @@ in
     # Disk encryption
     initrd.luks.devices."luks-36bb58a5-3907-4ecc-99b8-3133907e4ab3".device =
       "/dev/disk/by-uuid/36bb58a5-3907-4ecc-99b8-3133907e4ab3";
+
+    loader.limine.extraEntries = ''
+      /Windows 11
+        protocol: efi
+        path: guid(f889eb86-9fec-4947-8453-99b4fa6789be):/EFI/Microsoft/Boot/bootmgfw.efi
+    '';
   };
 
   fileSystems =
