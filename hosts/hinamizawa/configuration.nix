@@ -20,9 +20,6 @@ in
   nixSetup = {
     enable = true;
     nixpkgs.enable = true;
-    trusted-users = [
-      cfg.profiles.rika
-    ];
   };
 
   multiUserFiles = {
