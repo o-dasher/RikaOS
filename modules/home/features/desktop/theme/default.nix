@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, config, options, ... }:
 let
   cfg = config.theme;
   anyThemeEnabled = cfg.cirnold.enable || cfg.graduation.enable || cfg.sakuyadaora.enable;
@@ -16,11 +16,11 @@ in
     ./sakuyadaora.nix
   ];
 
-  config = lib.mkIf anyThemeEnabled {
+  config = lib.mkIf anyThemeEnabled (lib.optionalAttrs (options ? stylix) {
     stylix = {
       enable = true;
       polarity = "dark";
       targets.nixcord.enable = false;
     };
-  };
+  });
 }

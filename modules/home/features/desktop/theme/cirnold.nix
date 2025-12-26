@@ -1,6 +1,6 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, options, ... }:
 {
-  config = lib.mkIf config.theme.cirnold.enable {
+  config = lib.mkIf config.theme.cirnold.enable (lib.optionalAttrs (options ? stylix) {
     stylix =
       let
         brightness = toString (-10);
@@ -24,5 +24,5 @@
           terminal = 0.95;
         };
       };
-  };
+  });
 }
