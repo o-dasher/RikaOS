@@ -29,7 +29,7 @@ in
           [
             {
               lg = lib.getExe lazygit;
-              yay = "${updateFlake privateFlake} && ${updateFlake publicFlake} && ${lib.getExe nh} os switch";
+              yay = "${updateFlake publicFlake} && ${updateFlake privateFlake} && ${lib.getExe nh} os switch";
             }
             (aliase bash { sail = "vendor/bin/sail"; })
             (
