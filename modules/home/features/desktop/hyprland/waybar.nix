@@ -104,13 +104,13 @@ in
 
             pulseaudio =
               let
-                wheelstep = toString 0.1;
-                pactl = "${pkgs.pulseaudio}/bin/pactl";
+                wheelstep = "1%";
+                wpctl = "${pkgs.wireplumber}/bin/wpctl";
               in
               {
-                on-click = "pavucontrol";
-                on-scroll-up = "${pactl} -- set-sink-volume @DEFAULT_SINK@ +${wheelstep}dB";
-                on-scroll-down = "${pactl} -- set-sink-volume @DEFAULT_SINK@ -${wheelstep}dB";
+                on-click = "${lib.getExe pkgs.pwvucontrol}";
+                on-scroll-up = "${wpctl} set-volume @DEFAULT_AUDIO_SINK@ ${wheelstep}+";
+                on-scroll-down = "${wpctl} set-volume @DEFAULT_AUDIO_SINK@ ${wheelstep}-";
                 format = "{icon}  {volume}% {format_source}";
                 format-bluetooth = "{icon} {volume}% {format_source}";
                 format-bluetooth-muted = " {format_source}";
