@@ -279,7 +279,6 @@
               [
                 nixfmt-rfc-style
                 stylua
-                prettierd
               ]
             );
           };
