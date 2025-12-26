@@ -70,12 +70,9 @@ in
     initrd.luks.devices."luks-36bb58a5-3907-4ecc-99b8-3133907e4ab3".device =
       "/dev/disk/by-uuid/36bb58a5-3907-4ecc-99b8-3133907e4ab3";
 
-    loader.systemd-boot.windows = {
-      "nvme0n1p1" = {
-        title = "Windows 11";
-        efiDeviceHandle = "HD1B";
-        sortKey = "a_windows";
-      };
+    loader.systemd-boot.windows."11" = {
+      efiDeviceHandle = "HD0b";
+      sortKey = "00";
     };
   };
 
