@@ -2,10 +2,11 @@
   pkgs,
   lib,
   config,
+  options,
   ...
 }:
 {
-  config = lib.mkIf config.theme.sakuyadaora.enable {
+  config = lib.mkIf config.theme.sakuyadaora.enable (lib.optionalAttrs (options ? stylix) {
     stylix = {
       image = ../../../../../assets/Wallpapers/sakuyadaora.jpg;
       base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
@@ -18,5 +19,5 @@
           terminal = v;
         };
     };
-  };
+  });
 }

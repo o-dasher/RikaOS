@@ -1,6 +1,6 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, options, ... }:
 {
-  config = lib.mkIf config.theme.graduation.enable {
+  config = lib.mkIf config.theme.graduation.enable (lib.optionalAttrs (options ? stylix) {
     stylix = {
       image = ../../../../../assets/Wallpapers/graduation.png;
       base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
@@ -22,5 +22,5 @@
           terminal = v;
         };
     };
-  };
+  });
 }

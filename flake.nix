@@ -198,7 +198,6 @@
         agenix.homeManagerModules.default
         nixcord.homeModules.nixcord
         mnw.homeManagerModules.mnw
-        stylix.homeModules.stylix
         zen-browser.homeModules.twilight
         ./modules/home
       ];
@@ -263,6 +262,7 @@
           inherit pkgs;
           modules = commonHomeModules ++ [
             ./hosts/${targetHostName}/users/${username}
+            stylix.homeModules.stylix
           ];
           extraSpecialArgs = commonArgs // {
             inherit nixgl;

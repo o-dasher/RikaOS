@@ -6,7 +6,4 @@
     ./user_preferences.nix
     ./features
   ];
-
-  stylix.homeManagerIntegration.autoImport = false;
-  stylix.homeManagerIntegration.followSystem = false;
 }
