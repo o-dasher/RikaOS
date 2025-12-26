@@ -19,14 +19,17 @@ in
         let
           aliase = pkg: kvpairs: prefixset (lib.getExe pkg) kvpairs;
 
-          privateRepoFolder = "${config.multiUserFiles.sharedFolders.configurationRoot}/private";
+          publicFlake = "${config.multiUserFiles.sharedFolders.configurationRoot}/public";
+          privateFlake = "${config.multiUserFiles.sharedFolders.configurationRoot}/private";
+
+          updateFlake = flake: "${lib.getExe pkgs.nix} flake update --flake ${flake}";
         in
         lib.mkMerge (
           with pkgs;
           [
             {
               lg = lib.getExe lazygit;
-              yay = "${lib.getExe nix} flake update --flake ${privateRepoFolder} && ${lib.getExe nh} os switch";
+              yay = "${updateFlake privateFlake} && ${updateFlake publicFlake} && ${lib.getExe nh} os switch";
             }
             (aliase bash { sail = "vendor/bin/sail"; })
             (
@@ -36,7 +39,7 @@ in
               ))
               (
                 aliase pkgs.nh {
-                  hm = "home switch --flake ${privateRepoFolder}";
+                  hm = "home switch --flake ${privateFlake}";
                 }
               )
             )
