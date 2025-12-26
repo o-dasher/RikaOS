@@ -35,18 +35,7 @@
     };
     nixgl = {
       url = "github:nix-community/nixGL";
-      inputs = {
-        flake-utils.follows = "flake-utils";
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
-    nixcord = {
-      url = "github:kaylorben/nixcord";
-      inputs = {
-        flake-parts.follows = "flake-parts";
-        flake-compat.follows = "flake-compat";
-        nixpkgs.follows = "nixpkgs";
-      };
+      inputs.flake-utils.follows = "flake-utils";
     };
     neovim-nightly = {
       url = "github:nix-community/neovim-nightly-overlay";
@@ -55,19 +44,6 @@
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
       inputs.flake-parts.follows = "flake-parts";
-    };
-    zen-browser = {
-      url = "github:0xc000022070/zen-browser-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
-    };
-    agenix = {
-      url = "github:ryantm/agenix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home-manager";
-        systems.follows = "systems";
-      };
     };
     git-hooks = {
       url = "github:cachix/git-hooks.nix";
@@ -88,6 +64,19 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
+    nixcord = {
+      url = "github:kaylorben/nixcord";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        flake-compat.follows = "flake-compat";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
     stylix = {
       url = "github:danth/stylix";
       inputs = {
@@ -101,6 +90,14 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         pre-commit.follows = "git-hooks";
+      };
+    };
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+        systems.follows = "systems";
       };
     };
   };
