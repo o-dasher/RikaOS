@@ -79,7 +79,7 @@ in
           }"
           ((lib.mkIf (config.desktop.hyprland.waybar.enable)) (lib.getExe pkgs.waybar))
           (lib.getExe pkgs.lxqt.lxqt-policykit)
-          "[workspace 10 silent] ${lib.getExe pkgs.vesktop} --start-minimized"
+          "[workspace 3 silent] ${lib.getExe pkgs.vesktop} --start-minimized"
           "[workspace 10 silent] ${lib.getExe pkgs.discord} --start-minimized"
           "[workspace 10 silent] ${lib.getExe pkgs.qbittorrent}"
           "[workspace 10 silent] ${lib.getExe pkgs.steam} -silent"
