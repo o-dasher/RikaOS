@@ -13,11 +13,23 @@
     hardware.opentabletdriver.enable = true;
 
     programs = {
-      steam.enable = true;
-      steam.remotePlay.openFirewall = true;
       gamemode.enable = true;
-      gamescope.enable = true;
-      gamescope.capSysNice = false;
+      gamescope = {
+        enable = true;
+        capSysNice = false;
+      };
+      steam = {
+        enable = true;
+        remotePlay.openFirewall = true;
+        gamescopeSession = {
+          enable = true;
+          steamArgs = [
+            "-console"
+            "-tenfoot"
+            "-pipewire-dmabuf"
+          ];
+        };
+      };
     };
 
     services.ananicy = {
