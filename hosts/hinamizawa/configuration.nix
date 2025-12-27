@@ -28,7 +28,10 @@ in
     ];
     shared-steam-library = {
       enable = true;
-      users = [ cfg.profiles.rika ];
+      users = [
+        cfg.profiles.rika
+        cfg.profiles.satoko
+      ];
     };
   };
 
@@ -44,6 +47,13 @@ in
     displayManager.gdm.enable = true;
   };
 
+  programs.steam.gamescopeSession.args = [
+    "-W 1920"
+    "-H 1080"
+    "-r 240"
+    "--fullscreen"
+  ];
+
   features = {
     graphics.enable = true;
     hardware.amdgpu.enable = true;
@@ -51,6 +61,7 @@ in
     gaming.enable = true;
     audio.enable = true;
     virtualization.enable = true;
+    networking.enable = true;
     desktop.hyprland.enable = true;
     services = {
       bluetooth.enable = true;
@@ -63,7 +74,6 @@ in
       enable = true;
       cachy.enable = true;
     };
-    networking.enable = true;
   };
 
   boot = {
@@ -107,6 +117,15 @@ in
           "video"
           "render"
           "adbusers"
+          "gamemode"
+        ];
+      };
+      ${cfg.profiles.satoko} = {
+        isNormalUser = true;
+        shell = pkgs.fish;
+        extraGroups = [
+          "video"
+          "render"
           "gamemode"
         ];
       };
