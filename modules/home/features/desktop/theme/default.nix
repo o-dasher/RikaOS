@@ -1,19 +1,22 @@
 { lib, config, options, ... }:
 let
   cfg = config.theme;
-  anyThemeEnabled = cfg.cirnold.enable || cfg.graduation.enable || cfg.sakuyadaora.enable;
+  anyThemeEnabled =
+    cfg.cirnold.enable || cfg.graduation.enable || cfg.sakuyadaora.enable || cfg.lain.enable;
 in
 {
   options.theme = with lib; {
     cirnold.enable = mkEnableOption "Cirnold theme";
     graduation.enable = mkEnableOption "Graduation theme";
     sakuyadaora.enable = mkEnableOption "Sakuyadaora theme";
+    lain.enable = mkEnableOption "Lain theme";
   };
 
   imports = [
     ./cirnold.nix
     ./graduation.nix
     ./sakuyadaora.nix
+    ./lain.nix
   ];
 
   config = lib.mkIf anyThemeEnabled (lib.optionalAttrs (options ? stylix) {

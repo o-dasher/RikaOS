@@ -22,6 +22,7 @@
   games = {
     minecraft.enable = true;
     osu.enable = true;
+    ps4.enable = true;
   };
 
   home.packages = with pkgs; [
