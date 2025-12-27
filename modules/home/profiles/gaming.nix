@@ -9,9 +9,6 @@
 
   config = lib.mkIf config.profiles.gaming.enable {
     programs.mangohud.enable = true;
-    home.packages = with pkgs; [
-      shadps4
-    ];
 
     games = {
       goverlay.enable = true;

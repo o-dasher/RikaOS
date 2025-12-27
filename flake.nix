@@ -22,6 +22,10 @@
       url = "github:fufexan/nix-gaming";
       inputs.flake-parts.follows = "flake-parts";
     };
+    nixos-cosmic = {
+      url = "github:lilyinstarlight/nixos-cosmic";
+      inputs.flake-compat.follows = "flake-compat";
+    };
     playit-nixos-module = {
       url = "github:pedorich-n/playit-nixos-module";
       inputs.flake-parts.follows = "flake-parts";
@@ -116,6 +120,7 @@
         "https://cache.garnix.io"
         "https://pre-commit-hooks.cachix.org"
         "https://hercules-ci.cachix.org"
+        "https://cosmic.cachix.org"
       ];
 
       nixCaches = {
@@ -131,6 +136,7 @@
           "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
           "pre-commit-hooks.cachix.org-1:Pkk3Panw5AW24TOv6kz3PvLhlH8puAsJTBbOPmBo7Rc="
           "hercules-ci.cachix.org-1:ZZeDl9Va+xe9j+KqdzoBZMFJHVQ42Uu/c/1/KMC5Lw0="
+          "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
         ];
       };
 
@@ -150,6 +156,7 @@
           state = "24.11";
           profiles = {
             rika = "rika";
+            satoko = "satoko";
           };
         };
         gensokyo = {
@@ -198,6 +205,7 @@
           };
           modules = [
             ./modules/nixos
+            inputs.nixos-cosmic.nixosModules.default
             ./hosts/${targetHostName}/configuration.nix
             home-manager.nixosModules.home-manager
             stylix.nixosModules.stylix
