@@ -150,6 +150,7 @@
           state = "24.11";
           profiles = {
             rika = "rika";
+            satoko = "satoko";
           };
         };
         gensokyo = {
