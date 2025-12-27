@@ -68,14 +68,63 @@ in
       '';
     };
 
-    systemd.tmpfiles.rules = lib.concatMap (user: [
-      "L+ /home/${user}/.steam/shared/steamapps/common - - - - ${cfg.path}/steamapps/common"
-      "L+ /home/${user}/.steam/shared/steamapps/downloading - - - - ${cfg.path}/steamapps/downloading"
-      "L+ /home/${user}/.steam/shared/steamapps/shadercache - - - - ${cfg.path}/steamapps/shadercache"
-      "L+ /home/${user}/.steam/shared/steamapps/temp - - - - ${cfg.path}/steamapps/temp"
+    environment.systemPackages = [
+      (pkgs.writeShellScriptBin "setup-shared-steam-library" ''
+        set -euo pipefail
 
-      # Link compatdata to local user home
-      "L+ /home/${user}/.steam/shared/steamapps/compatdata - - - - /home/${user}/.local/share/Steam/steamapps/compatdata"
-    ]) cfg.users;
+        ${lib.concatMapStrings (user: ''
+          echo "Setting up shared steam library for user: ${user}"
+          USER_HOME="/home/${user}"
+          SHARED_ROOT="$USER_HOME/.steam/shared"
+          SHARED_STEAMAPPS="$SHARED_ROOT/steamapps"
+          SOURCE_PATH="${cfg.path}/steamapps"
+          LOCAL_STEAM="$USER_HOME/.local/share/Steam/steamapps"
+
+          # 1. Ensure the directory exists
+          if [ ! -d "$SHARED_STEAMAPPS" ]; then
+            echo "  Creating directory: $SHARED_STEAMAPPS"
+            mkdir -p "$SHARED_STEAMAPPS"
+          fi
+
+          # 2. Function to create symlink
+          create_link() {
+            local target="$1"
+            local link_name="$2"
+            
+            if [ -L "$link_name" ]; then
+              echo "  Updating existing symlink: $link_name"
+              rm "$link_name"
+            elif [ -e "$link_name" ]; then
+              echo "  WARNING: $link_name exists and is not a symlink. Skipping."
+              return
+            fi
+
+            ln -s "$target" "$link_name"
+            echo "  Linked $link_name -> $target"
+          }
+
+          # 3. Create links to the shared library
+          create_link "$SOURCE_PATH/common" "$SHARED_STEAMAPPS/common"
+          create_link "$SOURCE_PATH/downloading" "$SHARED_STEAMAPPS/downloading"
+          create_link "$SOURCE_PATH/shadercache" "$SHARED_STEAMAPPS/shadercache"
+          create_link "$SOURCE_PATH/temp" "$SHARED_STEAMAPPS/temp"
+
+          # 4. Link compatdata to the user's local install (must exist!)
+          if [ -d "$LOCAL_STEAM/compatdata" ]; then
+            create_link "$LOCAL_STEAM/compatdata" "$SHARED_STEAMAPPS/compatdata"
+          else
+            echo "  WARNING: Local compatdata not found at $LOCAL_STEAM/compatdata."
+            echo "           Please run Steam at least once to generate it."
+          fi
+
+          # 5. Fix permissions for the structure
+          # We created directories as root, so we must give them back to the user
+          echo "  Fixing permissions for $SHARED_ROOT..."
+          chown -R ${user}:${cfg.group} "$SHARED_ROOT"
+        '') cfg.users}
+
+        echo "Shared Steam Library setup complete."
+      '')
+    ];
   };
 }
