@@ -94,9 +94,9 @@ in
         monitor = [ "HDMI-A-1,1920x1080@239.76,0x0,1" ];
         # BUG: DS and tearing are mutually exclusive. It picks one depending on context.
         # e.g. Gamescope and majority of apps will tear. But native applications like
-        # osu! will try to direct scanout unless specified to tear. This can be better in the future. See:
-        # https://github.com/hyprwm/Hyprland/pull/10020 for reference.
-        render.direct_scanout = true;
+        # osu! will try to direct scanout unless specified to tear.
+        # Disabling direct_scanout to ensure tearing works for games.
+        render.direct_scanout = false;
         windowrule = [
           "tag +games, match:content game"
           "tag +games, match:class ^(steam_app_.*|gamescope|osu!)$"
