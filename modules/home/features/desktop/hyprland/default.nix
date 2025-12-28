@@ -199,7 +199,7 @@ in
               "${mod} SHIFT, P, exec, ${getExe app2unit} -- ${getExe grimblast} --notify copy area"
               "${mod} ALT, P, exec, ${getExe app2unit} -- ${getExe grimblast} --notify copy active"
 
-              "CTRL ALT, L, exec, ${getExe app2unit} ${getExe hyprlock}"
+              "CTRL ALT, L, exec, ${getExe app2unit} -- ${getExe hyprlock}"
 
               ", XF86AudioPlay, exec, ${getExe playerctl} play-pause"
               ", XF86AudioPrev, exec, ${getExe playerctl} previous"
