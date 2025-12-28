@@ -23,6 +23,7 @@ in
     home = {
       packages = with pkgs; [
         wl-clipboard
+        inputs.hyprshutdown.packages.${pkgs.stdenv.hostPlatform.system}.hyprshutdown
       ];
 
       pointerCursor = {
