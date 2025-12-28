@@ -68,7 +68,7 @@ in
           # Wayland stuff.
           "NIXOS_WAYLAND,1" # Enable Wayland support in NixOS
           "NIXOS_OZONE_WL,1" # Enable Ozone Wayland support in NixOS
-          "ELECTRON_OZONE_PLATFORM_HINT,auto" # Set Electron to automatically choose between Wayland and X11
+          "ELECTRON_OZONE_PLATFORM_HINT,auto" # Set Electron to automatically hint wayland support.
 
           # For native wayland support on osu!
           "OSU_SDL3,1"
