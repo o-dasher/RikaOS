@@ -47,6 +47,7 @@ in
   services = {
     printing.enable = true;
     openssh.enable = true;
+    qbittorrent.enable = true;
     displayManager.gdm.enable = true;
   };
 

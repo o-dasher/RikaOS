@@ -10,7 +10,6 @@
   };
 
   config = lib.mkIf config.profiles.multimedia.enable {
-    services.qbittorrent.enable = true;
     services.easyeffects.enable = true;
 
     home.packages = with pkgs; [
