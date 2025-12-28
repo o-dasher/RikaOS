@@ -48,6 +48,9 @@ in
         inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
       settings = {
         env = [
+          # app2unit slice configuration
+          "APP2UNIT_SLICES,a=app-graphical.slice b=background-graphical.slice s=session-graphical.slice"
+
           # Logging
           "AQ_TRACE,1"
           "HYPRLAND_TRACE,1"
@@ -72,20 +75,19 @@ in
           "XDG_DATA_DIRS,${config.home.profileDirectory}/share:/usr/share:$XDG_DATA_DIRS"
           "XDG_CONFIG_DIRS,${config.home.profileDirectory}/etc/xdg:/etc/xdg"
         ];
-        exec-once = [
+        exec-once = with pkgs; [
           "gsettings set org.gnome.desktop.interface cursor-theme '${config.home.pointerCursor.name}'"
           "gsettings set org.gnome.desktop.interface cursor-size ${
             toString (config.home.pointerCursor.size - 8)
           }"
-          ((lib.mkIf (config.desktop.hyprland.waybar.enable)) (lib.getExe pkgs.waybar))
-          (lib.getExe pkgs.lxqt.lxqt-policykit)
-          ((lib.mkIf config.programs.nixcord.vesktop.enable) "[workspace 3 silent] ${lib.getExe pkgs.vesktop} --start-minimized")
-          ((lib.mkIf config.programs.nixcord.discord.enable) "[workspace 10 silent] ${lib.getExe pkgs.discord} --start-minimized")
-          "[workspace 9 silent] ${lib.getExe pkgs.qbittorrent}"
-          "[workspace 9 silent] ${lib.getExe pkgs.steam} -silent"
+          "${getExe app2unit} -- ${getExe pkgs.lxqt.lxqt-policykit}"
+          ((lib.mkIf config.programs.nixcord.vesktop.enable) "[workspace 3 silent] ${getExe app2unit} -- ${getExe vesktop} --start-minimized")
+          ((lib.mkIf config.programs.nixcord.discord.enable) "[workspace 10 silent] ${getExe app2unit} -- ${getExe discord} --start-minimized")
+          "[workspace 9 silent] ${getExe app2unit} -- ${getExe qbittorrent}"
+          "[workspace 9 silent] ${getExe app2unit} -- ${getExe steam} -silent"
         ];
-        workspace = [
-          ((lib.mkIf config.programs.nixcord.vesktop.enable) "3, on-created-empty:${lib.getExe pkgs.vesktop}")
+        workspace = with pkgs; [
+          ((lib.mkIf config.programs.nixcord.vesktop.enable) "3, on-created-empty:${getExe app2unit} -- ${getExe vesktop}")
         ];
         debug = {
           disable_logs = false;
@@ -141,7 +143,7 @@ in
         };
         animations = {
           enabled = true;
-          animation = builtins.map (name: "${name}, 1, 1, default") [
+          animation = map (name: "${name}, 1, 1, default") [
             "windows"
             "border"
             "layers"
@@ -155,23 +157,25 @@ in
           "SUPER, mouse:273, resizewindow"
         ];
         binde =
+          with pkgs;
           let
             audioStep = toString 1;
           in
           [
-            ", XF86AudioRaiseVolume, exec, ${getExe pkgs.pamixer} -i ${audioStep}"
-            ", XF86AudioLowerVolume, exec, ${getExe pkgs.pamixer} -d ${audioStep}"
+            ", XF86AudioRaiseVolume, exec, ${wireplumber}/bin/wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ ${audioStep}%"
+            ", XF86AudioLowerVolume, exec, ${wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ ${audioStep}%-"
           ];
         bind =
           let
             mod = "SUPER";
           in
+          with pkgs;
           lib.mkMerge [
             (lib.mkIf config.desktop.hyprland.fuzzel.enable [
-              "${mod}, D, exec, pkill ${getExe pkgs.fuzzel}|| ${getExe pkgs.fuzzel}"
+              "${mod}, D, exec, pkill ${getExe fuzzel}|| ${getExe app2unit} -- ${getExe fuzzel}"
             ])
             [
-              "${mod}, RETURN, exec, ${getExe pkgs.xdg-terminal-exec}"
+              "${mod}, RETURN, exec, ${getExe app2unit} -- ${getExe xdg-terminal-exec}"
 
               "${mod}, F, fullscreen"
               "${mod}, C, killactive"
@@ -197,26 +201,26 @@ in
               "${mod} SHIFT, J, moveintogroup, d"
               "${mod} SHIFT, U, moveoutofgroup"
 
-              "${mod}, P, exec, ${getExe pkgs.grimblast} --notify copy screen"
-              "${mod} SHIFT, P, exec, ${getExe pkgs.grimblast} --notify copy area"
-              "${mod} ALT, P, exec, ${getExe pkgs.grimblast} --notify copy active"
+              "${mod}, P, exec, ${getExe grimblast} --notify copy screen"
+              "${mod} SHIFT, P, exec, ${getExe grimblast} --notify copy area"
+              "${mod} ALT, P, exec, ${getExe grimblast} --notify copy active"
 
-              "CTRL ALT, L, exec, ${getExe pkgs.hyprlock}"
+              "CTRL ALT, L, exec, ${getExe app2unit} ${getExe hyprlock}"
 
-              ", XF86AudioPlay, exec, ${getExe pkgs.playerctl} play-pause"
-              ", XF86AudioPrev, exec, ${getExe pkgs.playerctl} previous"
-              ", XF86AudioNext, exec, ${getExe pkgs.playerctl} next"
-              ", XF86AudioStop, exec, ${getExe pkgs.playerctl} stop"
+              ", XF86AudioPlay, exec, ${getExe playerctl} play-pause"
+              ", XF86AudioPrev, exec, ${getExe playerctl} previous"
+              ", XF86AudioNext, exec, ${getExe playerctl} next"
+              ", XF86AudioStop, exec, ${getExe playerctl} stop"
 
-              ", XF86AudioMicMute, exec, ${getExe pkgs.pamixer} --default-source --toggle-mute"
-              ", XF86AudioMute, exec, ${getExe pkgs.pamixer} --toggle-mute"
+              ", XF86AudioMicMute, exec, ${wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+              ", XF86AudioMute, exec, ${wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
             ]
             (builtins.concatLists (
               builtins.genList (
                 x:
                 let
                   workspace = x + 1;
-                  key = builtins.toString (workspace - ((workspace / 10) * 10));
+                  key = toString (workspace - ((workspace / 10) * 10));
                 in
                 [
                   "${mod}, ${key}, workspace, ${toString workspace}"
