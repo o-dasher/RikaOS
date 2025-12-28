@@ -2,7 +2,7 @@
 {
   options.games.minecraft.enable = lib.mkEnableOption "minecraft";
 
-  config = lib.mkIf config.games.minecraft.enable {
+  config = lib.mkIf (config.games.enable && config.games.minecraft.enable) {
     home.packages = [
       (pkgs.prismlauncher.override {
         jdks = [
