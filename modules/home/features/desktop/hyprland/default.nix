@@ -83,9 +83,6 @@ in
             "${getExe app2unit} -- ${getExe pkgs.lxqt.lxqt-policykit}"
             "[workspace 9 silent] ${getExe app2unit} -- ${getExe qbittorrent}"
           ]
-          ++ lib.optionals config.games.enable [
-            "[workspace 9 silent] ${getExe app2unit} -- ${getExe steam} -silent"
-          ]
           ++ lib.optionals config.programs.nixcord.vesktop.enable [
             "[workspace 3 silent] ${getExe app2unit} -- ${getExe vesktop} --start-minimized"
           ]

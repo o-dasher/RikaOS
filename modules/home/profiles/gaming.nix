@@ -11,6 +11,7 @@
 
     games = {
       enable = true;
+      steam.enable = true;
       goverlay.enable = true;
       heroic.enable = true;
       lutris.enable = true;

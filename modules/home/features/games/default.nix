@@ -6,6 +6,7 @@
     ./goverlay.nix
     ./heroic.nix
     ./ps4.nix
+    ./steam.nix
     ./lutris.nix
   ];
 
