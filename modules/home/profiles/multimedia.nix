@@ -10,11 +10,10 @@
   };
 
   config = lib.mkIf config.profiles.multimedia.enable {
+    services.qbittorrent.enable = true;
     services.easyeffects.enable = true;
-    home.packages = with pkgs; [
-      # downloading
-      qbittorrent
 
+    home.packages = with pkgs; [
       # video
       kdePackages.kdenlive
       obs-studio
