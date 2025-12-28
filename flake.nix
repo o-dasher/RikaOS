@@ -13,16 +13,6 @@
       inputs.pre-commit-hooks.follows = "git-hooks";
       inputs.systems.follows = "systems";
     };
-    hyprshutdown = {
-      url = "github:hyprwm/hyprshutdown";
-      inputs = {
-        nixpkgs.follows = "hyprland/nixpkgs";
-        systems.follows = "hyprland/systems";
-        aquamarine.follows = "hyprland/aquamarine";
-        hyprgraphics.follows = "hyprland/hyprgraphics";
-        hyprutils.follows = "hyprland/hyprutils";
-      };
-    };
     nix-cachyos-kernel = {
       url = "github:xddxdd/nix-cachyos-kernel/release";
       inputs.flake-compat.follows = "flake-compat";
