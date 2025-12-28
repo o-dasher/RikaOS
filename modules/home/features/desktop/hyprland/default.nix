@@ -87,7 +87,7 @@ in
             "[workspace 3 silent] ${getExe app2unit} -- ${getExe vesktop} --start-minimized"
           ]
           ++ lib.optionals config.programs.nixcord.discord.enable [
-            "[workspace 10 silent] ${getExe app2unit} -- ${getExe discord} --start-minimized"
+            "[workspace 9 silent] ${getExe app2unit} -- ${getExe discord} --start-minimized"
           ];
         workspace =
           with pkgs;
