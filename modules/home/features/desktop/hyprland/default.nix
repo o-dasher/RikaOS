@@ -19,6 +19,7 @@ in
 
   config = lib.mkIf config.desktop.hyprland.enable {
     programs.hyprlock.enable = true;
+    services.hyprpolkitagent.enable = true;
 
     home = {
       packages = with pkgs; [
@@ -79,10 +80,7 @@ in
         ];
         exec-once =
           with pkgs;
-          [
-            "${getExe app2unit} -- ${getExe pkgs.lxqt.lxqt-policykit}"
-          ]
-          ++ lib.optionals config.programs.nixcord.vesktop.enable [
+          lib.optionals config.programs.nixcord.vesktop.enable [
             "[workspace 3 silent] ${getExe app2unit} -- ${getExe vesktop} --start-minimized"
           ]
           ++ lib.optionals config.programs.nixcord.discord.enable [
