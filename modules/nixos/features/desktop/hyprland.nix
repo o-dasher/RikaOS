@@ -12,7 +12,7 @@
 
   config = lib.mkIf config.features.desktop.hyprland.enable {
     programs = {
-      # BUG: workanround https://github.com/hyprwm/Hyprland/discussions/12661
+      # BUG: workaround https://github.com/hyprwm/Hyprland/discussions/12661
       uwsm.waylandCompositors.hyprland.binPath = lib.mkForce "/run/current-system/sw/bin/start-hyprland";
 
       hyprland = {
