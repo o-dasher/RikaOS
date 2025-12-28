@@ -195,9 +195,9 @@ in
               "${mod} SHIFT, J, moveintogroup, d"
               "${mod} SHIFT, U, moveoutofgroup"
 
-              "${mod}, P, exec, ${getExe grimblast} --notify copy screen"
-              "${mod} SHIFT, P, exec, ${getExe grimblast} --notify copy area"
-              "${mod} ALT, P, exec, ${getExe grimblast} --notify copy active"
+              "${mod}, P, exec, ${getExe app2unit} -- ${getExe grimblast} --notify copy screen"
+              "${mod} SHIFT, P, exec, ${getExe app2unit} -- ${getExe grimblast} --notify copy area"
+              "${mod} ALT, P, exec, ${getExe app2unit} -- ${getExe grimblast} --notify copy active"
 
               "CTRL ALT, L, exec, ${getExe app2unit} ${getExe hyprlock}"
 
