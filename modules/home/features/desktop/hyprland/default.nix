@@ -37,7 +37,14 @@ in
       };
     };
 
-    gtk.enable = true;
+    gtk = {
+      enable = true;
+      cursorTheme = {
+        name = config.home.pointerCursor.name;
+        package = config.home.pointerCursor.package;
+      };
+    };
+
     xdg.portal = {
       enable = true;
       extraPortals = with pkgs; [
@@ -72,7 +79,6 @@ in
         exec-once =
           with pkgs;
           [
-            "gsettings set org.gnome.desktop.interface cursor-theme '${config.home.pointerCursor.name}'"
             "${getExe app2unit} -- ${getExe pkgs.lxqt.lxqt-policykit}"
             "[workspace 9 silent] ${getExe app2unit} -- ${getExe qbittorrent}"
             "[workspace 9 silent] ${getExe app2unit} -- ${getExe steam} -silent"
@@ -83,7 +89,6 @@ in
           ++ lib.optionals config.programs.nixcord.discord.enable [
             "[workspace 10 silent] ${getExe app2unit} -- ${getExe discord} --start-minimized"
           ];
-
         workspace =
           with pkgs;
           lib.optionals config.programs.nixcord.vesktop.enable [
