@@ -10,7 +10,10 @@
   };
 
   config = lib.mkIf config.features.gaming.enable {
-    hardware.opentabletdriver.enable = true;
+    hardware.opentabletdriver = {
+      enable = true;
+      daemon.enable = true;
+    };
 
     programs = {
       gamemode.enable = true;
