@@ -18,6 +18,7 @@ in
     lib.mkIf (config.desktop.hyprland.enable && config.desktop.hyprland.waybar.enable)
       {
         enable = true;
+        systemd.enable = true;
         settings.main =
           let
             define_temperature_sensor = name: i: j: {
