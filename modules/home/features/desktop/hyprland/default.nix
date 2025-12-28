@@ -25,6 +25,11 @@ in
         wl-clipboard
       ];
 
+      sessionVariables = {
+        # app2unit slice configuration
+        APP2UNIT_SLICES = "a=app-graphical.slice b=background-graphical.slice s=session-graphical.slice";
+      };
+
       pointerCursor = {
         name = "BreezeX-RosePine-Linux";
         hyprcursor.enable = true;
@@ -48,9 +53,6 @@ in
         inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
       settings = {
         env = [
-          # app2unit slice configuration
-          "APP2UNIT_SLICES,a=app-graphical.slice b=background-graphical.slice s=session-graphical.slice"
-
           # Logging
           "AQ_TRACE,1"
           "HYPRLAND_TRACE,1"
@@ -58,22 +60,14 @@ in
           # Wayland stuff.
           "NIXOS_WAYLAND,1" # Enable Wayland support in NixOS
           "NIXOS_OZONE_WL,1" # Enable Ozone Wayland support in NixOS
+          "ELECTRON_OZONE_PLATFORM_HINT,auto" # Set Electron to automatically choose between Wayland and X11
 
           # For native wayland support on osu!
           "OSU_SDL3,1"
           "SDL_VIDEODRIVER,wayland"
 
-          "ELECTRON_OZONE_PLATFORM_HINT,auto" # Set Electron to automatically choose between Wayland and X11
           "XDG_CURRENT_DESKTOP,Hyprland" # Set xdg desktop to hyprland
-          "PATH,${config.home.profileDirectory}/bin:${
-            pkgs.lib.makeBinPath [
-              pkgs.coreutils
-              pkgs.bash
-            ]
-          }:$PATH"
           "GTK_IM_MODULE, simple" # Fixes dead keys. e.g ~.
-          "XDG_DATA_DIRS,${config.home.profileDirectory}/share:/usr/share:$XDG_DATA_DIRS"
-          "XDG_CONFIG_DIRS,${config.home.profileDirectory}/etc/xdg:/etc/xdg"
         ];
         exec-once = with pkgs; [
           "gsettings set org.gnome.desktop.interface cursor-theme '${config.home.pointerCursor.name}'"
