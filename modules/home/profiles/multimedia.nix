@@ -11,6 +11,7 @@
 
   config = lib.mkIf config.profiles.multimedia.enable {
     services.easyeffects.enable = true;
+    services.qbittorrent.enable = true;
 
     programs = {
       # Video
