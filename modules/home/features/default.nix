@@ -5,6 +5,7 @@
     ./editors
     ./dev
     ./games
+    ./services
     ./terminal
   ];
 }
