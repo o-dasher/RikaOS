@@ -21,22 +21,10 @@ in
     programs.hyprlock.enable = true;
     services.hyprpolkitagent.enable = true;
 
-    home = {
-      packages = with pkgs; [
-        wl-clipboard
-      ];
-
-      # In case of missing variables on standalone systems: https://github.com/o-dasher/RikaOS/commit/6675dce5fba3d213f7cc408e5941607de2ac5cf3
-      sessionVariables = {
-        # app2unit slice configuration
-        APP2UNIT_SLICES = "a=app-graphical.slice b=background-graphical.slice s=session-graphical.slice";
-      };
-
-      pointerCursor = {
-        name = "BreezeX-RosePine-Linux";
-        hyprcursor.enable = true;
-        package = pkgs.rose-pine-cursor;
-      };
+    home.pointerCursor = {
+      name = "BreezeX-RosePine-Linux";
+      hyprcursor.enable = true;
+      package = pkgs.rose-pine-cursor;
     };
 
     gtk = {
@@ -66,17 +54,7 @@ in
           "AQ_TRACE,1"
           "HYPRLAND_TRACE,1"
 
-          # Wayland stuff.
-          "NIXOS_WAYLAND,1" # Enable Wayland support in NixOS
-          "NIXOS_OZONE_WL,1" # Enable Ozone Wayland support in NixOS
-          "ELECTRON_OZONE_PLATFORM_HINT,auto" # Set Electron to automatically hint wayland support.
-
-          # For native wayland support on osu!
-          "OSU_SDL3,1"
-          "SDL_VIDEODRIVER,wayland"
-
           "XDG_CURRENT_DESKTOP,Hyprland" # Set xdg desktop to hyprland
-          "GTK_IM_MODULE, simple" # Fixes dead keys. e.g ~.
         ];
         exec-once =
           with pkgs;

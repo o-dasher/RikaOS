@@ -3,5 +3,6 @@
     ./fonts.nix
     ./hyprland
     ./theme
+    ./wayland
   ];
 }
