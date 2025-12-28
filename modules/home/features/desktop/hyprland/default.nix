@@ -25,6 +25,7 @@ in
         wl-clipboard
       ];
 
+      # In case of missing variables on standalone systems: https://github.com/o-dasher/RikaOS/commit/6675dce5fba3d213f7cc408e5941607de2ac5cf3
       sessionVariables = {
         # app2unit slice configuration
         APP2UNIT_SLICES = "a=app-graphical.slice b=background-graphical.slice s=session-graphical.slice";
