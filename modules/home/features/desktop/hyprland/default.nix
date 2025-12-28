@@ -48,6 +48,8 @@ in
       portalPackage =
         inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
       settings = {
+        # BUG: Ignores UWSM related warning until: https://github.com/hyprwm/Hyprland/discussions/12661 is fixed.
+        misc.disable_watchdog_warning = true;
         env = [
           # Logging
           "AQ_TRACE,1"
