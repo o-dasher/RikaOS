@@ -13,6 +13,20 @@
     services.easyeffects.enable = true;
 
     home.packages = with pkgs; [
+      (pkgs.makeDesktopItem {
+        name = "qBittorrent-PWA";
+        desktopName = "qBittorrent";
+        genericName = "Torrent Client";
+        exec = "${lib.getExe pkgs.ungoogled-chromium} --app=http://localhost:8080";
+        icon = "qbittorrent";
+        terminal = false;
+        type = "Application";
+        categories = [
+          "Network"
+          "P2P"
+        ];
+      })
+
       # video
       kdePackages.kdenlive
       obs-studio
