@@ -69,20 +69,26 @@ in
           "XDG_CURRENT_DESKTOP,Hyprland" # Set xdg desktop to hyprland
           "GTK_IM_MODULE, simple" # Fixes dead keys. e.g ~.
         ];
-        exec-once = with pkgs; [
-          "gsettings set org.gnome.desktop.interface cursor-theme '${config.home.pointerCursor.name}'"
-          "gsettings set org.gnome.desktop.interface cursor-size ${
-            toString (config.home.pointerCursor.size - 8)
-          }"
-          "${getExe app2unit} -- ${getExe pkgs.lxqt.lxqt-policykit}"
-          ((lib.mkIf config.programs.nixcord.vesktop.enable) "[workspace 3 silent] ${getExe app2unit} -- ${getExe vesktop} --start-minimized")
-          ((lib.mkIf config.programs.nixcord.discord.enable) "[workspace 10 silent] ${getExe app2unit} -- ${getExe discord} --start-minimized")
-          "[workspace 9 silent] ${getExe app2unit} -- ${getExe qbittorrent}"
-          "[workspace 9 silent] ${getExe app2unit} -- ${getExe steam} -silent"
-        ];
-        workspace = with pkgs; [
-          ((lib.mkIf config.programs.nixcord.vesktop.enable) "3, on-created-empty:${getExe app2unit} -- ${getExe vesktop}")
-        ];
+        exec-once =
+          with pkgs;
+          [
+            "gsettings set org.gnome.desktop.interface cursor-theme '${config.home.pointerCursor.name}'"
+            "${getExe app2unit} -- ${getExe pkgs.lxqt.lxqt-policykit}"
+            "[workspace 9 silent] ${getExe app2unit} -- ${getExe qbittorrent}"
+            "[workspace 9 silent] ${getExe app2unit} -- ${getExe steam} -silent"
+          ]
+          ++ lib.optionals config.programs.nixcord.vesktop.enable [
+            "[workspace 3 silent] ${getExe app2unit} -- ${getExe vesktop} --start-minimized"
+          ]
+          ++ lib.optionals config.programs.nixcord.discord.enable [
+            "[workspace 10 silent] ${getExe app2unit} -- ${getExe discord} --start-minimized"
+          ];
+
+        workspace =
+          with pkgs;
+          lib.optionals config.programs.nixcord.vesktop.enable [
+            "3, on-created-empty:${getExe app2unit} -- ${getExe vesktop}"
+          ];
         debug = {
           disable_logs = false;
           full_cm_proto = 1; # Gamescope.
@@ -166,7 +172,7 @@ in
           with pkgs;
           lib.mkMerge [
             (lib.mkIf config.desktop.hyprland.fuzzel.enable [
-              "${mod}, D, exec, pkill ${getExe fuzzel}|| ${getExe app2unit} -- ${getExe fuzzel}"
+              "${mod}, D, exec, pkill -x fuzzel || ${getExe app2unit} -- ${getExe fuzzel}"
             ])
             [
               "${mod}, RETURN, exec, ${getExe app2unit} -- ${getExe xdg-terminal-exec}"
