@@ -10,6 +10,7 @@
     programs.mangohud.enable = true;
 
     games = {
+      enable = true;
       goverlay.enable = true;
       heroic.enable = true;
       lutris.enable = true;

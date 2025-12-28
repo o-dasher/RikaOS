@@ -2,7 +2,7 @@
 {
   options.games.goverlay.enable = lib.mkEnableOption "goverlay";
 
-  config = lib.mkIf config.games.goverlay.enable {
+  config = lib.mkIf (config.games.enable && config.games.goverlay.enable) {
     home.packages = [ pkgs.goverlay ];
   };
 }

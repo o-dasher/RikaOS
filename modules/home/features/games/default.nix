@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 {
   imports = [
     ./osu.nix
@@ -8,4 +8,6 @@
     ./ps4.nix
     ./lutris.nix
   ];
+
+  options.games.enable = lib.mkEnableOption "Games";
 }
