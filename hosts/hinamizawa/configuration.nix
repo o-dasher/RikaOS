@@ -28,6 +28,7 @@ in
   multiUserFiles = {
     sharedFolders.folderNames = [
       "/shared/Games"
+      "/shared/Media"
     ];
     shared-steam-library = {
       enable = true;
