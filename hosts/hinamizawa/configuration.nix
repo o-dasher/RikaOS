@@ -15,7 +15,10 @@ in
   ];
 
   userPreferences.enable = true;
-  secureBoot.enable = true;
+  secureBoot = {
+    enable = true;
+    encryptionUnlock.enable = true;
+  };
 
   nixSetup = {
     enable = true;
