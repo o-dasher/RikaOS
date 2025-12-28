@@ -12,6 +12,15 @@
   config = lib.mkIf config.profiles.multimedia.enable {
     services.easyeffects.enable = true;
 
+    programs = {
+      # Video
+      obs-studio.enable = true;
+      mpv.enable = true;
+
+      # documents / study
+      zathura.enable = true;
+    };
+
     home.packages = with pkgs; [
       (pkgs.makeDesktopItem {
         name = "qBittorrent-PWA";
@@ -29,8 +38,6 @@
 
       # video
       kdePackages.kdenlive
-      obs-studio
-      mpv
 
       # drawing
       aseprite
@@ -42,9 +49,6 @@
 
       # music
       spotify
-
-      # documents / study
-      zathura
     ];
   };
 }
