@@ -82,8 +82,8 @@ in
           (lib.getExe pkgs.lxqt.lxqt-policykit)
           ((lib.mkIf config.programs.nixcord.vesktop.enable) "[workspace 3 silent] ${lib.getExe pkgs.vesktop} --start-minimized")
           ((lib.mkIf config.programs.nixcord.discord.enable) "[workspace 10 silent] ${lib.getExe pkgs.discord} --start-minimized")
-          "[workspace 10 silent] ${lib.getExe pkgs.qbittorrent}"
-          "[workspace 10 silent] ${lib.getExe pkgs.steam} -silent"
+          "[workspace 9 silent] ${lib.getExe pkgs.qbittorrent}"
+          "[workspace 9 silent] ${lib.getExe pkgs.steam} -silent"
         ];
         workspace = [
           ((lib.mkIf config.programs.nixcord.vesktop.enable) "3, on-created-empty:${lib.getExe pkgs.vesktop}")
