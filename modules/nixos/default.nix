@@ -5,5 +5,7 @@
     ./nix_setup.nix
     ./user_preferences.nix
     ./features
+    ../common/theme
   ];
 }
+

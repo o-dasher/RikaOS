@@ -34,6 +34,7 @@
     terminal.ghostty.enable = true;
 
     home.packages = with pkgs; [
+      antigravity-fhs
       wget
       heroku
     ];
