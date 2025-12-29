@@ -3,9 +3,9 @@ rec {
   selectiveSymLink =
     from: to: paths: opts:
     lib.mkMerge (
-      map (path: {
-        "${to}/${path}" = {
-          source = config.lib.file.mkOutOfStoreSymlink (builtins.toPath /. + "${from}/${path}");
+      map (filePath: {
+        "${to}/${filePath}" = {
+          source = config.lib.file.mkOutOfStoreSymlink (builtins.toPath /. + "${from}/${filePath}");
         }
         // opts;
       }) paths
