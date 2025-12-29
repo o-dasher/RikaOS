@@ -29,6 +29,7 @@
 
         loader = {
           efi.canTouchEfiVariables = true;
+          systemd-boot.enable = false;
           limine = {
             enable = true;
             secureBoot.enable = true;
