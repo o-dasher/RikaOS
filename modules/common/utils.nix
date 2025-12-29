@@ -13,7 +13,7 @@ rec {
 
   xdgConfigSelectiveSymLink =
     to: paths: opts:
-    selectiveSymLink ../dotfiles/${to} ".config/${to}" paths opts;
+    selectiveSymLink ../../dotfiles/${to} ".config/${to}" paths opts;
 
   prefixset =
     prefix: kvpairs:
