@@ -10,5 +10,6 @@
     ./networking
     ./services
     ./virtualization
+    ./themes
   ];
 }

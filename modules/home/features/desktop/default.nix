@@ -2,7 +2,7 @@
   imports = [
     ./fonts.nix
     ./hyprland
-    ./theme
+    ./theme/integration.nix
     ./wayland
   ];
 }
