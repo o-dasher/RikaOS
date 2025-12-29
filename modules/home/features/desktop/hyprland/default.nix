@@ -83,14 +83,10 @@ in
           "tag +games, match:content game"
           "tag +games, match:class ^(steam_app_.*|gamescope|osu!)$"
 
-          "sync_fullscreen on,match:tag games"
-          "no_shadow on, match:tag games"
-          "no_blur on, match:tag games"
-          "no_anim on, match:tag games"
-          "immediate on, match:tag games"
-
-          "match:class org.gnome.Nautilus, float on"
+          "match:tag games, sync_fullscreen on, no_shadow on, no_blur on, no_anim on, immediate on"
+          "match:class org.gnome.Nautilus, float on, center on, size (monitor_w*0.6) (monitor_h*0.6)"
         ];
+
         group.groupbar =
           let
             indicator_height = 24;
