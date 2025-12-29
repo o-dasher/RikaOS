@@ -16,8 +16,8 @@ in
     rose-pine.enable = lib.mkEnableOption "Rose Pine theme";
   };
 
-  config = lib.mkMerge [
-    (lib.mkIf (config.theme.cirnold.enable && hasStylix) {
+  config = lib.mkMerge (lib.optionals hasStylix [
+    (lib.mkIf config.theme.cirnold.enable {
       stylix = {
         enable = true;
         polarity = "dark";
@@ -37,7 +37,7 @@ in
       };
     })
 
-    (lib.mkIf (config.theme.graduation.enable && hasStylix) {
+    (lib.mkIf config.theme.graduation.enable {
       stylix = {
         enable = true;
         polarity = "dark";
@@ -55,7 +55,7 @@ in
       };
     })
 
-    (lib.mkIf (config.theme.rose-pine.enable && hasStylix) {
+    (lib.mkIf config.theme.rose-pine.enable {
       stylix = {
         enable = true;
         polarity = "dark";
@@ -84,5 +84,5 @@ in
           };
         }
     ))
-  ];
+  ]);
 }
