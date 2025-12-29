@@ -1,7 +1,7 @@
 {
   lib,
   config,
-  pkgs-bleeding,
+  pkgs,
   ...
 }:
 {
@@ -10,7 +10,7 @@
   config = lib.mkIf config.cli.gemini.enable {
     programs.gemini-cli = {
       enable = true;
-      package = pkgs-bleeding.gemini-cli;
+      package = pkgs.gemini-cli;
     };
   };
 }
