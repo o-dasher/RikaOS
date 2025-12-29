@@ -4,7 +4,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
-    nixpkgs-bleeding.url = "github:NixOS/nixpkgs/master";
     flake-compat.url = "github:edolstra/flake-compat";
     systems.url = "github:nix-systems/default";
     mnw.url = "github:Gerg-L/mnw";
@@ -92,7 +91,6 @@
       nix-gaming,
       home-manager,
       stylix,
-      nixpkgs-bleeding,
       agenix,
       zen-browser,
       mnw,
@@ -141,7 +139,6 @@
         };
 
       pkgs = get_pkgs nixpkgs;
-      pkgs-bleeding = get_pkgs nixpkgs-bleeding;
       pkgs-stable = get_pkgs nixpkgs-stable;
 
       # Hosts configurations
@@ -174,9 +171,8 @@
 
       commonArgs = {
         inherit pkgs-stable;
-        inherit pkgs-bleeding;
-        inherit inputs;
         inherit nixCaches;
+        inherit inputs;
       };
 
       commonHomeModules = [

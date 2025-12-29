@@ -845,22 +845,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-bleeding": {
-      "locked": {
-        "lastModified": 1766927962,
-        "narHash": "sha256-nwoJlUZOjB6KFLqP2az2IQ1OXf1x7HY39P1V+1l/WV0=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "b0abf60107ec07859454ec84abb0eb6ec687ef2e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "master",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1766687554,
@@ -1024,7 +1008,6 @@
         "nixcord": "nixcord",
         "nixgl": "nixgl",
         "nixpkgs": "nixpkgs_4",
-        "nixpkgs-bleeding": "nixpkgs-bleeding",
         "nixpkgs-stable": "nixpkgs-stable",
         "playit-nixos-module": "playit-nixos-module",
         "stylix": "stylix",
