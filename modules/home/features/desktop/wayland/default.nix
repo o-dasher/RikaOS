@@ -14,7 +14,7 @@
       wl-clipboard
     ];
 
-    home.sessionVariables = {
+    systemd.user.sessionVariables = {
       # app2unit slice configuration
       APP2UNIT_SLICES = "a=app-graphical.slice b=background-graphical.slice s=session-graphical.slice";
 
