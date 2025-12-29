@@ -88,7 +88,7 @@ in
     loader.limine.extraEntries = ''
       /Windows 11
         protocol: efi
-        path: guid(f889eb86-9fec-4947-8453-99b4fa6789be):/EFI/Microsoft/Boot/bootmgfw.efi
+        path: guid(a4b6a0ac-5aee-457c-8854-26cd6375d45f):/EFI/Microsoft/Boot/bootmgfw.efi
     '';
   };
 
