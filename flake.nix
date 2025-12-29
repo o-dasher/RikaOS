@@ -213,7 +213,7 @@
                   nixpkgs.lib.nameValuePair username (
                     { config, lib, ... }:
                     {
-                      _module.args.utils = (import ./lib/utils.nix { inherit config lib; }) // {
+                      _module.args.utils = (import ./modules/common/utils.nix { inherit config lib; }) // {
                         css = import ./modules/home/features/desktop/theme/utils.nix;
                       };
                       _module.args.cfg = cfg // {
@@ -248,7 +248,7 @@
           extraSpecialArgs = commonArgs // {
             inherit nixgl;
             utils =
-              (import ./lib/utils.nix {
+              (import ./modules/common/utils.nix {
                 lib = nixpkgs.lib;
                 config = self.homeConfigurations.${username}.config;
               })
