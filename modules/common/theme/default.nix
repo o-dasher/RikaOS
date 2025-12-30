@@ -91,12 +91,9 @@ in
                 name = config.home.pointerCursor.name;
                 package = config.home.pointerCursor.package;
               };
-              iconTheme = {
-                name = config.stylix.icons.dark;
-                package = config.stylix.icons.package;
-              };
             };
             stylix = {
+              icons.enable = true;
               targets.nixcord.enable = false;
               targets.zen-browser.profileNames = [ "default" ];
             };
