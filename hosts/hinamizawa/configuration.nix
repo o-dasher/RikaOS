@@ -51,9 +51,8 @@ in
 
   encryption.bitlocker-unlock = lib.mkIf (config.age.secrets ? bitlocker-hinamizawa-shared) {
     enable = true;
-    drives.Windows = {
+    drives.windows-shared = {
       device = "/dev/disk/by-uuid/0cd42b48-325f-4851-8e4d-fc9ed4a4e08d";
-      mountPoint = "/windows-shared";
       keyFile = config.age.secrets.bitlocker-hinamizawa-shared.path;
     };
   };
