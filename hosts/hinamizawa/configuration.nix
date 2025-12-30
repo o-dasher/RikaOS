@@ -3,6 +3,7 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 {
   pkgs,
+  config,
   cfg,
   ...
 }:
@@ -45,6 +46,15 @@ in
     printing.enable = true;
     openssh.enable = true;
     displayManager.gdm.enable = true;
+  };
+
+  encryption.bitlocker-unlock = {
+    enable = true;
+    drives.Windows = {
+      device = "/dev/disk/by-uuid/0cd42b48-325f-4851-8e4d-fc9ed4a4e08d";
+      mountPoint = "/windows-shared";
+      keyFile = config.age.secrets.bitlocker-hinamizawa-shared.path;
+    };
   };
 
   programs.steam.gamescopeSession.args = [
