@@ -57,13 +57,6 @@ in
     };
   };
 
-  programs.steam.gamescopeSession.args = [
-    "-W 1920"
-    "-H 1080"
-    "-r 240"
-    "--fullscreen"
-  ];
-
   features = {
     graphics.enable = true;
     hardware.amdgpu.enable = true;
@@ -144,6 +137,12 @@ in
     fish.enable = true;
     dconf.enable = true;
     nix-ld.enable = true;
+    steam.gamescopeSession.args = [
+      "-W 1920"
+      "-H 1080"
+      "-r 240"
+      "--fullscreen"
+    ];
     neovim = {
       enable = true;
       defaultEditor = true;
