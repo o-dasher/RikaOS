@@ -72,56 +72,59 @@ in
       (pkgs.writeShellScriptBin "setup-shared-steam-library" ''
         set -euo pipefail
 
-        ${lib.concatMapStrings (user: ''
-          echo "Setting up shared steam library for user: ${user}"
-          USER_HOME="/home/${user}"
-          SHARED_ROOT="$USER_HOME/.steam/shared"
-          SHARED_STEAMAPPS="$SHARED_ROOT/steamapps"
-          SOURCE_PATH="${cfg.path}/steamapps"
-          LOCAL_STEAM="$USER_HOME/.local/share/Steam/steamapps"
+        ${lib.concatMapStrings (
+          user:
+          #bash
+          ''
+            echo "Setting up shared steam library for user: ${user}"
+            USER_HOME="/home/${user}"
+            SHARED_ROOT="$USER_HOME/.steam/shared"
+            SHARED_STEAMAPPS="$SHARED_ROOT/steamapps"
+            SOURCE_PATH="${cfg.path}/steamapps"
+            LOCAL_STEAM="$USER_HOME/.local/share/Steam/steamapps"
 
-          # 1. Ensure the directory exists
-          if [ ! -d "$SHARED_STEAMAPPS" ]; then
-            echo "  Creating directory: $SHARED_STEAMAPPS"
-            mkdir -p "$SHARED_STEAMAPPS"
-          fi
-
-          # 2. Function to create symlink
-          create_link() {
-            local target="$1"
-            local link_name="$2"
-            
-            if [ -L "$link_name" ]; then
-              echo "  Updating existing symlink: $link_name"
-              rm "$link_name"
-            elif [ -e "$link_name" ]; then
-              echo "  WARNING: $link_name exists and is not a symlink. Skipping."
-              return
+            # 1. Ensure the directory exists
+            if [ ! -d "$SHARED_STEAMAPPS" ]; then
+              echo "  Creating directory: $SHARED_STEAMAPPS"
+              mkdir -p "$SHARED_STEAMAPPS"
             fi
 
-            ln -s "$target" "$link_name"
-            echo "  Linked $link_name -> $target"
-          }
+            # 2. Function to create symlink
+            create_link() {
+              local target="$1"
+              local link_name="$2"
+              
+              if [ -L "$link_name" ]; then
+                echo "  Updating existing symlink: $link_name"
+                rm "$link_name"
+              elif [ -e "$link_name" ]; then
+                echo "  WARNING: $link_name exists and is not a symlink. Skipping."
+                return
+              fi
 
-          # 3. Create links to the shared library
-          create_link "$SOURCE_PATH/common" "$SHARED_STEAMAPPS/common"
-          create_link "$SOURCE_PATH/downloading" "$SHARED_STEAMAPPS/downloading"
-          create_link "$SOURCE_PATH/shadercache" "$SHARED_STEAMAPPS/shadercache"
-          create_link "$SOURCE_PATH/temp" "$SHARED_STEAMAPPS/temp"
+              ln -s "$target" "$link_name"
+              echo "  Linked $link_name -> $target"
+            }
 
-          # 4. Link compatdata to the user's local install (must exist!)
-          if [ -d "$LOCAL_STEAM/compatdata" ]; then
-            create_link "$LOCAL_STEAM/compatdata" "$SHARED_STEAMAPPS/compatdata"
-          else
-            echo "  WARNING: Local compatdata not found at $LOCAL_STEAM/compatdata."
-            echo "           Please run Steam at least once to generate it."
-          fi
+            # 3. Create links to the shared library
+            create_link "$SOURCE_PATH/common" "$SHARED_STEAMAPPS/common"
+            create_link "$SOURCE_PATH/downloading" "$SHARED_STEAMAPPS/downloading"
+            create_link "$SOURCE_PATH/shadercache" "$SHARED_STEAMAPPS/shadercache"
+            create_link "$SOURCE_PATH/temp" "$SHARED_STEAMAPPS/temp"
 
-          # 5. Fix permissions for the structure
-          # We created directories as root, so we must give them back to the user
-          echo "  Fixing permissions for $SHARED_ROOT..."
-          chown -R ${user}:${cfg.group} "$SHARED_ROOT"
-        '') cfg.users}
+            # 4. Link compatdata to the user's local install (must exist!)
+            if [ -d "$LOCAL_STEAM/compatdata" ]; then
+              create_link "$LOCAL_STEAM/compatdata" "$SHARED_STEAMAPPS/compatdata"
+            else
+              echo "  WARNING: Local compatdata not found at $LOCAL_STEAM/compatdata."
+              echo "           Please run Steam at least once to generate it."
+            fi
+
+            # 5. Fix permissions for the structure
+            # We created directories as root, so we must give them back to the user
+            echo "  Fixing permissions for $SHARED_ROOT..."
+            chown -R ${user}:${cfg.group} "$SHARED_ROOT"
+          '') cfg.users}
 
         echo "Shared Steam Library setup complete."
       '')

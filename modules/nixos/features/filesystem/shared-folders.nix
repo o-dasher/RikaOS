@@ -44,24 +44,27 @@ in
       ];
 
       script = ''
-        ${lib.concatMapStringsSep "\n" (path: ''
-          echo "Processing ${path}..."
-          # Ensure path exists (redundancy for tmpfiles)
-          mkdir -p ${path}
+        ${lib.concatMapStringsSep "\n" (
+          path:
+          #bash
+          ''
+            echo "Processing ${path}..."
+            # Ensure path exists (redundancy for tmpfiles)
+            mkdir -p ${path}
 
-          # Force group ownership to 'users'
-          chown -R :users ${path}
+            # Force group ownership to 'users'
+            chown -R :users ${path}
 
-          # Folders: 2770 (SetGID so new files belong to 'users')
-          find ${path} -type d -exec chmod 2770 {} +
+            # Folders: 2770 (SetGID so new files belong to 'users')
+            find ${path} -type d -exec chmod 2770 {} +
 
-          # Files: 0660 (Owner and Group can read/write)
-          find ${path} -type f -exec chmod 0660 {} +
+            # Files: 0660 (Owner and Group can read/write)
+            find ${path} -type f -exec chmod 0660 {} +
 
-          # Set Default ACLs so permissions are inherited by new files
-          setfacl -R -m d:g:users:rwx ${path}
-          setfacl -R -m g:users:rwx ${path}
-        '') allPaths}
+            # Set Default ACLs so permissions are inherited by new files
+            setfacl -R -m d:g:users:rwx ${path}
+            setfacl -R -m g:users:rwx ${path}
+          '') allPaths}
       '';
     };
   };
