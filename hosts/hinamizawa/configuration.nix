@@ -41,7 +41,7 @@ in
     };
   };
 
-  theme.rose-pine.enable = true;
+  theme.lain.enable = true;
 
   services = {
     printing.enable = true;
