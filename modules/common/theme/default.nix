@@ -68,7 +68,6 @@ in
   config =
     let
       hasStylix = options ? stylix;
-      isHomeManager = options ? home.stateVersion;
       themeNames = lib.attrNames themes;
     in
     lib.mkMerge (
@@ -76,38 +75,9 @@ in
         themeName:
         lib.mkIf config.theme.${themeName}.enable (
           lib.mkMerge [
-            # 1. Apply Stylix base settings
             (lib.optionalAttrs hasStylix {
               stylix = mkStylixConfig themes.${themeName};
             })
-
-            # 2. Home-manager specific overrides (GTK, Cursors, and Targets)
-            (lib.optionalAttrs (isHomeManager && hasStylix) (
-              let
-                cursorName = "BreezeX-RosePine-Linux";
-                cursorPackage = pkgs.rose-pine-cursor;
-              in
-              {
-                home.pointerCursor = {
-                  name = cursorName;
-                  package = cursorPackage;
-                };
-
-                gtk = {
-                  enable = true;
-                  cursorTheme = {
-                    name = cursorName;
-                    package = cursorPackage;
-                  };
-                };
-
-                stylix = {
-                  icons.enable = true;
-                  targets.nixcord.enable = false;
-                  targets.zen-browser.profileNames = [ "default" ];
-                };
-              }
-            ))
           ]
         )
       ) themeNames
