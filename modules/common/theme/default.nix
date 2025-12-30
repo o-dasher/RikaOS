@@ -82,7 +82,6 @@ in
             dconf.enable = true;
             home.pointerCursor = {
               name = "BreezeX-RosePine-Linux";
-              hyprcursor.enable = true;
               package = pkgs.rose-pine-cursor;
             };
             gtk = {
