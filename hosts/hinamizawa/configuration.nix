@@ -99,10 +99,6 @@ in
     {
       "/".options = btrfsOpts;
       "/home".options = btrfsOpts;
-      "/windows-shared" = {
-        device = "/dev/disk/by-uuid/2CDA3C8EDA3C55F4";
-        fsType = "ntfs";
-      };
     };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
