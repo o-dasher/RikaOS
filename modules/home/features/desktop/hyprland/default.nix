@@ -21,19 +21,7 @@ in
     programs.hyprlock.enable = true;
     services.hyprpolkitagent.enable = true;
 
-    home.pointerCursor = {
-      name = "BreezeX-RosePine-Linux";
-      hyprcursor.enable = true;
-      package = pkgs.rose-pine-cursor;
-    };
-
-    gtk = {
-      enable = true;
-      cursorTheme = {
-        name = config.home.pointerCursor.name;
-        package = config.home.pointerCursor.package;
-      };
-    };
+    home.pointerCursor.hyprcursor.enable = true;
 
     xdg.portal = {
       enable = true;
@@ -84,7 +72,7 @@ in
           "tag +games, match:class ^(steam_app_.*|gamescope|osu!)$"
 
           "match:tag games, sync_fullscreen on, no_shadow on, no_blur on, no_anim on, immediate on"
-          "match:class org.gnome.Nautilus, float on, center on, size (monitor_w*0.6) (monitor_h*0.6)"
+          "match:class thunar, float on, center on, size (monitor_w*0.6) (monitor_h*0.6)"
         ];
 
         group.groupbar =

@@ -34,9 +34,6 @@
 
     # images
     nomacs
-
-    # files
-    nautilus
   ];
 
   programs = {
