@@ -5,6 +5,7 @@
   pkgs,
   config,
   cfg,
+  lib,
   ...
 }:
 let
@@ -48,7 +49,7 @@ in
     displayManager.gdm.enable = true;
   };
 
-  encryption.bitlocker-unlock = {
+  encryption.bitlocker-unlock = lib.mkIf (config.age.secrets ? bitlocker-hinamizawa-shared) {
     enable = true;
     drives.Windows = {
       device = "/dev/disk/by-uuid/0cd42b48-325f-4851-8e4d-fc9ed4a4e08d";
