@@ -7,7 +7,6 @@
     ./heroic.nix
     ./ps4.nix
     ./steam.nix
-    ./lutris.nix
   ];
 
   options.games.enable = lib.mkEnableOption "Games";
