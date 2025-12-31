@@ -9,9 +9,9 @@ let
   inherit (config.rika.utils) prefixset;
 in
 {
-  options.cli.fish.enable = lib.mkEnableOption "fish";
+  options.features.cli.fish.enable = lib.mkEnableOption "fish";
 
-  config = lib.mkIf config.cli.fish.enable {
+  config = lib.mkIf config.features.cli.fish.enable {
     programs.fish = {
       enable = true;
       shellAbbrs =

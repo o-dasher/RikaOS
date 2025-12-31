@@ -4,7 +4,7 @@
 }:
 {
   theme.cirnold.enable = true;
-  editors.jetbrains.android-studio.enable = true;
+  features.editors.jetbrains.android-studio.enable = true;
 
   profiles = {
     development.enable = true;
@@ -15,13 +15,17 @@
     security.enable = true;
   };
 
-  features.core.xdg.enable = true;
-  desktop.hyprland.enable = true;
-
-  games = {
-    minecraft.enable = true;
-    osu.enable = true;
-    ps4.enable = true;
+  features = {
+    desktop.hyprland.enable = true;
+    core.xdg = {
+      enable = true;
+      portal.enable = true;
+    };
+    gaming = {
+      minecraft.enable = true;
+      osu.enable = true;
+      ps4.enable = true;
+    };
   };
 
   home.packages = with pkgs; [

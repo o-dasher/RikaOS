@@ -15,9 +15,9 @@ in
     ./fuzzel.nix
   ];
 
-  options.desktop.hyprland.enable = lib.mkEnableOption "hyprland";
+  options.features.desktop.hyprland.enable = lib.mkEnableOption "hyprland";
 
-  config = lib.mkIf config.desktop.hyprland.enable {
+  config = lib.mkIf config.features.desktop.hyprland.enable {
     programs.hyprlock.enable = true;
     services.hyprpolkitagent.enable = true;
 
@@ -135,7 +135,7 @@ in
           in
           with pkgs;
           lib.mkMerge [
-            (lib.mkIf config.desktop.hyprland.fuzzel.enable [
+            (lib.mkIf config.features.desktop.hyprland.fuzzel.enable [
               "${mod}, D, exec, pkill -x fuzzel || ${getExe app2unit} -- ${getExe fuzzel}"
             ])
             [

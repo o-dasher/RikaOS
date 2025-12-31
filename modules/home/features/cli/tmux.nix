@@ -1,8 +1,8 @@
 { lib, config, ... }:
 {
-  options.cli.tmux.enable = lib.mkEnableOption "tmux";
+  options.features.cli.tmux.enable = lib.mkEnableOption "tmux";
 
-  config = lib.mkIf config.cli.tmux.enable {
+  config = lib.mkIf config.features.cli.tmux.enable {
     programs.tmux = {
       enable = true;
       mouse = true;

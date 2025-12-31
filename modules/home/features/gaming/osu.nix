@@ -6,9 +6,9 @@
   ...
 }:
 {
-  options.games.osu.enable = lib.mkEnableOption "osu-lazer";
+  options.features.gaming.osu.enable = lib.mkEnableOption "osu-lazer";
 
-  config = lib.mkIf (config.games.enable && config.games.osu.enable) {
+  config = lib.mkIf (config.features.gaming.enable && config.features.gaming.osu.enable) {
     home.packages = [
       inputs.nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.osu-lazer-bin
     ];
