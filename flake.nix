@@ -81,6 +81,10 @@
       inputs.home-manager.follows = "home-manager";
       inputs.systems.follows = "systems";
     };
+    antigravity-nix = {
+      url = "github:jacopone/antigravity-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -95,6 +99,7 @@
       zen-browser,
       mnw,
       nixgl,
+      antigravity-nix,
       playit-nixos-module,
       flake-parts,
       systems,
