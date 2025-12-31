@@ -17,7 +17,6 @@
     in
     lib.mkIf cfg.enable {
       boot = {
-        supportedFilesystems.ntfs = true;
         kernelPackages =
           if cfg.cachy.enable then
             pkgs.cachyosKernels.linuxPackages-cachyos-latest
