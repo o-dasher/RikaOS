@@ -2,7 +2,6 @@
   pkgs,
   lib,
   config,
-  inputs,
   ...
 }:
 {
@@ -35,7 +34,7 @@
     terminal.ghostty.enable = true;
 
     home.packages = with pkgs; [
-      inputs.antigravity-nix.packages.x86_64-linux.default
+      antigravity-fhs
       wget
       heroku
     ];
