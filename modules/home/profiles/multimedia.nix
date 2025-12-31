@@ -44,7 +44,6 @@
       krita
 
       # images
-      imagemagick
       gimp
 
       # music
