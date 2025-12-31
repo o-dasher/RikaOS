@@ -100,7 +100,6 @@
     }@inputs:
     let
       system = "x86_64-linux";
-
       pkgs = import nixpkgs { inherit system; };
 
       substituters = [
@@ -158,12 +157,20 @@
           ;
       };
 
-      commonHomeModules = [
+      get_common_home_modules = hostName: username: stateVersion: [
         ./modules/home
+        ./hosts/${hostName}/users/${username}
         agenix.homeManagerModules.default
         nixcord.homeModules.nixcord
         mnw.homeManagerModules.mnw
         zen-browser.homeModules.twilight
+        {
+          home = {
+            inherit username;
+            inherit stateVersion;
+            homeDirectory = "/home/${username}";
+          };
+        }
       ];
 
       mkSystem =
@@ -182,7 +189,6 @@
             {
               networking.hostName = hostName;
               system.stateVersion = systemCfg.state;
-
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
@@ -193,12 +199,7 @@
                     nixpkgs.lib.nameValuePair username (
                       { ... }:
                       {
-                        imports = commonHomeModules ++ [ ./hosts/${hostName}/users/${username} ];
-                        home = {
-                          inherit username;
-                          homeDirectory = "/home/${username}";
-                          stateVersion = systemCfg.state;
-                        };
+                        imports = get_common_home_modules hostName username systemCfg.state;
                       }
                     )
                   ) systemCfg.users
@@ -212,18 +213,10 @@
         hostName: homeCfg: username:
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          modules = commonHomeModules ++ [
-            ./hosts/${hostName}/users/${username}
-            stylix.homeModules.stylix
-            {
-              home = {
-                inherit username;
-                homeDirectory = "/home/${username}";
-                stateVersion = homeCfg.state;
-              };
-            }
-          ];
           extraSpecialArgs = commonArgs;
+          modules = (get_common_home_modules hostName username homeCfg.state) ++ [
+            stylix.homeModules.stylix
+          ];
         };
     in
     (flake-parts.lib.mkFlake { inherit inputs; } {
