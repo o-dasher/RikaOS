@@ -130,9 +130,11 @@
 
         style =
           let
+            inherit (config.lib.stylix.colors) base00;
             border_definition = # css
               ''
-                @apply border-solid border-white/25;
+                border-color: alpha(white, 0.25);
+                border-style: solid;
               '';
           in
           lib.mkAfter (
@@ -145,7 +147,7 @@
                 }
 
                 window#waybar {
-                    @apply bg-base00/50;
+                    background: alpha(#${base00}, 0.5);
                 }
 
                 .modules-left {
