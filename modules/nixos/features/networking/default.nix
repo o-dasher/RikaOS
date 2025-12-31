@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (cfg) targetHostName;
+  inherit (cfg) hostName;
 in
 {
   options.features.networking = {
@@ -21,7 +21,7 @@ in
   config = lib.mkIf config.features.networking.enable {
     services.cloudflare-warp.enable = true;
     networking = {
-      hostName = targetHostName;
+      inherit hostName;
       networkmanager.enable = config.features.networking.networkManager.enable;
     };
   };
