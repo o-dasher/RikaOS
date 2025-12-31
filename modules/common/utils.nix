@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, ... }:
 rec {
   selectiveSymLink =
     from: to: paths: opts:

@@ -2,6 +2,6 @@
 {
   imports = [
     ./features
-    ../common/theme
+    ../common
   ];
 }
