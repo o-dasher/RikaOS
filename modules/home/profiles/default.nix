@@ -3,7 +3,7 @@
     ./development.nix
     ./utilities.nix
     ./gaming.nix
-    ./generic_linux.nix
+    ./generic-linux.nix
     ./multimedia.nix
     ./social.nix
     ./browser.nix

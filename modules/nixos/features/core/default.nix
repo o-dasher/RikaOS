@@ -1,5 +1,5 @@
 {
   imports = [
-    ./user_preferences.nix
+    ./user-preferences.nix
   ];
 }
