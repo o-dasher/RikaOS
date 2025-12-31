@@ -19,8 +19,6 @@
       unzip
       # monitor
       mission-center
-      # Disk partitioning
-      gparted
     ];
   };
 }
