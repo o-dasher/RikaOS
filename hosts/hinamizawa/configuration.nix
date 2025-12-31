@@ -13,6 +13,7 @@
   ];
 
   services = {
+    qbittorrent.enable = true;
     printing.enable = true;
     openssh.enable = true;
     displayManager.gdm.enable = true;
