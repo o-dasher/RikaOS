@@ -15,7 +15,7 @@
     security.enable = true;
   };
 
-  xdgSetup.enable = true;
+  features.core.xdg.enable = true;
   desktop.hyprland.enable = true;
 
   games = {

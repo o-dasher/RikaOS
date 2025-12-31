@@ -5,7 +5,7 @@
   theme.graduation.enable = true;
 
   desktop.hyprland.enable = true;
-  xdgSetup = {
+  features.core.xdg = {
     enable = true;
     portal.enable = true;
   };

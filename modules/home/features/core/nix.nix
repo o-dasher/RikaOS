@@ -6,14 +6,14 @@
   ...
 }:
 {
-  options.nixSetup = {
-    enable = lib.mkEnableOption "nixSetup" // {
+  options.features.core.nix = {
+    enable = lib.mkEnableOption "nix" // {
       default = true;
     };
     nixpkgs.enable = lib.mkEnableOption "nixpkgs";
   };
   config = lib.mkMerge [
-    (lib.mkIf config.nixSetup.enable {
+    (lib.mkIf config.features.core.nix.enable {
       nix.settings = nixCaches;
       programs.nh = {
         enable = true;
@@ -22,7 +22,10 @@
       };
     })
     (lib.mkIf
-      (config.nixSetup.nixpkgs.enable && (osConfig == null || !osConfig.home-manager.useGlobalPkgs))
+      (
+        config.features.core.nix.nixpkgs.enable
+        && (osConfig == null || !osConfig.home-manager.useGlobalPkgs)
+      )
       {
         nixpkgs.config.allowUnfree = true;
       }
