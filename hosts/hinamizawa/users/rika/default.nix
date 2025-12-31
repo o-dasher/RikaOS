@@ -4,7 +4,6 @@
 }:
 {
   theme.cirnold.enable = true;
-  features.editors.jetbrains.android-studio.enable = true;
 
   profiles = {
     development.enable = true;
@@ -17,6 +16,7 @@
 
   features = {
     desktop.hyprland.enable = true;
+    editors.jetbrains.android-studio.enable = true;
     core.xdg = {
       enable = true;
       portal.enable = true;
