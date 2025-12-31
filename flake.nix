@@ -99,7 +99,6 @@
       zen-browser,
       mnw,
       nixgl,
-      antigravity-nix,
       playit-nixos-module,
       flake-parts,
       systems,
@@ -108,6 +107,9 @@
     }@inputs:
     let
       system = "x86_64-linux";
+
+      pkgs = import nixpkgs { inherit system; };
+      pkgs-stable = import nixpkgs-stable { inherit system; };
 
       substituters = [
         "https://cache.nixos.org"
@@ -137,16 +139,6 @@
         ];
       };
 
-      get_pkgs =
-        nixpkgs:
-        import nixpkgs {
-          inherit system;
-        };
-
-      pkgs = get_pkgs nixpkgs;
-      pkgs-stable = get_pkgs nixpkgs-stable;
-
-      # Hosts configurations
       systemCfgs = {
         hinamizawa = {
           state = "24.11";
@@ -163,7 +155,6 @@
         };
       };
 
-      # Home manager only configurations
       homeCfgs = {
         # wired = {
         #   hostName = "gpmecatronica-System-Product-Name";
@@ -175,9 +166,12 @@
       };
 
       commonArgs = {
-        inherit pkgs-stable;
-        inherit nixCaches;
-        inherit inputs;
+        inherit
+          pkgs-stable
+          nixCaches
+          inputs
+          nixgl
+          ;
       };
 
       commonHomeModules = [
@@ -188,7 +182,6 @@
         zen-browser.homeModules.twilight
       ];
 
-      # Helper to build a NixOS system
       mkSystem =
         targetHostName: cfg:
         nixpkgs.lib.nixosSystem {
@@ -209,10 +202,8 @@
             {
               home-manager = {
                 useGlobalPkgs = true;
-                useUserPackages = false; # I prefer ~/.nix-profile because of gh auth, etc.
-                extraSpecialArgs = commonArgs // {
-                  inherit nixgl;
-                };
+                useUserPackages = false;
+                extraSpecialArgs = commonArgs;
                 users = nixpkgs.lib.mapAttrs' (
                   _: username:
                   nixpkgs.lib.nameValuePair username (
@@ -222,12 +213,9 @@
                         css = import ./modules/home/features/desktop/theme/utils.nix;
                       };
                       _module.args.cfg = cfg // {
-                        inherit username;
-                        inherit targetHostName;
+                        inherit username targetHostName;
                       };
-                      imports = commonHomeModules ++ [
-                        ./hosts/${targetHostName}/users/${username}
-                      ];
+                      imports = commonHomeModules ++ [ ./hosts/${targetHostName}/users/${username} ];
                       home = {
                         inherit username;
                         homeDirectory = "/home/${username}";
@@ -241,7 +229,6 @@
           ];
         };
 
-      # Helper to build a home-manager configuration
       mkHome =
         targetHostName: cfg: username:
         home-manager.lib.homeManagerConfiguration {
@@ -251,7 +238,6 @@
             stylix.homeModules.stylix
           ];
           extraSpecialArgs = commonArgs // {
-            inherit nixgl;
             utils =
               (import ./modules/common/utils.nix {
                 lib = nixpkgs.lib;
@@ -261,39 +247,33 @@
                 css = import ./modules/home/features/desktop/theme/utils.nix;
               };
             cfg = cfg // {
-              inherit username;
-              inherit targetHostName;
+              inherit username targetHostName;
             };
           };
         };
     in
     (flake-parts.lib.mkFlake { inherit inputs; } {
       systems = import systems;
+
       perSystem =
         { pkgs, ... }:
         {
           devShells.default = pkgs.mkShell {
-            packages = (
-              with pkgs;
-              [
-                nixfmt-rfc-style
-                stylua
-              ]
-            );
+            packages = with pkgs; [
+              nixfmt-rfc-style
+              stylua
+            ];
           };
         };
 
       flake = {
-        # Generate all nixosConfigurations
         nixosConfigurations = nixpkgs.lib.mapAttrs' (
           targetHostName: cfg:
           nixpkgs.lib.nameValuePair (cfg.hostName or targetHostName) (mkSystem targetHostName cfg)
         ) systemCfgs;
 
-        # Generate all homeConfigurations
         homeConfigurations =
           let
-            allCfgs = homeCfgs;
             users = nixpkgs.lib.flatten (
               nixpkgs.lib.mapAttrsToList (
                 targetHostName: cfg:
@@ -301,7 +281,7 @@
                   name = username;
                   value = mkHome targetHostName cfg username;
                 }) cfg.profiles
-              ) allCfgs
+              ) homeCfgs
             );
           in
           nixpkgs.lib.listToAttrs users;
