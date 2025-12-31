@@ -1,4 +1,10 @@
-{ lib, config, pkgs, utils, osConfig ? null, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  osConfig ? null,
+  ...
+}:
 {
   options.editors.jetbrains = with lib; {
     enable = mkEnableOption "JetBrains IDEs configuration";
@@ -9,7 +15,7 @@
   config = lib.mkMerge [
     (lib.mkIf config.editors.jetbrains.enable {
       home.file = (
-        utils.xdgConfigSelectiveSymLink "ideavim" [
+        config.rika.utils.xdgConfigSelectiveSymLink "ideavim" [
           "ideavimrc"
         ] { }
       );
@@ -24,8 +30,11 @@
       ];
     })
 
-    (lib.mkIf (config.editors.jetbrains.enable && (osConfig == null || !osConfig.home-manager.useGlobalPkgs)) {
-      nixpkgs.config.android_sdk.accept_license = config.editors.jetbrains.android-studio.enable;
-    })
+    (lib.mkIf
+      (config.editors.jetbrains.enable && (osConfig == null || !osConfig.home-manager.useGlobalPkgs))
+      {
+        nixpkgs.config.android_sdk.accept_license = config.editors.jetbrains.android-studio.enable;
+      }
+    )
   ];
 }

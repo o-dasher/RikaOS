@@ -3,7 +3,6 @@
   pkgs,
   config,
   lib,
-  utils,
   ...
 }:
 let
@@ -13,7 +12,7 @@ in
   config = lib.mkIf config.editors.neovim.enable {
     programs.lazygit.enable = true;
 
-    home.file = (utils.xdgConfigSelectiveSymLink "nvim/lua/thiago") [
+    home.file = (config.rika.utils.xdgConfigSelectiveSymLink "nvim/lua/thiago") [
       "set.vim"
     ] { };
 

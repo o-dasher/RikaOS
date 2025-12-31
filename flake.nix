@@ -209,9 +209,6 @@
                   nixpkgs.lib.nameValuePair username (
                     { config, lib, ... }:
                     {
-                      _module.args.utils = (import ./modules/common/utils.nix { inherit config lib; }) // {
-                        css = import ./modules/home/features/desktop/theme/utils.nix;
-                      };
                       _module.args.cfg = cfg // {
                         inherit username targetHostName;
                       };
@@ -238,14 +235,6 @@
             stylix.homeModules.stylix
           ];
           extraSpecialArgs = commonArgs // {
-            utils =
-              (import ./modules/common/utils.nix {
-                lib = nixpkgs.lib;
-                config = self.homeConfigurations.${username}.config;
-              })
-              // {
-                css = import ./modules/home/features/desktop/theme/utils.nix;
-              };
             cfg = cfg // {
               inherit username targetHostName;
             };
