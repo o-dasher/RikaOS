@@ -11,6 +11,10 @@
       inputs.pre-commit-hooks.follows = "git-hooks";
       inputs.systems.follows = "systems";
     };
+    pam-shim = {
+      url = "github:Cu3PO42/pam_shim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-cachyos-kernel = {
       url = "github:xddxdd/nix-cachyos-kernel/release";
       inputs.flake-compat.follows = "flake-compat";
@@ -94,6 +98,7 @@
       mnw,
       playit-nixos-module,
       flake-parts,
+      pam-shim,
       systems,
       nixcord,
       ...
@@ -161,6 +166,7 @@
         ./modules/home
         ./hosts/${hostName}/users/${username}
         agenix.homeManagerModules.default
+        pam-shim.homeModules.default
         nixcord.homeModules.nixcord
         mnw.homeManagerModules.mnw
         zen-browser.homeModules.twilight
