@@ -22,10 +22,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    programs.git = {
-      enable = true;
-      config.safe.directory = [ cfg.configurationRoot ];
-    };
+    programs.git.config.safe.directory = [ cfg.configurationRoot ];
 
     # 1. Create the folders (ensures they exist)
     systemd.tmpfiles.rules = map (f: "d ${f} 2770 root users - -") allPaths;

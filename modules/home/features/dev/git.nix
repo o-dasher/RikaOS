@@ -8,5 +8,6 @@
 
   config = lib.mkIf config.dev.git.enable {
     programs.gh.enable = true;
+    programs.git.enable = true;
   };
 }
