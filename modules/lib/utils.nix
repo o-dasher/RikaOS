@@ -36,7 +36,6 @@ in
       ) kvpairs;
 
     css = {
-      font_definition = "font-family: 'JetBrains Mono', 'FiraMono Nerd Font';";
       inherit apply_numeric_css_fn;
       alpha_fn = apply_numeric_css_fn "alpha";
       shade_fn = apply_numeric_css_fn "shade";
