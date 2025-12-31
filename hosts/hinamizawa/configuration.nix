@@ -20,6 +20,7 @@
 
   theme.lain.enable = true;
   features = {
+    core.userPreferences.enable = true;
     graphics.enable = true;
     hardware.amdgpu.enable = true;
     hardware.keyboard.enable = true;
@@ -46,9 +47,6 @@
     security.secureBoot = {
       enable = true;
       encryptionUnlock.enable = true;
-    };
-    core = {
-      userPreferences.enable = true;
     };
     filesystem = {
       steamLibrary = {
