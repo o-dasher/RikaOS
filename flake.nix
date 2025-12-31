@@ -11,6 +11,16 @@
       inputs.pre-commit-hooks.follows = "git-hooks";
       inputs.systems.follows = "systems";
     };
+    hyprshutdown = {
+      url = "github:hyprwm/hyprshutdown";
+      inputs = {
+        nixpkgs.follows = "hyprland/nixpkgs";
+        systems.follows = "hyprland/systems";
+        aquamarine.follows = "hyprland/aquamarine";
+        hyprgraphics.follows = "hyprland/hyprgraphics";
+        hyprutils.follows = "hyprland/hyprutils";
+      };
+    };
     pam-shim = {
       url = "github:Cu3PO42/pam_shim";
       inputs.nixpkgs.follows = "nixpkgs";
