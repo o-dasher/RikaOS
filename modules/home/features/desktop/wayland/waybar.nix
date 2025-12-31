@@ -4,9 +4,6 @@
   config,
   ...
 }:
-let
-  inherit (config.rika.utils.css) tailwindCSS;
-in
 {
   options.features.desktop.hyprland.waybar.enable = (lib.mkEnableOption "waybar") // {
     default = true;
@@ -133,68 +130,64 @@ in
 
         style =
           let
-            border_definition =
-              # css
+            border_definition = # css
               ''
                 @apply border-solid border-white/25;
               '';
           in
           lib.mkAfter (
-            builtins.readFile (
-              tailwindCSS pkgs config.lib.stylix.colors
-                # css
-                ''
-                  @tailwind utilities;
+            config.rika.utils.css.tailwindCSS # css
+              ''
+                @tailwind utilities;
 
-                  * {
-                      @apply min-h-0;
-                  }
+                * {
+                    @apply min-h-0;
+                }
 
-                  window#waybar {
-                      @apply bg-base00/50;
-                  }
+                window#waybar {
+                    @apply bg-base00/50;
+                }
 
-                  .modules-left {
-                      @apply rounded-r-lg py-1 pl-1;
-                  }
+                .modules-left {
+                    @apply rounded-r-lg py-1 pl-1;
+                }
 
-                  .modules-center {
-                      @apply rounded-b-lg mb-1;
-                  }
+                .modules-center {
+                    @apply rounded-b-lg mb-1;
+                }
 
-                  .modules-right {
-                      @apply rounded-l-lg;
-                  }
+                .modules-right {
+                    @apply rounded-l-lg;
+                }
 
-                  .modules-left, .modules-right {
-                      @apply my-1 mx-0;
-                  }
+                .modules-left, .modules-right {
+                    @apply my-1 mx-0;
+                }
 
-                  .modules-left, .modules-center, .modules-right {
-                      @apply border;
-                      ${border_definition}
-                  }
+                .modules-left, .modules-center, .modules-right {
+                    @apply border;
+                    ${border_definition}
+                }
 
-                  #workspaces button {
-                      @apply rounded-sm mr-1 p-0;
-                  }
+                #workspaces button {
+                    @apply rounded-sm mr-1 p-0;
+                }
 
-                  #workspaces button.focused {
-                      @apply py-0 px-1.5;
-                  }
+                #workspaces button.focused {
+                    @apply py-0 px-1.5;
+                }
 
-                  #tray,
-                  #cpu,
-                  #temperature,
-                  #memory,
-                  #backlight,
-                  #pulseaudio,
-                  #battery {
-                      @apply py-0 px-2.5 border-r;
-                      ${border_definition}
-                  }
-                ''
-            )
+                #tray,
+                #cpu,
+                #temperature,
+                #memory,
+                #backlight,
+                #pulseaudio,
+                #battery {
+                    @apply py-0 px-2.5 border-r;
+                    ${border_definition}
+                }
+              ''
           );
       };
 }

@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 {
   options.rika.utils = lib.mkOption {
     type = lib.types.attrs;
@@ -29,56 +34,38 @@
       ) kvpairs;
 
     css.tailwindCSS =
-      pkgs: colors: content:
-      pkgs.runCommand "tailwindify.css"
-        {
-          nativeBuildInputs = [ pkgs.nodePackages.tailwindcss ];
-          tailwindConfig =
-            let
-              inherit (colors)
-                base00
-                base01
-                base02
-                base03
-                base04
-                base05
-                base06
-                base07
-                base08
-                base09
-                base0A
-                base0B
-                base0C
-                base0D
-                base0E
-                base0F
-                ;
-            in
-            pkgs.writeText "tailwind.config.js"
-              # js
-              ''
-                module.exports = {
-                  content: ["./input.css"],
-                  theme: {
-                    extend: {
-                      colors: {
-                        base00: "#${base00}", base01: "#${base01}", base02: "#${base02}", base03: "#${base03}",
-                        base04: "#${base04}", base05: "#${base05}", base06: "#${base06}", base07: "#${base07}",
-                        base08: "#${base08}", base09: "#${base09}", base0A: "#${base0A}", base0B: "#${base0B}",
-                        base0C: "#${base0C}", base0D: "#${base0D}", base0E: "#${base0E}", base0F: "#${base0F}"
-                      }
-                    }
-                  },
-                  plugins: [],
-                }
-              '';
-        }
-        ''
-          ln -s $tailwindConfig tailwind.config.js
-          cat > input.css <<EOF
-          ${content}
-          EOF
-          ${pkgs.nodePackages.tailwindcss}/bin/tailwindcss -i input.css -o $out
-        '';
+      content:
+      let
+        # Filter to only include base16/24 color names (base00-base0F, base10-base17)
+        # Excludes derivatives like base00-hex, base00-rgb-r, etc.
+        colors = lib.filterAttrs (
+          name: _: builtins.match "base[0-1][0-9A-Fa-f]" name != null
+        ) config.lib.stylix.colors;
+        colorEntries = builtins.concatStringsSep ", " (
+          lib.mapAttrsToList (name: value: "${name}: \"#${value}\"") colors
+        );
+      in
+      builtins.readFile (
+        pkgs.runCommand "tailwindify.css"
+          {
+            nativeBuildInputs = [ pkgs.nodePackages.tailwindcss ];
+            tailwindConfig =
+              pkgs.writeText "tailwind.config.js" # js
+                ''
+                  module.exports = {
+                    content: ["./input.css"],
+                    theme: { extend: { colors: { ${colorEntries} } } },
+                    plugins: [],
+                  }
+                '';
+          }
+          ''
+            ln -s $tailwindConfig tailwind.config.js
+            cat > input.css <<EOF
+            ${content}
+            EOF
+            ${pkgs.nodePackages.tailwindcss}/bin/tailwindcss -i input.css -o $out
+          ''
+      );
   };
 }
