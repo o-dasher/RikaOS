@@ -19,15 +19,10 @@ in
   };
 
   config = lib.mkIf config.features.networking.enable {
+    services.cloudflare-warp.enable = true;
     networking = {
       hostName = targetHostName;
-      networkmanager = {
-        enable = config.features.networking.networkManager.enable;
-        insertNameservers = lib.mkIf config.features.networking.networkManager.cloudflare.enable [
-          "1.1.1.1"
-          "1.0.0.1"
-        ];
-      };
+      networkmanager.enable = config.features.networking.networkManager.enable;
     };
   };
 }
