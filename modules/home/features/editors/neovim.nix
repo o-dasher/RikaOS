@@ -5,16 +5,14 @@
   lib,
   ...
 }:
-let
-in
 {
-  options.editors.neovim = {
+  options.features.editors.neovim = {
     enable = lib.mkEnableOption "neovim";
     neovide.enable = lib.mkEnableOption "neovide";
   };
 
   config = lib.mkMerge [
-    (lib.mkIf config.editors.neovim.enable {
+    (lib.mkIf config.features.editors.neovim.enable {
       programs.lazygit.enable = true;
 
       home.file = (config.rika.utils.xdgConfigSelectiveSymLink "nvim/lua/thiago") [
@@ -65,7 +63,6 @@ in
             llvmPackages.clang-tools # C and CPP
             omnisharp-roslyn # C-sharp
             rust-analyzer # Rust
-            yaml-language-server # Yaml
             # Python
             pyright
             ruff
@@ -97,7 +94,7 @@ in
         };
       };
     })
-    (lib.mkIf config.editors.neovim.neovide.enable {
+    (lib.mkIf config.features.editors.neovim.neovide.enable {
       programs.neovide.enable = true;
     })
   ];

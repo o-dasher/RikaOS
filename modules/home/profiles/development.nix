@@ -8,7 +8,7 @@
   options.profiles.development.enable = lib.mkEnableOption "Development profile";
 
   config = lib.mkIf config.profiles.development.enable {
-    editors = {
+    features.editors = {
       neovim.enable = true;
       neovim.neovide.enable = true;
       jetbrains = {
@@ -17,13 +17,13 @@
       };
     };
 
-    dev = {
+    features.dev = {
       direnv.enable = true;
       secrets.enable = true;
       git.enable = true;
     };
 
-    cli = {
+    features.cli = {
       hyfetch.enable = true;
       gemini.enable = true;
       fish.enable = true;
@@ -31,7 +31,7 @@
       tmux.enable = true;
     };
 
-    terminal.ghostty.enable = true;
+    features.terminal.ghostty.enable = true;
 
     home.packages = with pkgs; [
       antigravity-fhs

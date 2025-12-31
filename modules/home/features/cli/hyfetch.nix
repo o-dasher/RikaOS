@@ -1,8 +1,8 @@
 { lib, config, ... }:
 {
-  options.cli.hyfetch.enable = lib.mkEnableOption "hyfetch";
+  options.features.cli.hyfetch.enable = lib.mkEnableOption "hyfetch";
 
-  config = lib.mkIf config.cli.hyfetch.enable {
+  config = lib.mkIf config.features.cli.hyfetch.enable {
     programs.fastfetch.enable = true;
     programs.hyfetch = {
       enable = true;

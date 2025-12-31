@@ -9,12 +9,12 @@ let
   inherit (css) font_definition alpha_fn tailwindCSS;
 in
 {
-  options.desktop.hyprland.waybar.enable = (lib.mkEnableOption "waybar") // {
+  options.features.desktop.hyprland.waybar.enable = (lib.mkEnableOption "waybar") // {
     default = true;
   };
 
   config.programs.waybar =
-    lib.mkIf (config.desktop.hyprland.enable && config.desktop.hyprland.waybar.enable)
+    lib.mkIf (config.features.desktop.hyprland.enable && config.features.desktop.hyprland.waybar.enable)
       {
         enable = true;
         systemd.enable = true;

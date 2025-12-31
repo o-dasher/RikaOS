@@ -1,8 +1,8 @@
 { lib, config, ... }:
 {
-  options.terminal.ghostty.enable = lib.mkEnableOption "ghostty";
+  options.features.terminal.ghostty.enable = lib.mkEnableOption "ghostty";
 
-  config = lib.mkIf config.terminal.ghostty.enable {
+  config = lib.mkIf config.features.terminal.ghostty.enable {
     programs.ghostty = {
       enable = true;
       settings = lib.mkAfter {

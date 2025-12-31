@@ -1,11 +1,11 @@
 { config, lib, ... }:
 {
-  options.desktop.hyprland.mako.enable = (lib.mkEnableOption "mako") // {
+  options.features.desktop.hyprland.mako.enable = (lib.mkEnableOption "mako") // {
     default = true;
   };
 
   config.services.mako =
-    lib.mkIf (config.desktop.hyprland.enable && config.desktop.hyprland.mako.enable)
+    lib.mkIf (config.features.desktop.hyprland.enable && config.features.desktop.hyprland.mako.enable)
       {
         enable = true;
         settings = {

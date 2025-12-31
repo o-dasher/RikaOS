@@ -5,12 +5,12 @@
   ...
 }:
 let
-  cfg = config.games.steam;
+  cfg = config.features.gaming.steam;
 in
 {
-  options.games.steam.enable = lib.mkEnableOption "Steam";
+  options.features.gaming.steam.enable = lib.mkEnableOption "Steam";
 
-  config = lib.mkIf (config.games.enable && cfg.enable) {
+  config = lib.mkIf (config.features.gaming.enable && cfg.enable) {
     systemd.user.services.steam = {
       Unit = {
         Description = "Steam Client";

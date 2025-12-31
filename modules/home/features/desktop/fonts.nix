@@ -5,11 +5,11 @@
   ...
 }:
 {
-  options.desktop.fonts.enable = lib.mkEnableOption "common fonts" // {
+  options.features.desktop.fonts.enable = lib.mkEnableOption "common fonts" // {
     default = true;
   };
 
-  config = lib.mkIf config.desktop.fonts.enable {
+  config = lib.mkIf config.features.desktop.fonts.enable {
     fonts.fontconfig.enable = true;
     home.packages = with pkgs; [
       # Coding / Terminal

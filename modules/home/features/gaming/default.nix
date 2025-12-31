@@ -9,5 +9,5 @@
     ./steam.nix
   ];
 
-  options.games.enable = lib.mkEnableOption "Games";
+  options.features.gaming.enable = lib.mkEnableOption "Gaming";
 }

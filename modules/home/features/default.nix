@@ -5,7 +5,7 @@
     ./desktop
     ./editors
     ./dev
-    ./games
+    ./gaming
     ./terminal
   ];
 }

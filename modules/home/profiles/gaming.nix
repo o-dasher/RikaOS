@@ -9,7 +9,7 @@
   config = lib.mkIf config.profiles.gaming.enable {
     programs.mangohud.enable = true;
 
-    games = {
+    features.gaming = {
       enable = true;
       steam.enable = true;
       heroic.enable = true;

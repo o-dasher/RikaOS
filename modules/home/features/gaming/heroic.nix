@@ -5,9 +5,9 @@
   ...
 }:
 {
-  options.games.heroic.enable = lib.mkEnableOption "heroic";
+  options.features.gaming.heroic.enable = lib.mkEnableOption "heroic";
 
-  config = lib.mkIf (config.games.enable && config.games.heroic.enable) {
+  config = lib.mkIf (config.features.gaming.enable && config.features.gaming.heroic.enable) {
     home.packages = [
       (pkgs.heroic.override {
         extraPkgs =
