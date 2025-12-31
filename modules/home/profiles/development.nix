@@ -10,7 +10,7 @@
   config = lib.mkIf config.profiles.development.enable {
     editors = {
       neovim.enable = true;
-      neovide.enable = true;
+      neovim.neovide.enable = true;
       jetbrains = {
         enable = true;
         datagrip.enable = true;
