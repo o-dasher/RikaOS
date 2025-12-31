@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
     flake-compat.url = "github:edolstra/flake-compat";
     systems.url = "github:nix-systems/default";
     mnw.url = "github:Gerg-L/mnw";
@@ -94,26 +93,22 @@
   outputs =
     {
       nixpkgs,
-      nixpkgs-stable,
       nix-gaming,
       home-manager,
       stylix,
       agenix,
       zen-browser,
       mnw,
-      nixgl,
       playit-nixos-module,
       flake-parts,
       systems,
       nixcord,
-      firefox-addons,
       ...
     }@inputs:
     let
       system = "x86_64-linux";
 
       pkgs = import nixpkgs { inherit system; };
-      pkgs-stable = import nixpkgs-stable { inherit system; };
 
       substituters = [
         "https://cache.nixos.org"
@@ -171,10 +166,8 @@
 
       commonArgs = {
         inherit
-          pkgs-stable
-          nixCaches
           inputs
-          nixgl
+          nixCaches
           ;
       };
 

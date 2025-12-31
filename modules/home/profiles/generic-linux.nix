@@ -2,7 +2,7 @@
   lib,
   config,
   pkgs,
-  nixgl,
+  inputs,
   ...
 }:
 {
@@ -27,7 +27,7 @@
     });
 
     # NixGL configuration
-    nixGL.packages = nixgl.packages;
+    nixGL.packages = inputs.nixgl.packages;
 
     programs.ghostty.package = config.lib.nixGL.wrap pkgs.ghostty;
     wayland.windowManager.hyprland.package = lib.mkForce (config.lib.nixGL.wrap pkgs.hyprland);

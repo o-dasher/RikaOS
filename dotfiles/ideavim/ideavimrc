@@ -26,5 +26,3 @@ map gd <Action>(GotoDeclaration)
 nmap <C-w> <Action>(CloseEditor)
 nnoremap <C-h> :tabprevious<CR>
 nnoremap <C-l> :tabnext<CR>
-
-
