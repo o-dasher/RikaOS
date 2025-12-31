@@ -4,13 +4,9 @@
 {
   pkgs,
   config,
-  cfg,
   lib,
   ...
 }:
-let
-  inherit (cfg) state;
-in
 {
   imports = [
     ./hardware-configuration.nix
@@ -35,8 +31,8 @@ in
     shared-steam-library = {
       enable = true;
       users = [
-        cfg.profiles.rika
-        cfg.profiles.satoko
+        "rika"
+        "satoko"
       ];
     };
   };
@@ -104,11 +100,11 @@ in
       "/home".options = btrfsOpts;
     };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # Define a user account. Don't forget to set a password with 'passwd'.
   users = {
-    groups.libvirtd.members = [ cfg.profiles.rika ];
+    groups.libvirtd.members = [ "rika" ];
     users = {
-      ${cfg.profiles.rika} = {
+      rika = {
         isNormalUser = true;
         shell = pkgs.fish;
         extraGroups = [
@@ -120,7 +116,7 @@ in
           "gamemode"
         ];
       };
-      ${cfg.profiles.satoko} = {
+      satoko = {
         isNormalUser = true;
         shell = pkgs.fish;
         extraGroups = [
@@ -165,5 +161,4 @@ in
   # and migrated your data accordingly.
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-  system.stateVersion = state; # Did you read the comment?
 }
