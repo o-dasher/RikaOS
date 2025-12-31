@@ -89,7 +89,6 @@
 
   outputs =
     {
-      self,
       nixpkgs,
       nixpkgs-stable,
       nix-gaming,
@@ -202,12 +201,12 @@
             {
               home-manager = {
                 useGlobalPkgs = true;
-                useUserPackages = false;
+                useUserPackages = true;
                 extraSpecialArgs = commonArgs;
                 users = nixpkgs.lib.mapAttrs' (
                   _: username:
                   nixpkgs.lib.nameValuePair username (
-                    { config, lib, ... }:
+                    { ... }:
                     {
                       _module.args.cfg = cfg // {
                         inherit username targetHostName;
