@@ -1,6 +1,8 @@
 {
   lib,
   config,
+  inputs,
+  pkgs,
   ...
 }:
 {
@@ -9,6 +11,12 @@
   };
 
   config = lib.mkIf config.profiles.browser.enable {
-    programs.zen-browser.enable = true;
+    programs.zen-browser = {
+      enable = true;
+      profiles.default.extensions =
+        with inputs.firefox-addons.packages.${pkgs.stdenv.hostPlatform.system}; [
+          ublock-origin
+        ];
+    };
   };
 }
