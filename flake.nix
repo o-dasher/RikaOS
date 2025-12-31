@@ -141,16 +141,16 @@
       systemCfgs = {
         hinamizawa = {
           state = "24.11";
-          profiles = {
-            rika = "rika";
-            satoko = "satoko";
-          };
+          profiles = [
+            "rika"
+            "satoko"
+          ];
         };
         gensokyo = {
           state = "24.05";
-          profiles = {
-            nue = "thiago";
-          };
+          profiles = [
+            "thiago"
+          ];
         };
       };
 
@@ -202,20 +202,22 @@
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 extraSpecialArgs = commonArgs;
-                users = nixpkgs.lib.mapAttrs' (
-                  _: username:
-                  nixpkgs.lib.nameValuePair username (
-                    { ... }:
-                    {
-                      imports = commonHomeModules ++ [ ./hosts/${hostName}/users/${username} ];
-                      home = {
-                        inherit username;
-                        homeDirectory = "/home/${username}";
-                        stateVersion = systemCfg.state;
-                      };
-                    }
-                  )
-                ) systemCfg.profiles;
+                users = nixpkgs.lib.listToAttrs (
+                  map (
+                    username:
+                    nixpkgs.lib.nameValuePair username (
+                      { ... }:
+                      {
+                        imports = commonHomeModules ++ [ ./hosts/${hostName}/users/${username} ];
+                        home = {
+                          inherit username;
+                          homeDirectory = "/home/${username}";
+                          stateVersion = systemCfg.state;
+                        };
+                      }
+                    )
+                  ) systemCfg.profiles
+                );
               };
             }
           ];
@@ -263,7 +265,7 @@
             users = nixpkgs.lib.flatten (
               nixpkgs.lib.mapAttrsToList (
                 hostName: cfg:
-                nixpkgs.lib.mapAttrsToList (_: username: {
+                map (username: {
                   name = username;
                   value = mkHome hostName cfg username;
                 }) cfg.profiles
