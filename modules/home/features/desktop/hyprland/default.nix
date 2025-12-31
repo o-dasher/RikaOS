@@ -9,12 +9,6 @@ let
   inherit (lib) getExe;
 in
 {
-  imports = [
-    ./mako.nix
-    ./waybar.nix
-    ./fuzzel.nix
-  ];
-
   options.features.desktop.hyprland.enable = lib.mkEnableOption "hyprland";
 
   config = lib.mkIf config.features.desktop.hyprland.enable {

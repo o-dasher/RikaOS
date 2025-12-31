@@ -5,6 +5,12 @@
   ...
 }:
 {
+  imports = [
+    ./fuzzel.nix
+    ./mako.nix
+    ./waybar.nix
+  ];
+
   options.features.desktop.wayland.enable = lib.mkEnableOption "Wayland base integration" // {
     default = true;
   };
