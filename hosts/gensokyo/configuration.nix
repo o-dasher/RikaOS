@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (cfg) targetHostName state;
+  inherit (cfg) hostName state;
 in
 {
   imports = [
@@ -39,7 +39,7 @@ in
 
     security.polkit.enable = true;
     networking = {
-      hostName = targetHostName;
+      inherit hostName;
       useDHCP = false;
       firewall =
         let

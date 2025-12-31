@@ -182,17 +182,17 @@
       ];
 
       mkSystem =
-        targetHostName: cfg:
+        hostName: cfg:
         nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = commonArgs // {
             cfg = cfg // {
-              inherit targetHostName;
+              inherit hostName;
             };
           };
           modules = [
             ./modules/nixos
-            ./hosts/${targetHostName}/configuration.nix
+            ./hosts/${hostName}/configuration.nix
             home-manager.nixosModules.home-manager
             stylix.nixosModules.stylix
             agenix.nixosModules.default
@@ -209,9 +209,9 @@
                     { ... }:
                     {
                       _module.args.cfg = cfg // {
-                        inherit username targetHostName;
+                        inherit username hostName;
                       };
-                      imports = commonHomeModules ++ [ ./hosts/${targetHostName}/users/${username} ];
+                      imports = commonHomeModules ++ [ ./hosts/${hostName}/users/${username} ];
                       home = {
                         inherit username;
                         homeDirectory = "/home/${username}";
@@ -226,16 +226,16 @@
         };
 
       mkHome =
-        targetHostName: cfg: username:
+        hostName: cfg: username:
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = commonHomeModules ++ [
-            ./hosts/${targetHostName}/users/${username}
+            ./hosts/${hostName}/users/${username}
             stylix.homeModules.stylix
           ];
           extraSpecialArgs = commonArgs // {
             cfg = cfg // {
-              inherit username targetHostName;
+              inherit username hostName;
             };
           };
         };
@@ -256,18 +256,17 @@
 
       flake = {
         nixosConfigurations = nixpkgs.lib.mapAttrs' (
-          targetHostName: cfg:
-          nixpkgs.lib.nameValuePair (cfg.hostName or targetHostName) (mkSystem targetHostName cfg)
+          hostName: cfg: nixpkgs.lib.nameValuePair (cfg.hostName or hostName) (mkSystem hostName cfg)
         ) systemCfgs;
 
         homeConfigurations =
           let
             users = nixpkgs.lib.flatten (
               nixpkgs.lib.mapAttrsToList (
-                targetHostName: cfg:
+                hostName: cfg:
                 nixpkgs.lib.mapAttrsToList (_: username: {
                   name = username;
-                  value = mkHome targetHostName cfg username;
+                  value = mkHome hostName cfg username;
                 }) cfg.profiles
               ) homeCfgs
             );
