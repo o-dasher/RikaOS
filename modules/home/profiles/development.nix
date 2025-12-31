@@ -34,10 +34,10 @@
 
     terminal.ghostty.enable = true;
 
-    home.packages = [
+    home.packages = with pkgs; [
       inputs.antigravity-nix.packages.x86_64-linux.default
-      pkgs.wget
-      pkgs.heroku
+      wget
+      heroku
     ];
   };
 }
