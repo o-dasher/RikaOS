@@ -82,8 +82,6 @@ in
           name: drive:
           # bash
           ''
-            echo "Attempting to unlock ${name}..."
-
             # 1. Read key, strip newlines/spaces, and pipe it
             # 2. Use --key-file=- to read from the pipe
             cat ${drive.keyFile} | tr -d '[:space:]' | cryptsetup open --type bitlk ${drive.device} ${name} \
