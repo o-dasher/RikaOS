@@ -1,42 +1,38 @@
-# Welcome to RikaOS
+# RikaOS
+Welcome to my personal NixOS and Home Manager configuration repository. This setup manages my systems, applications, themes, and development environments in a reproducible, declarative way using Nix Flakes.
 
-These are all my configurations that I use to manage my NixOS setup and Home Manager.
+## Overview
 
-# So what this does?
+- **NixOS & Home Manager**: Managed via structured modules in `modules/nixos` and `modules/home`.
+- **Theming**: System-wide theming handled by `stylix`.
+- **Neovim**: Declarative configuration using the `mnw` wrapper.
+- **Secrets**: Encrypted and managed with `agenix`.
 
-- Sets up all apps I use, such as neovim, wezterm, lazygit and everything else on all of my computers.
-
-* Styles everything - outside of gtk - on my computer using stylix, for whatever reason gtk styling seems broken when trying to do it through home-manager on gnome, and yes I use gnome on some of my computers, mainly my research lab computers.
-
-# A mini tutorial for my ownself
-
-When setting up a new machine:
-
-```
-rm ~/.config/*
+### 1. Clone & Prepare
+```bash
 git clone https://github.com/o-dasher/RikaOS.git ~/.config
-cp /etc/nixos/hardware-configuration.nix ~/.config/nixo/system
-
-# Installs home manager
-nix-channel --add https://github.com/nix-community/home-manager/archive/release-24.11.tar.gz home-manager
-nix-channel --update
-nix-shell '<home-manager>' -A install
-
-sudo nixos-rebuild switch --flake ~/.config
-home-manager switch --flake ~/.config
+cd ~/.config
 ```
 
-# Hosts
+### 2. Installation
+**NixOS System:**
+```bash
+sudo nixos-rebuild switch --flake .#hostname
+```
+*Replace `hostname` with a defined host (e.g. `gensokyo`, `hinamizawa`).*
 
-I actually only use NixOS on my home computer, so there is only a single proper NixOS host and it is called Nixo. They pretty much only rely on home-manager.
+**Home Manager (User only):**
+```bash
+home-manager switch --flake .#username
+```
+*Replace `username` with a defined user (e.g. `rika`, `satoko`, `thiago`).*
 
-# FIle Strucutre
+## File Structure
 
-| Location       | Description                                                                                                 |
-| -------------- | ----------------------------------------------------------------------------------------------------------- |
-| nixo           | All my home-manager and nixos related configuration this is pretty much the main part of this repository    |
-| nixo/home      | This directory contains all of my home-manager configuration                                                |
-| nixo/home/rika | Global home manager configuration                                                                           |
-| nixo/system    | My personal computer nixos system configuration                                                             |
-| nvim           | My Neovim configuration, I still manage it without nix because I use lazy.nvim but I might migrate sometime |
-| assets         | I find convenient to put my assets on this repository, such as my keyboard configuration and wallpapers     |
+| Path | Description |
+|------|-------------|
+| `flake.nix` | Entry point defining inputs, outputs, and systems. |
+| `hosts/` | Machine-specific configurations (hardware & roles). |
+| `modules/nixos/` | Reusable system modules (features, services). |
+| `modules/home/` | Reusable home-manager modules (programs, themes). |
+| `dotfiles/` | Raw configuration files (e.g., Neovim Lua config). |
