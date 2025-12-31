@@ -31,12 +31,10 @@
 
     # tools
     pwvucontrol
-
-    # images
-    nomacs
   ];
 
   programs = {
     home-manager.enable = true;
+    imv.enable = true;
   };
 }
