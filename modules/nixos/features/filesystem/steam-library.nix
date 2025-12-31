@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.multiUserFiles.shared-steam-library;
+  cfg = config.features.filesystem.steamLibrary;
 in
 {
-  options.multiUserFiles.shared-steam-library = {
+  options.features.filesystem.steamLibrary = {
     enable = lib.mkEnableOption "shared steam library location";
 
     path = lib.mkOption {

@@ -5,8 +5,8 @@
   ...
 }:
 {
-  options.nixSetup = with lib; {
-    enable = mkEnableOption "nixSetup";
+  options.features.nix = with lib; {
+    enable = mkEnableOption "nix";
     nixpkgs.enable = mkEnableOption "nixpkgs";
     trusted-users = mkOption {
       default = [ ];
@@ -19,7 +19,7 @@
 
   config =
     let
-      cfg = config.nixSetup;
+      cfg = config.features.nix;
     in
     lib.mkIf (cfg.enable) {
       nixpkgs.config.allowUnfree = cfg.nixpkgs.enable;

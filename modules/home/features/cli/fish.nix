@@ -18,8 +18,8 @@ in
         let
           aliase = pkg: kvpairs: prefixset (lib.getExe pkg) kvpairs;
 
-          publicFlake = "${config.multiUserFiles.sharedFolders.configurationRoot}/public";
-          privateFlake = "${config.multiUserFiles.sharedFolders.configurationRoot}/private";
+          publicFlake = "${config.features.filesystem.sharedFolders.configurationRoot}/public";
+          privateFlake = "${config.features.filesystem.sharedFolders.configurationRoot}/private";
 
           updateFlake = flake: "${lib.getExe pkgs.nix} flake update --flake ${flake}";
           mkUpdateUtils =
@@ -35,7 +35,7 @@ in
             (lib.mkIf (osConfig != null) (mkUpdateUtils "os switch"))
             (
               (lib.mkIf (
-                config.multiUserFiles.sharedFolders.enable
+                config.features.filesystem.sharedFolders.enable
                 && (osConfig == null || !osConfig.home-manager.useGlobalPkgs)
               ))
               (mkUpdateUtils "home switch")

@@ -15,13 +15,12 @@
   };
 
   config = {
-    userPreferences.enable = true;
-    nixSetup = {
-      enable = true;
-      nixpkgs.enable = true;
-    };
-
+    features.core.userPreferences.enable = true;
     features = {
+      nix = {
+        enable = true;
+        nixpkgs.enable = true;
+      };
       networking = {
         enable = true;
         networkManager.enable = false;

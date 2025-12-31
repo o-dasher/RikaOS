@@ -12,48 +12,15 @@
     ./hardware-configuration.nix
   ];
 
-  userPreferences.enable = true;
-  secureBoot = {
-    enable = true;
-    encryptionUnlock.enable = true;
-  };
-
-  nixSetup = {
-    enable = true;
-    nixpkgs.enable = true;
-  };
-
-  multiUserFiles = {
-    sharedFolders.folderNames = [
-      "/shared/Games"
-      "/shared/Media"
-    ];
-    shared-steam-library = {
-      enable = true;
-      users = [
-        "rika"
-        "satoko"
-      ];
-    };
-  };
-
-  theme.lain.enable = true;
-
   services = {
     printing.enable = true;
     openssh.enable = true;
     displayManager.gdm.enable = true;
   };
 
-  encryption.bitlocker-unlock = lib.mkIf (config.age.secrets ? bitlocker-hinamizawa-shared) {
-    enable = true;
-    drives.windows-shared = {
-      device = "/dev/disk/by-uuid/0cd42b48-325f-4851-8e4d-fc9ed4a4e08d";
-      keyFile = config.age.secrets.bitlocker-hinamizawa-shared.path;
-    };
-  };
-
+  theme.lain.enable = true;
   features = {
+    core.userPreferences.enable = true;
     graphics.enable = true;
     hardware.amdgpu.enable = true;
     hardware.keyboard.enable = true;
@@ -62,6 +29,14 @@
     virtualization.enable = true;
     networking.enable = true;
     desktop.hyprland.enable = true;
+    boot = {
+      enable = true;
+      cachy.enable = true;
+    };
+    nix = {
+      enable = true;
+      nixpkgs.enable = true;
+    };
     services = {
       bluetooth.enable = true;
       openrgb.enable = true;
@@ -69,9 +44,29 @@
       gnome-keyring.enable = true;
       thunar.enable = true;
     };
-    boot = {
+    security.secureBoot = {
       enable = true;
-      cachy.enable = true;
+      encryptionUnlock.enable = true;
+    };
+    filesystem = {
+      steamLibrary = {
+        enable = true;
+        users = [
+          "rika"
+          "satoko"
+        ];
+      };
+      sharedFolders.folderNames = [
+        "/shared/Games"
+        "/shared/Media"
+      ];
+      bitlocker = lib.mkIf (config.age.secrets ? bitlocker-hinamizawa-shared) {
+        enable = true;
+        drives.windows-shared = {
+          device = "/dev/disk/by-uuid/0cd42b48-325f-4851-8e4d-fc9ed4a4e08d";
+          keyFile = config.age.secrets.bitlocker-hinamizawa-shared.path;
+        };
+      };
     };
   };
 
