@@ -3,6 +3,6 @@
     ./core
     ./features
     ./profiles
-    ../common
+    ../lib
   ];
 }
