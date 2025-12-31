@@ -63,6 +63,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixcord = {
       url = "github:kaylorben/nixcord";
       inputs.flake-parts.follows = "flake-parts";
@@ -102,6 +106,7 @@
       flake-parts,
       systems,
       nixcord,
+      firefox-addons,
       ...
     }@inputs:
     let
