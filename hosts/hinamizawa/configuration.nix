@@ -13,10 +13,13 @@
   ];
 
   services = {
-    qbittorrent.enable = true;
     printing.enable = true;
     openssh.enable = true;
     displayManager.gdm.enable = true;
+    transmission = {
+      enable = true;
+      package = pkgs.transmission_4;
+    };
   };
 
   theme.lain.enable = true;

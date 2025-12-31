@@ -22,19 +22,8 @@
     };
 
     home.packages = with pkgs; [
-      (pkgs.makeDesktopItem {
-        name = "qBittorrent-PWA";
-        desktopName = "qBittorrent";
-        genericName = "Torrent Client";
-        exec = "${lib.getExe pkgs.ungoogled-chromium} --app=http://localhost:8080";
-        icon = "qbittorrent";
-        terminal = false;
-        type = "Application";
-        categories = [
-          "Network"
-          "P2P"
-        ];
-      })
+      # Downloading
+      transmission-remote-gtk
 
       # video
       kdePackages.kdenlive
