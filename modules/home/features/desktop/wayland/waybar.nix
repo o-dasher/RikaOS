@@ -5,8 +5,7 @@
   ...
 }:
 let
-  inherit (config.rika.utils) css;
-  inherit (css) alpha_fn tailwindCSS;
+  inherit (config.rika.utils.css) tailwindCSS;
 in
 {
   options.features.desktop.hyprland.waybar.enable = (lib.mkEnableOption "waybar") // {
@@ -134,13 +133,10 @@ in
 
         style =
           let
-            inherit (config.lib.stylix.colors) base00;
-
             border_definition =
               # css
               ''
-                border-color: ${alpha_fn "white" 0.25};
-                @apply border-solid;
+                @apply border-solid border-white/25;
               '';
           in
           lib.mkAfter (
@@ -155,7 +151,7 @@ in
                   }
 
                   window#waybar {
-                      background: ${alpha_fn "#${base00}" 0.5};
+                      @apply bg-base00/50;
                   }
 
                   .modules-left {
