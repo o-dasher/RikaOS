@@ -81,11 +81,9 @@
       ];
     };
 
-    programs = {
-      neovim = {
-        enable = true;
-        defaultEditor = true;
-      };
+    programs.neovim = {
+      enable = true;
+      defaultEditor = true;
     };
   };
 }
