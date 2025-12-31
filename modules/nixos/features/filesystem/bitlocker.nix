@@ -6,7 +6,7 @@
 }:
 with lib;
 let
-  cfg = config.encryption.bitlocker-unlock;
+  cfg = config.features.filesystem.bitlocker;
 
   driveOpts =
     { name, ... }:
@@ -28,7 +28,7 @@ let
     };
 in
 {
-  options.encryption.bitlocker-unlock = {
+  options.features.filesystem.bitlocker = {
     enable = mkEnableOption "BitLocker declarative unlock";
 
     mountOptions = mkOption {

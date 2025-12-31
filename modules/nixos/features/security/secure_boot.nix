@@ -6,7 +6,7 @@
 }:
 {
 
-  options.secureBoot = with lib; {
+  options.features.security.secureBoot = with lib; {
     enable = mkEnableOption "secureBoot";
     # Reference for auto unlocking encrypted drive: https://discourse.nixos.org/t/full-disk-encryption-tpm2/29454
     encryptionUnlock.enable = mkEnableOption "Unlock encrypted drives automatically";
@@ -14,7 +14,7 @@
 
   config =
     let
-      cfg = config.secureBoot;
+      cfg = config.features.security.secureBoot;
     in
     lib.mkIf cfg.enable {
       environment.systemPackages = [

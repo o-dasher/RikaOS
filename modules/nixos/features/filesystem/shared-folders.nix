@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.multiUserFiles.sharedFolders;
+  cfg = config.features.filesystem.sharedFolders;
   # Gather all paths into a single list
   allPaths = [ cfg.configurationRoot ] ++ cfg.folderNames;
 in
@@ -14,7 +14,7 @@ in
     ../../../home/core/shared_folders.nix
   ];
 
-  options.multiUserFiles.sharedFolders = with lib; {
+  options.features.filesystem.sharedFolders = with lib; {
     folderNames = mkOption {
       default = [ ];
       type = types.listOf types.str;

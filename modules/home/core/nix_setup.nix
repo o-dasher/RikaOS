@@ -18,7 +18,7 @@
       programs.nh = {
         enable = true;
         clean.enable = true;
-        flake = "${config.multiUserFiles.sharedFolders.configurationRoot}/private";
+        flake = "${config.features.filesystem.sharedFolders.configurationRoot}/private";
       };
     })
     (lib.mkIf
