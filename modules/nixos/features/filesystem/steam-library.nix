@@ -44,7 +44,6 @@ in
         RemainAfterExit = true;
       };
 
-      # Ensure basic utilities are available in the script's environment
       path = with pkgs; [
         coreutils
         findutils
@@ -77,6 +76,7 @@ in
           #bash
           ''
             echo "Setting up shared steam library for user: ${user}"
+
             USER_HOME="/home/${user}"
             SHARED_ROOT="$USER_HOME/.steam/shared"
             SHARED_STEAMAPPS="$SHARED_ROOT/steamapps"
