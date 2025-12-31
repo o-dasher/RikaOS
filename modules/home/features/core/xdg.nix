@@ -4,16 +4,16 @@
   ...
 }:
 {
-  options.xdgSetup = {
-    enable = lib.mkEnableOption "xdgSetup";
+  options.features.core.xdg = {
+    enable = lib.mkEnableOption "xdg";
     portal.enable = lib.mkEnableOption "portal";
   };
 
-  config = lib.mkIf config.xdgSetup.enable {
+  config = lib.mkIf config.features.core.xdg.enable {
     xdg = {
       enable = true;
       mime.enable = true;
-      portal = lib.mkIf config.xdgSetup.portal.enable {
+      portal = lib.mkIf config.features.core.xdg.portal.enable {
         enable = true;
         xdgOpenUsePortal = true;
         config.common.default = [ "*" ];
