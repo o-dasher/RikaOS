@@ -141,14 +141,14 @@
       systemCfgs = {
         hinamizawa = {
           state = "24.11";
-          profiles = [
+          users = [
             "rika"
             "satoko"
           ];
         };
         gensokyo = {
           state = "24.05";
-          profiles = [
+          users = [
             "thiago"
           ];
         };
@@ -158,7 +158,7 @@
         # wired = {
         #   hostName = "gpmecatronica-System-Product-Name";
         #   state = "24.05";
-        #   profiles = {
+        #   users = {
         #     thiagogpm = "thiagogpm";
         #   };
         # };
@@ -216,7 +216,7 @@
                         };
                       }
                     )
-                  ) systemCfg.profiles
+                  ) systemCfg.users
                 );
               };
             }
@@ -268,7 +268,7 @@
                 map (username: {
                   name = username;
                   value = mkHome hostName cfg username;
-                }) cfg.profiles
+                }) cfg.users
               ) homeCfgs
             );
           in
