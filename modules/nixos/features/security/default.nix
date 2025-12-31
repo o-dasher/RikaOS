@@ -1,5 +1,5 @@
 {
   imports = [
-    ./secure_boot.nix
+    ./secure-boot.nix
   ];
 }

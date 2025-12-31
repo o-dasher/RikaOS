@@ -11,7 +11,7 @@ let
 in
 {
   imports = [
-    ../../../home/core/shared_folders.nix
+    ../../../home/core/shared-folders.nix
   ];
 
   options.features.filesystem.sharedFolders = with lib; {
