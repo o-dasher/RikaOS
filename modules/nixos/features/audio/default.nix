@@ -17,18 +17,7 @@
       pulse.enable = true;
       jack.enable = true;
       lowLatency.enable = true;
-      wireplumber = {
-        enable = true;
-        extraConfig = {
-          "10-bluez" = {
-            "monitor.bluez.properties" = {
-              "bluez5.enable-sbc-xq" = true;
-              "bluez5.enable-msbc" = true;
-              "bluez5.enable-hw-volume" = true;
-            };
-          };
-        };
-      };
+      wireplumber.enable = true;
     };
   };
 }
