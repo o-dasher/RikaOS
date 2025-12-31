@@ -6,7 +6,7 @@
 }:
 let
   inherit (config.rika.utils) css;
-  inherit (css) font_definition alpha_fn tailwindCSS;
+  inherit (css) alpha_fn tailwindCSS;
 in
 {
   options.features.desktop.hyprland.waybar.enable = (lib.mkEnableOption "waybar") // {
@@ -151,8 +151,6 @@ in
                   @tailwind utilities;
 
                   * {
-                      ${font_definition}
-                      font-size: 12px;
                       @apply min-h-0;
                   }
 

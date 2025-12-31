@@ -11,15 +11,33 @@
 
   config = lib.mkIf config.features.desktop.fonts.enable {
     fonts.fontconfig.enable = true;
+
+    stylix.fonts = {
+      monospace = {
+        package = pkgs.nerd-fonts.jetbrains-mono;
+        name = "JetBrainsMono Nerd Font";
+      };
+      sansSerif = {
+        package = pkgs.noto-fonts;
+        name = "Noto Sans";
+      };
+      serif = {
+        package = pkgs.noto-fonts;
+        name = "Noto Serif";
+      };
+      sizes = {
+        desktop = 9;
+        applications = 12;
+        popups = 12;
+      };
+    };
+
     home.packages = with pkgs; [
       # Coding / Terminal
       nerd-fonts.fira-mono
-      nerd-fonts.jetbrains-mono
 
       # Essential for Web & Documents
-      noto-fonts
       noto-fonts-cjk-sans
-      noto-fonts-color-emoji
       liberation_ttf
       dejavu_fonts
     ];

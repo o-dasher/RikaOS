@@ -6,7 +6,6 @@
     programs.ghostty = {
       enable = true;
       settings = lib.mkAfter {
-        font-size = 12;
         scrollback-limit = 10000;
         clipboard-read = "allow";
         gtk-titlebar = false;
