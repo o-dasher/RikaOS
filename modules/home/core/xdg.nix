@@ -6,9 +6,7 @@
 {
   options.xdgSetup = {
     enable = lib.mkEnableOption "xdgSetup";
-    portal.enable = lib.mkEnableOption "portal" // {
-      default = true;
-    };
+    portal.enable = lib.mkEnableOption "portal";
   };
 
   config = lib.mkIf config.xdgSetup.enable {
