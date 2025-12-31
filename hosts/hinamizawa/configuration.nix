@@ -100,9 +100,11 @@
       "/home".options = btrfsOpts;
     };
 
-  # Define a user account. Don't forget to set a password with 'passwd'.
   users = {
-    groups.libvirtd.members = [ "rika" ];
+    groups.libvirtd.members = [
+      "rika"
+      "satoko"
+    ];
     users = {
       rika = {
         isNormalUser = true;
