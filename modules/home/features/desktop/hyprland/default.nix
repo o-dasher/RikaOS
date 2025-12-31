@@ -126,7 +126,7 @@ in
             audioStep = toString 1;
           in
           [
-            ", XF86AudioRaiseVolume, exec, ${wireplumber}/bin/wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ ${audioStep}%"
+            ", XF86AudioRaiseVolume, exec, ${wireplumber}/bin/wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ ${audioStep}%+"
             ", XF86AudioLowerVolume, exec, ${wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ ${audioStep}%-"
           ];
         bind =
