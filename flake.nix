@@ -182,14 +182,10 @@
       ];
 
       mkSystem =
-        hostName: cfg:
+        hostName: systemCfg:
         nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = commonArgs // {
-            cfg = cfg // {
-              inherit hostName;
-            };
-          };
+          specialArgs = commonArgs;
           modules = [
             ./modules/nixos
             ./hosts/${hostName}/configuration.nix
@@ -199,6 +195,9 @@
             nix-gaming.nixosModules.pipewireLowLatency
             playit-nixos-module.nixosModules.default
             {
+              networking.hostName = hostName;
+              system.stateVersion = systemCfg.state;
+
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
@@ -208,36 +207,36 @@
                   nixpkgs.lib.nameValuePair username (
                     { ... }:
                     {
-                      _module.args.cfg = cfg // {
-                        inherit username hostName;
-                      };
                       imports = commonHomeModules ++ [ ./hosts/${hostName}/users/${username} ];
                       home = {
                         inherit username;
                         homeDirectory = "/home/${username}";
-                        stateVersion = cfg.state;
+                        stateVersion = systemCfg.state;
                       };
                     }
                   )
-                ) cfg.profiles;
+                ) systemCfg.profiles;
               };
             }
           ];
         };
 
       mkHome =
-        hostName: cfg: username:
+        hostName: homeCfg: username:
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = commonHomeModules ++ [
             ./hosts/${hostName}/users/${username}
             stylix.homeModules.stylix
+            {
+              home = {
+                inherit username;
+                homeDirectory = "/home/${username}";
+                stateVersion = homeCfg.state;
+              };
+            }
           ];
-          extraSpecialArgs = commonArgs // {
-            cfg = cfg // {
-              inherit username hostName;
-            };
-          };
+          extraSpecialArgs = commonArgs;
         };
     in
     (flake-parts.lib.mkFlake { inherit inputs; } {

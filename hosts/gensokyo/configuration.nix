@@ -1,12 +1,8 @@
 {
-  cfg,
   lib,
   config,
   ...
 }:
-let
-  inherit (cfg) hostName state;
-in
 {
   imports = [
     ./hardware-configuration.nix
@@ -39,7 +35,6 @@ in
 
     security.polkit.enable = true;
     networking = {
-      inherit hostName;
       useDHCP = false;
       firewall =
         let
@@ -80,7 +75,7 @@ in
       };
     };
 
-    users.users.${cfg.profiles.nue} = {
+    users.users.thiago = {
       isNormalUser = true;
       extraGroups = [
         "wheel"
@@ -93,7 +88,5 @@ in
         defaultEditor = true;
       };
     };
-
-    system.stateVersion = state;
   };
 }
