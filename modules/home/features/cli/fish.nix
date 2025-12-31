@@ -2,12 +2,11 @@
   lib,
   config,
   pkgs,
-  utils,
   osConfig ? null,
   ...
 }:
 let
-  inherit (utils) prefixset;
+  inherit (config.rika.utils) prefixset;
 in
 {
   options.cli.fish.enable = lib.mkEnableOption "fish";

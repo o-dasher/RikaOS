@@ -1,12 +1,11 @@
 {
   lib,
   pkgs,
-  utils,
   config,
   ...
 }:
 let
-  inherit (utils) css;
+  inherit (config.rika.utils) css;
   inherit (css) font_definition alpha_fn tailwindCSS;
 in
 {
