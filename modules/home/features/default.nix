@@ -6,6 +6,5 @@
     ./dev
     ./games
     ./terminal
-    ./services
   ];
 }
