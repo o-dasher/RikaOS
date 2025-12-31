@@ -82,14 +82,24 @@ in
           name: drive:
           # bash
           ''
-            # 1. Read key, strip newlines/spaces, and pipe it
-            # 2. Use --key-file=- to read from the pipe
-            cat ${drive.keyFile} | tr -d '[:space:]' | cryptsetup open --type bitlk ${drive.device} ${name} \
-              --key-file=- --allow-discards --verbose
+            # Skip if the device is already unlocked
+            if [ -e /dev/mapper/${name} ]; then
+              echo "Device ${name} is already unlocked, skipping..."
+            else
+              # 1. Read key, strip newlines/spaces, and pipe it
+              # 2. Use --key-file=- to read from the pipe
+              cat ${drive.keyFile} | tr -d '[:space:]' | cryptsetup open --type bitlk ${drive.device} ${name} \
+                --key-file=- --allow-discards --verbose
+            fi
 
-            mkdir -p ${drive.mountPoint}
-            mount /dev/mapper/${name} ${drive.mountPoint} -t ntfs3 \
-                -o ${concatStringsSep "," cfg.mountOptions}
+            # Mount if not already mounted
+            if ! mountpoint -q ${drive.mountPoint}; then
+              mkdir -p ${drive.mountPoint}
+              mount /dev/mapper/${name} ${drive.mountPoint} -t ntfs3 \
+                  -o ${concatStringsSep "," cfg.mountOptions}
+            else
+              echo "Mount point ${drive.mountPoint} is already mounted, skipping..."
+            fi
           '') cfg.drives
       );
 
