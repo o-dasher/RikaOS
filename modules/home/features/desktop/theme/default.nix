@@ -9,7 +9,7 @@ let
 in
 {
   imports = [
-    ../../../../common/theme
+    ../../../../common
   ];
 
   config = lib.optionalAttrs hasStylix {
