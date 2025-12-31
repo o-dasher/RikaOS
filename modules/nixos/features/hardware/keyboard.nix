@@ -10,9 +10,7 @@
   };
 
   config = lib.mkIf config.features.hardware.keyboard.enable {
-    services.udev.packages = with pkgs; [
-      qmk-udev-rules
-      via
-    ];
+    hardware.keyboard.qmk.enable = true;
+    services.udev.packages = [ pkgs.via ];
   };
 }
