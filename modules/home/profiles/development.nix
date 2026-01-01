@@ -39,6 +39,7 @@
       antigravity-fhs
       wget
       heroku
+      jq
     ];
   };
 }
