@@ -122,12 +122,13 @@
           ];
           binde =
             with pkgs;
+            with lib;
             let
               audioStep = toString 1;
             in
             [
-              ", XF86AudioRaiseVolume, exec, ${wireplumber}/bin/wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ ${audioStep}%+"
-              ", XF86AudioLowerVolume, exec, ${wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ ${audioStep}%-"
+              ", XF86AudioRaiseVolume, exec, ${getExe app2unit} -- ${wireplumber}/bin/wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ ${audioStep}%+"
+              ", XF86AudioLowerVolume, exec, ${getExe app2unit} -- ${wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ ${audioStep}%-"
             ];
           bind =
             let
@@ -143,7 +144,7 @@
 
                 "${mod}, F, fullscreen"
                 "${mod}, C, killactive"
-                "${mod}, M, fullscreen, 1"
+                "${mod}, M, fullscreen, on"
 
                 "${mod}, S, togglegroup"
                 "${mod} SHIFT, F, togglefloating"
@@ -172,13 +173,13 @@
                 "${mod} SHIFT, L, exec, ${getExe app2unit} -- ${getExe hyprlock}"
                 "${mod} SHIFT, Q, exec, ${getExe hyprshutdown} -p 'uwsm stop'"
 
-                ", XF86AudioPlay, exec, ${getExe playerctl} play-pause"
-                ", XF86AudioPrev, exec, ${getExe playerctl} previous"
-                ", XF86AudioNext, exec, ${getExe playerctl} next"
-                ", XF86AudioStop, exec, ${getExe playerctl} stop"
+                ", XF86AudioPlay, exec, ${getExe app2unit} -- ${getExe playerctl} play-pause"
+                ", XF86AudioPrev, exec, ${getExe app2unit} -- ${getExe playerctl} previous"
+                ", XF86AudioNext, exec, ${getExe app2unit} -- ${getExe playerctl} next"
+                ", XF86AudioStop, exec, ${getExe app2unit} -- ${getExe playerctl} stop"
 
-                ", XF86AudioMicMute, exec, ${wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-                ", XF86AudioMute, exec, ${wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+                ", XF86AudioMicMute, exec, ${getExe app2unit} -- ${wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+                ", XF86AudioMute, exec, ${getExe app2unit} -- ${wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
               ]
               (builtins.concatLists (
                 builtins.genList (
