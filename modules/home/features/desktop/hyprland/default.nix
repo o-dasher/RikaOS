@@ -64,7 +64,7 @@
             disable_logs = false;
             full_cm_proto = 1; # Gamescope.
           };
-          monitor = [ "HDMI-A-1, highres@highrr, 0x0, 1, bitdepth, 10" ];
+          monitor = [ "HDMI-A-1, highres@highrr, 0x0, 1" ];
           # BUG: DS and tearing are mutually exclusive. It picks one depending on context.
           # e.g. Gamescope and majority of apps will tear. But native applications like
           # osu! will try to direct scanout unless specified to tear. This can be better in the future. See:
