@@ -168,7 +168,7 @@
                 "${mod} ALT, P, exec, ${getExe app2unit} -- ${getExe grimblast} --notify copy active"
 
                 "${mod} SHIFT, L, exec, ${getExe app2unit} -- ${getExe hyprlock}"
-                "${mod} SHIFT, Q, exec, ${getExe app2unit} -- ${getExe hyprshutdown}"
+                "${mod} SHIFT, Q, exec, ${getExe hyprshutdown} -p 'uwsm stop'"
 
                 ", XF86AudioPlay, exec, ${getExe playerctl} play-pause"
                 ", XF86AudioPrev, exec, ${getExe playerctl} previous"
