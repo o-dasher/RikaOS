@@ -7,7 +7,7 @@
 {
   options.profiles.utilities.enable = lib.mkEnableOption "Utilities profile";
 
-  config = lib.mkIf config.profiles.development.enable {
+  config = lib.mkIf config.profiles.utilities.enable {
     programs = {
       htop.enable = true;
       yazi.enable = true;
