@@ -16,7 +16,6 @@
       portal = lib.mkIf config.features.core.xdg.portal.enable {
         enable = true;
         xdgOpenUsePortal = true;
-        config.common.default = [ "*" ];
       };
     };
   };
