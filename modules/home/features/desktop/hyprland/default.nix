@@ -133,7 +133,7 @@
             in
             with pkgs;
             lib.mkMerge [
-              (lib.mkIf config.features.desktop.hyprland.fuzzel.enable [
+              (lib.mkIf config.features.desktop.wayland.fuzzel.enable [
                 "${mod}, D, exec, pkill -x fuzzel || ${getExe app2unit} -- ${getExe fuzzel}"
               ])
               [
