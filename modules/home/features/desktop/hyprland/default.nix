@@ -18,13 +18,14 @@
       services.hyprpolkitagent.enable = true;
 
       home.packages = [ hyprshutdown ];
-
       home.pointerCursor.hyprcursor.enable = true;
 
       xdg.portal = {
         enable = true;
-        extraPortals = with pkgs; [
-          xdg-desktop-portal-gtk
+        extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+        config.common.hyprland = [
+          "hyprland"
+          "gtk"
         ];
       };
 
@@ -40,11 +41,12 @@
             "AQ_TRACE,1"
             "HYPRLAND_TRACE,1"
 
-            "XDG_CURRENT_DESKTOP,Hyprland" # Set xdg desktop to hyprland
+            "XDG_CURRENT_DESKTOP,Hyprland"
           ];
           exec-once =
             with pkgs;
-            lib.optionals config.programs.nixcord.vesktop.enable [
+            [ "uwsm finalize" ]
+            ++ lib.optionals config.programs.nixcord.vesktop.enable [
               "[workspace 3 silent] ${getExe app2unit} -- ${getExe vesktop} --start-minimized"
             ]
             ++ lib.optionals config.programs.nixcord.discord.enable [
