@@ -5,12 +5,12 @@
   ...
 }:
 {
-  options.features.desktop.hyprland.waybar.enable = (lib.mkEnableOption "waybar") // {
+  options.features.desktop.wayland.waybar.enable = (lib.mkEnableOption "waybar") // {
     default = true;
   };
 
   config.programs.waybar =
-    lib.mkIf (config.features.desktop.hyprland.enable && config.features.desktop.hyprland.waybar.enable)
+    lib.mkIf (config.features.desktop.wayland.enable && config.features.desktop.wayland.waybar.enable)
       {
         enable = true;
         systemd.enable = true;
@@ -19,17 +19,18 @@
             define_temperature_sensor = name: i: j: {
               hwmon-path = "/sys/class/hwmon/hwmon${toString i}/temp${toString j}_input";
               critical-threshold = "80";
-              format-critical = "  ${name} {temperatureC}°C";
+              format-critical = "  ${name} {temperatureC}°C";
               format = "${name} {temperatureC}°C";
             };
+            hyprland = config.features.desktop.hyprland.enable;
           in
           {
             layer = "top";
             position = "top";
+
             margin-bottom = 0;
             margin-top = 0;
 
-            modules-left = [ "hyprland/workspaces" ];
             modules-center = [ "clock" ];
             modules-right = [
               "temperature#cpu"
@@ -43,16 +44,6 @@
 
             "temperature#cpu" = define_temperature_sensor "CPU" 1 1;
             "temperature#gpu" = define_temperature_sensor "GPU" 3 1;
-
-            # Left
-            "hyprland/workspaces" = {
-              all-outputs = true;
-              sort-by-name = true;
-              on-click = "activate";
-              persistent-workspaces = {
-                "*" = 9;
-              };
-            };
 
             # Center
             clock = {
@@ -126,6 +117,17 @@
                   ];
                 };
               };
+          }
+          // lib.optionalAttrs hyprland {
+            modules-left = [ "hyprland/workspaces" ];
+            "hyprland/workspaces" = {
+              all-outputs = true;
+              sort-by-name = true;
+              on-click = "activate";
+              persistent-workspaces = {
+                "*" = 9;
+              };
+            };
           };
 
         style =

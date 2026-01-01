@@ -6,12 +6,12 @@
   ...
 }:
 {
-  options.features.desktop.hyprland.fuzzel.enable = (lib.mkEnableOption "fuzzel") // {
+  options.features.desktop.wayland.fuzzel.enable = (lib.mkEnableOption "fuzzel") // {
     default = true;
   };
 
   config =
-    lib.mkIf (config.features.desktop.hyprland.enable && config.features.desktop.hyprland.fuzzel.enable)
+    lib.mkIf (config.features.desktop.wayland.enable && config.features.desktop.wayland.fuzzel.enable)
       (
         lib.mkMerge [
           (lib.optionalAttrs (options ? stylix) {
