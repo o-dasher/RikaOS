@@ -29,7 +29,6 @@
       kdePackages.kdenlive
 
       # drawing
-      aseprite
       krita
 
       # images
