@@ -11,10 +11,7 @@
     ./waybar.nix
   ];
 
-  options.features.desktop.wayland.enable = lib.mkEnableOption "Wayland base integration" // {
-    default = true;
-  };
-
+  options.features.desktop.wayland.enable = lib.mkEnableOption "Wayland base integration";
   config = lib.mkIf config.features.desktop.wayland.enable {
     home.packages = with pkgs; [
       wl-clipboard

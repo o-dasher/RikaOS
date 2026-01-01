@@ -14,6 +14,7 @@
       hyprshutdown = inputs.hyprshutdown.packages.${pkgs.stdenv.hostPlatform.system}.default;
     in
     lib.mkIf config.features.desktop.hyprland.enable {
+      features.desktop.wayland.enable = true;
       programs.hyprlock.enable = true;
       services.hyprpolkitagent.enable = true;
 
