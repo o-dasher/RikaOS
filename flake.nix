@@ -6,6 +6,11 @@
     flake-compat.url = "github:edolstra/flake-compat";
     systems.url = "github:nix-systems/default";
     mnw.url = "github:Gerg-L/mnw";
+    nix-cachyos-kernel = {
+      url = "github:xddxdd/nix-cachyos-kernel/release";
+      inputs.flake-compat.follows = "flake-compat";
+      inputs.flake-parts.follows = "flake-parts";
+    };
     hyprland = {
       url = "github:hyprwm/Hyprland";
       inputs.pre-commit-hooks.follows = "git-hooks";
@@ -24,11 +29,6 @@
     pam-shim = {
       url = "github:Cu3PO42/pam_shim";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nix-cachyos-kernel = {
-      url = "github:xddxdd/nix-cachyos-kernel/release";
-      inputs.flake-compat.follows = "flake-compat";
-      inputs.flake-parts.follows = "flake-parts";
     };
     flake-utils = {
       url = "github:numtide/flake-utils";
