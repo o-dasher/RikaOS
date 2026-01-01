@@ -24,7 +24,7 @@
       xdg.portal = {
         enable = true;
         extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-        config.common.hyprland = [
+        config.hyprland.default = [
           "hyprland"
           "gtk"
         ];
@@ -32,6 +32,7 @@
 
       wayland.windowManager.hyprland = {
         enable = true;
+        systemd.enable = false; # UWSM managed.
         xwayland.enable = true;
         package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
         portalPackage =
@@ -42,6 +43,7 @@
             "AQ_TRACE,1"
             "HYPRLAND_TRACE,1"
 
+            # Hyprland environment
             "XDG_CURRENT_DESKTOP,Hyprland"
           ];
           exec-once =
