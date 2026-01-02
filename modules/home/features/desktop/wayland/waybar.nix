@@ -24,13 +24,17 @@
             };
             hyprland = config.features.desktop.hyprland.enable;
           in
-          {
-            layer = "top";
-            position = "top";
-
-            margin-bottom = 0;
-            margin-top = 0;
-
+          lib.optionalAttrs hyprland {
+            modules-left = [ "hyprland/workspaces" ];
+            "hyprland/workspaces" = {
+              all-outputs = true;
+              on-click = "activate";
+              persistent-workspaces = {
+                "*" = 9;
+              };
+            };
+          }
+          // {
             modules-center = [ "clock" ];
             modules-right = [
               "temperature#cpu"
@@ -39,8 +43,13 @@
               "memory"
               "tray"
               "pulseaudio"
-              "battery"
             ];
+
+            layer = "top";
+            position = "top";
+
+            margin-bottom = 0;
+            margin-top = 0;
 
             "temperature#cpu" = define_temperature_sensor "CPU" 1 1;
             "temperature#gpu" = define_temperature_sensor "GPU" 3 1;
@@ -51,33 +60,11 @@
             };
 
             # Right
-            battery = {
-              states = {
-                warning = 20;
-                critical = 15;
-              };
-              format = "{icon}  {capacity}%";
-              format-charging = "  {capacity}%";
-              format-plugged = "  {capacity}%";
-              format-alt = "{icon}  {time}";
-              format-icons = [
-                " "
-                " "
-                " "
-                ""
-                ""
-              ];
-            };
-
-            tray = {
-              icon-size = 16;
-              spacing = 6;
-            };
+            tray.spacing = 6;
 
             cpu = {
               format = "  {usage}%";
               tooltip = false;
-              on-click = "${lib.getExe pkgs.ghostty} ${lib.getExe pkgs.htop}";
             };
 
             memory = {
@@ -85,8 +72,6 @@
               format = " {used:0.2f}GB";
               max-length = 10;
               tooltip = false;
-              warning = 90;
-              critical = 95;
             };
 
             pulseaudio =
@@ -99,15 +84,14 @@
                 on-scroll-up = "${wpctl} set-volume @DEFAULT_AUDIO_SINK@ ${wheelstep}+";
                 on-scroll-down = "${wpctl} set-volume @DEFAULT_AUDIO_SINK@ ${wheelstep}-";
                 format = "{icon}  {volume}% {format_source}";
-                format-bluetooth = "{icon} {volume}% {format_source}";
-                format-bluetooth-muted = " {format_source}";
+                format-bluetooth = "{icon}  {volume}% {format_source}";
+                format-bluetooth-muted = "  {format_source}";
                 format-muted = "  {format_source}";
                 format-source = " {volume}%";
                 format-source-muted = "";
                 format-icons = {
                   headphone = "";
-                  hands-free = "";
-                  headset = "🎧";
+                  headset = "";
                   phone = "";
                   portable = "";
                   default = [
@@ -117,19 +101,7 @@
                   ];
                 };
               };
-          }
-          // lib.optionalAttrs hyprland {
-            modules-left = [ "hyprland/workspaces" ];
-            "hyprland/workspaces" = {
-              all-outputs = true;
-              sort-by-name = true;
-              on-click = "activate";
-              persistent-workspaces = {
-                "*" = 9;
-              };
-            };
           };
-
         style =
           let
             inherit (config.lib.stylix.colors) base00;
@@ -177,17 +149,12 @@
                     @apply rounded-sm mr-1 p-0;
                 }
 
-                #workspaces button.focused {
-                    @apply py-0 px-1.5;
-                }
-
                 #tray,
                 #cpu,
                 #temperature,
                 #memory,
                 #backlight,
-                #pulseaudio,
-                #battery {
+                #pulseaudio {
                     @apply py-0 px-2.5 border-r;
                     ${border_definition}
                 }
