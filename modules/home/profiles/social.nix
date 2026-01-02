@@ -9,6 +9,11 @@
       enable = true;
       discord.enable = true;
       vesktop.enable = true;
+      config.plugins = {
+        fakeNitro.enable = true;
+        youtubeAdblock.enable = true;
+        webScreenShareFixes.enable = true;
+      };
     };
   };
 }
