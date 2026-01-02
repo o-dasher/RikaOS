@@ -64,22 +64,21 @@
             disable_logs = false;
             full_cm_proto = 1; # Gamescope.
           };
-          monitor = [ "HDMI-A-1, highres@highrr, 0x0, 1, bitdepth, 10" ];
-          render = {
-            # BUG: DS and tearing are mutually exclusive. It picks one depending on context.
-            # e.g. Gamescope and majority of apps will tear. But native applications like
-            # osu! will try to direct scanout unless specified to tear. This can be better in the future. See:
-            # https://github.com/hyprwm/Hyprland/pull/10020 for reference.
-            # When DS is enabled, apps bypass the compositor to talk to the screen directly.
-            # If the app sends HDR/10-bit data but the screen is in SDR mode (or vice-versa),
-            # you get washed-out colors or artifacts. Disabling this forces Hyprland to
-            # mediate the connection and fix the format.
-            direct_scanout = false;
-
-            # HDR for some reason looks washed on my monitor in Hyprland.
-            cm_fs_passthrough = false;
-            cm_auto_hdr = false;
-          };
+          monitorv2 = [
+            {
+              output = "HDMI-A-1";
+              mode = "highres@highrr";
+              position = "0x0";
+              bitdepth = 10;
+              min_luminance = 0;
+              max_luminance = 400;
+            }
+          ];
+          # BUG: DS and tearing are mutually exclusive. It picks one depending on context.
+          # e.g. Gamescope and majority of apps will tear. But native applications like
+          # osu! will try to direct scanout unless specified to tear. This can be better in the future. See:
+          # https://github.com/hyprwm/Hyprland/pull/10020 for reference.
+          render.direct_scanout = true;
           windowrule = [
             "tag +games, match:content game"
             "tag +games, match:class ^(steam_app_.*|gamescope|osu!)$"
@@ -87,7 +86,6 @@
             "match:tag games, sync_fullscreen on, no_shadow on, no_blur on, no_anim on, immediate on"
             "match:class thunar, float on, center on, size (monitor_w*0.6) (monitor_h*0.6)"
           ];
-
           group.groupbar =
             let
               indicator_height = 24;
