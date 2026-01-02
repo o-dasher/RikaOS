@@ -102,10 +102,9 @@
           };
         style =
           let
-            inherit (config.lib.stylix.colors) base00 base03;
             border_definition = # css
               ''
-                border-color: #${base03};
+                border-color: @base0D;
                 @apply border-solid;
               '';
           in
@@ -119,21 +118,21 @@
                 }
 
                 window#waybar {
-                    background: alpha(#${base00}, 0.5);
+                    background: alpha(@base00, ${toString config.stylix.opacity.desktop});
                 }
 
                 .modules-center {
-                    @apply rounded-b-lg mb-1 p-1;
+                    @apply rounded-b-lg mb-1 p-1 border-b border-x;
+                    ${border_definition}
                 }
 
                 .modules-left, .modules-right {
-                    @apply rounded-lg my-1 mx-1 p-1;
+                    @apply border rounded-lg my-1 mx-1 p-1;
+                    ${border_definition}
                 }
 
-                .modules-left, .modules-center, .modules-right {
-                    background: #${base00};
-                    ${border_definition}
-                    @apply border border-2;
+                .modules-left, .modules-right, .modules-center {
+                    background: @base00;
                 }
 
                 #tray, #cpu, #temperature, #memory {
