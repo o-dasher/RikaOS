@@ -29,8 +29,8 @@
                   line-height = 24;
                 };
                 border = {
-                  width = 2;
-                  radius = 0;
+                  width = 1;
+                  radius = 8;
                 };
               };
             };
