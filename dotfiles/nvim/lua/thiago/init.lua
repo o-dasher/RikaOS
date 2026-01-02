@@ -21,7 +21,7 @@ if vim.g.neovide then
 	vim.g.neovide_opacity = 0.9
 	vim.opt.guifont = { "JetbrainsMono Nerd Font", ":h12" }
 else
-	local use_cli_transparency = false
+	local use_cli_transparency = true
 	if use_cli_transparency then
 		local alphahls = { "Normal", "NormalFloat" }
 		for _, hi in pairs(alphahls) do
