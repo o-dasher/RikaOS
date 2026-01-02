@@ -1,10 +1,11 @@
 { lib, ... }:
 {
   imports = [
-    ./osu.nix
-    ./minecraft.nix
+    ./gamescope.nix
     ./goverlay.nix
     ./heroic.nix
+    ./minecraft.nix
+    ./osu.nix
     ./ps4.nix
     ./steam.nix
   ];
