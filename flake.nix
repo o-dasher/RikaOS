@@ -26,6 +26,11 @@
         hyprutils.follows = "hyprland/hyprutils";
       };
     };
+    spicetify-nix = {
+      url = "github:Gerg-L/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.systems.follows = "systems";
+    };
     pam-shim = {
       url = "github:Cu3PO42/pam_shim";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -111,6 +116,7 @@
       pam-shim,
       systems,
       nixcord,
+      spicetify-nix,
       ...
     }@inputs:
     let
@@ -175,6 +181,7 @@
       get_common_home_modules = hostName: username: stateVersion: [
         ./modules/home
         ./hosts/${hostName}/users/${username}
+        spicetify-nix.homeManagerModules.spicetify
         agenix.homeManagerModules.default
         pam-shim.homeModules.default
         nixcord.homeModules.nixcord

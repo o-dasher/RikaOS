@@ -19,6 +19,9 @@
 
       # documents / study
       zathura.enable = true;
+
+      # Music
+      spicetify.enable = true;
     };
 
     home.packages = with pkgs; [
@@ -33,9 +36,6 @@
 
       # images
       gimp
-
-      # music
-      spotify
     ];
   };
 }
