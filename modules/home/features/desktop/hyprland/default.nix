@@ -54,6 +54,9 @@
             ]
             ++ lib.optionals config.programs.nixcord.discord.enable [
               "[workspace 9 silent] ${getExe app2unit} -- ${getExe discord} --start-minimized"
+            ]
+            ++ lib.optionals config.profiles.browser.enable [
+              "[workspace 2] ${getExe app2unit} -- ${getExe config.profiles.browser.package}"
             ];
           workspace =
             with pkgs;
