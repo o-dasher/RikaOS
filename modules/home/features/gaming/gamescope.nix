@@ -6,6 +6,9 @@
 }:
 let
   cfg = config.features.gaming.gamescope;
+  gamescopePackage = pkgs.gamescope.overrideAttrs (_: {
+    NIX_CFLAGS_COMPILE = [ "-fno-fast-math" ]; # Fixes blurry.
+  });
 
   wrapWithGamescope =
     args: pkg:
@@ -32,7 +35,7 @@ let
         done
 
         rm $out/bin/${binName}
-        makeWrapper ${lib.getExe pkgs.gamescope} $out/bin/${binName} \
+        makeWrapper ${lib.getExe gamescopePackage} $out/bin/${binName} \
           --add-flags "${allArgs} -- ${pkg}/bin/${binName}"
 
         # Symlink share for desktop files, icons, etc.
@@ -66,7 +69,7 @@ in
   };
 
   config = lib.mkIf (config.features.gaming.enable && cfg.enable) {
-    home.packages = [ pkgs.gamescope ];
+    home.packages = [ gamescopePackage ];
 
     features.gaming.gamescope.wrap = wrapWithGamescope;
     features.gaming.gamescope.wrapDefault = wrapWithGamescope "";

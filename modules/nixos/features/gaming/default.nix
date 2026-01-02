@@ -29,6 +29,10 @@
         gamescope = {
           enable = true;
           capSysNice = false;
+          package = pkgs.gamescope.overrideAttrs (_: {
+            # Fixes blurry games: https://github.com/ValveSoftware/gamescope/issues/1622
+            NIX_CFLAGS_COMPILE = [ "-fno-fast-math" ];
+          });
         };
 
         steam = lib.mkIf (cfg.steam.enable) {
