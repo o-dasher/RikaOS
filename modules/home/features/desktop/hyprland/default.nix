@@ -10,6 +10,10 @@
 
   config =
     let
+      gaps = 2;
+      border_size = 2;
+      rounding = 4;
+
       inherit (lib) getExe;
       hyprshutdown = inputs.hyprshutdown.packages.${pkgs.stdenv.hostPlatform.system}.default;
     in
@@ -82,6 +86,9 @@
           # osu! will try to direct scanout unless specified to tear. This can be better in the future. See:
           # https://github.com/hyprwm/Hyprland/pull/10020 for reference.
           render.direct_scanout = true;
+          layerrule = [
+            "match:namespace ^(waybar|launcher)$, blur on"
+          ];
           windowrule = [
             "tag +games, match:content game"
             "tag +games, match:class ^(steam_app_.*|gamescope|osu!)$"
@@ -96,6 +103,12 @@
               indicator_height = 24;
             in
             {
+              inherit rounding;
+
+              "col.inactive" = lib.mkForce (
+                config.lib.stylix.mkOpacityHexColor config.lib.stylix.colors.base03 config.stylix.opacity.desktop
+              );
+
               height = 1;
               font_size = 12;
 
@@ -105,19 +118,12 @@
             };
           general = {
             allow_tearing = true;
-            border_size = 3;
-          }
-          // (
-            let
-              gap = 3;
-            in
-            {
-              gaps_out = gap;
-              gaps_in = gap;
-            }
-          );
+            inherit border_size;
+            gaps_out = gaps;
+            gaps_in = gaps;
+          };
           decoration = {
-            rounding = 4;
+            inherit rounding;
           };
           input = {
             kb_layout = "br";
