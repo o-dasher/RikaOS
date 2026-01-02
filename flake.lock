@@ -1144,9 +1144,33 @@
         "nixpkgs": "nixpkgs_3",
         "pam-shim": "pam-shim",
         "playit-nixos-module": "playit-nixos-module",
+        "spicetify-nix": "spicetify-nix",
         "stylix": "stylix",
         "systems": "systems",
         "zen-browser": "zen-browser"
+      }
+    },
+    "spicetify-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": [
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1767195736,
+        "narHash": "sha256-0xvPSbhIGeJzsJXNTkgJ3PjwdVItKm85wzYKA9NmSzI=",
+        "owner": "Gerg-L",
+        "repo": "spicetify-nix",
+        "rev": "465adc0ab6ff0c4b9b1db1c6e7fd7eeb553b3261",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Gerg-L",
+        "repo": "spicetify-nix",
+        "type": "github"
       }
     },
     "stylix": {
