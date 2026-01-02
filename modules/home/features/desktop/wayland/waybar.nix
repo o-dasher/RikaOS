@@ -81,7 +81,7 @@
                 on-click = "${lib.getExe pkgs.pwvucontrol}";
                 on-scroll-up = "${wpctl} set-volume @DEFAULT_AUDIO_SINK@ ${wheelstep}+";
                 on-scroll-down = "${wpctl} set-volume @DEFAULT_AUDIO_SINK@ ${wheelstep}-";
-                format = "{icon}  {volume}% {format_source}";
+                format = "{icon} {volume}% {format_source}";
                 format-bluetooth = "{icon}  {volume}% {format_source}";
                 format-bluetooth-muted = "  {format_source}";
                 format-muted = "  {format_source}";
@@ -131,19 +131,18 @@
                 }
 
                 .modules-left, .modules-center, .modules-right {
-                    @apply border;
                     background: alpha(#${base00}, 0.75);
+                    ${border_definition}
+                    @apply border;
+                }
+
+                #tray, #cpu, #temperature, #memory {
+                    @apply border-r px-1;
                     ${border_definition}
                 }
 
-                #tray,
-                #cpu,
-                #temperature,
-                #memory,
-                #pulseaudio
-                {
-                    @apply py-0 px-2 border-r;
-                    ${border_definition}
+                #pulseaudio {
+                    @apply px-1;
                 }
               ''
           );
