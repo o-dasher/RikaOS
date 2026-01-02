@@ -27,6 +27,7 @@ let
             opacity = {
               popups = 0.9;
               terminal = 0.9;
+              desktop = 0.6;
             };
           } theme
         );
@@ -39,7 +40,6 @@ let
       };
 
       graduation = mkBaseWhiteSur "rose-pine" {
-        base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
         image = ../../../assets/Wallpapers/graduation.png;
       };
 
