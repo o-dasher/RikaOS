@@ -3,7 +3,7 @@
   ...
 }:
 {
-  theme.cirnold.enable = true;
+  theme.lain-realism.enable = true;
 
   profiles = {
     development.enable = true;

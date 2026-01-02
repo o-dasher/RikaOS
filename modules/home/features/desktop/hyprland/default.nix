@@ -109,13 +109,16 @@
           }
           // (
             let
-              gap = 5;
+              gap = 3;
             in
             {
               gaps_out = gap;
               gaps_in = gap;
             }
           );
+          decoration = {
+            rounding = 4;
+          };
           input = {
             kb_layout = "br";
             kb_variant = "abnt2";
