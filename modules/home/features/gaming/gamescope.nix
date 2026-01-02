@@ -6,9 +6,7 @@
 }:
 let
   cfg = config.features.gaming.gamescope;
-  gamescopePackage = pkgs.gamescope.overrideAttrs (_: {
-    NIX_CFLAGS_COMPILE = [ "-fno-fast-math" ]; # Fixes blurry.
-  });
+  gamescopePackage = config.rika.pkgs.gamescope;
 
   wrapWithGamescope =
     args: pkg:
