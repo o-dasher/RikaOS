@@ -102,10 +102,10 @@
           };
         style =
           let
-            inherit (config.lib.stylix.colors) base00;
+            inherit (config.lib.stylix.colors) base00 base03;
             border_definition = # css
               ''
-                border-color: alpha(white, 0.4);
+                border-color: #${base03};
                 @apply border-solid;
               '';
           in
@@ -131,9 +131,9 @@
                 }
 
                 .modules-left, .modules-center, .modules-right {
-                    background: alpha(#${base00}, 0.75);
+                    background: #${base00};
                     ${border_definition}
-                    @apply border;
+                    @apply border border-2;
                 }
 
                 #tray, #cpu, #temperature, #memory {

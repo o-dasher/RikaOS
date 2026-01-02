@@ -6,42 +6,51 @@
   ...
 }:
 let
-  themes = {
-    cirnold = {
-      base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-macchiato.yaml";
-      image = pkgs.runCommand "dimmed-background.png" { } ''
-        ${lib.getExe' pkgs.imagemagick "magick"} "${../../../assets/Wallpapers/cirnold.png}" -brightness-contrast -10,0 $out
-      '';
-      icons = {
-        package = pkgs.whitesur-icon-theme;
-        dark = "WhiteSur-dark";
-        light = "WhiteSur-light";
-      };
-      opacity = {
-        popups = 0.9;
-        terminal = 0.9;
-      };
-    };
+  themes =
+    let
+      mkBase =
+        base: theme:
+        {
+          base16Scheme = "${pkgs.base16-schemes}/share/themes/${base}.yaml";
+        }
+        // theme;
 
-    graduation = {
-      base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
-      image = ../../../assets/Wallpapers/graduation.png;
-      icons = {
-        package = pkgs.whitesur-icon-theme;
-        dark = "WhiteSur-dark";
-        light = "WhiteSur-light";
+      mkBaseWhiteSur =
+        base: theme:
+        mkBase base (
+          lib.recursiveUpdate {
+            icons = {
+              package = pkgs.whitesur-icon-theme;
+              dark = "WhiteSur-dark";
+              light = "WhiteSur-light";
+            };
+            opacity = {
+              popups = 0.9;
+              terminal = 0.9;
+            };
+          } theme
+        );
+    in
+    {
+      cirnold = mkBaseWhiteSur "catppuccin-macchiato" {
+        image = pkgs.runCommand "dimmed-background.png" { } ''
+          ${lib.getExe' pkgs.imagemagick "magick"} "${../../../assets/Wallpapers/cirnold.png}" -brightness-contrast -10,0 $out
+        '';
       };
-      opacity = {
-        popups = 0.9;
-        terminal = 0.9;
-      };
-    };
 
-    lain = {
-      base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
-      image = ../../../assets/Wallpapers/lain.jpg;
+      graduation = mkBaseWhiteSur "rose-pine" {
+        base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
+        image = ../../../assets/Wallpapers/graduation.png;
+      };
+
+      lain-realism = mkBaseWhiteSur "rose-pine" {
+        image = ../../../assets/Wallpapers/lainrealism.jpg;
+      };
+
+      lain = mkBase "rose-pine" {
+        image = ../../../assets/Wallpapers/lain.jpg;
+      };
     };
-  };
 
   mkStylixConfig =
     themeConfig:
