@@ -9,6 +9,7 @@
     default = true;
   };
 
+  config.stylix.targets.waybar.addCss = false;
   config.programs.waybar =
     lib.mkIf (config.features.desktop.wayland.enable && config.features.desktop.wayland.waybar.enable)
       {
@@ -29,13 +30,27 @@
             "hyprland/workspaces" = {
               all-outputs = true;
               on-click = "activate";
-              persistent-workspaces = {
-                "*" = 9;
+              persistent-workspaces."*" = 10;
+              format = "{icon}";
+              format-icons = {
+                default = "";
+                active = "";
               };
             };
           }
           // {
+            # SETUP
+            layer = "top";
+            position = "top";
+
+            margin-bottom = 0;
+            margin-top = 0;
+
+            # CENTER
             modules-center = [ "clock" ];
+            clock.format = "{:%H:%M | %a %b %d}";
+
+            # RIGHT
             modules-right = [
               "temperature#cpu"
               "temperature#gpu"
@@ -44,36 +59,19 @@
               "tray"
               "pulseaudio"
             ];
-
-            layer = "top";
-            position = "top";
-
-            margin-bottom = 0;
-            margin-top = 0;
-
             "temperature#cpu" = define_temperature_sensor "CPU" 1 1;
             "temperature#gpu" = define_temperature_sensor "GPU" 3 1;
-
-            # Center
-            clock = {
-              format = "{:%H:%M | %a %b %d}";
-            };
-
-            # Right
-            tray.spacing = 6;
-
             cpu = {
               format = "  {usage}%";
               tooltip = false;
             };
-
             memory = {
               interval = 30;
               format = " {used:0.2f}GB";
               max-length = 10;
               tooltip = false;
             };
-
+            tray.spacing = 6;
             pulseaudio =
               let
                 wheelstep = "1%";
@@ -107,8 +105,8 @@
             inherit (config.lib.stylix.colors) base00;
             border_definition = # css
               ''
-                border-color: alpha(white, 0.25);
-                border-style: solid;
+                border-color: alpha(white, 0.4);
+                @apply border-solid;
               '';
           in
           lib.mkAfter (
@@ -117,45 +115,34 @@
                 @tailwind utilities;
 
                 * {
-                    @apply min-h-0;
+                    @apply p-0 m-0 min-h-0;
                 }
 
                 window#waybar {
                     background: alpha(#${base00}, 0.5);
                 }
 
-                .modules-left {
-                    @apply rounded-r-lg py-1 pl-1;
-                }
-
                 .modules-center {
-                    @apply rounded-b-lg mb-1;
-                }
-
-                .modules-right {
-                    @apply rounded-l-lg;
+                    @apply rounded-b-lg mb-1 p-1;
                 }
 
                 .modules-left, .modules-right {
-                    @apply my-1 mx-0;
+                    @apply rounded-lg my-1 mx-1 p-1;
                 }
 
                 .modules-left, .modules-center, .modules-right {
                     @apply border;
+                    background: alpha(#${base00}, 0.75);
                     ${border_definition}
-                }
-
-                #workspaces button {
-                    @apply rounded-sm mr-1 p-0;
                 }
 
                 #tray,
                 #cpu,
                 #temperature,
                 #memory,
-                #backlight,
-                #pulseaudio {
-                    @apply py-0 px-2.5 border-r;
+                #pulseaudio
+                {
+                    @apply py-0 px-2 border-r;
                     ${border_definition}
                 }
               ''
