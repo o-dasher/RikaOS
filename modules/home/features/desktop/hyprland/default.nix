@@ -70,7 +70,11 @@
             # e.g. Gamescope and majority of apps will tear. But native applications like
             # osu! will try to direct scanout unless specified to tear. This can be better in the future. See:
             # https://github.com/hyprwm/Hyprland/pull/10020 for reference.
-            direct_scanout = true;
+            # When DS is enabled, apps bypass the compositor to talk to the screen directly.
+            # If the app sends HDR/10-bit data but the screen is in SDR mode (or vice-versa),
+            # you get washed-out colors or artifacts. Disabling this forces Hyprland to
+            # mediate the connection and fix the format.
+            direct_scanout = false;
 
             # HDR for some reason looks washed on my monitor in Hyprland.
             cm_fs_passthrough = false;
