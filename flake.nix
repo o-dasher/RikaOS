@@ -237,9 +237,7 @@
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           extraSpecialArgs = commonArgs;
-          modules = (get_common_home_modules hostName username homeCfg.state) ++ [
-            stylix.homeModules.stylix
-          ];
+          modules = get_common_home_modules hostName username homeCfg.state;
         };
     in
     (flake-parts.lib.mkFlake { inherit inputs; } {
