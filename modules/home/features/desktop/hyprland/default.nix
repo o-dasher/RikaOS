@@ -88,6 +88,9 @@
           render.direct_scanout = true;
           layerrule = [
             "match:namespace ^(waybar|launcher)$, blur on"
+            "match:namespace ^(waybar)$, animation slide top"
+            "match:namespace ^(notifications)$, animation slide right"
+            "match:namespace ^(fuzzel)$, animation slide bottom"
           ];
           windowrule = [
             "tag +games, match:content game"
@@ -132,14 +135,16 @@
           };
           animations = {
             enabled = true;
-            animation = map (name: "${name}, 1, 1, default") [
-              "windows"
+            animation = [
+              "layers, 1, 1, default, slide"
+              "windows, 1, 1, default, slide"
+            ]
+            ++ (map (name: "${name}, 1, 1, default") [
               "border"
-              "layers"
               "borderangle"
               "fade"
               "workspaces"
-            ];
+            ]);
           };
           bindm = [
             "SUPER, mouse:272, movewindow"

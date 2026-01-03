@@ -24,9 +24,10 @@
                 main = {
                   terminal = lib.getExe pkgs.xdg-terminal-exec;
                   launch-prefix = "${lib.getExe pkgs.app2unit} --fuzzel-compat --";
-                  width = 40;
                   lines = 10;
-                  line-height = 24;
+                  width = 40;
+                  line-height = 32;
+                  horizontal-pad = 8;
                 };
                 border = {
                   width = 1;
