@@ -15,7 +15,11 @@
       rounding = 4;
 
       inherit (lib) getExe;
-      hyprshutdown = inputs.hyprshutdown.packages.${pkgs.stdenv.hostPlatform.system}.default;
+      hyprshutdown =
+        inputs.hyprshutdown.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs
+          (old: {
+            patches = (old.patches or [ ]) ++ [ ../../../../../patches/hyprshutdown-postexitcmd.patch ];
+          });
     in
     lib.mkIf config.features.desktop.hyprland.enable {
       features.desktop.wayland.enable = true;
