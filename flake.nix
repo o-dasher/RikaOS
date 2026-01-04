@@ -255,6 +255,8 @@
         };
 
       flake = {
+        inherit inputs;
+
         nixosConfigurations = nixpkgs.lib.mapAttrs' (
           hostName: cfg: nixpkgs.lib.nameValuePair (cfg.hostName or hostName) (mkSystem hostName cfg)
         ) systemCfgs;

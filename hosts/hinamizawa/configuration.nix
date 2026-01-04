@@ -12,6 +12,8 @@
     ./hardware-configuration.nix
   ];
 
+  time.hardwareClockInLocalTime = true;
+
   services = {
     printing.enable = true;
     openssh.enable = true;
