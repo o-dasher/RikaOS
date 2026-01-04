@@ -7,6 +7,7 @@
 
   profiles = {
     development.enable = true;
+    utilities.enable = true;
     gaming.enable = true;
     multimedia.enable = true;
     social.enable = true;
