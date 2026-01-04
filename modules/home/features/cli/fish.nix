@@ -25,7 +25,7 @@ in
           mkUpdateUtils =
             suffix: with pkgs; {
               yay = "${updateFlake publicFlake} && ${updateFlake privateFlake} && ${lib.getExe nh} ${suffix}";
-              meh = "nix flake update rikaos --flake ${privateFlake} && ${lib.getExe nh} ${suffix}";
+              meh = "${updateFlake privateFlake} && ${lib.getExe nh} ${suffix}";
             };
         in
         lib.mkMerge (
