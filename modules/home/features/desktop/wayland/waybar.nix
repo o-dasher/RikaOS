@@ -92,7 +92,7 @@
                     on-click = "${lib.getExe pkgs.pwvucontrol}";
                     on-scroll-up = "${wpctl} set-volume @DEFAULT_AUDIO_SINK@ ${wheelstep}+";
                     on-scroll-down = "${wpctl} set-volume @DEFAULT_AUDIO_SINK@ ${wheelstep}-";
-                    format = "{icon} {volume}% {format_source}";
+                    format = "{icon}  {volume}% {format_source}";
                     format-bluetooth = "{icon}  {volume}% {format_source}";
                     format-bluetooth-muted = "  {format_source}";
                     format-muted = "  {format_source}";
