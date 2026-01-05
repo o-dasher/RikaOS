@@ -21,13 +21,11 @@
       lowLatency = {
         enable = true;
         rate = 384000;
-        quantum = 1024;
       };
       extraConfig = {
-        pipewire-pulse."99-z-audiophile"."stream.properties"."resample.quality" = 10;
-        client."99-z-audiophile"."stream.properties"."resample.quality" = 10;
+        pipewire-pulse."99-z-audiophile"."stream.properties"."resample.quality" = 14;
+        client."99-z-audiophile"."stream.properties"."resample.quality" = 14;
         pipewire."99-z-audiophile"."context.properties" = {
-          "default.clock.max-quantum" = 8192;
           "default.clock.allowed-rates" = [
             44100
             48000
