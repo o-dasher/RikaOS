@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     flake-compat.url = "github:edolstra/flake-compat";
     systems.url = "github:nix-systems/default";
     mnw.url = "github:Gerg-L/mnw";
@@ -105,6 +106,7 @@
   outputs =
     {
       nixpkgs,
+      nixpkgs-master,
       nix-gaming,
       home-manager,
       stylix,
@@ -121,7 +123,16 @@
     }@inputs:
     let
       system = "x86_64-linux";
-      pkgs = import nixpkgs { inherit system; };
+
+      get_pkgs =
+        pkgs:
+        import pkgs {
+          inherit system;
+          config.allowUnfree = true;
+        };
+
+      pkgs = get_pkgs nixpkgs;
+      pkgs_master = get_pkgs nixpkgs-master;
 
       substituters = [
         "https://cache.nixos.org"
@@ -174,6 +185,7 @@
       commonArgs = {
         inherit
           inputs
+          pkgs_master
           nixCaches
           ;
       };
