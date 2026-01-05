@@ -1,5 +1,6 @@
 {
   pkgs,
+  pkgs_master,
   lib,
   config,
   ...
@@ -33,6 +34,9 @@
 
       # drawing
       krita
+
+      # Music
+      pkgs_master.tidal-hifi
 
       # images
       gimp
