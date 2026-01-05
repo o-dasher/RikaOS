@@ -14,6 +14,9 @@
     steam.enable = lib.mkEnableOption "Steam" // {
       default = true;
     };
+    controllers.enable = lib.mkEnableOption "Xbox controllers" // {
+      default = true;
+    };
     otd.enable = lib.mkEnableOption "OpenTabletDriver" // {
       default = true;
     };
@@ -44,6 +47,11 @@
             ];
           };
         };
+      };
+
+      hardware = lib.mkIf (cfg.controllers.enable) {
+        xpadneo.enable = true;
+        xone.enable = true;
       };
 
       services.ananicy = {
