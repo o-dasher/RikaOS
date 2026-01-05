@@ -7,7 +7,6 @@
   options.features.audio.enable = lib.mkEnableOption "audio features";
 
   config = lib.mkIf config.features.audio.enable {
-    hardware.alsa.enablePersistence = true;
     security.rtkit.enable = true;
     services.pipewire = {
       enable = true;
@@ -26,6 +25,7 @@
         pipewire-pulse."99-z-audiophile"."stream.properties"."resample.quality" = 14;
         client."99-z-audiophile"."stream.properties"."resample.quality" = 14;
         pipewire."99-z-audiophile"."context.properties" = {
+          "default.clock.rate" = 384000;
           "default.clock.allowed-rates" = [
             44100
             48000
