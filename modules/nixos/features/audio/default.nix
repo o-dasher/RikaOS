@@ -4,9 +4,7 @@
   ...
 }:
 {
-  options.features.audio = {
-    enable = lib.mkEnableOption "audio features";
-  };
+  options.features.audio.enable = lib.mkEnableOption "audio features";
 
   config = lib.mkIf config.features.audio.enable {
     security.rtkit.enable = true;
@@ -17,13 +15,16 @@
       pulse.enable = true;
       jack.enable = true;
       wireplumber.enable = true;
-      lowLatency.enable = true;
+      lowLatency = {
+        enable = true;
+        rate = 384000;
+        quantum = 1024;
+      };
       extraConfig = {
         pipewire-pulse."99-z-audiophile"."stream.properties"."resample.quality" = 10;
         client."99-z-audiophile"."stream.properties"."resample.quality" = 10;
         pipewire."99-z-audiophile"."context.properties" = {
-          "default.clock.min-quantum" = 32;
-          "default.clock.max-quantum" = 2048;
+          "default.clock.max-quantum" = 8192;
           "default.clock.allowed-rates" = [
             44100
             48000
