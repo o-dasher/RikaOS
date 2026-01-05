@@ -1004,6 +1004,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-master": {
+      "locked": {
+        "lastModified": 1767633624,
+        "narHash": "sha256-YHCBeD0E1TXV08ftdKN4KI2qHT6kUu/5+mLx6LwxgSM=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "c8ba0d39ac852f040726e33bb08c24a953934568",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "master",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1767227401,
@@ -1142,6 +1158,7 @@
         "nixcord": "nixcord",
         "nixgl": "nixgl",
         "nixpkgs": "nixpkgs_3",
+        "nixpkgs-master": "nixpkgs-master",
         "pam-shim": "pam-shim",
         "playit-nixos-module": "playit-nixos-module",
         "spicetify-nix": "spicetify-nix",
