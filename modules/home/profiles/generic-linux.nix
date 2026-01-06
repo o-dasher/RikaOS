@@ -2,7 +2,6 @@
   lib,
   config,
   pkgs,
-  inputs,
   ...
 }:
 {
@@ -13,10 +12,5 @@
     # Fixes PAM on generic linux desktops.
     pamShim.enable = true;
     programs.hyprlock.package = config.lib.pamShim.replacePam pkgs.hyprlock;
-
-    # NixGL configuration
-    nixGL.packages = inputs.nixgl.packages;
-    programs.ghostty.package = config.lib.nixGL.wrap pkgs.ghostty;
-    wayland.windowManager.hyprland.package = lib.mkForce (config.lib.nixGL.wrap pkgs.hyprland);
   };
 }
