@@ -11,6 +11,10 @@
 
   config = lib.mkIf config.profiles.multimedia.enable {
     services.easyeffects.enable = true;
+    services.flatpak = {
+      packages = [ "io.github.nokse22.high-tide" ];
+      update.onActivation = true;
+    };
 
     programs = {
       # Video
@@ -33,9 +37,6 @@
 
       # drawing
       krita
-
-      # Music
-      tidal-hifi
 
       # images
       gimp
