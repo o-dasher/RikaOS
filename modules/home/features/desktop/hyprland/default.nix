@@ -2,8 +2,6 @@
   pkgs,
   lib,
   config,
-  inputs,
-  pkgs_master,
   ...
 }:
 {
@@ -17,19 +15,13 @@
 
       inherit (lib) getExe;
 
-      vesktop = pkgs_master.vesktop;
-      hyprshutdown =
-        inputs.hyprshutdown.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs
-          (old: {
-            patches = (old.patches or [ ]) ++ [ ../../../../../patches/hyprshutdown-postexitcmd.patch ];
-          });
     in
     lib.mkIf config.features.desktop.hyprland.enable {
       features.desktop.wayland.enable = true;
       programs.hyprlock.enable = true;
       services.hyprpolkitagent.enable = true;
 
-      home.packages = [ hyprshutdown ];
+      home.packages = [ pkgs.hyprshutdown ];
       home.pointerCursor.hyprcursor.enable = true;
 
       xdg.portal = {
@@ -45,9 +37,6 @@
         enable = true;
         systemd.enable = false; # UWSM managed.
         xwayland.enable = true;
-        package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-        portalPackage =
-          inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
         settings = {
           env = [
             # Logging
@@ -72,7 +61,7 @@
           workspace =
             with pkgs;
             lib.optionals config.programs.nixcord.vesktop.enable [
-              "3, on-created-empty:${getExe app2unit} -- ${getExe pkgs_master.vesktop}"
+              "3, on-created-empty:${getExe app2unit} -- ${getExe vesktop}"
             ];
           debug = {
             disable_logs = false;

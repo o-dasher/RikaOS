@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  pkgs_master,
   ...
 }:
 {
@@ -13,10 +12,7 @@
     programs.nixcord = {
       enable = true;
       discord.enable = true;
-      vesktop = {
-        enable = true;
-        package = pkgs_master.vesktop;
-      };
+      vesktop.enable = true;
       config.plugins = {
         fakeNitro.enable = true;
         youtubeAdblock.enable = true;
