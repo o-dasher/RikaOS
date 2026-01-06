@@ -19,13 +19,13 @@
       };
       lowLatency = {
         enable = true;
-        rate = 384000;
+        rate = 192000;
       };
       extraConfig = {
         pipewire-pulse."99-z-audiophile"."stream.properties"."resample.quality" = 14;
         client."99-z-audiophile"."stream.properties"."resample.quality" = 14;
         pipewire."99-z-audiophile"."context.properties" = {
-          "default.clock.rate" = 384000;
+          "default.clock.rate" = 192000;
           "default.clock.allowed-rates" = [
             44100
             48000
