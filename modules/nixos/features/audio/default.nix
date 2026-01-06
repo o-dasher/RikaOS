@@ -10,7 +10,6 @@
     security.rtkit.enable = true;
     services.pipewire =
       let
-        rate = 192000;
       in
       {
         enable = true;
@@ -22,7 +21,7 @@
           support32Bit = true;
         };
         lowLatency = {
-          inherit rate;
+          rate = 192000;
           enable = true;
           alsa = {
             enable = true;
@@ -34,7 +33,6 @@
           pipewire-pulse."99-z-defaults"."stream.properties"."resample.quality" = 14;
           client."99-z-defaults"."stream.properties"."resample.quality" = 14;
           pipewire."99-z-defaults"."context.properties" = {
-            "default.clock.rate" = rate;
             "default.clock.allowed-rates" = [
               44100
               48000

@@ -45,6 +45,7 @@
     };
     services = {
       bluetooth.enable = true;
+      flatpak.enable = true;
       openrgb.enable = true;
       playit.enable = true;
       gnome-keyring.enable = true;

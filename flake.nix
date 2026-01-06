@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
     flake-compat.url = "github:edolstra/flake-compat";
     systems.url = "github:nix-systems/default";
     mnw.url = "github:Gerg-L/mnw";
@@ -215,6 +216,7 @@
         nixcord.homeModules.nixcord
         mnw.homeManagerModules.mnw
         zen-browser.homeModules.twilight
+        inputs.nix-flatpak.homeManagerModules.nix-flatpak
         {
           home = {
             inherit username;
@@ -237,6 +239,7 @@
             agenix.nixosModules.default
             nix-gaming.nixosModules.pipewireLowLatency
             playit-nixos-module.nixosModules.default
+            inputs.nix-flatpak.nixosModules.nix-flatpak
             {
               nixpkgs.overlays = overlays;
               networking.hostName = hostName;
