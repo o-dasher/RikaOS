@@ -51,7 +51,7 @@ in
 
   config = mkIf cfg.enable {
     boot.supportedFilesystems.ntfs = true;
-    systemd.services."bitlocker-unlock" = {
+    systemd.services.bitlocker-unlock = {
       description = "Unlock BitLocker drives via agenix secrets";
 
       # Crucial: wait for agenix to decrypt secrets into /run/secrets/
