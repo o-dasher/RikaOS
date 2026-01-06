@@ -3,6 +3,7 @@
   lib,
   config,
   inputs,
+  pkgs_master,
   ...
 }:
 {
@@ -15,6 +16,8 @@
       rounding = 4;
 
       inherit (lib) getExe;
+
+      vesktop = pkgs_master.vesktop;
       hyprshutdown =
         inputs.hyprshutdown.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs
           (old: {
@@ -69,7 +72,7 @@
           workspace =
             with pkgs;
             lib.optionals config.programs.nixcord.vesktop.enable [
-              "3, on-created-empty:${getExe app2unit} -- ${getExe vesktop}"
+              "3, on-created-empty:${getExe app2unit} -- ${getExe pkgs_master.vesktop}"
             ];
           debug = {
             disable_logs = false;

@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  pkgs_master,
+  ...
+}:
 {
   options.profiles.social = {
     enable = lib.mkEnableOption "social profile";
@@ -8,7 +13,10 @@
     programs.nixcord = {
       enable = true;
       discord.enable = true;
-      vesktop.enable = true;
+      vesktop = {
+        enable = true;
+        package = pkgs_master.vesktop;
+      };
       config.plugins = {
         fakeNitro.enable = true;
         youtubeAdblock.enable = true;
