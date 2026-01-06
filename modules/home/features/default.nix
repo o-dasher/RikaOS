@@ -6,6 +6,7 @@
     ./editors
     ./dev
     ./gaming
+    ./social
     ./terminal
   ];
 }
