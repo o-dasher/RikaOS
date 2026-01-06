@@ -42,9 +42,7 @@
         "99-z-kinera-celest" = {
           "monitor.alsa.rules" = [
             {
-              matches = [
-                { "node.name" = "~alsa_output.*USB_Audio.*"; }
-              ];
+              matches = [ { "node.name" = "~alsa_output.*USB_Audio.*"; } ];
               actions.update-props."audio.format" = "S32LE";
             }
           ];

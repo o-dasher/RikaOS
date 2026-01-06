@@ -144,9 +144,10 @@
           zen-browser = zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.twilight;
 
           # Hyprland packages
-          hyprland = inputs.hyprland.packages.${prev.stdenv.hostPlatform.system}.hyprland;
-          xdg-desktop-portal-hyprland =
-            inputs.hyprland.packages.${prev.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+          inherit (inputs.hyprland.packages.${prev.stdenv.hostPlatform.system})
+            hyprland
+            xdg-desktop-portal-hyprland
+            ;
           hyprshutdown =
             inputs.hyprshutdown.packages.${prev.stdenv.hostPlatform.system}.default.overrideAttrs
               (old: {
