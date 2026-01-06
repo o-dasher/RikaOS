@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 {
@@ -9,7 +10,16 @@
   };
 
   config = lib.mkIf config.features.services.thunar.enable {
-    programs.thunar.enable = true;
+    environment.systemPackages = with pkgs; [
+      file-roller
+      p7zip
+    ];
+    programs.thunar = {
+      enable = true;
+      plugins = with pkgs; [
+        thunar-archive-plugin
+      ];
+    };
     services = {
       gvfs.enable = true; # Mount, trash, and other functionalities
       tumbler.enable = true; # Thumbnail support for images
