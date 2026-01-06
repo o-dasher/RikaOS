@@ -140,6 +140,9 @@
             NIX_CFLAGS_COMPILE = [ "-fno-fast-math" ];
           });
 
+          # Utilities
+          zen-browser = zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.twilight;
+
           # Hyprland packages
           hyprland = inputs.hyprland.packages.${prev.stdenv.hostPlatform.system}.hyprland;
           xdg-desktop-portal-hyprland =
@@ -198,15 +201,7 @@
         };
       };
 
-      homeCfgs = {
-        # wired = {
-        #   hostName = "gpmecatronica-System-Product-Name";
-        #   state = "24.05";
-        #   users = {
-        #     thiagogpm = "thiagogpm";
-        #   };
-        # };
-      };
+      homeCfgs = { };
 
       commonArgs = {
         inherit

@@ -56,7 +56,7 @@
               "[workspace 9 silent] ${getExe app2unit} -- ${getExe discord} --start-minimized"
             ]
             ++ lib.optionals config.profiles.browser.enable [
-              "[workspace 2 silent] ${getExe app2unit} -- ${getExe config.profiles.browser.package}"
+              "[workspace 2 silent] ${getExe app2unit} -- ${getExe zen-browser}"
             ];
           workspace =
             with pkgs;

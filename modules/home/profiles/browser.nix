@@ -6,19 +6,12 @@
   ...
 }:
 {
-  options.profiles.browser = {
-    enable = lib.mkEnableOption "browser profile";
-    package = lib.mkOption {
-      type = lib.types.unspecified;
-      description = "browser package";
-    };
-  };
+  options.profiles.browser.enable = lib.mkEnableOption "browser profile";
 
   config = lib.mkIf config.profiles.browser.enable {
-    profiles.browser.package = inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.twilight;
     programs.zen-browser = {
       enable = true;
-      package = config.profiles.browser.package;
+      package = pkgs.zen-browser;
       policies = {
         AutofillAddressEnabled = true;
         DisableAppUpdate = true;
