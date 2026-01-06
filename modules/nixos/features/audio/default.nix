@@ -20,33 +20,25 @@
       lowLatency = {
         enable = true;
         rate = 192000;
+        alsa = {
+          enable = true;
+          devicePattern = "~alsa_output.*USB_Audio.*";
+          format = "S32LE";
+        };
       };
       extraConfig = {
-        pipewire-pulse."99-z-audiophile"."stream.properties"."resample.quality" = 14;
-        client."99-z-audiophile"."stream.properties"."resample.quality" = 14;
-        pipewire."99-z-audiophile"."context.properties" = {
-          "default.clock.rate" = 192000;
-          "default.clock.allowed-rates" = [
-            44100
-            48000
-            88200
-            96000
-            176400
-            192000
-            352800
-            384000
-          ];
-        };
-      };
-      wireplumber.extraConfig = {
-        "99-z-kinera-celest" = {
-          "monitor.alsa.rules" = [
-            {
-              matches = [ { "node.name" = "~alsa_output.*USB_Audio.*"; } ];
-              actions.update-props."audio.format" = "S32LE";
-            }
-          ];
-        };
+        pipewire-pulse."99-z-defaults"."stream.properties"."resample.quality" = 14;
+        client."99-z-defaults"."stream.properties"."resample.quality" = 14;
+        pipewire."99-z-defaults"."context.properties"."default.clock.allowed-rates" = [
+          44100
+          48000
+          88200
+          96000
+          176400
+          192000
+          352800
+          384000
+        ];
       };
     };
   };
