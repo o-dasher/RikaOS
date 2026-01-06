@@ -124,15 +124,41 @@
     let
       system = "x86_64-linux";
 
-      get_pkgs =
-        pkgs:
-        import pkgs {
-          inherit system;
-          config.allowUnfree = true;
-        };
+      pkgs_master = import nixpkgs-master {
+        inherit system;
+        config.allowUnfree = true;
+      };
 
-      pkgs = get_pkgs nixpkgs;
-      pkgs_master = get_pkgs nixpkgs-master;
+      overlays = [
+        (final: prev: {
+          # Bleeding edge
+          vesktop = pkgs_master.vesktop;
+          tidal-hifi = pkgs_master.tidal-hifi;
+
+          # Gamescope with blur fix: https://github.com/ValveSoftware/gamescope/issues/1622
+          gamescope = prev.gamescope.overrideAttrs (_: {
+            NIX_CFLAGS_COMPILE = [ "-fno-fast-math" ];
+          });
+
+          # Hyprland packages
+          hyprland = inputs.hyprland.packages.${prev.stdenv.hostPlatform.system}.hyprland;
+          xdg-desktop-portal-hyprland =
+            inputs.hyprland.packages.${prev.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+          hyprshutdown =
+            inputs.hyprshutdown.packages.${prev.stdenv.hostPlatform.system}.default.overrideAttrs
+              (old: {
+                patches = (old.patches or [ ]) ++ [ ./patches/hyprshutdown-postexitcmd.patch ];
+              });
+
+          # Neovim nightly
+          neovim = inputs.neovim-nightly.packages.${prev.stdenv.hostPlatform.system}.neovim;
+        })
+      ];
+
+      pkgs = import nixpkgs {
+        inherit system overlays;
+        config.allowUnfree = true;
+      };
 
       substituters = [
         "https://cache.nixos.org"
@@ -185,7 +211,6 @@
       commonArgs = {
         inherit
           inputs
-          pkgs_master
           nixCaches
           ;
       };
@@ -222,6 +247,7 @@
             nix-gaming.nixosModules.pipewireLowLatency
             playit-nixos-module.nixosModules.default
             {
+              nixpkgs.overlays = overlays;
               networking.hostName = hostName;
               system.stateVersion = systemCfg.state;
               home-manager = {

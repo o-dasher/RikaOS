@@ -1,5 +1,4 @@
 {
-  inputs,
   pkgs,
   config,
   lib,
@@ -22,7 +21,6 @@
       programs = {
         mnw = {
           enable = true;
-          neovim = inputs.neovim-nightly.packages.${pkgs.stdenv.hostPlatform.system}.neovim;
           initLua = # lua
             ''require("thiago")'';
           plugins = with pkgs.vimPlugins; {
