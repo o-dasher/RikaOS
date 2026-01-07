@@ -14,10 +14,12 @@
 
   time.hardwareClockInLocalTime = true;
 
+  environment.systemPackages = [
+  ];
+
   services = {
     printing.enable = true;
     openssh.enable = true;
-    displayManager.gdm.enable = true;
     transmission = {
       enable = true;
       package = pkgs.transmission_4;
@@ -50,6 +52,12 @@
       playit.enable = true;
       gnome-keyring.enable = true;
       thunar.enable = true;
+      sddm = {
+        enable = true;
+        flavor = "mocha";
+        accent = "mauve";
+        background = ../../assets/Wallpapers/lain.jpg;
+      };
     };
     security.secureBoot = {
       enable = true;
