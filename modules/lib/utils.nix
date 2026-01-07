@@ -11,16 +11,23 @@
       default = { };
       description = "Utility functions for RikaOS configuration";
     };
-
-    pkgs = lib.mkOption {
-      type = lib.types.attrs;
-      default = { };
-      description = "Custom package overrides for RikaOS";
-    };
   };
 
   config.rika = {
     utils = {
+      mkAutostartService = executable: {
+        Unit = {
+          Description = "Autostart service for ${executable}";
+          After = [ "graphical-session.target" ];
+          PartOf = [ "graphical-session.target" ];
+        };
+        Install.WantedBy = [ "graphical-session.target" ];
+        Service = {
+          ExecStart = "${executable}";
+          Restart = "on-failure";
+        };
+      };
+
       selectiveSymLink =
         from: to: paths: opts:
         lib.mkMerge (
