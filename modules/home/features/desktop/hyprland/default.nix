@@ -41,6 +41,7 @@
           variables = [ "--all" ];
         };
         settings = {
+          xwayland.enabled = true;
           env = [
             # Logging
             "AQ_TRACE,1"
