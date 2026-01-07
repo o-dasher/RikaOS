@@ -6,8 +6,6 @@
 }:
 let
   cfg = config.features.gaming.gamescope;
-  gamescopePackage = config.rika.pkgs.gamescope;
-
   wrapWithGamescope =
     args: pkg:
     let
@@ -33,7 +31,7 @@ let
         done
 
         rm $out/bin/${binName}
-        makeWrapper ${lib.getExe gamescopePackage} $out/bin/${binName} \
+        makeWrapper ${lib.getExe pkgs.gamescope} $out/bin/${binName} \
           --add-flags "${allArgs} -- ${pkg}/bin/${binName}"
 
         # Symlink share for desktop files, icons, etc.
@@ -67,7 +65,7 @@ in
   };
 
   config = lib.mkIf (config.features.gaming.enable && cfg.enable) {
-    home.packages = [ gamescopePackage ];
+    home.packages = [ pkgs.gamescope ];
 
     features.gaming.gamescope.wrap = wrapWithGamescope;
     features.gaming.gamescope.wrapDefault = wrapWithGamescope "";

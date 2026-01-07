@@ -20,13 +20,6 @@
   };
 
   config.rika = {
-    pkgs = {
-      # Gamescope with blur fix: https://github.com/ValveSoftware/gamescope/issues/1622
-      gamescope = pkgs.gamescope.overrideAttrs (_: {
-        NIX_CFLAGS_COMPILE = [ "-fno-fast-math" ];
-      });
-    };
-
     utils = {
       selectiveSymLink =
         from: to: paths: opts:

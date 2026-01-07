@@ -131,7 +131,7 @@
           # inherit (pkgs_master);
 
           # Gamescope with blur fix: https://github.com/ValveSoftware/gamescope/issues/1622.
-          # Also applying PR #1908 to fix process tree killing (issue #777)
+          # Also applying https://github.com/ValveSoftware/gamescope/pull/19081908 to fix process tree killing.
           gamescope = prev.gamescope.overrideAttrs (old: {
             NIX_CFLAGS_COMPILE = [ "-fno-fast-math" ];
             patches = (old.patches or [ ]) ++ [
