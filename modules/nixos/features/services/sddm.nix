@@ -39,10 +39,26 @@ in
 
     services.displayManager.sddm = {
       enable = true;
-      wayland = {
-        enable = true;
-      };
       theme = "catppuccin-${cfg.flavor}-${cfg.accent}";
+      wayland.enable = true;
+      settings.Wayland.CompositorCommand =
+        let
+          config =
+            pkgs.writeText "hyprland-sddm.conf" # hyprlang
+              ''
+                monitor = , highres@highrr, auto, 1
+
+                animations {
+                  enabled = false
+                }
+
+                misc {
+                  disable_hyprland_logo = true
+                  disable_splash_rendering = true
+                }
+              '';
+        in
+        "env HYPRLAND_CONFIG=${config} start-hyprland";
     };
   };
 }
