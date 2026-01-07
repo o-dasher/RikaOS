@@ -120,20 +120,23 @@
     let
       system = "x86_64-linux";
 
-      pkgs_master = import nixpkgs-master {
-        inherit system;
-        config.allowUnfree = true;
-      };
+      # pkgs_master = import nixpkgs-master {
+      #   inherit system;
+      #   config.allowUnfree = true;
+      # };
 
       overlays = [
         (final: prev: {
           # Bleeding edge
-          vesktop = pkgs_master.vesktop;
-          tidal-hifi = pkgs_master.tidal-hifi;
+          # inherit (pkgs_master);
 
-          # Gamescope with blur fix: https://github.com/ValveSoftware/gamescope/issues/1622
-          gamescope = prev.gamescope.overrideAttrs (_: {
+          # Gamescope with blur fix: https://github.com/ValveSoftware/gamescope/issues/1622.
+          # Also applying PR #1908 to fix process tree killing (issue #777)
+          gamescope = prev.gamescope.overrideAttrs (old: {
             NIX_CFLAGS_COMPILE = [ "-fno-fast-math" ];
+            patches = (old.patches or [ ]) ++ [
+              ./patches/gamescope-process-tree-kill.patch
+            ];
           });
 
           # Utilities
