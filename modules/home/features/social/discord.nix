@@ -35,22 +35,55 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    systemd.user.services.krisp-patcher = lib.mkIf cfg.enableKrispPatch {
-      Unit = {
-        Description = "Patch Discord Krisp node";
-        After = [ "graphical-session-pre.target" ];
-        PartOf = [ "graphical-session.target" ];
-      };
-
-      Install = {
-        WantedBy = [ "graphical-session.target" ];
-      };
-
-      Service = {
-        Type = "oneshot";
-        ExecStart = "${patcherScript}";
-      };
-    };
+    systemd.user.services =
+      let
+        mkTrayService =
+          {
+            name,
+            pkg,
+            condition,
+          }:
+          lib.nameValuePair name (
+            lib.mkIf condition {
+              Unit = {
+                Description = "${name} client";
+                After = [ "graphical-session.target" ];
+                PartOf = [ "graphical-session.target" ];
+              };
+              Install.WantedBy = [ "graphical-session.target" ];
+              Service = {
+                ExecStart = "${lib.getExe pkg} --start-minimized";
+                Restart = "on-failure";
+              };
+            }
+          );
+      in
+      {
+        krisp-patcher = lib.mkIf cfg.enableKrispPatch {
+          Unit = {
+            Description = "Patch Discord Krisp node";
+            After = [ "graphical-session-pre.target" ];
+            PartOf = [ "graphical-session.target" ];
+          };
+          Install.WantedBy = [ "graphical-session.target" ];
+          Service = {
+            Type = "oneshot";
+            ExecStart = "${patcherScript}";
+          };
+        };
+      }
+      // builtins.listToAttrs [
+        (mkTrayService {
+          name = "vesktop";
+          pkg = pkgs.vesktop;
+          condition = config.programs.nixcord.vesktop.enable;
+        })
+        (mkTrayService {
+          name = "discord";
+          pkg = pkgs.discord;
+          condition = config.programs.nixcord.discord.enable;
+        })
+      ];
 
     programs.nixcord = {
       enable = true;
