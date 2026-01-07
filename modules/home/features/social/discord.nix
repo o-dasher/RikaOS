@@ -44,18 +44,7 @@ in
             condition,
           }:
           lib.nameValuePair name (
-            lib.mkIf condition {
-              Unit = {
-                Description = "${name} client";
-                After = [ "graphical-session.target" ];
-                PartOf = [ "graphical-session.target" ];
-              };
-              Install.WantedBy = [ "graphical-session.target" ];
-              Service = {
-                ExecStart = "${lib.getExe pkg} --start-minimized";
-                Restart = "on-failure";
-              };
-            }
+            lib.mkIf condition (config.rika.utils.mkAutostartService "${lib.getExe pkg} --start-minimized")
           );
       in
       {
