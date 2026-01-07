@@ -32,7 +32,6 @@
         gamescope = {
           enable = true;
           capSysNice = false;
-          package = config.rika.pkgs.gamescope;
         };
 
         steam = lib.mkIf (cfg.steam.enable) {
