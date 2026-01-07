@@ -130,12 +130,15 @@
           # Bleeding edge
           # inherit (pkgs_master);
 
-          # Gamescope with blur fix: https://github.com/ValveSoftware/gamescope/issues/1622.
-          # Also applying https://github.com/ValveSoftware/gamescope/pull/19081908 to fix process tree killing.
           gamescope = prev.gamescope.overrideAttrs (old: {
+            # Blur fix: https://github.com/ValveSoftware/gamescope/issues/1622.
             NIX_CFLAGS_COMPILE = [ "-fno-fast-math" ];
-            patches = (old.patches or [ ]) ++ [
-              ./patches/gamescope-process-tree-kill.patch
+            patches = old.patches or [ ] ++ [
+              # Fix Gamescope not closing https://github.com/ValveSoftware/gamescope/pull/1908
+              (prev.fetchpatch {
+                url = "https://github.com/ValveSoftware/gamescope/commit/fa900b0694ffc8b835b91ef47a96ed90ac94823b.diff";
+                hash = "sha256-eIHhgonP6YtSqvZx2B98PT1Ej4/o0pdU+4ubdiBgBM4=";
+              })
             ];
           });
 
