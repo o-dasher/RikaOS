@@ -35,8 +35,11 @@
 
       wayland.windowManager.hyprland = {
         enable = true;
-        systemd.enable = false; # UWSM managed.
-        xwayland.enable = true;
+        systemd = {
+          enable = true;
+          enableXdgAutostart = true;
+          variables = [ "--all" ];
+        };
         settings = {
           env = [
             # Logging
@@ -48,20 +51,19 @@
           ];
           exec-once =
             with pkgs;
-            [ "uwsm finalize" ]
-            ++ lib.optionals config.programs.nixcord.vesktop.enable [
-              "[workspace 3 silent] ${getExe app2unit} -- ${getExe vesktop} --start-minimized"
+            lib.optionals config.programs.nixcord.vesktop.enable [
+              "[workspace 3 silent] ${getExe vesktop} --start-minimized"
             ]
             ++ lib.optionals config.programs.nixcord.discord.enable [
-              "[workspace 9 silent] ${getExe app2unit} -- ${getExe discord} --start-minimized"
+              "[workspace 9 silent] ${getExe discord} --start-minimized"
             ]
             ++ lib.optionals config.profiles.browser.enable [
-              "[workspace 2 silent] ${getExe app2unit} -- ${getExe zen-browser}"
+              "[workspace 2 silent] ${getExe zen-browser}"
             ];
           workspace =
             with pkgs;
             lib.optionals config.programs.nixcord.vesktop.enable [
-              "3, on-created-empty:${getExe app2unit} -- ${getExe vesktop}"
+              "3, on-created-empty:${getExe vesktop}"
             ];
           debug = {
             disable_logs = false;
@@ -153,8 +155,8 @@
               audioStep = toString 1;
             in
             [
-              ", XF86AudioRaiseVolume, exec, ${getExe app2unit} -- ${wireplumber}/bin/wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ ${audioStep}%+"
-              ", XF86AudioLowerVolume, exec, ${getExe app2unit} -- ${wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ ${audioStep}%-"
+              ", XF86AudioRaiseVolume, exec, ${wireplumber}/bin/wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ ${audioStep}%+"
+              ", XF86AudioLowerVolume, exec, ${wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ ${audioStep}%-"
             ];
           bind =
             let
@@ -163,10 +165,10 @@
             with pkgs;
             lib.mkMerge [
               (lib.mkIf config.features.desktop.wayland.fuzzel.enable [
-                "${mod}, D, exec, pkill -x fuzzel || ${getExe app2unit} -- ${getExe fuzzel}"
+                "${mod}, D, exec, pkill -x fuzzel || ${getExe fuzzel}"
               ])
               [
-                "${mod}, RETURN, exec, ${getExe app2unit} -- ${getExe xdg-terminal-exec}"
+                "${mod}, RETURN, exec, ${getExe xdg-terminal-exec}"
 
                 "${mod}, F, fullscreen"
                 "${mod}, C, killactive"
@@ -192,20 +194,20 @@
                 "${mod} SHIFT, J, moveintogroup, d"
                 "${mod} SHIFT, U, moveoutofgroup"
 
-                "${mod}, P, exec, ${getExe app2unit} -- ${getExe grimblast} --notify copy screen"
-                "${mod} SHIFT, P, exec, ${getExe app2unit} -- ${getExe grimblast} --notify copy area"
-                "${mod} ALT, P, exec, ${getExe app2unit} -- ${getExe grimblast} --notify copy active"
+                "${mod}, P, exec, ${getExe grimblast} --notify copy screen"
+                "${mod} SHIFT, P, exec, ${getExe grimblast} --notify copy area"
+                "${mod} ALT, P, exec, ${getExe grimblast} --notify copy active"
 
-                "CTRL SHIFT, L, exec, ${getExe app2unit} -- ${getExe hyprlock}"
-                "CTRL SHIFT, Q, exec, ${getExe hyprshutdown} --no-exit -p 'uwsm stop'"
+                "CTRL SHIFT, L, exec, ${getExe hyprlock}"
+                "CTRL SHIFT, Q, exec, ${getExe hyprshutdown}"
 
-                ", XF86AudioPlay, exec, ${getExe app2unit} -- ${getExe playerctl} play-pause"
-                ", XF86AudioPrev, exec, ${getExe app2unit} -- ${getExe playerctl} previous"
-                ", XF86AudioNext, exec, ${getExe app2unit} -- ${getExe playerctl} next"
-                ", XF86AudioStop, exec, ${getExe app2unit} -- ${getExe playerctl} stop"
+                ", XF86AudioPlay, exec, ${getExe playerctl} play-pause"
+                ", XF86AudioPrev, exec, ${getExe playerctl} previous"
+                ", XF86AudioNext, exec, ${getExe playerctl} next"
+                ", XF86AudioStop, exec, ${getExe playerctl} stop"
 
-                ", XF86AudioMicMute, exec, ${getExe app2unit} -- ${wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-                ", XF86AudioMute, exec, ${getExe app2unit} -- ${wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+                ", XF86AudioMicMute, exec, ${wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+                ", XF86AudioMute, exec, ${wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
               ]
               (builtins.concatLists (
                 builtins.genList (

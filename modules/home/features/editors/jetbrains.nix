@@ -20,14 +20,17 @@
         ] { }
       );
 
-      home.packages = lib.mkMerge [
-        (lib.mkIf config.features.editors.jetbrains.android-studio.enable [
-          pkgs.android-studio
-        ])
-        (lib.mkIf config.features.editors.jetbrains.datagrip.enable [
-          pkgs.jetbrains.datagrip
-        ])
-      ];
+      home.packages =
+        with pkgs;
+        lib.mkMerge [
+          (lib.mkIf config.features.editors.jetbrains.android-studio.enable [
+            android-tools
+            android-studio
+          ])
+          (lib.mkIf config.features.editors.jetbrains.datagrip.enable [
+            jetbrains.datagrip
+          ])
+        ];
     })
 
     (lib.mkIf

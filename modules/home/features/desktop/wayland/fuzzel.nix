@@ -23,7 +23,6 @@
               settings = {
                 main = {
                   terminal = lib.getExe pkgs.xdg-terminal-exec;
-                  launch-prefix = "${lib.getExe pkgs.app2unit} --fuzzel-compat --";
                   lines = 10;
                   width = 40;
                   line-height = 32;
