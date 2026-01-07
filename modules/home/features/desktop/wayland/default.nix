@@ -17,10 +17,7 @@
       wl-clipboard
     ];
 
-    systemd.user.sessionVariables = {
-      # app2unit slice configuration
-      APP2UNIT_SLICES = "a=app-graphical.slice b=background-graphical.slice s=session-graphical.slice";
-
+    home.sessionVariables = {
       # SDL
       OSU_SDL3 = "1";
       SDL_VIDEODRIVER = "wayland";

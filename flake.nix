@@ -140,15 +140,11 @@
           zen-browser = zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.twilight;
 
           # Hyprland packages
+          hyprshutdown = inputs.hyprshutdown.packages.${prev.stdenv.hostPlatform.system}.default;
           inherit (inputs.hyprland.packages.${prev.stdenv.hostPlatform.system})
             hyprland
             xdg-desktop-portal-hyprland
             ;
-          hyprshutdown =
-            inputs.hyprshutdown.packages.${prev.stdenv.hostPlatform.system}.default.overrideAttrs
-              (old: {
-                patches = (old.patches or [ ]) ++ [ ./patches/hyprshutdown-postexitcmd.patch ];
-              });
 
           # Neovim nightly
           neovim = inputs.neovim-nightly.packages.${prev.stdenv.hostPlatform.system}.neovim;
