@@ -51,13 +51,7 @@
           ];
           exec-once =
             with pkgs;
-            lib.optionals config.programs.nixcord.vesktop.enable [
-              "[workspace 3 silent] ${getExe vesktop} --start-minimized"
-            ]
-            ++ lib.optionals config.programs.nixcord.discord.enable [
-              "[workspace 9 silent] ${getExe discord} --start-minimized"
-            ]
-            ++ lib.optionals config.profiles.browser.enable [
+            lib.optionals config.profiles.browser.enable [
               "[workspace 2 silent] ${getExe zen-browser}"
             ];
           workspace =
