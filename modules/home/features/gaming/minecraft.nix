@@ -11,7 +11,7 @@
     home.packages = [
       (pkgs.prismlauncher.override {
         jdks = [
-          pkgs.temurin-bin-21
+          pkgs.temurin-jre-bin
         ];
       })
     ];

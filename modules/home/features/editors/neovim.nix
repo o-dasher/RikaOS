@@ -86,7 +86,7 @@
             luarocks # I am not sure
 
             # global formatters
-            nixfmt-rfc-style
+            nixfmt
             stylua
           ];
         };

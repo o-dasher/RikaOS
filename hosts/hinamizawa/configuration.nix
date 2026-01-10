@@ -146,10 +146,13 @@
     dconf.enable = true;
     nix-ld.enable = true;
     steam.gamescopeSession.args = [
-      "-W 1920"
-      "-H 1080"
+      "-w 1920"
+      "-h 1080"
       "-r 240"
       "--fullscreen"
+      "--expose-wayland"
+      "--immediate-flips"
+      "--rt"
     ];
     neovim = {
       enable = true;
