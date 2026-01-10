@@ -90,5 +90,16 @@ in
           ]
         )
       ) themeNames
+      ++ [
+        {
+          _module.args.themeLib = {
+            cursor = {
+              name = "BreezeX-RosePine-Linux";
+              package = pkgs.rose-pine-cursor;
+              size = 16;
+            };
+          };
+        }
+      ]
     );
 }
