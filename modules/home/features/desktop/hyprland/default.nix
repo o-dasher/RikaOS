@@ -54,6 +54,9 @@
             with pkgs;
             lib.optionals config.profiles.browser.enable [
               "[workspace 2 silent] ${getExe zen-browser}"
+            ]
+            ++ lib.optionals config.features.gaming.heroic.enable [
+              "[workspace 10 silent] ${getExe heroic}"
             ];
           workspace =
             with pkgs;
