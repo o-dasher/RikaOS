@@ -92,7 +92,7 @@
             "tag +games, match:content game"
             "tag +games, match:class ^(steam_app_.*|gamescope|osu!)$"
 
-            "tag +floaty, match:class ^(.blueman-manager-wrapped|Thunar|com.github.wwmm.easyeffects|com.saivert.pwvucontrol)$"
+            "tag +floaty, match:class ^(.blueman-manager-wrapped|thunar|com.github.wwmm.easyeffects|com.saivert.pwvucontrol)$"
 
             "match:tag games, sync_fullscreen on, no_shadow on, no_blur on, no_anim on, immediate on"
             "match:tag floaty, float on, center on, size (monitor_w*0.6) (monitor_h*0.6)"

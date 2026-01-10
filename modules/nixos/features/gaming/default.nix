@@ -27,6 +27,8 @@
       cfg = config.features.gaming;
     in
     lib.mkIf cfg.enable {
+      boot.kernelModules = [ "ntsync" ];
+
       programs = {
         gamemode.enable = true;
         gamescope = {
