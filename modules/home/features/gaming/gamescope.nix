@@ -9,12 +9,7 @@ let
   wrapWithGamescope =
     args: pkg:
     let
-      allArgs = lib.concatStringsSep " " (
-        lib.filter (s: s != "") [
-          cfg.args
-          args
-        ]
-      );
+      allArgs = lib.concatStringsSep " " (cfg.args ++ (lib.optional (args != "") args));
       binName = pkg.meta.mainProgram or (lib.getName pkg);
     in
     pkgs.runCommand "${pkg.name}-gamescope"
@@ -45,10 +40,13 @@ in
     enable = lib.mkEnableOption "gamescope wrapper function";
 
     args = lib.mkOption {
-      type = lib.types.str;
-      default = "";
+      type = lib.types.listOf lib.types.str;
+      default = [ ];
       description = "Default gamescope arguments applied to all wrapped packages";
-      example = "-W 2560 -H 1440 -f -e";
+      example = [
+        "-w 2560"
+        "-h 1440"
+      ];
     };
 
     wrap = lib.mkOption {
