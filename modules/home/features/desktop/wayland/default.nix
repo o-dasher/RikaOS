@@ -18,6 +18,9 @@
     ];
 
     home.sessionVariables = {
+      # Electron
+      NIXOS_OZONE_WL = "1";
+
       # SDL
       OSU_SDL3 = "1";
       SDL_VIDEODRIVER = "wayland";
