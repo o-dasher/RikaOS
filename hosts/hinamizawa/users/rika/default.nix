@@ -35,7 +35,6 @@
           "--fullscreen"
           "--expose-wayland"
           "--force-grab-cursor"
-          "--immediate-flips"
           "--rt"
         ];
       };
