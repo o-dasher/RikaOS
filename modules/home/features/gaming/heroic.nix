@@ -9,13 +9,7 @@
 
   config = lib.mkIf (config.features.gaming.enable && config.features.gaming.heroic.enable) {
     home.packages = [
-      (pkgs.heroic.override {
-        extraPkgs =
-          pkgs: with pkgs; [
-            gamescope
-            gamemode
-          ];
-      })
+      pkgs.heroic
     ];
   };
 }
