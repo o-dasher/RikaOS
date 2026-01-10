@@ -2,12 +2,17 @@
   pkgs,
   lib,
   config,
+  themeLib,
   ...
 }:
 let
   cfg = config.features.services.sddm;
 in
 {
+  imports = [
+    ../../../lib
+  ];
+
   options.features.services.sddm = {
     enable = lib.mkEnableOption "SDDM Display Manager";
 
@@ -29,6 +34,7 @@ in
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [
+      themeLib.cursor.package
       (pkgs.catppuccin-sddm.override {
         flavor = cfg.flavor;
         accent = cfg.accent;
@@ -57,6 +63,8 @@ in
                     disable_hyprland_logo = true
                     disable_splash_rendering = true
                   }
+
+                  exec-once = hyprctl setcursor ${themeLib.cursor.name} ${toString themeLib.cursor.size}
                 '';
           in
           "env HYPRLAND_CONFIG=${config} start-hyprland";
