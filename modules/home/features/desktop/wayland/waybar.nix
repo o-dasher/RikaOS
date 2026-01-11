@@ -22,9 +22,10 @@
             systemd.enable = true;
             settings.main =
               let
-                define_temperature_sensor = name: i: j: {
-                  hwmon-path = "/sys/class/hwmon/hwmon${toString i}/temp${toString j}_input";
-                  critical-threshold = "80";
+                mkTempSensor = name: pciPath: {
+                  hwmon-path-abs = "/sys/bus/pci/devices/${pciPath}/hwmon";
+                  input-filename = "temp1_input";
+                  critical-threshold = 80;
                   format-critical = "  ${name} {temperatureC}°C";
                   format = "${name} {temperatureC}°C";
                 };
@@ -70,8 +71,10 @@
                   "tray"
                   "pulseaudio"
                 ];
-                "temperature#cpu" = define_temperature_sensor "CPU" 1 1;
-                "temperature#gpu" = define_temperature_sensor "GPU" 3 1;
+                # Using hwmon-path-abs with stable PCI paths (won't change on reboot)
+                # k10temp (AMD CPU) at 0000:00:18.3, amdgpu (GPU) at 0000:03:00.0
+                "temperature#cpu" = mkTempSensor "CPU" "0000:00:18.3";
+                "temperature#gpu" = mkTempSensor "GPU" "0000:03:00.0";
                 cpu = {
                   format = "  {usage}%";
                   tooltip = false;
