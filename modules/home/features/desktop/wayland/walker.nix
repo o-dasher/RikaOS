@@ -23,34 +23,28 @@
           themes.stylix.style =
             let
               inherit (config.lib.stylix) colors;
-              opacity = toString config.stylix.opacity.popups;
+              opacity = toString (builtins.floor (config.stylix.opacity.popups * 100));
             in
             config.rika.utils.css.tailwindCSS # css
               ''
-                @define-color base00 #${colors.base00};
-                @define-color base03 #${colors.base03};
-                @define-color base05 #${colors.base05};
-                @define-color base08 #${colors.base08};
-
+                @tailwind base;
                 @tailwind utilities;
+                @tailwind components;
 
                 * {
                   all: unset;
                 }
 
                 .box-wrapper {
-                  box-shadow:
-                    0 19px 38px rgba(0, 0, 0, 0.3),
-                    0 15px 12px rgba(0, 0, 0, 0.22);
-                  background: alpha(@base00, ${opacity});
-                  @apply p-2 rounded-lg;
-                  border: 1px solid @base03;
+                  @apply p-2 rounded-lg bg-base00/${opacity} border border-solid border-base03;
                 }
 
                 .preview-box,
                 .elephant-hint,
-                .placeholder {
-                  color: @base05;
+                .placeholder,
+                .list,
+                .preview {
+                  @apply text-base05;
                 }
 
                 .search-container {
@@ -62,22 +56,15 @@
                 }
 
                 .input selection {
-                  background: alpha(@base03, 0.5);
+                  @apply bg-base03/50;
                 }
 
                 .input {
-                  caret-color: @base05;
-                  background: alpha(@base03, 0.25);
-                  color: @base05;
-                  @apply p-2.5 rounded-lg;
+                  @apply p-2.5 rounded-lg text-base05 caret-base05 bg-base03/25;
                 }
 
                 scrollbar {
                   @apply opacity-0;
-                }
-
-                .list {
-                  color: @base05;
                 }
 
                 .item-box {
@@ -85,12 +72,11 @@
                 }
 
                 .item-quick-activation {
-                  background: alpha(@base03, 0.25);
-                  @apply rounded p-2;
+                  @apply rounded p-2 bg-base03/25;
                 }
 
                 child:selected .item-box {
-                  background: alpha(@base03, 0.25);
+                  @apply bg-base03/25;
                 }
 
                 .item-subtext {
@@ -106,15 +92,11 @@
                 }
 
                 .preview {
-                  border: 1px solid alpha(@base03, 0.25);
-                  color: @base05;
-                  @apply rounded-lg;
+                  @apply rounded-lg border border-base03/25;
                 }
 
                 .error {
-                  background: @base08;
-                  color: @base05;
-                  @apply p-2.5;
+                  @apply p-2.5 bg-base08 text-base05;
                 }
               '';
         };
