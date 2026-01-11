@@ -80,10 +80,10 @@
           # https://github.com/hyprwm/Hyprland/pull/10020 for reference.
           render.direct_scanout = true;
           layerrule = [
-            "match:namespace ^(waybar|launcher)$, blur on"
+            "match:namespace ^(waybar|notifications)$, blur on"
             "match:namespace ^(waybar)$, animation slide top"
             "match:namespace ^(notifications)$, animation slide right"
-            "match:namespace ^(launcher)$, animation slide bottom"
+            "match:namespace ^(walker)$, animation slide bottom"
           ];
           windowrule = [
             "tag +games, match:content game"
