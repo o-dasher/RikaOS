@@ -133,6 +133,8 @@
         (final: prev: {
           # Bleeding edge
           # inherit (pkgs_master);
+          inherit (inputs.neovim-nightly.packages.${prev.stdenv.hostPlatform.system}) neovim;
+          inherit (inputs.walker.packages.${prev.stdenv.hostPlatform.system}) walker;
 
           gamescope = prev.gamescope.overrideAttrs (old: {
             # Blur fix: https://github.com/ValveSoftware/gamescope/issues/1622.
@@ -155,9 +157,6 @@
             hyprland
             xdg-desktop-portal-hyprland
             ;
-
-          # Neovim nightly
-          neovim = inputs.neovim-nightly.packages.${prev.stdenv.hostPlatform.system}.neovim;
         })
       ];
 
