@@ -14,7 +14,6 @@
       rounding = 4;
 
       inherit (lib) getExe;
-
     in
     lib.mkIf config.features.desktop.hyprland.enable {
       features.desktop.wayland.enable = true;
@@ -159,7 +158,7 @@
             in
             with pkgs;
             (lib.optionals config.features.desktop.wayland.walker.enable [
-              "${mod}, D, exec, walker --nohints"
+              "${mod}, D, exec, ${getExe walker} --nohints"
             ])
             ++ [
               "${mod}, RETURN, exec, ${getExe xdg-terminal-exec}"
