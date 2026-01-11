@@ -21,22 +21,16 @@
             terminal = lib.getExe pkgs.xdg-terminal-exec;
           };
           themes.stylix.style =
-            let
-              inherit (config.lib.stylix) colors;
-              opacity = toString (builtins.floor (config.stylix.opacity.popups * 100));
-            in
             config.rika.utils.css.tailwindCSS # css
               ''
-                @tailwind base;
                 @tailwind utilities;
-                @tailwind components;
 
                 * {
                   all: unset;
                 }
 
                 .box-wrapper {
-                  @apply p-2 rounded-lg bg-base00/${opacity} border border-solid border-base03;
+                  @apply p-2 rounded-lg bg-base00 border border-solid border-base03;
                 }
 
                 .preview-box,
