@@ -2,12 +2,8 @@
   lib,
   config,
   pkgs,
-  options,
   ...
 }:
-let
-  hasStylix = options ? stylix;
-in
 {
   options.features.desktop.wayland.walker.enable = (lib.mkEnableOption "walker") // {
     default = true;
@@ -24,109 +20,103 @@ in
             list.max_entries = 10;
             terminal = lib.getExe pkgs.xdg-terminal-exec;
           };
-          themes.stylix.style = lib.optionalString hasStylix (
+          themes.stylix.style =
             let
-              inherit (config.lib.stylix) colors mkOpacityHexColor;
-              opacity = config.stylix.opacity.popups;
+              inherit (config.lib.stylix) colors;
+              opacity = toString config.stylix.opacity.popups;
             in
-            # css
-            ''
-              @define-color window_bg_color ${mkOpacityHexColor colors.base00 opacity};
-              @define-color accent_bg_color #${colors.base03};
-              @define-color theme_fg_color #${colors.base05};
-              @define-color error_bg_color #${colors.base08};
-              @define-color error_fg_color #${colors.base05};
+            config.rika.utils.css.tailwindCSS # css
+              ''
+                @define-color base00 #${colors.base00};
+                @define-color base03 #${colors.base03};
+                @define-color base05 #${colors.base05};
+                @define-color base08 #${colors.base08};
 
-              * {
-                all: unset;
-              }
+                @tailwind utilities;
 
-              .box-wrapper {
-                box-shadow:
-                  0 19px 38px rgba(0, 0, 0, 0.3),
-                  0 15px 12px rgba(0, 0, 0, 0.22);
-                background: @window_bg_color;
-                padding: 8px;
-                border-radius: 8px;
-                border: 1px solid @accent_bg_color;
-              }
+                * {
+                  all: unset;
+                }
 
-              .preview-box,
-              .elephant-hint,
-              .placeholder {
-                color: @theme_fg_color;
-              }
+                .box-wrapper {
+                  box-shadow:
+                    0 19px 38px rgba(0, 0, 0, 0.3),
+                    0 15px 12px rgba(0, 0, 0, 0.22);
+                  background: alpha(@base00, ${opacity});
+                  @apply p-2 rounded-lg;
+                  border: 1px solid @base03;
+                }
 
-              .search-container {
-                border-radius: 8px;
-              }
+                .preview-box,
+                .elephant-hint,
+                .placeholder {
+                  color: @base05;
+                }
 
-              .input placeholder {
-                opacity: 0.5;
-              }
+                .search-container {
+                  @apply rounded-lg;
+                }
 
-              .input selection {
-                background: alpha(@accent_bg_color, 0.5);
-              }
+                .input placeholder {
+                  @apply opacity-50;
+                }
 
-              .input {
-                caret-color: @theme_fg_color;
-                background: alpha(@accent_bg_color, 0.25);
-                padding: 10px;
-                color: @theme_fg_color;
-                border-radius: 8px;
-              }
+                .input selection {
+                  background: alpha(@base03, 0.5);
+                }
 
-              scrollbar {
-                opacity: 0;
-              }
+                .input {
+                  caret-color: @base05;
+                  background: alpha(@base03, 0.25);
+                  color: @base05;
+                  @apply p-2.5 rounded-lg;
+                }
 
-              .list {
-                color: @theme_fg_color;
-              }
+                scrollbar {
+                  @apply opacity-0;
+                }
 
-              .item-box {
-                border-radius: 8px;
-                padding: 8px;
-                min-height: 32px;
-              }
+                .list {
+                  color: @base05;
+                }
 
-              .item-quick-activation {
-                background: alpha(@accent_bg_color, 0.25);
-                border-radius: 4px;
-                padding: 8px;
-              }
+                .item-box {
+                  @apply rounded-lg p-2 min-h-8;
+                }
 
-              child:selected .item-box {
-                background: alpha(@accent_bg_color, 0.25);
-              }
+                .item-quick-activation {
+                  background: alpha(@base03, 0.25);
+                  @apply rounded p-2;
+                }
 
-              .item-subtext {
-                font-size: 12px;
-                opacity: 0.5;
-              }
+                child:selected .item-box {
+                  background: alpha(@base03, 0.25);
+                }
 
-              .normal-icons {
-                -gtk-icon-size: 16px;
-              }
+                .item-subtext {
+                  @apply text-xs opacity-50;
+                }
 
-              .large-icons {
-                -gtk-icon-size: 32px;
-              }
+                .normal-icons {
+                  -gtk-icon-size: 16px;
+                }
 
-              .preview {
-                border: 1px solid alpha(@accent_bg_color, 0.25);
-                border-radius: 8px;
-                color: @theme_fg_color;
-              }
+                .large-icons {
+                  -gtk-icon-size: 32px;
+                }
 
-              .error {
-                padding: 10px;
-                background: @error_bg_color;
-                color: @error_fg_color;
-              }
-            ''
-          );
+                .preview {
+                  border: 1px solid alpha(@base03, 0.25);
+                  color: @base05;
+                  @apply rounded-lg;
+                }
+
+                .error {
+                  background: @base08;
+                  color: @base05;
+                  @apply p-2.5;
+                }
+              '';
         };
       };
 }
