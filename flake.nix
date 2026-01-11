@@ -86,7 +86,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     stylix = {
-      url = "github:kerfuzzle/stylix"; # BUG: waiting for https://github.com/nix-community/stylix/pull/2087
+      url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.systems.follows = "systems";
       inputs.flake-parts.follows = "flake-parts";
