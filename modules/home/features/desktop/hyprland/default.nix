@@ -83,7 +83,7 @@
             "match:namespace ^(waybar|launcher)$, blur on"
             "match:namespace ^(waybar)$, animation slide top"
             "match:namespace ^(notifications)$, animation slide right"
-            "match:namespace ^(fuzzel)$, animation slide bottom"
+            "match:namespace ^(launcher)$, animation slide bottom"
           ];
           windowrule = [
             "tag +games, match:content game"
@@ -158,66 +158,64 @@
               mod = "SUPER";
             in
             with pkgs;
-            lib.mkMerge [
-              (lib.mkIf config.features.desktop.wayland.fuzzel.enable [
-                "${mod}, D, exec, pkill -x fuzzel || ${getExe fuzzel}"
-              ])
-              [
-                "${mod}, RETURN, exec, ${getExe xdg-terminal-exec}"
+            (lib.optionals config.features.desktop.wayland.walker.enable [
+              "${mod}, D, exec, walker --nohints"
+            ])
+            ++ [
+              "${mod}, RETURN, exec, ${getExe xdg-terminal-exec}"
 
-                "${mod}, F, fullscreen"
-                "${mod}, C, killactive"
-                "${mod}, M, fullscreen, on"
+              "${mod}, F, fullscreen"
+              "${mod}, C, killactive"
+              "${mod}, M, fullscreen, on"
 
-                "${mod}, S, togglegroup"
-                "${mod} SHIFT, F, togglefloating"
+              "${mod}, S, togglegroup"
+              "${mod} SHIFT, F, togglefloating"
 
-                "${mod}, H, movefocus, l"
-                "${mod}, L, movefocus, r"
-                "${mod}, K, movefocus, u"
-                "${mod}, J, movefocus, d"
+              "${mod}, H, movefocus, l"
+              "${mod}, L, movefocus, r"
+              "${mod}, K, movefocus, u"
+              "${mod}, J, movefocus, d"
 
-                "${mod}, H, changegroupactive, b"
-                "${mod}, L, changegroupactive, f"
+              "${mod}, H, changegroupactive, b"
+              "${mod}, L, changegroupactive, f"
 
-                "${mod} SHIFT, H, movegroupwindow, b"
-                "${mod} SHIFT, L, movegroupwindow, f"
+              "${mod} SHIFT, H, movegroupwindow, b"
+              "${mod} SHIFT, L, movegroupwindow, f"
 
-                "${mod} SHIFT, H, moveintogroup, l"
-                "${mod} SHIFT, L, moveintogroup, r"
-                "${mod} SHIFT, K, moveintogroup, u"
-                "${mod} SHIFT, J, moveintogroup, d"
-                "${mod} SHIFT, U, moveoutofgroup"
+              "${mod} SHIFT, H, moveintogroup, l"
+              "${mod} SHIFT, L, moveintogroup, r"
+              "${mod} SHIFT, K, moveintogroup, u"
+              "${mod} SHIFT, J, moveintogroup, d"
+              "${mod} SHIFT, U, moveoutofgroup"
 
-                "${mod}, P, exec, ${getExe grimblast} --notify copy screen"
-                "${mod} SHIFT, P, exec, ${getExe grimblast} --notify copy area"
-                "${mod} ALT, P, exec, ${getExe grimblast} --notify copy active"
+              "${mod}, P, exec, ${getExe grimblast} --notify copy screen"
+              "${mod} SHIFT, P, exec, ${getExe grimblast} --notify copy area"
+              "${mod} ALT, P, exec, ${getExe grimblast} --notify copy active"
 
-                "CTRL SHIFT, L, exec, ${getExe hyprlock}"
-                "CTRL SHIFT, Q, exec, ${getExe hyprshutdown}"
+              "CTRL SHIFT, L, exec, ${getExe hyprlock}"
+              "CTRL SHIFT, Q, exec, ${getExe hyprshutdown}"
 
-                ", XF86AudioPlay, exec, ${getExe playerctl} play-pause"
-                ", XF86AudioPrev, exec, ${getExe playerctl} previous"
-                ", XF86AudioNext, exec, ${getExe playerctl} next"
-                ", XF86AudioStop, exec, ${getExe playerctl} stop"
+              ", XF86AudioPlay, exec, ${getExe playerctl} play-pause"
+              ", XF86AudioPrev, exec, ${getExe playerctl} previous"
+              ", XF86AudioNext, exec, ${getExe playerctl} next"
+              ", XF86AudioStop, exec, ${getExe playerctl} stop"
 
-                ", XF86AudioMicMute, exec, ${wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-                ", XF86AudioMute, exec, ${wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-              ]
-              (builtins.concatLists (
-                builtins.genList (
-                  x:
-                  let
-                    workspace = x + 1;
-                    key = toString (workspace - ((workspace / 10) * 10));
-                  in
-                  [
-                    "${mod}, ${key}, workspace, ${toString workspace}"
-                    "${mod} SHIFT, ${key}, movetoworkspace, ${toString workspace}"
-                  ]
-                ) 10
-              ))
-            ];
+              ", XF86AudioMicMute, exec, ${wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+              ", XF86AudioMute, exec, ${wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+            ]
+            ++ (builtins.concatLists (
+              builtins.genList (
+                x:
+                let
+                  workspace = x + 1;
+                  key = toString (workspace - ((workspace / 10) * 10));
+                in
+                [
+                  "${mod}, ${key}, workspace, ${toString workspace}"
+                  "${mod} SHIFT, ${key}, movetoworkspace, ${toString workspace}"
+                ]
+              ) 10
+            ));
         };
       };
     };
