@@ -97,6 +97,11 @@
       inputs.home-manager.follows = "home-manager";
       inputs.systems.follows = "systems";
     };
+    walker = {
+      url = "github:abenz1267/walker";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.systems.follows = "systems";
+    };
   };
 
   outputs =
@@ -188,6 +193,8 @@
           "https://attic.xuyh0120.win/lantian"
           "https://cache.garnix.io"
           "https://hercules-ci.cachix.org"
+          "https://walker.cachix.org"
+          "https://walker-git.cachix.org"
         ];
         trusted-public-keys = [
           "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
@@ -196,6 +203,8 @@
           "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
           "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
           "hercules-ci.cachix.org-1:ZZeDl9Va+xe9j+KqdzoBZMFJHVQ42Uu/c/1/KMC5Lw0="
+          "walker.cachix.org-1:fG8q+uAaMqhsMxWjwvk0IMb4mFPFLqHjuvfwQxE4oJM="
+          "walker-git.cachix.org-1:vmC0ocfPWh0S/vRAQGtChuiZBTAe4wiKDeyyXM0/7pM="
         ];
       };
 
@@ -215,6 +224,7 @@
         nixcord.homeModules.nixcord
         mnw.homeManagerModules.mnw
         zen-browser.homeModules.twilight
+        inputs.walker.homeManagerModules.default
         inputs.nix-flatpak.homeManagerModules.nix-flatpak
         {
           home = {

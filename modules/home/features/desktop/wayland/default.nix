@@ -6,7 +6,7 @@
 }:
 {
   imports = [
-    ./fuzzel.nix
+    ./walker.nix
     ./mako.nix
     ./waybar.nix
   ];
