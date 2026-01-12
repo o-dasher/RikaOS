@@ -77,7 +77,8 @@
           # e.g. Gamescope and majority of apps will tear. But native applications like
           # osu! will try to direct scanout unless specified to tear. This can be better in the future. See:
           # https://github.com/hyprwm/Hyprland/pull/10020 for reference.
-          render.direct_scanout = true;
+          # HDR direct scanout screensharing also not working: https://github.com/hyprwm/Hyprland/pull/12711#issuecomment-3695135870
+          render.direct_scanout = false;
           layerrule = [
             "match:namespace ^(waybar|notifications)$, blur on"
             "match:namespace ^(waybar)$, animation slide top"
