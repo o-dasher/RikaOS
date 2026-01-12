@@ -2,7 +2,6 @@
 {
   imports = [
     ./gamescope.nix
-    ./goverlay.nix
     ./heroic.nix
     ./minecraft.nix
     ./osu.nix
