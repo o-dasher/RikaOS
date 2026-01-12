@@ -29,6 +29,9 @@
     lib.mkIf cfg.enable {
       boot.kernelModules = [ "ntsync" ];
 
+      # Enables HDR and fixes stuttering games in wayland.
+      environment.systemPackages = [ pkgs.gamescope-wsi ];
+
       programs = {
         gamemode.enable = true;
         gamescope = {
@@ -39,6 +42,7 @@
         steam = lib.mkIf (cfg.steam.enable) {
           enable = true;
           remotePlay.openFirewall = true;
+          protontricks.enable = true;
           gamescopeSession = {
             enable = true;
             steamArgs = [

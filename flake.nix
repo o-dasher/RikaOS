@@ -130,34 +130,40 @@
       # };
 
       overlays = [
-        (final: prev: {
-          # Bleeding edge
-          # inherit (pkgs_master);
-          inherit (inputs.neovim-nightly.packages.${prev.stdenv.hostPlatform.system}) neovim;
-          inherit (inputs.walker.packages.${prev.stdenv.hostPlatform.system}) walker;
+        (
+          final: prev:
+          let
+          in
+          {
+            # Bleeding edge
+            # inherit (pkgs_master);
+            neovim-nightly = (inputs.neovim-nightly.packages.${prev.stdenv.hostPlatform.system}).neovim;
+            inherit (inputs.walker.packages.${prev.stdenv.hostPlatform.system}) walker;
 
-          gamescope = prev.gamescope.overrideAttrs (old: {
-            # Blur fix: https://github.com/ValveSoftware/gamescope/issues/1622.
-            NIX_CFLAGS_COMPILE = [ "-fno-fast-math" ];
-            patches = old.patches or [ ] ++ [
-              # Fix Gamescope not closing https://github.com/ValveSoftware/gamescope/pull/1908
-              (prev.fetchpatch {
-                url = "https://github.com/ValveSoftware/gamescope/commit/fa900b0694ffc8b835b91ef47a96ed90ac94823b.diff";
-                hash = "sha256-eIHhgonP6YtSqvZx2B98PT1Ej4/o0pdU+4ubdiBgBM4=";
-              })
-            ];
-          });
+            # Gamescope
+            gamescope = prev.gamescope.overrideAttrs (old: {
+              # Blur fix: https://github.com/ValveSoftware/gamescope/issues/1622.
+              NIX_CFLAGS_COMPILE = [ "-fno-fast-math" ];
+              patches = old.patches or [ ] ++ [
+                # Fix Gamescope not closing https://github.com/ValveSoftware/gamescope/pull/1908
+                (prev.fetchpatch {
+                  url = "https://github.com/ValveSoftware/gamescope/commit/fa900b0694ffc8b835b91ef47a96ed90ac94823b.diff";
+                  hash = "sha256-eIHhgonP6YtSqvZx2B98PT1Ej4/o0pdU+4ubdiBgBM4=";
+                })
+              ];
+            });
 
-          # Utilities
-          zen-browser = zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.twilight;
+            # Utilities
+            zen-browser = zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.twilight;
 
-          # Hyprland packages
-          hyprshutdown = inputs.hyprshutdown.packages.${prev.stdenv.hostPlatform.system}.default;
-          inherit (inputs.hyprland.packages.${prev.stdenv.hostPlatform.system})
-            hyprland
-            xdg-desktop-portal-hyprland
-            ;
-        })
+            # Hyprland packages
+            hyprshutdown = inputs.hyprshutdown.packages.${prev.stdenv.hostPlatform.system}.default;
+            inherit (inputs.hyprland.packages.${prev.stdenv.hostPlatform.system})
+              hyprland
+              xdg-desktop-portal-hyprland
+              ;
+          }
+        )
       ];
 
       pkgs = import nixpkgs {
