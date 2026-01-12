@@ -150,7 +150,7 @@
       "-h 1080"
       "-r 240"
       "--fullscreen"
-      "--expose-wayland"
+      "--force-grab-cursor"
       "--rt"
     ];
     neovim = {

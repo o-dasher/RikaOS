@@ -21,6 +21,7 @@
       programs = {
         mnw = {
           enable = true;
+          neovim = pkgs.neovim-nightly;
           initLua = # lua
             ''require("thiago")'';
           plugins = with pkgs.vimPlugins; {
