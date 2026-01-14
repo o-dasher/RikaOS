@@ -44,10 +44,12 @@ in
           enable = true;
           networks.${stableIPv6Cfg.interface} = {
             matchConfig.Name = stableIPv6Cfg.matchInterface;
-            ipv6AcceptRAConfig.Token = "stable";
+            ipv6AcceptRAConfig.Token = "prefixstable";
             networkConfig = {
               DHCP = "ipv4";
               IPv6AcceptRA = true;
+              IPv6PrivacyExtensions = true;
+              IPv6LinkLocalAddressGenerationMode = "stable-privacy";
             };
           };
         };
