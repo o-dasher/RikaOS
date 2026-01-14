@@ -1438,49 +1438,6 @@
         "type": "github"
       }
     },
-    "playit-agent-source": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1766088095,
-        "narHash": "sha256-ns8BBSHErAXXgJ+wMDdUTWEudjQq4cp3EgJEFLqrrWM=",
-        "owner": "playit-cloud",
-        "repo": "playit-agent",
-        "rev": "3a814caabe2f8d4b364816e2d52c1eb31d633704",
-        "type": "github"
-      },
-      "original": {
-        "owner": "playit-cloud",
-        "repo": "playit-agent",
-        "type": "github"
-      }
-    },
-    "playit-nixos-module": {
-      "inputs": {
-        "flake-parts": [
-          "flake-parts"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "playit-agent-source": "playit-agent-source",
-        "systems": [
-          "systems"
-        ]
-      },
-      "locked": {
-        "lastModified": 1767329060,
-        "narHash": "sha256-zJ74IbFsxc8AY3xYAyJpmveAGaV0oLkGcUk1/X/Bb/c=",
-        "owner": "pedorich-n",
-        "repo": "playit-nixos-module",
-        "rev": "ff369980f759a8968f39de792b8a2bf9e02d2535",
-        "type": "github"
-      },
-      "original": {
-        "owner": "pedorich-n",
-        "repo": "playit-nixos-module",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "agenix": "agenix",
@@ -1500,7 +1457,6 @@
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-master": "nixpkgs-master",
         "pam-shim": "pam-shim",
-        "playit-nixos-module": "playit-nixos-module",
         "spicetify-nix": "spicetify-nix",
         "stylix": "stylix",
         "systems": "systems",

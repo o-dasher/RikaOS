@@ -1,6 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system. Help is available in the configuration.nix(5) man page, on
-# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 {
   pkgs,
   config,
@@ -33,6 +30,7 @@
     virtualization.enable = true;
     networking = {
       enable = true;
+      cloudflare.enable = true;
       stableIPv6 = {
         enable = true;
         matchInterface = "enp6s0";
@@ -51,7 +49,6 @@
       bluetooth.enable = true;
       flatpak.enable = true;
       openrgb.enable = true;
-      playit.enable = true;
       gnome-keyring.enable = true;
       thunar.enable = true;
       sddm = {
@@ -142,6 +139,14 @@
       };
     };
   };
+
+  networking.firewall =
+    let
+      stardewValleyPort = 24642;
+    in
+    {
+      allowedUDPPorts = [ stardewValleyPort ];
+    };
 
   programs = {
     fish.enable = true;
