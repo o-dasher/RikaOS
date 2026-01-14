@@ -3,6 +3,10 @@
   config,
   ...
 }:
+let
+  cfg = config.features.networking;
+  stableIPv6Cfg = cfg.stableIPv6;
+in
 {
   options.features.networking = {
     enable = lib.mkEnableOption "networking";
@@ -10,10 +14,44 @@
       enable = lib.mkEnableOption "NetworkManager";
       cloudflare.enable = lib.mkEnableOption "Cloudflare";
     };
+    stableIPv6 = {
+      enable = lib.mkEnableOption "stable IPv6 address with systemd-networkd";
+      interface = lib.mkOption {
+        type = lib.types.str;
+        default = "10-lan";
+        description = "Network name for systemd-networkd";
+      };
+      matchInterface = lib.mkOption {
+        type = lib.types.str;
+        description = "Physical interface name to match (e.g., enp6s0)";
+      };
+    };
   };
 
-  config = lib.mkIf config.features.networking.enable {
-    services.cloudflare-warp.enable = true;
-    networking.networkmanager.enable = config.features.networking.networkManager.enable;
-  };
+  config = lib.mkIf cfg.enable (
+    lib.mkMerge [
+      {
+        services.cloudflare-warp.enable = true;
+        networking.networkmanager.enable = cfg.networkManager.enable;
+      }
+
+      (lib.mkIf stableIPv6Cfg.enable {
+        networking = {
+          useDHCP = false;
+          useNetworkd = true;
+        };
+        systemd.network = {
+          enable = true;
+          networks.${stableIPv6Cfg.interface} = {
+            matchConfig.Name = stableIPv6Cfg.matchInterface;
+            ipv6AcceptRAConfig.Token = "stable";
+            networkConfig = {
+              DHCP = "ipv4";
+              IPv6AcceptRA = true;
+            };
+          };
+        };
+      })
+    ]
+  );
 }
