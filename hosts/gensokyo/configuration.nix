@@ -43,7 +43,6 @@
           ];
         in
         {
-          enable = true;
           allowedTCPPorts = minecraftPorts;
           allowedUDPPorts = minecraftPorts;
         };

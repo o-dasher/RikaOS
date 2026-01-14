@@ -7,9 +7,7 @@
   options.features.networking = {
     enable = lib.mkEnableOption "networking";
     networkManager = {
-      enable = lib.mkEnableOption "NetworkManager" // {
-        default = true;
-      };
+      enable = lib.mkEnableOption "NetworkManager";
       cloudflare.enable = lib.mkEnableOption "Cloudflare";
     };
   };

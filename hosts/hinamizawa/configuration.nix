@@ -12,11 +12,24 @@
     ./hardware-configuration.nix
   ];
 
+  networking = {
+    useDHCP = false;
+    useNetworkd = true;
+  };
+
+  systemd.network = {
+    enable = true;
+    networks."10-lan" = {
+      matchConfig.Name = "enp6s0";
+      ipv6AcceptRAConfig.Token = "stable";
+      networkConfig = {
+        DHCP = "ipv4";
+        IPv6AcceptRA = true;
+      };
+    };
+  };
+
   time.hardwareClockInLocalTime = true;
-
-  environment.systemPackages = [
-  ];
-
   services = {
     printing.enable = true;
     openssh.enable = true;
