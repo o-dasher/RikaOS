@@ -12,23 +12,6 @@
     ./hardware-configuration.nix
   ];
 
-  networking = {
-    useDHCP = false;
-    useNetworkd = true;
-  };
-
-  systemd.network = {
-    enable = true;
-    networks."10-lan" = {
-      matchConfig.Name = "enp6s0";
-      ipv6AcceptRAConfig.Token = "stable";
-      networkConfig = {
-        DHCP = "ipv4";
-        IPv6AcceptRA = true;
-      };
-    };
-  };
-
   time.hardwareClockInLocalTime = true;
   services = {
     printing.enable = true;
@@ -48,7 +31,13 @@
     gaming.enable = true;
     audio.enable = true;
     virtualization.enable = true;
-    networking.enable = true;
+    networking = {
+      enable = true;
+      stableIPv6 = {
+        enable = true;
+        matchInterface = "enp6s0";
+      };
+    };
     desktop.hyprland.enable = true;
     boot = {
       enable = true;
