@@ -90,6 +90,11 @@
       inputs.git-hooks.follows = "git-hooks";
       inputs.flake-parts.follows = "flake-parts";
     };
+    nix-minecraft = {
+      url = "github:Infinidoge/nix-minecraft";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+    };
   };
 
   outputs =
@@ -240,8 +245,9 @@
             agenix.nixosModules.default
             nix-gaming.nixosModules.pipewireLowLatency
             inputs.nix-flatpak.nixosModules.nix-flatpak
+            inputs.nix-minecraft.nixosModules.minecraft-servers
             {
-              nixpkgs.overlays = overlays;
+              nixpkgs.overlays = overlays ++ [ inputs.nix-minecraft.overlay ];
               networking.hostName = hostName;
               system.stateVersion = systemCfg.state;
               home-manager = {
