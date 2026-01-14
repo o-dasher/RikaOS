@@ -13,21 +13,6 @@
       inputs.flake-compat.follows = "flake-compat";
       inputs.flake-parts.follows = "flake-parts";
     };
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
-      inputs.pre-commit-hooks.follows = "git-hooks";
-      inputs.systems.follows = "systems";
-    };
-    hyprshutdown = {
-      url = "github:hyprwm/hyprshutdown";
-      inputs = {
-        nixpkgs.follows = "hyprland/nixpkgs";
-        systems.follows = "hyprland/systems";
-        aquamarine.follows = "hyprland/aquamarine";
-        hyprgraphics.follows = "hyprland/hyprgraphics";
-        hyprutils.follows = "hyprland/hyprutils";
-      };
-    };
     spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -36,6 +21,8 @@
     pam-shim = {
       url = "github:Cu3PO42/pam_shim";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs";
+      inputs.pre-commit-hooks.inputs.flake-compat.follows = "flake-compat";
     };
     flake-utils = {
       url = "github:numtide/flake-utils";
@@ -102,6 +89,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.systems.follows = "systems";
     };
+    hyprnix = {
+      url = "path:./lib/inputs/hyprnix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.systems.follows = "systems";
+      inputs.git-hooks.follows = "git-hooks";
+      inputs.flake-parts.follows = "flake-parts";
+    };
   };
 
   outputs =
@@ -155,14 +149,14 @@
 
             # Utilities
             zen-browser = zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.twilight;
-
-            # Hyprland packages
-            hyprshutdown = inputs.hyprshutdown.packages.${prev.stdenv.hostPlatform.system}.default;
-            inherit (inputs.hyprland.packages.${prev.stdenv.hostPlatform.system})
-              hyprland
-              xdg-desktop-portal-hyprland
-              ;
           }
+          // (
+            if prev.stdenv.hostPlatform.system == "x86_64-linux" then
+              # Hyprland packages (from hyprnix nested flake)
+              inputs.hyprnix.packages.${prev.stdenv.hostPlatform.system}
+            else
+              { }
+          )
         )
       ];
 
