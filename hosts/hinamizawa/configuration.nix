@@ -70,11 +70,14 @@
           "satoko"
         ];
       };
-      sharedFolders.folderNames = [
-        "/shared/Games"
-        "/shared/Media"
-        "/shared/Media/Torrent"
-      ];
+      sharedFolders = {
+        enable = true;
+        folderNames = [
+          "/shared/Games"
+          "/shared/Media"
+          "/shared/Media/Torrent"
+        ];
+      };
       bitlocker = lib.mkIf (config.age.secrets ? bitlocker-hinamizawa-shared) {
         enable = true;
         drives.windows-shared = {
