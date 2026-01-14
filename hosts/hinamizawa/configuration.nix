@@ -51,7 +51,6 @@
       bluetooth.enable = true;
       flatpak.enable = true;
       openrgb.enable = true;
-      playit.enable = true;
       gnome-keyring.enable = true;
       thunar.enable = true;
       sddm = {
@@ -142,6 +141,14 @@
       };
     };
   };
+
+  networking.firewall =
+    let
+      stardewValleyPort = 24642;
+    in
+    {
+      allowedUDPPorts = [ stardewValleyPort ];
+    };
 
   programs = {
     fish.enable = true;

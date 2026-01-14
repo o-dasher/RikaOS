@@ -33,12 +33,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
     };
-    playit-nixos-module = {
-      url = "github:pedorich-n/playit-nixos-module";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
-      inputs.systems.follows = "systems";
-    };
     neovim-nightly = {
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -107,7 +101,6 @@
       agenix,
       zen-browser,
       mnw,
-      playit-nixos-module,
       flake-parts,
       pam-shim,
       systems,
@@ -246,7 +239,6 @@
             stylix.nixosModules.stylix
             agenix.nixosModules.default
             nix-gaming.nixosModules.pipewireLowLatency
-            playit-nixos-module.nixosModules.default
             inputs.nix-flatpak.nixosModules.nix-flatpak
             {
               nixpkgs.overlays = overlays;

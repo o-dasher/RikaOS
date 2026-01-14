@@ -16,6 +16,11 @@ in
     };
     stableIPv6 = {
       enable = lib.mkEnableOption "stable IPv6 address with systemd-networkd";
+      ipv6 = lib.mkOption {
+        type = lib.types.str;
+        default = "NOT_SET";
+        description = "The static ipv6 address to use";
+      };
       interface = lib.mkOption {
         type = lib.types.str;
         default = "10-lan";
@@ -44,11 +49,10 @@ in
           enable = true;
           networks.${stableIPv6Cfg.interface} = {
             matchConfig.Name = stableIPv6Cfg.matchInterface;
-            ipv6AcceptRAConfig.Token = "prefixstable";
+            address = [ "${stableIPv6Cfg.ipv6}/64" ];
             networkConfig = {
               DHCP = "ipv4";
               IPv6AcceptRA = true;
-              IPv6PrivacyExtensions = true;
               IPv6LinkLocalAddressGenerationMode = "stable-privacy";
             };
           };
