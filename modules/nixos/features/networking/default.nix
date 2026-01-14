@@ -10,10 +10,8 @@ in
 {
   options.features.networking = {
     enable = lib.mkEnableOption "networking";
-    networkManager = {
-      enable = lib.mkEnableOption "NetworkManager";
-      cloudflare.enable = lib.mkEnableOption "Cloudflare";
-    };
+    cloudflare.enable = lib.mkEnableOption "Cloudflare";
+    networkManager.enable = lib.mkEnableOption "NetworkManager";
     stableIPv6 = {
       enable = lib.mkEnableOption "stable IPv6 address with systemd-networkd";
       ipv6 = lib.mkOption {
@@ -36,7 +34,7 @@ in
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
       {
-        services.cloudflare-warp.enable = true;
+        services.cloudflare-warp.enable = cfg.cloudflare.enable;
         networking.networkmanager.enable = cfg.networkManager.enable;
       }
 
