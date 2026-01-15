@@ -10,8 +10,10 @@
   config = lib.mkIf (config.features.gaming.enable && config.features.gaming.minecraft.enable) {
     home.packages = [
       (pkgs.prismlauncher.override {
-        jdks = [
-          pkgs.temurin-jre-bin
+        jdks = with pkgs; [
+          temurin-jre-bin
+          temurin-jre-bin-17
+          temurin-jre-bin-8
         ];
       })
     ];
