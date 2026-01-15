@@ -2,6 +2,10 @@
   pkgs,
   ...
 }:
+let
+  javaPort = 69676;
+  bedrockPort = 67696;
+in
 {
   imports = [
     ./hardware-configuration.nix
@@ -28,7 +32,8 @@
   };
 
   security.polkit.enable = true;
-  networking.firewall.allowedUDPPorts = [ 19132 ];
+
+  networking.firewall.allowedUDPPorts = [ bedrockPort ];
   services = {
     fail2ban = {
       enable = true;
@@ -55,7 +60,7 @@
         jvmOpts = "-Xms2G -Xmx4G";
 
         serverProperties = {
-          server-port = 25565;
+          server-port = javaPort;
           motd = "Gensokyo Minecraft Server";
           max-players = 10;
           difficulty = "hard";
@@ -91,13 +96,13 @@
           value = {
             bedrock = {
               address = "0.0.0.0";
-              port = 19132;
+              port = bedrockPort;
               motd1 = "Gensokyo";
               motd2 = "Minecraft Server";
             };
             remote = {
               address = "127.0.0.1";
-              port = 25565;
+              port = javaPort;
               auth-type = "floodgate";
             };
           };
