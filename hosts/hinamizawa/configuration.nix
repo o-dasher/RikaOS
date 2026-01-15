@@ -37,10 +37,7 @@
       };
     };
     desktop.hyprland.enable = true;
-    boot = {
-      enable = true;
-      cachy.enable = true;
-    };
+    boot.enable = true;
     nix = {
       enable = true;
       nixpkgs.enable = true;
