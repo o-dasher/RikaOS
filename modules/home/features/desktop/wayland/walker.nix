@@ -12,6 +12,7 @@
   config =
     lib.mkIf (config.features.desktop.wayland.enable && config.features.desktop.wayland.walker.enable)
       {
+        home.packages = [ pkgs.app2unit ];
         programs.walker = {
           enable = true;
           runAsService = true;
