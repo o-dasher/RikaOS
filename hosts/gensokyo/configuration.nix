@@ -3,8 +3,8 @@
   ...
 }:
 let
-  javaPort = 69676;
-  bedrockPort = 67696;
+  javaPort = 6967;
+  bedrockPort = 6769;
 in
 {
   imports = [
@@ -32,7 +32,6 @@ in
   };
 
   security.polkit.enable = true;
-
   networking.firewall.allowedUDPPorts = [ bedrockPort ];
   services = {
     fail2ban = {
