@@ -30,7 +30,18 @@
   security.polkit.enable = true;
   networking.firewall.allowedUDPPorts = [ 19132 ];
   services = {
-    openssh.enable = true;
+    services.fail2ban = {
+      enable = true;
+      bantime = "24h";
+    };
+    openssh = {
+      enable = true;
+      settings = {
+        PermitRootLogin = "no";
+        PasswordAuthentication = false;
+        KbdInteractiveAuthentication = false;
+      };
+    };
     minecraft-servers = {
       enable = true;
       eula = true;
@@ -97,6 +108,9 @@
 
   users.users.thiago = {
     isNormalUser = true;
+    openssh.authorizedKeys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGPAM12J0/Z/otlj0f6p6wvrEGFMGiBtcVb9zD7HjRVp rika@hinamizawa"
+    ];
     extraGroups = [
       "wheel"
     ];
