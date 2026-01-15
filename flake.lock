@@ -30,19 +30,15 @@
     "aquamarine": {
       "inputs": {
         "hyprutils": [
-          "hyprnix",
           "hyprutils"
         ],
         "hyprwayland-scanner": [
-          "hyprnix",
           "hyprwayland-scanner"
         ],
         "nixpkgs": [
-          "hyprnix",
           "nixpkgs"
         ],
         "systems": [
-          "hyprnix",
           "systems"
         ]
       },
@@ -260,22 +256,6 @@
         "type": "github"
       }
     },
-    "flake-compat_2": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1747046372,
-        "narHash": "sha256-CIVLLkVgvHYbgI2UpXvIIBJ12HWgX+fjA8Xf8PUmqCY=",
-        "owner": "edolstra",
-        "repo": "flake-compat",
-        "rev": "9100a0f413b0c601e0533d1d94ffd501ce2e7885",
-        "type": "github"
-      },
-      "original": {
-        "owner": "edolstra",
-        "repo": "flake-compat",
-        "type": "github"
-      }
-    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": [
@@ -301,24 +281,6 @@
         "systems": [
           "systems"
         ]
-      },
-      "locked": {
-        "lastModified": 1731533236,
-        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
-    "flake-utils_2": {
-      "inputs": {
-        "systems": "systems"
       },
       "locked": {
         "lastModified": 1731533236,
@@ -437,15 +399,12 @@
     "hyprcursor": {
       "inputs": {
         "hyprlang": [
-          "hyprnix",
           "hyprlang"
         ],
         "nixpkgs": [
-          "hyprnix",
           "nixpkgs"
         ],
         "systems": [
-          "hyprnix",
           "systems"
         ]
       },
@@ -466,15 +425,12 @@
     "hyprgraphics": {
       "inputs": {
         "hyprutils": [
-          "hyprnix",
           "hyprutils"
         ],
         "nixpkgs": [
-          "hyprnix",
           "nixpkgs"
         ],
         "systems": [
-          "hyprnix",
           "systems"
         ]
       },
@@ -492,99 +448,45 @@
         "type": "github"
       }
     },
-    "hypridle": {
-      "inputs": {
-        "hyprland-protocols": [
-          "hyprnix",
-          "hyprland-protocols"
-        ],
-        "hyprlang": [
-          "hyprnix",
-          "hyprlang"
-        ],
-        "hyprutils": [
-          "hyprnix",
-          "hyprutils"
-        ],
-        "hyprwayland-scanner": [
-          "hyprnix",
-          "hyprwayland-scanner"
-        ],
-        "nixpkgs": [
-          "hyprnix",
-          "nixpkgs"
-        ],
-        "systems": [
-          "hyprnix",
-          "systems"
-        ]
-      },
-      "locked": {
-        "lastModified": 1766230298,
-        "narHash": "sha256-9Qg2/L69yghAH9KLjxOv/n7Sn5JSJDLGnQjJok4r3ZM=",
-        "owner": "hyprwm",
-        "repo": "hypridle",
-        "rev": "833eb85d05deb73ead48e57826e7385384fd55a6",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hyprwm",
-        "repo": "hypridle",
-        "type": "github"
-      }
-    },
     "hyprland": {
       "inputs": {
         "aquamarine": [
-          "hyprnix",
           "aquamarine"
         ],
         "hyprcursor": [
-          "hyprnix",
           "hyprcursor"
         ],
         "hyprgraphics": [
-          "hyprnix",
           "hyprgraphics"
         ],
         "hyprland-guiutils": [
-          "hyprnix",
           "hyprland-guiutils"
         ],
         "hyprland-protocols": [
-          "hyprnix",
           "hyprland-protocols"
         ],
         "hyprlang": [
-          "hyprnix",
           "hyprlang"
         ],
         "hyprutils": [
-          "hyprnix",
           "hyprutils"
         ],
         "hyprwayland-scanner": [
-          "hyprnix",
           "hyprwayland-scanner"
         ],
         "hyprwire": [
-          "hyprnix",
           "hyprwire"
         ],
         "nixpkgs": [
-          "hyprnix",
           "nixpkgs"
         ],
         "pre-commit-hooks": [
-          "hyprnix",
           "git-hooks"
         ],
         "systems": [
-          "hyprnix",
           "systems"
         ],
         "xdph": [
-          "hyprnix",
           "xdph"
         ]
       },
@@ -605,35 +507,27 @@
     "hyprland-guiutils": {
       "inputs": {
         "aquamarine": [
-          "hyprnix",
           "aquamarine"
         ],
         "hyprgraphics": [
-          "hyprnix",
           "hyprgraphics"
         ],
         "hyprlang": [
-          "hyprnix",
           "hyprlang"
         ],
         "hyprtoolkit": [
-          "hyprnix",
           "hyprtoolkit"
         ],
         "hyprutils": [
-          "hyprnix",
           "hyprutils"
         ],
         "hyprwayland-scanner": [
-          "hyprnix",
           "hyprwayland-scanner"
         ],
         "nixpkgs": [
-          "hyprnix",
           "nixpkgs"
         ],
         "systems": [
-          "hyprnix",
           "systems"
         ]
       },
@@ -654,17 +548,14 @@
     "hyprland-plugins": {
       "inputs": {
         "hyprland": [
-          "hyprnix",
           "hyprland"
         ],
         "nixpkgs": [
-          "hyprnix",
           "hyprland-plugins",
           "hyprland",
           "nixpkgs"
         ],
         "systems": [
-          "hyprnix",
           "hyprland-plugins",
           "hyprland",
           "systems"
@@ -687,11 +578,9 @@
     "hyprland-protocols": {
       "inputs": {
         "nixpkgs": [
-          "hyprnix",
           "nixpkgs"
         ],
         "systems": [
-          "hyprnix",
           "systems"
         ]
       },
@@ -712,15 +601,12 @@
     "hyprland-qt-support": {
       "inputs": {
         "hyprlang": [
-          "hyprnix",
           "hyprlang"
         ],
         "nixpkgs": [
-          "hyprnix",
           "nixpkgs"
         ],
         "systems": [
-          "hyprnix",
           "systems"
         ]
       },
@@ -741,15 +627,12 @@
     "hyprlang": {
       "inputs": {
         "hyprutils": [
-          "hyprnix",
           "hyprutils"
         ],
         "nixpkgs": [
-          "hyprnix",
           "nixpkgs"
         ],
         "systems": [
-          "hyprnix",
           "systems"
         ]
       },
@@ -767,83 +650,24 @@
         "type": "github"
       }
     },
-    "hyprlauncher": {
-      "inputs": {
-        "aquamarine": [
-          "hyprnix",
-          "aquamarine"
-        ],
-        "hyprgraphics": [
-          "hyprnix",
-          "hyprgraphics"
-        ],
-        "hyprlang": [
-          "hyprnix",
-          "hyprlang"
-        ],
-        "hyprtoolkit": [
-          "hyprnix",
-          "hyprtoolkit"
-        ],
-        "hyprutils": [
-          "hyprnix",
-          "hyprutils"
-        ],
-        "hyprwayland-scanner": [
-          "hyprnix",
-          "hyprwayland-scanner"
-        ],
-        "hyprwire": [
-          "hyprnix",
-          "hyprwire"
-        ],
-        "nixpkgs": [
-          "hyprnix",
-          "nixpkgs"
-        ],
-        "systems": [
-          "hyprnix",
-          "systems"
-        ]
-      },
-      "locked": {
-        "lastModified": 1767627709,
-        "narHash": "sha256-BcuEsQKecSh81H/uEVhiX8oAeYjtg2Ey0JQFOI/Jtqc=",
-        "owner": "hyprwm",
-        "repo": "hyprlauncher",
-        "rev": "5fc57350e74a8150a708890feb8baf4e4be07598",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hyprwm",
-        "repo": "hyprlauncher",
-        "type": "github"
-      }
-    },
     "hyprlock": {
       "inputs": {
         "hyprgraphics": [
-          "hyprnix",
           "hyprgraphics"
         ],
         "hyprlang": [
-          "hyprnix",
           "hyprlang"
         ],
         "hyprutils": [
-          "hyprnix",
           "hyprutils"
         ],
         "hyprwayland-scanner": [
-          "hyprnix",
           "hyprwayland-scanner"
         ],
         "nixpkgs": [
-          "hyprnix",
           "nixpkgs"
         ],
         "systems": [
-          "hyprnix",
           "systems"
         ]
       },
@@ -861,89 +685,33 @@
         "type": "github"
       }
     },
-    "hyprnix": {
-      "inputs": {
-        "aquamarine": "aquamarine",
-        "flake-parts": [
-          "flake-parts"
-        ],
-        "git-hooks": [
-          "git-hooks"
-        ],
-        "hyprcursor": "hyprcursor",
-        "hyprgraphics": "hyprgraphics",
-        "hypridle": "hypridle",
-        "hyprland": "hyprland",
-        "hyprland-guiutils": "hyprland-guiutils",
-        "hyprland-plugins": "hyprland-plugins",
-        "hyprland-protocols": "hyprland-protocols",
-        "hyprland-qt-support": "hyprland-qt-support",
-        "hyprlang": "hyprlang",
-        "hyprlauncher": "hyprlauncher",
-        "hyprlock": "hyprlock",
-        "hyprpaper": "hyprpaper",
-        "hyprpicker": "hyprpicker",
-        "hyprpolkitagent": "hyprpolkitagent",
-        "hyprshutdown": "hyprshutdown",
-        "hyprsunset": "hyprsunset",
-        "hyprtoolkit": "hyprtoolkit",
-        "hyprutils": "hyprutils",
-        "hyprwayland-scanner": "hyprwayland-scanner",
-        "hyprwire": "hyprwire",
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "systems": [
-          "systems"
-        ],
-        "xdph": "xdph"
-      },
-      "locked": {
-        "path": "./lib/inputs/hyprnix",
-        "type": "path"
-      },
-      "original": {
-        "path": "./lib/inputs/hyprnix",
-        "type": "path"
-      },
-      "parent": []
-    },
     "hyprpaper": {
       "inputs": {
         "aquamarine": [
-          "hyprnix",
           "aquamarine"
         ],
         "hyprgraphics": [
-          "hyprnix",
           "hyprgraphics"
         ],
         "hyprlang": [
-          "hyprnix",
           "hyprlang"
         ],
         "hyprtoolkit": [
-          "hyprnix",
           "hyprtoolkit"
         ],
         "hyprutils": [
-          "hyprnix",
           "hyprutils"
         ],
         "hyprwayland-scanner": [
-          "hyprnix",
           "hyprwayland-scanner"
         ],
         "hyprwire": [
-          "hyprnix",
           "hyprwire"
         ],
         "nixpkgs": [
-          "hyprnix",
           "nixpkgs"
         ],
         "systems": [
-          "hyprnix",
           "systems"
         ]
       },
@@ -961,55 +729,18 @@
         "type": "github"
       }
     },
-    "hyprpicker": {
-      "inputs": {
-        "hyprutils": [
-          "hyprnix",
-          "hyprutils"
-        ],
-        "hyprwayland-scanner": [
-          "hyprnix",
-          "hyprwayland-scanner"
-        ],
-        "nixpkgs": [
-          "hyprnix",
-          "nixpkgs"
-        ],
-        "systems": [
-          "hyprnix",
-          "systems"
-        ]
-      },
-      "locked": {
-        "lastModified": 1762388741,
-        "narHash": "sha256-4PKO/B0C53Qb60UIXB6QjXTvWX3ap34WdcnMoH6+ng0=",
-        "owner": "hyprwm",
-        "repo": "hyprpicker",
-        "rev": "5ab0e1aaa489ceb807c884a73b4948d395d9e229",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hyprwm",
-        "repo": "hyprpicker",
-        "type": "github"
-      }
-    },
     "hyprpolkitagent": {
       "inputs": {
         "hyprland-qt-support": [
-          "hyprnix",
           "hyprland-qt-support"
         ],
         "hyprutils": [
-          "hyprnix",
           "hyprutils"
         ],
         "nixpkgs": [
-          "hyprnix",
           "nixpkgs"
         ],
         "systems": [
-          "hyprnix",
           "systems"
         ]
       },
@@ -1030,27 +761,21 @@
     "hyprshutdown": {
       "inputs": {
         "aquamarine": [
-          "hyprnix",
           "aquamarine"
         ],
         "hyprgraphics": [
-          "hyprnix",
           "hyprgraphics"
         ],
         "hyprtoolkit": [
-          "hyprnix",
           "hyprtoolkit"
         ],
         "hyprutils": [
-          "hyprnix",
           "hyprutils"
         ],
         "nixpkgs": [
-          "hyprnix",
           "nixpkgs"
         ],
         "systems": [
-          "hyprnix",
           "systems"
         ]
       },
@@ -1068,75 +793,27 @@
         "type": "github"
       }
     },
-    "hyprsunset": {
-      "inputs": {
-        "hyprland-protocols": [
-          "hyprnix",
-          "hyprland-protocols"
-        ],
-        "hyprlang": [
-          "hyprnix",
-          "hyprlang"
-        ],
-        "hyprutils": [
-          "hyprnix",
-          "hyprutils"
-        ],
-        "hyprwayland-scanner": [
-          "hyprnix",
-          "hyprwayland-scanner"
-        ],
-        "nixpkgs": [
-          "hyprnix",
-          "nixpkgs"
-        ],
-        "systems": [
-          "hyprnix",
-          "systems"
-        ]
-      },
-      "locked": {
-        "lastModified": 1767653639,
-        "narHash": "sha256-wJKERIHaBVrDy2fOWtcXxTRAc1PkL9G+9f7SUSP0g60=",
-        "owner": "hyprwm",
-        "repo": "hyprsunset",
-        "rev": "3e5918e066fb1a1e7521d2be83e267e37076e9d5",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hyprwm",
-        "repo": "hyprsunset",
-        "type": "github"
-      }
-    },
     "hyprtoolkit": {
       "inputs": {
         "aquamarine": [
-          "hyprnix",
           "aquamarine"
         ],
         "hyprgraphics": [
-          "hyprnix",
           "hyprgraphics"
         ],
         "hyprlang": [
-          "hyprnix",
           "hyprlang"
         ],
         "hyprutils": [
-          "hyprnix",
           "hyprutils"
         ],
         "hyprwayland-scanner": [
-          "hyprnix",
           "hyprwayland-scanner"
         ],
         "nixpkgs": [
-          "hyprnix",
           "nixpkgs"
         ],
         "systems": [
-          "hyprnix",
           "systems"
         ]
       },
@@ -1157,11 +834,9 @@
     "hyprutils": {
       "inputs": {
         "nixpkgs": [
-          "hyprnix",
           "nixpkgs"
         ],
         "systems": [
-          "hyprnix",
           "systems"
         ]
       },
@@ -1182,11 +857,9 @@
     "hyprwayland-scanner": {
       "inputs": {
         "nixpkgs": [
-          "hyprnix",
           "nixpkgs"
         ],
         "systems": [
-          "hyprnix",
           "systems"
         ]
       },
@@ -1207,15 +880,12 @@
     "hyprwire": {
       "inputs": {
         "hyprutils": [
-          "hyprnix",
           "hyprutils"
         ],
         "nixpkgs": [
-          "hyprnix",
           "nixpkgs"
         ],
         "systems": [
-          "hyprnix",
           "systems"
         ]
       },
@@ -1355,8 +1025,12 @@
     },
     "nix-minecraft": {
       "inputs": {
-        "flake-compat": "flake-compat_2",
-        "flake-utils": "flake-utils_2",
+        "flake-compat": [
+          "flake-compat"
+        ],
+        "flake-utils": [
+          "flake-utils"
+        ],
         "nixpkgs": [
           "nixpkgs"
         ]
@@ -1497,13 +1171,29 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "aquamarine": "aquamarine",
         "firefox-addons": "firefox-addons",
         "flake-compat": "flake-compat",
         "flake-parts": "flake-parts",
         "flake-utils": "flake-utils",
         "git-hooks": "git-hooks",
         "home-manager": "home-manager",
-        "hyprnix": "hyprnix",
+        "hyprcursor": "hyprcursor",
+        "hyprgraphics": "hyprgraphics",
+        "hyprland": "hyprland",
+        "hyprland-guiutils": "hyprland-guiutils",
+        "hyprland-plugins": "hyprland-plugins",
+        "hyprland-protocols": "hyprland-protocols",
+        "hyprland-qt-support": "hyprland-qt-support",
+        "hyprlang": "hyprlang",
+        "hyprlock": "hyprlock",
+        "hyprpaper": "hyprpaper",
+        "hyprpolkitagent": "hyprpolkitagent",
+        "hyprshutdown": "hyprshutdown",
+        "hyprtoolkit": "hyprtoolkit",
+        "hyprutils": "hyprutils",
+        "hyprwayland-scanner": "hyprwayland-scanner",
+        "hyprwire": "hyprwire",
         "mnw": "mnw",
         "neovim-nightly": "neovim-nightly",
         "nix-cachyos-kernel": "nix-cachyos-kernel",
@@ -1516,8 +1206,9 @@
         "pam-shim": "pam-shim",
         "spicetify-nix": "spicetify-nix",
         "stylix": "stylix",
-        "systems": "systems_2",
+        "systems": "systems",
         "walker": "walker",
+        "xdph": "xdph",
         "zen-browser": "zen-browser"
       }
     },
@@ -1583,21 +1274,6 @@
       }
     },
     "systems": {
-      "locked": {
-        "lastModified": 1681028828,
-        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
-        "owner": "nix-systems",
-        "repo": "default",
-        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-systems",
-        "repo": "default",
-        "type": "github"
-      }
-    },
-    "systems_2": {
       "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
@@ -1720,27 +1396,21 @@
     "xdph": {
       "inputs": {
         "hyprland-protocols": [
-          "hyprnix",
           "hyprland-protocols"
         ],
         "hyprlang": [
-          "hyprnix",
           "hyprlang"
         ],
         "hyprutils": [
-          "hyprnix",
           "hyprutils"
         ],
         "hyprwayland-scanner": [
-          "hyprnix",
           "hyprwayland-scanner"
         ],
         "nixpkgs": [
-          "hyprnix",
           "nixpkgs"
         ],
         "systems": [
-          "hyprnix",
           "systems"
         ]
       },

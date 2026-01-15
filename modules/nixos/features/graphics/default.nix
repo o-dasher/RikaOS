@@ -13,8 +13,7 @@
   config = lib.mkIf config.features.graphics.enable {
     hardware.graphics =
       let
-        hypr-pkgs =
-          inputs.hyprnix.inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+        hypr-pkgs = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
       in
       lib.mkMerge [
         {

@@ -10,19 +10,25 @@
     mnw.url = "github:Gerg-L/mnw";
     nix-cachyos-kernel = {
       url = "github:xddxdd/nix-cachyos-kernel/release";
-      inputs.flake-compat.follows = "flake-compat";
-      inputs.flake-parts.follows = "flake-parts";
+      inputs = {
+        flake-compat.follows = "flake-compat";
+        flake-parts.follows = "flake-parts";
+      };
     };
     spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.systems.follows = "systems";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
     };
     pam-shim = {
       url = "github:Cu3PO42/pam_shim";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs";
-      inputs.pre-commit-hooks.inputs.flake-compat.follows = "flake-compat";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs";
+        pre-commit-hooks.inputs.flake-compat.follows = "flake-compat";
+      };
     };
     flake-utils = {
       url = "github:numtide/flake-utils";
@@ -30,18 +36,24 @@
     };
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+      };
     };
     neovim-nightly = {
       url = "github:nix-community/neovim-nightly-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+      };
     };
     git-hooks = {
       url = "github:cachix/git-hooks.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-compat.follows = "flake-compat";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat";
+      };
     };
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
@@ -53,8 +65,10 @@
     };
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
     };
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
@@ -62,38 +76,215 @@
     };
     nixcord = {
       url = "github:kaylorben/nixcord";
-      inputs.flake-parts.follows = "flake-parts";
-      inputs.flake-compat.follows = "flake-compat";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        flake-compat.follows = "flake-compat";
+      };
     };
     stylix = {
       url = "github:nix-community/stylix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.systems.follows = "systems";
-      inputs.flake-parts.follows = "flake-parts";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+        flake-parts.follows = "flake-parts";
+      };
     };
     agenix = {
       url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
-      inputs.systems.follows = "systems";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+        systems.follows = "systems";
+      };
     };
     walker = {
       url = "github:abenz1267/walker";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.systems.follows = "systems";
-    };
-    hyprnix = {
-      url = "path:./lib/inputs/hyprnix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.systems.follows = "systems";
-      inputs.git-hooks.follows = "git-hooks";
-      inputs.flake-parts.follows = "flake-parts";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
     };
     nix-minecraft = {
       url = "github:Infinidoge/nix-minecraft";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+        flake-compat.follows = "flake-compat";
+      };
+    };
+    aquamarine = {
+      url = "github:hyprwm/aquamarine";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+        hyprutils.follows = "hyprutils";
+        hyprwayland-scanner.follows = "hyprwayland-scanner";
+      };
+    };
+    hyprcursor = {
+      url = "github:hyprwm/hyprcursor";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+        hyprlang.follows = "hyprlang";
+      };
+    };
+    hyprgraphics = {
+      url = "github:hyprwm/hyprgraphics";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+        hyprutils.follows = "hyprutils";
+      };
+    };
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+        pre-commit-hooks.follows = "git-hooks";
+        aquamarine.follows = "aquamarine";
+        hyprcursor.follows = "hyprcursor";
+        hyprgraphics.follows = "hyprgraphics";
+        hyprland-guiutils.follows = "hyprland-guiutils";
+        hyprland-protocols.follows = "hyprland-protocols";
+        hyprlang.follows = "hyprlang";
+        hyprutils.follows = "hyprutils";
+        hyprwayland-scanner.follows = "hyprwayland-scanner";
+        hyprwire.follows = "hyprwire";
+        xdph.follows = "xdph";
+      };
+    };
+    hyprland-guiutils = {
+      url = "github:hyprwm/hyprland-guiutils";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+        aquamarine.follows = "aquamarine";
+        hyprgraphics.follows = "hyprgraphics";
+        hyprlang.follows = "hyprlang";
+        hyprtoolkit.follows = "hyprtoolkit";
+        hyprutils.follows = "hyprutils";
+        hyprwayland-scanner.follows = "hyprwayland-scanner";
+      };
+    };
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
+    };
+    hyprland-protocols = {
+      url = "github:hyprwm/hyprland-protocols";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
+    };
+    hyprland-qt-support = {
+      url = "github:hyprwm/hyprland-qt-support";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+        hyprlang.follows = "hyprlang";
+      };
+    };
+    hyprlang = {
+      url = "github:hyprwm/hyprlang";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+        hyprutils.follows = "hyprutils";
+      };
+    };
+    hyprlock = {
+      url = "github:hyprwm/hyprlock";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+        hyprgraphics.follows = "hyprgraphics";
+        hyprlang.follows = "hyprlang";
+        hyprutils.follows = "hyprutils";
+        hyprwayland-scanner.follows = "hyprwayland-scanner";
+      };
+    };
+    hyprpaper = {
+      url = "github:hyprwm/hyprpaper";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+        aquamarine.follows = "aquamarine";
+        hyprgraphics.follows = "hyprgraphics";
+        hyprlang.follows = "hyprlang";
+        hyprtoolkit.follows = "hyprtoolkit";
+        hyprutils.follows = "hyprutils";
+        hyprwayland-scanner.follows = "hyprwayland-scanner";
+        hyprwire.follows = "hyprwire";
+      };
+    };
+    hyprpolkitagent = {
+      url = "github:hyprwm/hyprpolkitagent";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+        hyprland-qt-support.follows = "hyprland-qt-support";
+        hyprutils.follows = "hyprutils";
+      };
+    };
+    hyprshutdown = {
+      url = "github:hyprwm/hyprshutdown";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+        aquamarine.follows = "aquamarine";
+        hyprgraphics.follows = "hyprgraphics";
+        hyprtoolkit.follows = "hyprtoolkit";
+        hyprutils.follows = "hyprutils";
+      };
+    };
+    hyprtoolkit = {
+      url = "github:hyprwm/hyprtoolkit";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+        aquamarine.follows = "aquamarine";
+        hyprgraphics.follows = "hyprgraphics";
+        hyprlang.follows = "hyprlang";
+        hyprutils.follows = "hyprutils";
+        hyprwayland-scanner.follows = "hyprwayland-scanner";
+      };
+    };
+    hyprutils = {
+      url = "github:hyprwm/hyprutils";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
+    };
+    hyprwayland-scanner = {
+      url = "github:hyprwm/hyprwayland-scanner";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
+    };
+    hyprwire = {
+      url = "github:hyprwm/hyprwire";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+        hyprutils.follows = "hyprutils";
+      };
+    };
+    xdph = {
+      url = "github:hyprwm/xdg-desktop-portal-hyprland";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+        hyprland-protocols.follows = "hyprland-protocols";
+        hyprlang.follows = "hyprlang";
+        hyprutils.follows = "hyprutils";
+        hyprwayland-scanner.follows = "hyprwayland-scanner";
+      };
     };
   };
 
@@ -150,8 +341,33 @@
           }
           // (
             if prev.stdenv.hostPlatform.system == "x86_64-linux" then
-              # Hyprland packages (from hyprnix nested flake)
-              inputs.hyprnix.packages.${prev.stdenv.hostPlatform.system}
+              {
+                inherit (inputs.aquamarine.packages.${prev.stdenv.hostPlatform.system}) aquamarine;
+                inherit (inputs.hyprcursor.packages.${prev.stdenv.hostPlatform.system}) hyprcursor;
+                inherit (inputs.hyprgraphics.packages.${prev.stdenv.hostPlatform.system}) hyprgraphics;
+
+                inherit (inputs.hyprland-guiutils.packages.${prev.stdenv.hostPlatform.system}) hyprland-guiutils;
+                inherit (inputs.hyprland.packages.${prev.stdenv.hostPlatform.system}) hyprland;
+                inherit (inputs.hyprland-protocols.packages.${prev.stdenv.hostPlatform.system}) hyprland-protocols;
+                inherit (inputs.hyprland-qt-support.packages.${prev.stdenv.hostPlatform.system})
+                  hyprland-qt-support
+                  ;
+                inherit (inputs.hyprlang.packages.${prev.stdenv.hostPlatform.system}) hyprlang;
+
+                inherit (inputs.hyprlock.packages.${prev.stdenv.hostPlatform.system}) hyprlock;
+                inherit (inputs.hyprpaper.packages.${prev.stdenv.hostPlatform.system}) hyprpaper;
+                inherit (inputs.hyprpolkitagent.packages.${prev.stdenv.hostPlatform.system}) hyprpolkitagent;
+                inherit (inputs.hyprshutdown.packages.${prev.stdenv.hostPlatform.system}) hyprshutdown;
+
+                inherit (inputs.hyprtoolkit.packages.${prev.stdenv.hostPlatform.system}) hyprtoolkit;
+                inherit (inputs.hyprutils.packages.${prev.stdenv.hostPlatform.system}) hyprutils;
+                inherit (inputs.hyprwayland-scanner.packages.${prev.stdenv.hostPlatform.system})
+                  hyprwayland-scanner
+                  ;
+                inherit (inputs.hyprwire.packages.${prev.stdenv.hostPlatform.system}) hyprwire;
+                inherit (inputs.xdph.packages.${prev.stdenv.hostPlatform.system}) xdg-desktop-portal-hyprland;
+              }
+              // inputs.hyprland-plugins.packages.${prev.stdenv.hostPlatform.system}
             else
               { }
           )
