@@ -1,11 +1,15 @@
 { pkgs, ... }:
 {
-  home.packages = with pkgs; [
-    openjdk
-    tmux
-  ];
-
-  programs = {
-    home-manager.enable = true;
+  home.packages = with pkgs; [ tmux ];
+  features = {
+    dev.git.enable = true;
+    cli = {
+      hyfetch.enable = true;
+      fish.enable = true;
+      starship.enable = true;
+      tmux.enable = true;
+    };
   };
+
+  programs.home-manager.enable = true;
 }

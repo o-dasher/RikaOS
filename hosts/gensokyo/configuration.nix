@@ -30,7 +30,7 @@
   security.polkit.enable = true;
   networking.firewall.allowedUDPPorts = [ 19132 ];
   services = {
-    services.fail2ban = {
+    fail2ban = {
       enable = true;
       bantime = "24h";
     };
@@ -108,7 +108,7 @@
 
   users.users.thiago = {
     isNormalUser = true;
-    openssh.authorizedKeys = [
+    openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGPAM12J0/Z/otlj0f6p6wvrEGFMGiBtcVb9zD7HjRVp rika@hinamizawa"
     ];
     extraGroups = [
