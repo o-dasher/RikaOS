@@ -34,9 +34,18 @@ in
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
       {
-        services.cloudflare-warp.enable = cfg.cloudflare.enable;
         networking.networkmanager.enable = cfg.networkManager.enable;
       }
+
+      (lib.mkIf cfg.cloudflare.enable {
+        services.cloudflare-warp.enable = true;
+        networking.nameservers = [
+          "1.1.1.1"
+          "1.0.0.1"
+          "2606:4700:4700::1111"
+          "2606:4700:4700::1001"
+        ];
+      })
 
       (lib.mkIf stableIPv6Cfg.enable {
         networking = {
