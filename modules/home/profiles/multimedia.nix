@@ -12,7 +12,6 @@
   config = lib.mkIf config.profiles.multimedia.enable {
     services = {
       easyeffects.enable = true;
-      flatpak.packages = [ "io.github.nokse22.high-tide" ];
     };
 
     programs = {
@@ -39,6 +38,9 @@
 
       # images
       gimp
+
+      # Music
+      high-tide
     ];
   };
 }
