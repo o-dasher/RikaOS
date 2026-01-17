@@ -17,6 +17,12 @@
       wl-clipboard
     ];
 
+    services.udiskie = {
+      enable = true;
+      automount = true;
+      notify = true;
+    };
+
     home.sessionVariables = {
       # Electron
       NIXOS_OZONE_WL = "1";
