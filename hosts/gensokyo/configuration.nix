@@ -60,6 +60,7 @@ in
 
         serverProperties = {
           server-port = javaPort;
+          server-ip = "::";
           motd = "Gensokyo Minecraft Server";
           max-players = 10;
           difficulty = "hard";
