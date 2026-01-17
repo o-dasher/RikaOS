@@ -1,8 +1,6 @@
 {
-  pkgs,
   lib,
   config,
-  inputs,
   ...
 }:
 {
@@ -11,20 +9,9 @@
   };
 
   config = lib.mkIf config.features.graphics.enable {
-    hardware.graphics =
-      let
-        hypr-pkgs = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
-      in
-      lib.mkMerge [
-        {
-          enable = true;
-          enable32Bit = true;
-        }
-
-        (lib.mkIf config.features.desktop.hyprland.enable {
-          package = hypr-pkgs.mesa;
-          package32 = hypr-pkgs.pkgsi686Linux.mesa;
-        })
-      ];
+    hardware.graphics = {
+      enable = true;
+      enable32Bit = true;
+    };
   };
 }
