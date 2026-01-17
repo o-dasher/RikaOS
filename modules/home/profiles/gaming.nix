@@ -11,6 +11,7 @@
     home.packages = with pkgs; [
       mangohud
       goverlay
+      parsec-bin
     ];
 
     features.gaming = {
