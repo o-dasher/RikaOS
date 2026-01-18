@@ -10,10 +10,7 @@
   };
 
   config = lib.mkIf config.profiles.multimedia.enable {
-    services = {
-      easyeffects.enable = true;
-    };
-
+    services.easyeffects.enable = true;
     programs = {
       # Video
       obs-studio.enable = true;
@@ -35,9 +32,6 @@
 
       # drawing
       krita
-
-      # Music
-      high-tide
     ];
   };
 }
