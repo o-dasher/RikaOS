@@ -20,8 +20,6 @@
       features.desktop.wayland.enable = true;
       programs.hyprlock.enable = true;
       services.hyprpolkitagent.enable = true;
-
-      home.packages = [ pkgs.hyprshutdown ];
       home.pointerCursor.hyprcursor.enable = true;
 
       xdg.portal = {
@@ -194,7 +192,7 @@
               "${mod} ALT, P, ${exec "${getExe grimblast} --notify copy active"}"
 
               "CTRL SHIFT, L, ${exec (getExe hyprlock)}"
-              "CTRL SHIFT, Q, ${exec (getExe hyprshutdown)}"
+              "CTRL SHIFT, Q, ${exec "hyprctl dispatch exit"}"
 
               ", XF86AudioPlay, ${exec "${getExe playerctl} play-pause"}"
               ", XF86AudioPrev, ${exec "${getExe playerctl} previous"}"

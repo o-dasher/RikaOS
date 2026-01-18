@@ -109,13 +109,6 @@
         flake-compat.follows = "flake-compat";
       };
     };
-    hyprshutdown = {
-      url = "github:hyprwm/hyprshutdown";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
-    };
   };
 
   outputs =
@@ -162,9 +155,6 @@
 
             # Utilities
             zen-browser = zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.twilight;
-
-            # Hyrpland
-            inherit (inputs.hyprshutdown.packages.${prev.stdenv.hostPlatform.system}) hyprshutdown;
           }
         )
       ];
