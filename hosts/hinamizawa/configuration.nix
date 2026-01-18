@@ -110,34 +110,33 @@
       "/home".options = btrfsOpts;
     };
 
-  users = {
-    groups.libvirtd.members = [
-      "rika"
-      "satoko"
-    ];
-    users = {
+  users.users =
+    let
+      commonGroups = [
+        "video"
+        "gamemode"
+        "dialout"
+        "input"
+        "render"
+        "libvirtd"
+      ];
+    in
+    {
       rika = {
         isNormalUser = true;
         shell = pkgs.fish;
         extraGroups = [
           "wheel"
-          "video"
-          "render"
           "adbusers"
-          "gamemode"
-        ];
+        ]
+        ++ commonGroups;
       };
       satoko = {
         isNormalUser = true;
         shell = pkgs.fish;
-        extraGroups = [
-          "video"
-          "render"
-          "gamemode"
-        ];
+        extraGroups = commonGroups;
       };
     };
-  };
 
   networking.firewall =
     let
