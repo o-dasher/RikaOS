@@ -36,9 +36,6 @@
       # drawing
       krita
 
-      # images
-      gimp
-
       # Music
       high-tide
     ];
