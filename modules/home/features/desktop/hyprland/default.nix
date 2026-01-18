@@ -52,6 +52,9 @@
             with pkgs;
             lib.optionals config.profiles.browser.enable [
               "[workspace 2 silent] ${getExe pkgs.app2unit} ${getExe zen-browser}"
+            ]
+            ++ lib.optionals config.programs.spicetify.enable [
+              (getExe config.programs.spicetify.spicedSpotify)
             ];
           workspace =
             with pkgs;
@@ -92,6 +95,7 @@
 
             "match:tag games, sync_fullscreen on, no_shadow on, no_blur on, no_anim on, immediate on"
             "match:tag floaty, float on, center on, size (monitor_w*0.6) (monitor_h*0.6)"
+            "match:class ^(spotify)$, workspace special:music silent"
           ];
           group.groupbar =
             let
@@ -193,6 +197,8 @@
 
               "CTRL SHIFT, L, ${exec (getExe hyprlock)}"
               "CTRL SHIFT, Q, ${exec "hyprctl dispatch exit"}"
+
+              "CTRL SHIFT, M, togglespecialworkspace, music"
 
               ", XF86AudioPlay, ${exec "${getExe playerctl} play-pause"}"
               ", XF86AudioPrev, ${exec "${getExe playerctl} previous"}"
