@@ -16,18 +16,10 @@
         pulse.enable = true;
         jack.enable = true;
         wireplumber.enable = true;
+        lowLatency.enable = true;
         alsa = {
           enable = true;
           support32Bit = true;
-        };
-        lowLatency = {
-          rate = 192000;
-          enable = true;
-          alsa = {
-            enable = true;
-            devicePattern = "~alsa_output.*USB_Audio.*";
-            format = "S32LE";
-          };
         };
         extraConfig = {
           pipewire-pulse."99-z-defaults"."stream.properties"."resample.quality" = 14;
