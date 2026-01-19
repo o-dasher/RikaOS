@@ -14,6 +14,7 @@
       enable = true;
       settings = {
         web.scroll_animator = true;
+        website.open_page = false;
         storage-whats.notification = false;
         notification = {
           app = false;
@@ -23,6 +24,8 @@
           start_background = true;
           start_system = true;
           wayland = true;
+          menubar = false;
+          sidebar = false;
           notificationCounter = true;
         };
       };
