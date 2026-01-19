@@ -16,6 +16,7 @@
         web.scroll_animator = true;
         website.open_page = false;
         storage-whats.notification = false;
+        performance.cache_size_max = 100;
         notification = {
           app = false;
           donation_message = true;
