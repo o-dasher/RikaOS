@@ -61,31 +61,25 @@ in
         serverProperties = {
           server-port = javaPort;
           server-ip = "::";
-          motd = "Gensokyo Minecraft Server";
+          motd = "Gensokyo Survival";
           max-players = 10;
           difficulty = "hard";
           gamemode = "survival";
-          online-mode = true;
+          online-mode = false;
           spawn-protection = 0;
           view-distance = 12;
           simulation-distance = 10;
         };
 
         symlinks = {
-          plugins = pkgs.linkFarmFromDrvs "plugins" (
-            builtins.attrValues {
-              Geyser = pkgs.fetchurl {
-                url = "https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot";
-                hash = "sha256-YbhG+b6NGL487yMRQvAt8gdNylvjrGeF0e9ffC5OR40=";
-                name = "Geyser-Spigot.jar";
-              };
-              Floodgate = pkgs.fetchurl {
-                url = "https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot";
-                hash = "sha256-1kevbNh1zsZbJj/+TlEgTabptu24tIHTe6/czILxBdk=";
-                name = "Floodgate-Spigot.jar";
-              };
-            }
-          );
+          "plugins/Geyser-Spigot.jar" = pkgs.fetchurl {
+            url = "https://download.geysermc.org/v2/projects/geyser/versions/2.4.2/builds/669/downloads/spigot";
+            hash = "sha256-YbhG+b6NGL487yMRQvAt8gdNylvjrGeF0e9ffC5OR40=";
+          };
+          "plugins/Floodgate-Spigot.jar" = pkgs.fetchurl {
+            url = "https://download.geysermc.org/v2/projects/floodgate/versions/2.2.3/builds/118/downloads/spigot";
+            hash = "sha256-1kevbNh1zsZbJj/+TlEgTabptu24tIHTe6/czILxBdk=";
+          };
         };
 
         files."plugins/Geyser-Spigot/config.yml" = {
