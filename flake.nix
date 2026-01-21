@@ -242,7 +242,6 @@
             home-manager.nixosModules.home-manager
             stylix.nixosModules.stylix
             agenix.nixosModules.default
-            nix-gaming.nixosModules.pipewireLowLatency
             inputs.nix-flatpak.nixosModules.nix-flatpak
             inputs.nix-minecraft.nixosModules.minecraft-servers
             {
