@@ -84,10 +84,6 @@ in
                 hash = "sha256-1kevbNh1zsZbJj/+TlEgTabptu24tIHTe6/czILxBdk=";
                 name = "Floodgate-Spigot.jar";
               };
-              AutoReloader = pkgs.fetchurl {
-                url = "https://github.com/notTamion/AutoReloader/releases/download/v1.0.1/AutoReloader-1.0.1.jar";
-                hash = "sha256-EV7os5smIld9/mvQfCNj2QF+IEMSIwMRGBAjPzN50p4=";
-              };
             }
           );
         };
