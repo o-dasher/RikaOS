@@ -86,6 +86,12 @@
         files."plugins/Geyser-Spigot/config.yml" = {
           value.java.auth-type = "floodgate";
         };
+
+        files."plugins/AuthMe/config.yml" = {
+          value = {
+            settings.restrictions.allowedNicknameCharacters = "[a-zA-Z0-9_\\.]*";
+          };
+        };
       };
     };
   };
