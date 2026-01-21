@@ -56,12 +56,13 @@
         autoStart = true;
         enableReload = true;
         package = pkgs.paperServers.paper-1_21_11;
-        jvmOpts = "-Xms2G -Xmx4G -Djava.net.preferIPv6Addresses=true -Djava.net.preferIPv4Stack=false";
+        jvmOpts = "-Xms3G -Xmx6G -Djava.net.preferIPv6Addresses=true -Djava.net.preferIPv4Stack=false";
 
         serverProperties = {
           server-ip = "::";
+          port = 6967;
           motd = "Gensokyo Survival";
-          max-players = 8;
+          max-players = 16;
           difficulty = "hard";
           gamemode = "survival";
           online-mode = false;
@@ -82,10 +83,7 @@
         };
 
         files."plugins/Geyser-Spigot/config.yml" = {
-          value = {
-            java.auth-type = "floodgate";
-            bedrock.clone-remote-port = true;
-          };
+          value.java.auth-type = "floodgate";
         };
       };
     };
