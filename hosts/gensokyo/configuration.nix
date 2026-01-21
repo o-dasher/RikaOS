@@ -2,10 +2,6 @@
   pkgs,
   ...
 }:
-let
-  javaPort = 6967;
-  bedrockPort = 6769;
-in
 {
   imports = [
     ./hardware-configuration.nix
@@ -32,7 +28,6 @@ in
   };
 
   security.polkit.enable = true;
-  networking.firewall.allowedUDPPorts = [ bedrockPort ];
   services = {
     fail2ban = {
       enable = true;
@@ -56,10 +51,9 @@ in
         autoStart = true;
         enableReload = true;
         package = pkgs.paperServers.paper-1_21_11;
-        jvmOpts = "-Xms2G -Xmx4G";
+        jvmOpts = "-Xms2G -Xmx4G -Djava.net.preferIPv6Addresses=true -Djava.net.preferIPv4Stack=false";
 
         serverProperties = {
-          server-port = javaPort;
           server-ip = "::";
           motd = "Gensokyo Survival";
           max-players = 8;
@@ -84,17 +78,8 @@ in
 
         files."plugins/Geyser-Spigot/config.yml" = {
           value = {
-            bedrock = {
-              address = "0.0.0.0";
-              port = bedrockPort;
-              motd1 = "Gensokyo";
-              motd2 = "Minecraft Server";
-            };
-            remote = {
-              address = "127.0.0.1";
-              port = javaPort;
-              auth-type = "floodgate";
-            };
+            java.auth-type = "floodgate";
+            bedrock.clone-remote-port = true;
           };
         };
       };
