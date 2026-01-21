@@ -80,6 +80,7 @@
               "ViaVersion.jar" = sources.viaversion.src;
               "AuthMe.jar" = sources.authme.src;
               "elyby-skinsystem.jar" = sources.elyby-skinsystem.src;
+              "SkinsRestorer.jar" = sources.skinsrestorer.src;
             };
           in
           pkgs.lib.mapAttrs' (name: value: pkgs.lib.nameValuePair "plugins/${name}" value) plugins;

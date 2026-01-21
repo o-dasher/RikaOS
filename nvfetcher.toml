@@ -24,3 +24,8 @@ url.name = "AuthMe.jar"
 src.manual = "0.2.0-beta"
 fetch.url = "https://ely.by/skinsystem-plugin/elyby-skinsystem-0.2.0-beta.jar"
 url.name = "elyby-skinsystem.jar"
+
+[skinsrestorer]
+src.github = "SkinsRestorer/SkinsRestorer"
+fetch.url = "https://github.com/SkinsRestorer/SkinsRestorer/releases/download/$ver/SkinsRestorer.jar"
+url.name = "SkinsRestorer.jar"

@@ -59,6 +59,21 @@
         },
         "version": "latest"
     },
+    "skinsrestorer": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "skinsrestorer",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": "SkinsRestorer.jar",
+            "sha256": "sha256-eNLHgi/b2/RMqs+S4ekg3MCPUcvHhzZgqL/9mPFNeF4=",
+            "type": "url",
+            "url": "https://github.com/SkinsRestorer/SkinsRestorer/releases/download/15.9.3/SkinsRestorer.jar"
+        },
+        "version": "15.9.3"
+    },
     "viaversion": {
         "cargoLocks": null,
         "date": null,
