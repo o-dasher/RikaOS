@@ -10,15 +10,6 @@
       sha256 = "sha256-gDcbqACHwU5J+tkIxYHqdneUPbS5aHYMBT07sNJnZNE=";
     };
   };
-  elyby-skinsystem = {
-    pname = "elyby-skinsystem";
-    version = "0.2.0-beta";
-    src = fetchurl {
-      url = "https://ely.by/skinsystem-plugin/elyby-skinsystem-0.2.0-beta.jar";
-      name = "elyby-skinsystem.jar";
-      sha256 = "sha256-OmpJOr68eUpRHGOV4hRfgg31zUl9J2fZEqEjxUggVIw=";
-    };
-  };
   floodgate-spigot = {
     pname = "floodgate-spigot";
     version = "latest";
@@ -26,6 +17,15 @@
       url = "https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot";
       name = "Floodgate-Spigot.jar";
       sha256 = "sha256-1kevbNh1zsZbJj/+TlEgTabptu24tIHTe6/czILxBdk=";
+    };
+  };
+  floodgate-sqlite-database = {
+    pname = "floodgate-sqlite-database";
+    version = "latest";
+    src = fetchurl {
+      url = "https://ci.opencollab.dev/job/GeyserMC/job/Floodgate/job/fix-weird-via-issue/lastSuccessfulBuild/artifact/database/sqlite/build/libs/floodgate-sqlite-database.jar";
+      name = "floodgate-sqlite-database.jar";
+      sha256 = "sha256-30rpHkUvcSTxG5fWJTV7ALEyCMBW5oxUc+FZmx5EMxc=";
     };
   };
   geyser-spigot = {

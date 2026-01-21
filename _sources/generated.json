@@ -14,21 +14,6 @@
         },
         "version": "5.6.0"
     },
-    "elyby-skinsystem": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "elyby-skinsystem",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": "elyby-skinsystem.jar",
-            "sha256": "sha256-OmpJOr68eUpRHGOV4hRfgg31zUl9J2fZEqEjxUggVIw=",
-            "type": "url",
-            "url": "https://ely.by/skinsystem-plugin/elyby-skinsystem-0.2.0-beta.jar"
-        },
-        "version": "0.2.0-beta"
-    },
     "floodgate-spigot": {
         "cargoLocks": null,
         "date": null,
@@ -41,6 +26,21 @@
             "sha256": "sha256-1kevbNh1zsZbJj/+TlEgTabptu24tIHTe6/czILxBdk=",
             "type": "url",
             "url": "https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot"
+        },
+        "version": "latest"
+    },
+    "floodgate-sqlite-database": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "floodgate-sqlite-database",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": "floodgate-sqlite-database.jar",
+            "sha256": "sha256-30rpHkUvcSTxG5fWJTV7ALEyCMBW5oxUc+FZmx5EMxc=",
+            "type": "url",
+            "url": "https://ci.opencollab.dev/job/GeyserMC/job/Floodgate/job/fix-weird-via-issue/lastSuccessfulBuild/artifact/database/sqlite/build/libs/floodgate-sqlite-database.jar"
         },
         "version": "latest"
     },
