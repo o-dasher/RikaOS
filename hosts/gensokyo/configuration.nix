@@ -78,7 +78,7 @@ in
           };
           "plugins/Floodgate-Spigot.jar" = pkgs.fetchurl {
             url = "https://download.geysermc.org/v2/projects/floodgate/versions/2.2.3/builds/latest/downloads/spigot";
-            hash = "sha256-1kevbNh1zsZbJj/+TlEgTabptu24tIHTe6/czILxBdk=";
+            hash = "sha256-aMrZ5yrqy6LWfYYEeh3mR3nIDS4g5SOTPJNSdgWieOY=";
           };
         };
 
