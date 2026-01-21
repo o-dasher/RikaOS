@@ -60,7 +60,7 @@
 
         serverProperties = {
           server-ip = "::";
-          port = 6967;
+          server-port = 6967;
           motd = "Gensokyo Survival";
           max-players = 16;
           difficulty = "hard";
@@ -71,19 +71,26 @@
           simulation-distance = 16;
         };
 
-        symlinks = {
-          "plugins/Geyser-Spigot.jar" = pkgs.fetchurl {
-            url = "https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot";
-            hash = "sha256-Rv8BmljZ5AHiG9OcQMG9UwAsi4V5xsS0WdSuFFaQPuw=";
-          };
-          "plugins/Floodgate-Spigot.jar" = pkgs.fetchurl {
-            url = "https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot";
-            hash = "sha256-1kevbNh1zsZbJj/+TlEgTabptu24tIHTe6/czILxBdk=";
-          };
-        };
+        symlinks =
+          let
+            sources = pkgs.callPackage ../../_sources/generated.nix { };
+            plugins = {
+              "Geyser-Spigot.jar" = sources.geyser-spigot.src;
+              "Floodgate-Spigot.jar" = sources.floodgate-spigot.src;
+              "ViaVersion.jar" = sources.viaversion.src;
+              "AuthMe.jar" = sources.authme.src;
+            };
+          in
+          pkgs.lib.mapAttrs' (name: value: pkgs.lib.nameValuePair "plugins/${name}" value) plugins;
 
         files."plugins/Geyser-Spigot/config.yml" = {
           value.java.auth-type = "floodgate";
+        };
+
+        files."plugins/AuthMe/config.yml" = {
+          value = {
+            settings.restrictions.allowedNicknameCharacters = "[a-zA-Z0-9_\\.]*";
+          };
         };
       };
     };
