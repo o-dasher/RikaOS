@@ -60,7 +60,7 @@
 
         serverProperties = {
           server-ip = "::";
-          port = 6967;
+          server-port = 6967;
           motd = "Gensokyo Survival";
           max-players = 16;
           difficulty = "hard";
