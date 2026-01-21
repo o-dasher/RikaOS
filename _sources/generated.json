@@ -1,0 +1,62 @@
+{
+    "authme": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "authme",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": "AuthMe.jar",
+            "sha256": "sha256-gDcbqACHwU5J+tkIxYHqdneUPbS5aHYMBT07sNJnZNE=",
+            "type": "url",
+            "url": "https://github.com/AuthMe/AuthMeReloaded/releases/download/5.6.0/AuthMe-5.6.0.jar"
+        },
+        "version": "5.6.0"
+    },
+    "floodgate-spigot": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "floodgate-spigot",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": "Floodgate-Spigot.jar",
+            "sha256": "sha256-1kevbNh1zsZbJj/+TlEgTabptu24tIHTe6/czILxBdk=",
+            "type": "url",
+            "url": "https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot"
+        },
+        "version": "latest"
+    },
+    "geyser-spigot": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "geyser-spigot",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": "Geyser-Spigot.jar",
+            "sha256": "sha256-Rv8BmljZ5AHiG9OcQMG9UwAsi4V5xsS0WdSuFFaQPuw=",
+            "type": "url",
+            "url": "https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot"
+        },
+        "version": "latest"
+    },
+    "viaversion": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "viaversion",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": "ViaVersion.jar",
+            "sha256": "sha256-e5s9WjhExO5bGJZjJ2ku5+aY5311a4sPt4XlOg+apKU=",
+            "type": "url",
+            "url": "https://github.com/ViaVersion/ViaVersion/releases/download/5.7.1/ViaVersion-5.7.1.jar"
+        },
+        "version": "5.7.1"
+    }
+}

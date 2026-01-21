@@ -1,0 +1,23 @@
+[geyser-spigot]
+src.manual = "latest"
+fetch.url = "https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot"
+url.name = "Geyser-Spigot.jar"
+fetch.force = true
+
+[floodgate-spigot]
+src.manual = "latest"
+fetch.url = "https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot"
+url.name = "Floodgate-Spigot.jar"
+fetch.force = true
+
+[viaversion]
+src.github = "ViaVersion/ViaVersion"
+fetch.url = "https://github.com/ViaVersion/ViaVersion/releases/download/$ver/ViaVersion-$ver.jar"
+url.name = "ViaVersion.jar"
+
+[authme]
+src.github = "AuthMe/AuthMeReloaded"
+fetch.url = "https://github.com/AuthMe/AuthMeReloaded/releases/download/$ver/AuthMe-$ver.jar"
+url.name = "AuthMe.jar"
+
+
