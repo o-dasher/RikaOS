@@ -73,11 +73,11 @@ in
 
         symlinks = {
           "plugins/Geyser-Spigot.jar" = pkgs.fetchurl {
-            url = "https://download.geysermc.org/v2/projects/geyser/versions/2.4.2/builds/669/downloads/spigot";
+            url = "https://download.geysermc.org/v2/projects/geyser/versions/2.4.2/builds/latest/downloads/spigot";
             hash = "sha256-YbhG+b6NGL487yMRQvAt8gdNylvjrGeF0e9ffC5OR40=";
           };
           "plugins/Floodgate-Spigot.jar" = pkgs.fetchurl {
-            url = "https://download.geysermc.org/v2/projects/floodgate/versions/2.2.3/builds/118/downloads/spigot";
+            url = "https://download.geysermc.org/v2/projects/floodgate/versions/2.2.3/builds/latest/downloads/spigot";
             hash = "sha256-1kevbNh1zsZbJj/+TlEgTabptu24tIHTe6/czILxBdk=";
           };
         };
