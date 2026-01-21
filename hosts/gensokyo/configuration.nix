@@ -84,8 +84,16 @@
           in
           pkgs.lib.mapAttrs' (name: value: pkgs.lib.nameValuePair "plugins/${name}" value) plugins;
 
-        files."plugins/Geyser-Spigot/config.yml" = {
-          value.java.auth-type = "floodgate";
+        files."plugins/Geyser-Spigot/config.yml".value = {
+          java.auth-type = "floodgate";
+        };
+
+        files."plugins/floodgate/config.yml".value = {
+          player-link = {
+            enable-own-linking = true;
+            use-global-linking = false;
+            type = "sqlite";
+          };
         };
 
         files."plugins/AuthMe/config.yml" = {
