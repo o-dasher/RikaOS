@@ -28,6 +28,15 @@
       sha256 = "sha256-Rv8BmljZ5AHiG9OcQMG9UwAsi4V5xsS0WdSuFFaQPuw=";
     };
   };
+  skinsrestorer = {
+    pname = "skinsrestorer";
+    version = "15.9.3";
+    src = fetchurl {
+      url = "https://github.com/SkinsRestorer/SkinsRestorer/releases/download/15.9.3/SkinsRestorer.jar";
+      name = "SkinsRestorer.jar";
+      sha256 = "sha256-eNLHgi/b2/RMqs+S4ekg3MCPUcvHhzZgqL/9mPFNeF4=";
+    };
+  };
   viaversion = {
     pname = "viaversion";
     version = "5.7.1";
