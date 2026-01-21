@@ -1,5 +1,6 @@
 {
   pkgs,
+  config,
   ...
 }:
 {
@@ -40,6 +41,10 @@
         PasswordAuthentication = false;
         KbdInteractiveAuthentication = false;
       };
+    };
+    playit = {
+      enable = true;
+      secretPath = config.age.secrets.playit-secret.path;
     };
     minecraft-servers = {
       enable = true;

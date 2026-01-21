@@ -14,6 +14,12 @@
         systems.follows = "systems";
       };
     };
+    playit-nixos-module = {
+      url = "github:pedorich-n/playit-nixos-module";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.systems.follows = "systems";
+    };
     elyprism-launcher = {
       url = "github:elyprismlauncher/elyprismlauncher";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -114,7 +120,6 @@
   outputs =
     {
       nixpkgs,
-      nix-gaming,
       home-manager,
       stylix,
       agenix,
@@ -242,6 +247,7 @@
             home-manager.nixosModules.home-manager
             stylix.nixosModules.stylix
             agenix.nixosModules.default
+            inputs.playit-nixos-module.nixosModules.default
             inputs.nix-flatpak.nixosModules.nix-flatpak
             inputs.nix-minecraft.nixosModules.minecraft-servers
             {
