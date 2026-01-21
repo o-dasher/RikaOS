@@ -62,13 +62,13 @@ in
           server-port = javaPort;
           server-ip = "::";
           motd = "Gensokyo Survival";
-          max-players = 10;
+          max-players = 8;
           difficulty = "hard";
           gamemode = "survival";
           online-mode = false;
           spawn-protection = 0;
-          view-distance = 12;
-          simulation-distance = 10;
+          view-distance = 16;
+          simulation-distance = 16;
         };
 
         symlinks = {
