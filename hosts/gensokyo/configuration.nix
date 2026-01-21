@@ -55,7 +55,7 @@ in
         enable = true;
         autoStart = true;
         enableReload = true;
-        package = pkgs.paperServers.paper-1_21_4;
+        package = pkgs.paperServers.paper-1_21_11;
         jvmOpts = "-Xms2G -Xmx4G";
 
         serverProperties = {
