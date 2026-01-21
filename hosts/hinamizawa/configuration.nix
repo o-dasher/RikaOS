@@ -17,6 +17,10 @@
       enable = true;
       package = pkgs.transmission_4;
     };
+    playit = {
+      enable = true;
+      secretPath = config.age.secrets.playit-secret.path;
+    };
   };
 
   theme.lain.enable = true;
