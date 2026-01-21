@@ -10,6 +10,12 @@ fetch.url = "https://download.geysermc.org/v2/projects/floodgate/versions/latest
 url.name = "Floodgate-Spigot.jar"
 fetch.force = true
 
+[floodgate-sqlite-database]
+src.manual = "latest"
+fetch.url = "https://ci.opencollab.dev/job/GeyserMC/job/Floodgate/job/fix-weird-via-issue/lastSuccessfulBuild/artifact/database/sqlite/build/libs/floodgate-sqlite-database.jar"
+url.name = "floodgate-sqlite-database.jar"
+fetch.force = true
+
 [viaversion]
 src.github = "ViaVersion/ViaVersion"
 fetch.url = "https://github.com/ViaVersion/ViaVersion/releases/download/$ver/ViaVersion-$ver.jar"

@@ -82,7 +82,10 @@
               "SkinsRestorer.jar" = sources.skinsrestorer.src;
             };
           in
-          pkgs.lib.mapAttrs' (name: value: pkgs.lib.nameValuePair "plugins/${name}" value) plugins;
+          pkgs.lib.mapAttrs' (name: value: pkgs.lib.nameValuePair "plugins/${name}" value) plugins
+          // {
+            "plugins/floodgate/floodgate-sqlite-database.jar" = sources.floodgate-sqlite-database.src;
+          };
 
         files."plugins/Geyser-Spigot/config.yml".value = {
           java.auth-type = "floodgate";
