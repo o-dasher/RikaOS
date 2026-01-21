@@ -20,7 +20,7 @@ src.github = "AuthMe/AuthMeReloaded"
 fetch.url = "https://github.com/AuthMe/AuthMeReloaded/releases/download/$ver/AuthMe-$ver.jar"
 url.name = "AuthMe.jar"
 
-[skinsrestorer]
-src.github = "SkinsRestorer/SkinsRestorer"
-fetch.url = "https://github.com/SkinsRestorer/SkinsRestorer/releases/download/$ver/SkinsRestorer.jar"
-url.name = "SkinsRestorer.jar"
+[elyby-skinsystem]
+src.manual = "0.2.0-beta"
+fetch.url = "https://ely.by/skinsystem-plugin/elyby-skinsystem-0.2.0-beta.jar"
+url.name = "elyby-skinsystem.jar"

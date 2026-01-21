@@ -10,6 +10,15 @@
       sha256 = "sha256-gDcbqACHwU5J+tkIxYHqdneUPbS5aHYMBT07sNJnZNE=";
     };
   };
+  elyby-skinsystem = {
+    pname = "elyby-skinsystem";
+    version = "0.2.0-beta";
+    src = fetchurl {
+      url = "https://ely.by/skinsystem-plugin/elyby-skinsystem-0.2.0-beta.jar";
+      name = "elyby-skinsystem.jar";
+      sha256 = "sha256-OmpJOr68eUpRHGOV4hRfgg31zUl9J2fZEqEjxUggVIw=";
+    };
+  };
   floodgate-spigot = {
     pname = "floodgate-spigot";
     version = "latest";
@@ -26,15 +35,6 @@
       url = "https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot";
       name = "Geyser-Spigot.jar";
       sha256 = "sha256-Rv8BmljZ5AHiG9OcQMG9UwAsi4V5xsS0WdSuFFaQPuw=";
-    };
-  };
-  skinsrestorer = {
-    pname = "skinsrestorer";
-    version = "15.9.3";
-    src = fetchurl {
-      url = "https://github.com/SkinsRestorer/SkinsRestorer/releases/download/15.9.3/SkinsRestorer.jar";
-      name = "SkinsRestorer.jar";
-      sha256 = "sha256-eNLHgi/b2/RMqs+S4ekg3MCPUcvHhzZgqL/9mPFNeF4=";
     };
   };
   viaversion = {
