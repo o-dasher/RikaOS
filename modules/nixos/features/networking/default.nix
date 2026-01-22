@@ -11,8 +11,11 @@ in
 {
   options.features.networking = {
     enable = lib.mkEnableOption "networking";
-    cloudflare.enable = lib.mkEnableOption "Cloudflare";
     networkManager.enable = lib.mkEnableOption "NetworkManager";
+    cloudflare = {
+      warp.enable = lib.mkEnableOption "Warp";
+      dns.enable = lib.mkEnableOption "DNS";
+    };
     stableIPv6 = {
       enable = lib.mkEnableOption "stable IPv6 address with systemd-networkd";
       ipv6 = lib.mkOption {
@@ -36,23 +39,25 @@ in
     lib.mkMerge [
       {
         networking.networkmanager.enable = cfg.networkManager.enable;
+        services.cloudflare-warp.enable = cfg.cloudflare.warp.enable;
       }
 
-      (lib.mkIf cfg.cloudflare.enable {
-        networking.nameservers = [ "127.0.0.1" ];
-        services = {
-          cloudflare-warp.enable = true;
-          resolved.enable = false;
+      (lib.mkIf cfg.cloudflare.dns.enable {
+        services.resolved = {
+          enable = true;
+          settings.Resolve = {
+            DNS = [ "127.0.0.1:5053" ];
+            FallbackDNS = [ ];
+          };
         };
         systemd.services.cloudflared-doh = {
           description = "Cloudflare DNS over HTTPS proxy";
           after = [ "network.target" ];
           wantedBy = [ "multi-user.target" ];
           serviceConfig = {
-            ExecStart = "${lib.getExe pkgs.cloudflared} proxy-dns";
+            ExecStart = "${lib.getExe pkgs.cloudflared} proxy-dns --port 5053";
             Restart = "on-failure";
             DynamicUser = true;
-            AmbientCapabilities = "CAP_NET_BIND_SERVICE";
           };
         };
       })
