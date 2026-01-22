@@ -77,6 +77,12 @@ in
               IPv6AcceptRA = true;
               IPv6LinkLocalAddressGenerationMode = "stable-privacy";
             };
+            dhcpV4Config = lib.mkIf cfg.cloudflare.dns.enable {
+              UseDNS = false;
+            };
+            ipv6AcceptRAConfig = lib.mkIf cfg.cloudflare.dns.enable {
+              UseDNS = false;
+            };
           };
         };
       })
