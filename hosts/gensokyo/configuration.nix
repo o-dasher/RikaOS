@@ -3,9 +3,6 @@
   config,
   ...
 }:
-let
-  bedrockPort = 16967;
-in
 {
   imports = [
     ./hardware-configuration.nix
@@ -33,8 +30,6 @@ in
   };
 
   security.polkit.enable = true;
-  networking.firewall.allowedUDPPorts = [ bedrockPort ];
-  networking.firewall.allowedTCPPorts = [ bedrockPort ];
   services = {
     fail2ban = {
       enable = true;
@@ -95,10 +90,6 @@ in
 
         files."plugins/Geyser-Spigot/config.yml".value = {
           java.auth-type = "floodgate";
-          bedrock = {
-            address = config.features.networking.stableIPv6.ipv6;
-            port = bedrockPort;
-          };
         };
 
         files."plugins/floodgate/config.yml".value = {
