@@ -16,6 +16,7 @@
     };
     networking = {
       enable = true;
+      cloudflare.dns.enable = true;
       stableIPv6 = {
         enable = true;
         matchInterface = "enp1s0";

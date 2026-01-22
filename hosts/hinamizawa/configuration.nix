@@ -34,7 +34,10 @@
     virtualization.enable = true;
     networking = {
       enable = true;
-      cloudflare.enable = true;
+      cloudflare = {
+        warp.enable = true;
+        dns.enable = true;
+      };
       stableIPv6 = {
         enable = true;
         matchInterface = "enp6s0";

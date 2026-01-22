@@ -11,8 +11,11 @@ in
 {
   options.features.networking = {
     enable = lib.mkEnableOption "networking";
-    cloudflare.enable = lib.mkEnableOption "Cloudflare";
     networkManager.enable = lib.mkEnableOption "NetworkManager";
+    cloudflare = {
+      warp.enable = lib.mkEnableOption "Warp";
+      dns.enable = lib.mkEnableOption "DNS";
+    };
     stableIPv6 = {
       enable = lib.mkEnableOption "stable IPv6 address with systemd-networkd";
       ipv6 = lib.mkOption {
@@ -36,14 +39,12 @@ in
     lib.mkMerge [
       {
         networking.networkmanager.enable = cfg.networkManager.enable;
+        services.cloudflare-warp.enable = cfg.cloudflare.warp.enable;
       }
 
-      (lib.mkIf cfg.cloudflare.enable {
+      (lib.mkIf cfg.cloudflare.dns.enable {
+        services.resolved.enable = false;
         networking.nameservers = [ "127.0.0.1" ];
-        services = {
-          cloudflare-warp.enable = true;
-          resolved.enable = false;
-        };
         systemd.services.cloudflared-doh = {
           description = "Cloudflare DNS over HTTPS proxy";
           after = [ "network.target" ];
