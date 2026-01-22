@@ -33,7 +33,14 @@
       environment.systemPackages = [ pkgs.gamescope-wsi ];
 
       programs = {
-        gamemode.enable = true;
+        gamemode = {
+          enable = true;
+          settings.general = {
+            renice = 0;
+            ioprio = "off";
+          };
+        };
+
         gamescope = {
           enable = true;
           capSysNice = false;
