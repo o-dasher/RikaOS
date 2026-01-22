@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 let
@@ -38,19 +39,22 @@ in
       }
 
       (lib.mkIf cfg.cloudflare.enable {
+        networking.nameservers = [ "127.0.0.1" ];
         services = {
           cloudflare-warp.enable = true;
-          resolved = {
-            enable = true;
-            settings.Resolve.DNSOverTLS = true;
+          resolved.enable = false;
+        };
+        systemd.services.cloudflared-doh = {
+          description = "Cloudflare DNS over HTTPS proxy";
+          after = [ "network.target" ];
+          wantedBy = [ "multi-user.target" ];
+          serviceConfig = {
+            ExecStart = "${lib.getExe pkgs.cloudflared} proxy-dns";
+            Restart = "on-failure";
+            DynamicUser = true;
+            AmbientCapabilities = "CAP_NET_BIND_SERVICE";
           };
         };
-        networking.nameservers = [
-          "1.1.1.1#cloudflare-dns.com"
-          "1.0.0.1#cloudflare-dns.com"
-          "2606:4700:4700::1111#cloudflare-dns.com"
-          "2606:4700:4700::1001#cloudflare-dns.com"
-        ];
       })
 
       (lib.mkIf stableIPv6Cfg.enable {
