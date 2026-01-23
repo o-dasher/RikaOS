@@ -10,6 +10,7 @@
         enable = true;
         settings = {
           default-timeout = 3000;
+          "mode=dnd".invisible = 1;
         };
       };
 }
