@@ -121,7 +121,6 @@
     let
       commonGroups = [
         "video"
-        "gamemode"
         "dialout"
         "input"
         "render"

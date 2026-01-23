@@ -33,14 +33,6 @@
       environment.systemPackages = [ pkgs.gamescope-wsi ];
 
       programs = {
-        gamemode = {
-          enable = true;
-          settings.general = {
-            renice = 0;
-            ioprio = "off";
-          };
-        };
-
         gamescope = {
           enable = true;
           capSysNice = false;
@@ -66,10 +58,20 @@
         xone.enable = true;
       };
 
-      services.ananicy = {
-        enable = true;
-        package = pkgs.ananicy-cpp;
-        rulesProvider = pkgs.ananicy-rules-cachyos;
+      services = {
+        power-profiles-daemon.enable = true;
+
+        scx = {
+          enable = true;
+          scheduler = "scx_lavd";
+          extraArgs = [ "--autopilot" ];
+        };
+
+        ananicy = {
+          enable = true;
+          package = pkgs.ananicy-cpp;
+          rulesProvider = pkgs.ananicy-rules-cachyos;
+        };
       };
     };
 }
