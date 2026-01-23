@@ -58,20 +58,10 @@
         xone.enable = true;
       };
 
-      services = {
-        power-profiles-daemon.enable = true;
-
-        scx = {
-          enable = true;
-          scheduler = "scx_lavd";
-          extraArgs = [ "--autopilot" ];
-        };
-
-        ananicy = {
-          enable = true;
-          package = pkgs.ananicy-cpp;
-          rulesProvider = pkgs.ananicy-rules-cachyos;
-        };
+      services.ananicy = {
+        enable = true;
+        package = pkgs.ananicy-cpp;
+        rulesProvider = pkgs.ananicy-rules-cachyos;
       };
     };
 }
