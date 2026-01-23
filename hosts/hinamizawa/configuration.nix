@@ -29,7 +29,10 @@
     graphics.enable = true;
     hardware.amdgpu.enable = true;
     hardware.keyboard.enable = true;
-    gaming.enable = true;
+    gaming = {
+      enable = true;
+      suppressNotifications.enable = true;
+    };
     audio.enable = true;
     virtualization.enable = true;
     networking = {
@@ -125,6 +128,7 @@
         "input"
         "render"
         "libvirtd"
+        "gamemode"
       ];
     in
     {
