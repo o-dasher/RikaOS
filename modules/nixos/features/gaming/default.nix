@@ -20,6 +20,7 @@
     otd.enable = lib.mkEnableOption "OpenTabletDriver" // {
       default = true;
     };
+    suppressNotifications.enable = lib.mkEnableOption "suppress notifications during gaming (requires mako)";
   };
 
   config =
@@ -33,6 +34,21 @@
       environment.systemPackages = [ pkgs.gamescope-wsi ];
 
       programs = {
+        gamemode = {
+          enable = true;
+          settings = {
+            general = {
+              renice = 0;
+              ioprio = "off";
+              desiredgov = "off";
+            };
+            custom = lib.mkIf cfg.suppressNotifications.enable {
+              start = "${pkgs.mako}/bin/makoctl mode -a do-not-disturb";
+              end = "${pkgs.mako}/bin/makoctl mode -r do-not-disturb";
+            };
+          };
+        };
+
         gamescope = {
           enable = true;
           capSysNice = false;
