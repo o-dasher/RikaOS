@@ -43,8 +43,8 @@
               desiredgov = "off";
             };
             custom = lib.mkIf cfg.suppressNotifications.enable {
-              start = "${pkgs.mako}/bin/makoctl mode -a do-not-disturb";
-              end = "${pkgs.mako}/bin/makoctl mode -r do-not-disturb";
+              start = "${pkgs.mako}/bin/makoctl mode -s dnd";
+              end = "${pkgs.mako}/bin/makoctl mode -s default";
             };
           };
         };
