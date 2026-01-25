@@ -28,7 +28,7 @@
       transmission-remote-gtk
 
       # video
-      kdePackages.kdenlive
+      stable.kdePackages.kdenlive
 
       # drawing
       krita
