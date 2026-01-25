@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "https://flakehub.com/f/NixOS/nixpkgs/0";
     nix-flatpak.url = "github:gmodena/nix-flatpak";
     flake-compat.url = "github:edolstra/flake-compat";
     systems.url = "github:nix-systems/default";
@@ -38,13 +39,6 @@
     };
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-      };
-    };
-    neovim-nightly = {
-      url = "github:nix-community/neovim-nightly-overlay";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
@@ -130,6 +124,7 @@
       systems,
       nixcord,
       spicetify-nix,
+      nixpkgs-stable,
       ...
     }@inputs:
     let
@@ -139,11 +134,16 @@
         (
           final: prev:
           let
+            inherit (prev.stdenv.hostPlatform) system;
           in
           {
+            stable = import nixpkgs-stable {
+              inherit system;
+              config.allowUnfree = true;
+            };
+
             # Bleeding edge
-            neovim-nightly = (inputs.neovim-nightly.packages.${prev.stdenv.hostPlatform.system}).neovim;
-            inherit (inputs.walker.packages.${prev.stdenv.hostPlatform.system}) walker;
+            inherit (inputs.walker.packages.${system}) walker;
 
             # Gamescope
             gamescope = prev.gamescope.overrideAttrs (old: {
@@ -159,7 +159,7 @@
             });
 
             # Utilities
-            zen-browser = zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.twilight;
+            zen-browser = zen-browser.packages.${system}.twilight;
           }
         )
       ];
