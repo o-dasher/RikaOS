@@ -21,10 +21,6 @@
       inputs.flake-parts.follows = "flake-parts";
       inputs.systems.follows = "systems";
     };
-    elyprism-launcher = {
-      url = "github:elyprismlauncher/elyprismlauncher";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     pam-shim = {
       url = "github:Cu3PO42/pam_shim";
       inputs = {
