@@ -142,27 +142,6 @@
         "type": "github"
       }
     },
-    "elyprism-launcher": {
-      "inputs": {
-        "libnbtplusplus": "libnbtplusplus",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1768216594,
-        "narHash": "sha256-p9gFdiVRQBIVMatq0v1lw+2ggSU3RV42u55O6w44L9E=",
-        "owner": "elyprismlauncher",
-        "repo": "elyprismlauncher",
-        "rev": "4620911783b904ccf0919e9d67ae8ff3c5034624",
-        "type": "github"
-      },
-      "original": {
-        "owner": "elyprismlauncher",
-        "repo": "elyprismlauncher",
-        "type": "github"
-      }
-    },
     "firefox-addons": {
       "inputs": {
         "nixpkgs": [
@@ -353,22 +332,6 @@
       "original": {
         "owner": "nix-community",
         "repo": "home-manager",
-        "type": "github"
-      }
-    },
-    "libnbtplusplus": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1744811532,
-        "narHash": "sha256-qhmjaRkt+O7A+gu6HjUkl7QzOEb4r8y8vWZMG2R/C6o=",
-        "owner": "PrismLauncher",
-        "repo": "libnbtplusplus",
-        "rev": "531449ba1c930c98e0bcf5d332b237a8566f9d78",
-        "type": "github"
-      },
-      "original": {
-        "owner": "PrismLauncher",
-        "repo": "libnbtplusplus",
         "type": "github"
       }
     },
@@ -599,7 +562,6 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
-        "elyprism-launcher": "elyprism-launcher",
         "firefox-addons": "firefox-addons",
         "flake-compat": "flake-compat",
         "flake-parts": "flake-parts",
