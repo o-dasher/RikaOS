@@ -19,6 +19,7 @@
       unzip
       # monitor
       mission-center
+      lm_sensors
     ];
   };
 }
