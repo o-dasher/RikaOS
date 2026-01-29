@@ -10,9 +10,7 @@
 
   config = lib.mkIf (config.features.gaming.enable && config.features.gaming.osu.enable) {
     home.packages = [
-      (config.features.gaming.gamescope.wrapDefault
-        inputs.nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.osu-lazer-bin
-      )
+      inputs.nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.osu-lazer-bin
     ];
   };
 }
