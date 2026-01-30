@@ -29,6 +29,7 @@
 
       # video
       stable.kdePackages.kdenlive
+      jellyfin-desktop
 
       # drawing
       krita
