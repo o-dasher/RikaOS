@@ -52,6 +52,13 @@
         PasswordAuthentication = false;
         KbdInteractiveAuthentication = false;
       };
+      extraConfig = ''
+        Match User media
+          ChrootDirectory /shared
+          ForceCommand internal-sftp
+          AllowTcpForwarding no
+          X11Forwarding no
+      '';
     };
     playit = {
       enable = true;
