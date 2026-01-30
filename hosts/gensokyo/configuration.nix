@@ -14,6 +14,16 @@
       enable = true;
       nixpkgs.enable = true;
     };
+    filesystem.sharedFolders = {
+      enable = true;
+      folderNames = [
+        "/shared/Media/"
+        "/shared/Media/Music"
+        "/shared/Media/Movies"
+        "/shared/Media/Series"
+        "/shared/Media/Anime"
+      ];
+    };
     networking = {
       enable = true;
       cloudflare.dns.enable = true;
