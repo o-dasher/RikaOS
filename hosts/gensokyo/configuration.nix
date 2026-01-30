@@ -100,7 +100,37 @@
         };
       };
     };
+
+    jellyfin.enable = true;
+    nginx = {
+      enable = true;
+      recommendedProxySettings = true;
+      recommendedTlsSettings = true;
+      recommendedOptimisation = true;
+      recommendedGzipSettings = true;
+      virtualHosts."jellyfin.dshs.cc" = {
+        forceSSL = true;
+        enableACME = true;
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:8096";
+          proxyWebsockets = true;
+          extraConfig = ''
+            proxy_buffering off;
+          '';
+        };
+      };
+    };
   };
+
+  security.acme = {
+    acceptTerms = true;
+    defaults.email = "noreply@dshs.cc";
+  };
+
+  networking.firewall.allowedTCPPorts = [
+    80
+    443
+  ];
 
   users.users.thiago = {
     isNormalUser = true;
