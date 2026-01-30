@@ -88,21 +88,14 @@
             "plugins/floodgate/floodgate-sqlite-database.jar" = sources.floodgate-sqlite-database.src;
           };
 
-        files."plugins/Geyser-Spigot/config.yml".value = {
-          java.auth-type = "floodgate";
-        };
-
-        files."plugins/floodgate/config.yml".value = {
-          player-link = {
+        files = {
+          "plugins/Geyser-Spigot/config.yml".value.java.auth-type = "floodgate";
+          "plugins/AuthMe/config.yml".value.settings.restrictions.allowedNicknameCharacters =
+            "[a-zA-Z0-9_\\.]*";
+          "plugins/floodgate/config.yml".value.player-link = {
             enable-own-linking = true;
             use-global-linking = false;
             type = "sqlite";
-          };
-        };
-
-        files."plugins/AuthMe/config.yml" = {
-          value = {
-            settings.restrictions.allowedNicknameCharacters = "[a-zA-Z0-9_\\.]*";
           };
         };
       };

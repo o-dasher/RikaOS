@@ -207,7 +207,7 @@
         ];
       };
 
-      commonArgs = {
+      extraSpecialArgs = {
         inherit
           inputs
           nixCaches
@@ -238,7 +238,7 @@
         hostName: systemCfg:
         nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = commonArgs;
+          specialArgs = extraSpecialArgs;
           modules = [
             ./modules/nixos
             ./hosts/${hostName}/configuration.nix
@@ -253,9 +253,9 @@
               networking.hostName = hostName;
               system.stateVersion = systemCfg.state;
               home-manager = {
+                inherit extraSpecialArgs;
                 useGlobalPkgs = true;
                 useUserPackages = true;
-                extraSpecialArgs = commonArgs;
                 users = nixpkgs.lib.listToAttrs (
                   map (
                     username:
@@ -276,7 +276,7 @@
         hostName: homeCfg: username:
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          extraSpecialArgs = commonArgs;
+          inherit extraSpecialArgs;
           modules = get_common_home_modules hostName username homeCfg.state;
         };
     in
