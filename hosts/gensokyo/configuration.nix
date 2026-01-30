@@ -142,6 +142,7 @@
     443
   ];
 
+  users.users.jellyfin.extraGroups = [ "users" ];
   users.users.thiago = {
     isNormalUser = true;
     shell = pkgs.fish;
