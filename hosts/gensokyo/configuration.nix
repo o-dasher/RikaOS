@@ -117,7 +117,12 @@
     sftpgo = {
       enable = true;
       settings = {
-        sftpd.bindings = [ { port = 2022; } ];
+        sftpd.bindings = [
+          {
+            address = "";
+            port = 2022;
+          }
+        ];
         httpd.bindings = [
           {
             port = 8080;
