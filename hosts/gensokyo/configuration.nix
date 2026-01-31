@@ -114,12 +114,18 @@
       };
     };
     jellyfin.enable = true;
-    filebrowser = {
+    sftpgo = {
       enable = true;
       settings = {
-        port = 8080;
-        address = "127.0.0.1";
-        root = "/shared/Media";
+        sftpd.bindings = [ { port = 2022; } ];
+        httpd.bindings = [
+          {
+            port = 8080;
+            address = "127.0.0.1";
+            enable_web_admin = true;
+            enable_web_client = true;
+          }
+        ];
       };
     };
     nginx = {
@@ -128,23 +134,25 @@
       recommendedTlsSettings = true;
       recommendedOptimisation = true;
       recommendedGzipSettings = true;
-      virtualHosts."jellyfin.dshs.cc" = {
-        forceSSL = true;
-        enableACME = true;
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:8096";
-          proxyWebsockets = true;
-          extraConfig = ''
-            proxy_buffering off;
-          '';
+      virtualHosts = {
+        "jellyfin.dshs.cc" = {
+          forceSSL = true;
+          enableACME = true;
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:8096";
+            proxyWebsockets = true;
+            extraConfig = ''
+              proxy_buffering off;
+            '';
+          };
         };
-      };
-      virtualHosts."files.dshs.cc" = {
-        forceSSL = true;
-        enableACME = true;
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:8080";
-          proxyWebsockets = true;
+        "files.dshs.cc" = {
+          forceSSL = true;
+          enableACME = true;
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:8080";
+            proxyWebsockets = true;
+          };
         };
       };
     };
@@ -158,10 +166,11 @@
   networking.firewall.allowedTCPPorts = [
     80
     443
+    2022
   ];
 
   users.users = {
-    filebrowser.extraGroups = [ "users" ];
+    sftpgo.extraGroups = [ "users" ];
     jellyfin.extraGroups = [ "users" ];
     thiago = {
       isNormalUser = true;
