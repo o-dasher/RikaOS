@@ -113,8 +113,15 @@
         };
       };
     };
-
     jellyfin.enable = true;
+    filebrowser = {
+      enable = true;
+      settings = {
+        port = 8080;
+        address = "127.0.0.1";
+        root = "/shared/Media";
+      };
+    };
     nginx = {
       enable = true;
       recommendedProxySettings = true;
@@ -130,6 +137,14 @@
           extraConfig = ''
             proxy_buffering off;
           '';
+        };
+      };
+      virtualHosts."files.dshs.cc" = {
+        forceSSL = true;
+        enableACME = true;
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:8080";
+          proxyWebsockets = true;
         };
       };
     };
