@@ -54,6 +54,7 @@
         PermitRootLogin = "no";
         PasswordAuthentication = false;
         KbdInteractiveAuthentication = false;
+        Subsystem = "sftp ${pkgs.bash}/bin/bash -c \"cd /var/lib/sftpgo && exec ${pkgs.sftpgo}/bin/sftpgo start-subsystem --config-file ${pkgs.writeText "sftpgo.json" (builtins.toJSON config.services.sftpgo.settings)}\"";
       };
     };
     playit = {
@@ -189,9 +190,14 @@
       ];
       extraGroups = [
         "wheel"
+        "sftpgo"
       ];
     };
   };
+
+  systemd.tmpfiles.rules = [
+    "d /var/lib/sftpgo 0770 sftpgo sftpgo - -"
+  ];
 
   programs = {
     fish.enable = true;
