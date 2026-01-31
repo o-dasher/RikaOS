@@ -27,12 +27,19 @@
       # Downloading
       transmission-remote-gtk
 
-      # video
+      # Video
       stable.kdePackages.kdenlive
       jellyfin-desktop
 
-      # drawing
+      # Drawing
       krita
+
+      # Music
+      nicotine-plus
     ];
+
+    systemd.user.services.nicotine-plus = config.rika.utils.mkAutostartService (
+      lib.getExe pkgs.nicotine-plus
+    );
   };
 }

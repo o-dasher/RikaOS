@@ -53,7 +53,6 @@
       flatpak.enable = true;
       openrgb.enable = true;
       gnome-keyring.enable = true;
-      thunar.enable = true;
       sddm = {
         enable = true;
         flavor = "mocha";
@@ -155,9 +154,11 @@
   networking.firewall =
     let
       stardewValleyPort = 24642;
+      nicotineSoulseekPort = 2234;
     in
     {
       allowedUDPPorts = [ stardewValleyPort ];
+      allowedTCPPorts = [ nicotineSoulseekPort ];
     };
 
   programs = {
