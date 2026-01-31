@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 {
@@ -10,6 +11,7 @@
 
   config = lib.mkIf config.profiles.social.enable {
     features.social.discord.enable = true;
+    home.packages = [ pkgs.zoom-us ];
     programs.zapzap = {
       enable = true;
       settings = {
