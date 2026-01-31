@@ -5,6 +5,5 @@
     ./gnome-keyring.nix
     ./openrgb.nix
     ./sddm.nix
-    ./thunar.nix
   ];
 }
