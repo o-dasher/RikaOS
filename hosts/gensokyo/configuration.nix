@@ -161,6 +161,7 @@
   ];
 
   users.users = {
+    filebrowser.extraGroups = [ "users" ];
     jellyfin.extraGroups = [ "users" ];
     media = {
       isNormalUser = true;
