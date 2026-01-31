@@ -93,6 +93,13 @@
   };
 
   boot = {
+    # Virtual webcam for phone camera via scrcpy
+    extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
+    kernelModules = [ "v4l2loopback" ];
+    extraModprobeConfig = ''
+      options v4l2loopback devices=1 video_nr=10 card_label="Phone Camera" exclusive_caps=1
+    '';
+
     # Disk encryption
     initrd.luks.devices."luks-36bb58a5-3907-4ecc-99b8-3133907e4ab3".device =
       "/dev/disk/by-uuid/36bb58a5-3907-4ecc-99b8-3133907e4ab3";
