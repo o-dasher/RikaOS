@@ -55,13 +55,6 @@
         PasswordAuthentication = false;
         KbdInteractiveAuthentication = false;
       };
-      extraConfig = ''
-        Match User media
-          ChrootDirectory /shared/Media
-          ForceCommand internal-sftp
-          AllowTcpForwarding no
-          X11Forwarding no
-      '';
     };
     playit = {
       enable = true;
@@ -159,7 +152,7 @@
       home = "/shared/Media";
       createHome = false;
       group = "users";
-      shell = "${pkgs.shadow}/bin/nologin";
+      shell = pkgs.fish;
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHUXecCb1MBsd4myMzHfRiN5AIbhub61wffasXzWyM8k fifahomem@archlinux-fodao"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGPAM12J0/Z/otlj0f6p6wvrEGFMGiBtcVb9zD7HjRVp rika@hinamizawa"
