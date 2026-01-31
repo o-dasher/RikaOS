@@ -50,14 +50,21 @@ in
             FallbackDNS = [ ];
           };
         };
-        systemd.services.cloudflared-doh = {
-          description = "Cloudflare DNS over HTTPS proxy";
-          after = [ "network.target" ];
-          wantedBy = [ "multi-user.target" ];
-          serviceConfig = {
-            ExecStart = "${lib.getExe pkgs.cloudflared} proxy-dns --port 5053";
-            Restart = "on-failure";
-            DynamicUser = true;
+        systemd.services = {
+          cloudflared-doh = {
+            description = "Cloudflare DNS over HTTPS proxy";
+            after = [ "network-online.target" ];
+            wants = [ "network-online.target" ];
+            wantedBy = [ "multi-user.target" ];
+            serviceConfig = {
+              ExecStart = "${lib.getExe pkgs.cloudflared} proxy-dns --port 5053";
+              Restart = "on-failure";
+              DynamicUser = true;
+            };
+          };
+          cloudflare-warp = lib.mkIf cfg.cloudflare.warp.enable {
+            after = [ "cloudflared-doh.service" ];
+            wants = [ "cloudflared-doh.service" ];
           };
         };
       })
