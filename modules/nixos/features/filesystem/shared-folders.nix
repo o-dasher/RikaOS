@@ -18,6 +18,12 @@ in
     folderNames = mkOption {
       default = [ ];
       type = types.listOf types.str;
+      description = "Shared folders with group write access (2770, users group).";
+    };
+    rootFolderNames = mkOption {
+      default = [ ];
+      type = types.listOf types.str;
+      description = "Folders owned by root with 755 permissions, suitable for SSH chroot.";
     };
   };
 
@@ -25,7 +31,9 @@ in
     programs.git.config.safe.directory = [ cfg.configurationRoot ];
 
     # 1. Create the folders (ensures they exist)
-    systemd.tmpfiles.rules = map (f: "d ${f} 2770 root users - -") allPaths;
+    systemd.tmpfiles.rules =
+      map (f: "d ${f} 2770 root users - -") allPaths
+      ++ map (f: "d ${f} 0755 root root - -") cfg.rootFolderNames;
 
     # 2. Enforce the "Shared" state (handles existing files & recursion)
     systemd.services.init-shared-folders = {
@@ -62,6 +70,14 @@ in
             setfacl -R -m d:g:users:rwx ${path}
             setfacl -R -m g:users:rwx ${path}
           '') allPaths}
+
+        # Root folders: owned by root with 755
+        ${lib.concatMapStringsSep "\n" (path: ''
+          if [ -d ${path} ]; then
+            chown root:root ${path}
+            chmod 755 ${path}
+          fi
+        '') cfg.rootFolderNames}
       '';
     };
   };
