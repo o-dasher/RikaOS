@@ -113,8 +113,15 @@
         };
       };
     };
-
     jellyfin.enable = true;
+    filebrowser = {
+      enable = true;
+      settings = {
+        port = 8080;
+        address = "127.0.0.1";
+        root = "/shared/Media";
+      };
+    };
     nginx = {
       enable = true;
       recommendedProxySettings = true;
@@ -132,6 +139,14 @@
           '';
         };
       };
+      virtualHosts."files.dshs.cc" = {
+        forceSSL = true;
+        enableACME = true;
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:8080";
+          proxyWebsockets = true;
+        };
+      };
     };
   };
 
@@ -146,6 +161,7 @@
   ];
 
   users.users = {
+    filebrowser.extraGroups = [ "users" ];
     jellyfin.extraGroups = [ "users" ];
     media = {
       isNormalUser = true;
