@@ -18,9 +18,9 @@
       enable = true;
       rootFolderNames = [
         "/shared"
-        "/shared/Media"
       ];
       folderNames = [
+        "/shared/Media"
         "/shared/Media/Music"
         "/shared/Media/Movies"
         "/shared/Media/Series"
