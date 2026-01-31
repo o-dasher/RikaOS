@@ -116,6 +116,7 @@
     jellyfin.enable = true;
     sftpgo = {
       enable = true;
+      extraReadWriteDirs = [ "/shared/Media" ];
       settings = {
         sftpd.bindings = [
           {
