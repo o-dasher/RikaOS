@@ -32,7 +32,7 @@
 
                 .box-wrapper {
                   @apply p-2 rounded-lg bg-base00/${
-                    lib.toString ((builtins.floor (config.stylix.opacity.desktop * 100)) + 30)
+                    lib.toString (builtins.floor (config.stylix.opacity.desktop * 100))
                   } border border-solid border-base03;
                 }
 

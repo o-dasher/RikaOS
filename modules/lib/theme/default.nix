@@ -25,9 +25,9 @@ let
               light = "WhiteSur-light";
             };
             opacity = {
-              popups = 0.9;
+              popups = 0.90;
               terminal = 0.9;
-              desktop = 0.6;
+              desktop = 0.8;
             };
           } theme
         );
