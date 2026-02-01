@@ -84,7 +84,8 @@
           # https://github.com/hyprwm/Hyprland/pull/10020 for reference.
           render.direct_scanout = false;
           layerrule = [
-            "match:namespace ^(waybar|notifications)$, blur on"
+            "match:namespace ^(waybar|notifications|walker)$, blur on"
+            "match:namespace ^(walker)$, ignore_alpha 0.5"
             "match:namespace ^(waybar)$, animation slide top"
             "match:namespace ^(notifications)$, animation slide right"
             "match:namespace ^(walker)$, animation slide bottom"
@@ -119,12 +120,13 @@
             };
           general = {
             allow_tearing = true;
-            inherit border_size;
             gaps_out = gaps;
             gaps_in = gaps;
+            inherit border_size;
           };
           decoration = {
             inherit rounding;
+            blur.passes = 2;
           };
           input = {
             kb_layout = "br";
