@@ -17,7 +17,7 @@
 
   features = {
     desktop.hyprland.enable = true;
-    desktop.dolphin.enable = true;
+    utilities.nemo.enable = true;
     editors.jetbrains.android-studio.enable = true;
     core.xdg = {
       enable = true;

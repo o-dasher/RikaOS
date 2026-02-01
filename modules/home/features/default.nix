@@ -8,5 +8,6 @@
     ./gaming
     ./social
     ./terminal
+    ./utilities
   ];
 }
