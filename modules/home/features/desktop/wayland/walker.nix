@@ -31,7 +31,9 @@
                 }
 
                 .box-wrapper {
-                  @apply p-2 rounded-lg bg-base00 border border-solid border-base03;
+                  @apply p-2 rounded-lg bg-base00/${
+                    lib.toString ((builtins.floor (config.stylix.opacity.desktop * 100)) + 30)
+                  } border border-solid border-base03;
                 }
 
                 .preview-box,
@@ -43,7 +45,7 @@
                 }
 
                 .search-container {
-                  @apply rounded-lg;
+                  @apply rounded-md;
                 }
 
                 .input placeholder {
@@ -55,7 +57,7 @@
                 }
 
                 .input {
-                  @apply p-2.5 rounded-lg text-base05 caret-base05 bg-base03/25;
+                  @apply p-2.5 rounded-md text-base05 caret-base05 bg-base03/25;
                 }
 
                 scrollbar {
@@ -63,11 +65,11 @@
                 }
 
                 .item-box {
-                  @apply rounded-lg p-2 min-h-8;
+                  @apply rounded-md p-2 min-h-8;
                 }
 
                 .item-quick-activation {
-                  @apply rounded p-2 bg-base03/25;
+                  @apply rounded-md p-2 bg-base03/25;
                 }
 
                 child:selected .item-box {
@@ -87,7 +89,7 @@
                 }
 
                 .preview {
-                  @apply rounded-lg border border-base03/25;
+                  @apply rounded-md border border-base03/25;
                 }
 
                 .error {
