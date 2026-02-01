@@ -11,6 +11,7 @@
 
   time.hardwareClockInLocalTime = true;
   services = {
+    gvfs.enable = true;
     printing.enable = true;
     openssh.enable = true;
     transmission = {
