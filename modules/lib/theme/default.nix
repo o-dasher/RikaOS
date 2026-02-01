@@ -33,12 +33,6 @@ let
         );
     in
     {
-      cirnold = mkBaseWhiteSur "catppuccin-macchiato" {
-        image = pkgs.runCommand "dimmed-background.png" { } ''
-          ${lib.getExe' pkgs.imagemagick "magick"} "${../../../assets/Wallpapers/cirnold.png}" -brightness-contrast -10,0 $out
-        '';
-      };
-
       graduation = mkBaseWhiteSur "rose-pine" {
         image = ../../../assets/Wallpapers/graduation.png;
       };
