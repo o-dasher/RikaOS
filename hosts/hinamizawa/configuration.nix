@@ -75,10 +75,9 @@
       };
       sharedFolders = {
         enable = true;
-        rootFolderNames = [ "/shared" ];
+        rootFolderNames = [ "/shared/Media" ];
         folderNames = [
           "/shared/Games"
-          "/shared/Media/"
           "/shared/Media/Torrent"
         ];
       };

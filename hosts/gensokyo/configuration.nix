@@ -16,11 +16,8 @@
     };
     filesystem.sharedFolders = {
       enable = true;
-      rootFolderNames = [
-        "/shared"
-      ];
+      rootFolderNames = [ "/shared/Media" ];
       folderNames = [
-        "/shared/Media"
         "/shared/Media/Music"
         "/shared/Media/Movies"
         "/shared/Media/Series"
