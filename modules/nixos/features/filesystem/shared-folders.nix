@@ -16,23 +16,24 @@ in
     folderNames = mkOption {
       type = types.listOf types.str;
       description = "Shared folders with group write access (2770, users group).";
-      default = [
-        "/shared"
-        "/shared/.config"
-      ];
     };
     rootFolderNames = mkOption {
       type = types.listOf types.str;
       description = "Folders owned by root with 755 permissions, suitable for SSH chroot.";
-      default = [
-        "/shared/.config/public"
-        "/shared/.config/private"
-      ];
     };
   };
 
   config = lib.mkIf cfg.enable {
-    programs.git.config.safe.directory = [ cfg.configurationRoot ];
+    programs.git.config.safe.directory = cfg.folderNames;
+
+    features.filesystem.sharedFolders = {
+      folderNames = [
+        "/shared"
+        "/shared/.config"
+        "/shared/.config/public"
+        "/shared/.config/private"
+      ];
+    };
 
     # 1. Create the folders (ensures they exist)
     systemd.tmpfiles.rules =
@@ -58,6 +59,7 @@ in
           #bash
           ''
             echo "Processing ${path}..."
+
             # Ensure path exists (redundancy for tmpfiles)
             mkdir -p ${path}
 
@@ -76,12 +78,14 @@ in
           '') cfg.folderNames}
 
         # Root folders: owned by root with 755
-        ${lib.concatMapStringsSep "\n" (path: ''
-          if [ -d ${path} ]; then
-            chown root:root ${path}
-            chmod 755 ${path}
-          fi
-        '') cfg.rootFolderNames}
+        ${lib.concatMapStringsSep "\n" (
+          path: # bash
+          ''
+            if [ -d ${path} ]; then
+              chown root:root ${path}
+              chmod 755 ${path}
+            fi
+          '') cfg.rootFolderNames}
       '';
     };
   };
