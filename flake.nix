@@ -127,6 +127,7 @@
       system = "x86_64-linux";
 
       overlays = [
+        inputs.nix-minecraft.overlay
         (
           final: prev:
           let
@@ -137,6 +138,14 @@
               inherit system;
               config.allowUnfree = true;
             };
+
+            # Lix
+            inherit (prev.lixPackageSets.git)
+              nixpkgs-review
+              nix-eval-jobs
+              nix-fast-build
+              colmena
+              ;
 
             # Bleeding edge
             inherit (inputs.walker.packages.${system}) walker;
@@ -249,7 +258,8 @@
             inputs.nix-flatpak.nixosModules.nix-flatpak
             inputs.nix-minecraft.nixosModules.minecraft-servers
             {
-              nixpkgs.overlays = overlays ++ [ inputs.nix-minecraft.overlay ];
+              nix.package = pkgs.lixPackageSets.git.lix;
+              nixpkgs.overlays = overlays;
               networking.hostName = hostName;
               system.stateVersion = systemCfg.state;
               home-manager = {
@@ -277,7 +287,12 @@
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           inherit extraSpecialArgs;
-          modules = get_common_home_modules hostName username homeCfg.state;
+          modules = (get_common_home_modules hostName username homeCfg.state) ++ [
+            {
+              nix.package = pkgs.lixPackageSets.git.lix;
+            }
+          ];
+
         };
     in
     (flake-parts.lib.mkFlake { inherit inputs; } {

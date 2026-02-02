@@ -38,8 +38,6 @@
       nicotine-plus
     ];
 
-    systemd.user.services.nicotine-plus = config.rika.utils.mkAutostartService (
-      "${pkgs.nicotine-plus}/bin/nicotine"
-    );
+    systemd.user.services.nicotine-plus = config.rika.utils.mkAutostartService "${pkgs.nicotine-plus}/bin/nicotine";
   };
 }
