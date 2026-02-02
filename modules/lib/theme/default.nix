@@ -27,12 +27,16 @@ let
             opacity = {
               popups = 0.90;
               terminal = 0.9;
-              desktop = 0.8;
+              desktop = 0.6;
             };
           } theme
         );
     in
     {
+      cirnosunset = mkBaseWhiteSur "rose-pine" {
+        image = ../../../assets/Wallpapers/cirnosunset.jpg;
+      };
+
       graduation = mkBaseWhiteSur "rose-pine" {
         image = ../../../assets/Wallpapers/graduation.png;
       };
