@@ -16,23 +16,25 @@ in
     folderNames = mkOption {
       type = types.listOf types.str;
       description = "Shared folders with group write access (2770, users group).";
-      default = [
-        "/shared"
-        "/shared/.config"
-      ];
     };
     rootFolderNames = mkOption {
       type = types.listOf types.str;
       description = "Folders owned by root with 755 permissions, suitable for SSH chroot.";
-      default = [
-        "/shared/.config/public"
-        "/shared/.config/private"
-      ];
     };
   };
 
   config = lib.mkIf cfg.enable {
     programs.git.config.safe.directory = [ cfg.configurationRoot ];
+    features.filesystem.sharedFolders = {
+      rootFolderNames = [
+        "/shared/.config/public"
+        "/shared/.config/private"
+      ];
+      folderNames = [
+        "/shared"
+        "/shared/.config"
+      ];
+    };
 
     # 1. Create the folders (ensures they exist)
     systemd.tmpfiles.rules =
