@@ -6,8 +6,6 @@
 }:
 let
   cfg = config.features.filesystem.sharedFolders;
-  # Gather all paths into a single list
-  allPaths = [ cfg.configurationRoot ] ++ cfg.folderNames;
 in
 {
   imports = [
@@ -16,14 +14,20 @@ in
 
   options.features.filesystem.sharedFolders = with lib; {
     folderNames = mkOption {
-      default = [ ];
       type = types.listOf types.str;
       description = "Shared folders with group write access (2770, users group).";
+      default = [
+        "/shared"
+        "/shared/.config"
+      ];
     };
     rootFolderNames = mkOption {
-      default = [ ];
       type = types.listOf types.str;
       description = "Folders owned by root with 755 permissions, suitable for SSH chroot.";
+      default = [
+        "/shared/.config/public"
+        "/shared/.config/private"
+      ];
     };
   };
 
@@ -32,7 +36,7 @@ in
 
     # 1. Create the folders (ensures they exist)
     systemd.tmpfiles.rules =
-      map (f: "d ${f} 2770 root users - -") allPaths
+      map (f: "d ${f} 2770 root users - -") cfg.folderNames
       ++ map (f: "d ${f} 0755 root root - -") cfg.rootFolderNames;
 
     # 2. Enforce the "Shared" state (handles existing files & recursion)
@@ -69,7 +73,7 @@ in
             # Set Default ACLs so permissions are inherited by new files
             setfacl -R -m d:g:users:rwx ${path}
             setfacl -R -m g:users:rwx ${path}
-          '') allPaths}
+          '') cfg.folderNames}
 
         # Root folders: owned by root with 755
         ${lib.concatMapStringsSep "\n" (path: ''
