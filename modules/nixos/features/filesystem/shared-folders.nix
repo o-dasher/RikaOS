@@ -24,7 +24,8 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    programs.git.config.safe.directory = [ cfg.configurationRoot ];
+    programs.git.config.safe.directory = cfg.folderNames;
+
     features.filesystem.sharedFolders = {
       folderNames = [
         "/shared"
