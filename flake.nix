@@ -127,6 +127,7 @@
       system = "x86_64-linux";
 
       overlays = [
+        inputs.nix-minecraft.overlay
         (
           final: prev:
           let
@@ -137,6 +138,14 @@
               inherit system;
               config.allowUnfree = true;
             };
+
+            # Lix
+            inherit (prev.lixPackageSets.git)
+              nixpkgs-review
+              nix-eval-jobs
+              nix-fast-build
+              colmena
+              ;
 
             # Bleeding edge
             inherit (inputs.walker.packages.${system}) walker;
@@ -165,23 +174,23 @@
         config.allowUnfree = true;
       };
 
-      systemCfgs = {
+      systemConfigs = {
         hinamizawa = {
-          state = "24.11";
+          stateVersion = "24.11";
           users = [
             "rika"
             "satoko"
           ];
         };
         gensokyo = {
-          state = "24.05";
+          stateVersion = "24.05";
           users = [
             "thiago"
           ];
         };
       };
 
-      homeCfgs = { };
+      homeConfigs = { };
 
       nixCaches = rec {
         trusted-substituters = substituters;
@@ -214,28 +223,38 @@
           ;
       };
 
-      get_common_home_modules = hostName: username: stateVersion: [
-        ./modules/home
-        ./hosts/${hostName}/users/${username}
-        spicetify-nix.homeManagerModules.spicetify
-        agenix.homeManagerModules.default
-        pam-shim.homeModules.default
-        nixcord.homeModules.nixcord
-        mnw.homeManagerModules.mnw
-        zen-browser.homeModules.twilight
-        inputs.walker.homeManagerModules.default
-        inputs.nix-flatpak.homeManagerModules.nix-flatpak
+      get_common_home_modules =
+        hostName:
         {
-          home = {
-            inherit username;
-            inherit stateVersion;
-            homeDirectory = "/home/${username}";
-          };
-        }
-      ];
+          username,
+          stateVersion,
+        }:
+        [
+          ./modules/home
+          ./hosts/${hostName}/users/${username}
+          spicetify-nix.homeManagerModules.spicetify
+          agenix.homeManagerModules.default
+          pam-shim.homeModules.default
+          nixcord.homeModules.nixcord
+          mnw.homeManagerModules.mnw
+          zen-browser.homeModules.twilight
+          inputs.walker.homeManagerModules.default
+          inputs.nix-flatpak.homeManagerModules.nix-flatpak
+          {
+            home = {
+              inherit username;
+              inherit stateVersion;
+              homeDirectory = "/home/${username}";
+            };
+          }
+        ];
 
       mkSystem =
-        hostName: systemCfg:
+        hostName:
+        {
+          stateVersion,
+          users,
+        }:
         nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = extraSpecialArgs;
@@ -249,9 +268,10 @@
             inputs.nix-flatpak.nixosModules.nix-flatpak
             inputs.nix-minecraft.nixosModules.minecraft-servers
             {
-              nixpkgs.overlays = overlays ++ [ inputs.nix-minecraft.overlay ];
-              networking.hostName = hostName;
-              system.stateVersion = systemCfg.state;
+              nixpkgs = { inherit overlays; };
+              networking = { inherit hostName; };
+              system = { inherit stateVersion; };
+              nix.package = pkgs.lixPackageSets.git.lix;
               home-manager = {
                 inherit extraSpecialArgs;
                 useGlobalPkgs = true;
@@ -262,10 +282,13 @@
                     nixpkgs.lib.nameValuePair username (
                       { ... }:
                       {
-                        imports = get_common_home_modules hostName username systemCfg.state;
+                        imports = get_common_home_modules hostName {
+                          inherit stateVersion;
+                          inherit username;
+                        };
                       }
                     )
-                  ) systemCfg.users
+                  ) users
                 );
               };
             }
@@ -273,11 +296,16 @@
         };
 
       mkHome =
-        hostName: homeCfg: username:
+        hostName: homeConfig:
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           inherit extraSpecialArgs;
-          modules = get_common_home_modules hostName username homeCfg.state;
+          modules = (get_common_home_modules hostName homeConfig) ++ [
+            {
+              nix.package = pkgs.lixPackageSets.git.lix;
+            }
+          ];
+
         };
     in
     (flake-parts.lib.mkFlake { inherit inputs; } {
@@ -296,19 +324,19 @@
 
       flake = {
         nixosConfigurations = nixpkgs.lib.mapAttrs' (
-          hostName: cfg: nixpkgs.lib.nameValuePair (cfg.hostName or hostName) (mkSystem hostName cfg)
-        ) systemCfgs;
+          hostName: systemConfig: nixpkgs.lib.nameValuePair hostName (mkSystem hostName systemConfig)
+        ) systemConfigs;
 
         homeConfigurations =
           let
             users = nixpkgs.lib.flatten (
               nixpkgs.lib.mapAttrsToList (
-                hostName: cfg:
+                hostName: homeConfig:
                 map (username: {
                   name = username;
-                  value = mkHome hostName cfg username;
-                }) cfg.users
-              ) homeCfgs
+                  value = mkHome hostName homeConfig;
+                }) homeConfig.users
+              ) homeConfigs
             );
           in
           nixpkgs.lib.listToAttrs users;
