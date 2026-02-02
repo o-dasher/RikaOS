@@ -26,13 +26,11 @@ in
   config = lib.mkIf cfg.enable {
     programs.git.config.safe.directory = [ cfg.configurationRoot ];
     features.filesystem.sharedFolders = {
-      rootFolderNames = [
-        "/shared/.config/public"
-        "/shared/.config/private"
-      ];
       folderNames = [
         "/shared"
         "/shared/.config"
+        "/shared/.config/public"
+        "/shared/.config/private"
       ];
     };
 
@@ -60,6 +58,7 @@ in
           #bash
           ''
             echo "Processing ${path}..."
+
             # Ensure path exists (redundancy for tmpfiles)
             mkdir -p ${path}
 
@@ -78,12 +77,14 @@ in
           '') cfg.folderNames}
 
         # Root folders: owned by root with 755
-        ${lib.concatMapStringsSep "\n" (path: ''
-          if [ -d ${path} ]; then
-            chown root:root ${path}
-            chmod 755 ${path}
-          fi
-        '') cfg.rootFolderNames}
+        ${lib.concatMapStringsSep "\n" (
+          path: # bash
+          ''
+            if [ -d ${path} ]; then
+              chown root:root ${path}
+              chmod 755 ${path}
+            fi
+          '') cfg.rootFolderNames}
       '';
     };
   };
