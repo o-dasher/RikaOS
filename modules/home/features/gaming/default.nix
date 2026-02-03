@@ -1,7 +1,6 @@
 { lib, ... }:
 {
   imports = [
-    ./gamescope.nix
     ./heroic.nix
     ./minecraft.nix
     ./osu.nix

@@ -12,8 +12,10 @@
       terminal.ghostty.enable = true;
 
       editors = {
-        neovim.enable = true;
-        neovim.neovide.enable = true;
+        neovim = {
+          enable = true;
+          neovide.enable = true;
+        };
         jetbrains = {
           enable = true;
           datagrip.enable = true;

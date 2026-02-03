@@ -43,8 +43,13 @@
         matchInterface = "enp6s0";
       };
     };
-    desktop.hyprland.enable = true;
-    boot.enable = true;
+    boot = {
+      enable = true;
+      secure = {
+        enable = true;
+        encryptionUnlock.enable = true;
+      };
+    };
     nix = {
       enable = true;
       nixpkgs.enable = true;
@@ -60,10 +65,6 @@
         accent = "mauve";
         background = ../../assets/Wallpapers/lain.jpg;
       };
-    };
-    security.secureBoot = {
-      enable = true;
-      encryptionUnlock.enable = true;
     };
     filesystem = {
       steamLibrary = {
@@ -165,6 +166,7 @@
     fish.enable = true;
     dconf.enable = true;
     nix-ld.enable = true;
+    hyprland.enable = true;
     steam.gamescopeSession.args = [
       "-w 1920"
       "-h 1080"

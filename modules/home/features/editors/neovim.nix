@@ -11,14 +11,16 @@
   };
 
   config = lib.mkMerge [
+    (lib.mkIf config.features.editors.neovim.neovide.enable {
+      programs.neovide.enable = true;
+    })
     (lib.mkIf config.features.editors.neovim.enable {
-      programs.lazygit.enable = true;
-
       home.file = (config.rika.utils.xdgConfigSelectiveSymLink "nvim/lua/thiago") [
         "set.vim"
       ] { };
 
       programs = {
+        lazygit.enable = true;
         mnw = {
           enable = true;
           initLua = # lua
@@ -91,9 +93,6 @@
           ];
         };
       };
-    })
-    (lib.mkIf config.features.editors.neovim.neovide.enable {
-      programs.neovide.enable = true;
     })
   ];
 }
