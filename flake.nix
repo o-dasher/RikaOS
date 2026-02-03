@@ -101,6 +101,13 @@
         flake-compat.follows = "flake-compat";
       };
     };
+    waybar = {
+      url = "github:Alexays/Waybar";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat";
+      };
+    };
   };
 
   outputs =
@@ -117,6 +124,7 @@
       nixcord,
       spicetify-nix,
       nixpkgs-stable,
+      waybar,
       ...
     }@inputs:
     let
@@ -129,6 +137,7 @@
 
       overlays = [
         inputs.nix-minecraft.overlay
+        waybar.overlays.default
         (
           final: prev:
           let
