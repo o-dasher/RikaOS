@@ -183,9 +183,7 @@
         gensokyo = {
           stateVersion = "24.05";
           system = "x86_64-linux";
-          users = [
-            "thiago"
-          ];
+          users = [ "thiago" ];
         };
       };
 
@@ -226,8 +224,8 @@
         hostName:
         {
           username,
-          stateVersion,
-        }:
+          ...
+        }@homeConfig:
         [
           ./modules/home
           ./hosts/${hostName}/users/${username}
@@ -239,13 +237,7 @@
           zen-browser.homeModules.twilight
           inputs.walker.homeManagerModules.default
           inputs.nix-flatpak.homeManagerModules.nix-flatpak
-          {
-            home = {
-              inherit username;
-              inherit stateVersion;
-              homeDirectory = "/home/${username}";
-            };
-          }
+          { home = ({ homeDirectory = "/home/${username}"; } // homeConfig); }
         ];
 
       mkSystem =
@@ -333,8 +325,8 @@
             users = nixpkgs.lib.flatten (
               nixpkgs.lib.mapAttrsToList (
                 hostName: homeConfig:
-                map (username: {
-                  name = username;
+                map (name: {
+                  inherit name;
                   value = mkHome hostName homeConfig;
                 }) homeConfig.users
               ) homeConfigs
