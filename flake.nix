@@ -124,7 +124,12 @@
       ...
     }@inputs:
     let
-      system = "x86_64-linux";
+      mkPkgs =
+        pkgs: system:
+        import pkgs {
+          inherit system;
+          config.allowUnfree = true;
+        };
 
       overlays = [
         inputs.nix-minecraft.overlay
@@ -134,10 +139,7 @@
             inherit (prev.stdenv.hostPlatform) system;
           in
           {
-            stable = import nixpkgs-stable {
-              inherit system;
-              config.allowUnfree = true;
-            };
+            stable = mkPkgs nixpkgs-stable system;
 
             # Lix
             inherit (prev.lixPackageSets.git)
@@ -169,14 +171,10 @@
         )
       ];
 
-      pkgs = import nixpkgs {
-        inherit system overlays;
-        config.allowUnfree = true;
-      };
-
       systemConfigs = {
         hinamizawa = {
           stateVersion = "24.11";
+          system = "x86_64-linux";
           users = [
             "rika"
             "satoko"
@@ -184,9 +182,8 @@
         };
         gensokyo = {
           stateVersion = "24.05";
-          users = [
-            "thiago"
-          ];
+          system = "x86_64-linux";
+          users = [ "thiago" ];
         };
       };
 
@@ -223,12 +220,12 @@
           ;
       };
 
-      get_common_home_modules =
+      mkHomeModules =
         hostName:
         {
           username,
-          stateVersion,
-        }:
+          ...
+        }@homeConfig:
         [
           ./modules/home
           ./hosts/${hostName}/users/${username}
@@ -240,18 +237,13 @@
           zen-browser.homeModules.twilight
           inputs.walker.homeManagerModules.default
           inputs.nix-flatpak.homeManagerModules.nix-flatpak
-          {
-            home = {
-              inherit username;
-              inherit stateVersion;
-              homeDirectory = "/home/${username}";
-            };
-          }
+          { home = ({ homeDirectory = "/home/${username}"; } // homeConfig); }
         ];
 
       mkSystem =
         hostName:
         {
+          system,
           stateVersion,
           users,
         }:
@@ -271,7 +263,7 @@
               nixpkgs = { inherit overlays; };
               networking = { inherit hostName; };
               system = { inherit stateVersion; };
-              nix.package = pkgs.lixPackageSets.git.lix;
+              nix.package = (mkPkgs nixpkgs system).lixPackageSets.git.lix;
               home-manager = {
                 inherit extraSpecialArgs;
                 useGlobalPkgs = true;
@@ -282,7 +274,7 @@
                     nixpkgs.lib.nameValuePair username (
                       { ... }:
                       {
-                        imports = get_common_home_modules hostName {
+                        imports = mkHomeModules hostName {
                           inherit stateVersion;
                           inherit username;
                         };
@@ -296,11 +288,12 @@
         };
 
       mkHome =
-        hostName: homeConfig:
-        home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
+        hostName:
+        { system, ... }@homeConfig:
+        home-manager.lib.homeManagerConfiguration rec {
           inherit extraSpecialArgs;
-          modules = (get_common_home_modules hostName homeConfig) ++ [
+          pkgs = mkPkgs nixpkgs system;
+          modules = (mkHomeModules hostName homeConfig) ++ [
             {
               nix.package = pkgs.lixPackageSets.git.lix;
             }
@@ -332,8 +325,8 @@
             users = nixpkgs.lib.flatten (
               nixpkgs.lib.mapAttrsToList (
                 hostName: homeConfig:
-                map (username: {
-                  name = username;
+                map (name: {
+                  inherit name;
                   value = mkHome hostName homeConfig;
                 }) homeConfig.users
               ) homeConfigs
