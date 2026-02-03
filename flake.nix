@@ -29,10 +29,6 @@
         pre-commit-hooks.inputs.flake-compat.follows = "flake-compat";
       };
     };
-    flake-utils = {
-      url = "github:numtide/flake-utils";
-      inputs.systems.follows = "systems";
-    };
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
       inputs = {
@@ -101,7 +97,7 @@
       url = "github:Infinidoge/nix-minecraft";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
+        systems.follows = "systems";
         flake-compat.follows = "flake-compat";
       };
     };

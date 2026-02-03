@@ -4,14 +4,22 @@
   config,
   ...
 }:
+let
+  cfg = config.features.boot;
+in
 {
-  options.features.boot.enable = lib.mkEnableOption "boot features";
+  imports = [ ./secure-boot.nix ];
 
-  config =
-    let
-      cfg = config.features.boot;
-    in
-    lib.mkIf cfg.enable {
-      boot.kernelPackages = pkgs.linuxPackages_latest;
+  options.features.boot = with lib; {
+    enable = mkEnableOption "boot features";
+    secure = {
+      enable = mkEnableOption "secureBoot";
+      # Reference for auto unlocking encrypted drive: https://discourse.nixos.org/t/full-disk-encryption-tpm2/29454
+      encryptionUnlock.enable = mkEnableOption "Unlock encrypted drives automatically";
     };
+  };
+
+  config = lib.mkIf cfg.enable {
+    boot.kernelPackages = pkgs.linuxPackages_latest;
+  };
 }

@@ -4,7 +4,7 @@
     ./core
     ./desktop
     ./editors
-    ./dev
+    ./development
     ./gaming
     ./social
     ./terminal
