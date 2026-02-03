@@ -16,6 +16,7 @@
     openssh.enable = true;
     transmission = {
       enable = true;
+      openFirewall = true;
       package = pkgs.transmission_4;
     };
   };
