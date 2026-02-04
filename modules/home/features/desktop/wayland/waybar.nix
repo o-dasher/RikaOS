@@ -92,7 +92,7 @@
                     wpctl = "${pkgs.wireplumber}/bin/wpctl";
                   in
                   {
-                    on-click = "${lib.getExe pkgs.pwvucontrol}";
+                    on-click = lib.getExe pkgs.pwvucontrol;
                     on-scroll-up = "${wpctl} set-volume @DEFAULT_AUDIO_SINK@ ${wheelstep}+";
                     on-scroll-down = "${wpctl} set-volume @DEFAULT_AUDIO_SINK@ ${wheelstep}-";
                     format = "{icon}  {volume}% {format_source}";
