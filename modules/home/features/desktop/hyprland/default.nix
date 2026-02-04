@@ -89,7 +89,7 @@
             "match:namespace ^(waybar)$, animation slide top"
             "match:namespace ^(notifications)$, animation slide right"
             "match:namespace ^(walker)$, animation slide bottom"
-            "match:namespace ^(selection)$, animation off"
+            "match:namespace ^(selection|hyprpicker)$, animation off"
           ];
           windowrule = [
             "tag +games, match:content game"
@@ -196,9 +196,9 @@
               "${mod} SHIFT, J, moveintogroup, d"
               "${mod} SHIFT, U, moveoutofgroup"
 
-              "${mod}, P, ${exec "${getExe grimblast} --notify copy screen"}"
-              "${mod} SHIFT, P, ${exec "${getExe grimblast} --notify copy area"}"
-              "${mod} ALT, P, ${exec "${getExe grimblast} --notify copy active"}"
+              "${mod}, P, ${exec "${getExe grimblast} --freeze --notify copy screen"}"
+              "${mod} SHIFT, P, ${exec "${getExe grimblast} --freeze --notify copy area"}"
+              "${mod} ALT, P, ${exec "${getExe grimblast} --freeze --notify copy active"}"
 
               "CTRL SHIFT, L, ${exec (getExe hyprlock)}"
               "CTRL SHIFT, Q, ${exec (getExe hyprshutdown)}"
