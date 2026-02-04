@@ -37,11 +37,11 @@
       };
     };
 
+    programs.jq.enable = true;
     home.packages = with pkgs; [
       antigravity-fhs
       wget
       heroku
-      jq
     ];
   };
 }

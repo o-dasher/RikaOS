@@ -133,6 +133,7 @@
     };
     caddy = {
       enable = true;
+      openFirewall = true;
       virtualHosts = {
         "jellyfin.dshs.cc".extraConfig = ''
           reverse_proxy 127.0.0.1:8096
@@ -148,8 +149,6 @@
   };
 
   networking.firewall.allowedTCPPorts = [
-    80
-    443
     2022
   ];
 
