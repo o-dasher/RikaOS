@@ -89,6 +89,7 @@
             "match:namespace ^(waybar)$, animation slide top"
             "match:namespace ^(notifications)$, animation slide right"
             "match:namespace ^(walker)$, animation slide bottom"
+            "match:namespace ^(selection)$, animation off"
           ];
           windowrule = [
             "tag +games, match:content game"
