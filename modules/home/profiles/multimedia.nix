@@ -31,7 +31,7 @@
       transmission-remote-gtk
 
       # Video
-      stable.kdePackages.kdenlive
+      kdePackages.kdenlive
       jellyfin-desktop
 
       # Drawing
