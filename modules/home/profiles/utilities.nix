@@ -15,7 +15,6 @@
 
     home.packages = with pkgs; [
       # webcam
-      v4l-utils
       scrcpy
       # general
       gdu

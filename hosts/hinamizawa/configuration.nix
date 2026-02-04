@@ -24,15 +24,17 @@
   theme.lain.enable = true;
   features = {
     core.userPreferences.enable = true;
+    audio.enable = true;
+    virtualization.enable = true;
     graphics.enable = true;
-    hardware.amdgpu.enable = true;
-    hardware.keyboard.enable = true;
+    hardware = {
+      amdgpu.enable = true;
+      keyboard.enable = true;
+    };
     gaming = {
       enable = true;
       suppressNotifications.enable = true;
     };
-    audio.enable = true;
-    virtualization.enable = true;
     networking = {
       enable = true;
       cloudflare = {
@@ -94,13 +96,6 @@
   };
 
   boot = {
-    # Virtual webcam for phone camera via scrcpy
-    extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
-    kernelModules = [ "v4l2loopback" ];
-    extraModprobeConfig = ''
-      options v4l2loopback devices=1 video_nr=10 card_label="Phone Camera" exclusive_caps=1
-    '';
-
     # Disk encryption
     initrd.luks.devices."luks-36bb58a5-3907-4ecc-99b8-3133907e4ab3".device =
       "/dev/disk/by-uuid/36bb58a5-3907-4ecc-99b8-3133907e4ab3";
@@ -168,6 +163,10 @@
     dconf.enable = true;
     nix-ld.enable = true;
     hyprland.enable = true;
+    obs-studio = {
+      enable = true;
+      enableVirtualCamera = true;
+    };
     steam.gamescopeSession.args = [
       "-w 1920"
       "-h 1080"
