@@ -13,8 +13,11 @@
     services.easyeffects.enable = true;
     programs = {
       # Video
-      obs-studio.enable = true;
       mpv.enable = true;
+      obs-studio = {
+        enable = true;
+        plugins = with pkgs.obs-studio-plugins; [ obs-vaapi ];
+      };
 
       # documents / study
       zathura.enable = true;
