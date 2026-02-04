@@ -8,8 +8,9 @@
   options.profiles.gaming.enable = lib.mkEnableOption "Gaming profile";
 
   config = lib.mkIf config.profiles.gaming.enable {
+    programs.mangohud.enable = true;
+
     home.packages = with pkgs; [
-      mangohud
       goverlay
       parsec-bin
     ];

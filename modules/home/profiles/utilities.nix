@@ -11,13 +11,13 @@
     programs = {
       htop.enable = true;
       yazi.enable = true;
+      gdu.enable = true;
     };
 
     home.packages = with pkgs; [
       # webcam
       scrcpy
       # general
-      gdu
       unzip
       # monitor
       mission-center
