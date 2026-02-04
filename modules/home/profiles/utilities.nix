@@ -23,6 +23,8 @@
       # monitor
       mission-center
       lm_sensors
+      # updates
+      nvfetcher
     ];
   };
 }

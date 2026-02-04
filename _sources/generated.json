@@ -1,6 +1,6 @@
 {
     "authme": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "authme",
@@ -15,7 +15,7 @@
         "version": "5.6.0"
     },
     "floodgate-spigot": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "floodgate-spigot",
@@ -30,7 +30,7 @@
         "version": "latest"
     },
     "floodgate-sqlite-database": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "floodgate-sqlite-database",
@@ -45,7 +45,7 @@
         "version": "latest"
     },
     "geyser-spigot": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "geyser-spigot",
@@ -53,14 +53,35 @@
         "pinned": false,
         "src": {
             "name": "Geyser-Spigot.jar",
-            "sha256": "sha256-Rv8BmljZ5AHiG9OcQMG9UwAsi4V5xsS0WdSuFFaQPuw=",
+            "sha256": "sha256-AKArA2QljVkrpNjmCHcwl7fBoutlBCl3VNgmDuXopEY=",
             "type": "url",
             "url": "https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot"
         },
         "version": "latest"
     },
+    "ps4-pkg-tools": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "ps4-pkg-tools",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "xXJSONDeruloXx",
+            "repo": "ps4-pkg-tools",
+            "rev": "v20250825-123142-e7c40358",
+            "sha256": "sha256-t4vs2OEAssSY28XwQngNGv8wui1VKjlYLDpj3JZL/Fg=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v20250825-123142-e7c40358"
+    },
     "skinsrestorer": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "skinsrestorer",
@@ -68,14 +89,14 @@
         "pinned": false,
         "src": {
             "name": "SkinsRestorer.jar",
-            "sha256": "sha256-eNLHgi/b2/RMqs+S4ekg3MCPUcvHhzZgqL/9mPFNeF4=",
+            "sha256": "sha256-FY5s+nLwZqsfHp/MiBE5o2gQv1mTw/4b1HuyjoADtZY=",
             "type": "url",
-            "url": "https://github.com/SkinsRestorer/SkinsRestorer/releases/download/15.9.3/SkinsRestorer.jar"
+            "url": "https://github.com/SkinsRestorer/SkinsRestorer/releases/download/15.10.0/SkinsRestorer.jar"
         },
-        "version": "15.9.3"
+        "version": "15.10.0"
     },
     "viaversion": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "viaversion",

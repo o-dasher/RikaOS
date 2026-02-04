@@ -30,3 +30,8 @@ url.name = "AuthMe.jar"
 src.github = "SkinsRestorer/SkinsRestorer"
 fetch.url = "https://github.com/SkinsRestorer/SkinsRestorer/releases/download/$ver/SkinsRestorer.jar"
 url.name = "SkinsRestorer.jar"
+
+[ps4-pkg-tools]
+src.github = "xXJSONDeruloXx/ps4-pkg-tools"
+fetch.github = "xXJSONDeruloXx/ps4-pkg-tools"
+git.fetchSubmodules = true
