@@ -2,6 +2,7 @@
 {
   imports = [
     ./heroic.nix
+    ./mangohud.nix
     ./minecraft.nix
     ./osu.nix
     ./ps4.nix
