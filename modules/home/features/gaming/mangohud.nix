@@ -11,7 +11,7 @@
       enable = true;
       settings = {
         preset = 1;
-        toggle_hud = "Control_L+Shift_L+o";
+        toggle_hud = "Control_L+Shift_L";
       };
     };
   };
