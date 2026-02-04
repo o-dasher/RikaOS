@@ -125,9 +125,14 @@
       spicetify-nix,
       nixpkgs-stable,
       waybar,
+      walker,
+      nix-flatpak,
+      nix-minecraft,
+      playit-nixos-module,
       ...
     }@inputs:
     let
+      getNixImpl = pkgs: pkgs.lixPackageSets.git.lix;
       mkPkgs =
         pkgs: system:
         import pkgs {
@@ -147,7 +152,7 @@
             stable = mkPkgs nixpkgs-stable system;
 
             # Lix
-            inherit (prev.lixPackageSets.git)
+            inherit (getNixImpl prev)
               nixpkgs-review
               nix-eval-jobs
               nix-fast-build
@@ -155,7 +160,7 @@
               ;
 
             # Bleeding edge
-            inherit (inputs.walker.packages.${system}) walker;
+            inherit (walker.packages.${system}) walker;
 
             # Gamescope
             gamescope = prev.gamescope.overrideAttrs (old: {
@@ -225,6 +230,10 @@
           ;
       };
 
+      mkCommonModules = pkgs: [
+        { nix.package = getNixImpl pkgs; }
+      ];
+
       mkHomeModules =
         hostName:
         {
@@ -240,8 +249,8 @@
           nixcord.homeModules.nixcord
           mnw.homeManagerModules.mnw
           zen-browser.homeModules.twilight
-          inputs.walker.homeManagerModules.default
-          inputs.nix-flatpak.homeManagerModules.nix-flatpak
+          walker.homeManagerModules.default
+          nix-flatpak.homeManagerModules.nix-flatpak
           { home = ({ homeDirectory = "/home/${username}"; } // homeConfig); }
         ];
 
@@ -255,20 +264,19 @@
         nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = extraSpecialArgs;
-          modules = [
+          modules = (mkCommonModules (mkPkgs nixpkgs system)) ++ [
             ./modules/nixos
             ./hosts/${hostName}/configuration.nix
             home-manager.nixosModules.home-manager
             stylix.nixosModules.stylix
             agenix.nixosModules.default
-            inputs.playit-nixos-module.nixosModules.default
-            inputs.nix-flatpak.nixosModules.nix-flatpak
-            inputs.nix-minecraft.nixosModules.minecraft-servers
+            playit-nixos-module.nixosModules.default
+            nix-flatpak.nixosModules.nix-flatpak
+            nix-minecraft.nixosModules.minecraft-servers
             {
               nixpkgs = { inherit overlays; };
               networking = { inherit hostName; };
               system = { inherit stateVersion; };
-              nix.package = (mkPkgs nixpkgs system).lixPackageSets.git.lix;
               home-manager = {
                 inherit extraSpecialArgs;
                 useGlobalPkgs = true;
@@ -298,12 +306,7 @@
         home-manager.lib.homeManagerConfiguration rec {
           inherit extraSpecialArgs;
           pkgs = mkPkgs nixpkgs system;
-          modules = (mkHomeModules hostName homeConfig) ++ [
-            {
-              nix.package = pkgs.lixPackageSets.git.lix;
-            }
-          ];
-
+          modules = (mkCommonModules pkgs) ++ (mkHomeModules hostName homeConfig);
         };
     in
     (flake-parts.lib.mkFlake { inherit inputs; } {
@@ -325,19 +328,17 @@
           hostName: systemConfig: nixpkgs.lib.nameValuePair hostName (mkSystem hostName systemConfig)
         ) systemConfigs;
 
-        homeConfigurations =
-          let
-            users = nixpkgs.lib.flatten (
-              nixpkgs.lib.mapAttrsToList (
-                hostName: homeConfig:
-                map (name: {
-                  inherit name;
-                  value = mkHome hostName homeConfig;
-                }) homeConfig.users
-              ) homeConfigs
-            );
-          in
-          nixpkgs.lib.listToAttrs users;
+        homeConfigurations = nixpkgs.lib.listToAttrs (
+          nixpkgs.lib.flatten (
+            nixpkgs.lib.mapAttrsToList (
+              hostName: homeConfig:
+              map (name: {
+                inherit name;
+                value = mkHome hostName homeConfig;
+              }) homeConfig.users
+            ) homeConfigs
+          )
+        );
       };
     });
 }

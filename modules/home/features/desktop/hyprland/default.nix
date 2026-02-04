@@ -201,7 +201,7 @@
               "${mod} ALT, P, ${exec "${getExe grimblast} --notify copy active"}"
 
               "CTRL SHIFT, L, ${exec (getExe hyprlock)}"
-              "CTRL SHIFT, Q, ${exec "hyprctl dispatch exit"}"
+              "CTRL SHIFT, Q, ${exec (getExe hyprshutdown)}"
 
               ", XF86AudioPlay, ${exec "${getExe playerctl} play-pause"}"
               ", XF86AudioPrev, ${exec "${getExe playerctl} previous"}"
