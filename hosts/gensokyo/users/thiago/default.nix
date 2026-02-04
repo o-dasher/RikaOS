@@ -1,6 +1,5 @@
-{ pkgs, ... }:
+{ ... }:
 {
-  home.packages = with pkgs; [ tmux ];
   features = {
     dev.git.enable = true;
     cli = {
