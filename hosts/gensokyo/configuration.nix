@@ -141,7 +141,7 @@
         "files.dshs.cc".extraConfig = ''
           reverse_proxy 127.0.0.1:8080
           request_body {
-            max_size 16GB
+            max_size 32GB
           }
         '';
       };
