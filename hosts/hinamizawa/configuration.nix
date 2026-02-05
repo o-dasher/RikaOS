@@ -18,6 +18,11 @@
       enable = true;
       openFirewall = true;
       package = pkgs.transmission_4;
+      settings = {
+        incomplete-dir-enabled = true;
+        download-dir = "/shared/Media/Torrent";
+        incomplete-dir = "/shared/Media/Torrent/.incomplete";
+      };
     };
   };
 
@@ -79,10 +84,11 @@
       };
       sharedFolders = {
         enable = true;
-        rootFolderNames = [ "/shared/Media" ];
         folderNames = [
           "/shared/Games"
+          "/shared/Media/"
           "/shared/Media/Torrent"
+          "/shared/Media/Torrent/.incomplete"
         ];
       };
       bitlocker = lib.mkIf (config.age.secrets ? bitlocker-hinamizawa-shared) {
@@ -132,12 +138,14 @@
       ];
     in
     {
+      transmission.extraGroups = [ "users" ];
       rika = {
         isNormalUser = true;
         shell = pkgs.fish;
         extraGroups = [
           "wheel"
           "adbusers"
+          "transmission"
         ]
         ++ commonGroups;
       };
