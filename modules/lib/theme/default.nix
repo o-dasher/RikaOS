@@ -87,13 +87,12 @@ with lib;
     mkMerge (
       map (
         themeName:
-        mkIf (config.features.desktop.theme.enable && config.features.desktop.theme.${themeName}.enable) (
-          mkMerge [
+        mkIf (config.features.desktop.theme.enable && config.features.desktop.theme.${themeName}.enable)
+          (mkMerge [
             (optionalAttrs hasStylix {
               stylix = mkStylixConfig themes.${themeName};
             })
-          ]
-        )
+          ])
       ) themeNames
       ++ [
         {
