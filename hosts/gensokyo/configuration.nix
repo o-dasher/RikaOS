@@ -31,7 +31,12 @@
     networking = {
       enable = true;
       cloudflare.dns.enable = true;
-      stableIPv6 = {
+      ddns = {
+        enable = true;
+        updateIPv4 = false;
+        useWebIPv6 = true;
+      };
+      privacyIPv6 = {
         enable = true;
         matchInterface = "enp1s0";
       };

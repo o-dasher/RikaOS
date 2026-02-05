@@ -6,40 +6,65 @@
 }:
 let
   modCfg = config.features.networking;
-  stableIPv6Cfg = modCfg.stableIPv6;
 in
 with lib;
 {
   options.features.networking = {
-    cloudflare = {
-      warp.enable = mkEnableOption "Warp";
-      dns.enable = mkEnableOption "DNS";
-    };
-    stableIPv6 = {
-      enable = mkEnableOption "stable IPv6 address with systemd-networkd";
-      ipv6 = mkOption {
-        type = types.str;
-        default = "NOT_SET";
-        description = "The static ipv6 address to use";
-      };
-      interface = mkOption {
-        type = types.str;
-        default = "10-lan";
-        description = "Network name for systemd-networkd";
-      };
+    enable = mkEnableOption "networking";
+    privacyIPv6 = {
+      enable = mkEnableOption "Privacy IPv6 address generation";
       matchInterface = mkOption {
         type = types.str;
         description = "Physical interface name to match (e.g., enp6s0)";
       };
     };
-    enable = mkEnableOption "networking";
+    cloudflare = {
+      warp.enable = mkEnableOption "Warp";
+      dns.enable = mkEnableOption "DNS";
+    };
+    ddns = {
+      enable = mkEnableOption "Cloudflare DDNS";
+      domains = mkOption {
+        type = types.listOf types.str;
+        description = "DNS records to update (e.g., host.example.com)";
+      };
+      useWebIPv6 = mkOption {
+        type = types.bool;
+        description = "Use webv6 lookup instead of interface address for DDNS";
+      };
+      updateIPv4 = mkOption {
+        type = types.bool;
+        description = "Whether to update IPv4 (A) records as well";
+      };
+    };
   };
 
   config = mkIf modCfg.enable (mkMerge [
     {
       networking.useNetworkd = true;
-      systemd.network.enable = true;
       services.cloudflare-warp.enable = modCfg.cloudflare.warp.enable;
+      systemd.network = {
+        enable = true;
+        networks."99-network" = mkMerge [
+          {
+            matchConfig.Name = "*";
+            networkConfig = {
+              DHCP = "ipv4";
+              IPv6AcceptRA = true;
+            };
+          }
+          (mkIf modCfg.privacyIPv6.enable {
+            networkConfig = {
+              IPv6LinkLocalAddressGenerationMode = "random";
+              IPv6PrivacyExtensions = "yes";
+            };
+          })
+          (mkIf modCfg.cloudflare.dns.enable {
+            dhcpV4Config.UseDNS = false;
+            ipv6AcceptRAConfig.UseDNS = false;
+          })
+        ];
+      };
     }
 
     (mkIf modCfg.cloudflare.dns.enable {
@@ -62,23 +87,17 @@ with lib;
             DynamicUser = true;
           };
         };
-        network.networks."99-cloudflare-dns" = {
-          matchConfig.Name = "*";
-          dhcpV4Config.UseDNS = false;
-          ipv6AcceptRAConfig.UseDNS = false;
-        };
       };
     })
 
-    (mkIf stableIPv6Cfg.enable {
-      networking.useDHCP = false;
-      systemd.network.networks.${stableIPv6Cfg.interface} = {
-        matchConfig.Name = stableIPv6Cfg.matchInterface;
-        address = [ "${stableIPv6Cfg.ipv6}/64" ];
-        networkConfig = {
-          DHCP = "ipv4";
-          IPv6AcceptRA = true;
-          IPv6LinkLocalAddressGenerationMode = "stable-privacy";
+    (mkIf (modCfg.ddns.enable && config.age.secrets ? cloudflare-ddns-token) {
+      services.cloudflare-ddns = {
+        enable = true;
+        inherit (modCfg.ddns) domains;
+        credentialsFile = config.age.secrets.cloudflare-ddns-token.path;
+        provider = {
+          ipv6 = if modCfg.ddns.useWebIPv6 then "cloudflare.trace" else "local";
+          ipv4 = if modCfg.ddns.updateIPv4 then "cloudflare.trace" else "none";
         };
       };
     })
