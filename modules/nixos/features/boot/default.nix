@@ -9,18 +9,26 @@ let
 in
 with lib;
 {
-  imports = [ ./secure-boot.nix ];
+  imports = [
+    ./limine.nix
+  ];
 
   options.features.boot = {
-    secure = {
-      enable = mkEnableOption "secureBoot";
-      # Reference for auto unlocking encrypted drive: https://discourse.nixos.org/t/full-disk-encryption-tpm2/29454
-      encryptionUnlock.enable = mkEnableOption "Unlock encrypted drives automatically";
+    kernel.enable = mkEnableOption "Install latest linux kernel";
+    limine = {
+      enable = mkEnableOption "Limine boot loader";
+      secure = {
+        enable = mkEnableOption "Setup secure boot";
+        # Reference for auto unlocking encrypted drive: https://discourse.nixos.org/t/full-disk-encryption-tpm2/29454
+        encryptionUnlock.enable = mkEnableOption "Unlock encrypted drives automatically";
+      };
     };
-    enable = mkEnableOption "boot features";
+    enable = mkEnableOption "boot features" // {
+      default = true;
+    };
   };
 
-  config = mkIf modCfg.enable {
+  config = mkIf (modCfg.enable && modCfg.kernel.enable) {
     boot.kernelPackages = pkgs.linuxPackages_latest;
   };
 }

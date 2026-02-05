@@ -49,10 +49,13 @@
       };
     };
     boot = {
-      enable = true;
-      secure = {
+      kernel.enable = true;
+      limine = {
         enable = true;
-        encryptionUnlock.enable = true;
+        secure = {
+          enable = true;
+          encryptionUnlock.enable = true;
+        };
       };
     };
     nix = {
