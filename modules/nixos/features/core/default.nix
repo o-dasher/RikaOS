@@ -6,7 +6,9 @@ with lib;
   ];
 
   options.features.core = {
-    enable = mkEnableOption "core features";
     userPreferences.enable = mkEnableOption "userPreferences";
+    enable = mkEnableOption "core features" // {
+      default = true;
+    };
   };
 }

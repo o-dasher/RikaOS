@@ -2,6 +2,7 @@
   imports = [
     ./cli
     ./core
+    ./filesystem
     ./desktop
     ./editors
     ./development

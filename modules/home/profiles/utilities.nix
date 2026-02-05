@@ -5,11 +5,11 @@
   ...
 }:
 let
-  modCfg = config.profiles.utilities;
+  cfg = config.profiles.utilities;
 in
 with lib;
 {
-  config = mkIf modCfg.enable {
+  config = mkIf cfg.enable {
     programs = {
       htop.enable = true;
       yazi.enable = true;

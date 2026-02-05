@@ -6,7 +6,9 @@ with lib;
   ];
 
   options.features.terminal = {
-    enable = mkEnableOption "terminal features";
     ghostty.enable = mkEnableOption "ghostty";
+    enable = mkEnableOption "terminal features" // {
+      default = true;
+    };
   };
 }

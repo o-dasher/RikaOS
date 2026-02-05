@@ -5,11 +5,11 @@
   ...
 }:
 let
-  modCfg = config.profiles.multimedia;
+  cfg = config.profiles.multimedia;
 in
 with lib;
 {
-  config = mkIf modCfg.enable {
+  config = mkIf cfg.enable {
     services.easyeffects.enable = true;
     programs = {
       # Video

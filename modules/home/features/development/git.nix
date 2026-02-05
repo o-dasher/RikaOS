@@ -5,7 +5,7 @@
   ...
 }:
 let
-  modCfg = config.features.dev;
+  modCfg = config.features.development;
   cfg = modCfg.git;
 in
 with lib;

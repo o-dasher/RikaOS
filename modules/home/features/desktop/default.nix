@@ -9,12 +9,10 @@ with lib;
   ];
 
   options.features.desktop = {
-    enable = mkEnableOption "desktop features";
     fonts.enable = mkEnableOption "common fonts" // {
       default = true;
     };
     hyprland.enable = mkEnableOption "hyprland";
-    theme.enable = mkEnableOption "desktop theme";
     wayland = {
       enable = mkEnableOption "Wayland base integration";
       mako.enable = (mkEnableOption "mako") // {
@@ -26,6 +24,9 @@ with lib;
       walker.enable = (mkEnableOption "walker") // {
         default = true;
       };
+    };
+    enable = mkEnableOption "desktop features" // {
+      default = true;
     };
   };
 }

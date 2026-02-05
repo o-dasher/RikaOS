@@ -26,19 +26,16 @@
     };
   };
 
-  theme.lain.enable = true;
   features = {
-    core.userPreferences.enable = true;
     audio.enable = true;
     virtualization.enable = true;
     graphics.enable = true;
+    gaming.enable = true;
+    desktop.theme.lain.enable = true;
+    core.userPreferences.enable = true;
     hardware = {
       amdgpu.enable = true;
       keyboard.enable = true;
-    };
-    gaming = {
-      enable = true;
-      suppressNotifications.enable = true;
     };
     networking = {
       enable = true;

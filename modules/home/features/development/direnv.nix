@@ -1,6 +1,6 @@
 { lib, config, ... }:
 let
-  modCfg = config.features.dev;
+  modCfg = config.features.development;
   cfg = modCfg.direnv;
 in
 with lib;

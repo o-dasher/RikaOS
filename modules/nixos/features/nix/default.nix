@@ -6,7 +6,6 @@ with lib;
   ];
 
   options.features.nix = {
-    enable = mkEnableOption "nix";
     nixpkgs.enable = mkEnableOption "nixpkgs";
     trusted-users = mkOption {
       default = [ ];
@@ -15,5 +14,6 @@ with lib;
     optimise = mkEnableOption "optmise" // {
       default = true;
     };
+    enable = mkEnableOption "nix";
   };
 }

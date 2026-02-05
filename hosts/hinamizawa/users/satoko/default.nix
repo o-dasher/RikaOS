@@ -2,14 +2,12 @@
   ...
 }:
 {
-  theme.graduation.enable = true;
-
   features = {
     terminal.ghostty.enable = true;
-    desktop.hyprland.enable = true;
-    gaming = {
-      enable = true;
-      mangohud.enable = true;
+    gaming.mangohud.enable = true;
+    desktop = {
+      hyprland.enable = true;
+      theme.graduation.enable = true;
     };
     core.xdg = {
       enable = true;

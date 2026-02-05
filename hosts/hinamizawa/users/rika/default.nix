@@ -3,7 +3,6 @@
   ...
 }:
 {
-  theme.cirnosunset.enable = true;
 
   profiles = {
     development.enable = true;
@@ -16,9 +15,12 @@
   };
 
   features = {
-    desktop.hyprland.enable = true;
     utilities.nemo.enable = true;
     editors.jetbrains.android-studio.enable = true;
+    desktop = {
+      hyprland.enable = true;
+      theme.cirnosunset.enable = true;
+    };
     core.xdg = {
       enable = true;
       portal.enable = true;

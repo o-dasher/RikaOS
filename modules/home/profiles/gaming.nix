@@ -5,7 +5,7 @@
   ...
 }:
 let
-  modCfg = config.profiles.gaming;
+  cfg = config.profiles.gaming;
   # Wrap goverlay in FHS environment so it can find vkbasalt
   goverlay-fhs = pkgs.buildFHSEnv {
     name = "goverlay";
@@ -24,7 +24,7 @@ let
 in
 with lib;
 {
-  config = mkIf modCfg.enable {
+  config = mkIf cfg.enable {
     home.packages = with pkgs; [
       goverlay-fhs
       vkbasalt
@@ -33,7 +33,6 @@ with lib;
     ];
 
     features.gaming = {
-      enable = true;
       steam.enable = true;
       heroic.enable = true;
       mangohud.enable = true;

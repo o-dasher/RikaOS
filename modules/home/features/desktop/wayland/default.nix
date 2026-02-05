@@ -16,8 +16,7 @@ in
     ./waybar.nix
   ];
 
-  config =
-    mkIf (desktopCfg.enable && modCfg.enable) {
+  config = mkIf (desktopCfg.enable && modCfg.enable) {
     home.packages = with pkgs; [
       wl-clipboard
     ];

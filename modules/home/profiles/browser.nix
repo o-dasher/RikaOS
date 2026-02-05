@@ -6,11 +6,11 @@
   ...
 }:
 let
-  modCfg = config.profiles.browser;
+  cfg = config.profiles.browser;
 in
 with lib;
 {
-  config = mkIf modCfg.enable {
+  config = mkIf cfg.enable {
     programs.zen-browser = {
       enable = true;
       package = pkgs.zen-browser;

@@ -6,8 +6,7 @@
   ...
 }:
 let
-  desktopCfg = config.features.desktop or null;
-  modCfg = if desktopCfg == null then null else desktopCfg.theme;
+  modCfg = config.features.desktop.theme;
   hasStylix = options ? stylix;
 in
 {
@@ -15,15 +14,16 @@ in
     ../../../../lib
   ];
 
-  config =
-    lib.mkIf (hasStylix && modCfg != null && desktopCfg.enable && modCfg.enable) {
+  config = lib.optionalAttrs hasStylix (
+    lib.mkIf (config.features.desktop.enable && modCfg.enable) {
       stylix = {
         icons.enable = true;
+        cursor = themeLib.cursor;
         targets = {
           nixcord.enable = false;
           zen-browser.profileNames = [ "default" ];
         };
-        cursor = themeLib.cursor;
       };
-    };
+    }
+  );
 }

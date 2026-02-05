@@ -7,7 +7,6 @@ with lib;
   ];
 
   options.features.editors = {
-    enable = mkEnableOption "editor features";
     neovim = {
       enable = mkEnableOption "neovim";
       neovide.enable = mkEnableOption "neovide";
@@ -17,6 +16,9 @@ with lib;
       android-studio.enable = mkEnableOption "Android Studio";
       datagrip.enable = mkEnableOption "DataGrip";
       rider.enable = mkEnableOption "Rider";
+    };
+    enable = mkEnableOption "editor features" // {
+      default = true;
     };
   };
 }

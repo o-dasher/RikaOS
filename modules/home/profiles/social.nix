@@ -4,11 +4,11 @@
   ...
 }:
 let
-  modCfg = config.profiles.social;
+  cfg = config.profiles.social;
 in
 with lib;
 {
-  config = mkIf modCfg.enable {
+  config = mkIf cfg.enable {
     features.social = {
       enable = true;
       discord.enable = true;
