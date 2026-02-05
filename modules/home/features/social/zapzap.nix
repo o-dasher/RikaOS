@@ -3,8 +3,13 @@
   config,
   ...
 }:
+let
+  modCfg = config.features.social;
+  cfg = modCfg.zapzap;
+in
+with lib;
 {
-  config = lib.mkIf (config.features.social.enable && config.features.social.zapzap.enable) {
+  config = mkIf (modCfg.enable && cfg.enable) {
     programs.zapzap = {
       enable = true;
       settings = {

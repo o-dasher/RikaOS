@@ -5,16 +5,18 @@
   ...
 }:
 let
-  cfg = config.features.boot;
+  modCfg = config.features.boot;
+  cfg = modCfg.secure;
 in
+with lib;
 {
-  config = lib.mkIf (cfg.enable && cfg.secure.enable) {
+  config = mkIf (modCfg.enable && cfg.enable) {
     environment.systemPackages = [
       pkgs.sbctl
     ];
 
     boot = {
-      initrd.systemd = lib.mkIf (cfg.secure.encryptionUnlock.enable) {
+      initrd.systemd = mkIf cfg.encryptionUnlock.enable {
         enable = true;
         tpm2.enable = true;
       };

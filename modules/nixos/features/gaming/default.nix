@@ -4,30 +4,31 @@
   config,
   ...
 }:
+with lib;
 {
   imports = [
     ./opentabletdriver.nix
   ];
 
   options.features.gaming = {
-    enable = lib.mkEnableOption "gaming features";
-    steam.enable = lib.mkEnableOption "Steam" // {
+    enable = mkEnableOption "gaming features";
+    steam.enable = mkEnableOption "Steam" // {
       default = true;
     };
-    controllers.enable = lib.mkEnableOption "Xbox controllers" // {
+    controllers.enable = mkEnableOption "Xbox controllers" // {
       default = true;
     };
-    otd.enable = lib.mkEnableOption "OpenTabletDriver" // {
+    otd.enable = mkEnableOption "OpenTabletDriver" // {
       default = true;
     };
-    suppressNotifications.enable = lib.mkEnableOption "suppress notifications during gaming (requires mako)";
+    suppressNotifications.enable = mkEnableOption "suppress notifications during gaming (requires mako)";
   };
 
   config =
     let
-      cfg = config.features.gaming;
+      modCfg = config.features.gaming;
     in
-    lib.mkIf cfg.enable {
+    mkIf modCfg.enable {
       boot.kernelModules = [ "ntsync" ];
 
       # Enables HDR and fixes stuttering games in wayland.
@@ -42,7 +43,7 @@
               ioprio = "off";
               desiredgov = "off";
             };
-            custom = lib.mkIf cfg.suppressNotifications.enable {
+            custom = mkIf modCfg.suppressNotifications.enable {
               start = "${pkgs.mako}/bin/makoctl mode -s dnd";
               end = "${pkgs.mako}/bin/makoctl mode -s default";
             };
@@ -54,7 +55,7 @@
           capSysNice = false;
         };
 
-        steam = lib.mkIf (cfg.steam.enable) {
+        steam = mkIf (modCfg.steam.enable) {
           enable = true;
           remotePlay.openFirewall = true;
           protontricks.enable = true;
@@ -69,7 +70,7 @@
         };
       };
 
-      hardware = lib.mkIf (cfg.controllers.enable) {
+      hardware = mkIf (modCfg.controllers.enable) {
         xpadneo.enable = true;
         xone.enable = true;
       };

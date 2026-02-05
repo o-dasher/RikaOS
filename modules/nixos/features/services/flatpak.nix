@@ -3,12 +3,13 @@
   config,
   ...
 }:
+let
+  modCfg = config.features.services;
+  cfg = modCfg.flatpak;
+in
+with lib;
 {
-  options.features.services.flatpak = {
-    enable = lib.mkEnableOption "Flatpak support";
-  };
-
-  config = lib.mkIf config.features.services.flatpak.enable {
+  config = mkIf (modCfg.enable && cfg.enable) {
     services.flatpak = {
       enable = true;
       update.onActivation = true;

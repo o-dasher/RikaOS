@@ -3,12 +3,12 @@
   config,
   ...
 }:
+let
+  modCfg = config.profiles.social;
+in
+with lib;
 {
-  options.profiles.social = {
-    enable = lib.mkEnableOption "social profile";
-  };
-
-  config = lib.mkIf config.profiles.social.enable {
+  config = mkIf modCfg.enable {
     features.social = {
       enable = true;
       discord.enable = true;

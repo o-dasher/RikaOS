@@ -5,10 +5,12 @@
   pkgs,
   ...
 }:
+let
+  modCfg = config.profiles.browser;
+in
+with lib;
 {
-  options.profiles.browser.enable = lib.mkEnableOption "browser profile";
-
-  config = lib.mkIf config.profiles.browser.enable {
+  config = mkIf modCfg.enable {
     programs.zen-browser = {
       enable = true;
       package = pkgs.zen-browser;

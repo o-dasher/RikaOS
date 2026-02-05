@@ -1,8 +1,11 @@
 { lib, config, ... }:
+let
+  modCfg = config.features.cli;
+  cfg = modCfg.starship;
+in
+with lib;
 {
-  options.features.cli.starship.enable = lib.mkEnableOption "starship";
-
-  config = lib.mkIf config.features.cli.starship.enable {
+  config = mkIf (modCfg.enable && cfg.enable) {
     programs.starship = {
       enable = true;
       settings = {

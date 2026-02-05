@@ -5,10 +5,13 @@
   inputs,
   ...
 }:
+let
+  modCfg = config.features.gaming;
+  cfg = modCfg.osu;
+in
+with lib;
 {
-  options.features.gaming.osu.enable = lib.mkEnableOption "osu-lazer";
-
-  config = lib.mkIf (config.features.gaming.enable && config.features.gaming.osu.enable) {
+  config = mkIf (modCfg.enable && cfg.enable) {
     home.packages = [
       inputs.nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.osu-lazer-bin
     ];

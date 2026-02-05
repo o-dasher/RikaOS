@@ -1,7 +1,81 @@
+{ lib, ... }:
+with lib;
+let
+  driveOpts =
+    { name, ... }:
+    {
+      options = {
+        device = mkOption {
+          type = types.str;
+          example = "/dev/disk/by-partlabel/Windows";
+        };
+        mountPoint = mkOption {
+          type = types.str;
+          default = "/${name}";
+        };
+        keyFile = mkOption {
+          type = types.path;
+          description = "Path to the decrypted secret provided by agenix.";
+        };
+      };
+    };
+in
 {
   imports = [
     ./bitlocker.nix
     ./shared-folders.nix
     ./steam-library.nix
   ];
+
+  options.features.filesystem = {
+    enable = mkEnableOption "filesystem features";
+    sharedFolders = {
+      enable = mkEnableOption "sharedFolders";
+      folderNames = mkOption {
+        type = types.listOf types.str;
+        description = "Shared folders with group write access (2770, users group).";
+      };
+      rootFolderNames = mkOption {
+        type = types.listOf types.str;
+        description = "Folders owned by root with 755 permissions, suitable for SSH chroot.";
+        default = [ ];
+      };
+    };
+    bitlocker = {
+      enable = mkEnableOption "BitLocker declarative unlock";
+      mountOptions = mkOption {
+        type = types.listOf types.str;
+        default = [
+          "rw"
+          "noatime"
+          "uid=1000"
+          "gid=100"
+          "discard"
+          "iocharset=utf8"
+        ];
+      };
+      drives = mkOption {
+        type = types.attrsOf (types.submodule driveOpts);
+        default = { };
+      };
+    };
+    steamLibrary = {
+      enable = mkEnableOption "shared steam library location";
+      path = mkOption {
+        type = types.str;
+        default = "/shared/SteamGames";
+        description = "Path to the shared steam library";
+      };
+      group = mkOption {
+        type = types.str;
+        default = "steam-gamers";
+        description = "Group that owns the shared library";
+      };
+      users = mkOption {
+        type = types.listOf types.str;
+        default = [ ];
+        description = "Users to add to the shared group";
+      };
+    };
+  };
 }

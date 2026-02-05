@@ -3,12 +3,16 @@
   config,
   ...
 }:
+let
+  modCfg = config.features.graphics;
+in
+with lib;
 {
   options.features.graphics = {
-    enable = lib.mkEnableOption "graphics stack";
+    enable = mkEnableOption "graphics stack";
   };
 
-  config = lib.mkIf config.features.graphics.enable {
+  config = mkIf modCfg.enable {
     hardware.graphics = {
       enable = true;
       enable32Bit = true;

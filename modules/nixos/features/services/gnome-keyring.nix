@@ -3,12 +3,13 @@
   config,
   ...
 }:
+let
+  modCfg = config.features.services;
+  cfg = modCfg.gnome-keyring;
+in
+with lib;
 {
-  options.features.services.gnome-keyring = {
-    enable = lib.mkEnableOption "gnome keyring";
-  };
-
-  config = lib.mkIf config.features.services.gnome-keyring.enable {
+  config = mkIf (modCfg.enable && cfg.enable) {
     services.gnome.gnome-keyring.enable = true;
     security.polkit.enable = true;
   };

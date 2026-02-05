@@ -3,10 +3,13 @@
   config,
   ...
 }:
+let
+  modCfg = config.features.gaming;
+  cfg = modCfg.mangohud;
+in
+with lib;
 {
-  options.features.gaming.mangohud.enable = lib.mkEnableOption "mangohud";
-
-  config = lib.mkIf (config.features.gaming.enable && config.features.gaming.mangohud.enable) {
+  config = mkIf (modCfg.enable && cfg.enable) {
     programs.mangohud = {
       enable = true;
       settings = {

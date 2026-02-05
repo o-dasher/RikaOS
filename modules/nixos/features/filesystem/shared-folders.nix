@@ -5,26 +5,16 @@
   ...
 }:
 let
-  cfg = config.features.filesystem.sharedFolders;
+  modCfg = config.features.filesystem;
+  cfg = modCfg.sharedFolders;
 in
+with lib;
 {
   imports = [
     ../../../home/features/core/shared-folders.nix
   ];
 
-  options.features.filesystem.sharedFolders = with lib; {
-    folderNames = mkOption {
-      type = types.listOf types.str;
-      description = "Shared folders with group write access (2770, users group).";
-    };
-    rootFolderNames = mkOption {
-      type = types.listOf types.str;
-      description = "Folders owned by root with 755 permissions, suitable for SSH chroot.";
-      default = [ ];
-    };
-  };
-
-  config = lib.mkIf cfg.enable {
+  config = mkIf (modCfg.enable && cfg.enable) {
     programs.git.config.safe.directory = cfg.folderNames;
 
     features.filesystem.sharedFolders = {

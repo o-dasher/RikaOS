@@ -3,12 +3,13 @@
   config,
   ...
 }:
+let
+  modCfg = config.features.hardware;
+  cfg = modCfg.amdgpu;
+in
+with lib;
 {
-  options.features.hardware.amdgpu = {
-    enable = lib.mkEnableOption "AMDGPU support";
-  };
-
-  config = lib.mkIf config.features.hardware.amdgpu.enable {
+  config = mkIf (modCfg.enable && cfg.enable) {
     services.lact.enable = true;
     hardware.amdgpu = {
       initrd.enable = true;

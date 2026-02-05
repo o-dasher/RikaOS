@@ -5,6 +5,8 @@
   ...
 }:
 let
+  modCfg = config.features.gaming;
+  cfg = modCfg.ps4;
   sources = pkgs.callPackage ../../../../_sources/generated.nix { };
 
   ps4-pkg-tools = pkgs.stdenv.mkDerivation {
@@ -42,10 +44,9 @@ let
     };
   };
 in
+with lib;
 {
-  options.features.gaming.ps4.enable = lib.mkEnableOption "ps4";
-
-  config = lib.mkIf (config.features.gaming.enable && config.features.gaming.ps4.enable) {
+  config = mkIf (modCfg.enable && cfg.enable) {
     home.packages = [ ps4-pkg-tools ];
     services.flatpak.packages = [ "net.shadps4.shadPS4" ];
   };

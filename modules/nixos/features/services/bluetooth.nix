@@ -3,12 +3,13 @@
   config,
   ...
 }:
+let
+  modCfg = config.features.services;
+  cfg = modCfg.bluetooth;
+in
+with lib;
 {
-  options.features.services.bluetooth = {
-    enable = lib.mkEnableOption "bluetooth";
-  };
-
-  config = lib.mkIf config.features.services.bluetooth.enable {
+  config = mkIf (modCfg.enable && cfg.enable) {
     hardware.bluetooth.enable = true;
     services.blueman.enable = true;
   };

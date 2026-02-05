@@ -4,22 +4,17 @@
   lib,
   ...
 }:
+let
+  modCfg = config.features.editors;
+  cfg = modCfg.neovim;
+in
+with lib;
 {
-  options.features.editors.neovim = {
-    enable = lib.mkEnableOption "neovim";
-    neovide.enable = lib.mkEnableOption "neovide";
-  };
-
-  config = lib.mkMerge [
-    (lib.mkIf
-      (
-        config.features.editors.neovim.enable
-        && config.features.editors.neovim.neovide.enable
-      )
-      {
+  config = mkMerge [
+    (mkIf (modCfg.enable && cfg.enable && cfg.neovide.enable) {
       programs.neovide.enable = true;
     })
-    (lib.mkIf config.features.editors.neovim.enable {
+    (mkIf (modCfg.enable && cfg.enable) {
       home.file = (config.rika.utils.xdgConfigSelectiveSymLink "nvim/lua/thiago") [
         "set.vim"
       ] { };

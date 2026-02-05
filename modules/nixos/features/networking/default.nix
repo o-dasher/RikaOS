@@ -5,44 +5,45 @@
   ...
 }:
 let
-  cfg = config.features.networking;
-  stableIPv6Cfg = cfg.stableIPv6;
+  modCfg = config.features.networking;
+  stableIPv6Cfg = modCfg.stableIPv6;
 in
+with lib;
 {
   options.features.networking = {
-    enable = lib.mkEnableOption "networking";
-    networkManager.enable = lib.mkEnableOption "NetworkManager";
+    enable = mkEnableOption "networking";
+    networkManager.enable = mkEnableOption "NetworkManager";
     cloudflare = {
-      warp.enable = lib.mkEnableOption "Warp";
-      dns.enable = lib.mkEnableOption "DNS";
+      warp.enable = mkEnableOption "Warp";
+      dns.enable = mkEnableOption "DNS";
     };
     stableIPv6 = {
-      enable = lib.mkEnableOption "stable IPv6 address with systemd-networkd";
-      ipv6 = lib.mkOption {
-        type = lib.types.str;
+      enable = mkEnableOption "stable IPv6 address with systemd-networkd";
+      ipv6 = mkOption {
+        type = types.str;
         default = "NOT_SET";
         description = "The static ipv6 address to use";
       };
-      interface = lib.mkOption {
-        type = lib.types.str;
+      interface = mkOption {
+        type = types.str;
         default = "10-lan";
         description = "Network name for systemd-networkd";
       };
-      matchInterface = lib.mkOption {
-        type = lib.types.str;
+      matchInterface = mkOption {
+        type = types.str;
         description = "Physical interface name to match (e.g., enp6s0)";
       };
     };
   };
 
-  config = lib.mkIf cfg.enable (
-    lib.mkMerge [
+  config = mkIf modCfg.enable (
+    mkMerge [
       {
-        networking.networkmanager.enable = cfg.networkManager.enable;
-        services.cloudflare-warp.enable = cfg.cloudflare.warp.enable;
+        networking.networkmanager.enable = modCfg.networkManager.enable;
+        services.cloudflare-warp.enable = modCfg.cloudflare.warp.enable;
       }
 
-      (lib.mkIf cfg.cloudflare.dns.enable {
+      (mkIf modCfg.cloudflare.dns.enable {
         services.resolved = {
           enable = true;
           settings.Resolve = {
@@ -63,7 +64,7 @@ in
         };
       })
 
-      (lib.mkIf stableIPv6Cfg.enable {
+      (mkIf stableIPv6Cfg.enable {
         networking = {
           useDHCP = false;
           useNetworkd = true;
@@ -78,10 +79,10 @@ in
               IPv6AcceptRA = true;
               IPv6LinkLocalAddressGenerationMode = "stable-privacy";
             };
-            dhcpV4Config = lib.mkIf cfg.cloudflare.dns.enable {
+            dhcpV4Config = mkIf modCfg.cloudflare.dns.enable {
               UseDNS = false;
             };
-            ipv6AcceptRAConfig = lib.mkIf cfg.cloudflare.dns.enable {
+            ipv6AcceptRAConfig = mkIf modCfg.cloudflare.dns.enable {
               UseDNS = false;
             };
           };

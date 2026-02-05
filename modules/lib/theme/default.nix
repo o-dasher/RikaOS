@@ -67,22 +67,23 @@ let
     }
     // (lib.filterAttrs (n: v: lib.elem n validKeys) themeConfig);
 in
+with lib;
 {
-  options.theme = lib.mapAttrs (name: _: {
-    enable = lib.mkEnableOption "${name} theme";
+  options.theme = mapAttrs (name: _: {
+    enable = mkEnableOption "${name} theme";
   }) themes;
 
   config =
     let
       hasStylix = options ? stylix;
-      themeNames = lib.attrNames themes;
+      themeNames = attrNames themes;
     in
-    lib.mkMerge (
+    mkMerge (
       map (
         themeName:
-        lib.mkIf config.theme.${themeName}.enable (
-          lib.mkMerge [
-            (lib.optionalAttrs hasStylix {
+        mkIf config.theme.${themeName}.enable (
+          mkMerge [
+            (optionalAttrs hasStylix {
               stylix = mkStylixConfig themes.${themeName};
             })
           ]

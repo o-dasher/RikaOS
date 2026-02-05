@@ -5,6 +5,7 @@
   ...
 }:
 let
+  modCfg = config.profiles.gaming;
   # Wrap goverlay in FHS environment so it can find vkbasalt
   goverlay-fhs = pkgs.buildFHSEnv {
     name = "goverlay";
@@ -21,10 +22,9 @@ let
     '';
   };
 in
+with lib;
 {
-  options.profiles.gaming.enable = lib.mkEnableOption "Gaming profile";
-
-  config = lib.mkIf config.profiles.gaming.enable {
+  config = mkIf modCfg.enable {
     home.packages = with pkgs; [
       goverlay-fhs
       vkbasalt
