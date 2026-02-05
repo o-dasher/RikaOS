@@ -5,13 +5,17 @@
   ...
 }:
 let
-  modCfg = config.features.networking;
+  cfg = config.features.networking;
 in
 with lib;
 {
   options.features.networking = {
     enable = mkEnableOption "networking";
     privacyIPv6.enable = mkEnableOption "Privacy IPv6 address generation";
+    primaryInterface = mkOption {
+      type = types.str;
+      description = "The network interface to match against";
+    };
     cloudflare = {
       warp.enable = mkEnableOption "Warp";
       dns.enable = mkEnableOption "DNS";
@@ -33,27 +37,27 @@ with lib;
     };
   };
 
-  config = mkIf modCfg.enable (mkMerge [
+  config = mkIf cfg.enable (mkMerge [
     {
       networking.useNetworkd = true;
-      services.cloudflare-warp.enable = modCfg.cloudflare.warp.enable;
+      services.cloudflare-warp.enable = cfg.cloudflare.warp.enable;
       systemd.network = {
         enable = true;
         networks."99-network" = mkMerge [
           {
-            matchConfig.Name = "*";
+            matchConfig.Name = cfg.primaryInterface;
             networkConfig = {
               DHCP = "ipv4";
               IPv6AcceptRA = true;
             };
           }
-          (mkIf modCfg.privacyIPv6.enable {
+          (mkIf cfg.privacyIPv6.enable {
             networkConfig = {
               IPv6LinkLocalAddressGenerationMode = "stable-privacy";
               IPv6PrivacyExtensions = "yes";
             };
           })
-          (mkIf modCfg.cloudflare.dns.enable {
+          (mkIf cfg.cloudflare.dns.enable {
             dhcpV4Config.UseDNS = false;
             ipv6AcceptRAConfig.UseDNS = false;
           })
@@ -61,7 +65,7 @@ with lib;
       };
     }
 
-    (mkIf modCfg.cloudflare.dns.enable {
+    (mkIf cfg.cloudflare.dns.enable {
       services.resolved = {
         enable = true;
         settings.Resolve = {
@@ -84,14 +88,20 @@ with lib;
       };
     })
 
-    (mkIf (modCfg.ddns.enable && config.age.secrets ? cloudflare-ddns-token) {
+    (mkIf (cfg.ddns.enable && config.age.secrets ? cloudflare-ddns-token) {
       services.cloudflare-ddns = {
         enable = true;
-        inherit (modCfg.ddns) domains;
+        inherit (cfg.ddns) domains;
         credentialsFile = config.age.secrets.cloudflare-ddns-token.path;
         provider = {
-          ipv6 = if modCfg.ddns.useWebIPv6 then "cloudflare.trace" else "local";
-          ipv4 = if modCfg.ddns.updateIPv4 then "cloudflare.trace" else "none";
+          ipv4 = if cfg.ddns.updateIPv4 then "cloudflare.trace" else "none";
+          ipv6 =
+            if cfg.ddns.useWebIPv6 then
+              "cloudflare.trace"
+            else if cfg.privacyIPv6.enable then
+              "local.iface:${cfg.primaryInterface}"
+            else
+              "local";
         };
       };
     })
