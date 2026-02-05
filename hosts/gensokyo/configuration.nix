@@ -31,14 +31,11 @@
     networking = {
       enable = true;
       cloudflare.dns.enable = true;
+      privacyIPv6.enable = true;
       ddns = {
         enable = true;
         updateIPv4 = false;
         useWebIPv6 = true;
-      };
-      privacyIPv6 = {
-        enable = true;
-        matchInterface = "enp1s0";
       };
     };
   };

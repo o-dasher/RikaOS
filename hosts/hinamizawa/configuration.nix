@@ -39,13 +39,10 @@
     };
     networking = {
       enable = true;
+      privacyIPv6.enable = true;
       cloudflare = {
         warp.enable = true;
         dns.enable = true;
-      };
-      privacyIPv6 = {
-        enable = true;
-        matchInterface = "enp6s0";
       };
     };
     boot = {
