@@ -43,7 +43,7 @@
         warp.enable = true;
         dns.enable = true;
       };
-      stableIPv6 = {
+      privacyIPv6 = {
         enable = true;
         matchInterface = "enp6s0";
       };
