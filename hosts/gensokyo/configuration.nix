@@ -43,6 +43,7 @@
 
   security.polkit.enable = true;
   services = {
+    jellyfin.enable = true;
     fail2ban = {
       enable = true;
       bantime = "24h";
@@ -112,7 +113,6 @@
         };
       };
     };
-    jellyfin.enable = true;
     sftpgo = {
       enable = true;
       extraReadWriteDirs = [ "/shared/Media" ];
