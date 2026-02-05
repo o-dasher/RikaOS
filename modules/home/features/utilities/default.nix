@@ -6,7 +6,9 @@ with lib;
   ];
 
   options.features.utilities = {
-    enable = mkEnableOption "utilities";
     nemo.enable = mkEnableOption "nemo";
+    enable = mkEnableOption "utilities" // {
+      default = true;
+    };
   };
 }

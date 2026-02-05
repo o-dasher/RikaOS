@@ -11,7 +11,6 @@ with lib;
   ];
 
   options.features.gaming = {
-    enable = mkEnableOption "gaming features";
     steam.enable = mkEnableOption "Steam" // {
       default = true;
     };
@@ -21,7 +20,12 @@ with lib;
     otd.enable = mkEnableOption "OpenTabletDriver" // {
       default = true;
     };
-    suppressNotifications.enable = mkEnableOption "suppress notifications during gaming (requires mako)";
+    suppressNotifications.enable =
+      mkEnableOption "suppress notifications during gaming (requires mako)"
+      // {
+        default = true;
+      };
+    enable = mkEnableOption "gaming features";
   };
 
   config =

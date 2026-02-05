@@ -1,7 +1,7 @@
 { ... }:
 {
   features = {
-    dev.git.enable = true;
+    development.git.enable = true;
     cli = {
       hyfetch.enable = true;
       fish.enable = true;

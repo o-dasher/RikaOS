@@ -2,16 +2,17 @@
   lib,
   config,
   pkgs,
+  options,
   ...
 }:
 let
-  desktopCfg = config.features.desktop;
-  modCfg = desktopCfg.wayland;
+  modCfg = config.features.desktop.wayland;
   cfg = modCfg.walker;
+  hasStylix = options ? stylix;
 in
 with lib;
 {
-  config = mkIf (desktopCfg.enable && modCfg.enable && cfg.enable) {
+  config = mkIf (hasStylix && config.features.desktop.enable && modCfg.enable && cfg.enable) {
     home.packages = [ pkgs.app2unit ];
     programs.walker = {
       enable = true;

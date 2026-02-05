@@ -10,7 +10,6 @@ with lib;
   ];
 
   options.features.services = {
-    enable = mkEnableOption "service features";
     bluetooth.enable = mkEnableOption "bluetooth";
     flatpak.enable = mkEnableOption "Flatpak support";
     gnome-keyring.enable = mkEnableOption "gnome keyring";
@@ -29,6 +28,9 @@ with lib;
         type = types.str;
         description = "Catppuccin accent color for SDDM (e.g., mauve, pink)";
       };
+    };
+    enable = mkEnableOption "service features" // {
+      default = true;
     };
   };
 }

@@ -69,9 +69,15 @@ let
 in
 with lib;
 {
-  options.theme = mapAttrs (name: _: {
-    enable = mkEnableOption "${name} theme";
-  }) themes;
+  options.features.desktop.theme =
+    mapAttrs (name: _: {
+      enable = mkEnableOption "${name} theme";
+    }) themes
+    // {
+      enable = mkEnableOption "themes" // {
+        default = true;
+      };
+    };
 
   config =
     let
@@ -81,7 +87,7 @@ with lib;
     mkMerge (
       map (
         themeName:
-        mkIf config.theme.${themeName}.enable (
+        mkIf (config.features.desktop.theme.enable && config.features.desktop.theme.${themeName}.enable) (
           mkMerge [
             (optionalAttrs hasStylix {
               stylix = mkStylixConfig themes.${themeName};

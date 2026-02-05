@@ -6,14 +6,14 @@
   ...
 }:
 let
-  desktopCfg = config.features.desktop;
-  modCfg = desktopCfg.wayland;
+  modCfg = config.features.desktop.wayland;
   cfg = modCfg.waybar;
+  hasStylix = options ? stylix;
 in
 with lib;
 {
   config =
-    mkIf (desktopCfg.enable && modCfg.enable && cfg.enable)
+    mkIf (hasStylix && config.features.desktop.enable && modCfg.enable && cfg.enable)
       (
         optionalAttrs (options ? stylix) {
           stylix.targets.waybar.addCss = false;

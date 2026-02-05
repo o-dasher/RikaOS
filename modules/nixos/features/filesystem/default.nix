@@ -25,12 +25,11 @@ in
     ./bitlocker.nix
     ./shared-folders.nix
     ./steam-library.nix
+    ../../../home/features/filesystem/default.nix
   ];
 
   options.features.filesystem = {
-    enable = mkEnableOption "filesystem features";
     sharedFolders = {
-      enable = mkEnableOption "sharedFolders";
       folderNames = mkOption {
         type = types.listOf types.str;
         description = "Shared folders with group write access (2770, users group).";

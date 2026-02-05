@@ -11,7 +11,6 @@ in
 with lib;
 {
   options.features.networking = {
-    enable = mkEnableOption "networking";
     networkManager.enable = mkEnableOption "NetworkManager";
     cloudflare = {
       warp.enable = mkEnableOption "Warp";
@@ -34,6 +33,7 @@ with lib;
         description = "Physical interface name to match (e.g., enp6s0)";
       };
     };
+    enable = mkEnableOption "networking";
   };
 
   config = mkIf modCfg.enable (

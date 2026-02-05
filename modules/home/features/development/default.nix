@@ -8,11 +8,13 @@ with lib;
     ./secrets.nix
   ];
 
-  options.features.dev = {
-    enable = mkEnableOption "development features";
+  options.features.development = {
     direnv.enable = mkEnableOption "direnv";
     git.enable = mkEnableOption "git";
     godot.enable = mkEnableOption "godot";
     secrets.enable = mkEnableOption "secrets";
+    enable = mkEnableOption "development features" // {
+      default = true;
+    };
   };
 }

@@ -12,12 +12,12 @@ with lib;
   imports = [ ./secure-boot.nix ];
 
   options.features.boot = {
-    enable = mkEnableOption "boot features";
     secure = {
       enable = mkEnableOption "secureBoot";
       # Reference for auto unlocking encrypted drive: https://discourse.nixos.org/t/full-disk-encryption-tpm2/29454
       encryptionUnlock.enable = mkEnableOption "Unlock encrypted drives automatically";
     };
+    enable = mkEnableOption "boot features";
   };
 
   config = mkIf modCfg.enable {

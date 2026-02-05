@@ -2,11 +2,12 @@
   pkgs,
   lib,
   config,
+  options,
   ...
 }:
 let
-  desktopCfg = config.features.desktop;
-  modCfg = desktopCfg.hyprland;
+  modCfg = config.features.desktop.hyprland;
+  hasStylix = options ? stylix;
 
   gaps = 2;
   border_size = 2;
@@ -19,11 +20,13 @@ let
 in
 with lib;
 {
-  config = mkIf (desktopCfg.enable && modCfg.enable) {
+  config = mkIf (config.features.desktop.enable && modCfg.enable) {
     features.desktop.wayland.enable = true;
     programs.hyprlock.enable = true;
     services.hyprpolkitagent.enable = true;
-    home.pointerCursor.hyprcursor.enable = true;
+    home.pointerCursor.hyprcursor.enable = mkIf (
+      hasStylix && config.features.desktop.theme.enable
+    ) true;
 
     xdg.portal = {
       enable = true;
@@ -108,8 +111,10 @@ with lib;
           {
             inherit rounding;
 
-            "col.inactive" = lib.mkForce (
-              config.lib.stylix.mkOpacityHexColor config.lib.stylix.colors.base03 config.stylix.opacity.desktop
+            "col.inactive" = mkIf hasStylix (
+              mkForce (
+                config.lib.stylix.mkOpacityHexColor config.lib.stylix.colors.base03 config.stylix.opacity.desktop
+              )
             );
 
             height = 1;

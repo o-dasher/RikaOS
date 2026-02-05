@@ -10,10 +10,6 @@ let
 in
 with lib;
 {
-  imports = [
-    ../../../home/features/core/shared-folders.nix
-  ];
-
   config = mkIf (modCfg.enable && cfg.enable) {
     programs.git.config.safe.directory = cfg.folderNames;
 

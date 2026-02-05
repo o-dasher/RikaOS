@@ -5,11 +5,11 @@
   ...
 }:
 let
-  modCfg = config.profiles.development;
+  cfg = config.profiles.development;
 in
 with lib;
 {
-  config = mkIf modCfg.enable {
+  config = mkIf cfg.enable {
     features = {
       terminal.ghostty.enable = true;
 
@@ -24,7 +24,7 @@ with lib;
         };
       };
 
-      dev = {
+      development = {
         direnv.enable = true;
         secrets.enable = true;
         git.enable = true;
