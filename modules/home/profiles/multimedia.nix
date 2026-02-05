@@ -4,12 +4,12 @@
   config,
   ...
 }:
+let
+  modCfg = config.profiles.multimedia;
+in
+with lib;
 {
-  options.profiles.multimedia = {
-    enable = lib.mkEnableOption "multimedia profile";
-  };
-
-  config = lib.mkIf config.profiles.multimedia.enable {
+  config = mkIf modCfg.enable {
     services.easyeffects.enable = true;
     programs = {
       # Video

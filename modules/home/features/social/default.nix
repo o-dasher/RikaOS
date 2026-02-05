@@ -1,4 +1,5 @@
 { lib, ... }:
+with lib;
 {
   imports = [
     ./discord.nix
@@ -6,12 +7,12 @@
   ];
 
   options.features.social = {
-    enable = lib.mkEnableOption "social features";
-    zapzap.enable = lib.mkEnableOption "ZapZap";
+    enable = mkEnableOption "social features";
+    zapzap.enable = mkEnableOption "ZapZap";
     discord = {
-      enable = lib.mkEnableOption "Discord with Krisp";
-      enableKrispPatch = lib.mkOption {
-        type = lib.types.bool;
+      enable = mkEnableOption "Discord with Krisp";
+      enableKrispPatch = mkOption {
+        type = types.bool;
         default = true;
         description = "Enable the Krisp noise suppression patch for Discord";
       };

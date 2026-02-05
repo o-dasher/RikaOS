@@ -4,52 +4,13 @@
   lib,
   ...
 }:
-with lib;
 let
-  cfg = config.features.filesystem.bitlocker;
-
-  driveOpts =
-    { name, ... }:
-    {
-      options = {
-        device = mkOption {
-          type = types.str;
-          example = "/dev/disk/by-partlabel/Windows";
-        };
-        mountPoint = mkOption {
-          type = types.str;
-          default = "/${name}";
-        };
-        keyFile = mkOption {
-          type = types.path;
-          description = "Path to the decrypted secret provided by agenix.";
-        };
-      };
-    };
+  modCfg = config.features.filesystem;
+  cfg = modCfg.bitlocker;
 in
+with lib;
 {
-  options.features.filesystem.bitlocker = {
-    enable = mkEnableOption "BitLocker declarative unlock";
-
-    mountOptions = mkOption {
-      type = types.listOf types.str;
-      default = [
-        "rw"
-        "noatime"
-        "uid=1000"
-        "gid=100"
-        "discard"
-        "iocharset=utf8"
-      ];
-    };
-
-    drives = mkOption {
-      type = types.attrsOf (types.submodule driveOpts);
-      default = { };
-    };
-  };
-
-  config = mkIf cfg.enable {
+  config = mkIf (modCfg.enable && cfg.enable) {
     boot.supportedFilesystems.ntfs = true;
     systemd.services.bitlocker-unlock = {
       description = "Unlock BitLocker drives via agenix secrets";

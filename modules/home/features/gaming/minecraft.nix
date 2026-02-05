@@ -4,9 +4,13 @@
   pkgs,
   ...
 }:
+let
+  modCfg = config.features.gaming;
+  cfg = modCfg.minecraft;
+in
+with lib;
 {
-  options.features.gaming.minecraft.enable = lib.mkEnableOption "minecraft";
-  config = lib.mkIf (config.features.gaming.enable && config.features.gaming.minecraft.enable) {
+  config = mkIf (modCfg.enable && cfg.enable) {
     home.packages = [
       (pkgs.prismlauncher.override {
         jdks = with pkgs; [

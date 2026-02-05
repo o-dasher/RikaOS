@@ -4,10 +4,11 @@
   pkgs,
   ...
 }:
+with lib;
 {
   options.rika = {
-    utils = lib.mkOption {
-      type = lib.types.attrs;
+    utils = mkOption {
+      type = types.attrs;
       default = { };
       description = "Utility functions for RikaOS configuration";
     };
@@ -30,7 +31,7 @@
 
       selectiveSymLink =
         from: to: paths: opts:
-        lib.mkMerge (
+        mkMerge (
           map (filePath: {
             "${to}/${filePath}" = {
               source = config.lib.file.mkOutOfStoreSymlink (builtins.toPath /. + "${from}/${filePath}");
@@ -54,11 +55,11 @@
         let
           # Filter to only include base16/24 color names (base00-base0F, base10-base17)
           # Excludes derivatives like base00-hex, base00-rgb-r, etc.
-          colors = lib.filterAttrs (
+          colors = filterAttrs (
             name: _: builtins.match "base[0-1][0-9A-Fa-f]" name != null
           ) config.lib.stylix.colors;
           colorEntries = builtins.concatStringsSep ", " (
-            lib.mapAttrsToList (name: value: "${name}: \"#${value}\"") colors
+            mapAttrsToList (name: value: "${name}: \"#${value}\"") colors
           );
         in
         builtins.readFile (

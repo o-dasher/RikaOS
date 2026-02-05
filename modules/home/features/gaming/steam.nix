@@ -5,12 +5,12 @@
   ...
 }:
 let
-  cfg = config.features.gaming.steam;
+  modCfg = config.features.gaming;
+  cfg = modCfg.steam;
 in
+with lib;
 {
-  options.features.gaming.steam.enable = lib.mkEnableOption "Steam";
-
-  config = lib.mkIf (config.features.gaming.enable && cfg.enable) {
-    systemd.user.services.steam = config.rika.utils.mkAutostartService "${lib.getExe pkgs.steam} -silent";
+  config = mkIf (modCfg.enable && cfg.enable) {
+    systemd.user.services.steam = config.rika.utils.mkAutostartService "${getExe pkgs.steam} -silent";
   };
 }

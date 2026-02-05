@@ -4,10 +4,13 @@
   pkgs,
   ...
 }:
+let
+  modCfg = config.features.dev;
+  cfg = modCfg.secrets;
+in
+with lib;
 {
-  options.features.dev.secrets.enable = lib.mkEnableOption "secrets";
-
-  config = lib.mkIf (config.features.dev.secrets.enable && config.age.secrets ? gemini-api-key) {
+  config = mkIf (modCfg.enable && cfg.enable && config.age.secrets ? gemini-api-key) {
     home.sessionVariables = {
       GEMINI_API_KEY = ''
         $(${pkgs.coreutils}/bin/cat ${config.age.secrets.gemini-api-key.path})

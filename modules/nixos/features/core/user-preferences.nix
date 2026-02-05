@@ -1,10 +1,11 @@
 { lib, config, ... }:
+let
+  modCfg = config.features.core;
+  cfg = modCfg.userPreferences;
+in
+with lib;
 {
-  options.features.core.userPreferences = with lib; {
-    enable = mkEnableOption "userPreferences";
-  };
-
-  config = lib.mkIf config.features.core.userPreferences.enable {
+  config = mkIf (modCfg.enable && cfg.enable) {
     time.timeZone = "Brazil/West";
     i18n.defaultLocale = "en_US.UTF-8";
     console.keyMap = "br-abnt2";

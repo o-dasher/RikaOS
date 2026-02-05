@@ -5,8 +5,8 @@
   ...
 }:
 let
-  socialCfg = config.features.social;
-  cfg = socialCfg.discord;
+  modCfg = config.features.social;
+  cfg = modCfg.discord;
 
   krisp-patcher = pkgs.fetchurl {
     url = "https://github.com/keysmashes/sys/raw/25f9bc04e6b8d59c1abb32bf4e7ce8ed8de048e2/hm/discord/krisp-patcher.py";
@@ -25,8 +25,9 @@ let
       --exec ${pythonWithPackages}/bin/python ${krisp-patcher}
   '';
 in
+with lib;
 {
-  config = lib.mkIf (socialCfg.enable && cfg.enable) {
+  config = mkIf (modCfg.enable && cfg.enable) {
     systemd.user.services =
       let
         mkTrayService =
@@ -35,12 +36,12 @@ in
             pkg,
             condition,
           }:
-          lib.nameValuePair name (
-            lib.mkIf condition (config.rika.utils.mkAutostartService "${lib.getExe pkg} --start-minimized")
+          nameValuePair name (
+            mkIf condition (config.rika.utils.mkAutostartService "${getExe pkg} --start-minimized")
           );
       in
       {
-        krisp-patcher = lib.mkIf cfg.enableKrispPatch {
+        krisp-patcher = mkIf cfg.enableKrispPatch {
           Unit = {
             Description = "Patch Discord Krisp node";
             After = [ "graphical-session-pre.target" ];

@@ -4,10 +4,13 @@
   pkgs,
   ...
 }:
+let
+  modCfg = config.features.dev;
+  cfg = modCfg.godot;
+in
+with lib;
 {
-  options.features.dev.godot.enable = lib.mkEnableOption "godot";
-
-  config = lib.mkIf config.features.dev.godot.enable {
+  config = mkIf (modCfg.enable && cfg.enable) {
     home.packages = [ pkgs.godot ];
   };
 }

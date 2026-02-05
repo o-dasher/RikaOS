@@ -3,12 +3,14 @@
   config,
   ...
 }:
+let
+  modCfg = config.features.gaming;
+  cfg = modCfg.otd;
+in
+with lib;
 {
   config =
-    let
-      cfg = config.features.gaming;
-    in
-    lib.mkIf (cfg.enable && cfg.otd.enable) {
+    mkIf (modCfg.enable && cfg.enable) {
       boot.kernelModules = [ "uinput" ];
       hardware = {
         uinput.enable = true;

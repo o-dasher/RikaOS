@@ -5,32 +5,12 @@
   ...
 }:
 let
-  cfg = config.features.filesystem.steamLibrary;
+  modCfg = config.features.filesystem;
+  cfg = modCfg.steamLibrary;
 in
+with lib;
 {
-  options.features.filesystem.steamLibrary = {
-    enable = lib.mkEnableOption "shared steam library location";
-
-    path = lib.mkOption {
-      type = lib.types.str;
-      default = "/shared/SteamGames";
-      description = "Path to the shared steam library";
-    };
-
-    group = lib.mkOption {
-      type = lib.types.str;
-      default = "steam-gamers";
-      description = "Group that owns the shared library";
-    };
-
-    users = lib.mkOption {
-      type = lib.types.listOf lib.types.str;
-      default = [ ];
-      description = "Users to add to the shared group";
-    };
-  };
-
-  config = lib.mkIf cfg.enable {
+  config = mkIf (modCfg.enable && cfg.enable) {
     users.groups.${cfg.group}.members = cfg.users;
 
     systemd.services.init-shared-steam-library = {
@@ -71,7 +51,7 @@ in
       (pkgs.writeShellScriptBin "setup-shared-steam-library" ''
         set -euo pipefail
 
-        ${lib.concatMapStrings (
+        ${concatMapStrings (
           user:
           #bash
           ''

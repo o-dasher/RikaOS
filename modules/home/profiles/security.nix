@@ -4,12 +4,12 @@
   config,
   ...
 }:
+let
+  modCfg = config.profiles.security;
+in
+with lib;
 {
-  options.profiles.security = {
-    enable = lib.mkEnableOption "security profile";
-  };
-
-  config = lib.mkIf config.profiles.security.enable {
+  config = mkIf modCfg.enable {
     home.packages = with pkgs; [
       bitwarden-desktop
     ];

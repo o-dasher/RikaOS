@@ -4,10 +4,12 @@
   config,
   ...
 }:
+let
+  modCfg = config.profiles.development;
+in
+with lib;
 {
-  options.profiles.development.enable = lib.mkEnableOption "Development profile";
-
-  config = lib.mkIf config.profiles.development.enable {
+  config = mkIf modCfg.enable {
     features = {
       terminal.ghostty.enable = true;
 

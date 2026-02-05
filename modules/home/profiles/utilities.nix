@@ -4,10 +4,12 @@
   config,
   ...
 }:
+let
+  modCfg = config.profiles.utilities;
+in
+with lib;
 {
-  options.profiles.utilities.enable = lib.mkEnableOption "Utilities profile";
-
-  config = lib.mkIf config.profiles.utilities.enable {
+  config = mkIf modCfg.enable {
     programs = {
       htop.enable = true;
       yazi.enable = true;

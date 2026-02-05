@@ -3,12 +3,13 @@
   config,
   ...
 }:
+let
+  modCfg = config.features.services;
+  cfg = modCfg.openrgb;
+in
+with lib;
 {
-  options.features.services.openrgb = {
-    enable = lib.mkEnableOption "openrgb";
-  };
-
-  config = lib.mkIf config.features.services.openrgb.enable {
+  config = mkIf (modCfg.enable && cfg.enable) {
     services.hardware.openrgb.enable = true;
     services.hardware.openrgb.startupProfile = "black.orp";
 

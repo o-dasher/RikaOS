@@ -4,13 +4,16 @@
   osConfig ? null,
   ...
 }:
+let
+  modCfg = config.features.dev;
+  cfg = modCfg.git;
+in
+with lib;
 {
-  options.features.dev.git.enable = lib.mkEnableOption "git";
-
-  config = lib.mkIf config.features.dev.git.enable {
+  config = mkIf (modCfg.enable && cfg.enable) {
     programs.git = {
       enable = true;
-      settings.safe.directory = lib.mkIf (
+      settings.safe.directory = mkIf (
         osConfig != null
       ) osConfig.features.filesystem.sharedFolders.folderNames;
     };

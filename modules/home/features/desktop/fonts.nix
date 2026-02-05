@@ -5,14 +5,15 @@
   options,
   ...
 }:
+let
+  desktopCfg = config.features.desktop;
+  modCfg = desktopCfg.fonts;
+in
+with lib;
 {
-  options.features.desktop.fonts.enable = lib.mkEnableOption "common fonts" // {
-    default = true;
-  };
-
-  config = lib.mkIf config.features.desktop.fonts.enable (
-    lib.mkMerge [
-      (lib.optionalAttrs (options ? stylix) {
+  config = mkIf (desktopCfg.enable && modCfg.enable) (
+    mkMerge [
+      (optionalAttrs (options ? stylix) {
         stylix.fonts = {
           monospace = {
             package = pkgs.nerd-fonts.jetbrains-mono;

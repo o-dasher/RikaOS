@@ -5,12 +5,13 @@
   ...
 }:
 let
-  cfg = config.features.boot;
+  modCfg = config.features.boot;
 in
+with lib;
 {
   imports = [ ./secure-boot.nix ];
 
-  options.features.boot = with lib; {
+  options.features.boot = {
     enable = mkEnableOption "boot features";
     secure = {
       enable = mkEnableOption "secureBoot";
@@ -19,7 +20,7 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf modCfg.enable {
     boot.kernelPackages = pkgs.linuxPackages_latest;
   };
 }

@@ -1,4 +1,5 @@
 { lib, ... }:
+with lib;
 {
   imports = [
     ./heroic.nix
@@ -9,5 +10,13 @@
     ./steam.nix
   ];
 
-  options.features.gaming.enable = lib.mkEnableOption "Gaming";
+  options.features.gaming = {
+    enable = mkEnableOption "Gaming";
+    heroic.enable = mkEnableOption "heroic";
+    mangohud.enable = mkEnableOption "mangohud";
+    minecraft.enable = mkEnableOption "minecraft";
+    osu.enable = mkEnableOption "osu-lazer";
+    ps4.enable = mkEnableOption "ps4";
+    steam.enable = mkEnableOption "Steam";
+  };
 }

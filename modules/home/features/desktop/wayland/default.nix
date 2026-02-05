@@ -4,6 +4,11 @@
   pkgs,
   ...
 }:
+with lib;
+let
+  desktopCfg = config.features.desktop;
+  modCfg = desktopCfg.wayland;
+in
 {
   imports = [
     ./walker.nix
@@ -11,8 +16,8 @@
     ./waybar.nix
   ];
 
-  options.features.desktop.wayland.enable = lib.mkEnableOption "Wayland base integration";
-  config = lib.mkIf config.features.desktop.wayland.enable {
+  config =
+    mkIf (desktopCfg.enable && modCfg.enable) {
     home.packages = with pkgs; [
       wl-clipboard
     ];

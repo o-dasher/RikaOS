@@ -4,10 +4,13 @@
   pkgs,
   ...
 }:
+let
+  modCfg = config.features.cli;
+  cfg = modCfg.gemini;
+in
+with lib;
 {
-  options.features.cli.gemini.enable = lib.mkEnableOption "gemini-cli";
-
-  config = lib.mkIf config.features.cli.gemini.enable {
+  config = mkIf (modCfg.enable && cfg.enable) {
     programs.gemini-cli = {
       enable = true;
       package = pkgs.gemini-cli-bin;

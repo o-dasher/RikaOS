@@ -3,17 +3,17 @@
   config,
   ...
 }:
+let
+  modCfg = config.features.core;
+  cfg = modCfg.xdg;
+in
+with lib;
 {
-  options.features.core.xdg = {
-    enable = lib.mkEnableOption "xdg";
-    portal.enable = lib.mkEnableOption "portal";
-  };
-
-  config = lib.mkIf config.features.core.xdg.enable {
+  config = mkIf (modCfg.enable && cfg.enable) {
     xdg = {
       enable = true;
       mime.enable = true;
-      portal = lib.mkIf config.features.core.xdg.portal.enable {
+      portal = mkIf cfg.portal.enable {
         enable = true;
         xdgOpenUsePortal = true;
       };

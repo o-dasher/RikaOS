@@ -6,18 +6,13 @@
   ...
 }:
 let
-  cfg = config.features.editors.jetbrains;
+  modCfg = config.features.editors;
+  cfg = modCfg.jetbrains;
 in
+with lib;
 {
-  options.features.editors.jetbrains = with lib; {
-    enable = mkEnableOption "JetBrains IDEs configuration";
-    android-studio.enable = mkEnableOption "Android Studio";
-    datagrip.enable = mkEnableOption "DataGrip";
-    rider.enable = mkEnableOption "Rider";
-  };
-
-  config = lib.mkMerge [
-    (lib.mkIf cfg.enable {
+  config = mkMerge [
+    (mkIf (modCfg.enable && cfg.enable) {
       home = {
         file = (
           config.rika.utils.xdgConfigSelectiveSymLink "ideavim" [
@@ -27,19 +22,25 @@ in
         packages =
           with pkgs;
           with jetbrains;
-          lib.optionals cfg.android-studio.enable [
+          optionals cfg.android-studio.enable [
             android-tools
             android-studio
           ]
-          ++ lib.optionals cfg.datagrip.enable [
+          ++ optionals cfg.datagrip.enable [
             datagrip
           ]
-          ++ lib.optionals cfg.rider.enable [
+          ++ optionals cfg.rider.enable [
             rider
           ];
       };
     })
-    (lib.mkIf (cfg.enable && (osConfig == null || !osConfig.home-manager.useGlobalPkgs)) {
+    (mkIf
+      (
+        modCfg.enable
+        && cfg.enable
+        && (osConfig == null || !osConfig.home-manager.useGlobalPkgs)
+      )
+      {
       nixpkgs.config.android_sdk.accept_license = cfg.android-studio.enable;
     })
   ];

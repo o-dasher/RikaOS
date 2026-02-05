@@ -5,15 +5,17 @@
   options,
   ...
 }:
+let
+  desktopCfg = config.features.desktop;
+  modCfg = desktopCfg.wayland;
+  cfg = modCfg.waybar;
+in
+with lib;
 {
-  options.features.desktop.wayland.waybar.enable = (lib.mkEnableOption "waybar") // {
-    default = true;
-  };
-
   config =
-    lib.mkIf (config.features.desktop.wayland.enable && config.features.desktop.wayland.waybar.enable)
+    mkIf (desktopCfg.enable && modCfg.enable && cfg.enable)
       (
-        lib.optionalAttrs (options ? stylix) {
+        optionalAttrs (options ? stylix) {
           stylix.targets.waybar.addCss = false;
         }
         // {
@@ -30,7 +32,7 @@
                   format = "${name} {temperatureC}°C";
                 };
               in
-              lib.optionalAttrs config.features.desktop.hyprland.enable {
+              optionalAttrs config.features.desktop.hyprland.enable {
                 modules-left = [
                   "hyprland/workspaces"
                   "hyprland/workspaces#active"
@@ -92,7 +94,7 @@
                     wpctl = "${pkgs.wireplumber}/bin/wpctl";
                   in
                   {
-                    on-click = lib.getExe pkgs.pwvucontrol;
+                    on-click = getExe pkgs.pwvucontrol;
                     on-scroll-up = "${wpctl} set-volume @DEFAULT_AUDIO_SINK@ ${wheelstep}+";
                     on-scroll-down = "${wpctl} set-volume @DEFAULT_AUDIO_SINK@ ${wheelstep}-";
                     format = "{icon}  {volume}% {format_source}";
@@ -122,7 +124,7 @@
                     @apply border-solid;
                   '';
               in
-              lib.mkAfter (
+              mkAfter (
                 config.rika.utils.css.tailwindCSS # css
                   ''
                     @tailwind utilities;

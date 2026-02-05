@@ -3,10 +3,14 @@
   config,
   ...
 }:
+let
+  modCfg = config.features.audio;
+in
+with lib;
 {
-  options.features.audio.enable = lib.mkEnableOption "audio features";
+  options.features.audio.enable = mkEnableOption "audio features";
 
-  config = lib.mkIf config.features.audio.enable {
+  config = mkIf modCfg.enable {
     security.rtkit.enable = true;
     services.pipewire = {
       enable = true;
