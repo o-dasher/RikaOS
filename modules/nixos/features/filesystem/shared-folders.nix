@@ -20,6 +20,7 @@ in
     rootFolderNames = mkOption {
       type = types.listOf types.str;
       description = "Folders owned by root with 755 permissions, suitable for SSH chroot.";
+      default = [ ];
     };
   };
 
