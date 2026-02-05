@@ -35,7 +35,7 @@
       ddns = {
         enable = true;
         updateIPv4 = false;
-        useWebIPv6 = true;
+        useWebIPv6 = false;
       };
     };
   };
