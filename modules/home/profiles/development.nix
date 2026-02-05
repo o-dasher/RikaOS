@@ -40,6 +40,7 @@
     programs.jq.enable = true;
     home.packages = with pkgs; [
       antigravity-fhs
+      codex
       wget
       heroku
     ];
