@@ -10,6 +10,7 @@
 
   config = lib.mkIf config.profiles.social.enable {
     features.social = {
+      enable = true;
       discord.enable = true;
       zapzap.enable = true;
     };

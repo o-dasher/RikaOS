@@ -11,7 +11,12 @@
   };
 
   config = lib.mkMerge [
-    (lib.mkIf config.features.editors.neovim.neovide.enable {
+    (lib.mkIf
+      (
+        config.features.editors.neovim.enable
+        && config.features.editors.neovim.neovide.enable
+      )
+      {
       programs.neovide.enable = true;
     })
     (lib.mkIf config.features.editors.neovim.enable {

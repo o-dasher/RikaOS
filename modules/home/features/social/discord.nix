@@ -5,7 +5,8 @@
   ...
 }:
 let
-  cfg = config.features.social.discord;
+  socialCfg = config.features.social;
+  cfg = socialCfg.discord;
 
   krisp-patcher = pkgs.fetchurl {
     url = "https://github.com/keysmashes/sys/raw/25f9bc04e6b8d59c1abb32bf4e7ce8ed8de048e2/hm/discord/krisp-patcher.py";
@@ -25,7 +26,7 @@ let
   '';
 in
 {
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (socialCfg.enable && cfg.enable) {
     systemd.user.services =
       let
         mkTrayService =
