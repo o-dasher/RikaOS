@@ -6,6 +6,7 @@
   ];
 
   options.features.social = {
+    enable = lib.mkEnableOption "social features";
     zapzap.enable = lib.mkEnableOption "ZapZap";
     discord = {
       enable = lib.mkEnableOption "Discord with Krisp";

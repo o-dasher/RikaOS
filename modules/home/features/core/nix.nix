@@ -23,7 +23,8 @@
     })
     (lib.mkIf
       (
-        config.features.core.nix.nixpkgs.enable
+        config.features.core.nix.enable
+        && config.features.core.nix.nixpkgs.enable
         && (osConfig == null || !osConfig.home-manager.useGlobalPkgs)
       )
       {

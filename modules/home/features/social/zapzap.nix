@@ -4,7 +4,7 @@
   ...
 }:
 {
-  config = lib.mkIf config.features.social.zapzap.enable {
+  config = lib.mkIf (config.features.social.enable && config.features.social.zapzap.enable) {
     programs.zapzap = {
       enable = true;
       settings = {
