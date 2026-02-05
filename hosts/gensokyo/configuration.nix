@@ -14,6 +14,10 @@
       enable = true;
       nixpkgs.enable = true;
     };
+    boot = {
+      kernel.enable = true;
+      limine.enable = true;
+    };
     filesystem.sharedFolders = {
       enable = true;
       rootFolderNames = [ "/shared/Media" ];
@@ -32,11 +36,6 @@
         matchInterface = "enp1s0";
       };
     };
-  };
-
-  boot.loader = {
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = true;
   };
 
   security.polkit.enable = true;
