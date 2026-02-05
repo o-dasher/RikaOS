@@ -13,19 +13,17 @@ with lib;
     programs = {
       htop.enable = true;
       yazi.enable = true;
+      scrcpy.enable = true;
+      gdu.enable = true;
+      nvfetcher.enable = true;
     };
 
     home.packages = with pkgs; [
-      # webcam
-      scrcpy
       # general
-      gdu
       unzip
       # monitor
       mission-center
       lm_sensors
-      # updates
-      nvfetcher
     ];
   };
 }
