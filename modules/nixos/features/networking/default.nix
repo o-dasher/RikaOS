@@ -11,13 +11,7 @@ with lib;
 {
   options.features.networking = {
     enable = mkEnableOption "networking";
-    privacyIPv6 = {
-      enable = mkEnableOption "Privacy IPv6 address generation";
-      matchInterface = mkOption {
-        type = types.str;
-        description = "Physical interface name to match (e.g., enp6s0)";
-      };
-    };
+    privacyIPv6.enable = mkEnableOption "Privacy IPv6 address generation";
     cloudflare = {
       warp.enable = mkEnableOption "Warp";
       dns.enable = mkEnableOption "DNS";
@@ -55,7 +49,7 @@ with lib;
           }
           (mkIf modCfg.privacyIPv6.enable {
             networkConfig = {
-              IPv6LinkLocalAddressGenerationMode = "random";
+              IPv6LinkLocalAddressGenerationMode = "stable-privacy";
               IPv6PrivacyExtensions = "yes";
             };
           })
