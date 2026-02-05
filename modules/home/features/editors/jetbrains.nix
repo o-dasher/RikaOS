@@ -34,13 +34,7 @@ with lib;
           ];
       };
     })
-    (mkIf
-      (
-        modCfg.enable
-        && cfg.enable
-        && (osConfig == null || !osConfig.home-manager.useGlobalPkgs)
-      )
-      {
+    (mkIf (modCfg.enable && cfg.enable && (osConfig == null || !osConfig.home-manager.useGlobalPkgs)) {
       nixpkgs.config.android_sdk.accept_license = cfg.android-studio.enable;
     })
   ];

@@ -6,12 +6,11 @@ let
 in
 with lib;
 {
-  config.services.mako =
-    mkIf (desktopCfg.enable && modCfg.enable && cfg.enable) {
-      enable = true;
-      settings = {
-        default-timeout = 3000;
-        "mode=dnd".invisible = 1;
-      };
+  config.services.mako = mkIf (desktopCfg.enable && modCfg.enable && cfg.enable) {
+    enable = true;
+    settings = {
+      default-timeout = 3000;
+      "mode=dnd".invisible = 1;
     };
+  };
 }
