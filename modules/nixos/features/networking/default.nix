@@ -26,6 +26,10 @@ with lib;
         type = types.listOf types.str;
         description = "DNS records to update (e.g., host.example.com)";
       };
+      zone = mkOption {
+        type = types.str;
+        description = "Cloudflare zone name (e.g., example.com)";
+      };
       useWebIPv6 = mkOption {
         type = types.bool;
         description = "Use webv6 lookup instead of interface address for DDNS";
@@ -39,8 +43,8 @@ with lib;
 
   config = mkIf cfg.enable (mkMerge [
     {
-      networking.useNetworkd = true;
       services.cloudflare-warp.enable = cfg.cloudflare.warp.enable;
+      networking.useNetworkd = true;
       systemd.network = {
         enable = true;
         networks."99-network" = mkMerge [
@@ -89,20 +93,16 @@ with lib;
     })
 
     (mkIf (cfg.ddns.enable && config.age.secrets ? cloudflare-ddns-token) {
-      services.cloudflare-ddns = {
+      services.ddclient = {
         enable = true;
-        inherit (cfg.ddns) domains;
-        credentialsFile = config.age.secrets.cloudflare-ddns-token.path;
-        provider = {
-          ipv4 = if cfg.ddns.updateIPv4 then "cloudflare.trace" else "none";
-          ipv6 =
-            if cfg.ddns.useWebIPv6 then
-              "cloudflare.trace"
-            else if cfg.privacyIPv6.enable then
-              "local.iface:${cfg.primaryInterface}"
-            else
-              "local";
-        };
+        inherit (cfg.ddns) domains zone;
+        username = "token";
+        passwordFile = config.age.secrets.cloudflare-ddns-token.path;
+        protocol = "cloudflare";
+        server = "api.cloudflare.com/client/v4";
+        usev4 = if cfg.ddns.updateIPv4 then "webv4, webv4=ipify-ipv4" else "";
+        usev6 =
+          if cfg.ddns.useWebIPv6 then "webv6, webv6=ipify-ipv6" else "ifv6, ifv6=${cfg.primaryInterface}";
       };
     })
   ]);
