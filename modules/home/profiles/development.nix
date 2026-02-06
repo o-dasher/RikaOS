@@ -41,8 +41,9 @@ with lib;
 
     programs.jq.enable = true;
     home.packages = with pkgs; [
-      antigravity-fhs
       github-copilot-cli
+      bashInteractive
+      antigravity-fhs
       codex
       wget
       heroku
