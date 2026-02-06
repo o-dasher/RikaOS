@@ -108,6 +108,13 @@
         flake-compat.follows = "flake-compat";
       };
     };
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+      };
+    };
   };
 
   outputs =
@@ -129,6 +136,7 @@
       nix-flatpak,
       nix-minecraft,
       playit-nixos-module,
+      neovim-nightly-overlay,
       ...
     }@inputs:
     let
@@ -143,6 +151,7 @@
       overlays = [
         inputs.nix-minecraft.overlay
         waybar.overlays.default
+        neovim-nightly-overlay.overlays.default
         (
           final: prev:
           let
