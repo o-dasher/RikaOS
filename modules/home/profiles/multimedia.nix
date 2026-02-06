@@ -33,6 +33,7 @@ with lib;
       # Video
       kdePackages.kdenlive
       jellyfin-desktop
+      feishin
 
       # Drawing
       krita
