@@ -17,12 +17,11 @@ with lib;
     virtualisation = {
       spiceUSBRedirection.enable = true;
       libvirtd.enable = true;
-      docker = {
+      podman = {
         enable = true;
-        rootless = {
-          enable = true;
-          setSocketVariable = true;
-        };
+        dockerCompat = true;
+        dockerSocket.enable = true;
+        defaultNetwork.settings.dns_enabled = true;
       };
     };
   };
