@@ -58,11 +58,13 @@ with lib;
           extraBinPath = with pkgs; [
             # LSP
             lua-language-server
-            nixd # Nix
             yaml-language-server # Yaml
             llvmPackages.clang-tools # C and CPP
             omnisharp-roslyn # C-sharp
             rust-analyzer # Rust
+            # Nix
+            nixd
+            statix
             # Python
             pyright
             ruff

@@ -43,13 +43,16 @@ return {
 			"tailwindcss",
 			"cssls",
 
+			-- nix
+			"statix",
+			"nixd",
+
 			-- typescript
 			"ts_ls",
 			"biome",
 
 			"svelte", -- svelte
 			"yamlls", -- yaml
-			"nixd", -- nix
 			"texlab", -- tex
 
 			"lua_ls", -- lua
