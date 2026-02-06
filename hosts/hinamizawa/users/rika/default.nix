@@ -18,6 +18,7 @@
 
   features = {
     utilities.nemo.enable = true;
+    utilities.trash.enable = true;
     editors.jetbrains.android-studio.enable = true;
     desktop = {
       hyprland.enable = true;

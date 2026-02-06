@@ -1,6 +1,7 @@
 { ... }:
 {
   features = {
+    utilities.trash.enable = true;
     development.git.enable = true;
     cli = {
       hyfetch.enable = true;
