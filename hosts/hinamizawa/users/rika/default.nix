@@ -1,7 +1,5 @@
 {
   pkgs,
-  config,
-  lib,
   ...
 }:
 {
@@ -17,9 +15,19 @@
   };
 
   features = {
-    utilities.nemo.enable = true;
-    utilities.trash.enable = true;
     editors.jetbrains.android-studio.enable = true;
+    utilities = {
+      nemo.enable = true;
+      trash.enable = true;
+    };
+    filesystem.sftpman = {
+      automount.enable = true;
+      mounts."gensokyo" = {
+        host = "files.dshs.cc";
+        user = "thiago";
+        mountPoint = "/shared/Media";
+      };
+    };
     desktop = {
       hyprland.enable = true;
       theme.cirnosunset.enable = true;
@@ -42,32 +50,10 @@
 
     # tools
     pwvucontrol
-    sshfs
   ];
 
   programs = {
     home-manager.enable = true;
     imv.enable = true;
-    sftpman = {
-      enable = true;
-      defaultSshKey = "${config.home.homeDirectory}/.ssh/id_ed25519";
-      mounts."gensokyo" = {
-        host = "files.dshs.cc";
-        user = "thiago";
-        mountPoint = "/shared/Media";
-        mountDestPath = "${config.home.homeDirectory}/mnt/gensokyo";
-        authType = "publickey";
-        mountOptions = [
-          "reconnect"
-          "ServerAliveInterval=15"
-          "ServerAliveCountMax=3"
-          "ConnectTimeout=5"
-          "default_permissions"
-          "nodev"
-          "nosuid"
-          "noexec"
-        ];
-      };
-    };
   };
 }

@@ -1,34 +1,18 @@
 { lib, ... }:
 with lib;
 let
-  driveOpts =
-    { name, ... }:
-    {
-      options = {
-        device = mkOption {
-          type = types.str;
-          example = "/dev/disk/by-partlabel/Windows";
-        };
-        mountPoint = mkOption {
-          type = types.str;
-          default = "/${name}";
-        };
-        keyFile = mkOption {
-          type = types.path;
-          description = "Path to the decrypted secret provided by agenix.";
-        };
-      };
-    };
 in
 {
   imports = [
     ./bitlocker.nix
     ./shared-folders.nix
     ./steam-library.nix
-    ../../../home/features/filesystem/default.nix
   ];
 
   options.features.filesystem = {
+    enable = mkEnableOption "filesystem features" // {
+      default = true;
+    };
     sharedFolders = {
       folderNames = mkOption {
         type = types.listOf types.str;
@@ -54,8 +38,28 @@ in
         ];
       };
       drives = mkOption {
-        type = types.attrsOf (types.submodule driveOpts);
         default = { };
+        type = types.attrsOf (
+          types.submodule (
+            { name, ... }:
+            {
+              options = {
+                device = mkOption {
+                  type = types.str;
+                  example = "/dev/disk/by-partlabel/Windows";
+                };
+                mountPoint = mkOption {
+                  type = types.str;
+                  default = "/${name}";
+                };
+                keyFile = mkOption {
+                  type = types.path;
+                  description = "Path to the decrypted secret provided by agenix.";
+                };
+              };
+            }
+          )
+        );
       };
     };
     steamLibrary = {
