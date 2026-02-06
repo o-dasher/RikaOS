@@ -11,22 +11,23 @@ in
 with lib;
 {
   config = mkIf (modCfg.enable && cfg.enable) {
-    programs.ssh = {
-      enable = true;
-      matchBlocks = {
-        "github.com" = {
-          hostname = "github.com";
-          user = "git";
-          identityFile = "~/.ssh/id_ed25519";
+    programs = {
+      ssh = {
+        enable = true;
+        matchBlocks = {
+          "github.com" = {
+            hostname = "github.com";
+            user = "git";
+            identityFile = "~/.ssh/id_ed25519";
+          };
         };
       };
-    };
-
-    programs.git = {
-      enable = true;
-      settings.safe.directory = mkIf (
-        osConfig != null
-      ) osConfig.features.filesystem.sharedFolders.folderNames;
+      git = {
+        enable = true;
+        settings.safe.directory = mkIf (
+          osConfig != null
+        ) osConfig.features.filesystem.sharedFolders.folderNames;
+      };
     };
   };
 }
