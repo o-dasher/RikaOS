@@ -28,6 +28,10 @@ in
     };
 
     home.sessionVariables = {
+      # Ensure OpenSSL-backed apps find CA certs.
+      SSL_CERT_DIR = "${pkgs.cacert}/etc/ssl/certs";
+      SSL_CERT_FILE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
+
       # Electron
       NIXOS_OZONE_WL = "1";
 

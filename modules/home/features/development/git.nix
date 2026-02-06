@@ -12,6 +12,7 @@ with lib;
 {
   config = mkIf (modCfg.enable && cfg.enable) {
     programs = {
+      gh.enable = true;
       ssh = {
         enable = true;
         enableDefaultConfig = false;
