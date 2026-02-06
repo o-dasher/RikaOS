@@ -15,18 +15,7 @@ with lib;
 
     programs.sftpman = {
       enable = true;
-      defaultSshKey = mkDefault "~/.ssh/id_ed25519";
-      mounts = mapAttrs (name: mount: {
-        inherit (mount)
-          host
-          user
-          mountPoint
-          mountDestPath
-          authType
-          mountOptions
-          ;
-        sshKey = if mount.sshKey != null then mount.sshKey else "~/.ssh/id_ed25519";
-      }) cfg.mounts;
+      inherit (cfg) defaultSshKey mounts;
     };
 
     systemd.user.services.sftpman-automount = mkIf cfg.automount.enable {
@@ -39,6 +28,7 @@ with lib;
         Type = "oneshot";
         ExecStart = "${pkgs.sftpman}/bin/sftpman mount_all";
         RemainAfterExit = true;
+        Environment = [ "SSH_AUTH_SOCK=%t/ssh-agent" ];
       };
       Install.WantedBy = [ "default.target" ];
     };
