@@ -144,6 +144,7 @@
           "wheel"
           "adbusers"
           "transmission"
+          "podman"
         ]
         ++ commonGroups;
       };
