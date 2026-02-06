@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, config, ... }:
 with lib;
 {
   imports = [
@@ -8,6 +8,10 @@ with lib;
   options.features.filesystem = {
     sftpman = {
       automount.enable = mkEnableOption "sftpman automount via systemd";
+      defaultSSHKey = mkOption {
+        type = types.str;
+        default = "${config.home.homeDirectory}/.ssh/id_ed25519";
+      };
       mounts = mkOption {
         default = { };
         description = "sftpman mounts with sensible defaults";
@@ -21,30 +25,30 @@ with lib;
                 mountPoint = mkOption { type = types.str; };
                 mountDestPath = mkOption {
                   type = types.str;
-                  default = "~/mnt/${name}";
+                  default = "${config.home.homeDirectory}/mnt/${name}";
                 };
-              authType = mkOption {
-                type = types.str;
-                default = "publickey";
+                authType = mkOption {
+                  type = types.str;
+                  default = "publickey";
+                };
+                sshKey = mkOption {
+                  type = types.nullOr types.str;
+                  default = config.features.filesystem.sftpman.defaultSSHKey;
+                };
+                mountOptions = mkOption {
+                  type = types.listOf types.str;
+                  default = [
+                    "reconnect"
+                    "ServerAliveInterval=15"
+                    "ServerAliveCountMax=3"
+                    "ConnectTimeout=5"
+                    "default_permissions"
+                    "nodev"
+                    "nosuid"
+                    "noexec"
+                  ];
+                };
               };
-              sshKey = mkOption {
-                type = types.nullOr types.str;
-                default = null;
-              };
-              mountOptions = mkOption {
-                type = types.listOf types.str;
-                default = [
-                  "reconnect"
-                  "ServerAliveInterval=15"
-                  "ServerAliveCountMax=3"
-                  "ConnectTimeout=5"
-                  "default_permissions"
-                  "nodev"
-                  "nosuid"
-                  "noexec"
-                ];
-              };
-            };
             }
           )
         );
