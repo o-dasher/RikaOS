@@ -27,11 +27,10 @@ with lib;
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       goverlay-fhs
+      vkbasalt
       vulkan-tools
       parsec-bin
     ];
-
-    programs.vkbasalt.enable = true;
 
     features.gaming = {
       steam.enable = true;
