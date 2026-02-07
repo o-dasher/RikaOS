@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  osConfig ? null,
   ...
 }:
 with lib;
@@ -36,11 +37,17 @@ in
       NIXOS_OZONE_WL = "1";
 
       # SDL
-      OSU_SDL3 = "1";
       SDL_VIDEODRIVER = "wayland";
 
       # Fixes ghostty dead keys.
       GTK_IM_MODULE = "simple";
+
+      # UWSM and App2Unit
+      UWSM_APP_UNIT_TYPE = "service";
+      APP2UNIT_TYPE = "service";
+      APP2UNIT_SLICES = lib.mkIf (
+        osConfig != null && osConfig.programs.uwsm.enable
+      ) "a=app-graphical.slice b=background-graphical.slice s=session-graphical.slice";
     };
   };
 }

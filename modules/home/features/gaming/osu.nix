@@ -12,8 +12,11 @@ in
 with lib;
 {
   config = mkIf (modCfg.enable && cfg.enable) {
-    home.packages = [
-      inputs.nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.osu-lazer-bin
-    ];
+    home = {
+      sessionVariables.OSU_SDL3 = 1;
+      packages = [
+        inputs.nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.osu-lazer-bin
+      ];
+    };
   };
 }
