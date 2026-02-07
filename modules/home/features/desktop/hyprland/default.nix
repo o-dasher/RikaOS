@@ -3,11 +3,13 @@
   lib,
   config,
   options,
+  osConfig ? null,
   ...
 }:
 let
   modCfg = config.features.desktop.hyprland;
   hasStylix = options ? stylix;
+  hasUWSM = osConfig != null && osConfig.programs.hyprland.withUWSM;
 
   gaps = 2;
   border_size = 2;
@@ -40,7 +42,7 @@ with lib;
     wayland.windowManager.hyprland = {
       enable = true;
       systemd = {
-        enable = true;
+        enable = !hasUWSM;
         enableXdgAutostart = true;
         variables = [ "--all" ];
       };
@@ -206,7 +208,7 @@ with lib;
             "${mod} ALT, P, ${exec "${getExe grimblast} --freeze --notify copy active"}"
 
             "CTRL SHIFT, L, ${exec (getExe hyprlock)}"
-            "CTRL SHIFT, Q, ${exec (getExe hyprshutdown)}"
+            "CTRL SHIFT, Q, ${exec (if hasUWSM then "${getExe uwsm} stop" else (getExe hyprshutdown))}"
 
             ", XF86AudioPlay, ${exec "${getExe playerctl} play-pause"}"
             ", XF86AudioPrev, ${exec "${getExe playerctl} previous"}"
