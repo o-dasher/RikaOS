@@ -22,7 +22,9 @@ with lib;
       };
     }
     (mkIf cfg.secure.enable {
-      environment.systemPackages = [ pkgs.sbctl ];
+      environment.systemPackages =
+        with pkgs;
+        ([ sbctl ] ++ optionals cfg.secure.encryptionUnlock.enable [ tpm2-tss ]);
       boot = {
         loader.limine.secureBoot.enable = true;
         initrd.systemd = mkIf cfg.secure.encryptionUnlock.enable {
