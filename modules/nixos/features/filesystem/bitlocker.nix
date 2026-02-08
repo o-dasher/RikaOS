@@ -11,7 +11,19 @@ in
 with lib;
 {
   config = mkIf (modCfg.enable && cfg.enable) {
+    services.udisks2.enable = true;
     boot.supportedFilesystems.ntfs = true;
+
+    # Allow wheel group and root to use udisksctl without polkit authentication
+    security.polkit.extraConfig = ''
+      polkit.addRule(function(action, subject) {
+        if (action.id.indexOf("org.freedesktop.udisks2.") == 0 &&
+            (subject.user == "root" || subject.isInGroup("wheel"))) {
+          return polkit.Result.YES;
+        }
+      });
+    '';
+
     systemd.services.bitlocker-unlock = {
       description = "Unlock BitLocker drives via agenix secrets";
 
@@ -19,11 +31,18 @@ with lib;
       after = [
         "systemd-udev-settle.service"
         "agenix.service"
+        "udisks2.service"
       ];
-      wants = [ "agenix.service" ];
+
+      wants = [
+        "agenix.service"
+        "udisks2.service"
+      ];
+
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
+        User = "root";
         Type = "oneshot";
         RemainAfterExit = "yes";
         Environment = "PATH=${
@@ -31,7 +50,8 @@ with lib;
             with pkgs;
             [
               coreutils
-              cryptsetup
+              ripgrep
+              udisks
               util-linux
             ]
           )
@@ -43,21 +63,26 @@ with lib;
           name: drive:
           # bash
           ''
-            # Skip if the device is already unlocked
-            if [ -e /dev/mapper/${name} ]; then
-              echo "Device ${name} is already unlocked, skipping..."
+            # Unlock via udisksctl using the key file (skip if already unlocked)
+            if ! lsblk ${drive.device} -o TYPE -n | rg -q crypt; then
+              echo "Unlocking ${drive.device}..."
+              cat ${drive.keyFile} | tr -d '[:space:]' | udisksctl unlock -b ${drive.device} --key-file /dev/stdin || echo "Unlock failed or already unlocked, continuing..."
             else
-              # 1. Read key, strip newlines/spaces, and pipe it
-              # 2. Use --key-file=- to read from the pipe
-              cat ${drive.keyFile} | tr -d '[:space:]' | cryptsetup open --type bitlk ${drive.device} ${name} \
-                --key-file=- --allow-discards --verbose
+              echo "Device ${drive.device} is already unlocked, skipping..."
             fi
 
-            # Mount if not already mounted
+            # Find the unlocked dm device
+            dm_device=$(lsblk -ln -o PATH ${drive.device} | tail -n1)
+
+            # Mount to the desired location
             if ! mountpoint -q ${drive.mountPoint}; then
               mkdir -p ${drive.mountPoint}
-              mount /dev/mapper/${name} ${drive.mountPoint} -t ntfs3 \
-                  -o ${concatStringsSep "," cfg.mountOptions}
+              udisksctl mount -b "$dm_device" --options ${concatStringsSep "," cfg.mountOptions} || true
+              # Bind mount to desired location if udisks mounted elsewhere
+              udisks_mount=$(lsblk -no MOUNTPOINT "$dm_device" | head -n1)
+              if [ -n "$udisks_mount" ] && [ "$udisks_mount" != "${drive.mountPoint}" ]; then
+                mount --bind "$udisks_mount" ${drive.mountPoint}
+              fi
             else
               echo "Mount point ${drive.mountPoint} is already mounted, skipping..."
             fi
@@ -67,7 +92,9 @@ with lib;
       preStop = concatStringsSep "\n" (
         mapAttrsToList (name: drive: ''
           umount -v ${drive.mountPoint} || true
-          cryptsetup close -v ${name} || true
+          dm_device=$(lsblk -ln -o PATH ${drive.device} | tail -n1)
+          udisksctl unmount -b "$dm_device" || true
+          udisksctl lock -b ${drive.device} || true
         '') cfg.drives
       );
     };
