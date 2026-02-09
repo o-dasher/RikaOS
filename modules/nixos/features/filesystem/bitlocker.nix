@@ -14,17 +14,6 @@ with lib;
     services.udisks2.enable = true;
     boot.supportedFilesystems.ntfs = true;
 
-    # Allow wheel group and root to use udisksctl without polkit authentication
-    security.polkit.extraConfig = # js
-      ''
-        polkit.addRule(function(action, subject) {
-          if (action.id.indexOf("org.freedesktop.udisks2.") == 0 &&
-              (subject.user == "root" || subject.isInGroup("wheel"))) {
-            return polkit.Result.YES;
-          }
-        });
-      '';
-
     systemd.services.bitlocker-unlock = {
       description = "Unlock BitLocker drives via agenix secrets";
 
