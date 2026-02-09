@@ -1,6 +1,7 @@
-{ lib, ... }:
+{ lib, config, ... }:
 with lib;
 let
+  cfg = config.features.filesystem.bitlocker;
 in
 {
   imports = [
@@ -26,6 +27,11 @@ in
     };
     bitlocker = {
       enable = mkEnableOption "BitLocker declarative unlock";
+      defaultKeyFile = mkOption {
+        type = types.nullOr types.path;
+        default = null;
+        description = "Default path to the decrypted secret provided by agenix.";
+      };
       mountOptions = mkOption {
         type = types.listOf types.str;
         default = [
@@ -54,6 +60,7 @@ in
                 };
                 keyFile = mkOption {
                   type = types.path;
+                  default = cfg.defaultKeyFile;
                   description = "Path to the decrypted secret provided by agenix.";
                 };
               };
