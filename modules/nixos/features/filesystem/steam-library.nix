@@ -25,7 +25,9 @@ with lib;
         "d ${cfg.path} 2775 root ${cfg.group} - -"
         "d ${cfg.path}/steamapps 2775 root ${cfg.group} - -"
       ]
-      ++ map (d: "d ${cfg.path}/steamapps/${d} 2775 root ${cfg.group} - -") (steamDirs ++ steamUserDirs);
+      ++ (map (d: "d ${cfg.path}/steamapps/${d} 2775 root ${cfg.group} - -") (
+        steamDirs ++ steamUserDirs
+      ));
 
       services.init-shared-steam-library = {
         description = "Enforce Steam library permissions and ACLs";
@@ -59,24 +61,17 @@ with lib;
       };
       path = with pkgs; [ coreutils ];
       script = ''
-        create_link() {
-          local target="$1" link="$2"
-          [ -L "$link" ] && rm "$link"
-          [ -e "$link" ] && { echo "WARNING: $link exists, skipping"; return; }
-          ln -sv "$target" "$link"
-        }
-
         SHARED="$HOME/.steam/shared/steamapps"
         SRC="${cfg.path}/steamapps"
 
         mkdir -p "$SHARED"
         for dir in ${lib.escapeShellArgs steamDirs}; do
-          create_link "$SRC/$dir" "$SHARED/$dir"
+          ln -sfnv "$SRC/$dir" "$SHARED/$dir"
         done
 
         for dir in ${lib.escapeShellArgs steamUserDirs}; do
           if [ -d "$SRC/$dir" ]; then
-            create_link "$SRC/$dir" "$SHARED/$dir"
+            ln -sfnv "$SRC/$dir" "$SHARED/$dir"
           else
             echo "WARNING: $SRC/$dir does not exist. Run Steam first to create it."
           fi
