@@ -53,6 +53,8 @@ with lib;
               coreutils
               util-linux
               udisks
+              ripgrep
+              gawk
             ]
           )
         }";
@@ -61,6 +63,9 @@ with lib;
       script = concatStringsSep "\n" (
         mapAttrsToList (
           name: drive:
+          let
+            mountOpts = concatStringsSep "," cfg.mountOptions;
+          in
           # bash
           ''
             # Unlock via udisksctl using the key file (skip if already unlocked)
@@ -70,7 +75,22 @@ with lib;
             else
               echo "Device ${drive.device} is already unlocked, skipping..."
             fi
-          '') cfg.drives
+
+            # Mount the unlocked device at the configured mount point
+            CRYPT_DEV=$(lsblk ${drive.device} -o PATH,TYPE -n | awk '$2 == "crypt" { print $1 }')
+            if [ -n "$CRYPT_DEV" ]; then
+              if ! mountpoint -q "${drive.mountPoint}"; then
+                echo "Mounting $CRYPT_DEV at ${drive.mountPoint}..."
+                mkdir -p "${drive.mountPoint}"
+                mount -t ntfs3 -o ${mountOpts} "$CRYPT_DEV" "${drive.mountPoint}" || echo "Mount failed, continuing..."
+              else
+                echo "${drive.mountPoint} is already mounted, skipping..."
+              fi
+            else
+              echo "Could not find unlocked crypt device for ${drive.device}"
+            fi
+          ''
+        ) cfg.drives
       );
     };
   };

@@ -91,15 +91,10 @@
       };
       bitlocker = lib.mkIf (config.age.secrets ? bitlocker-hinamizawa-shared) {
         enable = true;
+        defaultKeyFile = config.age.secrets.bitlocker-hinamizawa-shared.path;
         drives = {
-          windows-shared = {
-            device = "/dev/disk/by-uuid/0cd42b48-325f-4851-8e4d-fc9ed4a4e08d";
-            keyFile = config.age.secrets.bitlocker-hinamizawa-shared.path;
-          };
-          windows-shared-plus = {
-            device = "/dev/disk/by-uuid/3abcc218-fe8c-4539-afb5-cc94357813aa";
-            keyFile = config.age.secrets.bitlocker-hinamizawa-shared.path;
-          };
+          windows-shared.device = "/dev/disk/by-uuid/0cd42b48-325f-4851-8e4d-fc9ed4a4e08d";
+          windows-shared-plus.device = "/dev/disk/by-uuid/3abcc218-fe8c-4539-afb5-cc94357813aa";
         };
       };
     };
