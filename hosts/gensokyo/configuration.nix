@@ -8,6 +8,28 @@
     ./hardware-configuration.nix
   ];
 
+  fileSystems = {
+    "/mnt/media-hdd" = {
+      device = "/dev/disk/by-uuid/749d870c-a88c-4c37-82ea-a9807c24cfea";
+      fsType = "ext4";
+      options = [ "noatime" ];
+    };
+    "/shared/Media" = {
+      device = "/shared/.media-local:/mnt/media-hdd";
+      fsType = "fuse.mergerfs";
+      depends = [ "/mnt/media-hdd" ];
+      options = [
+        "defaults"
+        "allow_other"
+        "use_ino"
+        "cache.files=partial"
+        "category.create=mfs"
+      ];
+    };
+  };
+
+  environment.systemPackages = [ pkgs.mergerfs ];
+
   features.core.userPreferences.enable = true;
   features = {
     nix = {
