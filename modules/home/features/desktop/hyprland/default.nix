@@ -58,16 +58,20 @@ with lib;
         ];
         exec-once =
           with pkgs;
-          optionals config.profiles.browser.enable [
-            "[workspace 2 silent] ${getExe pkgs.app2unit} ${getExe zen-browser}"
-          ]
-          ++ optionals config.programs.spicetify.enable [
+          optionals config.programs.spicetify.enable [
             (getExe config.programs.spicetify.spicedSpotify)
           ];
         workspace =
+          let
+            execWhenEntering =
+              workspace: pkg: "${toString workspace}, on-created-empty:${getExe pkgs.app2unit} ${getExe pkg}";
+          in
           with pkgs;
-          optionals config.programs.nixcord.vesktop.enable [
-            "3, on-created-empty:${getExe pkgs.app2unit} ${getExe vesktop}"
+          optionals config.profiles.browser.enable [
+            (execWhenEntering 2 zen-browser)
+          ]
+          ++ optionals config.programs.nixcord.vesktop.enable [
+            (execWhenEntering 3 vesktop)
           ];
         debug = {
           disable_logs = false;
