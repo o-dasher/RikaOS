@@ -63,6 +63,11 @@
     };
   };
 
+  systemd.services.sftpgo.serviceConfig = {
+    Restart = "on-failure";
+    RestartSec = "3s";
+  };
+
   security.polkit.enable = true;
   services = {
     jellyfin.enable = true;
