@@ -82,11 +82,9 @@
       };
       sharedFolders = {
         enable = true;
-        folderNames = [
-          "/shared/Games"
-          "/shared/Media/"
-          "/shared/Media/Torrent"
-          "/shared/Media/Torrent/.incomplete"
+        folders.shared = [
+          "Games"
+          { Media.Torrent = [ ".incomplete" ]; }
         ];
       };
       bitlocker = lib.mkIf (config.age.secrets ? bitlocker-hinamizawa-shared) {
