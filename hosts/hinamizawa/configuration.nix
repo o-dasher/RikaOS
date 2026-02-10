@@ -65,6 +65,7 @@
       flatpak.enable = true;
       openrgb.enable = true;
       gnome-keyring.enable = true;
+      tailscale.enable = true;
       sddm = {
         enable = true;
         flavor = "mocha";
