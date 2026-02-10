@@ -43,13 +43,13 @@
     filesystem.sharedFolders = {
       enable = true;
       rootFolders.shared.Media = [ ];
-      folders.shared.Media = [
-        "Music"
-        "Movies"
-        "Series"
-        "Anime"
-        "Books"
-      ];
+      folders.shared.Media = {
+        Music = [ ];
+        Movies = [ ];
+        Series = [ ];
+        Anime = [ ];
+        Books = [ ];
+      };
     };
     networking = {
       enable = true;
@@ -70,6 +70,10 @@
       };
     };
     services = {
+      transmission = {
+        enable = true;
+        tailnetSetup = true;
+      };
       tailscale = {
         enable = true;
         dnsFirewall.enable = true;
@@ -80,8 +84,8 @@
           hosts = [
             "sonarr.dshs.cc"
             "radarr.dshs.cc"
-            "qbittorrent.dshs.cc"
             "prowlarr.dshs.cc"
+            "torrent.dshs.cc"
           ];
         };
       };
@@ -105,11 +109,6 @@
     sonarr.enable = true;
     radarr.enable = true;
     jellyseerr.enable = true;
-    qbittorrent = {
-      enable = true;
-      webuiPort = 8086;
-      serverConfig.Preferences.SavePath = "/shared/Media/Downloads";
-    };
     fail2ban = {
       enable = true;
       bantime = "24h";
@@ -208,13 +207,13 @@
         "jellyseerr.dshs.cc".extraConfig = "reverse_proxy 127.0.0.1:5055";
         "sonarr.dshs.cc".extraConfig = "reverse_proxy [::1]:8989";
         "radarr.dshs.cc".extraConfig = "reverse_proxy [::1]:7878";
+        "torrent.dshs.cc".extraConfig = ''
+          tls internal
+          reverse_proxy 127.0.0.1:9091
+        '';
         "prowlarr.dshs.cc".extraConfig = ''
           tls internal
           reverse_proxy 127.0.0.1:9696
-        '';
-        "qbittorrent.dshs.cc".extraConfig = ''
-          tls internal
-          reverse_proxy 127.0.0.1:8086
         '';
         "files.dshs.cc".extraConfig = ''
           reverse_proxy 127.0.0.1:8080
@@ -239,7 +238,7 @@
       "jellyfin"
       "sonarr"
       "radarr"
-      "qbittorrent"
+      "transmission"
     ];
 
     users.thiago = {
@@ -261,4 +260,5 @@
       defaultEditor = true;
     };
   };
+
 }
