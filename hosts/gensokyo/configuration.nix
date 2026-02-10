@@ -69,7 +69,19 @@
         ];
       };
     };
-    services.tailscale.enable = true;
+    services.tailscale = {
+      enable = true;
+      dnsFirewall.enable = true;
+      dnsServer = {
+        enable = true;
+        zone = "dshs.cc";
+        tailnetIP = "fd7a:115c:a1e0::9801:8d41";
+        hosts = [
+          "sonarr.dshs.cc"
+          "radarr.dshs.cc"
+        ];
+      };
+    };
   };
 
   systemd.services.sftpgo.serviceConfig = {
