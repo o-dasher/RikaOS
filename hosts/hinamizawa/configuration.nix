@@ -14,16 +14,6 @@
     gvfs.enable = true;
     printing.enable = true;
     openssh.enable = true;
-    transmission = {
-      enable = true;
-      openFirewall = true;
-      package = pkgs.transmission_4;
-      settings = {
-        incomplete-dir-enabled = true;
-        download-dir = "/shared/Media/Torrent";
-        incomplete-dir = "/shared/Media/Torrent/.incomplete";
-      };
-    };
   };
 
   features = {
@@ -66,6 +56,7 @@
       openrgb.enable = true;
       gnome-keyring.enable = true;
       tailscale.enable = true;
+      transmission.enable = true;
       sddm = {
         enable = true;
         flavor = "mocha";
@@ -83,10 +74,7 @@
       };
       sharedFolders = {
         enable = true;
-        folders.shared = [
-          "Games"
-          { Media.Torrent = [ ".incomplete" ]; }
-        ];
+        folders.shared.Games = [ ];
       };
       bitlocker = lib.mkIf (config.age.secrets ? bitlocker-hinamizawa-shared) {
         enable = true;

@@ -8,6 +8,7 @@ with lib;
     ./openrgb.nix
     ./prowlarr-custom-indexer.nix
     ./tailscale.nix
+    ./transmission.nix
     ./sddm.nix
   ];
 
