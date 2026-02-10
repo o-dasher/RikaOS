@@ -105,6 +105,7 @@
     };
     openssh = {
       enable = true;
+      openFirewall = false;
       settings = {
         PermitRootLogin = "no";
         PasswordAuthentication = false;
@@ -214,9 +215,12 @@
     };
   };
 
-  networking.firewall.allowedTCPPorts = [
-    2022
-  ];
+  networking.firewall = {
+    trustedInterfaces = [ "tailscale0" ];
+    allowedTCPPorts = [
+      2022
+    ];
+  };
 
   users = {
     groups.users.members = [
