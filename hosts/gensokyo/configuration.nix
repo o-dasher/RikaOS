@@ -69,19 +69,26 @@
         ];
       };
     };
-    services.tailscale = {
-      enable = true;
-      dnsFirewall.enable = true;
-      dnsServer = {
+    services = {
+      tailscale = {
         enable = true;
-        zone = "dshs.cc";
-        tailnetIP = "fd7a:115c:a1e0::9801:8d41";
-        hosts = [
-          "sonarr.dshs.cc"
-          "radarr.dshs.cc"
-          "qbittorrent.dshs.cc"
-          "prowlarr.dshs.cc"
-        ];
+        dnsFirewall.enable = true;
+        dnsServer = {
+          enable = true;
+          zone = "dshs.cc";
+          tailnetIP = "fd7a:115c:a1e0::9801:8d41";
+          hosts = [
+            "sonarr.dshs.cc"
+            "radarr.dshs.cc"
+            "qbittorrent.dshs.cc"
+            "prowlarr.dshs.cc"
+          ];
+        };
+      };
+      prowlarr.customIndexer = {
+        enable = true;
+        url = "https://raw.githubusercontent.com/dreulavelle/Prowlarr-Indexers/refs/heads/main/Custom/torrentio.yml";
+        filename = "torrentio.yml";
       };
     };
   };
@@ -101,6 +108,7 @@
     qbittorrent = {
       enable = true;
       webuiPort = 8086;
+      serverConfig.Preferences.SavePath = "/shared/Media/Downloads";
     };
     fail2ban = {
       enable = true;
@@ -198,8 +206,8 @@
       virtualHosts = {
         "jellyfin.dshs.cc".extraConfig = "reverse_proxy 127.0.0.1:8096";
         "jellyseerr.dshs.cc".extraConfig = "reverse_proxy 127.0.0.1:5055";
-        "sonarr.dshs.cc".extraConfig = "reverse_proxy 127.0.0.1:8989";
-        "radarr.dshs.cc".extraConfig = "reverse_proxy 127.0.0.1:7878";
+        "sonarr.dshs.cc".extraConfig = "reverse_proxy [::1]:8989";
+        "radarr.dshs.cc".extraConfig = "reverse_proxy [::1]:7878";
         "prowlarr.dshs.cc".extraConfig = ''
           tls internal
           reverse_proxy 127.0.0.1:9696
