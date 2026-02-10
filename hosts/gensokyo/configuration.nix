@@ -203,12 +203,15 @@
     2022
   ];
 
-  users.users = {
-    sftpgo.extraGroups = [ "users" ];
-    jellyfin.extraGroups = [ "users" ];
-    sonarr.extraGroups = [ "users" ];
-    radarr.extraGroups = [ "users" ];
-    thiago = {
+  users = {
+    groups.users.members = [
+      "sftpgo"
+      "jellyfin"
+      "sonarr"
+      "radarr"
+    ];
+
+    users.thiago = {
       isNormalUser = true;
       shell = pkgs.fish;
       openssh.authorizedKeys.keys = [
