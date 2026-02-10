@@ -13,12 +13,39 @@ with lib;
   config = mkIf (modCfg.enable && cfg.enable) {
     programs.git.config.safe.directory = cfg.folderNames;
 
-    features.filesystem.sharedFolders.folderNames = [
-      "/shared"
-      "/shared/.config"
-      "/shared/.config/public"
-      "/shared/.config/private"
-    ];
+    features.filesystem.sharedFolders =
+      let
+        # flattenFolderTree { shared.Media = [ "Music" "Movies" ]; }
+        # => [ "/shared" "/shared/Media" "/shared/Media/Music" "/shared/Media/Movies" ]
+        flattenFolderTree =
+          let
+            flattenPath =
+              prefix: tree:
+              builtins.concatMap (
+                name:
+                let
+                  subPath = "${prefix}/${name}";
+                  value = tree.${name};
+                in
+                if builtins.isList value then
+                  [ subPath ] ++ map (item: "${subPath}/${item}") value
+                else
+                  [ subPath ] ++ flattenPath subPath value
+              ) (builtins.attrNames tree);
+          in
+          flattenPath "";
+      in
+      {
+        rootFolderNames = flattenFolderTree cfg.rootFolders;
+        folderNames = flattenFolderTree (
+          recursiveUpdate cfg.folders {
+            shared.".config" = [
+              "public"
+              "private"
+            ];
+          }
+        );
+      };
 
     systemd = {
       tmpfiles.rules =

@@ -2,6 +2,10 @@
 with lib;
 let
   cfg = config.features.filesystem.bitlocker;
+
+  # Recursive type for folder trees: nested attrsets where leaves are lists of strings
+  # Example: { shared.Media = [ "Music" "Movies" ]; } => /shared/Media/Music, /shared/Media/Movies
+  folderTreeType = types.attrsOf (types.either (types.listOf types.str) folderTreeType);
 in
 {
   imports = [
@@ -15,13 +19,30 @@ in
       default = true;
     };
     sharedFolders = {
+      folders = mkOption {
+        type = folderTreeType;
+        default = { };
+        description = ''
+          Tree-based folder declaration using nested attrsets.
+          Example: { shared.Media = [ "Music" "Movies" ]; }
+        '';
+      };
       folderNames = mkOption {
         type = types.listOf types.str;
-        description = "Shared folders with group write access (2770, users group).";
+        default = [ ];
+        description = "Shared folders with group write access (2770, users group). Computed from `folders`.";
+      };
+      rootFolders = mkOption {
+        type = folderTreeType;
+        default = { };
+        description = ''
+          Tree-based declaration for root-owned folders (755 permissions).
+          Example: { shared.Media = [ ]; }
+        '';
       };
       rootFolderNames = mkOption {
         type = types.listOf types.str;
-        description = "Folders owned by root with 755 permissions, suitable for SSH chroot.";
+        description = "Folders owned by root with 755 permissions, suitable for SSH chroot. Computed from `rootFolders`.";
         default = [ ];
       };
     };

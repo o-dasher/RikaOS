@@ -42,13 +42,13 @@
     };
     filesystem.sharedFolders = {
       enable = true;
-      rootFolderNames = [ "/shared/Media" ];
-      folderNames = [
-        "/shared/Media/Music"
-        "/shared/Media/Movies"
-        "/shared/Media/Series"
-        "/shared/Media/Anime"
-        "/shared/Media/Books"
+      rootFolders.shared.Media = [ ];
+      folders.shared.Media = [
+        "Music"
+        "Movies"
+        "Series"
+        "Anime"
+        "Books"
       ];
     };
     networking = {
