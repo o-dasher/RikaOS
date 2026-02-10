@@ -60,6 +60,15 @@
         enable = true;
         updateIPv4 = false;
         useWebIPv6 = false;
+        zone = "dshs.cc";
+        domains = [
+          "fuio.dshs.cc"
+          "files.dshs.cc"
+          "jellyfin.dshs.cc"
+          "jellyseerr.dshs.cc"
+          "sonarr.dshs.cc"
+          "radarr.dshs.cc"
+        ];
       };
     };
   };
@@ -72,6 +81,9 @@
   security.polkit.enable = true;
   services = {
     jellyfin.enable = true;
+    sonarr.enable = true;
+    radarr.enable = true;
+    jellyseerr.enable = true;
     fail2ban = {
       enable = true;
       bantime = "24h";
@@ -165,14 +177,23 @@
       enable = true;
       openFirewall = true;
       virtualHosts = {
-        "jellyfin.dshs.cc".extraConfig = ''
-          reverse_proxy 127.0.0.1:8096
-        '';
         "files.dshs.cc".extraConfig = ''
           reverse_proxy 127.0.0.1:8080
           request_body {
             max_size 32GB
           }
+        '';
+        "jellyfin.dshs.cc".extraConfig = ''
+          reverse_proxy 127.0.0.1:8096
+        '';
+        "jellyseerr.dshs.cc".extraConfig = ''
+          reverse_proxy 127.0.0.1:5055
+        '';
+        "sonarr.dshs.cc".extraConfig = ''
+          reverse_proxy 127.0.0.1:8989
+        '';
+        "radarr.dshs.cc".extraConfig = ''
+          reverse_proxy 127.0.0.1:7878
         '';
       };
     };
@@ -185,6 +206,8 @@
   users.users = {
     sftpgo.extraGroups = [ "users" ];
     jellyfin.extraGroups = [ "users" ];
+    sonarr.extraGroups = [ "users" ];
+    radarr.extraGroups = [ "users" ];
     thiago = {
       isNormalUser = true;
       shell = pkgs.fish;
