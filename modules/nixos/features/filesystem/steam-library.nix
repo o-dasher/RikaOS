@@ -11,6 +11,7 @@ let
     "common"
     "downloading"
     "shadercache"
+    "workshop"
     "temp"
   ];
 in
@@ -62,8 +63,8 @@ with lib;
         LOCAL_STEAM="$HOME/.local/share/Steam/steamapps"
         SRC="${cfg.path}/steamapps"
 
-        mkdir -p "$SHARED"
         # Link all steam apps to the shared folder
+        mkdir -p "$SHARED"
         for dir in ${lib.escapeShellArgs steamDirs}; do
           ln -sfnv "$SRC/$dir" "$SHARED/$dir"
         done
