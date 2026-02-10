@@ -6,6 +6,7 @@ with lib;
     ./flatpak.nix
     ./gnome-keyring.nix
     ./openrgb.nix
+    ./prowlarr-custom-indexer.nix
     ./tailscale.nix
     ./sddm.nix
   ];
@@ -15,6 +16,18 @@ with lib;
     flatpak.enable = mkEnableOption "Flatpak support";
     gnome-keyring.enable = mkEnableOption "gnome keyring";
     openrgb.enable = mkEnableOption "openrgb";
+    prowlarr.customIndexer = {
+      enable = mkEnableOption "custom Prowlarr indexer definition";
+      url = mkOption {
+        type = types.str;
+        description = "URL to the custom Prowlarr indexer YAML definition";
+      };
+      filename = mkOption {
+        type = types.str;
+        default = "custom-indexer.yml";
+        description = "Filename to save in Prowlarr Definitions/Custom";
+      };
+    };
     tailscale = {
       enable = mkEnableOption "tailscale";
       dnsFirewall = {
@@ -38,7 +51,10 @@ with lib;
         };
         forwarders = mkOption {
           type = types.listOf types.str;
-          default = [ "1.1.1.1" "1.0.0.1" ];
+          default = [
+            "1.1.1.1"
+            "1.0.0.1"
+          ];
           description = "Upstream resolvers for other queries in the zone";
         };
       };
