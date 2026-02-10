@@ -12,10 +12,15 @@ with lib;
 {
   options.features.services.transmission = {
     enable = mkEnableOption "Transmission BitTorrent client";
-    openFirewall = mkOption {
+    openRPCPort = mkOption {
       type = types.bool;
       default = true;
-      description = "Open the firewall for Transmission's ports.";
+      description = "Open the firewall for Transmission's RPC port.";
+    };
+    openPeerPorts = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Open the firewall for Transmission's peer ports.";
     };
     tailnetSetup = mkOption {
       type = types.bool;
@@ -33,6 +38,8 @@ with lib;
           ((mkIf cfg.tailnetSetup) {
             rpc-username = "admin";
             rpc-bind-address = "0.0.0.0";
+            rpc-whitelist-enabled = false;
+            rpc-host-whitelist-enabled = false;
           })
           {
             incomplete-dir-enabled = true;
@@ -40,7 +47,7 @@ with lib;
             incomplete-dir = "/shared/Media/Torrent/.incomplete";
           }
         ];
-        inherit (cfg) openFirewall;
+        inherit (cfg) openRPCPort openPeerPorts;
       };
 
       features.filesystem.sharedFolders = {
