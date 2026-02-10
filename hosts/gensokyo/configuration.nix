@@ -192,6 +192,12 @@
         "jellyseerr.dshs.cc".extraConfig = ''
           reverse_proxy 127.0.0.1:5055
         '';
+        "sonarr.dshs.cc".extraConfig = ''
+          reverse_proxy 127.0.0.1:8989
+        '';
+        "radarr.dshs.cc".extraConfig = ''
+          reverse_proxy 127.0.0.1:7878
+        '';
       };
     };
   };
