@@ -79,6 +79,7 @@
         hosts = [
           "sonarr.dshs.cc"
           "radarr.dshs.cc"
+          "qbittorrent.dshs.cc"
         ];
       };
     };
@@ -193,23 +194,19 @@
       enable = true;
       openFirewall = true;
       virtualHosts = {
+        "jellyfin.dshs.cc".extraConfig = "reverse_proxy 127.0.0.1:8096";
+        "jellyseerr.dshs.cc".extraConfig = "reverse_proxy 127.0.0.1:5055";
+        "sonarr.dshs.cc".extraConfig = "reverse_proxy 127.0.0.1:8989";
+        "radarr.dshs.cc".extraConfig = "reverse_proxy 127.0.0.1:7878";
+        "qbittorrent.dshs.cc".extraConfig = ''
+          tls internal
+          reverse_proxy 127.0.0.1:8086
+        '';
         "files.dshs.cc".extraConfig = ''
           reverse_proxy 127.0.0.1:8080
           request_body {
             max_size 32GB
           }
-        '';
-        "jellyfin.dshs.cc".extraConfig = ''
-          reverse_proxy 127.0.0.1:8096
-        '';
-        "jellyseerr.dshs.cc".extraConfig = ''
-          reverse_proxy 127.0.0.1:5055
-        '';
-        "sonarr.dshs.cc".extraConfig = ''
-          reverse_proxy 127.0.0.1:8989
-        '';
-        "radarr.dshs.cc".extraConfig = ''
-          reverse_proxy 127.0.0.1:7878
         '';
       };
     };
