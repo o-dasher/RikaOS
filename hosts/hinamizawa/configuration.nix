@@ -56,7 +56,11 @@
       openrgb.enable = true;
       gnome-keyring.enable = true;
       tailscale.enable = true;
-      transmission.enable = true;
+      transmission = {
+        enable = true;
+        openPeerPorts = true;
+        openRPCPort = false;
+      };
       sddm = {
         enable = true;
         flavor = "mocha";

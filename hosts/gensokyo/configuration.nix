@@ -72,6 +72,7 @@
     services = {
       transmission = {
         enable = true;
+        openRPCPort = false;
         tailnetSetup = true;
       };
       tailscale = {
