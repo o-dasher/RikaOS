@@ -66,8 +66,6 @@
           "files.dshs.cc"
           "jellyfin.dshs.cc"
           "jellyseerr.dshs.cc"
-          "sonarr.dshs.cc"
-          "radarr.dshs.cc"
         ];
       };
     };
