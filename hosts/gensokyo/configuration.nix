@@ -30,8 +30,8 @@
 
   environment.systemPackages = [ pkgs.mergerfs ];
 
-  features.core.userPreferences.enable = true;
   features = {
+    core.userPreferences.enable = true;
     nix = {
       enable = true;
       nixpkgs.enable = true;
@@ -80,6 +80,7 @@
           "sonarr.dshs.cc"
           "radarr.dshs.cc"
           "qbittorrent.dshs.cc"
+          "prowlarr.dshs.cc"
         ];
       };
     };
@@ -93,6 +94,7 @@
   security.polkit.enable = true;
   services = {
     jellyfin.enable = true;
+    prowlarr.enable = true;
     sonarr.enable = true;
     radarr.enable = true;
     jellyseerr.enable = true;
@@ -198,6 +200,10 @@
         "jellyseerr.dshs.cc".extraConfig = "reverse_proxy 127.0.0.1:5055";
         "sonarr.dshs.cc".extraConfig = "reverse_proxy 127.0.0.1:8989";
         "radarr.dshs.cc".extraConfig = "reverse_proxy 127.0.0.1:7878";
+        "prowlarr.dshs.cc".extraConfig = ''
+          tls internal
+          reverse_proxy 127.0.0.1:9696
+        '';
         "qbittorrent.dshs.cc".extraConfig = ''
           tls internal
           reverse_proxy 127.0.0.1:8086
