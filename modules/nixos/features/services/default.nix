@@ -6,6 +6,7 @@ with lib;
     ./flatpak.nix
     ./gnome-keyring.nix
     ./openrgb.nix
+    ./tailscale.nix
     ./sddm.nix
   ];
 
@@ -14,6 +15,7 @@ with lib;
     flatpak.enable = mkEnableOption "Flatpak support";
     gnome-keyring.enable = mkEnableOption "gnome keyring";
     openrgb.enable = mkEnableOption "openrgb";
+    tailscale.enable = mkEnableOption "tailscale";
     sddm = {
       enable = mkEnableOption "SDDM Display Manager";
       background = mkOption {
