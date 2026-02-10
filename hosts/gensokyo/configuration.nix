@@ -84,6 +84,11 @@
     sonarr.enable = true;
     radarr.enable = true;
     jellyseerr.enable = true;
+    qbittorrent = {
+      enable = true;
+      openFirewall = true;
+      webuiPort = 8086;
+    };
     fail2ban = {
       enable = true;
       bantime = "24h";
@@ -209,6 +214,7 @@
       "jellyfin"
       "sonarr"
       "radarr"
+      "qbittorrent"
     ];
 
     users.thiago = {
