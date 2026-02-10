@@ -48,6 +48,7 @@
         "/shared/Media/Movies"
         "/shared/Media/Series"
         "/shared/Media/Anime"
+        "/shared/Media/Books"
       ];
     };
     networking = {
