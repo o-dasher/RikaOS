@@ -8,6 +8,7 @@
     ./hardware-configuration.nix
   ];
 
+  environment.systemPackages = [ pkgs.mergerfs ];
   fileSystems = {
     "/mnt/media-hdd" = {
       device = "/dev/disk/by-uuid/749d870c-a88c-4c37-82ea-a9807c24cfea";
@@ -28,8 +29,6 @@
     };
   };
 
-  environment.systemPackages = [ pkgs.mergerfs ];
-
   features = {
     core.userPreferences.enable = true;
     nix = {
@@ -49,6 +48,7 @@
         Series = [ ];
         Anime = [ ];
         Books = [ ];
+        Torrent.radarr = [ ];
       };
     };
     networking = {
@@ -261,5 +261,4 @@
       defaultEditor = true;
     };
   };
-
 }
