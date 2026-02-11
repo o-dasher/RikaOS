@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  pkgs,
   ...
 }:
 let
@@ -70,26 +69,23 @@ with lib;
     }
 
     (mkIf cfg.cloudflare.dns.enable {
-      services.resolved = {
-        enable = true;
-        settings.Resolve = {
-          DNS = [ "127.0.0.1:5053" ];
-          FallbackDNS = [ ];
-        };
-      };
-      systemd = {
-        services.cloudflared-doh = {
-          description = "Cloudflare DNS over HTTPS proxy";
-          after = [ "network-online.target" ];
-          wants = [ "network-online.target" ];
-          wantedBy = [ "multi-user.target" ];
-          serviceConfig = {
-            ExecStart = "${lib.getExe pkgs.cloudflared} proxy-dns --port 5053";
-            Restart = "on-failure";
-            DynamicUser = true;
+      services =
+        let
+          dnsAddress = "127.0.0.1";
+          dohPort = 5053;
+        in
+        {
+          resolved = {
+            enable = true;
+            settings.Resolve.DNS = [ "${dnsAddress}:${toString dohPort}" ];
+          };
+          https-dns-proxy = {
+            enable = true;
+            address = dnsAddress;
+            port = dohPort;
+            provider.kind = "cloudflare";
           };
         };
-      };
     })
 
     (mkIf (cfg.ddns.enable && config.age.secrets ? cloudflare-ddns-token) {
