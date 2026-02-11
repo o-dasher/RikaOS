@@ -20,14 +20,6 @@
       nemo.enable = true;
       trash.enable = true;
     };
-    filesystem.sftpman = {
-      automount.enable = true;
-      mounts."gensokyo" = {
-        host = "files.dshs.cc";
-        user = "thiago";
-        mountPoint = "/shared/Media";
-      };
-    };
     desktop = {
       hyprland.enable = true;
       theme.cirnosunset.enable = true;
