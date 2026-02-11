@@ -6,7 +6,6 @@ with lib;
     ./flatpak.nix
     ./gnome-keyring.nix
     ./openrgb.nix
-    ./prowlarr-custom-indexer.nix
     ./tailscale.nix
     ./transmission.nix
     ./sddm.nix
