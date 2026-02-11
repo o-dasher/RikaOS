@@ -48,7 +48,6 @@
         Series = [ ];
         Anime = [ ];
         Books = [ ];
-        Torrent.radarr = [ ];
       };
     };
     networking = {
