@@ -25,7 +25,35 @@ with lib;
   config = mkIf (config.features.desktop.enable && modCfg.enable) {
     features.desktop.wayland.enable = true;
     programs.hyprlock.enable = true;
-    services.hyprpolkitagent.enable = true;
+
+    services = {
+      hyprpolkitagent.enable = true;
+      hypridle = {
+        enable = true;
+        settings = {
+          general = {
+            lock_cmd = "${pkgs.procps}/bin/pidof hyprlock || ${getExe pkgs.hyprlock}";
+            before_sleep_cmd = "${pkgs.systemd}/bin/loginctl lock-session";
+            after_sleep_cmd = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
+          };
+          listener = [
+            {
+              timeout = 300;
+              on-timeout = "${pkgs.systemd}/bin/loginctl lock-session";
+            }
+            {
+              timeout = 600;
+              on-timeout = "${pkgs.hyprland}/bin/hyprctl dispatch dpms off";
+              on-resume = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
+            }
+            {
+              timeout = 1800;
+              on-timeout = "${pkgs.systemd}/bin/systemctl hibernate";
+            }
+          ];
+        };
+      };
+    };
     home.pointerCursor.hyprcursor.enable = mkIf (
       hasStylix && config.features.desktop.theme.enable
     ) true;
