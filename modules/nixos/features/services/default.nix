@@ -31,14 +31,10 @@ with lib;
     };
     tailscale = {
       enable = mkEnableOption "tailscale";
-      dnsFirewall = {
-        enable = mkEnableOption "Allow DNS (53/tcp+udp) on tailscale0";
-      };
-      dnsServer = {
+      dns.server = {
         enable = mkEnableOption "CoreDNS on tailscale with host list";
         zone = mkOption {
           type = types.str;
-          default = "dshs.cc";
           description = "DNS zone CoreDNS will serve on tailscale";
         };
         tailnetIP = mkOption {
@@ -47,16 +43,16 @@ with lib;
         };
         hosts = mkOption {
           type = types.listOf types.str;
-          default = [ ];
           description = "Hostnames to resolve to tailnetIP in the zone";
+          default = [ ];
         };
         forwarders = mkOption {
           type = types.listOf types.str;
+          description = "Upstream resolvers for other queries in the zone";
           default = [
             "1.1.1.1"
             "1.0.0.1"
           ];
-          description = "Upstream resolvers for other queries in the zone";
         };
       };
     };
