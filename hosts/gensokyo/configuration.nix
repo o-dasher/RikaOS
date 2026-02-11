@@ -77,8 +77,7 @@
       };
       tailscale = {
         enable = true;
-        dnsFirewall.enable = true;
-        dnsServer = {
+        dns.server = {
           enable = true;
           zone = "dshs.cc";
           tailnetIP = "fd7a:115c:a1e0::9801:8d41";
