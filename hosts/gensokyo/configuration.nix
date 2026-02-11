@@ -69,30 +69,13 @@
         ];
       };
     };
-    services = {
-      transmission = {
+    services.tailscale = {
+      enable = true;
+      dns.server = {
         enable = true;
-        openRPCPort = false;
-        tailnetSetup = true;
-      };
-      tailscale = {
-        enable = true;
-        dns.server = {
-          enable = true;
-          zone = "dshs.cc";
-          tailnetIP = "fd7a:115c:a1e0::9801:8d41";
-          hosts = [
-            "sonarr.dshs.cc"
-            "radarr.dshs.cc"
-            "prowlarr.dshs.cc"
-            "torrent.dshs.cc"
-          ];
-        };
-      };
-      prowlarr.customIndexer = {
-        enable = true;
-        url = "https://raw.githubusercontent.com/dreulavelle/Prowlarr-Indexers/refs/heads/main/Custom/torrentio.yml";
-        filename = "torrentio.yml";
+        zone = "dshs.cc";
+        tailnetIP = "fd7a:115c:a1e0::9801:8d41";
+        hosts = [ ];
       };
     };
   };
@@ -105,10 +88,6 @@
   security.polkit.enable = true;
   services = {
     jellyfin.enable = true;
-    prowlarr.enable = true;
-    sonarr.enable = true;
-    radarr.enable = true;
-    jellyseerr.enable = true;
     fail2ban = {
       enable = true;
       bantime = "24h";
@@ -204,17 +183,6 @@
       openFirewall = true;
       virtualHosts = {
         "jellyfin.dshs.cc".extraConfig = "reverse_proxy 127.0.0.1:8096";
-        "jellyseerr.dshs.cc".extraConfig = "reverse_proxy 127.0.0.1:5055";
-        "sonarr.dshs.cc".extraConfig = "reverse_proxy [::1]:8989";
-        "radarr.dshs.cc".extraConfig = "reverse_proxy [::1]:7878";
-        "torrent.dshs.cc".extraConfig = ''
-          tls internal
-          reverse_proxy 127.0.0.1:9091
-        '';
-        "prowlarr.dshs.cc".extraConfig = ''
-          tls internal
-          reverse_proxy 127.0.0.1:9696
-        '';
         "files.dshs.cc".extraConfig = ''
           reverse_proxy 127.0.0.1:8080
           request_body {
@@ -236,9 +204,6 @@
     groups.users.members = [
       "sftpgo"
       "jellyfin"
-      "sonarr"
-      "radarr"
-      "transmission"
     ];
 
     users.thiago = {
