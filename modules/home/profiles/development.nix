@@ -39,10 +39,13 @@ with lib;
       };
     };
 
-    programs.jq.enable = true;
+    programs = {
+      jq.enable = true;
+      bash.enable = true;
+    };
+
     home.packages = with pkgs; [
       github-copilot-cli
-      bashInteractive
       antigravity-fhs
       codex
       wget
