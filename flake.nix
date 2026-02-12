@@ -59,17 +59,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    zen-browser = {
-      url = "github:0xc000022070/zen-browser-flake";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home-manager";
-      };
-    };
-    firefox-addons = {
-      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nixcord = {
       url = "github:FlameFlag/nixcord/02c730b57b8ef16c62624a3410ef724d014c58db";
       inputs = {
@@ -117,7 +106,6 @@
       home-manager,
       stylix,
       agenix,
-      zen-browser,
       mnw,
       codex,
       flake-parts,
@@ -175,9 +163,6 @@
                 })
               ];
             });
-
-            # Utilities
-            zen-browser = zen-browser.packages.${system}.twilight;
           }
         )
       ];
@@ -249,7 +234,6 @@
           pam-shim.homeModules.default
           nixcord.homeModules.nixcord
           mnw.homeManagerModules.mnw
-          zen-browser.homeModules.twilight
           walker.homeManagerModules.default
           nix-flatpak.homeManagerModules.nix-flatpak
           { home = ({ homeDirectory = "/home/${username}"; } // homeConfig); }

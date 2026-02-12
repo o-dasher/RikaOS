@@ -96,7 +96,7 @@ with lib;
           in
           with pkgs;
           optionals config.profiles.browser.enable [
-            (execWhenEntering 2 zen-browser)
+            (execWhenEntering 2 brave)
           ]
           ++ optionals config.programs.nixcord.vesktop.enable [
             (execWhenEntering 3 vesktop)
