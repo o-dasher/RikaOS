@@ -3,10 +3,12 @@ with lib;
 {
   imports = [
     ./discord.nix
+    ./email.nix
     ./zapzap.nix
   ];
 
   options.features.social = {
+    email.enable = mkEnableOption "declarative email accounts";
     zapzap.enable = mkEnableOption "ZapZap";
     discord = {
       enable = mkEnableOption "Discord with Krisp";
