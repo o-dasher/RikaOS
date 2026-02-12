@@ -41,10 +41,11 @@ with lib;
 
     programs.jq.enable = true;
     home.packages = with pkgs; [
-      github-copilot-cli
       bashInteractive
+      ripgrep
+      github-copilot-cli
       antigravity-fhs
-      codex
+      codex-rs
       wget
       heroku
     ];

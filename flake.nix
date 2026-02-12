@@ -8,6 +8,10 @@
     flake-compat.url = "github:edolstra/flake-compat";
     systems.url = "github:nix-systems/default";
     mnw.url = "github:Gerg-L/mnw";
+    codex = {
+      url = "github:openai/codex";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix";
       inputs = {
@@ -17,16 +21,20 @@
     };
     playit-nixos-module = {
       url = "github:pedorich-n/playit-nixos-module";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
-      inputs.systems.follows = "systems";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        systems.follows = "systems";
+      };
     };
     pam-shim = {
       url = "github:Cu3PO42/pam_shim";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs";
-        pre-commit-hooks.inputs.flake-compat.follows = "flake-compat";
+        pre-commit-hooks.inputs = {
+          nixpkgs.follows = "nixpkgs";
+          flake-compat.follows = "flake-compat";
+        };
       };
     };
     nix-gaming = {
@@ -111,6 +119,7 @@
       agenix,
       zen-browser,
       mnw,
+      codex,
       flake-parts,
       pam-shim,
       systems,
@@ -152,6 +161,7 @@
 
             # Bleeding edge
             inherit (walker.packages.${system}) walker;
+            inherit (codex.packages.${system}) codex-rs;
 
             # Gamescope
             gamescope = prev.gamescope.overrideAttrs (old: {
