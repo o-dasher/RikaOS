@@ -19,10 +19,7 @@ in
       stylix = {
         icons.enable = true;
         cursor = themeLib.cursor;
-        targets = {
-          nixcord.enable = false;
-          zen-browser.profileNames = [ "default" ];
-        };
+        targets.nixcord.enable = false;
       };
     }
   );

@@ -163,28 +163,6 @@
         "type": "github"
       }
     },
-    "firefox-addons": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "dir": "pkgs/firefox-addons",
-        "lastModified": 1770782627,
-        "narHash": "sha256-H53CPHu4ko9a5MvaAyv2sWnmDrAVn2PF4L9YG8nTI5g=",
-        "owner": "rycee",
-        "repo": "nur-expressions",
-        "rev": "8b607f9a01a1a50503da9df9dcb004bfbc00d594",
-        "type": "gitlab"
-      },
-      "original": {
-        "dir": "pkgs/firefox-addons",
-        "owner": "rycee",
-        "repo": "nur-expressions",
-        "type": "gitlab"
-      }
-    },
     "firefox-gnome-theme": {
       "flake": false,
       "locked": {
@@ -564,7 +542,6 @@
       "inputs": {
         "agenix": "agenix",
         "codex": "codex",
-        "firefox-addons": "firefox-addons",
         "flake-compat": "flake-compat",
         "flake-parts": "flake-parts",
         "git-hooks": "git-hooks",
@@ -581,8 +558,7 @@
         "spicetify-nix": "spicetify-nix",
         "stylix": "stylix",
         "systems": "systems",
-        "walker": "walker",
-        "zen-browser": "zen-browser"
+        "walker": "walker"
       }
     },
     "rust-overlay": {
@@ -784,29 +760,6 @@
       "original": {
         "owner": "abenz1267",
         "repo": "walker",
-        "type": "github"
-      }
-    },
-    "zen-browser": {
-      "inputs": {
-        "home-manager": [
-          "home-manager"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1770707140,
-        "narHash": "sha256-3ZRA2+o5p1+FKWx988WbwB1SQ2Mz5aL95zxhL5iD+O0=",
-        "owner": "0xc000022070",
-        "repo": "zen-browser-flake",
-        "rev": "db14437f8667f7f09784e2a4e73c105bdc1c7023",
-        "type": "github"
-      },
-      "original": {
-        "owner": "0xc000022070",
-        "repo": "zen-browser-flake",
         "type": "github"
       }
     }
