@@ -48,6 +48,7 @@
         Series = [ ];
         Anime = [ ];
         Books = [ ];
+        Comics = [ ];
       };
     };
     networking = {
@@ -63,8 +64,8 @@
         domains = [
           "fuio.dshs.cc"
           "files.dshs.cc"
+          "comics.dshs.cc"
           "jellyfin.dshs.cc"
-          "jellyseerr.dshs.cc"
         ];
       };
     };
@@ -87,6 +88,10 @@
   security.polkit.enable = true;
   services = {
     jellyfin.enable = true;
+    komga = {
+      enable = true;
+      settings.server.port = 8081;
+    };
     fail2ban = {
       enable = true;
       bantime = "24h";
@@ -182,6 +187,7 @@
       openFirewall = true;
       virtualHosts = {
         "jellyfin.dshs.cc".extraConfig = "reverse_proxy 127.0.0.1:8096";
+        "comics.dshs.cc".extraConfig = "reverse_proxy 127.0.0.1:8081";
         "files.dshs.cc".extraConfig = ''
           reverse_proxy 127.0.0.1:8080
           request_body {
@@ -203,6 +209,7 @@
     groups.users.members = [
       "sftpgo"
       "jellyfin"
+      "komga"
     ];
 
     users.thiago = {
