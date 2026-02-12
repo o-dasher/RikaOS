@@ -95,6 +95,27 @@
         "type": "github"
       }
     },
+    "codex": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": "rust-overlay"
+      },
+      "locked": {
+        "lastModified": 1770863474,
+        "narHash": "sha256-SxCnfQLOV89cIFmJf0mruFEngYXq0uufTa6U4Yo68vU=",
+        "owner": "openai",
+        "repo": "codex",
+        "rev": "abbd74e2be3aa5d28f19567c87bbd6e96f30d37a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "openai",
+        "repo": "codex",
+        "type": "github"
+      }
+    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -542,6 +563,7 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "codex": "codex",
         "firefox-addons": "firefox-addons",
         "flake-compat": "flake-compat",
         "flake-parts": "flake-parts",
@@ -561,6 +583,27 @@
         "systems": "systems",
         "walker": "walker",
         "zen-browser": "zen-browser"
+      }
+    },
+    "rust-overlay": {
+      "inputs": {
+        "nixpkgs": [
+          "codex",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1769828398,
+        "narHash": "sha256-zmnvRUm15QrlKH0V1BZoiT3U+Q+tr+P5Osi8qgtL9fY=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "a1d32c90c8a4ea43e9586b7e5894c179d5747425",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
       }
     },
     "spicetify-nix": {
