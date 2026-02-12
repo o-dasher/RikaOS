@@ -45,6 +45,7 @@ with lib;
       ripgrep
       github-copilot-cli
       antigravity-fhs
+      google-chrome
       codex-rs
       wget
       heroku
