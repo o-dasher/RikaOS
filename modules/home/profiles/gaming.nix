@@ -25,9 +25,10 @@ in
 with lib;
 {
   config = mkIf cfg.enable {
+    programs.vkbasalt.enable = true;
+
     home.packages = with pkgs; [
       goverlay-fhs
-      vkbasalt
       vulkan-tools
       parsec-bin
     ];
