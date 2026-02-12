@@ -11,6 +11,7 @@ with lib;
   config = mkIf cfg.enable {
     features.social = {
       enable = true;
+      email.enable = true;
       discord.enable = true;
       zapzap.enable = true;
     };

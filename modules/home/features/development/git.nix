@@ -16,10 +16,17 @@ with lib;
       ssh = {
         enable = true;
         enableDefaultConfig = false;
-        matchBlocks."github.com" = {
-          hostname = "github.com";
-          user = "git";
-          identityFile = "~/.ssh/id_ed25519";
+        matchBlocks = {
+          "github.com" = {
+            hostname = "github.com";
+            user = "git";
+            identityFile = "~/.ssh/id_ed25519";
+          };
+          "github.com-thiago" = {
+            hostname = "github.com";
+            user = "git";
+            identityFile = "~/.ssh/id_ed25519-thiago";
+          };
         };
       };
       git = {
