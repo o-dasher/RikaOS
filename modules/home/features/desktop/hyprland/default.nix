@@ -48,7 +48,7 @@ with lib;
             }
             {
               timeout = 1800;
-              on-timeout = "${pkgs.systemd}/bin/systemctl hibernate";
+              on-timeout = "${pkgs.systemd}/bin/systemctl suspend-then-hibernate";
             }
           ];
         };
