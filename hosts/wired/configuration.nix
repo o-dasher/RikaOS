@@ -3,16 +3,16 @@
   ...
 }:
 let
-  # Public/VPS interface.
-  externalInterface = "ens3";
-  slskPort = 2234;
   wg = {
     interface = "wg0";
     port = 51820;
-
-    # WireGuard private addresses for VPS <-> home tunnel.
-    vpsIPv4 = "10.72.0.1";
-    homeIPv4 = "10.72.0.2";
+    forwarders = [
+      {
+        ip = "10.72.0.2";
+        ports = [ 2234 ];
+        publicKey = "adsVEuj+sihaXKsoymSbCEC8dkYeecAP96lZPGCQJl4=";
+      }
+    ];
   };
 in
 {
@@ -37,34 +37,32 @@ in
 
   networking = {
     wg-quick.interfaces.${wg.interface} = {
-      address = [ "${wg.vpsIPv4}/24" ];
+      address = [ "10.72.0.1/24" ];
       privateKeyFile = "/var/lib/wireguard/${wg.interface}.key";
       generatePrivateKeyFile = true;
       listenPort = wg.port;
-      peers = [
-        {
-          publicKey = "adsVEuj+sihaXKsoymSbCEC8dkYeecAP96lZPGCQJl4=";
-          allowedIPs = [ "${wg.homeIPv4}/32" ];
-        }
-      ];
+      peers = map (forwarder: {
+        publicKey = forwarder.publicKey;
+        allowedIPs = [ "${forwarder.ip}/32" ];
+      }) wg.forwarders;
     };
 
     nat = {
       enable = true;
-      externalInterface = externalInterface;
+      externalInterface = "ens3";
       internalInterfaces = [ wg.interface ];
-      forwardPorts = [
-        {
-          sourcePort = slskPort;
-          destination = "${wg.homeIPv4}:${toString slskPort}";
-        }
-      ];
+      forwardPorts = builtins.concatMap (
+        { ip, ports, ... }:
+        map (port: {
+          sourcePort = port;
+          destination = "${ip}:${toString port}";
+        }) ports
+      ) wg.forwarders;
     };
 
     firewall = {
-      checkReversePath = "loose";
       allowedUDPPorts = [ wg.port ];
-      allowedTCPPorts = [ slskPort ];
+      allowedTCPPorts = builtins.concatMap (forwarder: forwarder.ports) wg.forwarders;
     };
   };
 
