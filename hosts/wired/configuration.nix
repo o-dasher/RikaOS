@@ -27,21 +27,22 @@ in
       enable = true;
       trust = true;
     };
-    networking = {
-      wireguard = {
-        enable = true;
-        interface = wg.interface;
-        address = "${wg.vpsIPv4}/24";
-        listenPort = wg.port;
-        peer = {
-          publicKey = "adsVEuj+sihaXKsoymSbCEC8dkYeecAP96lZPGCQJl4=";
-          allowedIPs = [ "${wg.homeIPv4}/32" ];
-        };
-      };
-    };
   };
 
   networking = {
+    wg-quick.interfaces.${wg.interface} = {
+      address = [ "${wg.vpsIPv4}/24" ];
+      privateKeyFile = "/var/lib/wireguard/${wg.interface}.key";
+      generatePrivateKeyFile = true;
+      listenPort = wg.port;
+      peers = [
+        {
+          publicKey = "adsVEuj+sihaXKsoymSbCEC8dkYeecAP96lZPGCQJl4=";
+          allowedIPs = [ "${wg.homeIPv4}/32" ];
+        }
+      ];
+    };
+
     nat = {
       enable = true;
       externalInterface = externalInterface;
@@ -70,6 +71,7 @@ in
 
     firewall = {
       checkReversePath = "loose";
+      allowedUDPPorts = [ wg.port ];
       allowedTCPPorts = [ slskPort ];
     };
   };

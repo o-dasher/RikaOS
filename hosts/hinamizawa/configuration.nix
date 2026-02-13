@@ -38,18 +38,6 @@
         warp.enable = true;
         dns.enable = true;
       };
-      wireguard = {
-        enable = true;
-        interface = "wg-nicotine";
-        address = "10.72.0.2/24";
-        peer = {
-          publicKey = "d1QgawQP+arz1fgRnAqmuSRrAWfc+FHyDIaN3Yuf0io=";
-          endpoint = "wired.dshs.cc:51820";
-
-          # Keep only tunnel subnet on WireGuard to avoid default-route loops.
-          allowedIPs = [ "10.72.0.0/24" ];
-        };
-      };
     };
     boot = {
       kernel.enable = true;
@@ -165,15 +153,33 @@
       };
     };
 
-  networking.firewall =
-    let
-      stardewValleyPort = 24642;
-      nicotineSoulseekPort = 2234;
-    in
-    {
-      allowedUDPPorts = [ stardewValleyPort ];
-      allowedTCPPorts = [ nicotineSoulseekPort ];
+  networking = {
+    firewall =
+      let
+        stardewValleyPort = 24642;
+        nicotineSoulseekPort = 2234;
+      in
+      {
+        checkReversePath = "loose";
+        allowedUDPPorts = [ stardewValleyPort ];
+        allowedTCPPorts = [ nicotineSoulseekPort ];
+      };
+
+    wg-quick.interfaces.wg-nicotine = {
+      address = [ "10.72.0.2/24" ];
+      privateKeyFile = "/var/lib/wireguard/wg-nicotine.key";
+      generatePrivateKeyFile = true;
+
+      peers = [
+        {
+          publicKey = "d1QgawQP+arz1fgRnAqmuSRrAWfc+FHyDIaN3Yuf0io=";
+          endpoint = "wired.dshs.cc:51820";
+          persistentKeepalive = 25;
+          allowedIPs = [ "0.0.0.0/0" ];
+        }
+      ];
     };
+  };
 
   programs = {
     fish.enable = true;
