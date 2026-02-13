@@ -33,7 +33,7 @@ with lib;
             identityFile = "~/.ssh/id_ed25519";
           };
           "gensokyo" = {
-            hostname = "wired.dshs.cc";
+            hostname = "fuio.dshs.cc";
             user = "thiago";
             identityFile = "~/.ssh/id_ed25519";
           };
