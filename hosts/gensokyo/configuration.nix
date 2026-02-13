@@ -55,7 +55,6 @@
       enable = true;
       cloudflare.dns.enable = true;
       privacyIPv6.enable = true;
-      primaryInterface = "enp1s0";
       ddns = {
         enable = true;
         updateIPv4 = false;
@@ -72,12 +71,6 @@
     services.tailscale = {
       enable = true;
       trust = true;
-      dns.server = {
-        enable = true;
-        zone = "dshs.cc";
-        tailnetIP = "fd7a:115c:a1e0::9801:8d41";
-        hosts = [ ];
-      };
     };
   };
 
