@@ -189,6 +189,12 @@
 
       homeConfigs = { };
 
+      deploymentTargets.wired = {
+        targetHost = "wired";
+        targetUser = "lain";
+        tags = [ "vps" ];
+      };
+
       nixCaches = rec {
         trusted-substituters = substituters;
         substituters = [
@@ -243,50 +249,75 @@
           { home = ({ homeDirectory = "/home/${username}"; } // homeConfig); }
         ];
 
-      mkSystem =
+      mkSystemModules =
         hostName:
         {
           system,
           stateVersion,
           users ? [ ],
         }:
+        (mkCommonModules (mkPkgs nixpkgs system))
+        ++ [
+          ./modules/nixos
+          ./hosts/${hostName}/configuration.nix
+          stylix.nixosModules.stylix
+          agenix.nixosModules.default
+          playit-nixos-module.nixosModules.default
+          nix-flatpak.nixosModules.nix-flatpak
+          nix-minecraft.nixosModules.minecraft-servers
+          home-manager.nixosModules.home-manager
+          {
+            nixpkgs = { inherit overlays; };
+            networking = { inherit hostName; };
+            system = { inherit stateVersion; };
+            home-manager = {
+              inherit extraSpecialArgs;
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users = nixpkgs.lib.listToAttrs (
+                map (
+                  username:
+                  nixpkgs.lib.nameValuePair username (
+                    { ... }:
+                    {
+                      imports = mkHomeModules hostName {
+                        inherit stateVersion;
+                        inherit username;
+                      };
+                    }
+                  )
+                ) users
+              );
+            };
+          }
+        ];
+
+      mkSystem =
+        hostName:
+        systemConfig@{
+          system,
+          ...
+        }:
         nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = extraSpecialArgs;
-          modules = (mkCommonModules (mkPkgs nixpkgs system)) ++ [
-            ./modules/nixos
-            ./hosts/${hostName}/configuration.nix
-            stylix.nixosModules.stylix
-            agenix.nixosModules.default
-            playit-nixos-module.nixosModules.default
-            nix-flatpak.nixosModules.nix-flatpak
-            nix-minecraft.nixosModules.minecraft-servers
-            home-manager.nixosModules.home-manager
-            {
-              nixpkgs = { inherit overlays; };
-              networking = { inherit hostName; };
-              system = { inherit stateVersion; };
-              home-manager = {
-                inherit extraSpecialArgs;
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                users = nixpkgs.lib.listToAttrs (
-                  map (
-                    username:
-                    nixpkgs.lib.nameValuePair username (
-                      { ... }:
-                      {
-                        imports = mkHomeModules hostName {
-                          inherit stateVersion;
-                          inherit username;
-                        };
-                      }
-                    )
-                  ) users
-                );
-              };
-            }
-          ];
+          modules = mkSystemModules hostName systemConfig;
+        };
+
+      mkColmenaNode =
+        hostName: systemConfig:
+        { ... }:
+        let
+          deploymentCfg = nixpkgs.lib.attrByPath [ hostName ] { } deploymentTargets;
+        in
+        {
+          imports = mkSystemModules hostName systemConfig;
+          deployment = {
+            targetHost = deploymentCfg.targetHost or hostName;
+            targetUser = deploymentCfg.targetUser or "root";
+            tags = deploymentCfg.tags or [ hostName ];
+            buildOnTarget = false;
+          };
         };
 
       mkHome =
@@ -306,6 +337,7 @@
         {
           devShells.default = pkgs.mkShell {
             packages = with pkgs; [
+              colmena
               nixfmt
               treefmt
               stylua
@@ -316,6 +348,19 @@
       flake = {
         nixosConfigurations = nixpkgs.lib.mapAttrs' (
           hostName: systemConfig: nixpkgs.lib.nameValuePair hostName (mkSystem hostName systemConfig)
+        ) systemConfigs;
+
+        colmena = {
+          meta = {
+            nixpkgs = mkPkgs nixpkgs "x86_64-linux";
+            nodeNixpkgs = nixpkgs.lib.mapAttrs (
+              _: systemConfig: mkPkgs nixpkgs systemConfig.system
+            ) systemConfigs;
+            specialArgs = extraSpecialArgs;
+          };
+        }
+        // nixpkgs.lib.mapAttrs' (
+          hostName: systemConfig: nixpkgs.lib.nameValuePair hostName (mkColmenaNode hostName systemConfig)
         ) systemConfigs;
 
         homeConfigurations = nixpkgs.lib.listToAttrs (

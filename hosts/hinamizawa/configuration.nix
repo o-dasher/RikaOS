@@ -40,9 +40,8 @@
         interface = "wg-nicotine";
         address = "10.72.0.2/24";
         peer = {
-          # Replace with the public key for hosts/wired wg interface.
-          publicKey = "REPLACE_WITH_WIRED_WG_PUBLIC_KEY";
-          endpoint = "REPLACE_WITH_WIRED_PUBLIC_IP_OR_DNS:51820";
+          publicKey = "d1QgawQP+arz1fgRnAqmuSRrAWfc+FHyDIaN3Yuf0io=";
+          endpoint = "wired.dshs.cc:51820";
 
           # Route IPv4 traffic through VPS so Nicotine can present VPS IPv4.
           allowedIPs = [ "0.0.0.0/0" ];

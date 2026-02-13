@@ -21,6 +21,7 @@ in
   boot.loader.grub.device = "/dev/vda";
   features = {
     boot.kernel.enable = true;
+    services.tailscale.enable = true;
     networking = {
       wireguard = {
         enable = true;
@@ -28,7 +29,7 @@ in
         address = "${wg.vpsIPv4}/24";
         listenPort = wg.port;
         peer = {
-          publicKey = "REPLACE_WITH_HOME_HOST_PUBLIC_KEY";
+          publicKey = "adsVEuj+sihaXKsoymSbCEC8dkYeecAP96lZPGCQJl4=";
           allowedIPs = [ "${wg.homeIPv4}/32" ];
         };
       };
