@@ -18,10 +18,9 @@ in
     ./hardware-configuration.nix
   ];
 
+  boot.loader.grub.device = "/dev/vda";
   features = {
-    boot = {
-      limine.enable = true;
-    };
+    boot.kernel.enable = true;
     networking = {
       wireguard = {
         enable = true;
