@@ -9,11 +9,20 @@ let
     forwarders = [
       {
         ip = "10.72.0.2";
-        ports = [ 2234 ];
+        tcp = [ 2234 ];
         publicKey = "adsVEuj+sihaXKsoymSbCEC8dkYeecAP96lZPGCQJl4=";
       }
     ];
   };
+
+  normalizedForwarders = map (
+    forwarder:
+    forwarder
+    // {
+      tcp = forwarder.tcp or [ ];
+      udp = forwarder.udp or [ ];
+    }
+  ) wg.forwarders;
 in
 {
   imports = [
@@ -52,17 +61,28 @@ in
       externalInterface = "ens3";
       internalInterfaces = [ wg.interface ];
       forwardPorts = builtins.concatMap (
-        { ip, ports, ... }:
-        map (port: {
-          sourcePort = port;
-          destination = "${ip}:${toString port}";
-        }) ports
-      ) wg.forwarders;
+        {
+          ip,
+          tcp,
+          udp,
+          ...
+        }:
+        let
+          forwardToDestination =
+            proto: ports:
+            map (port: {
+              inherit proto;
+              sourcePort = port;
+              destination = "${ip}:${toString port}";
+            }) ports;
+        in
+        (forwardToDestination "tcp" tcp) ++ (forwardToDestination "udp" udp)
+      ) normalizedForwarders;
     };
 
     firewall = {
-      allowedUDPPorts = [ wg.port ];
-      allowedTCPPorts = builtins.concatMap (forwarder: forwarder.ports) wg.forwarders;
+      allowedUDPPorts = [ wg.port ] ++ builtins.concatMap (forwarder: forwarder.udp) normalizedForwarders;
+      allowedTCPPorts = builtins.concatMap (forwarder: forwarder.tcp) normalizedForwarders;
     };
   };
 
