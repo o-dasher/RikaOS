@@ -192,6 +192,7 @@
       deploymentTargets = {
         wired = { };
         gensokyo = { };
+        hinamizawa = { };
       };
 
       nixCaches = rec {
