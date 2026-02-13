@@ -4,7 +4,7 @@
 }:
 let
   # Public/VPS interface.
-  externalInterface = "eth0";
+  externalInterface = "ens3";
   wg = {
     interface = "wg0";
     port = 51820;
