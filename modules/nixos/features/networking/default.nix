@@ -11,7 +11,6 @@ with lib;
   imports = [
     ./cloudflare.nix
     ./ddns.nix
-    ./wireguard.nix
   ];
 
   options.features.networking = {
