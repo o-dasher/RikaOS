@@ -50,9 +50,8 @@ let
       smtp.host = "smtp.gmail.com";
     };
 in
-with lib;
 {
-  config = mkIf (modCfg.enable && cfg.enable) {
+  config = mkIf (modCfg.enable && cfg.enable && config.age.secrets ? playit-secret) {
     programs.thunderbird = {
       enable = true;
       profiles.${thunderbirdProfile}.isDefault = true;
