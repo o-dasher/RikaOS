@@ -51,7 +51,6 @@ in
         {
           sourcePort = slskPort;
           destination = "${wg.homeIPv4}:${toString slskPort}";
-          proto = "tcp";
         }
       ];
     };
