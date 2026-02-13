@@ -13,7 +13,10 @@
   services = {
     gvfs.enable = true;
     printing.enable = true;
-    openssh.enable = true;
+    openssh = {
+      enable = true;
+      openFirewall = false;
+    };
   };
 
   features = {
@@ -43,8 +46,8 @@
           publicKey = "d1QgawQP+arz1fgRnAqmuSRrAWfc+FHyDIaN3Yuf0io=";
           endpoint = "wired.dshs.cc:51820";
 
-          # Route IPv4 traffic through VPS so Nicotine can present VPS IPv4.
-          allowedIPs = [ "0.0.0.0/0" ];
+          # Keep only tunnel subnet on WireGuard to avoid default-route loops.
+          allowedIPs = [ "10.72.0.0/24" ];
         };
       };
     };
@@ -141,6 +144,9 @@
     in
     {
       transmission.extraGroups = [ "users" ];
+      root.openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGPAM12J0/Z/otlj0f6p6wvrEGFMGiBtcVb9zD7HjRVp rika@hinamizawa"
+      ];
       rika = {
         isNormalUser = true;
         shell = pkgs.fish;

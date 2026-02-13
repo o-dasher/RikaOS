@@ -7,6 +7,7 @@
 let
   modCfg = config.features.development;
   cfg = modCfg.git;
+  localHostName = if osConfig != null then osConfig.networking.hostName else null;
 in
 with lib;
 {
@@ -26,6 +27,13 @@ with lib;
             hostname = "github.com";
             user = "git";
             identityFile = "~/.ssh/id_ed25519-thiago";
+          };
+        }
+        // optionalAttrs (localHostName != null) {
+          "${localHostName}" = {
+            hostname = "127.0.0.1";
+            user = "root";
+            identityFile = "~/.ssh/id_ed25519";
           };
         };
       };
