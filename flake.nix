@@ -189,10 +189,9 @@
 
       homeConfigs = { };
 
-      deploymentTargets.wired = {
-        targetHost = "wired";
-        targetUser = "lain";
-        tags = [ "vps" ];
+      deploymentTargets = {
+        wired.targetUser = "root";
+        gensokyo.targetUser = "root";
       };
 
       nixCaches = rec {

@@ -30,6 +30,7 @@ with lib;
     };
     tailscale = {
       enable = mkEnableOption "tailscale";
+      trust = mkEnableOption "Trusts tailscale inteface on the firewall";
       dns.server = {
         enable = mkEnableOption "CoreDNS on tailscale with host list";
         zone = mkOption {

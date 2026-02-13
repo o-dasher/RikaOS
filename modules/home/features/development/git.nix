@@ -27,16 +27,6 @@ with lib;
             user = "git";
             identityFile = "~/.ssh/id_ed25519-thiago";
           };
-          "wired" = {
-            hostname = "wired.dshs.cc";
-            user = "lain";
-            identityFile = "~/.ssh/id_ed25519";
-          };
-          "gensokyo" = {
-            hostname = "fuio.dshs.cc";
-            user = "thiago";
-            identityFile = "~/.ssh/id_ed25519";
-          };
         };
       };
       git = {

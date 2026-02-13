@@ -8,6 +8,7 @@ let
   wg = {
     interface = "wg0";
     port = 51820;
+
     # WireGuard private addresses for VPS <-> home tunnel.
     vpsIPv4 = "10.72.0.1";
     homeIPv4 = "10.72.0.2";
@@ -21,7 +22,10 @@ in
   boot.loader.grub.device = "/dev/vda";
   features = {
     boot.kernel.enable = true;
-    services.tailscale.enable = true;
+    services.tailscale = {
+      enable = true;
+      trust = true;
+    };
     networking = {
       wireguard = {
         enable = true;
@@ -44,12 +48,18 @@ in
     };
   };
 
-  services.openssh = {
-    enable = true;
-    openFirewall = true;
-    settings = {
-      PasswordAuthentication = false;
-      KbdInteractiveAuthentication = false;
+  services = {
+    fail2ban = {
+      enable = true;
+      bantime = "24h";
+    };
+    openssh = {
+      enable = true;
+      openFirewall = true;
+      settings = {
+        PasswordAuthentication = false;
+        KbdInteractiveAuthentication = false;
+      };
     };
   };
 

@@ -20,6 +20,9 @@ with lib;
         ];
       };
     }
+    (mkIf cfg.trust {
+      networking.firewall.trustedInterfaces = [ "tailscale0" ];
+    })
     (mkIf cfg.dns.server.enable {
       services.coredns = {
         enable = true;
