@@ -61,7 +61,10 @@
       flatpak.enable = true;
       openrgb.enable = true;
       gnome-keyring.enable = true;
-      tailscale.enable = true;
+      tailscale = {
+        enable = true;
+        trust = true;
+      };
       transmission = {
         enable = true;
         openPeerPorts = true;
