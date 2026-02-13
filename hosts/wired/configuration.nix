@@ -26,6 +26,12 @@ in
     services.tailscale = {
       enable = true;
       trust = true;
+      dns.server = {
+        enable = true;
+        zone = "dshs.cc";
+        tailnetIP = "fd7a:115c:a1e0::d101:3990";
+        hosts = [ "netbird.dshs.cc" ];
+      };
     };
   };
 
@@ -63,9 +69,22 @@ in
   };
 
   services = {
+    caddy = {
+      enable = true;
+      openFirewall = true;
+      virtualHosts."netbird.dshs.cc".extraConfig = ''
+        tls internal
+        reverse_proxy 127.0.0.1:51830
+      '';
+    };
     fail2ban = {
       enable = true;
       bantime = "24h";
+    };
+    netbird.clients.netbird = {
+      port = 51830;
+      interface = "nb-wired";
+      hardened = false;
     };
     openssh = {
       enable = true;
