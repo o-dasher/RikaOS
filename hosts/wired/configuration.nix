@@ -5,6 +5,7 @@
 let
   # Public/VPS interface.
   externalInterface = "ens3";
+  slskPort = 2234;
   wg = {
     interface = "wg0";
     port = 51820;
@@ -37,14 +38,39 @@ in
           allowedIPs = [ "${wg.homeIPv4}/32" ];
         };
       };
-      nicotineRelay = {
-        enable = true;
-        tunnelInterface = wg.interface;
-        tunnelSourceIPv4 = wg.vpsIPv4;
-        tunnelIPv4 = wg.homeIPv4;
-        externalPort = 2234;
-        inherit externalInterface;
+    };
+  };
+
+  networking = {
+    nat = {
+      enable = true;
+      externalInterface = externalInterface;
+      internalInterfaces = [ wg.interface ];
+      forwardPorts = [
+        {
+          sourcePort = slskPort;
+          destination = "${wg.homeIPv4}:${toString slskPort}";
+          proto = "tcp";
+        }
+      ];
+    };
+
+    nftables = {
+      enable = true;
+      tables.nicotine-relay = {
+        family = "ip";
+        content = ''
+          chain postrouting {
+            type nat hook postrouting priority srcnat; policy accept;
+            iifname "${externalInterface}" oifname "${wg.interface}" tcp dport ${toString slskPort} snat to ${wg.vpsIPv4}
+          }
+        '';
       };
+    };
+
+    firewall = {
+      checkReversePath = "loose";
+      allowedTCPPorts = [ slskPort ];
     };
   };
 

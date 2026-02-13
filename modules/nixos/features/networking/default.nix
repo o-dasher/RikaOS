@@ -12,7 +12,6 @@ with lib;
     ./cloudflare.nix
     ./ddns.nix
     ./wireguard.nix
-    ./nicotine-relay.nix
   ];
 
   options.features.networking = {
