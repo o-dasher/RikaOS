@@ -39,13 +39,16 @@ with lib;
       };
     };
 
-    programs.jq.enable = true;
+    programs = {
+      jq.enable = true;
+      ripgrep.enable = true;
+      google-chrome.enable = true;
+    };
+
     home.packages = with pkgs; [
       bashInteractive
-      ripgrep
       github-copilot-cli
       antigravity-fhs
-      google-chrome
       codex-rs
       wget
       heroku
