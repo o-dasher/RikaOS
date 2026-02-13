@@ -182,9 +182,7 @@
   };
 
   systemd.network = {
-    config.routeTables = {
-      nicotine = 51820;
-    };
+    config.routeTables.nicotine = 51820;
     networks = {
       # Routing table used for traffic that should egress through WireGuard.
       "99-wg-nicotine" = {
