@@ -16,12 +16,6 @@ with lib;
   options.features.networking = {
     enable = mkEnableOption "networking";
     privacyIPv6.enable = mkEnableOption "Privacy IPv6 address generation";
-
-    primaryInterface = mkOption {
-      type = types.nullOr types.str;
-      default = null;
-      description = "The network interface to match against";
-    };
   };
 
   config = mkMerge [
@@ -30,13 +24,6 @@ with lib;
       systemd.network = {
         enable = true;
         networks."99-network" = mkMerge [
-          {
-            matchConfig.Name = cfg.primaryInterface;
-            networkConfig = {
-              DHCP = "ipv4";
-              IPv6AcceptRA = true;
-            };
-          }
           (mkIf cfg.privacyIPv6.enable {
             networkConfig = {
               IPv6LinkLocalAddressGenerationMode = "stable-privacy";
