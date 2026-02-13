@@ -175,7 +175,6 @@
       address = [ "10.72.0.2/24" ];
       generatePrivateKeyFile = true;
       privateKeyFile = "/var/lib/wireguard/wg-nicotine.key";
-      table = "off";
       peers = [
         {
           publicKey = "d1QgawQP+arz1fgRnAqmuSRrAWfc+FHyDIaN3Yuf0io=";
