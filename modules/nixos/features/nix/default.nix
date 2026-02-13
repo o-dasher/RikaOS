@@ -11,9 +11,7 @@ with lib;
       default = [ ];
       type = types.listOf types.str;
     };
-    optimise = mkEnableOption "optmise" // {
-      default = true;
-    };
+    optimise = mkEnableOption "optmise";
     enable = mkEnableOption "nix";
   };
 }

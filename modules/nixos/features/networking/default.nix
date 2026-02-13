@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  nixCaches,
   ...
 }:
 let
@@ -28,15 +27,6 @@ with lib;
   };
 
   config = mkMerge [
-    (mkIf cfg.enable {
-      nix.settings = nixCaches;
-      programs.nh = {
-        enable = true;
-        clean.enable = true;
-        flake = "/shared/.config/private";
-      };
-    })
-
     (mkIf (cfg.enable && cfg.primaryInterface != null) {
       networking.useNetworkd = true;
       systemd.network = {
