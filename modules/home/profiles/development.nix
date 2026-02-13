@@ -46,7 +46,7 @@ with lib;
       github-copilot-cli
       antigravity-fhs
       google-chrome
-      codex-rs
+      codex
       wget
       heroku
     ];
