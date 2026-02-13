@@ -72,8 +72,8 @@ with lib;
             forwardPorts = [
               {
                 sourcePort = relayCfg.externalPort;
-                inherit destination;
                 proto = "tcp";
+                inherit destination;
               }
             ];
           };
