@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  nixCaches,
   ...
 }:
 let
@@ -8,41 +9,35 @@ let
 in
 with lib;
 {
+  imports = [
+    ./cloudflare.nix
+    ./ddns.nix
+    ./wireguard.nix
+    ./nicotine-relay.nix
+  ];
+
   options.features.networking = {
     enable = mkEnableOption "networking";
     privacyIPv6.enable = mkEnableOption "Privacy IPv6 address generation";
+
     primaryInterface = mkOption {
-      type = types.str;
+      type = types.nullOr types.str;
+      default = null;
       description = "The network interface to match against";
-    };
-    cloudflare = {
-      warp.enable = mkEnableOption "Warp";
-      dns.enable = mkEnableOption "DNS";
-    };
-    ddns = {
-      enable = mkEnableOption "Cloudflare DDNS";
-      domains = mkOption {
-        type = types.listOf types.str;
-        description = "DNS records to update (e.g., host.example.com)";
-      };
-      zone = mkOption {
-        type = types.str;
-        description = "Cloudflare zone name (e.g., example.com)";
-      };
-      useWebIPv6 = mkOption {
-        type = types.bool;
-        description = "Use webv6 lookup instead of interface address for DDNS";
-      };
-      updateIPv4 = mkOption {
-        type = types.bool;
-        description = "Whether to update IPv4 (A) records as well";
-      };
     };
   };
 
-  config = mkIf cfg.enable (mkMerge [
-    {
-      services.cloudflare-warp.enable = cfg.cloudflare.warp.enable;
+  config = mkMerge [
+    (mkIf cfg.enable {
+      nix.settings = nixCaches;
+      programs.nh = {
+        enable = true;
+        clean.enable = true;
+        flake = "/shared/.config/private";
+      };
+    })
+
+    (mkIf (cfg.enable && cfg.primaryInterface != null) {
       networking.useNetworkd = true;
       systemd.network = {
         enable = true;
@@ -66,40 +61,6 @@ with lib;
           })
         ];
       };
-    }
-
-    (mkIf cfg.cloudflare.dns.enable {
-      services =
-        let
-          dnsAddress = "127.0.0.1";
-          dohPort = 5053;
-        in
-        {
-          resolved = {
-            enable = true;
-            settings.Resolve.DNS = [ "${dnsAddress}:${toString dohPort}" ];
-          };
-          https-dns-proxy = {
-            enable = true;
-            address = dnsAddress;
-            port = dohPort;
-            provider.kind = "cloudflare";
-          };
-        };
     })
-
-    (mkIf (cfg.ddns.enable && config.age.secrets ? cloudflare-ddns-token) {
-      services.ddclient = {
-        enable = true;
-        inherit (cfg.ddns) domains zone;
-        username = "token";
-        passwordFile = config.age.secrets.cloudflare-ddns-token.path;
-        protocol = "cloudflare";
-        server = "api.cloudflare.com/client/v4";
-        usev4 = if cfg.ddns.updateIPv4 then "webv4, webv4=ipify-ipv4" else "";
-        usev6 =
-          if cfg.ddns.useWebIPv6 then "webv6, webv6=ipify-ipv6" else "ifv6, ifv6=${cfg.primaryInterface}";
-      };
-    })
-  ]);
+  ];
 }

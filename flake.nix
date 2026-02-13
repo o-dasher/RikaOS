@@ -181,6 +181,10 @@
           system = "x86_64-linux";
           users = [ "thiago" ];
         };
+        wired = {
+          stateVersion = "26.05";
+          system = "x86_64-linux";
+        };
       };
 
       homeConfigs = { };
@@ -244,7 +248,7 @@
         {
           system,
           stateVersion,
-          users,
+          users ? [ ],
         }:
         nixpkgs.lib.nixosSystem {
           inherit system;
@@ -252,12 +256,12 @@
           modules = (mkCommonModules (mkPkgs nixpkgs system)) ++ [
             ./modules/nixos
             ./hosts/${hostName}/configuration.nix
-            home-manager.nixosModules.home-manager
             stylix.nixosModules.stylix
             agenix.nixosModules.default
             playit-nixos-module.nixosModules.default
             nix-flatpak.nixosModules.nix-flatpak
             nix-minecraft.nixosModules.minecraft-servers
+            home-manager.nixosModules.home-manager
             {
               nixpkgs = { inherit overlays; };
               networking = { inherit hostName; };
