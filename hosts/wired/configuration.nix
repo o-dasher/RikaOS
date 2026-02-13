@@ -56,19 +56,6 @@ in
       ];
     };
 
-    nftables = {
-      enable = true;
-      tables.nicotine-relay = {
-        family = "ip";
-        content = ''
-          chain postrouting {
-            type nat hook postrouting priority srcnat; policy accept;
-            iifname "${externalInterface}" oifname "${wg.interface}" tcp dport ${toString slskPort} snat to ${wg.vpsIPv4}
-          }
-        '';
-      };
-    };
-
     firewall = {
       checkReversePath = "loose";
       allowedUDPPorts = [ wg.port ];
