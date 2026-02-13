@@ -55,7 +55,7 @@ in
     };
     openssh = {
       enable = true;
-      openFirewall = true;
+      openFirewall = false;
       settings = {
         PasswordAuthentication = false;
         KbdInteractiveAuthentication = false;

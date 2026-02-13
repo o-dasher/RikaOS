@@ -190,8 +190,8 @@
       homeConfigs = { };
 
       deploymentTargets = {
-        wired.targetUser = "root";
-        gensokyo.targetUser = "root";
+        wired = { };
+        gensokyo = { };
       };
 
       nixCaches = rec {
@@ -336,7 +336,6 @@
         {
           devShells.default = pkgs.mkShell {
             packages = with pkgs; [
-              colmena
               nixfmt
               treefmt
               stylua
