@@ -71,6 +71,7 @@
     };
     services.tailscale = {
       enable = true;
+      trust = true;
       dns.server = {
         enable = true;
         zone = "dshs.cc";
@@ -197,12 +198,9 @@
     };
   };
 
-  networking.firewall = {
-    trustedInterfaces = [ "tailscale0" ];
-    allowedTCPPorts = [
-      2022
-    ];
-  };
+  networking.firewall.allowedTCPPorts = [
+    2022
+  ];
 
   users = {
     groups.users.members = [
