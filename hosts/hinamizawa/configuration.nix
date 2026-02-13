@@ -167,42 +167,14 @@
 
     wg-quick.interfaces.wg-nicotine = {
       address = [ "10.72.0.2/24" ];
-      privateKeyFile = "/var/lib/wireguard/wg-nicotine.key";
       generatePrivateKeyFile = true;
+      privateKeyFile = "/var/lib/wireguard/wg-nicotine.key";
       table = "off";
       peers = [
         {
           publicKey = "d1QgawQP+arz1fgRnAqmuSRrAWfc+FHyDIaN3Yuf0io=";
           endpoint = "wired.dshs.cc:51820";
-          persistentKeepalive = 25;
           allowedIPs = [ "0.0.0.0/0" ];
-        }
-      ];
-    };
-  };
-
-  systemd.network = {
-    config.routeTables.nicotine = 51820;
-    networks = {
-      # Routing table used for traffic that should egress through WireGuard.
-      "99-wg-nicotine" = {
-        matchConfig.Name = "wg-nicotine";
-        routes = [
-          {
-            Destination = "0.0.0.0/0";
-            Table = 51820;
-            Scope = "link";
-          }
-        ];
-      };
-
-      # Route only traffic explicitly sourced from the wg address via table 51820.
-      "99-network".routingPolicyRules = [
-        {
-          Family = "ipv4";
-          From = "10.72.0.2/32";
-          Table = 51820;
-          Priority = 10000;
         }
       ];
     };
