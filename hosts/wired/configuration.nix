@@ -29,7 +29,6 @@ in
     ./hardware-configuration.nix
   ];
 
-  boot.loader.grub.device = "/dev/vda";
   features = {
     boot.kernel.enable = true;
     services.tailscale = {
@@ -42,6 +41,11 @@ in
         hosts = [ ];
       };
     };
+  };
+
+  boot = {
+    kernel.sysctl."net.ipv6.conf.all.forwarding" = 0;
+    loader.grub.device = "/dev/vda";
   };
 
   networking = {
