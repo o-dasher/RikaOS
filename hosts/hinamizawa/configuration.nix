@@ -168,21 +168,28 @@
       {
         checkReversePath = "loose";
         allowedUDPPorts = [ stardewValleyPort ];
-        allowedTCPPorts = [ nicotineSoulseekPort ];
+        interfaces.wg-nicotine.allowedTCPPorts = [ nicotineSoulseekPort ];
       };
 
-    wg-quick.interfaces.wg-nicotine = {
-      address = [ "10.72.0.2/24" ];
-      generatePrivateKeyFile = true;
-      privateKeyFile = "/var/lib/wireguard/wg-nicotine.key";
-      peers = [
-        {
-          publicKey = "d1QgawQP+arz1fgRnAqmuSRrAWfc+FHyDIaN3Yuf0io=";
-          endpoint = "wired.dshs.cc:51820";
-          allowedIPs = [ "0.0.0.0/0" ];
-        }
-      ];
-    };
+    wg-quick.interfaces.wg-nicotine =
+      let
+        table = toString 99;
+      in
+      {
+        inherit table;
+        address = [ "10.72.0.2/24" ];
+        generatePrivateKeyFile = true;
+        privateKeyFile = "/var/lib/wireguard/wg-nicotine.key";
+        peers = [
+          {
+            publicKey = "d1QgawQP+arz1fgRnAqmuSRrAWfc+FHyDIaN3Yuf0io=";
+            endpoint = "wired.dshs.cc:51820";
+            allowedIPs = [ "0.0.0.0/0" ];
+          }
+        ];
+        postUp = "ip rule add from 10.72.0.2 lookup ${table}";
+        preDown = "ip rule del from 10.72.0.2 lookup ${table}";
+      };
   };
 
   programs = {
