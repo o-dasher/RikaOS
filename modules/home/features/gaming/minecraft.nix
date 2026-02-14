@@ -11,14 +11,13 @@ in
 with lib;
 {
   config = mkIf (modCfg.enable && cfg.enable) {
-    home.packages = [
-      (pkgs.prismlauncher.override {
-        jdks = with pkgs; [
-          temurin-jre-bin
-          temurin-jre-bin-17
-          temurin-jre-bin-8
-        ];
-      })
-    ];
+    programs.prismlauncher = {
+      enable = true;
+      jdks = with pkgs; [
+        temurin-jre-bin
+        temurin-jre-bin-17
+        temurin-jre-bin-8
+      ];
+    };
   };
 }
