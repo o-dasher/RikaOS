@@ -32,6 +32,18 @@
       minecraft.enable = true;
       osu.enable = true;
       ps4.enable = true;
+      gamescope = {
+        enable = true;
+        args = [
+          "-w 1920"
+          "-h 1080"
+          "-r 240"
+          "--fullscreen"
+          "--force-grab-cursor"
+          "--expose-wayland"
+          "--rt"
+        ];
+      };
     };
   };
 

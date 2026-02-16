@@ -2,6 +2,7 @@
 with lib;
 {
   imports = [
+    ./gamescope.nix
     ./heroic.nix
     ./mangohud.nix
     ./minecraft.nix
