@@ -211,9 +211,9 @@ with lib;
           ++ [
             "${mod}, RETURN, ${exec (getExe xdg-terminal-exec)}"
 
-            "${mod}, F, fullscreen"
+            "${mod}, F, fullscreen, 0"
             "${mod}, C, killactive"
-            "${mod}, M, fullscreen, on"
+            "${mod}, M, fullscreen, 1"
 
             "${mod}, S, togglegroup"
             "${mod} SHIFT, F, togglefloating"
