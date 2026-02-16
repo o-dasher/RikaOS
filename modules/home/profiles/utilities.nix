@@ -12,7 +12,10 @@ with lib;
   config = mkIf cfg.enable {
     programs = {
       htop.enable = true;
-      yazi.enable = true;
+      yazi = {
+        enable = true;
+        shellWrapperName = "y";
+      };
     };
 
     home.packages = with pkgs; [
