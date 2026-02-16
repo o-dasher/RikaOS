@@ -40,9 +40,9 @@ with lib;
     };
 
     programs.jq.enable = true;
+    programs.ripgrep.enable = true;
     home.packages = with pkgs; [
       bashInteractive
-      ripgrep
       github-copilot-cli
       antigravity-fhs
       google-chrome
