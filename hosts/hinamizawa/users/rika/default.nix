@@ -39,9 +39,9 @@
           "-h 1080"
           "-r 240"
           "--fullscreen"
-          "--force-grab-cursor"
-          "--expose-wayland"
           "--rt"
+          "--expose-wayland"
+          "--force-grab-cursor"
         ];
       };
     };
