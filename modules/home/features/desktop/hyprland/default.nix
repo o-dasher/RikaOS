@@ -130,7 +130,7 @@ with lib;
         ];
         windowrule = [
           "tag +games, match:content game"
-          "tag +games, match:class ^(steam_app_.*|gamescope|osu!)$"
+          "tag +games, match:class ^(steam_app_.*|gamescope|osu!|*.exe)$"
 
           "tag +floaty, match:class ^(.blueman-manager-wrapped|nemo|com.github.wwmm.easyeffects|com.saivert.pwvucontrol|org.gnome.FileRoller)$"
 
