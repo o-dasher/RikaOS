@@ -63,6 +63,7 @@ with lib;
           enable = true;
           remotePlay.openFirewall = true;
           protontricks.enable = true;
+          extraCompatPackages = with pkgs; [ proton-ge-bin ];
           gamescopeSession = {
             enable = true;
             steamArgs = [
