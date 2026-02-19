@@ -208,6 +208,7 @@
       "--fullscreen"
       "--force-grab-cursor"
       "--rt"
+      "--expose-wayland"
     ];
     neovim = {
       enable = true;
