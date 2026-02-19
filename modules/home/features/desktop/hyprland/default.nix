@@ -115,11 +115,13 @@ with lib;
             max_luminance = 400;
           }
         ];
-        # BUG: DS and tearing are mutually exclusive. It picks one depending on context.
-        # e.g. Gamescope and majority of apps will tear. But native applications like
-        # osu! will try to direct scanout unless specified to tear. This can be better in the future. See:
-        # https://github.com/hyprwm/Hyprland/pull/10020 for reference.
-        render.direct_scanout = false;
+        render = {
+          direct_scanout = true;
+
+          # Keep output in SDR even if apps expose HDR content. My monitor's HDR is not that great.
+          cm_auto_hdr = 0;
+          cm_fs_passthrough = 0;
+        };
         layerrule = [
           "match:namespace ^(waybar|notifications|walker)$, blur on"
           "match:namespace ^(walker)$, ignore_alpha 0.5"
@@ -130,7 +132,7 @@ with lib;
         ];
         windowrule = [
           "tag +games, match:content game"
-          "tag +games, match:class ^(steam_app_.*|gamescope|osu!|*.exe)$"
+          "tag +games, match:class ^(steam_app_.*|gamescope|osu!|geometrydash.exe)$"
 
           "tag +floaty, match:class ^(.blueman-manager-wrapped|nemo|com.github.wwmm.easyeffects|com.saivert.pwvucontrol|org.gnome.FileRoller)$"
 
