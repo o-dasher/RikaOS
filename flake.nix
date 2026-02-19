@@ -8,6 +8,13 @@
     flake-compat.url = "github:edolstra/flake-compat";
     systems.url = "github:nix-systems/default";
     mnw.url = "github:Gerg-L/mnw";
+    codex-cli-nix = {
+      url = "github:sadjow/codex-cli-nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.inputs.systems.follows = "systems";
+      };
+    };
     spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix";
       inputs = {
@@ -108,6 +115,7 @@
       systems,
       nixcord,
       spicetify-nix,
+      codex-cli-nix,
       nixpkgs-stable,
       walker,
       nix-flatpak,
@@ -144,6 +152,7 @@
 
             # Bleeding edge
             inherit (walker.packages.${system}) walker;
+            inherit (codex-cli-nix.packages.${system}) codex;
 
             # Gamescope
             gamescope = prev.gamescope.overrideAttrs (old: {
