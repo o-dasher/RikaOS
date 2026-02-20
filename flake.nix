@@ -8,11 +8,15 @@
     flake-compat.url = "github:edolstra/flake-compat";
     systems.url = "github:nix-systems/default";
     mnw.url = "github:Gerg-L/mnw";
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "systems";
+    };
     codex-cli-nix = {
       url = "github:sadjow/codex-cli-nix";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-utils.inputs.systems.follows = "systems";
+        flake-utils.follows = "flake-utils";
       };
     };
     spicetify-nix = {
@@ -101,6 +105,13 @@
         flake-compat.follows = "flake-compat";
       };
     };
+    headplane = {
+      url = "github:tale/headplane";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
+    };
   };
 
   outputs =
@@ -134,6 +145,7 @@
 
       overlays = [
         nix-minecraft.overlay
+        inputs.headplane.overlays.default
         (
           final: prev:
           let
@@ -262,6 +274,7 @@
         (mkCommonModules (mkPkgs nixpkgs system))
         ++ [
           ./modules/nixos
+          inputs.headplane.nixosModules.headplane
           ./hosts/${hostName}/configuration.nix
           stylix.nixosModules.stylix
           agenix.nixosModules.default

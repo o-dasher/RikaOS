@@ -55,6 +55,7 @@
       enable = true;
       cloudflare.dns.enable = true;
       privacyIPv6.enable = true;
+      primaryInterface = "enp1s0";
       ddns = {
         enable = true;
         updateIPv4 = false;
@@ -92,7 +93,7 @@
     };
     openssh = {
       enable = true;
-      openFirewall = false;
+      openFirewall = true;
       settings = {
         PasswordAuthentication = false;
         KbdInteractiveAuthentication = false;

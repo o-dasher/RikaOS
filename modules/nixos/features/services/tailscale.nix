@@ -14,10 +14,6 @@ with lib;
       services.tailscale = {
         enable = true;
         authKeyFile = config.age.secrets.tailscale-auth-key.path;
-        extraUpFlags = [
-          "--accept-dns=true"
-          "--hostname=${config.networking.hostName}"
-        ];
       };
     }
     (mkIf cfg.trust {
