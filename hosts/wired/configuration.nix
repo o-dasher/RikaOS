@@ -115,7 +115,7 @@ in
     };
   };
 
-  age.secrets = lib.mkIf config.rika.utils.hasSecrets (
+  age.secrets =
     lib.genAttrs
       [
         "headscale-pre-auth-key"
@@ -126,8 +126,7 @@ in
       (_: {
         owner = "headscale";
         group = "headscale";
-      })
-  );
+      });
 
   services = {
     fail2ban = {
