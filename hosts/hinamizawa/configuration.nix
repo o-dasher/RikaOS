@@ -90,7 +90,7 @@
         enable = true;
         folders.shared.Games = [ ];
       };
-      bitlocker = lib.mkIf (config.age.secrets ? bitlocker-hinamizawa-shared) {
+      bitlocker = lib.mkIf config.rika.utils.hasSecrets {
         enable = true;
         defaultKeyFile = config.age.secrets.bitlocker-hinamizawa-shared.path;
         drives = {

@@ -26,8 +26,14 @@ let
     }
   ) wg.forwarders;
 
+  # Headscale
   headscaleDomain = "wired.dshs.cc";
   headscaleURI = "https://${headscaleDomain}";
+
+  # OIDC provider settings for Headscale/Headplane.
+  keycloakDomain = "auth.dshs.cc";
+  oidcIssuer = "https://${keycloakDomain}/realms/headscale";
+  oidcClientId = "headscale";
 in
 {
   imports = [
@@ -44,7 +50,10 @@ in
         updateIPv4 = true;
         useWebIPv6 = false;
         zone = "dshs.cc";
-        domains = [ headscaleDomain ];
+        domains = [
+          headscaleDomain
+          keycloakDomain
+        ];
       };
     };
     services.tailscale = {
@@ -106,65 +115,122 @@ in
     };
   };
 
-  services = {
-    fail2ban = {
-      enable = true;
-      bantime = "24h";
-    };
-    headscale = {
-      enable = true;
-      address = "127.0.0.1";
-      settings = {
-        server_url = headscaleURI;
-        dns = {
-          magic_dns = true;
-          base_domain = "wired.local";
-          nameservers.global = [
-            "1.1.1.1"
-            "1.0.0.1"
-          ];
-        };
-      };
-    };
-    headplane = lib.mkIf (config.age.secrets ? headscale-pre-auth-key) {
-      enable = true;
-      settings = {
-        integration = {
-          proc.enabled = false;
-          agent.pre_authkey_path = config.age.secrets.headscale-pre-auth-key.path;
-        };
-        server = {
-          host = "127.0.0.1";
-          cookie_secure = true;
-          cookie_secret_path = config.age.secrets.headscale-cookie-secret.path;
-        };
-        headscale = {
-          url = headscaleURI;
-          config_path = config.services.headscale.configFile;
-          config_strict = false;
-        };
-      };
-    };
-    openssh = {
-      enable = true;
-      openFirewall = true;
-      settings = {
-        PasswordAuthentication = false;
-        KbdInteractiveAuthentication = false;
-      };
-    };
-    caddy = {
-      enable = true;
-      openFirewall = true;
-      virtualHosts.${headscaleDomain}.extraConfig = ''
-        handle /admin* {
-          reverse_proxy 127.0.0.1:${toString config.services.headplane.settings.server.port}
-        }
+  age.secrets =
+    lib.genAttrs
+      [
+        "headscale-pre-auth-key"
+        "headscale-cookie-secret"
+        "headscale-oidc-client-secret"
+        "headplane-oidc-api-key"
+      ]
+      (_: {
+        owner = "headscale";
+        group = "headscale";
+      });
 
-        reverse_proxy 127.0.0.1:${toString config.services.headscale.port}
-      '';
-    };
-  };
+  services = lib.mkMerge [
+    {
+      fail2ban = {
+        enable = true;
+        bantime = "24h";
+      };
+      openssh = {
+        enable = true;
+        openFirewall = true;
+        settings = {
+          PasswordAuthentication = false;
+          KbdInteractiveAuthentication = false;
+        };
+      };
+      caddy = {
+        enable = true;
+        openFirewall = true;
+        virtualHosts = {
+          ${headscaleDomain}.extraConfig = ''
+            handle /admin* {
+              reverse_proxy 127.0.0.1:${toString config.services.headplane.settings.server.port}
+            }
+
+            reverse_proxy 127.0.0.1:${toString config.services.headscale.port}
+          '';
+          ${keycloakDomain}.extraConfig = ''
+            reverse_proxy 127.0.0.1:${toString config.services.keycloak.settings.http-port}
+          '';
+        };
+      };
+    }
+    (lib.mkIf config.rika.utils.hasSecrets {
+      keycloak = {
+        enable = true;
+        database.passwordFile = config.age.secrets.keycloak-db-password.path;
+        settings = {
+          http-enabled = true;
+          http-host = "127.0.0.1";
+          http-port = 8081;
+          proxy-headers = "xforwarded";
+          hostname = keycloakDomain;
+        };
+      };
+      headscale = {
+        enable = true;
+        address = "127.0.0.1";
+        settings = {
+          server_url = headscaleURI;
+          policy.mode = "database";
+          dns = {
+            magic_dns = true;
+            base_domain = "wired.local";
+            search_domains = [ ];
+            override_local_dns = false;
+            extra_records = [ ];
+            nameservers = {
+              split = { };
+              global = [
+                "1.1.1.1"
+                "1.0.0.1"
+              ];
+            };
+          };
+          oidc = {
+            issuer = oidcIssuer;
+            client_id = oidcClientId;
+            client_secret_path = config.age.secrets.headscale-oidc-client-secret.path;
+            scope = [
+              "openid"
+              "profile"
+              "email"
+            ];
+          };
+        };
+      };
+      headplane = {
+        enable = true;
+        settings = {
+          integration = {
+            proc.enabled = false;
+            agent.pre_authkey_path = config.age.secrets.headscale-pre-auth-key.path;
+          };
+          server = {
+            host = "127.0.0.1";
+            cookie_secure = true;
+            cookie_secret_path = config.age.secrets.headscale-cookie-secret.path;
+          };
+          headscale = {
+            url = headscaleURI;
+            config_path = config.services.headscale.configFile;
+            config_strict = false;
+          };
+          oidc = {
+            issuer = oidcIssuer;
+            client_id = oidcClientId;
+            client_secret_path = config.age.secrets.headscale-oidc-client-secret.path;
+            headscale_api_key_path = config.age.secrets.headplane-oidc-api-key.path;
+            redirect_uri = "${headscaleURI}/admin/oidc/callback";
+          };
+        };
+      };
+    })
+  ];
 
   users.users.lain = {
     isNormalUser = true;
