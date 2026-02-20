@@ -18,6 +18,10 @@ with lib;
       type = types.str;
       description = "Cloudflare zone name (for example example.com)";
     };
+    primaryInterface = mkOption {
+      type = types.str;
+      description = "The primary networking interface for operations.";
+    };
     useWebIPv6 = mkOption {
       type = types.bool;
       description = "Use webv6 lookup instead of interface address for DDNS";
@@ -37,7 +41,8 @@ with lib;
       protocol = "cloudflare";
       server = "api.cloudflare.com/client/v4";
       usev4 = if cfg.ddns.updateIPv4 then "webv4, webv4=ipify-ipv4" else "";
-      usev6 = if cfg.ddns.useWebIPv6 then "webv6, webv6=ipify-ipv6" else "ifv6, ifv6=${cfg.primaryInterface}";
+      usev6 =
+        if cfg.ddns.useWebIPv6 then "webv6, webv6=ipify-ipv6" else "ifv6, ifv6=${cfg.primaryInterface}";
     };
   };
 }

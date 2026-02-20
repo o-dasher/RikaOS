@@ -1,5 +1,7 @@
 {
   pkgs,
+  config,
+  lib,
   ...
 }:
 let
@@ -23,6 +25,9 @@ let
       udp = forwarder.udp or [ ];
     }
   ) wg.forwarders;
+
+  headscaleDomain = "wired.dshs.cc";
+  headscaleURI = "https://${headscaleDomain}";
 in
 {
   imports = [
@@ -31,6 +36,17 @@ in
 
   features = {
     boot.kernel.enable = true;
+    networking = {
+      enable = true;
+      primaryInterface = "ens3";
+      ddns = {
+        enable = true;
+        updateIPv4 = true;
+        useWebIPv6 = false;
+        zone = "dshs.cc";
+        domains = [ headscaleDomain ];
+      };
+    };
     services.tailscale = {
       enable = true;
       trust = true;
@@ -95,13 +111,58 @@ in
       enable = true;
       bantime = "24h";
     };
+    headscale = {
+      enable = true;
+      address = "127.0.0.1";
+      settings = {
+        server_url = headscaleURI;
+        dns = {
+          magic_dns = true;
+          base_domain = "wired.local";
+          nameservers.global = [
+            "1.1.1.1"
+            "1.0.0.1"
+          ];
+        };
+      };
+    };
+    headplane = lib.mkIf (config.age.secrets ? headscale-pre-auth-key) {
+      enable = true;
+      settings = {
+        integration = {
+          proc.enabled = false;
+          agent.pre_authkey_path = config.age.secrets.headscale-pre-auth-key.path;
+        };
+        server = {
+          host = "127.0.0.1";
+          cookie_secure = true;
+          cookie_secret_path = config.age.secrets.headscale-cookie-secret.path;
+        };
+        headscale = {
+          url = headscaleURI;
+          config_path = config.services.headscale.configFile;
+          config_strict = false;
+        };
+      };
+    };
     openssh = {
       enable = true;
-      openFirewall = false;
+      openFirewall = true;
       settings = {
         PasswordAuthentication = false;
         KbdInteractiveAuthentication = false;
       };
+    };
+    caddy = {
+      enable = true;
+      openFirewall = true;
+      virtualHosts.${headscaleDomain}.extraConfig = ''
+        handle /admin* {
+          reverse_proxy 127.0.0.1:${toString config.services.headplane.settings.server.port}
+        }
+
+        reverse_proxy 127.0.0.1:${toString config.services.headscale.port}
+      '';
     };
   };
 
