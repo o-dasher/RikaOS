@@ -51,7 +51,7 @@ let
     };
 in
 {
-  config = mkIf (modCfg.enable && cfg.enable && config.age.secrets ? playit-secret) {
+  config = mkIf (modCfg.enable && cfg.enable && config.rika.utils.hasSecrets) {
     programs.thunderbird = {
       enable = true;
       profiles.${thunderbirdProfile}.isDefault = true;

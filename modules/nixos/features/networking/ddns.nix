@@ -32,7 +32,7 @@ with lib;
     };
   };
 
-  config = mkIf (cfg.enable && cfg.ddns.enable && config.age.secrets ? cloudflare-ddns-token) {
+  config = mkIf (cfg.enable && cfg.ddns.enable && config.rika.utils.hasSecrets) {
     services.ddclient = {
       enable = true;
       inherit (cfg.ddns) domains zone;

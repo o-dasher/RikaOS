@@ -9,7 +9,7 @@ let
 in
 with lib;
 {
-  config = mkIf (modCfg.enable && cfg.enable && config.age.secrets ? tailscale-auth-key) (mkMerge [
+  config = mkIf (modCfg.enable && cfg.enable && config.rika.utils.hasSecrets) (mkMerge [
     {
       services.tailscale = {
         enable = true;

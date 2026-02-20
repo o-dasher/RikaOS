@@ -55,8 +55,5 @@ with lib;
         folders.shared.Media.Torrent.".incomplete" = [ ];
       };
     }
-    (mkIf (config.age.secrets ? transmission-credentials) {
-      services.transmission.credentialsFile = config.age.secrets.transmission-credentials.path;
-    })
   ]);
 }
