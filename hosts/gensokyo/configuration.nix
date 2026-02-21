@@ -29,6 +29,7 @@
     };
   };
 
+  profiles.secureServer.enable = true;
   features = {
     core.userPreferences.enable = true;
     nix = {
@@ -69,10 +70,6 @@
         ];
       };
     };
-    services.tailscale = {
-      enable = true;
-      trust = true;
-    };
   };
 
   systemd.services.sftpgo.serviceConfig = {
@@ -86,18 +83,6 @@
     komga = {
       enable = true;
       settings.server.port = 8081;
-    };
-    fail2ban = {
-      enable = true;
-      bantime = "24h";
-    };
-    openssh = {
-      enable = true;
-      openFirewall = true;
-      settings = {
-        PasswordAuthentication = false;
-        KbdInteractiveAuthentication = false;
-      };
     };
     playit = {
       enable = true;
