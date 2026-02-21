@@ -77,7 +77,6 @@
     RestartSec = "3s";
   };
 
-  security.polkit.enable = true;
   services = {
     jellyfin.enable = true;
     komga = {
