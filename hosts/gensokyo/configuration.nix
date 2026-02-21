@@ -187,20 +187,15 @@
       "jellyfin"
       "komga"
     ];
-    users = {
-      root.openssh.authorizedKeys.keys = [
+    users.thiago = {
+      isNormalUser = true;
+      shell = pkgs.fish;
+      openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGPAM12J0/Z/otlj0f6p6wvrEGFMGiBtcVb9zD7HjRVp rika@hinamizawa"
       ];
-      thiago = {
-        isNormalUser = true;
-        shell = pkgs.fish;
-        openssh.authorizedKeys.keys = [
-          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGPAM12J0/Z/otlj0f6p6wvrEGFMGiBtcVb9zD7HjRVp rika@hinamizawa"
-        ];
-        extraGroups = [
-          "wheel"
-        ];
-      };
+      extraGroups = [
+        "wheel"
+      ];
     };
   };
 
