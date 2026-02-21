@@ -286,6 +286,7 @@
             nixpkgs = { inherit overlays; };
             networking = { inherit hostName; };
             system = { inherit stateVersion; };
+            features.core.colmena.enable = builtins.hasAttr hostName deploymentTargets;
             home-manager = {
               inherit extraSpecialArgs;
               useGlobalPkgs = true;
@@ -330,7 +331,7 @@
           imports = mkSystemModules hostName systemConfig;
           deployment = {
             targetHost = deploymentCfg.targetHost or hostName;
-            targetUser = deploymentCfg.targetUser or "root";
+            targetUser = deploymentCfg.targetUser or "colmena";
             tags = deploymentCfg.tags or [ hostName ];
             buildOnTarget = false;
           };

@@ -40,6 +40,7 @@ in
     ./hardware-configuration.nix
   ];
 
+  profiles.secureServer.enable = true;
   features = {
     boot.kernel.enable = true;
     networking = {
@@ -57,8 +58,6 @@ in
       };
     };
     services.tailscale = {
-      enable = true;
-      trust = true;
       dns.server = {
         enable = true;
         zone = "dshs.cc";
@@ -130,18 +129,6 @@ in
 
   services = lib.mkMerge [
     {
-      fail2ban = {
-        enable = true;
-        bantime = "24h";
-      };
-      openssh = {
-        enable = true;
-        openFirewall = true;
-        settings = {
-          PasswordAuthentication = false;
-          KbdInteractiveAuthentication = false;
-        };
-      };
       caddy = {
         enable = true;
         openFirewall = true;
@@ -241,5 +228,11 @@ in
     ];
   };
 
-  programs.fish.enable = true;
+  programs = {
+    fish.enable = true;
+    neovim = {
+      enable = true;
+      defaultEditor = true;
+    };
+  };
 }
