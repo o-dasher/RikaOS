@@ -7,11 +7,19 @@ let
   modCfg = config.features.core;
   cfg = modCfg.colmena;
   usersWithoutColmena = lib.removeAttrs config.users.users [ "colmena" ];
+  wheelUsers = lib.filterAttrs (
+    _: userCfg:
+    let
+      extraGroups = lib.attrByPath [ "extraGroups" ] [ ] userCfg;
+      primaryGroup = lib.attrByPath [ "group" ] null userCfg;
+    in
+    lib.elem "wheel" extraGroups || primaryGroup == "wheel"
+  ) usersWithoutColmena;
   inheritedAuthorizedKeys = lib.unique (
     lib.flatten (
       lib.mapAttrsToList (
         _: userCfg: lib.attrByPath [ "openssh" "authorizedKeys" "keys" ] [ ] userCfg
-      ) usersWithoutColmena
+      ) wheelUsers
     )
   );
 in
