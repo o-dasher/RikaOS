@@ -40,6 +40,10 @@ in
   profiles.secureServer.enable = true;
   features = {
     boot.kernel.enable = true;
+    nix = {
+      enable = true;
+      nixpkgs.enable = true;
+    };
     networking = {
       enable = true;
       primaryInterface = "ens3";
@@ -236,9 +240,11 @@ in
     isNormalUser = true;
     shell = pkgs.fish;
     extraGroups = [ "wheel" ];
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGPAM12J0/Z/otlj0f6p6wvrEGFMGiBtcVb9zD7HjRVp rika@hinamizawa"
-    ];
+    openssh.authorizedKeys.keys =
+      let
+        inherit (config.features.services.openssh.keys) rika;
+      in
+      [ rika ];
   };
 
   programs = {

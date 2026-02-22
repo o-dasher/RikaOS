@@ -189,9 +189,11 @@
     users.thiago = {
       isNormalUser = true;
       shell = pkgs.fish;
-      openssh.authorizedKeys.keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGPAM12J0/Z/otlj0f6p6wvrEGFMGiBtcVb9zD7HjRVp rika@hinamizawa"
-      ];
+      openssh.authorizedKeys.keys =
+        let
+          inherit (config.features.services.openssh.keys) rika;
+        in
+        [ rika ];
       extraGroups = [
         "wheel"
       ];
