@@ -81,10 +81,9 @@ in
       ) wg.forwarders;
     in
     {
-      wg-quick.interfaces.${wg.interface} = {
+      wg-quick.interfaces.${wg.interface} = lib.mkIf config.rika.utils.hasSecrets {
         address = [ "10.72.0.1/24" ];
-        privateKeyFile = "/var/lib/wireguard/${wg.interface}.key";
-        generatePrivateKeyFile = true;
+        privateKeyFile = config.age.secrets.wireguard-wired-private-key.path;
         listenPort = wg.port;
         peers = map (forwarder: {
           publicKey = forwarder.publicKey;

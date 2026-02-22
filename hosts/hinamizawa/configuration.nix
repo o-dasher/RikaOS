@@ -149,6 +149,9 @@
           "podman"
         ]
         ++ commonGroups;
+        openssh.authorizedKeys.keys = [
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGPAM12J0/Z/otlj0f6p6wvrEGFMGiBtcVb9zD7HjRVp rika@hinamizawa"
+        ];
       };
       satoko = {
         isNormalUser = true;
@@ -173,11 +176,10 @@
       let
         table = toString 99;
       in
-      {
+      lib.mkIf config.rika.utils.hasSecrets {
         inherit table;
         address = [ "10.72.0.2/24" ];
-        generatePrivateKeyFile = true;
-        privateKeyFile = "/var/lib/wireguard/wg-nicotine.key";
+        privateKeyFile = config.age.secrets.wireguard-hinamizawa-private-key.path;
         peers = [
           {
             publicKey = "d1QgawQP+arz1fgRnAqmuSRrAWfc+FHyDIaN3Yuf0io=";
