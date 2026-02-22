@@ -85,10 +85,13 @@ in
         address = [ "10.72.0.1/24" ];
         privateKeyFile = config.age.secrets.wireguard-wired-private-key.path;
         listenPort = wg.port;
-        peers = map (forwarder: {
-          publicKey = forwarder.publicKey;
-          allowedIPs = [ "${forwarder.ip}/32" ];
-        }) wg.forwarders;
+        peers = map (
+          { publicKey, ip, ... }:
+          {
+            inherit publicKey;
+            allowedIPs = [ "${ip}/32" ];
+          }
+        ) wg.forwarders;
       };
 
       nat = {
@@ -105,10 +108,9 @@ in
           let
             forwardToDestination =
               proto: ports:
-              map (port: {
-                inherit proto;
-                sourcePort = port;
-                destination = "${ip}:${toString port}";
+              map (sourcePort: {
+                inherit proto sourcePort;
+                destination = "${ip}:${toString sourcePort}";
               }) ports;
           in
           (forwardToDestination "tcp" tcp) ++ (forwardToDestination "udp" udp)
@@ -116,8 +118,8 @@ in
       };
 
       firewall = {
-        allowedUDPPorts = [ wg.port ] ++ builtins.concatMap (forwarder: forwarder.udp) normalizedForwarders;
-        allowedTCPPorts = builtins.concatMap (forwarder: forwarder.tcp) normalizedForwarders;
+        allowedUDPPorts = [ wg.port ] ++ builtins.concatMap ({ udp, ... }: udp) normalizedForwarders;
+        allowedTCPPorts = builtins.concatMap ({ tcp, ... }: tcp) normalizedForwarders;
       };
     };
 
