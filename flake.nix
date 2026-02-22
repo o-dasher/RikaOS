@@ -135,7 +135,8 @@
       ...
     }@inputs:
     let
-      getNixImpl = pkgs: pkgs.lixPackageSets.git.lix;
+      getNixScope = pkgs: pkgs.lixPackageSets.git;
+
       mkPkgs =
         pkgs: system:
         import pkgs {
@@ -155,7 +156,7 @@
             stable = mkPkgs nixpkgs-stable system;
 
             # Lix
-            inherit (getNixImpl prev)
+            inherit (getNixScope (mkPkgs nixpkgs system))
               nixpkgs-review
               nix-eval-jobs
               nix-fast-build
@@ -242,7 +243,7 @@
       };
 
       mkCommonModules = pkgs: [
-        { nix.package = getNixImpl pkgs; }
+        { nix.package = (getNixScope pkgs).lix; }
       ];
 
       mkHomeModules =
