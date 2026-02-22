@@ -53,6 +53,10 @@ in
           keycloakDomain
         ];
       };
+      cloudflare = {
+        warp.enable = true;
+        dns.enable = true;
+      };
     };
     services.tailscale = {
       dns.server = {
