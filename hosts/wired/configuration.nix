@@ -5,6 +5,16 @@
   ...
 }:
 let
+  # Headscale
+  headscaleDomain = "wired.dshs.cc";
+  headscaleURI = "https://${headscaleDomain}";
+
+  # OIDC provider settings for Headscale/Headplane.
+  keycloakDomain = "auth.dshs.cc";
+  oidcIssuer = "https://${keycloakDomain}/realms/headscale";
+  oidcClientId = "headscale";
+
+  # Wireguard
   wg = {
     interface = "wg0";
     port = 51820;
@@ -14,26 +24,13 @@ let
         tcp = [ 2234 ];
         publicKey = "adsVEuj+sihaXKsoymSbCEC8dkYeecAP96lZPGCQJl4=";
       }
+      {
+        ip = "10.72.0.3";
+        tcp = [ 2235 ];
+        publicKey = "Z2lLQ1rQ/GWwX4Y44SRkwrbppwr2LMDTkgQjISXM0jU=";
+      }
     ];
   };
-
-  normalizedForwarders = map (
-    forwarder:
-    forwarder
-    // {
-      tcp = forwarder.tcp or [ ];
-      udp = forwarder.udp or [ ];
-    }
-  ) wg.forwarders;
-
-  # Headscale
-  headscaleDomain = "wired.dshs.cc";
-  headscaleURI = "https://${headscaleDomain}";
-
-  # OIDC provider settings for Headscale/Headplane.
-  keycloakDomain = "auth.dshs.cc";
-  oidcIssuer = "https://${keycloakDomain}/realms/headscale";
-  oidcClientId = "headscale";
 in
 {
   imports = [
@@ -72,47 +69,58 @@ in
     loader.grub.device = "/dev/vda";
   };
 
-  networking = {
-    wg-quick.interfaces.${wg.interface} = {
-      address = [ "10.72.0.1/24" ];
-      privateKeyFile = "/var/lib/wireguard/${wg.interface}.key";
-      generatePrivateKeyFile = true;
-      listenPort = wg.port;
-      peers = map (forwarder: {
-        publicKey = forwarder.publicKey;
-        allowedIPs = [ "${forwarder.ip}/32" ];
-      }) wg.forwarders;
-    };
+  networking =
+    let
+      normalizedForwarders = map (
+        forwarder:
+        forwarder
+        // {
+          tcp = forwarder.tcp or [ ];
+          udp = forwarder.udp or [ ];
+        }
+      ) wg.forwarders;
+    in
+    {
+      wg-quick.interfaces.${wg.interface} = {
+        address = [ "10.72.0.1/24" ];
+        privateKeyFile = "/var/lib/wireguard/${wg.interface}.key";
+        generatePrivateKeyFile = true;
+        listenPort = wg.port;
+        peers = map (forwarder: {
+          publicKey = forwarder.publicKey;
+          allowedIPs = [ "${forwarder.ip}/32" ];
+        }) wg.forwarders;
+      };
 
-    nat = {
-      enable = true;
-      externalInterface = "ens3";
-      internalInterfaces = [ wg.interface ];
-      forwardPorts = builtins.concatMap (
-        {
-          ip,
-          tcp,
-          udp,
-          ...
-        }:
-        let
-          forwardToDestination =
-            proto: ports:
-            map (port: {
-              inherit proto;
-              sourcePort = port;
-              destination = "${ip}:${toString port}";
-            }) ports;
-        in
-        (forwardToDestination "tcp" tcp) ++ (forwardToDestination "udp" udp)
-      ) normalizedForwarders;
-    };
+      nat = {
+        enable = true;
+        externalInterface = "ens3";
+        internalInterfaces = [ wg.interface ];
+        forwardPorts = builtins.concatMap (
+          {
+            ip,
+            tcp,
+            udp,
+            ...
+          }:
+          let
+            forwardToDestination =
+              proto: ports:
+              map (port: {
+                inherit proto;
+                sourcePort = port;
+                destination = "${ip}:${toString port}";
+              }) ports;
+          in
+          (forwardToDestination "tcp" tcp) ++ (forwardToDestination "udp" udp)
+        ) normalizedForwarders;
+      };
 
-    firewall = {
-      allowedUDPPorts = [ wg.port ] ++ builtins.concatMap (forwarder: forwarder.udp) normalizedForwarders;
-      allowedTCPPorts = builtins.concatMap (forwarder: forwarder.tcp) normalizedForwarders;
+      firewall = {
+        allowedUDPPorts = [ wg.port ] ++ builtins.concatMap (forwarder: forwarder.udp) normalizedForwarders;
+        allowedTCPPorts = builtins.concatMap (forwarder: forwarder.tcp) normalizedForwarders;
+      };
     };
-  };
 
   age.secrets =
     lib.genAttrs
