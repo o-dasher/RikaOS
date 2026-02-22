@@ -6,22 +6,6 @@
 let
   modCfg = config.features.core;
   cfg = modCfg.colmena;
-  usersWithoutColmena = lib.removeAttrs config.users.users [ "colmena" ];
-  wheelUsers = lib.filterAttrs (
-    _: userCfg:
-    let
-      extraGroups = lib.attrByPath [ "extraGroups" ] [ ] userCfg;
-      primaryGroup = lib.attrByPath [ "group" ] null userCfg;
-    in
-    lib.elem "wheel" extraGroups || primaryGroup == "wheel"
-  ) usersWithoutColmena;
-  inheritedAuthorizedKeys = lib.unique (
-    lib.flatten (
-      lib.mapAttrsToList (
-        _: userCfg: lib.attrByPath [ "openssh" "authorizedKeys" "keys" ] [ ] userCfg
-      ) wheelUsers
-    )
-  );
 in
 with lib;
 {
@@ -29,7 +13,11 @@ with lib;
     users.users.colmena = {
       isNormalUser = true;
       extraGroups = [ "wheel" ];
-      openssh.authorizedKeys.keys = inheritedAuthorizedKeys;
+      openssh.authorizedKeys.keys =
+        let
+          inherit (config.features.services.openssh.keys) rika;
+        in
+        [ rika ];
     };
 
     security.sudo.extraRules = [
