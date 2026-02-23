@@ -18,14 +18,13 @@ with lib;
       shellAbbrs =
         let
           aliase = pkg: kvpairs: prefixset (getExe pkg) kvpairs;
-
-          publicFlake = "${config.features.filesystem.sharedFolders.configurationRoot}/public";
-          privateFlake = "${config.features.filesystem.sharedFolders.configurationRoot}/private";
-
-          updateFlake = flake: "${getExe pkgs.nix} flake update --flake ${flake}";
           mkUpdateUtils =
+            let
+              publicFlake = "${config.features.filesystem.sharedFolders.configurationRoot}/public";
+              updateFlake = flake: "${getExe pkgs.nix} flake update --flake ${flake}";
+            in
             suffix: with pkgs; rec {
-              meh = "${updateFlake privateFlake} && ${getExe nh} ${suffix}";
+              meh = "${getExe nh} ${suffix} --impure";
               yay = "${updateFlake publicFlake} && ${meh}";
             };
         in
