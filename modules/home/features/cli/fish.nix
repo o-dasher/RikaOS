@@ -23,24 +23,23 @@ with lib;
           privateFlake = "${config.features.filesystem.sharedFolders.configurationRoot}/private";
 
           updateFlake = flake: "${getExe pkgs.nix} flake update --flake ${flake}";
-          mkUpdateUtils = switchCmd: {
-            yay = "${updateFlake publicFlake} && ${updateFlake privateFlake} && ${switchCmd}";
-            meh = "${updateFlake privateFlake} && ${switchCmd}";
-          };
+          mkUpdateUtils =
+            suffix: with pkgs; rec {
+              meh = "${updateFlake privateFlake} && ${getExe nh} ${suffix}";
+              yay = "${updateFlake publicFlake} && ${meh}";
+            };
         in
         mkMerge (
           with pkgs;
           [
             (aliase bash { sail = "vendor/bin/sail"; })
-            (mkIf (osConfig != null) (
-              mkUpdateUtils "${getExe pkgs.colmena} apply --on ${osConfig.networking.hostName} -f ${privateFlake}/flake.nix"
-            ))
+            (mkIf (osConfig != null) (mkUpdateUtils "os switch"))
             (
               (mkIf (
                 config.features.filesystem.sharedFolders.enable
                 && (osConfig == null || !osConfig.home-manager.useGlobalPkgs)
               ))
-              (mkUpdateUtils "${getExe pkgs.nh} home switch")
+              (mkUpdateUtils "home switch")
             )
             ((mkIf config.programs.lazygit.enable) {
               lg = getExe lazygit;
