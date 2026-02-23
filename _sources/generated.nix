@@ -21,7 +21,7 @@
     src = fetchurl {
       url = "https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot";
       name = "Floodgate-Spigot.jar";
-      sha256 = "sha256-1kevbNh1zsZbJj/+TlEgTabptu24tIHTe6/czILxBdk=";
+      sha256 = "sha256-tMoCxIk7l/ZtFQHNj2TMhI4kdreAAwOWm7uMVekCdlk=";
     };
   };
   floodgate-sqlite-database = {
@@ -39,7 +39,7 @@
     src = fetchurl {
       url = "https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot";
       name = "Geyser-Spigot.jar";
-      sha256 = "sha256-mBgCKvjLCFvNlGuiJY4a4D0DoyfFwj6wHHORPxPWsAA=";
+      sha256 = "sha256-QoLuLoy9/sSQY0rte2urxgIcK7LlF7qYFOiT2lcEYMg=";
     };
   };
   ps4-pkg-tools = {

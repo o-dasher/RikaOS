@@ -72,9 +72,27 @@
     };
   };
 
-  systemd.services.sftpgo.serviceConfig = {
-    Restart = "on-failure";
-    RestartSec = "3s";
+  systemd.services = {
+    sftpgo.serviceConfig = {
+      Restart = "on-failure";
+      RestartSec = "3s";
+    };
+    console-backlight-powerdown = {
+      description = "Power down console display when idle";
+      wantedBy = [ "multi-user.target" ];
+      after = [ "getty@tty1.service" ];
+      serviceConfig = {
+        Type = "oneshot";
+        Environment = [ "TERM=linux" ];
+      };
+      script = ''
+        ${pkgs.util-linux}/bin/setterm \
+          --blank 1 \
+          --powersave powerdown \
+          --powerdown 1 \
+          < /dev/tty1 > /dev/tty1
+      '';
+    };
   };
 
   services = {
