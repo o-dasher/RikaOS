@@ -58,6 +58,7 @@
       nixpkgs.enable = true;
     };
     services = {
+      dbus.enable = true;
       bluetooth.enable = true;
       flatpak.enable = true;
       openrgb.enable = true;
