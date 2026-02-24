@@ -60,16 +60,13 @@ with lib;
           pkg = pkgs.vesktop;
           condition = config.programs.nixcord.vesktop.enable;
         })
-        (mkTrayService {
-          name = "discord";
-          pkg = pkgs.discord;
-          condition = config.programs.nixcord.discord.enable;
-        })
       ];
 
     programs.nixcord = {
       enable = true;
+      discord.enable = false;
       vesktop.enable = true;
+      openASAR.enable = true;
       config.plugins = {
         fakeNitro.enable = true;
         youtubeAdblock.enable = true;

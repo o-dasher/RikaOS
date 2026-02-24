@@ -7,12 +7,14 @@ with lib;
     ./gnome-keyring.nix
     ./openssh.nix
     ./openrgb.nix
+    ./dbus.nix
     ./tailscale.nix
     ./transmission.nix
     ./sddm.nix
   ];
 
   options.features.services = {
+    dbus.enable = mkEnableOption "dbus";
     bluetooth.enable = mkEnableOption "bluetooth";
     flatpak.enable = mkEnableOption "Flatpak support";
     gnome-keyring.enable = mkEnableOption "gnome keyring";
