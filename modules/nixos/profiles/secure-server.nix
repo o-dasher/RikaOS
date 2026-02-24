@@ -18,6 +18,11 @@ with lib;
       fail2ban = {
         enable = true;
         bantime = "24h";
+        ignoreIP =
+          let
+            tailscaleIP = "100.64.0.0/16";
+          in
+          [ tailscaleIP ];
       };
       openssh = {
         enable = true;
