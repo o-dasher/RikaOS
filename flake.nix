@@ -214,30 +214,17 @@
         hinamizawa = { };
       };
 
-      builderSpecs =
-        let
-          defaults = builtins.mapAttrs (_: cfg: {
-            inherit (cfg) system;
-            maxJobs = 4;
-            speedFactor = 2;
-            supportedFeatures = [
-              "nixos-test"
-              "benchmark"
-              "big-parallel"
-              "kvm"
-            ];
-          }) systemConfigs;
-        in
-        nixpkgs.lib.recursiveUpdate defaults {
-          hinamizawa = {
-            maxJobs = 8;
-            speedFactor = 8;
-          };
-          wired = {
-            maxJobs = 2;
-            speedFactor = 1;
-          };
-        };
+      builderSpecs = nixpkgs.lib.recursiveUpdate (builtins.mapAttrs (_: cfg: {
+        inherit (cfg) system;
+        maxJobs = 8;
+        speedFactor = 2;
+        supportedFeatures = [
+          "nixos-test"
+          "benchmark"
+          "big-parallel"
+          "kvm"
+        ];
+      }) systemConfigs) { };
 
       nixCaches = rec {
         trusted-substituters = substituters;
