@@ -31,6 +31,7 @@ with lib;
 
               # Plugins that already handle lazy-loading
               rustaceanvim
+              vimtex
             ];
 
             opt = [
@@ -50,7 +51,6 @@ with lib;
               snacks-nvim
               luasnip
               friendly-snippets
-              vimtex
             ];
 
             dev.config.pure = ../../../../dotfiles/nvim;
@@ -92,6 +92,9 @@ with lib;
             # global formatters
             nixfmt
             stylua
+
+            # pdf viewer
+            zathura
           ];
         };
       };

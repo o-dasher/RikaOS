@@ -1,6 +1,6 @@
 return {
 	"oil.nvim",
-	lazy = false, -- Default file explorer != lazy
+	lazy = false,
 	keys = {
 		{
 			"<Leader>pv",
