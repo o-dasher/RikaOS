@@ -5,8 +5,7 @@
   ...
 }:
 let
-  modCfg = config.features;
-  cfg = modCfg.nix;
+  cfg = config.features.nix;
 in
 with lib;
 {
