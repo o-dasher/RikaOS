@@ -19,6 +19,13 @@
         flake-utils.follows = "flake-utils";
       };
     };
+    ai-nix = {
+      url = "github:o-dasher/ai-nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+      };
+    };
     spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix";
       inputs = {
@@ -132,6 +139,7 @@
       nix-flatpak,
       nix-minecraft,
       playit-nixos-module,
+      ai-nix,
       ...
     }@inputs:
     let
@@ -155,6 +163,9 @@
           {
             stable = mkPkgs nixpkgs-stable system;
 
+            # Workaround
+            lager = prev.lager.override { boost = final.boost188; };
+
             # Lix
             inherit (getNixScope (mkPkgs nixpkgs system))
               nixpkgs-review
@@ -166,6 +177,9 @@
             # Bleeding edge
             inherit (walker.packages.${system}) walker;
             inherit (codex-cli-nix.packages.${system}) codex;
+            codex-desktop = ai-nix.packages.${system}.codex-desktop.override {
+              codex = final.codex;
+            };
 
             # Gamescope
             gamescope = prev.gamescope.overrideAttrs (old: {
@@ -211,6 +225,31 @@
         hinamizawa = { };
       };
 
+      builderSpecs =
+        let
+          defaults = builtins.mapAttrs (_: cfg: {
+            inherit (cfg) system;
+            maxJobs = 4;
+            speedFactor = 2;
+            supportedFeatures = [
+              "nixos-test"
+              "benchmark"
+              "big-parallel"
+              "kvm"
+            ];
+          }) systemConfigs;
+        in
+        nixpkgs.lib.recursiveUpdate defaults {
+          hinamizawa = {
+            maxJobs = 8;
+            speedFactor = 8;
+          };
+          wired = {
+            maxJobs = 2;
+            speedFactor = 1;
+          };
+        };
+
       nixCaches = rec {
         trusted-substituters = substituters;
         substituters = [
@@ -239,6 +278,7 @@
         inherit
           inputs
           nixCaches
+          builderSpecs
           ;
       };
 

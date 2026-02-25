@@ -47,6 +47,7 @@ with lib;
       antigravity-fhs
       google-chrome
       codex
+      codex-desktop
       wget
       heroku
     ];
