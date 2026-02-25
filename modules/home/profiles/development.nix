@@ -10,6 +10,7 @@ in
 with lib;
 {
   config = mkIf cfg.enable {
+    services.gnome-keyring.enable = true;
     features = {
       terminal.ghostty.enable = true;
 
