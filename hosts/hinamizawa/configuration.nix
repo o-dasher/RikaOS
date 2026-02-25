@@ -56,10 +56,6 @@
     nix = {
       enable = true;
       nixpkgs.enable = true;
-      builders = {
-        enable = true;
-        sshKey = "/home/rika/.ssh/id_ed25519";
-      };
     };
     services = {
       dbus.enable = true;
