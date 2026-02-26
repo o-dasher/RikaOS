@@ -13,6 +13,7 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
+        systems.follows = "systems";
       };
     };
     flake-utils = {
@@ -80,6 +81,7 @@
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
         flake-parts.follows = "flake-parts";
+        nur.follows = "nur";
       };
     };
     agenix = {
@@ -110,6 +112,13 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-utils.follows = "flake-utils";
+      };
+    };
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
       };
     };
   };
@@ -147,6 +156,7 @@
       overlays = [
         nix-minecraft.overlay
         inputs.headplane.overlays.default
+        inputs.nur.overlays.default
         (
           final: prev:
           let
@@ -169,6 +179,11 @@
             # Bleeding edge
             inherit (walker.packages.${system}) walker;
             inherit (ai-nix.packages.${system}) codex-desktop codex;
+
+            # Fix gnome-keyring detection in Antigravity IDE
+            antigravity = prev.antigravity.override {
+              commandLineArgs = "--password-store=gnome-libsecret";
+            };
 
             # Gamescope
             gamescope = prev.gamescope.overrideAttrs (old: {
