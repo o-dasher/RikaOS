@@ -11,17 +11,15 @@ with lib;
   imports = [
     ./cloudflare.nix
     ./ddns.nix
-    (mkAliasOptionModule [ "features" "networking" "primaryInterface" ] [
-      "features"
-      "networking"
-      "ddns"
-      "primaryInterface"
-    ])
   ];
 
   options.features.networking = {
     enable = mkEnableOption "networking";
     privacyIPv6.enable = mkEnableOption "Privacy IPv6 address generation";
+    primaryInterface = mkOption {
+      type = types.str;
+      description = "The primary networking interface for operations.";
+    };
   };
 
   config = mkIf cfg.enable {
