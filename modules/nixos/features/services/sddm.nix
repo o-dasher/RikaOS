@@ -15,6 +15,22 @@ with lib;
     ../../../lib
   ];
 
+  options.features.services.sddm = {
+    enable = mkEnableOption "SDDM Display Manager";
+    background = mkOption {
+      type = types.path;
+      description = "Background image for SDDM";
+    };
+    flavor = mkOption {
+      type = types.str;
+      description = "Catppuccin flavor for SDDM (e.g., mocha, latte)";
+    };
+    accent = mkOption {
+      type = types.str;
+      description = "Catppuccin accent color for SDDM (e.g., mauve, pink)";
+    };
+  };
+
   config = mkIf (modCfg.enable && cfg.enable) {
     environment.systemPackages = [
       themeLib.cursor.package

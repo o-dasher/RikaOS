@@ -5,6 +5,8 @@ let
 in
 with lib;
 {
+  options.features.core.userPreferences.enable = mkEnableOption "userPreferences";
+
   config = mkIf (modCfg.enable && cfg.enable) {
     time.timeZone = "Brazil/West";
     i18n.defaultLocale = "en_US.UTF-8";

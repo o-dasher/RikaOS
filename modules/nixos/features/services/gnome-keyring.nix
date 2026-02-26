@@ -9,6 +9,8 @@ let
 in
 with lib;
 {
+  options.features.services.gnome-keyring.enable = mkEnableOption "gnome keyring";
+
   config = mkIf (modCfg.enable && cfg.enable) {
     programs.seahorse.enable = true;
     services.gnome.gnome-keyring.enable = true;

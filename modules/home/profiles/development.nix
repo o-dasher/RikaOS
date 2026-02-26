@@ -9,6 +9,8 @@ let
 in
 with lib;
 {
+  options.profiles.development.enable = mkEnableOption "Development profile";
+
   config = mkIf cfg.enable {
     services.gnome-keyring.enable = true;
     features = {

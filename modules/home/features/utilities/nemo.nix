@@ -10,6 +10,8 @@ let
 in
 with lib;
 {
+  options.features.utilities.nemo.enable = mkEnableOption "nemo";
+
   config = mkIf (modCfg.enable && cfg.enable) {
     home.packages = with pkgs; [
       nemo-with-extensions

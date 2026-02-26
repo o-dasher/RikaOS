@@ -11,6 +11,8 @@ let
 in
 with lib;
 {
+  options.features.development.git.enable = mkEnableOption "git";
+
   config = mkIf (modCfg.enable && cfg.enable) {
     programs = {
       gh.enable = true;

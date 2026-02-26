@@ -9,6 +9,8 @@ let
 in
 with lib;
 {
+  options.features.social.zapzap.enable = mkEnableOption "ZapZap";
+
   config = mkIf (modCfg.enable && cfg.enable) {
     programs.zapzap = {
       enable = true;

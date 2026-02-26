@@ -10,6 +10,8 @@ let
 in
 with lib;
 {
+  options.features.development.secrets.enable = mkEnableOption "secrets";
+
   config = mkIf (modCfg.enable && cfg.enable && config.rika.utils.hasSecrets) {
     home.sessionVariables = {
       GEMINI_API_KEY = ''

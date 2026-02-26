@@ -9,6 +9,8 @@ let
 in
 with lib;
 {
+  options.features.hardware.amdgpu.enable = mkEnableOption "AMDGPU support";
+
   config = mkIf (modCfg.enable && cfg.enable) {
     services.lact.enable = true;
     hardware.amdgpu = {

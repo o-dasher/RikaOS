@@ -10,6 +10,15 @@ let
 in
 with lib;
 {
+  options.features.boot.limine = {
+    enable = mkEnableOption "Limine boot loader";
+    secure = {
+      enable = mkEnableOption "Setup secure boot";
+      # Reference for auto unlocking encrypted drive: https://discourse.nixos.org/t/full-disk-encryption-tpm2/29454
+      encryptionUnlock.enable = mkEnableOption "Unlock encrypted drives automatically";
+    };
+  };
+
   config = mkIf (modCfg.enable && cfg.enable) (mkMerge [
     {
       boot.loader = {

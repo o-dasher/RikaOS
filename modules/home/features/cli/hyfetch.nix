@@ -5,6 +5,8 @@ let
 in
 with lib;
 {
+  options.features.cli.hyfetch.enable = mkEnableOption "hyfetch";
+
   config = mkIf (modCfg.enable && cfg.enable) {
     programs = {
       fastfetch.enable = true;

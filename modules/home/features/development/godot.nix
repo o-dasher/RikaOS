@@ -10,6 +10,8 @@ let
 in
 with lib;
 {
+  options.features.development.godot.enable = mkEnableOption "godot";
+
   config = mkIf (modCfg.enable && cfg.enable) {
     home.packages = [ pkgs.godot ];
   };

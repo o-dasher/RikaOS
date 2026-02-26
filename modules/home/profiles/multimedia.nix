@@ -9,6 +9,8 @@ let
 in
 with lib;
 {
+  options.profiles.multimedia.enable = mkEnableOption "multimedia profile";
+
   config = mkIf cfg.enable {
     services.easyeffects.enable = true;
     programs = {

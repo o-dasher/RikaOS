@@ -13,6 +13,8 @@ let
 in
 with lib;
 {
+  options.features.services.openrgb.enable = mkEnableOption "openrgb";
+
   config = mkIf (modCfg.enable && cfg.enable) {
     services.hardware.openrgb = {
       enable = true;

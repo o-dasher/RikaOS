@@ -10,6 +10,8 @@ let
 in
 with lib;
 {
+  options.features.gaming.heroic.enable = mkEnableOption "heroic";
+
   config = mkIf (modCfg.enable && cfg.enable) {
     systemd.user.services.heroic = config.rika.utils.mkAutostartService (getExe pkgs.heroic);
 

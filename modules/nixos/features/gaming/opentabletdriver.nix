@@ -9,6 +9,10 @@ let
 in
 with lib;
 {
+  options.features.gaming.otd.enable = mkEnableOption "OpenTabletDriver" // {
+    default = true;
+  };
+
   config = mkIf (modCfg.enable && cfg.enable) {
     boot.kernelModules = [ "uinput" ];
     hardware = {

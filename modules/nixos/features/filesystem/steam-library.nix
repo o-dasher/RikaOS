@@ -17,6 +17,25 @@ let
 in
 with lib;
 {
+  options.features.filesystem.steamLibrary = {
+    enable = mkEnableOption "shared steam library location";
+    path = mkOption {
+      type = types.str;
+      default = "/shared/SteamGames";
+      description = "Path to the shared steam library";
+    };
+    group = mkOption {
+      type = types.str;
+      default = "steam-gamers";
+      description = "Group that owns the shared library";
+    };
+    users = mkOption {
+      type = types.listOf types.str;
+      default = [ ];
+      description = "Users to add to the shared group";
+    };
+  };
+
   config = mkIf (modCfg.enable && cfg.enable) {
     users.groups.${cfg.group}.members = cfg.users;
 

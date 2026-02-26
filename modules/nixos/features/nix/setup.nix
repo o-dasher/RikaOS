@@ -9,6 +9,15 @@ let
 in
 with lib;
 {
+  options.features.nix = {
+    nixpkgs.enable = mkEnableOption "nixpkgs";
+    trusted-users = mkOption {
+      default = [ ];
+      type = types.listOf types.str;
+    };
+    optimise = mkEnableOption "optmise";
+  };
+
   config = mkIf cfg.enable {
     nixpkgs.config.allowUnfree = cfg.nixpkgs.enable;
     nix = {

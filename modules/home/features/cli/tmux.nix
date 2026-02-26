@@ -5,6 +5,8 @@ let
 in
 with lib;
 {
+  options.features.cli.tmux.enable = mkEnableOption "tmux";
+
   config = mkIf (modCfg.enable && cfg.enable) {
     programs.tmux = {
       enable = true;

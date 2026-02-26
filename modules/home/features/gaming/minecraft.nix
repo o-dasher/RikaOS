@@ -10,6 +10,8 @@ let
 in
 with lib;
 {
+  options.features.gaming.minecraft.enable = mkEnableOption "minecraft";
+
   config = mkIf (modCfg.enable && cfg.enable) {
     home.packages = [
       (pkgs.prismlauncher.override {

@@ -11,6 +11,13 @@ let
 in
 with lib;
 {
+  options.features.editors.jetbrains = {
+    enable = mkEnableOption "JetBrains IDEs configuration";
+    android-studio.enable = mkEnableOption "Android Studio";
+    datagrip.enable = mkEnableOption "DataGrip";
+    rider.enable = mkEnableOption "Rider";
+  };
+
   config = mkMerge [
     (mkIf (modCfg.enable && cfg.enable) {
       home = {

@@ -8,6 +8,8 @@ let
 in
 with lib;
 {
+  options.profiles.social.enable = mkEnableOption "social profile";
+
   config = mkIf cfg.enable {
     features.social = {
       enable = true;
