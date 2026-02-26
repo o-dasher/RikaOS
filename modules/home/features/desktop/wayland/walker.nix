@@ -12,6 +12,10 @@ let
 in
 with lib;
 {
+  options.features.desktop.wayland.walker.enable = (mkEnableOption "walker") // {
+    default = true;
+  };
+
   config = mkIf (hasStylix && config.features.desktop.enable && modCfg.enable && cfg.enable) {
     home.packages = [ pkgs.app2unit ];
     programs.walker = {

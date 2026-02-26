@@ -9,6 +9,8 @@ let
 in
 with lib;
 {
+  options.features.gaming.mangohud.enable = mkEnableOption "mangohud";
+
   config = mkIf (modCfg.enable && cfg.enable) {
     programs.mangohud = {
       enable = true;

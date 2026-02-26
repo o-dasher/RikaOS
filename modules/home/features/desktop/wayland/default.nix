@@ -17,6 +17,8 @@ in
     ./waybar.nix
   ];
 
+  options.features.desktop.wayland.enable = mkEnableOption "Wayland base integration";
+
   config = mkIf (desktopCfg.enable && modCfg.enable) {
     home.packages = with pkgs; [
       wl-clipboard

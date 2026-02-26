@@ -51,6 +51,8 @@ let
     };
 in
 {
+  options.features.social.email.enable = mkEnableOption "declarative email accounts";
+
   config = mkIf (modCfg.enable && cfg.enable && config.rika.utils.hasSecrets) {
     programs.thunderbird = {
       enable = true;

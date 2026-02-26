@@ -9,6 +9,8 @@ let
 in
 with lib;
 {
+  options.features.services.flatpak.enable = mkEnableOption "Flatpak support";
+
   config = mkIf (modCfg.enable && cfg.enable) {
     services.flatpak = {
       enable = true;

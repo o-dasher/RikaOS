@@ -11,6 +11,10 @@ let
 in
 with lib;
 {
+  options.features.desktop.fonts.enable = mkEnableOption "common fonts" // {
+    default = true;
+  };
+
   config = mkIf (desktopCfg.enable && modCfg.enable) (mkMerge [
     (optionalAttrs (options ? stylix) {
       stylix.fonts = {

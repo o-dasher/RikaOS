@@ -12,6 +12,10 @@ let
 in
 with lib;
 {
+  options.features.desktop.wayland.waybar.enable = (mkEnableOption "waybar") // {
+    default = true;
+  };
+
   config = mkIf (hasStylix && config.features.desktop.enable && modCfg.enable && cfg.enable) (
     optionalAttrs (options ? stylix) {
       stylix.targets.waybar.addCss = false;

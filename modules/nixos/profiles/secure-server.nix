@@ -8,6 +8,8 @@ let
 in
 with lib;
 {
+  options.profiles.secureServer.enable = mkEnableOption "secure server profile";
+
   config = mkIf cfg.enable {
     features.services.tailscale = {
       enable = true;

@@ -11,6 +11,13 @@ let
 in
 with lib;
 {
+  options.features.core.nix = {
+    enable = mkEnableOption "nix" // {
+      default = true;
+    };
+    nixpkgs.enable = mkEnableOption "nixpkgs";
+  };
+
   config = mkMerge [
     (mkIf (modCfg.enable && cfg.enable) {
       nix.settings = nixCaches;

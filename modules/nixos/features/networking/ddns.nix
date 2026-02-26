@@ -42,7 +42,7 @@ with lib;
       server = "api.cloudflare.com/client/v4";
       usev4 = if cfg.ddns.updateIPv4 then "webv4, webv4=ipify-ipv4" else "";
       usev6 =
-        if cfg.ddns.useWebIPv6 then "webv6, webv6=ipify-ipv6" else "ifv6, ifv6=${cfg.primaryInterface}";
+        if cfg.ddns.useWebIPv6 then "webv6, webv6=ipify-ipv6" else "ifv6, ifv6=${cfg.ddns.primaryInterface}";
     };
   };
 }

@@ -9,6 +9,8 @@ let
 in
 with lib;
 {
+  options.profiles.utilities.enable = mkEnableOption "Utilities profile";
+
   config = mkIf cfg.enable {
     programs = {
       htop.enable = true;

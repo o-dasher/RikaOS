@@ -9,6 +9,8 @@ let
 in
 with lib;
 {
+  options.features.core.colmena.enable = mkEnableOption "colmena deployment user";
+
   config = mkIf (modCfg.enable && cfg.enable) {
     users.users.colmena = {
       isNormalUser = true;

@@ -7,16 +7,6 @@ with lib;
   ];
 
   options.features.editors = {
-    neovim = {
-      enable = mkEnableOption "neovim";
-      neovide.enable = mkEnableOption "neovide";
-    };
-    jetbrains = {
-      enable = mkEnableOption "JetBrains IDEs configuration";
-      android-studio.enable = mkEnableOption "Android Studio";
-      datagrip.enable = mkEnableOption "DataGrip";
-      rider.enable = mkEnableOption "Rider";
-    };
     enable = mkEnableOption "editor features" // {
       default = true;
     };

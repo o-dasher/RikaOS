@@ -22,6 +22,8 @@ let
 in
 with lib;
 {
+  options.features.desktop.hyprland.enable = mkEnableOption "hyprland";
+
   config = mkIf (config.features.desktop.enable && modCfg.enable) {
     features.desktop.wayland.enable = true;
     programs.hyprlock.enable = true;

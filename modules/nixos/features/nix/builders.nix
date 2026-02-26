@@ -14,6 +14,14 @@ let
 in
 with lib;
 {
+  options.features.nix.builders = {
+    enable = mkEnableOption "distributed nix builders";
+    sshKey = mkOption {
+      type = types.str;
+      description = "Path to SSH private key for connecting to remote builders";
+    };
+  };
+
   config = mkIf (modCfg.enable && cfg.enable) {
     nix = {
       distributedBuilds = true;

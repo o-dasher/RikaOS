@@ -9,10 +9,6 @@ with lib;
   ];
 
   options.features.development = {
-    direnv.enable = mkEnableOption "direnv";
-    git.enable = mkEnableOption "git";
-    godot.enable = mkEnableOption "godot";
-    secrets.enable = mkEnableOption "secrets";
     enable = mkEnableOption "development features" // {
       default = true;
     };

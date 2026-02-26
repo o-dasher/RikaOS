@@ -9,6 +9,8 @@ let
 in
 with lib;
 {
+  options.profiles.browser.enable = mkEnableOption "browser profile";
+
   config = mkIf cfg.enable {
     home.packages = with pkgs; [ ungoogled-chromium ];
     programs = {

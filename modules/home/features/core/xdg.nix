@@ -9,6 +9,11 @@ let
 in
 with lib;
 {
+  options.features.core.xdg = {
+    enable = mkEnableOption "xdg";
+    portal.enable = mkEnableOption "portal";
+  };
+
   config = mkIf (modCfg.enable && cfg.enable) {
     xdg = {
       enable = true;

@@ -24,6 +24,8 @@ let
 in
 with lib;
 {
+  options.profiles.gaming.enable = mkEnableOption "Gaming profile";
+
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       goverlay-fhs

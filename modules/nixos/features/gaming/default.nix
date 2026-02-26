@@ -17,9 +17,6 @@ with lib;
     controllers.enable = mkEnableOption "Xbox controllers" // {
       default = true;
     };
-    otd.enable = mkEnableOption "OpenTabletDriver" // {
-      default = true;
-    };
     suppressNotifications.enable =
       mkEnableOption "suppress notifications during gaming (requires mako)"
       // {

@@ -10,6 +10,8 @@ let
 in
 with lib;
 {
+  options.features.cli.gemini.enable = mkEnableOption "gemini-cli";
+
   config = mkIf (modCfg.enable && cfg.enable) {
     programs.gemini-cli = {
       enable = true;

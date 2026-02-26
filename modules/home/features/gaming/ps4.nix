@@ -46,6 +46,8 @@ let
 in
 with lib;
 {
+  options.features.gaming.ps4.enable = mkEnableOption "ps4";
+
   config = mkIf (modCfg.enable && cfg.enable) {
     home.packages = [ ps4-pkg-tools ];
     services.flatpak.packages = [ "net.shadps4.shadPS4" ];

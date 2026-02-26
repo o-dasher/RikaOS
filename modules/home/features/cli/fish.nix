@@ -12,6 +12,8 @@ let
 in
 with lib;
 {
+  options.features.cli.fish.enable = mkEnableOption "fish";
+
   config = mkIf (modCfg.enable && cfg.enable) {
     programs.fish = {
       enable = true;

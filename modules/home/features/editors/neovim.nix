@@ -10,6 +10,11 @@ let
 in
 with lib;
 {
+  options.features.editors.neovim = {
+    enable = mkEnableOption "neovim";
+    neovide.enable = mkEnableOption "neovide";
+  };
+
   config = mkMerge [
     (mkIf (modCfg.enable && cfg.enable && cfg.neovide.enable) {
       programs.neovide.enable = true;

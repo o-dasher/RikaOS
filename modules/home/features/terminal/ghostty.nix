@@ -5,6 +5,8 @@ let
 in
 with lib;
 {
+  options.features.terminal.ghostty.enable = mkEnableOption "ghostty";
+
   config = mkIf (modCfg.enable && cfg.enable) {
     programs.ghostty = {
       enable = true;

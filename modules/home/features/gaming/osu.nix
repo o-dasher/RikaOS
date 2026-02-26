@@ -11,6 +11,8 @@ let
 in
 with lib;
 {
+  options.features.gaming.osu.enable = mkEnableOption "osu-lazer";
+
   config = mkIf (modCfg.enable && cfg.enable) {
     home = {
       sessionVariables.OSU_SDL3 = 1;

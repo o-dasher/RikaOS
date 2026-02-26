@@ -27,6 +27,15 @@ let
 in
 with lib;
 {
+  options.features.social.discord = {
+    enable = mkEnableOption "Discord with Krisp";
+    enableKrispPatch = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Enable the Krisp noise suppression patch for Discord";
+    };
+  };
+
   config = mkIf (modCfg.enable && cfg.enable) {
     systemd.user.services =
       let
