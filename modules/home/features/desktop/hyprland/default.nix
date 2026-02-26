@@ -107,6 +107,9 @@ with lib;
           disable_logs = false;
           full_cm_proto = 1; # Gamescope.
         };
+        # Keep display output at 10-bit while forcing screencopy clients to 8-bit buffers.
+        # Fixes screen sharing on apps which use chromium. e.g. Discord.
+        misc.screencopy_force_8b = true;
         monitorv2 = [
           {
             output = "HDMI-A-1";
