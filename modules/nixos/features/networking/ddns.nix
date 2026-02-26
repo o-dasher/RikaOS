@@ -4,7 +4,8 @@
   ...
 }:
 let
-  cfg = config.features.networking;
+  modCfg = config.features.networking;
+  cfg = modCfg.ddns;
 in
 with lib;
 {
@@ -18,10 +19,6 @@ with lib;
       type = types.str;
       description = "Cloudflare zone name (for example example.com)";
     };
-    primaryInterface = mkOption {
-      type = types.str;
-      description = "The primary networking interface for operations.";
-    };
     useWebIPv6 = mkOption {
       type = types.bool;
       description = "Use webv6 lookup instead of interface address for DDNS";
@@ -32,17 +29,17 @@ with lib;
     };
   };
 
-  config = mkIf (cfg.enable && cfg.ddns.enable && config.rika.utils.hasSecrets) {
+  config = mkIf (modCfg.enable && cfg.enable && config.rika.utils.hasSecrets) {
     services.ddclient = {
       enable = true;
-      inherit (cfg.ddns) domains zone;
+      inherit (cfg) domains zone;
       username = "token";
       passwordFile = config.age.secrets.cloudflare-ddns-token.path;
       protocol = "cloudflare";
       server = "api.cloudflare.com/client/v4";
-      usev4 = if cfg.ddns.updateIPv4 then "webv4, webv4=ipify-ipv4" else "";
+      usev4 = if cfg.updateIPv4 then "webv4, webv4=ipify-ipv4" else "";
       usev6 =
-        if cfg.ddns.useWebIPv6 then "webv6, webv6=ipify-ipv6" else "ifv6, ifv6=${cfg.ddns.primaryInterface}";
+        if cfg.useWebIPv6 then "webv6, webv6=ipify-ipv6" else "ifv6, ifv6=${modCfg.primaryInterface}";
     };
   };
 }
