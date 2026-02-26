@@ -40,13 +40,15 @@ with lib;
       };
     };
 
-    programs.jq.enable = true;
-    programs.ripgrep.enable = true;
+    programs = {
+
+      jq.enable = true;
+      ripgrep.enable = true;
+    };
     home.packages = with pkgs; [
       bashInteractive
       github-copilot-cli
       antigravity-fhs
-      google-chrome
       codex
       codex-desktop
       wget

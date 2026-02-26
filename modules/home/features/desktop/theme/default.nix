@@ -19,7 +19,10 @@ in
       stylix = {
         icons.enable = true;
         cursor = themeLib.cursor;
-        targets.nixcord.enable = false;
+        targets = {
+          nixcord.enable = false;
+          floorp.profileNames = [ "default" ];
+        };
       };
     }
   );
