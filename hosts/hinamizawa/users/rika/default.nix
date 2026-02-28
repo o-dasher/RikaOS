@@ -15,7 +15,10 @@
   };
 
   features = {
-    editors.jetbrains.android-studio.enable = true;
+    editors.jetbrains = {
+      android-studio.enable = true;
+      rider.enable = true;
+    };
     utilities = {
       nemo.enable = true;
       trash.enable = true;
