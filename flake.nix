@@ -7,6 +7,17 @@
     nix-flatpak.url = "github:gmodena/nix-flatpak";
     flake-compat.url = "github:edolstra/flake-compat";
     systems.url = "github:nix-systems/default";
+    blueprint = {
+      url = "github:numtide/blueprint";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
+    };
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     mnw.url = "github:Gerg-L/mnw";
     ai-nix = {
       url = "github:o-dasher/ai-nix";
@@ -14,6 +25,15 @@
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
         systems.follows = "systems";
+        llm-agents.follows = "llm-agents";
+      };
+    };
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        blueprint.follows = "blueprint";
+        treefmt-nix.follows = "treefmt-nix";
       };
     };
     flake-utils = {
@@ -141,6 +161,9 @@
       nix-minecraft,
       playit-nixos-module,
       ai-nix,
+      llm-agents,
+      nur,
+      headplane,
       ...
     }@inputs:
     let
@@ -155,8 +178,8 @@
 
       overlays = [
         nix-minecraft.overlay
-        inputs.headplane.overlays.default
-        inputs.nur.overlays.default
+        headplane.overlays.default
+        nur.overlays.default
         (
           final: prev:
           let
@@ -178,7 +201,8 @@
 
             # Bleeding edge
             inherit (walker.packages.${system}) walker;
-            inherit (ai-nix.packages.${system}) codex-desktop codex;
+            inherit (ai-nix.packages.${system}) codex-desktop;
+            inherit (llm-agents.packages.${system}) codex;
 
             # Fix gnome-keyring detection in Antigravity IDE
             antigravity = prev.antigravity.override {
@@ -241,9 +265,8 @@
         ];
       }) systemConfigs) { };
 
-      nixCaches = rec {
-        trusted-substituters = substituters;
-        substituters = [
+      nixCaches = {
+        extra-substituters = [
           "https://cache.nixos.org"
           "https://playit-nixos-module.cachix.org"
           "https://nix-community.cachix.org"
@@ -252,8 +275,10 @@
           "https://hercules-ci.cachix.org"
           "https://walker.cachix.org"
           "https://walker-git.cachix.org"
+          "https://ai-nix.cachix.org"
+          "https://cache.numtide.com"
         ];
-        trusted-public-keys = [
+        extra-trusted-public-keys = [
           "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
           "playit-nixos-module.cachix.org-1:22hBXWXBbd/7o1cOnh+p0hpFUVk9lPdRLX3p5YSfRz4="
           "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
@@ -262,6 +287,8 @@
           "hercules-ci.cachix.org-1:ZZeDl9Va+xe9j+KqdzoBZMFJHVQ42Uu/c/1/KMC5Lw0="
           "walker.cachix.org-1:fG8q+uAaMqhsMxWjwvk0IMb4mFPFLqHjuvfwQxE4oJM="
           "walker-git.cachix.org-1:vmC0ocfPWh0S/vRAQGtChuiZBTAe4wiKDeyyXM0/7pM="
+          "ai-nix.cachix.org-1:rUfdPFgb+6TNgKxm7BbanFKIprQed0/SHvQK68DPsCg="
+          "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
         ];
       };
 
