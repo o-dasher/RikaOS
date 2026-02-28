@@ -16,7 +16,6 @@ with lib;
     hardware.amdgpu = {
       initrd.enable = true;
       opencl.enable = true;
-      overdrive.enable = true;
     };
   };
 }

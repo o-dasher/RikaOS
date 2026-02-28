@@ -1,6 +1,8 @@
 {
   lib,
   config,
+  inputs,
+  pkgs,
   ...
 }:
 let
@@ -13,9 +15,18 @@ with lib;
   };
 
   config = mkIf modCfg.enable {
-    hardware.graphics = {
-      enable = true;
-      enable32Bit = true;
-    };
+    hardware.graphics = lib.mkMerge [
+      {
+        enable = true;
+        enable32Bit = true;
+      }
+      (
+        with inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+        lib.mkIf config.programs.hyprland.enable {
+          package = mesa;
+          package32 = pkgsi686Linux.mesa;
+        }
+      )
+    ];
   };
 }

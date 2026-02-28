@@ -7,6 +7,14 @@
     nix-flatpak.url = "github:gmodena/nix-flatpak";
     flake-compat.url = "github:edolstra/flake-compat";
     systems.url = "github:nix-systems/default";
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+        pre-commit-hooks.follows = "git-hooks";
+      };
+    };
     blueprint = {
       url = "github:numtide/blueprint";
       inputs = {
@@ -164,6 +172,7 @@
       llm-agents,
       nur,
       headplane,
+      hyprland,
       ...
     }@inputs:
     let
@@ -203,6 +212,7 @@
             inherit (walker.packages.${system}) walker;
             inherit (ai-nix.packages.${system}) codex-desktop;
             inherit (llm-agents.packages.${system}) codex;
+            inherit (hyprland.packages.${system}) hyprland xdg-desktop-portal-hyprland;
 
             # Fix gnome-keyring detection in Antigravity IDE
             antigravity = prev.antigravity.override {
@@ -277,6 +287,7 @@
           "https://walker-git.cachix.org"
           "https://ai-nix.cachix.org"
           "https://cache.numtide.com"
+          "https://hyprland.cachix.org"
         ];
         extra-trusted-public-keys = [
           "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
@@ -289,6 +300,7 @@
           "walker-git.cachix.org-1:vmC0ocfPWh0S/vRAQGtChuiZBTAe4wiKDeyyXM0/7pM="
           "ai-nix.cachix.org-1:rUfdPFgb+6TNgKxm7BbanFKIprQed0/SHvQK68DPsCg="
           "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
+          "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
         ];
       };
 
