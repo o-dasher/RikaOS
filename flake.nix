@@ -78,6 +78,7 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
+        git-hooks.follows = "git-hooks";
       };
     };
     git-hooks = {
@@ -208,7 +209,7 @@
             # Bleeding edge
             inherit (walker.packages.${system}) walker;
             inherit (ai-nix.packages.${system}) codex-desktop;
-            inherit (llm-agents.packages.${system}) codex;
+            inherit (llm-agents.packages.${system}) codex gemini-cli copilot-cli;
             inherit (hyprland.packages.${system}) hyprland xdg-desktop-portal-hyprland;
 
             # Fix gnome-keyring detection in Antigravity IDE

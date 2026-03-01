@@ -49,7 +49,7 @@ with lib;
     };
     home.packages = with pkgs; [
       bashInteractive
-      github-copilot-cli
+      copilot-cli
       antigravity-fhs
       codex
       codex-desktop
