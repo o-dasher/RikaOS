@@ -15,7 +15,7 @@ with lib;
   config = mkIf (modCfg.enable && cfg.enable) {
     programs.gemini-cli = {
       enable = true;
-      package = pkgs.gemini-cli-bin;
+      package = pkgs.gemini-cli;
     };
   };
 }
