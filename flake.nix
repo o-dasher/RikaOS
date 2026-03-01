@@ -197,9 +197,6 @@
           {
             stable = mkPkgs nixpkgs-stable system;
 
-            # Workaround
-            lager = prev.lager.override { boost = final.boost188; };
-
             # Lix
             inherit (getNixScope (mkPkgs nixpkgs system))
               nixpkgs-review
