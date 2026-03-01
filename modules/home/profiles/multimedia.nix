@@ -44,6 +44,6 @@ with lib;
       nicotine-plus
     ];
 
-    systemd.user.services.nicotine-plus = config.rika.utils.mkAutostartService "${pkgs.nicotine-plus}/bin/nicotine";
+    xdg.configFile = config.rika.utils.mkAutostartApp pkgs.nicotine-plus "${pkgs.nicotine-plus}/bin/nicotine";
   };
 }

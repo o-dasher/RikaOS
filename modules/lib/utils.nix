@@ -17,16 +17,15 @@ with lib;
   config.rika.utils = {
     hasSecrets = builtins.hasAttr "gemini-api-key" config.age.secrets;
 
-    mkAutostartService = executable: {
-      Unit = {
-        Description = "Autostart service for ${executable}";
-        After = [ "graphical-session.target" ];
-        PartOf = [ "graphical-session.target" ];
-      };
-      Install.WantedBy = [ "graphical-session.target" ];
-      Service = {
-        ExecStart = "${executable}";
-        Restart = "on-failure";
+    mkAutostartApp = package: command: {
+      "autostart/${getName package}.desktop".text = generators.toINI { } {
+        "Desktop Entry" = {
+          Type = "Application";
+          Version = "1.0";
+          Name = getName package;
+          Exec = command;
+          Terminal = "false";
+        };
       };
     };
 

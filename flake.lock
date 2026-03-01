@@ -43,11 +43,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1772320544,
-        "narHash": "sha256-nA4bgl60Fl1gHcz/FdXIChACtmZE0Vrif9o4xW04m8Y=",
+        "lastModified": 1772328087,
+        "narHash": "sha256-eichIg/jLChxbxHExsHrv4qlqL2gX76ApuOPlX75r+4=",
         "owner": "o-dasher",
         "repo": "ai-nix",
-        "rev": "00cee35329b22d41552686af265fbf10f71894a9",
+        "rev": "e23733bf48366b20c6aa3f258b1be11daa69a42a",
         "type": "github"
       },
       "original": {
@@ -430,11 +430,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1772218752,
-        "narHash": "sha256-G8nArvOTZXU8DRvrzAdz3Elcj6kA/vMtvY9mrGLATtA=",
+        "lastModified": 1772330611,
+        "narHash": "sha256-UZjPc/d5XRxvjDbk4veAO4XFdvx6BUum2l40V688Xq8=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "f3a30376bb9eb2f6f61816be7d6ed954b6d2a3b9",
+        "rev": "58fd7ff0eec2cda43e705c4c0585729ec471d400",
         "type": "github"
       },
       "original": {
@@ -512,7 +512,9 @@
         "hyprutils": "hyprutils",
         "hyprwayland-scanner": "hyprwayland-scanner",
         "hyprwire": "hyprwire",
-        "nixpkgs": "nixpkgs",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
         "pre-commit-hooks": [
           "git-hooks"
         ],
@@ -779,11 +781,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1772247558,
-        "narHash": "sha256-j6ZBn9jV85Cgc4Rrf720RzRsRuhZIFHA6NGcaVpqbtY=",
+        "lastModified": 1772331610,
+        "narHash": "sha256-eL1yhL0V8MGy8gYzZDT7ahhLG8IBE0siYEiRDDf64Ek=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "bf39879edb911e5b4985f5858e2a3a12fb885314",
+        "rev": "d7613fb06e906be9ac956a27248270b1afdfb034",
         "type": "github"
       },
       "original": {
@@ -832,11 +834,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1772245466,
-        "narHash": "sha256-A0IBoXeg86Dqvl9LTMp0A0DKKiJw4ps9+AhfTSxvisM=",
+        "lastModified": 1772332921,
+        "narHash": "sha256-sEOiUidJkaap/AhzhjTOyN20/njslqzxnY4bSZHyg1k=",
         "owner": "fufexan",
         "repo": "nix-gaming",
-        "rev": "1b3056e34b869136e515ed39648a06ef1f4efb33",
+        "rev": "1d1daec51e36181869b2279826a1c2a91c293e33",
         "type": "github"
       },
       "original": {
@@ -928,22 +930,6 @@
         "url": "https://flakehub.com/f/NixOS/nixpkgs/0"
       }
     },
-    "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1772198003,
-        "narHash": "sha256-I45esRSssFtJ8p/gLHUZ1OUaaTaVLluNkABkk6arQwE=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "dd9b079222d43e1943b6ebd802f04fd959dc8e61",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nur": {
       "inputs": {
         "flake-parts": [
@@ -954,11 +940,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1772319207,
-        "narHash": "sha256-YMBqQnJfNAB4gkajXtnVDd9ZbK094J8gy2tJWrho5ss=",
+        "lastModified": 1772332665,
+        "narHash": "sha256-cRAOZH4jIoGFqReW/3PEl7qFe/nu1qz9Hv5PWv4DeaM=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "a60b0555bbc90f2c827592d531ceae7454925a83",
+        "rev": "e250959ff0db8bb931795ee9473e43ecfa1b184e",
         "type": "github"
       },
       "original": {
@@ -1017,11 +1003,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1771722820,
-        "narHash": "sha256-7sVQOFNFS96NIC2Fi43i46LpNwhrVFDuB2SQqhb2b/0=",
+        "lastModified": 1772327661,
+        "narHash": "sha256-618BWeBdYhCiGHBkqSjapjRyFFzrf9CLk0gBmH3LrHg=",
         "owner": "pedorich-n",
         "repo": "playit-nixos-module",
-        "rev": "9bc87648bc22f1aa76191dd6a55cb7b17287f121",
+        "rev": "25709ad1c4e8645d7231f8b474310c12f8bd4854",
         "type": "github"
       },
       "original": {
@@ -1048,7 +1034,7 @@
         "nix-gaming": "nix-gaming",
         "nix-minecraft": "nix-minecraft",
         "nixcord": "nixcord",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs",
         "nixpkgs-stable": "nixpkgs-stable",
         "nur": "nur",
         "pam-shim": "pam-shim",

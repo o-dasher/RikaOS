@@ -37,39 +37,23 @@ with lib;
   };
 
   config = mkIf (modCfg.enable && cfg.enable) {
-    systemd.user.services =
-      let
-        mkTrayService =
-          {
-            name,
-            pkg,
-            condition,
-          }:
-          nameValuePair name (
-            mkIf condition (config.rika.utils.mkAutostartService "${getExe pkg} --start-minimized")
-          );
-      in
-      {
-        krisp-patcher = mkIf cfg.enableKrispPatch {
-          Unit = {
-            Description = "Patch Discord Krisp node";
-            After = [ "graphical-session-pre.target" ];
-            PartOf = [ "graphical-session.target" ];
-          };
-          Install.WantedBy = [ "graphical-session.target" ];
-          Service = {
-            Type = "oneshot";
-            ExecStart = "${patcherScript}";
-          };
-        };
-      }
-      // builtins.listToAttrs [
-        (mkTrayService {
-          name = "vesktop";
-          pkg = pkgs.vesktop;
-          condition = config.programs.nixcord.vesktop.enable;
-        })
-      ];
+    systemd.user.services.krisp-patcher = mkIf cfg.enableKrispPatch {
+      Unit = {
+        Description = "Patch Discord Krisp node";
+        After = [ "graphical-session-pre.target" ];
+        Before = [ "xdg-desktop-autostart.target" ];
+        PartOf = [ "graphical-session.target" ];
+      };
+      Install.WantedBy = [ "graphical-session.target" ];
+      Service = {
+        Type = "oneshot";
+        ExecStart = "${patcherScript}";
+      };
+    };
+
+    xdg.configFile = mkIf config.programs.nixcord.vesktop.enable (
+      config.rika.utils.mkAutostartApp pkgs.vesktop "${getExe pkgs.vesktop} --start-minimized"
+    );
 
     programs.nixcord = {
       enable = true;

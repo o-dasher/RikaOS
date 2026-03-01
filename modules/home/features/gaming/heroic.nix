@@ -13,9 +13,11 @@ with lib;
   options.features.gaming.heroic.enable = mkEnableOption "heroic";
 
   config = mkIf (modCfg.enable && cfg.enable) {
-    systemd.user.services.heroic = config.rika.utils.mkAutostartService (getExe pkgs.heroic);
-
     home.packages = [ pkgs.heroic ];
-    xdg.configFile."heroic/tools/proton/GE-Proton".source = pkgs.proton-ge-bin.steamcompattool;
+    xdg.configFile =
+      config.rika.utils.mkAutostartApp pkgs.heroic (getExe pkgs.heroic)
+      // {
+        "heroic/tools/proton/GE-Proton".source = pkgs.proton-ge-bin.steamcompattool;
+      };
   };
 }
