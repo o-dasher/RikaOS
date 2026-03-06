@@ -78,6 +78,7 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
+        git-hooks.follows = "git-hooks";
       };
     };
     git-hooks = {
