@@ -122,7 +122,7 @@ with lib;
         ];
         render = {
           # For some reason enabling is causing freezes on osu! lazer.
-          direct_scanout = false;
+          direct_scanout = true;
 
           # Keep output in SDR even if apps expose HDR content. My monitor's HDR is not that great.
           cm_auto_hdr = 0;
@@ -138,7 +138,7 @@ with lib;
         ];
         windowrule = [
           "tag +games, match:content game"
-          "tag +games, match:class ^(steam_app_.*|gamescope|osu!|geometrydash.exe)$"
+          "tag +games, match:class ^(steam_app_.*|gamescope|osu!)$"
 
           "tag +floaty, match:class ^(.blueman-manager-wrapped|nemo|com.github.wwmm.easyeffects|com.saivert.pwvucontrol|org.gnome.FileRoller)$"
 
