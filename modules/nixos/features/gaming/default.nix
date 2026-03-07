@@ -32,9 +32,6 @@ with lib;
     mkIf modCfg.enable {
       boot.kernelModules = [ "ntsync" ];
 
-      # Enables HDR and fixes stuttering games in wayland.
-      environment.systemPackages = [ pkgs.gamescope-wsi ];
-
       programs = {
         gamemode = {
           enable = true;

@@ -210,7 +210,7 @@
             };
 
             # Gamescope
-            gamescope = prev.gamescope.overrideAttrs (old: {
+            gamescope = (prev.gamescope.override { enableWsi = true; }).overrideAttrs (old: {
               # Blur fix: https://github.com/ValveSoftware/gamescope/issues/1622.
               NIX_CFLAGS_COMPILE = [ "-fno-fast-math" ];
               patches = old.patches or [ ] ++ [
