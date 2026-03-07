@@ -34,6 +34,8 @@
         nixpkgs.follows = "nixpkgs";
         blueprint.follows = "blueprint";
         treefmt-nix.follows = "treefmt-nix";
+        flake-parts.follows = "flake-parts";
+        systems.follows = "systems";
       };
     };
     flake-utils = {

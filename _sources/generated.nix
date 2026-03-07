@@ -21,7 +21,7 @@
     src = fetchurl {
       url = "https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot";
       name = "Floodgate-Spigot.jar";
-      sha256 = "sha256-tMoCxIk7l/ZtFQHNj2TMhI4kdreAAwOWm7uMVekCdlk=";
+      sha256 = "sha256-LPTRZ+S+sU0xuyxewDZfgnd0dRLrC6f2vDHbyj2FCk4=";
     };
   };
   floodgate-sqlite-database = {
@@ -39,7 +39,7 @@
     src = fetchurl {
       url = "https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot";
       name = "Geyser-Spigot.jar";
-      sha256 = "sha256-QoLuLoy9/sSQY0rte2urxgIcK7LlF7qYFOiT2lcEYMg=";
+      sha256 = "sha256-R2UH9maNjK0aiy0SnHEvw01GsHTiKZC9AOojIX6TLik=";
     };
   };
   ps4-pkg-tools = {
@@ -55,20 +55,20 @@
   };
   skinsrestorer = {
     pname = "skinsrestorer";
-    version = "15.10.0";
+    version = "15.10.2";
     src = fetchurl {
-      url = "https://github.com/SkinsRestorer/SkinsRestorer/releases/download/15.10.0/SkinsRestorer.jar";
+      url = "https://github.com/SkinsRestorer/SkinsRestorer/releases/download/15.10.2/SkinsRestorer.jar";
       name = "SkinsRestorer.jar";
-      sha256 = "sha256-FY5s+nLwZqsfHp/MiBE5o2gQv1mTw/4b1HuyjoADtZY=";
+      sha256 = "sha256-D6BPS4Gqj0wqE7IiisLVHmqJrPDWFQfhCKAvFfpFdQ0=";
     };
   };
   viaversion = {
     pname = "viaversion";
-    version = "5.7.1";
+    version = "5.7.2";
     src = fetchurl {
-      url = "https://github.com/ViaVersion/ViaVersion/releases/download/5.7.1/ViaVersion-5.7.1.jar";
+      url = "https://github.com/ViaVersion/ViaVersion/releases/download/5.7.2/ViaVersion-5.7.2.jar";
       name = "ViaVersion.jar";
-      sha256 = "sha256-e5s9WjhExO5bGJZjJ2ku5+aY5311a4sPt4XlOg+apKU=";
+      sha256 = "sha256-RDChJ/bLIdelLsagel3MQ7ojWswGLIYzBhm43h1JWP0=";
     };
   };
 }
