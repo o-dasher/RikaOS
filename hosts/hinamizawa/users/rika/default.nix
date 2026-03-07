@@ -3,7 +3,6 @@
   ...
 }:
 {
-
   profiles = {
     development.enable = true;
     utilities.enable = true;
@@ -61,6 +60,7 @@
 
   programs = {
     home-manager.enable = true;
+    foliate.enable = true;
     imv.enable = true;
   };
 }
