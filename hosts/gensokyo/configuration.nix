@@ -66,7 +66,8 @@
         domains = [
           "fuio.dshs.cc"
           "files.dshs.cc"
-          "readers.dshs.cc"
+          "comics.dshs.cc"
+          "books.dshs.cc"
           "jellyfin.dshs.cc"
         ];
       };
@@ -96,104 +97,114 @@
     };
   };
 
-  services = {
-    jellyfin.enable = true;
-    komga = {
-      enable = true;
-      settings.server.port = 8081;
-    };
-    playit = lib.mkIf config.rika.utils.hasSecrets {
-      enable = true;
-      secretPath = config.age.secrets.playit-secret.path;
-    };
-    minecraft-servers = {
-      enable = true;
-      eula = true;
-      openFirewall = true;
-
-      servers.survival = {
+  services = lib.mkMerge [
+    (lib.mkIf config.rika.utils.hasSecrets {
+      kavita = {
         enable = true;
-        autoStart = true;
-        enableReload = true;
-        package = pkgs.paperServers.paper-1_21_11;
-        jvmOpts = "-Xms3G -Xmx6G -Djava.net.preferIPv6Addresses=true -Djava.net.preferIPv4Stack=false";
+        tokenKeyFile = config.age.secrets.kavita-token-key.path;
+        settings.Port = 8082;
+      };
+      playit = {
+        enable = true;
+        secretPath = config.age.secrets.playit-secret.path;
+      };
+    })
+    {
+      jellyfin.enable = true;
+      komga = {
+        enable = true;
+        settings.server.port = 8081;
+      };
+      minecraft-servers = {
+        enable = true;
+        eula = true;
+        openFirewall = true;
 
-        serverProperties = {
-          server-ip = "::";
-          server-port = 6967;
-          motd = "Gensokyo Survival";
-          max-players = 16;
-          difficulty = "hard";
-          gamemode = "survival";
-          online-mode = false;
-          spawn-protection = 0;
-          view-distance = 16;
-          simulation-distance = 16;
-        };
+        servers.survival = {
+          enable = true;
+          autoStart = true;
+          enableReload = true;
+          package = pkgs.paperServers.paper-1_21_11;
+          jvmOpts = "-Xms3G -Xmx6G -Djava.net.preferIPv6Addresses=true -Djava.net.preferIPv4Stack=false";
 
-        symlinks =
-          let
-            sources = pkgs.callPackage ../../_sources/generated.nix { };
-            plugins = {
-              "Geyser-Spigot.jar" = sources.geyser-spigot.src;
-              "Floodgate-Spigot.jar" = sources.floodgate-spigot.src;
-              "ViaVersion.jar" = sources.viaversion.src;
-              "AuthMe.jar" = sources.authme.src;
-              "SkinsRestorer.jar" = sources.skinsrestorer.src;
+          serverProperties = {
+            server-ip = "::";
+            server-port = 6967;
+            motd = "Gensokyo Survival";
+            max-players = 16;
+            difficulty = "hard";
+            gamemode = "survival";
+            online-mode = false;
+            spawn-protection = 0;
+            view-distance = 16;
+            simulation-distance = 16;
+          };
+
+          symlinks =
+            let
+              sources = pkgs.callPackage ../../_sources/generated.nix { };
+              plugins = {
+                "Geyser-Spigot.jar" = sources.geyser-spigot.src;
+                "Floodgate-Spigot.jar" = sources.floodgate-spigot.src;
+                "ViaVersion.jar" = sources.viaversion.src;
+                "AuthMe.jar" = sources.authme.src;
+                "SkinsRestorer.jar" = sources.skinsrestorer.src;
+              };
+            in
+            pkgs.lib.mapAttrs' (name: value: pkgs.lib.nameValuePair "plugins/${name}" value) plugins
+            // {
+              "plugins/floodgate/floodgate-sqlite-database.jar" = sources.floodgate-sqlite-database.src;
             };
-          in
-          pkgs.lib.mapAttrs' (name: value: pkgs.lib.nameValuePair "plugins/${name}" value) plugins
-          // {
-            "plugins/floodgate/floodgate-sqlite-database.jar" = sources.floodgate-sqlite-database.src;
-          };
 
-        files = {
-          "plugins/Geyser-Spigot/config.yml".value.java.auth-type = "floodgate";
-          "plugins/AuthMe/config.yml".value.settings.restrictions.allowedNicknameCharacters =
-            "[a-zA-Z0-9_\\.]*";
-          "plugins/floodgate/config.yml".value.player-link = {
-            enable-own-linking = true;
-            use-global-linking = false;
-            type = "sqlite";
+          files = {
+            "plugins/Geyser-Spigot/config.yml".value.java.auth-type = "floodgate";
+            "plugins/AuthMe/config.yml".value.settings.restrictions.allowedNicknameCharacters =
+              "[a-zA-Z0-9_\\.]*";
+            "plugins/floodgate/config.yml".value.player-link = {
+              enable-own-linking = true;
+              use-global-linking = false;
+              type = "sqlite";
+            };
           };
         };
       };
-    };
-    sftpgo = {
-      enable = true;
-      extraReadWriteDirs = [ "/shared/Media" ];
-      settings = {
-        sftpd.bindings = [
-          {
-            address = "";
-            port = 2022;
-          }
-        ];
-        httpd.bindings = [
-          {
-            port = 8080;
-            address = "127.0.0.1";
-            enable_web_admin = true;
-            enable_web_client = true;
-          }
-        ];
+      sftpgo = {
+        enable = true;
+        extraReadWriteDirs = [ "/shared/Media" ];
+        settings = {
+          sftpd.bindings = [
+            {
+              address = "";
+              port = 2022;
+            }
+          ];
+          httpd.bindings = [
+            {
+              port = 8080;
+              address = "127.0.0.1";
+              enable_web_admin = true;
+              enable_web_client = true;
+            }
+          ];
+        };
       };
-    };
-    caddy = {
-      enable = true;
-      openFirewall = true;
-      virtualHosts = {
-        "jellyfin.dshs.cc".extraConfig = "reverse_proxy 127.0.0.1:8096";
-        "readers.dshs.cc".extraConfig = "reverse_proxy 127.0.0.1:8081";
-        "files.dshs.cc".extraConfig = ''
-          reverse_proxy 127.0.0.1:8080
-          request_body {
-            max_size 32GB
-          }
-        '';
+      caddy = {
+        enable = true;
+        openFirewall = true;
+        virtualHosts = {
+          "jellyfin.dshs.cc".extraConfig = "reverse_proxy 127.0.0.1:8096";
+          "comics.dshs.cc".extraConfig = "reverse_proxy 127.0.0.1:8081";
+          "books.dshs.cc".extraConfig = "reverse_proxy 127.0.0.1:8082";
+          "files.dshs.cc".extraConfig = ''
+            reverse_proxy 127.0.0.1:8080
+            request_body {
+              max_size 32GB
+            }
+          '';
+        };
       };
-    };
-  };
+    }
+  ];
 
   networking.firewall.allowedTCPPorts = [
     2022
@@ -204,6 +215,7 @@
       "sftpgo"
       "jellyfin"
       "komga"
+      "kavita"
     ];
     users.thiago = {
       isNormalUser = true;
