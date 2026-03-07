@@ -47,6 +47,7 @@ in
     networking = {
       enable = true;
       primaryInterface = "ens3";
+      cloudflare.dns.enable = true;
       ddns = {
         enable = true;
         updateIPv4 = true;
@@ -57,18 +58,12 @@ in
           keycloakDomain
         ];
       };
-      cloudflare = {
-        warp.enable = true;
-        dns.enable = true;
-      };
     };
-    services.tailscale = {
-      dns.server = {
-        enable = true;
-        zone = "dshs.cc";
-        tailnetIP = "fd7a:115c:a1e0::d101:3990";
-        hosts = [ ];
-      };
+    services.tailscale.dns.server = {
+      enable = true;
+      zone = "dshs.cc";
+      tailnetIP = "fd7a:115c:a1e0::d101:3990";
+      hosts = [ ];
     };
   };
 
