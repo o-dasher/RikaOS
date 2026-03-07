@@ -66,7 +66,7 @@
         domains = [
           "fuio.dshs.cc"
           "files.dshs.cc"
-          "comics.dshs.cc"
+          "readers.dshs.cc"
           "jellyfin.dshs.cc"
         ];
       };
@@ -184,7 +184,7 @@
       openFirewall = true;
       virtualHosts = {
         "jellyfin.dshs.cc".extraConfig = "reverse_proxy 127.0.0.1:8096";
-        "comics.dshs.cc".extraConfig = "reverse_proxy 127.0.0.1:8081";
+        "readers.dshs.cc".extraConfig = "reverse_proxy 127.0.0.1:8081";
         "files.dshs.cc".extraConfig = ''
           reverse_proxy 127.0.0.1:8080
           request_body {
