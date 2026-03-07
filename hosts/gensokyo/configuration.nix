@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  lib,
   ...
 }:
 {
@@ -101,7 +102,7 @@
       enable = true;
       settings.server.port = 8081;
     };
-    playit = {
+    playit = lib.mkIf config.rika.utils.hasSecrets {
       enable = true;
       secretPath = config.age.secrets.playit-secret.path;
     };

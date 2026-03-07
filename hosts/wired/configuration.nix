@@ -215,6 +215,7 @@ in
             agent.pre_authkey_path = config.age.secrets.headscale-pre-auth-key.path;
           };
           server = {
+            base_url = headscaleURI;
             host = "127.0.0.1";
             cookie_secure = true;
             cookie_secret_path = config.age.secrets.headscale-cookie-secret.path;
@@ -229,7 +230,6 @@ in
             client_id = oidcClientId;
             client_secret_path = config.age.secrets.headscale-oidc-client-secret.path;
             headscale_api_key_path = config.age.secrets.headplane-oidc-api-key.path;
-            redirect_uri = "${headscaleURI}/admin/oidc/callback";
           };
         };
       };
