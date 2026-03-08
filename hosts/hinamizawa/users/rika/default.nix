@@ -17,6 +17,7 @@
     editors.jetbrains = {
       android-studio.enable = true;
       rider.enable = true;
+      clion.enable = true;
     };
     utilities = {
       nemo.enable = true;
