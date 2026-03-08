@@ -68,6 +68,7 @@
           "files.dshs.cc"
           "comics.dshs.cc"
           "books.dshs.cc"
+          "navidrome.dshs.cc"
           "jellyfin.dshs.cc"
         ];
       };
@@ -107,6 +108,11 @@
       playit = {
         enable = true;
         secretPath = config.age.secrets.playit-secret.path;
+      };
+      navidrome = {
+        enable = true;
+        environmentFile = config.age.secrets.navidrome-secrets.path;
+        settings.MusicFolder = "/shared/Media/Music";
       };
     })
     {
@@ -193,6 +199,7 @@
         openFirewall = true;
         virtualHosts = {
           "jellyfin.dshs.cc".extraConfig = "reverse_proxy 127.0.0.1:8096";
+          "navidrome.dshs.cc".extraConfig = "reverse_proxy 127.0.0.1:4533";
           "comics.dshs.cc".extraConfig = "reverse_proxy 127.0.0.1:8081";
           "books.dshs.cc".extraConfig = "reverse_proxy 127.0.0.1:8082";
           "files.dshs.cc".extraConfig = ''
@@ -216,6 +223,7 @@
       "jellyfin"
       "komga"
       "kavita"
+      "navidrome"
     ];
     users.thiago = {
       isNormalUser = true;
