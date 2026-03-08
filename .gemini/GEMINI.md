@@ -29,20 +29,8 @@ nix flake check
 ```
 *Note: `nix flake check` builds checks defined in the flake. Use `--no-build` if you only want to verify evaluation.*
 
-## Building and Switching
-
-### NixOS System
-To apply the configuration to the current host (must match a hostname in `flake.nix` like `gensokyo` or `hinamizawa`):
-
-```bash
-git add .
-sudo nixos-rebuild switch --flake .
-# OR for a specific host
-sudo nixos-rebuild switch --flake .#hostname
-```
-
-### Home-Manager
-To apply user-specific configurations (must match a username in `flake.nix` like `rika` or `satoko`):
+### Colmena
+Do not ever use `colmena`, `nh` or `nixos-rebuild switch` to apply changes to hosts. This is a public-facing repo that does not have all the things required to change systems the way it is intended. e.g. does not have agenix keys.
 
 ```bash
 git add .
