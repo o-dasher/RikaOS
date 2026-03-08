@@ -20,6 +20,11 @@ with lib;
         enable = true;
         enableDefaultConfig = false;
         matchBlocks = {
+          "*" = {
+            setEnv = {
+              TERM = "xterm-256color";
+            };
+          };
           "github.com" = {
             hostname = "github.com";
             user = "git";
