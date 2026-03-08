@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     nixpkgs-stable.url = "https://flakehub.com/f/NixOS/nixpkgs/0";
     nix-flatpak.url = "github:gmodena/nix-flatpak";
     flake-compat.url = "github:edolstra/flake-compat";
@@ -167,6 +168,7 @@
       llm-agents,
       nur,
       headplane,
+      nixpkgs-master,
       ...
     }@inputs:
     let
@@ -187,9 +189,12 @@
           final: prev:
           let
             inherit (prev.stdenv.hostPlatform) system;
+
+            stable = mkPkgs nixpkgs-stable system;
+            master = mkPkgs nixpkgs-master system;
           in
           {
-            stable = mkPkgs nixpkgs-stable system;
+            inherit stable master;
 
             # Lix
             inherit (getNixScope (mkPkgs nixpkgs system))
@@ -203,6 +208,7 @@
             inherit (walker.packages.${system}) walker;
             inherit (ai-nix.packages.${system}) codex-desktop;
             inherit (llm-agents.packages.${system}) codex gemini-cli copilot-cli;
+            inherit (master) libvirt; # BUG: workarounds: https://github.com/NixOS/nixpkgs/pull/496839
 
             # Fix gnome-keyring detection in Antigravity IDE
             antigravity = prev.antigravity.override {
