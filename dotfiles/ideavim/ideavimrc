@@ -1,28 +1,57 @@
 source ~/.config/nvim/lua/thiago/set.vim
 
+
+" IdeaVim core
 set multiple-cursors
 set highlightedyank
 set quickscope
 set ideavim
+set idearefactormode=keep
 
-" comment a line, similar to tpope/vim-commentary
+" -------- Splits (vim-like) --------
+nmap <C-w>v <Action>(SplitVertically)
+nmap <C-w>s <Action>(SplitHorizontally)
+nmap <C-w>q <Action>(Unsplit)
+
+" Move between editor splits
+nmap <C-w>h <C-w>h
+nmap <C-w>j <C-w>j
+nmap <C-w>k <C-w>k
+nmap <C-w>l <C-w>l
+
+" Open file under cursor in split (approximation)
+nmap <C-w>f <Action>(SplitVertically)
+nmap gf <Action>(GotoDeclaration)
+
+" -------- File / Search navigation --------
+nmap <leader>pv <Action>(ActivateProjectToolWindow)
+
+nmap <leader>pf <Action>(GotoFile)
+nmap <leader>ps <Action>(FindInPath)
+nmap <leader>pw <Action>(FindWordAtCaret)
+nmap <leader>pe <Action>(SearchEverywhere)
+
+" -------- LSP-like navigation --------
+nmap <leader>vd <Action>(ShowErrorDescription)
+nmap <leader>vr <Action>(FindUsages)
+nmap <leader>rn <Action>(RenameElement)
+nmap <leader>ca <Action>(ShowIntentionActions)
+
+nmap gd <Action>(GotoDeclaration)
+nmap gD <Action>(GotoDeclaration)
+nmap gi <Action>(GotoTypeDeclaration)
+nmap gs <Action>(ParameterInfo)
+
+" -------- Editing helpers --------
+nmap <leader>f <Action>(ReformatCode)
+
+" Comment (like vim-commentary)
 nmap gcc <Action>(CommentByLineComment)
 vmap gcc <Action>(CommentByLineComment)
 
+" Close editor
+nmap <C-w>c <Action>(CloseEditor)
 
-map <Leader>ps <Action>(FindInPath)
-map <leader>pf <Action>(SearchEverywhere)
-map <Leader>pv <Action>(ActivateProjectToolWindow)
-
-nmap <Leader>vd <Action>(ShowErrorDescription)
-
-map <Leader>rn  <Action>(RenameElement)
-nmap <Leader>ca <Action>(ShowIntentionActions)
-
-nmap <Leader>f <Action>(ReformatCode)
-
-map gd <Action>(GotoDeclaration)
-
-nmap <C-w> <Action>(CloseEditor)
+" Tabs
 nnoremap <C-h> :tabprevious<CR>
 nnoremap <C-l> :tabnext<CR>

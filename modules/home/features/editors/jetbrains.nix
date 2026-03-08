@@ -16,33 +16,46 @@ with lib;
     android-studio.enable = mkEnableOption "Android Studio";
     datagrip.enable = mkEnableOption "DataGrip";
     rider.enable = mkEnableOption "Rider";
+    clion.enable = mkEnableOption "Clion";
+    wayland.enable = mkEnableOption "Force native Wayland for JetBrains IDEs" // {
+      default = true;
+    };
   };
 
-  config = mkMerge [
-    (mkIf (modCfg.enable && cfg.enable) {
+  config = mkIf (modCfg.enable && cfg.enable) (mkMerge [
+    {
       home = {
-        file = (
-          config.rika.utils.xdgConfigSelectiveSymLink "ideavim" [
-            "ideavimrc"
-          ] { }
-        );
+        file = config.rika.utils.xdgConfigSelectiveSymLink "ideavim" [
+          "ideavimrc"
+        ] { };
+
         packages =
           with pkgs;
-          with jetbrains;
-          optionals cfg.android-studio.enable [
+          with (
+            let
+              base =
+                genAttrs [
+                  "clion"
+                  "datagrip"
+                  "rider"
+                ] (name: pkgs.jetbrains.${name})
+                // {
+                  inherit (pkgs) android-studio;
+                };
+            in
+            if cfg.wayland.enable then mapAttrs (_: p: p.override { forceWayland = true; }) base else base
+          );
+          optionals cfg.datagrip.enable [ datagrip ]
+          ++ optionals cfg.rider.enable [ rider ]
+          ++ optionals cfg.clion.enable [ clion ]
+          ++ optionals cfg.android-studio.enable [
             android-tools
             android-studio
-          ]
-          ++ optionals cfg.datagrip.enable [
-            datagrip
-          ]
-          ++ optionals cfg.rider.enable [
-            rider
           ];
       };
-    })
-    (mkIf (modCfg.enable && cfg.enable && (osConfig == null || !osConfig.home-manager.useGlobalPkgs)) {
+    }
+    (mkIf (osConfig == null || !osConfig.home-manager.useGlobalPkgs) {
       nixpkgs.config.android_sdk.accept_license = cfg.android-studio.enable;
     })
-  ];
+  ]);
 }

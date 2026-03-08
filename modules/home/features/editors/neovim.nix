@@ -15,11 +15,11 @@ with lib;
     neovide.enable = mkEnableOption "neovide";
   };
 
-  config = mkMerge [
-    (mkIf (modCfg.enable && cfg.enable && cfg.neovide.enable) {
+  config = mkIf (modCfg.enable && cfg.enable) (mkMerge [
+    (mkIf (cfg.neovide.enable) {
       programs.neovide.enable = true;
     })
-    (mkIf (modCfg.enable && cfg.enable) {
+    {
       home.file = (config.rika.utils.xdgConfigSelectiveSymLink "nvim/lua/thiago") [
         "set.vim"
       ] { };
@@ -64,9 +64,9 @@ with lib;
             # LSP
             lua-language-server
             yaml-language-server # Yaml
-            llvmPackages.clang-tools # C and CPP
             omnisharp-roslyn # C-sharp
             rust-analyzer # Rust
+            llvmPackages.clang-tools # C and CPP
             # Nix
             nixd
             statix
@@ -103,6 +103,6 @@ with lib;
           ];
         };
       };
-    })
-  ];
+    }
+  ]);
 }
