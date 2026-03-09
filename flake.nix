@@ -208,7 +208,6 @@
             inherit (walker.packages.${system}) walker;
             inherit (ai-nix.packages.${system}) codex-desktop;
             inherit (llm-agents.packages.${system}) codex gemini-cli copilot-cli;
-            inherit (master) libvirt; # BUG: workarounds: https://github.com/NixOS/nixpkgs/pull/496839
 
             # Fix gnome-keyring detection in Antigravity IDE
             antigravity = prev.antigravity.override {

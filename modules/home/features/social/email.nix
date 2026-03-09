@@ -40,7 +40,7 @@ in
   options.features.social.email.enable = mkEnableOption "declarative email accounts";
 
   config = mkIf (modCfg.enable && cfg.enable && config.rika.utils.hasSecrets) {
-    home.packages = with pkgs; [ protonmail-desktop ];
+    services.flatpak.packages = [ "me.proton.Mail" ];
     programs.thunderbird = {
       enable = true;
       profiles.${thunderbirdProfile}.isDefault = true;
