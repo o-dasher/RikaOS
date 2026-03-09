@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 with lib;
@@ -26,21 +27,6 @@ let
       };
     };
 
-  mkDisrootMail =
-    args:
-    args
-    // {
-      imap = {
-        host = "disroot.org";
-        port = 993;
-      };
-      smtp = {
-        host = "disroot.org";
-        port = 587;
-        tls.useStartTls = true;
-      };
-    };
-
   mkGmail =
     args:
     args
@@ -54,6 +40,7 @@ in
   options.features.social.email.enable = mkEnableOption "declarative email accounts";
 
   config = mkIf (modCfg.enable && cfg.enable && config.rika.utils.hasSecrets) {
+    home.packages = with pkgs; [ protonmail-desktop ];
     programs.thunderbird = {
       enable = true;
       profiles.${thunderbirdProfile}.isDefault = true;
@@ -62,9 +49,7 @@ in
     accounts.email = {
       maildirBasePath = "Mail";
       accounts = mapAttrs mkMail {
-        daishes = mkDisrootMail { };
-        thiago-gmail = mkGmail { };
-        thiago-disroot = mkDisrootMail { primary = true; };
+        thiago-gmail = mkGmail { primary = true; };
       };
     };
   };
