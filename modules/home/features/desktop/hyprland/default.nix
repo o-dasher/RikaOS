@@ -179,7 +179,7 @@ with lib;
         input = {
           kb_layout = "br";
           kb_variant = "abnt2";
-          sensitivity = -2;
+          accel_profile = "flat";
         };
         animations = {
           enabled = true;
