@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  pkgs,
   ...
 }:
 let
@@ -10,7 +9,9 @@ let
 
   # Recursive type for folder trees: nested attrsets where leaves are lists of strings
   # Example: { shared.Media = [ "Music" "Movies" ]; } => /shared/Media/Music, /shared/Media/Movies
-  folderTreeType = lib.types.attrsOf (lib.types.either (lib.types.listOf lib.types.str) folderTreeType);
+  folderTreeType = lib.types.attrsOf (
+    lib.types.either (lib.types.listOf lib.types.str) folderTreeType
+  );
 in
 with lib;
 {
@@ -60,10 +61,10 @@ with lib;
                   subPath = "${prefix}/${name}";
                   value = tree.${name};
                 in
-                if builtins.isList value then
-                  [ subPath ] ++ map (item: "${subPath}/${item}") value
-                else
-                  [ subPath ] ++ flattenPath subPath value
+                [ subPath ]
+                ++ (
+                  if builtins.isList value then map (item: "${subPath}/${item}") value else flattenPath subPath value
+                )
               ) (builtins.attrNames tree);
           in
           flattenPath "";
@@ -80,37 +81,32 @@ with lib;
         );
       };
 
-    systemd = {
-      tmpfiles.rules =
-        map (f: "d ${f} 2770 root users - -") cfg.folderNames
-        ++ map (f: "d ${f} 0755 root root - -") cfg.rootFolderNames;
+    systemd.tmpfiles.settings.shared-folders =
+      let
+        mkSharedFolderEntry =
+          path:
+          nameValuePair path {
+            d = {
+              mode = "2770";
+              user = "root";
+              group = "users";
+            };
+            "a+" = {
+              argument = "g:users:rwx,d:g:users:rwx";
+            };
+          };
 
-      services.init-shared-folders = {
-        description = "Enforce shared folder permissions and ACLs";
-        after = [
-          "local-fs.target"
-          "systemd-tmpfiles-setup.service"
-        ];
-        wantedBy = [ "multi-user.target" ];
-        serviceConfig.Type = "oneshot";
-        path = with pkgs; [
-          coreutils
-          findutils
-          acl
-        ];
-        script = ''
-          ${lib.concatMapStringsSep "\n" (path: ''
-            chown -R :users ${path}
-            find ${path} -type d -exec chmod 2770 {} +
-            find ${path} -type f -exec chmod 0660 {} +
-            setfacl -R -m d:g:users:rwx,g:users:rwx ${path}
-          '') cfg.folderNames}
-
-          ${lib.concatMapStringsSep "\n" (path: ''
-            [ -d ${path} ] && chown root:root ${path} && chmod 755 ${path}
-          '') cfg.rootFolderNames}
-        '';
-      };
-    };
+        mkRootFolderEntry =
+          path:
+          nameValuePair path {
+            d = {
+              mode = "0755";
+              user = "root";
+              group = "root";
+            };
+          };
+      in
+      builtins.listToAttrs (map mkSharedFolderEntry cfg.folderNames)
+      // builtins.listToAttrs (map mkRootFolderEntry cfg.rootFolderNames);
   };
 }

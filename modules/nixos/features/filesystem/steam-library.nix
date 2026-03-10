@@ -39,34 +39,25 @@ with lib;
   config = mkIf (modCfg.enable && cfg.enable) {
     users.groups.${cfg.group}.members = cfg.users;
 
-    systemd = {
-      tmpfiles.rules = [
-        "d ${cfg.path} 2775 root ${cfg.group} - -"
-        "d ${cfg.path}/steamapps 2775 root ${cfg.group} - -"
-      ]
-      ++ (map (d: "d ${cfg.path}/steamapps/${d} 2775 root ${cfg.group} - -") steamDirs);
-
-      services.init-shared-steam-library = {
-        description = "Enforce Steam library permissions and ACLs";
-        after = [
-          "local-fs.target"
-          "systemd-tmpfiles-setup.service"
-        ];
-        wantedBy = [ "multi-user.target" ];
-        serviceConfig.Type = "oneshot";
-        path = with pkgs; [
-          coreutils
-          findutils
-          acl
-        ];
-        script = ''
-          chown -R root:${cfg.group} ${cfg.path}
-          find ${cfg.path} -type d -exec chmod 2775 {} +
-          find ${cfg.path} -type f -exec chmod 0664 {} +
-          setfacl -R -m d:g:${cfg.group}:rwx,g:${cfg.group}:rwx ${cfg.path}
-        '';
-      };
-    };
+    systemd.tmpfiles.settings.steam-library =
+      let
+        libraryPaths = [
+          cfg.path
+          "${cfg.path}/steamapps"
+        ] ++ map (d: "${cfg.path}/steamapps/${d}") steamDirs;
+      in
+      builtins.listToAttrs (
+        map (path: nameValuePair path {
+          d = {
+            mode = "2775";
+            user = "root";
+            group = cfg.group;
+          };
+          "a+" = {
+            argument = "g:${cfg.group}:rwx,d:g:${cfg.group}:rwx";
+          };
+        }) libraryPaths
+      );
 
     systemd.user.services.setup-shared-steam-library = {
       description = "Setup shared Steam library symlinks";
