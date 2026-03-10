@@ -32,6 +32,7 @@
 
   profiles.secureServer.enable = true;
   features = {
+    services.tailscale.loginServer = "https://wired.dshs.cc";
     core.userPreferences.enable = true;
     nix = {
       enable = true;
