@@ -63,7 +63,7 @@ in
 
   boot = {
     kernel.sysctl."net.ipv6.conf.all.forwarding" = 0;
-    loader.grub.device = "/dev/vda";
+    loader.grub.device = "nodev";
   };
 
   networking =
@@ -142,6 +142,10 @@ in
           handle /admin* {
             reverse_proxy 127.0.0.1:${toString config.services.headplane.settings.server.port}
           }
+
+          handle {
+            reverse_proxy ${config.services.headscale.address}:${toString config.services.headscale.port}
+          }
         '';
         ${keycloakDomain}.extraConfig = ''
           reverse_proxy 127.0.0.1:${toString config.services.keycloak.settings.http-port}
@@ -206,8 +210,16 @@ in
         };
         headscale = {
           url = headscaleURI;
-          config_path = config.services.headscale.configFile;
-          config_strict = false;
+          # Headplane expects a fully expanded Headscale config, but some
+          # runtime-only paths from the NixOS module are not valid for its
+          # strict schema check.
+          config_path = (pkgs.formats.yaml { }).generate "headplane-headscale.yaml" (
+            lib.recursiveUpdate config.services.headscale.settings {
+              tls_cert_path = "/dev/null";
+              tls_key_path = "/dev/null";
+              policy.path = "/dev/null";
+            }
+          );
         };
         oidc = {
           issuer = oidcIssuer;

@@ -66,6 +66,7 @@
       tailscale = {
         enable = true;
         trust = true;
+        loginServer = "https://wired.dshs.cc";
       };
       transmission = {
         enable = true;
