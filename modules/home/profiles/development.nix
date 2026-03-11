@@ -43,9 +43,9 @@ with lib;
     };
 
     programs = {
-
       jq.enable = true;
       ripgrep.enable = true;
+      zed-editor.enable = true;
     };
     home.packages = with pkgs; [
       bashInteractive
