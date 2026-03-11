@@ -63,6 +63,7 @@
       flatpak.enable = true;
       openrgb.enable = true;
       gnome-keyring.enable = true;
+      sunshine.enable = true;
       tailscale = {
         enable = true;
         trust = true;
