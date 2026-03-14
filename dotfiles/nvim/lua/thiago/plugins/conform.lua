@@ -19,6 +19,8 @@ return {
 			formatters_by_ft = {
 				nix = { "nixfmt" },
 				yaml = { "yamlls" },
+				c = { "clang_format" },
+				cpp = { "clang_format" },
 				conformjavascript = { "biome", "biome-organize-imports" },
 				javascriptreact = { "biome", "biome-organize-imports" },
 				typescript = { "biome", "biome-organize-imports" },
