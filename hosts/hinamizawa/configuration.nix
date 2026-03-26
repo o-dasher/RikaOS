@@ -166,6 +166,11 @@
     };
 
   networking = {
+    interfaces.${config.features.networking.primaryInterface}.wakeOnLan = {
+      enable = true;
+      policy = [ "magic" ];
+    };
+
     firewall =
       let
         stardewValleyPort = 24642;

@@ -9,7 +9,11 @@
     ./hardware-configuration.nix
   ];
 
-  environment.systemPackages = [ pkgs.mergerfs ];
+  environment.systemPackages = with pkgs; [
+    mergerfs
+    wol
+  ];
+
   fileSystems = {
     "/mnt/media-hdd" = {
       device = "/dev/disk/by-uuid/749d870c-a88c-4c37-82ea-a9807c24cfea";
@@ -231,9 +235,12 @@
       shell = pkgs.fish;
       openssh.authorizedKeys.keys =
         let
-          inherit (config.features.services.openssh.keys) rika;
+          inherit (config.features.services.openssh.keys) rika termius_s23;
         in
-        [ rika ];
+        [
+          rika
+          termius_s23
+        ];
       extraGroups = [
         "wheel"
       ];
