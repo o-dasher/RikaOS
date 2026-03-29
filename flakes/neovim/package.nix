@@ -49,16 +49,16 @@ mnw.lib.wrap pkgs {
     pyright
     ruff
     # PHP
-    nodePackages.intelephense
+    intelephense
     phpactor
     # Web development
-    nodePackages."@tailwindcss/language-server"
-    nodePackages.vscode-langservers-extracted
+    tailwindcss-language-server
+    vscode-langservers-extracted
     # Typescript
     svelte-language-server
     typescript
     biome
-    nodePackages.typescript-language-server
+    typescript-language-server
     # latex
     texliveFull
     texlab
@@ -67,11 +67,11 @@ mnw.lib.wrap pkgs {
     # Some tools
     tree-sitter # Tree-sitting
     ripgrep # Telescope fzf
-    luarocks # I am not sure
 
     # global formatters
     nixfmt
     stylua
+    phpPackages.php-cs-fixer
 
     # pdf viewer
     zathura

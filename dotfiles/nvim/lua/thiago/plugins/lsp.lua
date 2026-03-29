@@ -52,7 +52,6 @@ return {
 			"biome",
 
 			"svelte", -- svelte
-			"yamlls", -- yaml
 			"texlab", -- tex
 
 			"lua_ls", -- lua
