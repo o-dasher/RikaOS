@@ -1,4 +1,4 @@
-vim.api.nvim_command("source " .. "~/.config/nvim/lua/thiago/set.vim")
+vim.cmd("runtime lua/thiago/set.vim")
 
 local lze = require("lze")
 

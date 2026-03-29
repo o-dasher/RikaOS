@@ -19,7 +19,6 @@
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    mnw.url = "github:Gerg-L/mnw";
     ai-nix = {
       url = "github:o-dasher/ai-nix";
       inputs = {
@@ -145,6 +144,7 @@
         flake-parts.follows = "flake-parts";
       };
     };
+    mnw.url = "github:Gerg-L/mnw";
   };
 
   outputs =
@@ -322,7 +322,7 @@
           agenix.homeManagerModules.default
           pam-shim.homeModules.default
           nixcord.homeModules.nixcord
-          mnw.homeManagerModules.mnw
+
           walker.homeManagerModules.default
           nix-flatpak.homeManagerModules.nix-flatpak
           { home = ({ homeDirectory = "/home/${username}"; } // homeConfig); }
