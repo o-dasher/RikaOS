@@ -18,7 +18,6 @@ return {
 			},
 			formatters_by_ft = {
 				nix = { "nixfmt" },
-				yaml = { "yamlls" },
 				c = { "clang_format" },
 				cpp = { "clang_format" },
 				conformjavascript = { "biome", "biome-organize-imports" },
@@ -28,7 +27,7 @@ return {
 				html = { "biome" },
 				css = { "biome" },
 				lua = { "stylua" },
-				php = { "pint" },
+				php = { "pint", "php_cs_fixer", stop_after_first = true },
 				markdown = { "biome" },
 				json = { "biome" },
 				rust = { "rustfmt" },
