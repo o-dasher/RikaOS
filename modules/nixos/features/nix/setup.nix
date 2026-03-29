@@ -20,26 +20,25 @@ with lib;
 
   config = mkIf cfg.enable {
     nixpkgs.config.allowUnfree = cfg.nixpkgs.enable;
-    nix = {
-      settings = {
-        experimental-features = [
-          "flakes"
-          "nix-command"
-        ];
-        trusted-users = [
-          "@wheel"
-        ]
-        ++ cfg.trusted-users;
-        auto-optimise-store = cfg.optimise;
+    nix = mkMerge [
+      {
+        settings = {
+          trusted-users = [ "@wheel" ] ++ cfg.trusted-users;
+          experimental-features = [
+            "flakes"
+            "nix-command"
+          ];
+        }
+        // nixCaches;
       }
-      // nixCaches;
-
-      gc = mkIf cfg.optimise {
-        automatic = true;
-        options = "-d";
-      };
-
-      optimise.automatic = cfg.optimise;
-    };
+      (mkIf cfg.optimise {
+        settings.auto-optimise-store = true;
+        optimise.automatic = true;
+        gc = {
+          automatic = true;
+          options = "-d";
+        };
+      })
+    ];
   };
 }

@@ -204,15 +204,6 @@
               colmena
               ;
 
-            # Upstream 0.6.2 currently ships a stale pnpm dependency hash.
-            headplane = prev.headplane.overrideAttrs (finalAttrs: _: {
-              pnpmDeps = prev.pnpm_10.fetchDeps {
-                inherit (finalAttrs) pname version src;
-                hash = "sha256-lk/ezsrW6JHh5nXPSstqHUbaMTeOARBGZcBSoG1S5ns=";
-                fetcherVersion = 1;
-              };
-            });
-
             # Bleeding edge
             inherit (walker.packages.${system}) walker;
             inherit (ai-nix.packages.${system}) codex-desktop;
@@ -241,7 +232,7 @@
 
       systemConfigs = {
         hinamizawa = {
-          stateVersion = "24.11";
+          stateVersion = "26.05";
           system = "x86_64-linux";
           users = [
             "rika"

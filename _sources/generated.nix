@@ -39,7 +39,7 @@
     src = fetchurl {
       url = "https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot";
       name = "Geyser-Spigot.jar";
-      sha256 = "sha256-zB9bX7WTh8IEaqiIMO18Zxl2K2ZOwLVRSwg5wYyrMvQ=";
+      sha256 = "sha256-VA85AYJqKHoLFGtIk1fBHixpKdKIExB0uhkCnRDBnv0=";
     };
   };
   ps4-pkg-tools = {
@@ -64,11 +64,11 @@
   };
   viaversion = {
     pname = "viaversion";
-    version = "5.7.2";
+    version = "5.8.0";
     src = fetchurl {
-      url = "https://github.com/ViaVersion/ViaVersion/releases/download/5.7.2/ViaVersion-5.7.2.jar";
+      url = "https://github.com/ViaVersion/ViaVersion/releases/download/5.8.0/ViaVersion-5.8.0.jar";
       name = "ViaVersion.jar";
-      sha256 = "sha256-RDChJ/bLIdelLsagel3MQ7ojWswGLIYzBhm43h1JWP0=";
+      sha256 = "sha256-XJ/Sq5s9mF6RqY8/yYcqGBfT5iYKBmjGnXhu1LumsgI=";
     };
   };
 }
