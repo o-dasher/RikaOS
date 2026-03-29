@@ -2,6 +2,7 @@ return {
 	{ import = "thiago.plugins.blink_cmp" },
 	{ import = "thiago.plugins.lsp" },
 	{ import = "thiago.plugins.conform" },
+	{ import = "thiago.plugins.cord" },
 	{ import = "thiago.plugins.harpoon" },
 	{ import = "thiago.plugins.nvim_lint" },
 	{ import = "thiago.plugins.markdown" },
