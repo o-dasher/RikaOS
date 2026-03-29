@@ -56,6 +56,8 @@ with lib;
               snacks-nvim
               luasnip
               friendly-snippets
+            ] ++ optionals config.features.social.discord.enable [
+              cord-nvim
             ];
 
             dev.config.pure = ../../../../dotfiles/nvim;
