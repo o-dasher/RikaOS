@@ -8,6 +8,7 @@
     nix-flatpak.url = "github:gmodena/nix-flatpak";
     flake-compat.url = "github:edolstra/flake-compat";
     systems.url = "github:nix-systems/default";
+    mnw.url = "github:Gerg-L/mnw";
     blueprint = {
       url = "github:numtide/blueprint";
       inputs = {
@@ -144,7 +145,6 @@
         flake-parts.follows = "flake-parts";
       };
     };
-    mnw.url = "github:Gerg-L/mnw";
   };
 
   outputs =
