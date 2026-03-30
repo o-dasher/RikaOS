@@ -98,7 +98,7 @@ with lib;
           in
           with pkgs;
           optionals config.profiles.browser.enable [
-            (execWhenEntering 2 brave)
+            (execWhenEntering 2 config.programs.chromium.package)
           ]
           ++ optionals config.programs.nixcord.vesktop.enable [
             (execWhenEntering 3 vesktop)

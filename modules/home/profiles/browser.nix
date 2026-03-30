@@ -27,7 +27,7 @@ with lib;
       };
       chromium = {
         enable = true;
-        package = pkgs.brave;
+        package = pkgs.nur.repos.lonerOrz.helium;
         extensions = [
           "eimadpbcbfnmbkopoojfekhnkhdbieeh" # Dark Reader
           "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
