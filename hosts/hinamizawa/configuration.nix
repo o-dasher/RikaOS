@@ -202,6 +202,7 @@
       };
   };
 
+  fonts.enableDefaultPackages = true;
   programs = {
     fish.enable = true;
     dconf.enable = true;

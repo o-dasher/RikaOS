@@ -39,15 +39,6 @@ with lib;
     })
     {
       fonts.fontconfig.enable = true;
-      home.packages = with pkgs; [
-        # Coding / Terminal
-        nerd-fonts.fira-mono
-
-        # Essential for Web & Documents
-        noto-fonts-cjk-sans
-        liberation_ttf
-        dejavu_fonts
-      ];
     }
   ]);
 }

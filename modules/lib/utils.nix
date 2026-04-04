@@ -65,7 +65,7 @@ with lib;
       builtins.readFile (
         pkgs.runCommand "tailwindify.css"
           {
-            nativeBuildInputs = [ pkgs.nodePackages.tailwindcss ];
+            nativeBuildInputs = [ pkgs.tailwindcss ];
             tailwindConfig =
               pkgs.writeText "tailwind.config.js" # js
                 ''
@@ -81,7 +81,7 @@ with lib;
             cat > input.css <<EOF
             ${content}
             EOF
-            ${pkgs.nodePackages.tailwindcss}/bin/tailwindcss -i input.css -o $out
+            ${lib.getExe pkgs.tailwindcss} -i input.css -o $out
           ''
       );
   };

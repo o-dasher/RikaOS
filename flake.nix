@@ -214,6 +214,14 @@
               commandLineArgs = "--password-store=gnome-libsecret";
             };
 
+            # Fixes keyboard input when switching workspace.
+            foliate = prev.foliate.overrideAttrs (old: {
+              nativeBuildInputs = old.nativeBuildInputs or [ ] ++ [ prev.makeWrapper ];
+              postFixup = (old.postFixup or "") + ''
+                wrapProgram $out/bin/foliate --set GDK_BACKEND x11
+              '';
+            });
+
             # Gamescope
             gamescope = (prev.gamescope.override { enableWsi = true; }).overrideAttrs (old: {
               # Blur fix: https://github.com/ValveSoftware/gamescope/issues/1622.
