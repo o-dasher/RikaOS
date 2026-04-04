@@ -19,6 +19,7 @@ with lib;
   config = mkIf (modCfg.enable && cfg.enable) (mkMerge [
     (mkIf (cfg.neovide.enable) {
       programs.neovide.enable = true;
+      home.packages = [ pkgs.source-code-pro ];
     })
     {
       programs.lazygit.enable = true;
