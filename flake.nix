@@ -58,16 +58,6 @@
         systems.follows = "systems";
       };
     };
-    pam-shim = {
-      url = "github:Cu3PO42/pam_shim";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        pre-commit-hooks.inputs = {
-          nixpkgs.follows = "nixpkgs";
-          flake-compat.follows = "flake-compat";
-        };
-      };
-    };
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
       inputs = {
