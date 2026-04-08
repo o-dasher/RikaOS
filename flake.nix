@@ -143,9 +143,7 @@
       home-manager,
       stylix,
       agenix,
-      mnw,
       flake-parts,
-      pam-shim,
       systems,
       nixcord,
       spicetify-nix,
@@ -318,9 +316,7 @@
           ./hosts/${hostName}/users/${username}
           spicetify-nix.homeManagerModules.spicetify
           agenix.homeManagerModules.default
-          pam-shim.homeModules.default
           nixcord.homeModules.nixcord
-
           walker.homeManagerModules.default
           nix-flatpak.homeManagerModules.nix-flatpak
           { home = ({ homeDirectory = "/home/${username}"; } // homeConfig); }
