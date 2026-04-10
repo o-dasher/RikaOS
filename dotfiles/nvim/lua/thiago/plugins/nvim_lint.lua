@@ -4,6 +4,8 @@ return {
 	after = function()
 		require("lint").linters_by_ft = {
 			rust = { "clippy" },
+			c = { "clangtidy" },
+			cpp = { "clangtidy" },
 		}
 
 		vim.api.nvim_create_autocmd({ "BufWritePost" }, {
