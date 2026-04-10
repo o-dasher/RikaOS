@@ -39,7 +39,7 @@
     src = fetchurl {
       url = "https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot";
       name = "Geyser-Spigot.jar";
-      sha256 = "sha256-VA85AYJqKHoLFGtIk1fBHixpKdKIExB0uhkCnRDBnv0=";
+      sha256 = "sha256-GDJbQuaqI7hWS89VjMXZHRcu8txQsFqX8MzQnF8jDVs=";
     };
   };
   ps4-pkg-tools = {
@@ -55,20 +55,20 @@
   };
   skinsrestorer = {
     pname = "skinsrestorer";
-    version = "15.11.0";
+    version = "15.11.1";
     src = fetchurl {
-      url = "https://github.com/SkinsRestorer/SkinsRestorer/releases/download/15.11.0/SkinsRestorer.jar";
+      url = "https://github.com/SkinsRestorer/SkinsRestorer/releases/download/15.11.1/SkinsRestorer.jar";
       name = "SkinsRestorer.jar";
-      sha256 = "sha256-qLsTAd84rO91W58S/ZOtIay7tQrG6FF58uUurniprpo=";
+      sha256 = "sha256-lb5IUhwJ+T7cYhNFUVcOBgMVcLgXvhWAHpkXf4fqAg4=";
     };
   };
   viaversion = {
     pname = "viaversion";
-    version = "5.8.0";
+    version = "5.8.1";
     src = fetchurl {
-      url = "https://github.com/ViaVersion/ViaVersion/releases/download/5.8.0/ViaVersion-5.8.0.jar";
+      url = "https://github.com/ViaVersion/ViaVersion/releases/download/5.8.1/ViaVersion-5.8.1.jar";
       name = "ViaVersion.jar";
-      sha256 = "sha256-XJ/Sq5s9mF6RqY8/yYcqGBfT5iYKBmjGnXhu1LumsgI=";
+      sha256 = "sha256-Pj5yBrL9uRLg3Eqbik3xllUSJt4rXkDKSfiNYzLxQV0=";
     };
   };
 }
