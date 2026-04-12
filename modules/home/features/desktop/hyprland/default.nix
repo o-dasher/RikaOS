@@ -122,7 +122,7 @@ with lib;
         ];
         render = {
           # For some reason enabling is causing freezes on osu! lazer.
-          direct_scanout = false;
+          direct_scanout = true;
 
           # Keep output in SDR even if apps expose HDR content. My monitor's HDR is not that great.
           cm_auto_hdr = 0;
