@@ -43,11 +43,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1775870457,
-        "narHash": "sha256-qAB89hymMVfUJI968F4bUMGuRvj1WajvgQxAIniRE2I=",
+        "lastModified": 1775980442,
+        "narHash": "sha256-4PH4gExAXqF5KyJ/u6vZCyydy/dm8qtdxafb63Nmv1k=",
         "owner": "o-dasher",
         "repo": "ai-nix",
-        "rev": "2785ab05db7ce6c1cb3ed09735121a173335a3c2",
+        "rev": "743757b319dd18ad0cd817f729be41263469eb0d",
         "type": "github"
       },
       "original": {
@@ -127,9 +127,11 @@
     "blueprint": {
       "inputs": {
         "nixpkgs": [
+          "llm-agents",
           "nixpkgs"
         ],
         "systems": [
+          "llm-agents",
           "systems"
         ]
       },
@@ -459,9 +461,7 @@
     },
     "llm-agents": {
       "inputs": {
-        "blueprint": [
-          "blueprint"
-        ],
+        "blueprint": "blueprint",
         "bun2nix": "bun2nix",
         "flake-parts": [
           "flake-parts"
@@ -472,9 +472,7 @@
         "systems": [
           "systems"
         ],
-        "treefmt-nix": [
-          "treefmt-nix"
-        ]
+        "treefmt-nix": "treefmt-nix"
       },
       "locked": {
         "lastModified": 1775975098,
@@ -617,11 +615,11 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1775975209,
-        "narHash": "sha256-kKM0vRXwlm62YT0xw/UEfLyAsoq7iYbuW2KJO3beePg=",
+        "lastModified": 1775978805,
+        "narHash": "sha256-TwbaMCFWxNEzFY9LgADT1d3fGEOeuy8BpKq8o0z3+Pk=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "539624fb3ab393409b7802629aeb9516eae70615",
+        "rev": "b48e55bc86310fd5b15da7be3abe58079af6d4a9",
         "type": "github"
       },
       "original": {
@@ -655,11 +653,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1775974059,
-        "narHash": "sha256-Zxp9lvG1xSHOI6CQVm1fDikN8fNCDlJUkqti1r7VLoU=",
+        "lastModified": 1775977143,
+        "narHash": "sha256-P3oLHfzHvBjyv+I3OAAZS7DekkjIubrSsHTo2HVdPr8=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "f5a9372a251b2ef14f9e8459d4c6d4d38797858f",
+        "rev": "1bf8e670a4df29767badbe55999854dbceb9aa6a",
         "type": "github"
       },
       "original": {
@@ -715,7 +713,6 @@
       "inputs": {
         "agenix": "agenix",
         "ai-nix": "ai-nix",
-        "blueprint": "blueprint",
         "flake-compat": "flake-compat",
         "flake-parts": "flake-parts",
         "flake-utils": "flake-utils",
@@ -736,7 +733,6 @@
         "spicetify-nix": "spicetify-nix",
         "stylix": "stylix",
         "systems": "systems",
-        "treefmt-nix": "treefmt-nix",
         "walker": "walker"
       }
     },
@@ -884,6 +880,7 @@
     "treefmt-nix": {
       "inputs": {
         "nixpkgs": [
+          "llm-agents",
           "nixpkgs"
         ]
       },

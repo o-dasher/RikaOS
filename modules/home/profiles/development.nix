@@ -47,6 +47,7 @@ with lib;
       ripgrep.enable = true;
       zed-editor.enable = true;
     };
+
     home.packages = with pkgs; [
       bashInteractive
       copilot-cli

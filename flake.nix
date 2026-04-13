@@ -9,17 +9,6 @@
     flake-compat.url = "github:edolstra/flake-compat";
     systems.url = "github:nix-systems/default";
     mnw.url = "github:Gerg-L/mnw";
-    blueprint = {
-      url = "github:numtide/blueprint";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
-    };
-    treefmt-nix = {
-      url = "github:numtide/treefmt-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     ai-nix = {
       url = "github:o-dasher/ai-nix";
       inputs = {
@@ -33,8 +22,6 @@
       url = "github:numtide/llm-agents.nix";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        blueprint.follows = "blueprint";
-        treefmt-nix.follows = "treefmt-nix";
         flake-parts.follows = "flake-parts";
         systems.follows = "systems";
       };
