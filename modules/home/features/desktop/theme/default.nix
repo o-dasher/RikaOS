@@ -21,7 +21,7 @@ in
         cursor = themeLib.cursor;
         targets = {
           nixcord.enable = false;
-          floorp.profileNames = [ "default" ];
+          zen-browser.profileNames = [ "default" ];
         };
       };
     }
