@@ -33,15 +33,10 @@ with lib;
           with pkgs;
           with (
             let
-              base =
-                genAttrs [
-                  "clion"
-                  "datagrip"
-                  "rider"
-                ] (name: pkgs.jetbrains.${name})
-                // {
-                  inherit (pkgs) android-studio;
-                };
+              base = {
+                inherit (pkgs) android-studio;
+                inherit (pkgs.jetbrains) clion datagrip rider;
+              };
             in
             if cfg.wayland.enable then mapAttrs (_: p: p.override { forceWayland = true; }) base else base
           );
