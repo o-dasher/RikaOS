@@ -14,12 +14,13 @@ with lib;
   config = mkIf cfg.enable {
     home.packages = with pkgs; [ ungoogled-chromium ];
     programs = {
-      floorp = {
+      zen-browser = {
         enable = true;
         profiles.default = {
           id = 0;
           isDefault = true;
           extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
+            ublock-origin
             darkreader
             bitwarden
           ];

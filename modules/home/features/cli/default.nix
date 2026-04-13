@@ -6,7 +6,6 @@ with lib;
     ./hyfetch.nix
     ./starship.nix
     ./tmux.nix
-    ./gemini.nix
   ];
 
   options.features.cli = {

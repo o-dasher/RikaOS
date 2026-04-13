@@ -19,7 +19,6 @@ with lib;
   };
 
   config = mkIf cfg.enable {
-    nixpkgs.config.allowUnfree = cfg.nixpkgs.enable;
     nix = mkMerge [
       {
         settings = {
