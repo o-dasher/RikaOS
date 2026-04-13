@@ -20,9 +20,7 @@ in
   options.features.desktop.wayland.enable = mkEnableOption "Wayland base integration";
 
   config = mkIf (desktopCfg.enable && modCfg.enable) {
-    home.packages = with pkgs; [
-      wl-clipboard
-    ];
+    home.packages = with pkgs; [ wl-clipboard ];
 
     services.udiskie = {
       enable = true;
@@ -45,11 +43,11 @@ in
         # Fixes ghostty dead keys.
         GTK_IM_MODULE = "simple";
 
-        # UWSM and App2Unit
-        UWSM_APP_UNIT_TYPE = "service";
+        # App2Unit
         APP2UNIT_TYPE = "service";
       }
       (lib.mkIf (osConfig != null && osConfig.programs.uwsm.enable) {
+        UWSM_APP_UNIT_TYPE = "service";
         APP2UNIT_SLICES = "a=app-graphical.slice b=background-graphical.slice s=session-graphical.slice";
       })
     ];

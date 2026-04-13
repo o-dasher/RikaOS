@@ -9,6 +9,13 @@
     flake-compat.url = "github:edolstra/flake-compat";
     systems.url = "github:nix-systems/default";
     mnw.url = "github:Gerg-L/mnw";
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
+    };
     ai-nix = {
       url = "github:o-dasher/ai-nix";
       inputs = {
@@ -144,6 +151,7 @@
       nur,
       headplane,
       nixpkgs-master,
+      zen-browser,
       ...
     }@inputs:
     let
@@ -156,6 +164,10 @@
           config.allowUnfree = true;
         };
 
+      systemsList = import systems;
+      stableFor = nixpkgs.lib.genAttrs systemsList (system: mkPkgs nixpkgs-stable system);
+      masterFor = nixpkgs.lib.genAttrs systemsList (system: mkPkgs nixpkgs-master system);
+
       overlays = [
         nix-minecraft.overlay
         headplane.overlays.default
@@ -165,14 +177,14 @@
           let
             inherit (prev.stdenv.hostPlatform) system;
 
-            stable = mkPkgs nixpkgs-stable system;
-            master = mkPkgs nixpkgs-master system;
+            stable = stableFor.${system};
+            master = masterFor.${system};
           in
           {
             inherit stable master;
 
             # Lix
-            inherit (getNixScope (mkPkgs nixpkgs system))
+            inherit (getNixScope prev)
               nixpkgs-review
               nix-eval-jobs
               nix-fast-build
@@ -212,6 +224,14 @@
           }
         )
       ];
+
+      pkgsFor = nixpkgs.lib.genAttrs systemsList (
+        system:
+        import nixpkgs {
+          inherit system overlays;
+          config.allowUnfree = true;
+        }
+      );
 
       systemConfigs = {
         hinamizawa = {
@@ -304,6 +324,7 @@
           spicetify-nix.homeManagerModules.spicetify
           agenix.homeManagerModules.default
           nixcord.homeModules.nixcord
+          zen-browser.homeModules.twilight
           walker.homeManagerModules.default
           nix-flatpak.homeManagerModules.nix-flatpak
           { home = ({ homeDirectory = "/home/${username}"; } // homeConfig); }
@@ -316,7 +337,7 @@
           stateVersion,
           users ? [ ],
         }:
-        (mkCommonModules (mkPkgs nixpkgs system))
+        (mkCommonModules pkgsFor.${system})
         ++ [
           ./modules/nixos
           inputs.headplane.nixosModules.headplane
@@ -328,7 +349,7 @@
           nix-minecraft.nixosModules.minecraft-servers
           home-manager.nixosModules.home-manager
           {
-            nixpkgs = { inherit overlays; };
+            nixpkgs.pkgs = pkgsFor.${system};
             networking = { inherit hostName; };
             system = { inherit stateVersion; };
             features.core.colmena.enable = builtins.hasAttr hostName deploymentTargets;
@@ -387,7 +408,7 @@
         { system, ... }@homeConfig:
         home-manager.lib.homeManagerConfiguration rec {
           inherit extraSpecialArgs;
-          pkgs = mkPkgs nixpkgs system;
+          pkgs = pkgsFor.${system};
           modules = (mkCommonModules pkgs) ++ (mkHomeModules hostName homeConfig);
         };
     in
@@ -413,10 +434,8 @@
 
         colmena = {
           meta = {
-            nixpkgs = mkPkgs nixpkgs "x86_64-linux";
-            nodeNixpkgs = nixpkgs.lib.mapAttrs (
-              _: systemConfig: mkPkgs nixpkgs systemConfig.system
-            ) systemConfigs;
+            nixpkgs = pkgsFor."x86_64-linux";
+            nodeNixpkgs = nixpkgs.lib.mapAttrs (_: systemConfig: pkgsFor.${systemConfig.system}) systemConfigs;
             specialArgs = extraSpecialArgs;
           };
         }

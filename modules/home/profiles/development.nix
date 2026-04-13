@@ -35,7 +35,6 @@ with lib;
 
       cli = {
         hyfetch.enable = true;
-        gemini.enable = true;
         fish.enable = true;
         starship.enable = true;
         tmux.enable = true;
@@ -46,6 +45,7 @@ with lib;
       jq.enable = true;
       ripgrep.enable = true;
       zed-editor.enable = true;
+      gemini-cli.enable = true;
     };
 
     home.packages = with pkgs; [
