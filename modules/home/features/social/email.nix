@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 with lib;
@@ -39,7 +40,7 @@ in
   options.features.social.email.enable = mkEnableOption "declarative email accounts";
 
   config = mkIf (modCfg.enable && cfg.enable && config.rika.utils.hasSecrets) {
-    services.flatpak.packages = [ "me.proton.Mail" ];
+    home.packages = [ pkgs.protonmail-desktop ];
     programs.thunderbird = {
       enable = true;
       profiles.${thunderbirdProfile}.isDefault = true;
