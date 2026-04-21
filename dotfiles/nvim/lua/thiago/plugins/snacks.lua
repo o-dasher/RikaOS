@@ -14,19 +14,50 @@ return {
 			end,
 			desc = "LazyGit",
 		},
+		{
+			"<leader>pf",
+			function()
+				s().picker.files()
+			end,
+			desc = "Find Files",
+		},
+		{
+			"<leader>ps",
+			function()
+				s().picker.grep()
+			end,
+			desc = "Grep",
+		},
+		{
+			"<leader>pw",
+			function()
+				s().picker.grep_word()
+			end,
+			desc = "Grep Word",
+		},
 	},
 	after = function()
 		local opts = {
 			bigfile = { enabled = true },
 			indent = { enabled = true },
 			input = { enabled = true },
-			picker = { enabled = true },
 			notify = { enabled = true },
 			quickfile = { enabled = true },
 			scope = { enabled = true },
 			statuscolumn = { enabled = true },
 			words = { enabled = true },
 			notifier = { enabled = true },
+			picker = {
+				enabled = true,
+				win = {
+					input = {
+						keys = {
+							["<c-k>"] = { "history_back", mode = { "i", "n" } },
+							["<c-j>"] = { "history_forward", mode = { "i", "n" } },
+						},
+					},
+				},
+			},
 		}
 
 		if not vim.g.neovide then

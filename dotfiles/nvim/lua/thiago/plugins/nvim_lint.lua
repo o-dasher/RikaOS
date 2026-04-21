@@ -6,6 +6,12 @@ return {
 			rust = { "clippy" },
 			c = { "clangtidy" },
 			cpp = { "clangtidy" },
+			python = { "ruff" },
+			php = { "phpstan" },
+			yaml = { "yamllint" },
+			sh = { "shellcheck" },
+			bash = { "shellcheck" },
+			nix = { "statix" },
 		}
 
 		vim.api.nvim_create_autocmd({ "BufWritePost" }, {
