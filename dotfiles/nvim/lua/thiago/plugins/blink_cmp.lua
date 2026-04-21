@@ -19,7 +19,7 @@ return {
 				default = { "lsp", "path", "snippets", "buffer" },
 			},
 			snippets = {
-				preset = "luasnip",
+				preset = "default",
 			},
 			completion = {
 				accept = { auto_brackets = { enabled = true } },

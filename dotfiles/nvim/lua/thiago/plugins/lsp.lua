@@ -42,6 +42,8 @@ return {
 			-- css
 			"tailwindcss",
 			"cssls",
+			"html",
+			"jsonls",
 
 			-- nix
 			"statix",
@@ -56,6 +58,7 @@ return {
 
 			"lua_ls", -- lua
 			"omnisharp", -- dotnet
+			"bashls", -- bash
 		})
 	end,
 }

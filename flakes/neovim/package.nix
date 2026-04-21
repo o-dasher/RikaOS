@@ -17,61 +17,82 @@ mnw.lib.wrap pkgs {
       nvim-lspconfig
       blink-cmp
       nvim-treesitter.withAllGrammars
-      telescope-live-grep-args-nvim
       oil-nvim
       mini-pairs
+      mini-icons
+      mini-visits
       rose-pine
-      harpoon2
-      nvim-web-devicons
-      fidget-nvim
       nvim-lint
       render-markdown-nvim
       snacks-nvim
-      luasnip
-      friendly-snippets
       cord-nvim
+      friendly-snippets
     ];
 
     dev.config.pure = ../../dotfiles/nvim;
   };
 
   extraBinPath = with pkgs; [
-    # LSP
+    # Bash
+    bash-language-server
+    shfmt
+    shellcheck
+
+    # Lua
     lua-language-server
-    yaml-language-server # Yaml
-    omnisharp-roslyn # C-sharp
-    rust-analyzer # Rust
-    llvmPackages.clang-tools # C and CPP
+    stylua
+
+    # Yaml
+    yaml-language-server
+    yamllint
+
+    # C-sharp
+    omnisharp-roslyn
+    csharpier
+
+    # Rust
+    rust-analyzer
+    clippy
+    rustfmt
+
+    # C and CPP
+    llvmPackages.clang-tools
+
     # Nix
     nixd
     statix
+    nixfmt
+
     # Python
     pyright
     ruff
+
     # PHP
     intelephense
     phpactor
+    phpstan
+    phpPackages.php-cs-fixer
+
     # Web development
     tailwindcss-language-server
     vscode-langservers-extracted
+
     # Typescript
     svelte-language-server
     typescript
     biome
     typescript-language-server
+
     # latex
     texliveFull
     texlab
+
+    # Dependencies
     nodejs
 
     # Some tools
     tree-sitter # Tree-sitting
     ripgrep # Telescope fzf
-
-    # global formatters
-    nixfmt
-    stylua
-    phpPackages.php-cs-fixer
 
     # pdf viewer
     zathura
