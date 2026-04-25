@@ -34,7 +34,6 @@ set ignorecase
 set scrolloff=4
 
 " Remaps --
-let g:mapleader = " "
 
 " Copy to clipboard
 vnoremap  <leader>y  "+y

@@ -1,3 +1,4 @@
+vim.g.mapleader = " "
 vim.cmd("runtime lua/thiago/set.vim")
 
 local lze = require("lze")
