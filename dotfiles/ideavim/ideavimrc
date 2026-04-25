@@ -1,5 +1,5 @@
+let mapleader = " "
 source ~/.config/nvim/lua/thiago/set.vim
-
 
 " IdeaVim core
 set multiple-cursors
@@ -15,21 +15,32 @@ nmap <C-w>q <Action>(Unsplit)
 
 " Move between editor splits
 nmap <C-w>h <C-w>h
+nmap <C-w>l <C-w>l
 nmap <C-w>j <C-w>j
 nmap <C-w>k <C-w>k
-nmap <C-w>l <C-w>l
 
 " Open file under cursor in split (approximation)
 nmap <C-w>f <Action>(SplitVertically)
 nmap gf <Action>(GotoDeclaration)
 
 " -------- File / Search navigation --------
+" Toggle project view and maximize it like oil.nvim
 nmap <leader>pv <Action>(ActivateProjectToolWindow)
 
 nmap <leader>pf <Action>(GotoFile)
 nmap <leader>ps <Action>(FindInPath)
 nmap <leader>pw <Action>(FindWordAtCaret)
 nmap <leader>pe <Action>(SearchEverywhere)
+nmap <leader>lg <Action>(ActivateVersionControlToolWindow)
+
+" -------- Bookmarks (mini.visits equivalent) --------
+nmap <leader>a <Action>(ToggleBookmark)
+nmap <leader>h <Action>(ShowBookmarks)
+nmap <leader>1 <Action>(GotoBookmark1)
+nmap <leader>2 <Action>(GotoBookmark2)
+nmap <leader>3 <Action>(GotoBookmark3)
+nmap <leader>4 <Action>(GotoBookmark4)
+nmap <leader>5 <Action>(GotoBookmark5)
 
 " -------- LSP-like navigation --------
 nmap <leader>vd <Action>(ShowErrorDescription)
@@ -38,12 +49,14 @@ nmap <leader>rn <Action>(RenameElement)
 nmap <leader>ca <Action>(ShowIntentionActions)
 
 nmap gd <Action>(GotoDeclaration)
-nmap gD <Action>(GotoDeclaration)
+nmap gD <Action>(GotoImplementation)
 nmap gi <Action>(GotoTypeDeclaration)
 nmap gs <Action>(ParameterInfo)
+nmap K <Action>(QuickJavaDoc)
 
 " -------- Editing helpers --------
 nmap <leader>f <Action>(ReformatCode)
+imap <C-Space> <Action>(CodeCompletion)
 
 " Comment (like vim-commentary)
 nmap gcc <Action>(CommentByLineComment)
