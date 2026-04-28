@@ -23,8 +23,20 @@ nmap <C-w>k <C-w>k
 nmap <C-w>f <Action>(SplitVertically)
 nmap gf <Action>(GotoDeclaration)
 
+" -------- Clipboard --------
+set ideaput
+vnoremap <leader>y "+y
+nnoremap <leader>y "+y
+vnoremap <leader>Y "+yg_
+nnoremap <leader>Y "+yg_
+
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+vnoremap <leader>p "+p
+vnoremap <leader>P "+P
+
 " -------- File / Search navigation --------
-" Toggle project view and maximize it like oil.nvim
+" Toggle project view
 nmap <leader>pv <Action>(ActivateProjectToolWindow)
 
 nmap <leader>pf <Action>(GotoFile)
