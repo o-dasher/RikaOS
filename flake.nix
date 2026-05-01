@@ -166,74 +166,6 @@
         };
 
       systemsList = import systems;
-      stableFor = lib.genAttrs systemsList (system: mkPkgs nixpkgs-stable system);
-      masterFor = lib.genAttrs systemsList (system: mkPkgs nixpkgs-master system);
-
-      overlays = [
-        nix-minecraft.overlay
-        headplane.overlays.default
-        nur.overlays.default
-        (
-          final: prev:
-          let
-            inherit (prev.stdenv.hostPlatform) system;
-
-            stable = stableFor.${system};
-            master = masterFor.${system};
-          in
-          {
-            inherit stable master;
-
-            # Lix
-            inherit (getNixScope prev)
-              nixpkgs-review
-              nix-eval-jobs
-              nix-fast-build
-              colmena
-              ;
-
-            # Bleeding edge
-            inherit (walker.packages.${system}) walker;
-            inherit (ai-nix.packages.${system}) codex-desktop;
-            inherit (llm-agents.packages.${system}) codex gemini-cli copilot-cli;
-
-            # Fix gnome-keyring detection in Antigravity IDE
-            antigravity = prev.antigravity.override {
-              commandLineArgs = "--password-store=gnome-libsecret";
-            };
-
-            # Fixes keyboard input when switching workspace.
-            foliate = prev.foliate.overrideAttrs (old: {
-              nativeBuildInputs = old.nativeBuildInputs or [ ] ++ [ prev.makeWrapper ];
-              postFixup = (old.postFixup or "") + ''
-                wrapProgram $out/bin/foliate --set GDK_BACKEND x11
-              '';
-            });
-
-            # Gamescope
-            gamescope = (prev.gamescope.override { enableWsi = true; }).overrideAttrs (old: {
-              # Blur fix: https://github.com/ValveSoftware/gamescope/issues/1622.
-              NIX_CFLAGS_COMPILE = [ "-fno-fast-math" ];
-              patches = old.patches or [ ] ++ [
-                # Fix Gamescope not closing https://github.com/ValveSoftware/gamescope/pull/1908
-                (prev.fetchpatch {
-                  url = "https://github.com/ValveSoftware/gamescope/commit/fa900b0694ffc8b835b91ef47a96ed90ac94823b.diff";
-                  hash = "sha256-eIHhgonP6YtSqvZx2B98PT1Ej4/o0pdU+4ubdiBgBM4=";
-                })
-              ];
-            });
-          }
-        )
-      ];
-
-      pkgsFor = lib.genAttrs systemsList (
-        system:
-        import nixpkgs {
-          inherit system overlays;
-          config.allowUnfree = true;
-        }
-      );
-
       systemConfigs = {
         hinamizawa = {
           stateVersion = "26.05";
@@ -255,6 +187,75 @@
       };
 
       homeConfigs = { };
+
+      targetSystems = lib.unique (
+        (lib.mapAttrsToList (_: { system, ... }: system) systemConfigs)
+        ++ (lib.mapAttrsToList (_: { system, ... }: system) homeConfigs)
+      );
+
+      stableFor = lib.genAttrs targetSystems (system: mkPkgs nixpkgs-stable system);
+      masterFor = lib.genAttrs targetSystems (system: mkPkgs nixpkgs-master system);
+
+      sharedOverlays = [
+        nix-minecraft.overlay
+        headplane.overlays.default
+        nur.overlays.default
+      ];
+
+      overlayFor = system: final: prev: {
+        stable = stableFor.${system};
+        master = masterFor.${system};
+
+        # Lix
+        inherit (getNixScope prev)
+          nixpkgs-review
+          nix-eval-jobs
+          nix-fast-build
+          colmena
+          ;
+
+        # Bleeding edge
+        inherit (walker.packages.${system}) walker;
+        inherit (ai-nix.packages.${system}) codex-desktop;
+        inherit (llm-agents.packages.${system}) codex gemini-cli copilot-cli;
+
+        # Fix gnome-keyring detection in Antigravity IDE
+        antigravity = prev.antigravity.override {
+          commandLineArgs = "--password-store=gnome-libsecret";
+        };
+
+        # Fixes keyboard input when switching workspace.
+        foliate = prev.symlinkJoin {
+          inherit (prev.foliate) name meta;
+          paths = [ prev.foliate ];
+          nativeBuildInputs = [ prev.makeWrapper ];
+          postBuild = ''
+            wrapProgram $out/bin/foliate --set GDK_BACKEND x11
+          '';
+        };
+
+        # Gamescope
+        gamescope = (prev.gamescope.override { enableWsi = true; }).overrideAttrs (old: {
+          # Blur fix: https://github.com/ValveSoftware/gamescope/issues/1622.
+          NIX_CFLAGS_COMPILE = [ "-fno-fast-math" ];
+          patches = old.patches or [ ] ++ [
+            # Fix Gamescope not closing https://github.com/ValveSoftware/gamescope/pull/1908
+            (prev.fetchpatch {
+              url = "https://github.com/ValveSoftware/gamescope/commit/fa900b0694ffc8b835b91ef47a96ed90ac94823b.diff";
+              hash = "sha256-eIHhgonP6YtSqvZx2B98PT1Ej4/o0pdU+4ubdiBgBM4=";
+            })
+          ];
+        });
+      };
+
+      pkgsFor = lib.genAttrs targetSystems (
+        system:
+        import nixpkgs {
+          inherit system;
+          overlays = sharedOverlays ++ [ (overlayFor system) ];
+          config.allowUnfree = true;
+        }
+      );
 
       deploymentTargets = {
         wired = { };
