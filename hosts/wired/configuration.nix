@@ -24,11 +24,6 @@ let
         tcp = [ 2234 ];
         publicKey = "adsVEuj+sihaXKsoymSbCEC8dkYeecAP96lZPGCQJl4=";
       }
-      {
-        ip = "10.72.0.3";
-        tcp = [ 2235 ];
-        publicKey = "Z2lLQ1rQ/GWwX4Y44SRkwrbppwr2LMDTkgQjISXM0jU=";
-      }
     ];
   };
 in
