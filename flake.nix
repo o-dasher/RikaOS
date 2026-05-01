@@ -256,7 +256,6 @@
           config.allowUnfree = true;
         }
       );
-
       deploymentTargets = {
         wired = { };
         gensokyo = { };
@@ -425,7 +424,7 @@
 
         colmena = {
           meta = {
-            nixpkgs = pkgsFor."x86_64-linux";
+            nixpkgs = pkgsFor.${lib.head targetSystems};
             nodeNixpkgs = lib.mapAttrs (_: systemConfig: pkgsFor.${systemConfig.system}) systemConfigs;
             specialArgs = extraSpecialArgs;
           };
