@@ -118,7 +118,6 @@ in
   age.secrets =
     lib.genAttrs
       [
-        "headscale-pre-auth-key"
         "headscale-cookie-secret"
         "headscale-oidc-client-secret"
         "headplane-oidc-api-key"
@@ -195,7 +194,7 @@ in
       settings = {
         integration = {
           proc.enabled = false;
-          agent.pre_authkey_path = config.age.secrets.headscale-pre-auth-key.path;
+          agent.enabled = true;
         };
         server = {
           base_url = headscaleURI;
