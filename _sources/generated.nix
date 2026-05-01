@@ -8,11 +8,11 @@
 {
   authme = {
     pname = "authme";
-    version = "5.6.0";
+    version = "5.7.0";
     src = fetchurl {
-      url = "https://github.com/AuthMe/AuthMeReloaded/releases/download/5.6.0/AuthMe-5.6.0.jar";
+      url = "https://github.com/AuthMe/AuthMeReloaded/releases/download/5.7.0/AuthMe-5.7.0.jar";
       name = "AuthMe.jar";
-      sha256 = "sha256-gDcbqACHwU5J+tkIxYHqdneUPbS5aHYMBT07sNJnZNE=";
+      sha256 = "sha256-Z8xcGSMxXO3BUmFqvOgc950ATUTLj+mrTQsmJyjyPgg=";
     };
   };
   floodgate-spigot = {
@@ -21,7 +21,7 @@
     src = fetchurl {
       url = "https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot";
       name = "Floodgate-Spigot.jar";
-      sha256 = "sha256-/4ET56lDGYOF4GEqcuRYAtnJqJeGo8+uhzzCMiMzIWc=";
+      sha256 = "sha256-ZR31ephvY1BqEcLyxrJxR+3snFkJT6ffzCGhMdqKEDA=";
     };
   };
   floodgate-sqlite-database = {
@@ -39,7 +39,7 @@
     src = fetchurl {
       url = "https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot";
       name = "Geyser-Spigot.jar";
-      sha256 = "sha256-GDJbQuaqI7hWS89VjMXZHRcu8txQsFqX8MzQnF8jDVs=";
+      sha256 = "sha256-gFUgAvt7B4zGQEl8/SHb5ozmjiYzx4VT2XZjy52Z/c0=";
     };
   };
   ps4-pkg-tools = {
@@ -55,20 +55,20 @@
   };
   skinsrestorer = {
     pname = "skinsrestorer";
-    version = "15.11.1";
+    version = "15.12.0";
     src = fetchurl {
-      url = "https://github.com/SkinsRestorer/SkinsRestorer/releases/download/15.11.1/SkinsRestorer.jar";
+      url = "https://github.com/SkinsRestorer/SkinsRestorer/releases/download/15.12.0/SkinsRestorer.jar";
       name = "SkinsRestorer.jar";
-      sha256 = "sha256-lb5IUhwJ+T7cYhNFUVcOBgMVcLgXvhWAHpkXf4fqAg4=";
+      sha256 = "sha256-ZeHxBpXNl4+k/Q0ufnxKB4Y6MQlNFvha7imO/vMd4dc=";
     };
   };
   viaversion = {
     pname = "viaversion";
-    version = "5.8.1";
+    version = "5.9.0";
     src = fetchurl {
-      url = "https://github.com/ViaVersion/ViaVersion/releases/download/5.8.1/ViaVersion-5.8.1.jar";
+      url = "https://github.com/ViaVersion/ViaVersion/releases/download/5.9.0/ViaVersion-5.9.0.jar";
       name = "ViaVersion.jar";
-      sha256 = "sha256-Pj5yBrL9uRLg3Eqbik3xllUSJt4rXkDKSfiNYzLxQV0=";
+      sha256 = "sha256-MidRdoskjwx7tc7mOl5FovE/GNDtYnS5PNOvmXRMeok=";
     };
   };
 }

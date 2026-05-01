@@ -256,6 +256,7 @@
           config.allowUnfree = true;
         }
       );
+
       deploymentTargets = {
         wired = { };
         gensokyo = { };
@@ -387,6 +388,12 @@
         in
         {
           imports = mkSystemModules hostName systemConfig;
+          
+          # Workaround: Colmena's eval.nix injects its evaluator package config (meta.nixpkgs.config) 
+          # into the node. However, NixOS asserts that nixpkgs.config must be empty when 
+          # nixpkgs.pkgs is explicitly defined by the user.
+          nixpkgs.config = lib.mkForce { };
+          
           deployment = {
             targetHost = deploymentCfg.targetHost or hostName;
             targetUser = deploymentCfg.targetUser or "colmena";
