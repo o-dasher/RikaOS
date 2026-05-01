@@ -155,6 +155,7 @@
       ...
     }@inputs:
     let
+      inherit (nixpkgs) lib;
       getNixScope = pkgs: pkgs.lixPackageSets.git;
 
       mkPkgs =
@@ -165,8 +166,8 @@
         };
 
       systemsList = import systems;
-      stableFor = nixpkgs.lib.genAttrs systemsList (system: mkPkgs nixpkgs-stable system);
-      masterFor = nixpkgs.lib.genAttrs systemsList (system: mkPkgs nixpkgs-master system);
+      stableFor = lib.genAttrs systemsList (system: mkPkgs nixpkgs-stable system);
+      masterFor = lib.genAttrs systemsList (system: mkPkgs nixpkgs-master system);
 
       overlays = [
         nix-minecraft.overlay
@@ -225,7 +226,7 @@
         )
       ];
 
-      pkgsFor = nixpkgs.lib.genAttrs systemsList (
+      pkgsFor = lib.genAttrs systemsList (
         system:
         import nixpkgs {
           inherit system overlays;
@@ -261,18 +262,6 @@
         hinamizawa = { };
       };
 
-      builderSpecs = nixpkgs.lib.recursiveUpdate (builtins.mapAttrs (_: cfg: {
-        inherit (cfg) system;
-        maxJobs = 8;
-        speedFactor = 2;
-        supportedFeatures = [
-          "nixos-test"
-          "benchmark"
-          "big-parallel"
-          "kvm"
-        ];
-      }) systemConfigs) { };
-
       nixCaches = {
         extra-substituters = [
           "https://cache.nixos.org"
@@ -304,7 +293,6 @@
         inherit
           inputs
           nixCaches
-          builderSpecs
           ;
       };
 
@@ -327,7 +315,12 @@
           zen-browser.homeModules.twilight
           walker.homeManagerModules.default
           nix-flatpak.homeManagerModules.nix-flatpak
-          { home = ({ homeDirectory = "/home/${username}"; } // homeConfig); }
+          {
+            home = {
+              homeDirectory = "/home/${username}";
+            }
+            // homeConfig;
+          }
         ];
 
       mkSystemModules =
@@ -340,8 +333,8 @@
         (mkCommonModules pkgsFor.${system})
         ++ [
           ./modules/nixos
-          inputs.headplane.nixosModules.headplane
           ./hosts/${hostName}/configuration.nix
+          headplane.nixosModules.headplane
           stylix.nixosModules.stylix
           agenix.nixosModules.default
           playit-nixos-module.nixosModules.default
@@ -357,10 +350,10 @@
               inherit extraSpecialArgs;
               useGlobalPkgs = true;
               useUserPackages = true;
-              users = nixpkgs.lib.listToAttrs (
+              users = lib.listToAttrs (
                 map (
                   username:
-                  nixpkgs.lib.nameValuePair username (
+                  lib.nameValuePair username (
                     { ... }:
                     {
                       imports = mkHomeModules hostName {
@@ -389,9 +382,8 @@
 
       mkColmenaNode =
         hostName: systemConfig:
-        { ... }:
         let
-          deploymentCfg = nixpkgs.lib.attrByPath [ hostName ] { } deploymentTargets;
+          deploymentCfg = lib.attrByPath [ hostName ] { } deploymentTargets;
         in
         {
           imports = mkSystemModules hostName systemConfig;
@@ -412,8 +404,8 @@
           modules = (mkCommonModules pkgs) ++ (mkHomeModules hostName homeConfig);
         };
     in
-    (flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = import systems;
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = systemsList;
 
       perSystem =
         { pkgs, ... }:
@@ -428,24 +420,20 @@
         };
 
       flake = {
-        nixosConfigurations = nixpkgs.lib.mapAttrs' (
-          hostName: systemConfig: nixpkgs.lib.nameValuePair hostName (mkSystem hostName systemConfig)
-        ) systemConfigs;
+        nixosConfigurations = lib.mapAttrs mkSystem systemConfigs;
 
         colmena = {
           meta = {
             nixpkgs = pkgsFor."x86_64-linux";
-            nodeNixpkgs = nixpkgs.lib.mapAttrs (_: systemConfig: pkgsFor.${systemConfig.system}) systemConfigs;
+            nodeNixpkgs = lib.mapAttrs (_: systemConfig: pkgsFor.${systemConfig.system}) systemConfigs;
             specialArgs = extraSpecialArgs;
           };
         }
-        // nixpkgs.lib.mapAttrs' (
-          hostName: systemConfig: nixpkgs.lib.nameValuePair hostName (mkColmenaNode hostName systemConfig)
-        ) systemConfigs;
+        // lib.mapAttrs mkColmenaNode systemConfigs;
 
-        homeConfigurations = nixpkgs.lib.listToAttrs (
-          nixpkgs.lib.flatten (
-            nixpkgs.lib.mapAttrsToList (
+        homeConfigurations = lib.listToAttrs (
+          lib.flatten (
+            lib.mapAttrsToList (
               hostName: homeConfig:
               map (name: {
                 inherit name;
@@ -455,5 +443,5 @@
           )
         );
       };
-    });
+    };
 }

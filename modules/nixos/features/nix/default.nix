@@ -3,7 +3,6 @@ with lib;
 {
   imports = [
     ./setup.nix
-    ./builders.nix
   ];
 
   options.features.nix = {
