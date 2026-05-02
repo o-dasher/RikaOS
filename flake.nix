@@ -298,6 +298,7 @@
             };
           }
         ];
+
       mkSystemModules =
         hostName:
         {
@@ -353,6 +354,7 @@
               nixfmt
               treefmt
               stylua
+              nixd
             ];
           };
         };
@@ -367,6 +369,23 @@
             modules = mkSystemModules hostName systemConfig;
           }
         ) systemConfigs;
+
+        homeConfigurations = lib.listToAttrs (
+          lib.flatten (
+            lib.mapAttrsToList (
+              hostName:
+              homeConfig@{ system, users, ... }:
+              map (username: {
+                name = username;
+                value = home-manager.lib.homeManagerConfiguration {
+                  inherit extraSpecialArgs;
+                  pkgs = pkgsFor.${system};
+                  modules = mkCommonModules system ++ mkHomeModules hostName (homeConfig // { inherit username; });
+                };
+              }) users
+            ) homeConfigs
+          )
+        );
 
         colmena = {
           meta = {
@@ -390,23 +409,6 @@
           }
           // (lib.attrByPath [ hostName ] { } deploymentTargets);
         }) systemConfigs;
-
-        homeConfigurations = lib.listToAttrs (
-          lib.flatten (
-            lib.mapAttrsToList (
-              hostName:
-              homeConfig@{ system, users, ... }:
-              map (username: {
-                name = username;
-                value = home-manager.lib.homeManagerConfiguration {
-                  inherit extraSpecialArgs;
-                  pkgs = pkgsFor.${system};
-                  modules = mkCommonModules system ++ mkHomeModules hostName (homeConfig // { inherit username; });
-                };
-              }) users
-            ) homeConfigs
-          )
-        );
       };
     };
 }
