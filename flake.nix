@@ -156,14 +156,6 @@
     }@inputs:
     let
       inherit (nixpkgs) lib;
-      getNixScope = pkgs: pkgs.lixPackageSets.git;
-
-      mkPkgs =
-        pkgs: system:
-        import pkgs {
-          inherit system;
-          config.allowUnfree = true;
-        };
 
       systemsList = import systems;
       systemConfigs = {
@@ -187,6 +179,20 @@
       };
 
       homeConfigs = { };
+
+      deploymentTargets = {
+        wired = { };
+        gensokyo = { };
+        hinamizawa = { };
+      };
+
+      getNixScope = pkgs: pkgs.lixPackageSets.git;
+      mkPkgs =
+        pkgs: system:
+        import pkgs {
+          inherit system;
+          config.allowUnfree = true;
+        };
 
       targetSystems = lib.unique (
         (lib.mapAttrsToList (_: { system, ... }: system) systemConfigs)
@@ -248,21 +254,6 @@
         });
       };
 
-      pkgsFor = lib.genAttrs targetSystems (
-        system:
-        import nixpkgs {
-          inherit system;
-          overlays = sharedOverlays ++ [ (overlayFor system) ];
-          config.allowUnfree = true;
-        }
-      );
-
-      deploymentTargets = {
-        wired = { };
-        gensokyo = { };
-        hinamizawa = { };
-      };
-
       nixCaches = {
         extra-substituters = [
           "https://cache.nixos.org"
@@ -296,6 +287,10 @@
           nixCaches
           ;
       };
+
+      pkgsFor = lib.genAttrs targetSystems (
+        system: (mkPkgs nixpkgs system).appendOverlays (sharedOverlays ++ [ (overlayFor system) ])
+      );
 
       mkCommonModules = pkgs: [
         { nix.package = (getNixScope pkgs).lix; }
@@ -381,6 +376,15 @@
           modules = mkSystemModules hostName systemConfig;
         };
 
+      mkHome =
+        hostName:
+        { system, ... }@homeConfig:
+        home-manager.lib.homeManagerConfiguration rec {
+          inherit extraSpecialArgs;
+          pkgs = pkgsFor.${system};
+          modules = (mkCommonModules pkgs) ++ (mkHomeModules hostName homeConfig);
+        };
+
       mkColmenaNode = hostName: systemConfig: {
         imports = mkSystemModules hostName systemConfig;
 
@@ -396,15 +400,6 @@
         }
         // (lib.attrByPath [ hostName ] { } deploymentTargets);
       };
-
-      mkHome =
-        hostName:
-        { system, ... }@homeConfig:
-        home-manager.lib.homeManagerConfiguration rec {
-          inherit extraSpecialArgs;
-          pkgs = pkgsFor.${system};
-          modules = (mkCommonModules pkgs) ++ (mkHomeModules hostName homeConfig);
-        };
     in
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = systemsList;
