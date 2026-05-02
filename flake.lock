@@ -205,27 +205,6 @@
         "type": "github"
       }
     },
-    "devshell": {
-      "inputs": {
-        "nixpkgs": [
-          "headplane",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1768818222,
-        "narHash": "sha256-460jc0+CZfyaO8+w8JNtlClB2n4ui1RbHfPTLkpwhU8=",
-        "owner": "numtide",
-        "repo": "devshell",
-        "rev": "255a2b1725a20d060f566e4755dbf571bbbb5f76",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "devshell",
-        "type": "github"
-      }
-    },
     "elephant": {
       "inputs": {
         "nixpkgs": [
@@ -400,30 +379,6 @@
         "type": "github"
       }
     },
-    "headplane": {
-      "inputs": {
-        "devshell": "devshell",
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1777262194,
-        "narHash": "sha256-gtBZSVA0xZHxvSUS6Y+0QGHHn+mz0rLH+5OMvutF8lI=",
-        "owner": "tale",
-        "repo": "headplane",
-        "rev": "c6b6cbc122642eb2752f284895e7fd7f7b310488",
-        "type": "github"
-      },
-      "original": {
-        "owner": "tale",
-        "repo": "headplane",
-        "type": "github"
-      }
-    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -584,11 +539,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1777268161,
-        "narHash": "sha256-bxrdOn8SCOv8tN4JbTF/TXq7kjo9ag4M+C8yzzIRYbE=",
+        "lastModified": 1777578337,
+        "narHash": "sha256-Ad49moKWeXtKBJNy2ebiTQUEgdLyvGmTeykAQ9xM+Z4=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "1c3fe55ad329cbcb28471bb30f05c9827f724c76",
+        "rev": "15f4ee454b1dce334612fa6843b3e05cf546efab",
         "type": "github"
       },
       "original": {
@@ -702,7 +657,6 @@
         "flake-parts": "flake-parts",
         "flake-utils": "flake-utils",
         "git-hooks": "git-hooks",
-        "headplane": "headplane",
         "home-manager": "home-manager",
         "llm-agents": "llm-agents",
         "mnw": "mnw",
