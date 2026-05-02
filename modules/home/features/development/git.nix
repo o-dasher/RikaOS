@@ -46,6 +46,7 @@ with lib;
       };
       git = {
         enable = true;
+        signing.format = null;
         settings.safe.directory = mkIf (
           osConfig != null
         ) osConfig.features.filesystem.sharedFolders.folderNames;

@@ -58,7 +58,6 @@
       nixpkgs.enable = true;
     };
     services = {
-      dbus.enable = true;
       bluetooth.enable = true;
       flatpak.enable = true;
       openrgb.enable = true;
@@ -129,41 +128,43 @@
       "/home".options = btrfsOpts;
     };
 
-  users.users =
-    let
-      commonGroups = [
-        "video"
-        "dialout"
-        "input"
-        "render"
-        "libvirtd"
-        "gamemode"
-      ];
-    in
-    {
-      transmission.extraGroups = [ "users" ];
-      rika = {
-        isNormalUser = true;
-        shell = pkgs.fish;
-        extraGroups = [
-          "wheel"
-          "adbusers"
-          "transmission"
-          "podman"
-        ]
-        ++ commonGroups;
-        openssh.authorizedKeys.keys =
-          let
-            inherit (config.features.services.openssh.keys) rika;
-          in
-          [ rika ];
+  users = {
+    groups.users.members = [ "transmission" ];
+    users =
+      let
+        commonGroups = [
+          "video"
+          "dialout"
+          "input"
+          "render"
+          "libvirtd"
+          "gamemode"
+        ];
+      in
+      {
+        rika = {
+          isNormalUser = true;
+          shell = pkgs.fish;
+          extraGroups = [
+            "wheel"
+            "adbusers"
+            "transmission"
+            "podman"
+          ]
+          ++ commonGroups;
+          openssh.authorizedKeys.keys =
+            let
+              inherit (config.features.services.openssh.keys) rika;
+            in
+            [ rika ];
+        };
+        satoko = {
+          isNormalUser = true;
+          shell = pkgs.fish;
+          extraGroups = commonGroups;
+        };
       };
-      satoko = {
-        isNormalUser = true;
-        shell = pkgs.fish;
-        extraGroups = commonGroups;
-      };
-    };
+  };
 
   networking = {
     interfaces.${config.features.networking.primaryInterface}.wakeOnLan = {
@@ -207,7 +208,10 @@
     fish.enable = true;
     dconf.enable = true;
     nix-ld.enable = true;
-    hyprland.enable = true;
+    hyprland = {
+      enable = true;
+      withUWSM = true;
+    };
     obs-studio = {
       enable = true;
       enableVirtualCamera = true;
