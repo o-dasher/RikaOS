@@ -9,24 +9,25 @@
   };
 
   outputs =
-    inputs@{ self, ... }:
+    inputs@{
+      self,
+      systems,
+      mnw,
+      ...
+    }:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = import inputs.systems;
-
+      systems = import systems;
       perSystem =
         { system, ... }:
-        let
-          pkgs = import inputs.nixpkgs {
-            inherit system;
-            config.allowUnfree = true;
-          };
-        in
         {
           packages = {
             dev = self.packages.${system}.default.devMode;
             default = import ./package.nix {
-              pkgs = pkgs;
-              mnw = inputs.mnw;
+              inherit mnw;
+              pkgs = import inputs.nixpkgs {
+                inherit system;
+                config.allowUnfree = true;
+              };
             };
           };
         };
