@@ -115,13 +115,7 @@
         flake-compat.follows = "flake-compat";
       };
     };
-    headplane = {
-      url = "github:tale/headplane";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-      };
-    };
+
     nur = {
       url = "github:nix-community/NUR";
       inputs = {
@@ -148,7 +142,6 @@
       ai-nix,
       llm-agents,
       nur,
-      headplane,
       nixpkgs-master,
       zen-browser,
       ...
@@ -233,7 +226,6 @@
           system:
           (mkPkgs nixpkgs system).appendOverlays [
             nix-minecraft.overlay
-            headplane.overlays.default
             nur.overlays.default
             (final: prev: {
               stable = mkPkgs nixpkgs-stable system;
@@ -318,7 +310,6 @@
         ++ [
           ./modules/nixos
           ./hosts/${hostName}/configuration.nix
-          headplane.nixosModules.headplane
           stylix.nixosModules.stylix
           agenix.nixosModules.default
           playit-nixos-module.nixosModules.default
