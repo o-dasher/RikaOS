@@ -138,7 +138,6 @@
       stylix,
       agenix,
       flake-parts,
-      systems,
       nixcord,
       spicetify-nix,
       nixpkgs-stable,
@@ -156,8 +155,8 @@
     }@inputs:
     let
       inherit (nixpkgs) lib;
+      getLixRevision = pkgs: pkgs.lixPackageSets.git;
 
-      systemsList = import systems;
       systemConfigs = {
         hinamizawa = {
           stateVersion = "26.05";
@@ -186,122 +185,111 @@
         hinamizawa = { };
       };
 
-      getNixScope = pkgs: pkgs.lixPackageSets.git;
-      mkPkgs =
-        pkgs: system:
-        import pkgs {
-          inherit system;
-          config.allowUnfree = true;
-        };
-
       targetSystems = lib.unique (
         (lib.mapAttrsToList (_: { system, ... }: system) systemConfigs)
         ++ (lib.mapAttrsToList (_: { system, ... }: system) homeConfigs)
       );
 
-      stableFor = lib.genAttrs targetSystems (mkPkgs nixpkgs-stable);
-      masterFor = lib.genAttrs targetSystems (mkPkgs nixpkgs-master);
-
-      sharedOverlays = [
-        nix-minecraft.overlay
-        headplane.overlays.default
-        nur.overlays.default
-      ];
-
-      overlayFor = system: final: prev: {
-        stable = stableFor.${system};
-        master = masterFor.${system};
-
-        # Lix
-        inherit (getNixScope prev)
-          nixpkgs-review
-          nix-eval-jobs
-          nix-fast-build
-          colmena
-          ;
-
-        # Bleeding edge
-        inherit (walker.packages.${system}) walker;
-        inherit (ai-nix.packages.${system}) codex-desktop;
-        inherit (llm-agents.packages.${system}) codex gemini-cli copilot-cli;
-
-        # Fix gnome-keyring detection in Antigravity IDE
-        antigravity = prev.antigravity.override {
-          commandLineArgs = "--password-store=gnome-libsecret";
-        };
-
-        # Fixes keyboard input when switching workspace.
-        foliate = prev.symlinkJoin {
-          inherit (prev.foliate) name meta;
-          paths = [ prev.foliate ];
-          nativeBuildInputs = [ prev.makeWrapper ];
-          postBuild = ''
-            wrapProgram $out/bin/foliate --set GDK_BACKEND x11
-          '';
-        };
-
-        # Gamescope
-        gamescope = (prev.gamescope.override { enableWsi = true; }).overrideAttrs (old: {
-          # Blur fix: https://github.com/ValveSoftware/gamescope/issues/1622.
-          NIX_CFLAGS_COMPILE = [ "-fno-fast-math" ];
-          patches = old.patches or [ ] ++ [
-            # Fix Gamescope not closing https://github.com/ValveSoftware/gamescope/pull/1908
-            (prev.fetchpatch {
-              url = "https://github.com/ValveSoftware/gamescope/commit/fa900b0694ffc8b835b91ef47a96ed90ac94823b.diff";
-              hash = "sha256-eIHhgonP6YtSqvZx2B98PT1Ej4/o0pdU+4ubdiBgBM4=";
-            })
-          ];
-        });
-      };
-
-      nixCaches = {
-        extra-substituters = [
-          "https://cache.nixos.org"
-          "https://playit-nixos-module.cachix.org"
-          "https://nix-community.cachix.org"
-          "https://attic.xuyh0120.win/lantian"
-          "https://cache.garnix.io"
-          "https://hercules-ci.cachix.org"
-          "https://walker.cachix.org"
-          "https://walker-git.cachix.org"
-          "https://ai-nix.cachix.org"
-          "https://cache.numtide.com"
-        ];
-        extra-trusted-public-keys = [
-          "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-          "playit-nixos-module.cachix.org-1:22hBXWXBbd/7o1cOnh+p0hpFUVk9lPdRLX3p5YSfRz4="
-          "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-          "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
-          "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
-          "hercules-ci.cachix.org-1:ZZeDl9Va+xe9j+KqdzoBZMFJHVQ42Uu/c/1/KMC5Lw0="
-          "walker.cachix.org-1:fG8q+uAaMqhsMxWjwvk0IMb4mFPFLqHjuvfwQxE4oJM="
-          "walker-git.cachix.org-1:vmC0ocfPWh0S/vRAQGtChuiZBTAe4wiKDeyyXM0/7pM="
-          "ai-nix.cachix.org-1:rUfdPFgb+6TNgKxm7BbanFKIprQed0/SHvQK68DPsCg="
-          "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
-        ];
-      };
-
       extraSpecialArgs = {
-        inherit
-          inputs
-          nixCaches
-          ;
+        inherit inputs;
+        nixCaches = {
+          extra-substituters = [
+            "https://cache.nixos.org"
+            "https://playit-nixos-module.cachix.org"
+            "https://nix-community.cachix.org"
+            "https://attic.xuyh0120.win/lantian"
+            "https://cache.garnix.io"
+            "https://hercules-ci.cachix.org"
+            "https://walker.cachix.org"
+            "https://walker-git.cachix.org"
+            "https://ai-nix.cachix.org"
+            "https://cache.numtide.com"
+          ];
+          extra-trusted-public-keys = [
+            "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+            "playit-nixos-module.cachix.org-1:22hBXWXBbd/7o1cOnh+p0hpFUVk9lPdRLX3p5YSfRz4="
+            "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+            "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
+            "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+            "hercules-ci.cachix.org-1:ZZeDl9Va+xe9j+KqdzoBZMFJHVQ42Uu/c/1/KMC5Lw0="
+            "walker.cachix.org-1:fG8q+uAaMqhsMxWjwvk0IMb4mFPFLqHjuvfwQxE4oJM="
+            "walker-git.cachix.org-1:vmC0ocfPWh0S/vRAQGtChuiZBTAe4wiKDeyyXM0/7pM="
+            "ai-nix.cachix.org-1:rUfdPFgb+6TNgKxm7BbanFKIprQed0/SHvQK68DPsCg="
+            "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
+          ];
+        };
       };
 
-      pkgsFor = lib.genAttrs targetSystems (
-        system: (mkPkgs nixpkgs system).appendOverlays (sharedOverlays ++ [ (overlayFor system) ])
-      );
+      pkgsFor =
+        let
+          mkPkgs =
+            pkgs: system:
+            import pkgs {
+              inherit system;
+              config.allowUnfree = true;
+            };
+        in
+        lib.genAttrs targetSystems (
+          system:
+          (mkPkgs nixpkgs system).appendOverlays [
+            nix-minecraft.overlay
+            headplane.overlays.default
+            nur.overlays.default
+            (final: prev: {
+              stable = mkPkgs nixpkgs-stable system;
+              master = mkPkgs nixpkgs-master system;
 
-      mkCommonModules = pkgs: [
-        { nix.package = (getNixScope pkgs).lix; }
+              # Lix
+              inherit (getLixRevision prev)
+                nixpkgs-review
+                nix-eval-jobs
+                nix-fast-build
+                colmena
+                ;
+
+              # Bleeding edge
+              inherit (walker.packages.${system}) walker;
+              inherit (ai-nix.packages.${system}) codex-desktop;
+              inherit (llm-agents.packages.${system}) codex gemini-cli copilot-cli;
+
+              # Fix gnome-keyring detection in Antigravity IDE
+              antigravity = prev.antigravity.override {
+                commandLineArgs = "--password-store=gnome-libsecret";
+              };
+
+              # Fixes keyboard input when switching workspace.
+              foliate = prev.symlinkJoin {
+                inherit (prev.foliate) name meta;
+                paths = [ prev.foliate ];
+                nativeBuildInputs = [ prev.makeWrapper ];
+                postBuild = ''
+                  wrapProgram $out/bin/foliate --set GDK_BACKEND x11
+                '';
+              };
+
+              # Gamescope
+              gamescope = (prev.gamescope.override { enableWsi = true; }).overrideAttrs (old: {
+                # Blur fix: https://github.com/ValveSoftware/gamescope/issues/1622.
+                NIX_CFLAGS_COMPILE = [ "-fno-fast-math" ];
+                patches = old.patches or [ ] ++ [
+                  # Fix Gamescope not closing https://github.com/ValveSoftware/gamescope/pull/1908
+                  (prev.fetchpatch {
+                    url = "https://github.com/ValveSoftware/gamescope/commit/fa900b0694ffc8b835b91ef47a96ed90ac94823b.diff";
+                    hash = "sha256-eIHhgonP6YtSqvZx2B98PT1Ej4/o0pdU+4ubdiBgBM4=";
+                  })
+                ];
+              });
+            })
+          ]
+        );
+
+      mkCommonModules = system: [
+        { nix.package = (getLixRevision pkgsFor.${system}).lix; }
       ];
 
       mkHomeModules =
         hostName:
-        {
-          username,
-          ...
-        }@homeConfig:
+        { username, stateVersion, ... }:
         [
           ./modules/home
           ./hosts/${hostName}/users/${username}
@@ -314,19 +302,19 @@
           {
             home = {
               homeDirectory = "/home/${username}";
-            }
-            // homeConfig;
+              inherit username stateVersion;
+            };
           }
         ];
-
       mkSystemModules =
         hostName:
         {
           system,
           stateVersion,
           users ? [ ],
+          ...
         }:
-        (mkCommonModules pkgsFor.${system})
+        mkCommonModules system
         ++ [
           ./modules/nixos
           ./hosts/${hostName}/configuration.nix
@@ -353,8 +341,7 @@
                     { ... }:
                     {
                       imports = mkHomeModules hostName {
-                        inherit stateVersion;
-                        inherit username;
+                        inherit stateVersion username;
                       };
                     }
                   )
@@ -363,46 +350,9 @@
             };
           }
         ];
-
-      mkSystem =
-        hostName:
-        systemConfig@{
-          system,
-          ...
-        }:
-        lib.nixosSystem {
-          inherit system;
-          specialArgs = extraSpecialArgs;
-          modules = mkSystemModules hostName systemConfig;
-        };
-
-      mkHome =
-        hostName:
-        { system, ... }@homeConfig:
-        home-manager.lib.homeManagerConfiguration rec {
-          inherit extraSpecialArgs;
-          pkgs = pkgsFor.${system};
-          modules = (mkCommonModules pkgs) ++ (mkHomeModules hostName homeConfig);
-        };
-
-      mkColmenaNode = hostName: systemConfig: {
-        imports = mkSystemModules hostName systemConfig;
-
-        # Workaround: Colmena's eval.nix injects its evaluator package config (meta.nixpkgs.config)
-        # into the node. However, NixOS asserts that nixpkgs.config must be empty when
-        # nixpkgs.pkgs is explicitly defined by the user.
-        nixpkgs.config = lib.mkForce { };
-        deployment = {
-          targetHost = hostName;
-          targetUser = "colmena";
-          tags = [ hostName ];
-          buildOnTarget = false;
-        }
-        // (lib.attrByPath [ hostName ] { } deploymentTargets);
-      };
     in
     flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = systemsList;
+      systems = import inputs.systems;
 
       perSystem =
         { pkgs, ... }:
@@ -417,7 +367,15 @@
         };
 
       flake = {
-        nixosConfigurations = lib.mapAttrs mkSystem systemConfigs;
+        nixosConfigurations = lib.mapAttrs (
+          hostName:
+          systemConfig@{ system, ... }:
+          lib.nixosSystem {
+            inherit system;
+            specialArgs = extraSpecialArgs;
+            modules = mkSystemModules hostName systemConfig;
+          }
+        ) systemConfigs;
 
         colmena = {
           meta = {
@@ -426,16 +384,35 @@
             specialArgs = extraSpecialArgs;
           };
         }
-        // lib.mapAttrs mkColmenaNode systemConfigs;
+        // lib.mapAttrs (hostName: systemConfig: {
+          imports = mkSystemModules hostName systemConfig;
+
+          # Workaround: Colmena's eval.nix injects its evaluator package config (meta.nixpkgs.config)
+          # into the node. However, NixOS asserts that nixpkgs.config must be empty when
+          # nixpkgs.pkgs is explicitly defined by the user.
+          nixpkgs.config = lib.mkForce { };
+          deployment = {
+            targetHost = hostName;
+            targetUser = "colmena";
+            tags = [ hostName ];
+            buildOnTarget = false;
+          }
+          // (lib.attrByPath [ hostName ] { } deploymentTargets);
+        }) systemConfigs;
 
         homeConfigurations = lib.listToAttrs (
           lib.flatten (
             lib.mapAttrsToList (
-              hostName: homeConfig:
-              map (name: {
-                inherit name;
-                value = mkHome hostName homeConfig;
-              }) homeConfig.users
+              hostName:
+              homeConfig@{ system, users, ... }:
+              map (username: {
+                name = username;
+                value = home-manager.lib.homeManagerConfiguration {
+                  inherit extraSpecialArgs;
+                  pkgs = pkgsFor.${system};
+                  modules = mkCommonModules system ++ mkHomeModules hostName (homeConfig // { inherit username; });
+                };
+              }) users
             ) homeConfigs
           )
         );
