@@ -193,8 +193,8 @@
         ++ (lib.mapAttrsToList (_: { system, ... }: system) homeConfigs)
       );
 
-      stableFor = lib.genAttrs targetSystems (system: mkPkgs nixpkgs-stable system);
-      masterFor = lib.genAttrs targetSystems (system: mkPkgs nixpkgs-master system);
+      stableFor = lib.genAttrs targetSystems (mkPkgs nixpkgs-stable);
+      masterFor = lib.genAttrs targetSystems (mkPkgs nixpkgs-master);
 
       sharedOverlays = [
         nix-minecraft.overlay
@@ -375,32 +375,27 @@
           system,
           ...
         }:
-        nixpkgs.lib.nixosSystem {
+        lib.nixosSystem {
           inherit system;
           specialArgs = extraSpecialArgs;
           modules = mkSystemModules hostName systemConfig;
         };
 
-      mkColmenaNode =
-        hostName: systemConfig:
-        let
-          deploymentCfg = lib.attrByPath [ hostName ] { } deploymentTargets;
-        in
-        {
-          imports = mkSystemModules hostName systemConfig;
-          
-          # Workaround: Colmena's eval.nix injects its evaluator package config (meta.nixpkgs.config) 
-          # into the node. However, NixOS asserts that nixpkgs.config must be empty when 
-          # nixpkgs.pkgs is explicitly defined by the user.
-          nixpkgs.config = lib.mkForce { };
-          
-          deployment = {
-            targetHost = deploymentCfg.targetHost or hostName;
-            targetUser = deploymentCfg.targetUser or "colmena";
-            tags = deploymentCfg.tags or [ hostName ];
-            buildOnTarget = false;
-          };
-        };
+      mkColmenaNode = hostName: systemConfig: {
+        imports = mkSystemModules hostName systemConfig;
+
+        # Workaround: Colmena's eval.nix injects its evaluator package config (meta.nixpkgs.config)
+        # into the node. However, NixOS asserts that nixpkgs.config must be empty when
+        # nixpkgs.pkgs is explicitly defined by the user.
+        nixpkgs.config = lib.mkForce { };
+        deployment = {
+          targetHost = hostName;
+          targetUser = "colmena";
+          tags = [ hostName ];
+          buildOnTarget = false;
+        }
+        // (lib.attrByPath [ hostName ] { } deploymentTargets);
+      };
 
       mkHome =
         hostName:

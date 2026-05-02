@@ -56,6 +56,7 @@ with lib;
         };
       };
     };
+
     home.pointerCursor.hyprcursor.enable = mkIf (
       hasStylix && config.features.desktop.theme.enable
     ) true;

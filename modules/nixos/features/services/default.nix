@@ -7,7 +7,6 @@ with lib;
     ./gnome-keyring.nix
     ./openssh.nix
     ./openrgb.nix
-    ./dbus.nix
     ./sunshine.nix
     ./tailscale.nix
     ./transmission.nix
