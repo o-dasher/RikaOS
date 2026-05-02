@@ -354,7 +354,9 @@
               nixfmt
               treefmt
               stylua
+              lua-language-server
               nixd
+              statix
             ];
           };
         };
