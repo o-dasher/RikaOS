@@ -17,8 +17,8 @@ in
   config = lib.optionalAttrs hasStylix (
     lib.mkIf (config.features.desktop.enable && modCfg.enable) {
       stylix = {
+        inherit (themeLib) cursor;
         icons.enable = true;
-        cursor = themeLib.cursor;
         targets = {
           nixcord.enable = false;
           zen-browser.profileNames = [ "default" ];
