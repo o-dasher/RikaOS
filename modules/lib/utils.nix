@@ -31,13 +31,16 @@ with lib;
 
     selectiveSymLink =
       from: to: paths: opts:
-      mkMerge (
-        map (filePath: {
-          "${to}/${filePath}" = {
-            source = config.lib.file.mkOutOfStoreSymlink (builtins.toPath /. + "${from}/${filePath}");
-          }
-          // opts;
-        }) paths
+      builtins.listToAttrs (
+        map (
+          filePath:
+          lib.nameValuePair "${to}/${filePath}" (
+            {
+              source = config.lib.file.mkOutOfStoreSymlink "${from}/${filePath}";
+            }
+            // opts
+          )
+        ) paths
       );
 
     xdgConfigSelectiveSymLink =

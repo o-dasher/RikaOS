@@ -79,31 +79,25 @@ with lib;
       };
     };
 
-  config =
-    let
-      hasStylix = options ? stylix;
-      themeNames = attrNames themes;
-    in
-    mkMerge (
-      map (
-        themeName:
-        mkIf (config.features.desktop.theme.enable && config.features.desktop.theme.${themeName}.enable)
-          (mkMerge [
-            (optionalAttrs hasStylix {
-              stylix = mkStylixConfig themes.${themeName};
-            })
-          ])
-      ) themeNames
-      ++ [
-        {
-          _module.args.themeLib = {
-            cursor = {
-              name = "BreezeX-RosePine-Linux";
-              package = pkgs.rose-pine-cursor;
-              size = 16;
-            };
-          };
-        }
-      ]
-    );
+  config = mkMerge [
+    {
+      _module.args.themeLib = {
+        cursor = {
+          name = "BreezeX-RosePine-Linux";
+          package = pkgs.rose-pine-cursor;
+          size = 16;
+        };
+      };
+    }
+    (mkIf (config.features.desktop.theme.enable && options ? stylix) (
+      mkMerge (
+        map (
+          name:
+          mkIf config.features.desktop.theme.${name}.enable {
+            stylix = mkStylixConfig themes.${name};
+          }
+        ) (builtins.attrNames themes)
+      )
+    ))
+  ];
 }

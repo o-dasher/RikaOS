@@ -43,6 +43,7 @@ with lib;
 
     programs = {
       jq.enable = true;
+      grep.enable = true;
       ripgrep.enable = true;
       zed-editor.enable = true;
       gemini-cli.enable = true;
