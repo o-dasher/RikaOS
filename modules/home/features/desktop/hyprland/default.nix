@@ -27,6 +27,7 @@ with lib;
   config = mkIf (config.features.desktop.enable && modCfg.enable) {
     features.desktop.wayland.enable = true;
     programs.hyprlock.enable = true;
+    wayland.windowManager.hyprland.configType = "hyprlang";
 
     services = {
       hyprpolkitagent.enable = true;
@@ -127,7 +128,6 @@ with lib;
 
           # Keep output in SDR even if apps expose HDR content. My monitor's HDR is not that great.
           cm_auto_hdr = 0;
-          cm_fs_passthrough = 0;
         };
         layerrule = [
           "match:namespace ^(waybar|notifications|walker)$, blur on"

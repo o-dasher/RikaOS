@@ -135,7 +135,7 @@
           enable = true;
           autoStart = true;
           enableReload = true;
-          package = pkgs.paperServers.paper-1_21_11;
+          package = pkgs.purpurServers.purpur-26_1_2;
           jvmOpts = "-Xms3G -Xmx6G -Djava.net.preferIPv6Addresses=true -Djava.net.preferIPv4Stack=false";
 
           serverProperties = {
