@@ -79,25 +79,23 @@ with lib;
       };
     };
 
-  config = mkMerge [
-    {
-      _module.args.themeLib = {
-        cursor = {
+  config = mkMerge (
+    [
+      {
+        _module.args.themeLib.cursor = {
           name = "BreezeX-RosePine-Linux";
           package = pkgs.rose-pine-cursor;
           size = 16;
         };
-      };
-    }
-    (mkIf (config.features.desktop.theme.enable && options ? stylix) (
-      mkMerge (
-        map (
-          name:
-          mkIf config.features.desktop.theme.${name}.enable {
-            stylix = mkStylixConfig themes.${name};
-          }
-        ) (builtins.attrNames themes)
+      }
+    ]
+    ++ map (
+      name:
+      mkIf (config.features.desktop.theme.enable && config.features.desktop.theme.${name}.enable) (
+        optionalAttrs (options ? stylix) {
+          stylix = mkStylixConfig themes.${name};
+        }
       )
-    ))
-  ];
+    ) (attrNames themes)
+  );
 }

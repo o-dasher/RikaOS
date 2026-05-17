@@ -39,7 +39,7 @@
     src = fetchurl {
       url = "https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot";
       name = "Geyser-Spigot.jar";
-      sha256 = "sha256-gFUgAvt7B4zGQEl8/SHb5ozmjiYzx4VT2XZjy52Z/c0=";
+      sha256 = "sha256-VMqrzkEnvSMtfQ4jNYW0FTMt68jOcFuRlnQ3gMQbf/k=";
     };
   };
   ps4-pkg-tools = {
