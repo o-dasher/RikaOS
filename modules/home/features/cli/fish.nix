@@ -49,6 +49,11 @@ with lib;
         );
       interactiveShellInit = # fish
         ''
+          function launch-bg --description "Launch a program in the background and disown it"
+            $argv > /dev/null 2>&1 &
+            disown
+          end
+
           function fish_greeting
             echo Welcome (set_color magenta)home(set_color normal) $USER how are you doing today\?
             echo (set_color magenta; date; set_color normal)
