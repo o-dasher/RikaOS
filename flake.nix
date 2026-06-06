@@ -219,7 +219,10 @@
             pkgs: system:
             import pkgs {
               inherit system;
-              config.allowUnfree = true;
+              config = {
+                permittedInsecurePackages = [ "electron-39.8.10" ];
+                allowUnfree = true;
+              };
             };
         in
         lib.genAttrs targetSystems (
@@ -241,8 +244,16 @@
 
               # Bleeding edge
               inherit (walker.packages.${system}) walker;
-              inherit (ai-nix.packages.${system}) codex-desktop;
-              inherit (llm-agents.packages.${system}) codex gemini-cli copilot-cli;
+              inherit (llm-agents.packages.${system})
+                codex
+                copilot-cli
+                ;
+
+              antigravity-cli = llm-agents.packages.${system}.antigravity-cli.overrideAttrs (old: {
+                postInstall = (old.postInstall or "") + ''
+                  mv $out/bin/antigravity $out/bin/antigravity-cli
+                '';
+              });
 
               # Fix gnome-keyring detection in Antigravity IDE
               antigravity = prev.antigravity.override {
@@ -258,6 +269,8 @@
                   wrapProgram $out/bin/foliate --set GDK_BACKEND x11
                 '';
               };
+              # TODO: wait for https://github.com/nixos/nixpkgs/issues/526914
+              bitwarden-desktop = prev.bitwarden-desktop.override { electron_39 = final.electron_39-bin; };
 
               # Gamescope
               gamescope = (prev.gamescope.override { enableWsi = true; }).overrideAttrs (old: {
