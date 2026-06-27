@@ -53,7 +53,7 @@ with lib;
           capSysNice = false;
         };
 
-        steam = mkIf (modCfg.steam.enable) {
+        steam = mkIf modCfg.steam.enable {
           enable = true;
           remotePlay.openFirewall = true;
           protontricks.enable = true;
@@ -69,9 +69,11 @@ with lib;
         };
       };
 
-      hardware = mkIf (modCfg.controllers.enable) {
+      hardware = mkIf modCfg.controllers.enable {
         xpadneo.enable = true;
         xone.enable = true;
+        uinput.enable = true;
+        steam-hardware.enable = mkIf modCfg.steam.enable true;
       };
 
       services.ananicy = {
