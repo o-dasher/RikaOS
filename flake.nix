@@ -5,7 +5,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     nixpkgs-stable.url = "https://flakehub.com/f/NixOS/nixpkgs/0";
-    nix-flatpak.url = "github:gmodena/nix-flatpak";
     flake-compat.url = "github:edolstra/flake-compat";
     systems.url = "github:nix-systems/default";
     mnw.url = "github:Gerg-L/mnw";
@@ -76,7 +75,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixcord = {
-      url = "github:FlameFlag/nixcord/02c730b57b8ef16c62624a3410ef724d014c58db";
+      url = "github:FlameFlag/nixcord";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
@@ -136,10 +135,8 @@
       spicetify-nix,
       nixpkgs-stable,
       walker,
-      nix-flatpak,
       nix-minecraft,
       playit-nixos-module,
-      ai-nix,
       llm-agents,
       nur,
       nixpkgs-master,
@@ -249,12 +246,6 @@
                 copilot-cli
                 ;
 
-              antigravity-cli = llm-agents.packages.${system}.antigravity-cli.overrideAttrs (old: {
-                postInstall = (old.postInstall or "") + ''
-                  mv $out/bin/antigravity $out/bin/antigravity-cli
-                '';
-              });
-
               # Fix gnome-keyring detection in Antigravity IDE
               antigravity = prev.antigravity.override {
                 commandLineArgs = "--password-store=gnome-libsecret";
@@ -303,7 +294,6 @@
           nixcord.homeModules.nixcord
           zen-browser.homeModules.twilight
           walker.homeManagerModules.default
-          nix-flatpak.homeManagerModules.nix-flatpak
           {
             home = {
               homeDirectory = "/home/${username}";
@@ -327,7 +317,6 @@
           stylix.nixosModules.stylix
           agenix.nixosModules.default
           playit-nixos-module.nixosModules.default
-          nix-flatpak.nixosModules.nix-flatpak
           nix-minecraft.nixosModules.minecraft-servers
           home-manager.nixosModules.home-manager
           {

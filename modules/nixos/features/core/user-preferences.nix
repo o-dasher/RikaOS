@@ -8,7 +8,7 @@ with lib;
   options.features.core.userPreferences.enable = mkEnableOption "userPreferences";
 
   config = mkIf (modCfg.enable && cfg.enable) {
-    time.timeZone = "Brazil/West";
+    time.timeZone = "America/Porto_Velho";
     i18n.defaultLocale = "en_US.UTF-8";
     console.keyMap = "br-abnt2";
   };
