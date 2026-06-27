@@ -3,7 +3,6 @@ with lib;
 {
   imports = [
     ./bluetooth.nix
-    ./flatpak.nix
     ./gnome-keyring.nix
     ./openssh.nix
     ./openrgb.nix

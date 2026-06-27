@@ -59,7 +59,6 @@ with lib;
       enable = true;
       discord.enable = false;
       vesktop.enable = true;
-      openASAR.enable = true;
       config.plugins = {
         fakeNitro.enable = true;
         youtubeAdblock.enable = true;
