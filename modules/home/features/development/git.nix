@@ -19,28 +19,28 @@ with lib;
       ssh = {
         enable = true;
         enableDefaultConfig = false;
-        matchBlocks = {
+        settings = {
           "*" = {
-            setEnv = {
+            SetEnv = {
               TERM = "xterm-256color";
             };
           };
           "github.com" = {
-            hostname = "github.com";
-            user = "git";
-            identityFile = "~/.ssh/id_ed25519";
+            HostName = "github.com";
+            User = "git";
+            IdentityFile = "~/.ssh/id_ed25519";
           };
           "github.com-thiago" = {
-            hostname = "github.com";
-            user = "git";
-            identityFile = "~/.ssh/id_ed25519-thiago";
+            HostName = "github.com";
+            User = "git";
+            IdentityFile = "~/.ssh/id_ed25519-thiago";
           };
         }
         // optionalAttrs (localHostName != null) {
           "${localHostName}" = {
-            hostname = "127.0.0.1";
-            user = "root";
-            identityFile = "~/.ssh/id_ed25519";
+            HostName = "127.0.0.1";
+            User = "root";
+            IdentityFile = "~/.ssh/id_ed25519";
           };
         };
       };
