@@ -265,7 +265,7 @@
               bitwarden-desktop = prev.bitwarden-desktop.override { electron_39 = final.electron_39-bin; };
 
               # Gamescope
-              gamescope = (prev.gamescope.override { enableWsi = true; }).overrideAttrs (old: {
+              gamescope = prev.gamescope.overrideAttrs (old: {
                 # Blur fix: https://github.com/ValveSoftware/gamescope/issues/1622.
                 NIX_CFLAGS_COMPILE = [ "-fno-fast-math" ];
                 patches = old.patches or [ ] ++ [
