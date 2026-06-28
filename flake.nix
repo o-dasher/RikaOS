@@ -218,8 +218,11 @@
             import pkgs {
               inherit system;
               config = {
-                permittedInsecurePackages = [ "electron-39.8.10" ];
                 allowUnfree = true;
+                permittedInsecurePackages = [
+                  "electron-39.8.10" # stale: bitwarden.
+                  "pnpm-10.29.2" # stale: vesktop.
+                ];
               };
             };
         in
@@ -261,6 +264,7 @@
                   wrapProgram $out/bin/foliate --set GDK_BACKEND x11
                 '';
               };
+
               # TODO: wait for https://github.com/nixos/nixpkgs/issues/526914
               bitwarden-desktop = prev.bitwarden-desktop.override { electron_39 = final.electron_39-bin; };
 
