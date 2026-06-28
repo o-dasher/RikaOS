@@ -50,6 +50,7 @@ with lib;
 
         gamescope = {
           enable = true;
+          enableWsi = true;
           capSysNice = false;
         };
 
