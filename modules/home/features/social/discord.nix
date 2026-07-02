@@ -57,7 +57,7 @@ with lib;
 
     programs.nixcord = {
       enable = true;
-      discord.enable = false;
+      discord.vencord.enable = true;
       vesktop.enable = true;
       config.plugins = {
         fakeNitro.enable = true;
