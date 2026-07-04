@@ -95,15 +95,14 @@ with lib;
           ];
         workspace =
           let
-            execWhenEntering =
-              workspace: pkg: "${toString workspace}, on-created-empty:${getExe pkgs.app2unit} ${getExe pkg}";
+            execWhenEntering = ws: pkg: "${toString ws}, on-created-empty:${getExe pkgs.app2unit} ${pkg}";
           in
           with pkgs;
           optionals config.profiles.browser.enable [
-            (execWhenEntering 2 config.programs.chromium.package)
+            (execWhenEntering 2 (getExe config.programs.chromium.package))
           ]
-          ++ optionals config.programs.nixcord.vesktop.enable [
-            (execWhenEntering 3 vesktop)
+          ++ optionals config.programs.nixcord.discord.vencord.enable [
+            (execWhenEntering 3 "discord")
           ];
         debug = {
           disable_logs = false;
@@ -152,7 +151,7 @@ with lib;
             indicator_height = 24;
           in
           {
-            inherit rounding;
+            inherit rounding indicator_height;
 
             "col.inactive" = mkIf hasStylix (
               mkForce (
@@ -165,7 +164,6 @@ with lib;
 
             # Render text inside group bar indicator
             text_offset = -(indicator_height / 2);
-            indicator_height = indicator_height;
           };
         general = {
           allow_tearing = true;

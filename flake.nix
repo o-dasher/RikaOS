@@ -115,7 +115,6 @@
         flake-compat.follows = "flake-compat";
       };
     };
-
     nur = {
       url = "github:nix-community/NUR";
       inputs = {
