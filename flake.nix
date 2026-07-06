@@ -270,8 +270,8 @@
               # Gamescope
               gamescope = prev.gamescope.overrideAttrs (old: {
                 # Blur fix: https://github.com/ValveSoftware/gamescope/issues/1622.
-                NIX_CFLAGS_COMPILE = [ "-fno-fast-math" ];
-                patches = old.patches or [ ] ++ [
+                NIX_CFLAGS_COMPILE = (old.NIX_CFLAGS_COMPILE or [ ]) ++ [ "-fno-fast-math" ];
+                patches = (old.patches or [ ]) ++ [
                   # Fix Gamescope not closing https://github.com/ValveSoftware/gamescope/pull/1908
                   (prev.fetchpatch {
                     url = "https://github.com/ValveSoftware/gamescope/commit/fa900b0694ffc8b835b91ef47a96ed90ac94823b.diff";
