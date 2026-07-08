@@ -27,35 +27,6 @@
         "type": "github"
       }
     },
-    "ai-nix": {
-      "inputs": {
-        "flake-parts": [
-          "flake-parts"
-        ],
-        "llm-agents": [
-          "llm-agents"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "systems": [
-          "systems"
-        ]
-      },
-      "locked": {
-        "lastModified": 1778790245,
-        "narHash": "sha256-fPmkb6qwahB4QNO9Ui8qjAehn/G0EUoqB2xsx3tzvHQ=",
-        "owner": "o-dasher",
-        "repo": "ai-nix",
-        "rev": "2bdcb6165d0eab9ed156652f4332d13a5e69b2f4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "o-dasher",
-        "repo": "ai-nix",
-        "type": "github"
-      }
-    },
     "base16": {
       "inputs": {
         "fromYaml": "fromYaml"
@@ -616,7 +587,6 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
-        "ai-nix": "ai-nix",
         "flake-compat": "flake-compat",
         "flake-parts": "flake-parts",
         "flake-utils": "flake-utils",
