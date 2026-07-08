@@ -15,15 +15,6 @@
         home-manager.follows = "home-manager";
       };
     };
-    ai-nix = {
-      url = "github:o-dasher/ai-nix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-        systems.follows = "systems";
-        llm-agents.follows = "llm-agents";
-      };
-    };
     llm-agents = {
       url = "github:numtide/llm-agents.nix";
       inputs = {
@@ -192,7 +183,6 @@
             "https://hercules-ci.cachix.org"
             "https://walker.cachix.org"
             "https://walker-git.cachix.org"
-            "https://ai-nix.cachix.org"
             "https://cache.numtide.com"
           ];
           extra-trusted-public-keys = [
@@ -204,7 +194,6 @@
             "hercules-ci.cachix.org-1:ZZeDl9Va+xe9j+KqdzoBZMFJHVQ42Uu/c/1/KMC5Lw0="
             "walker.cachix.org-1:fG8q+uAaMqhsMxWjwvk0IMb4mFPFLqHjuvfwQxE4oJM="
             "walker-git.cachix.org-1:vmC0ocfPWh0S/vRAQGtChuiZBTAe4wiKDeyyXM0/7pM="
-            "ai-nix.cachix.org-1:rUfdPFgb+6TNgKxm7BbanFKIprQed0/SHvQK68DPsCg="
             "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
           ];
         };

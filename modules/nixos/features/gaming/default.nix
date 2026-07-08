@@ -35,11 +35,15 @@ with lib;
       programs = {
         gamemode = {
           enable = true;
+          enableRenice = false;
           settings = {
             general = {
               renice = 0;
               ioprio = "off";
-              desiredgov = "off";
+              softrealtime = "off";
+              desiredgov = "performance";
+              disable_splitlock = 1;
+              inhibit_screensaver = 1;
             };
             custom = mkIf modCfg.suppressNotifications.enable {
               start = "${pkgs.mako}/bin/makoctl mode -s dnd";
