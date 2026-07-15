@@ -58,9 +58,10 @@ with lib;
       };
     };
 
-    home.pointerCursor.hyprcursor.enable = mkIf (
-      hasStylix && config.features.desktop.theme.enable
-    ) true;
+    home.pointerCursor = {
+      enable = true;
+      hyprcursor.enable = mkIf (hasStylix && config.features.desktop.theme.enable) true;
+    };
 
     xdg.portal = {
       enable = true;
@@ -88,11 +89,6 @@ with lib;
           # Hyprland environment
           "XDG_CURRENT_DESKTOP,Hyprland"
         ];
-        exec-once =
-          with pkgs;
-          optionals config.programs.spicetify.enable [
-            (getExe config.programs.spicetify.spicedSpotify)
-          ];
         workspace =
           let
             execWhenEntering = ws: pkg: "${toString ws}, on-created-empty:${getExe pkgs.app2unit} ${pkg}";

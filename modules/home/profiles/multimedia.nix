@@ -24,8 +24,6 @@ with lib;
       # documents / study
       zathura.enable = true;
 
-      # Music
-      spicetify.enable = true;
     };
 
     home.packages = with pkgs; [
@@ -42,8 +40,11 @@ with lib;
 
       # Music
       nicotine-plus
+      spotify
     ];
 
-    xdg.configFile = config.rika.utils.mkAutostartApp pkgs.nicotine-plus "${pkgs.nicotine-plus}/bin/nicotine";
+    xdg.configFile =
+      (config.rika.utils.mkAutostartApp pkgs.nicotine-plus "${pkgs.nicotine-plus}/bin/nicotine")
+      // (config.rika.utils.mkAutostartApp pkgs.spotify (lib.getExe pkgs.spotify));
   };
 }

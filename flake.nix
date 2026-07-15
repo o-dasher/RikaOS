@@ -27,13 +27,6 @@
       url = "github:numtide/flake-utils";
       inputs.systems.follows = "systems";
     };
-    spicetify-nix = {
-      url = "github:Gerg-L/spicetify-nix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
-    };
     playit-nixos-module = {
       url = "github:pedorich-n/playit-nixos-module";
       inputs = {
@@ -123,7 +116,6 @@
       agenix,
       flake-parts,
       nixcord,
-      spicetify-nix,
       nixpkgs-stable,
       walker,
       nix-minecraft,
@@ -282,7 +274,6 @@
         [
           ./modules/home
           ./hosts/${hostName}/users/${username}
-          spicetify-nix.homeManagerModules.spicetify
           agenix.homeManagerModules.default
           nixcord.homeModules.nixcord
           zen-browser.homeModules.twilight
