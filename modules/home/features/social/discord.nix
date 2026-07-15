@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 let
@@ -31,5 +32,7 @@ with lib;
         webScreenShareFixes.enable = true;
       };
     };
+
+    xdg.configFile = config.rika.utils.mkAutostartApp pkgs.discord "discord";
   };
 }
