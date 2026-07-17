@@ -38,6 +38,7 @@ with lib;
             lock_cmd = "${pkgs.procps}/bin/pidof hyprlock || ${getExe pkgs.hyprlock}";
             before_sleep_cmd = "${pkgs.systemd}/bin/loginctl lock-session";
             after_sleep_cmd = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
+            inhibit_sleep = 3;
           };
           listener = [
             {
@@ -104,9 +105,13 @@ with lib;
           disable_logs = false;
           full_cm_proto = 1; # Gamescope.
         };
-        # Keep display output at 10-bit while forcing screencopy clients to 8-bit buffers.
-        # Fixes screen sharing on apps which use chromium. e.g. Discord.
-        misc.screencopy_force_8b = true;
+        misc = {
+          allow_session_lock_restore = true;
+
+          # Keep display output at 10-bit while forcing screencopy clients to 8-bit buffers.
+          # Fixes screen sharing on apps which use chromium. e.g. Discord.
+          screencopy_force_8b = true;
+        };
         monitorv2 = [
           {
             output = "HDMI-A-1";
