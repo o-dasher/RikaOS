@@ -143,7 +143,7 @@ with lib;
 
           "tag +floaty, match:class ^(.blueman-manager-wrapped|nemo|com.github.wwmm.easyeffects|com.saivert.pwvucontrol|org.gnome.FileRoller)$"
 
-          "match:tag games, sync_fullscreen on, no_shadow on, no_blur on, no_anim on, immediate on"
+          "match:tag games, sync_fullscreen on, fullscreen on, no_shadow on, no_blur on, no_anim on, immediate on"
           "match:tag floaty, float on, center on, size (monitor_w*0.6) (monitor_h*0.6)"
           "match:class ^(spotify)$, workspace ${workspaces.music} silent"
         ];
