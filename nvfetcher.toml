@@ -14,7 +14,6 @@ fetch.force = true
 src.manual = "latest"
 fetch.url = "https://ci.opencollab.dev/job/GeyserMC/job/Floodgate/job/fix-weird-via-issue/lastSuccessfulBuild/artifact/database/sqlite/build/libs/floodgate-sqlite-database.jar"
 url.name = "floodgate-sqlite-database.jar"
-fetch.force = true
 
 [viaversion]
 src.github = "ViaVersion/ViaVersion"
@@ -23,7 +22,7 @@ url.name = "ViaVersion.jar"
 
 [authme]
 src.github = "AuthMe/AuthMeReloaded"
-fetch.url = "https://github.com/AuthMe/AuthMeReloaded/releases/download/$ver/AuthMe-$ver.jar"
+fetch.url = "https://github.com/AuthMe/AuthMeReloaded/releases/download/$ver/AuthMe-$ver-Paper.jar"
 url.name = "AuthMe.jar"
 
 [skinsrestorer]
@@ -35,3 +34,9 @@ url.name = "SkinsRestorer.jar"
 src.github = "xXJSONDeruloXx/ps4-pkg-tools"
 fetch.github = "xXJSONDeruloXx/ps4-pkg-tools"
 git.fetchSubmodules = true
+
+[voicechat]
+src.manual = "2.6.21"
+fetch.url = "https://cdn.modrinth.com/data/9eGKb6K1/versions/62MVmInV/voicechat-bukkit-$ver.jar"
+url.name = "voicechat-bukkit.jar"
+

@@ -109,5 +109,20 @@
             "url": "https://github.com/ViaVersion/ViaVersion/releases/download/5.9.0/ViaVersion-5.9.0.jar"
         },
         "version": "5.9.0"
+    },
+    "voicechat": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "voicechat",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": "voicechat-bukkit.jar",
+            "sha256": "sha256-wIFFdwwZ7FVQiBsTyJfio1fkPsQZ99pAOfc9zyeblNg=",
+            "type": "url",
+            "url": "https://cdn.modrinth.com/data/9eGKb6K1/versions/62MVmInV/voicechat-bukkit-2.6.21.jar"
+        },
+        "version": "2.6.21"
     }
 }

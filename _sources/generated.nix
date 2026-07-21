@@ -71,4 +71,13 @@
       sha256 = "sha256-MidRdoskjwx7tc7mOl5FovE/GNDtYnS5PNOvmXRMeok=";
     };
   };
+  voicechat = {
+    pname = "voicechat";
+    version = "2.6.21";
+    src = fetchurl {
+      url = "https://cdn.modrinth.com/data/9eGKb6K1/versions/62MVmInV/voicechat-bukkit-2.6.21.jar";
+      name = "voicechat-bukkit.jar";
+      sha256 = "sha256-wIFFdwwZ7FVQiBsTyJfio1fkPsQZ99pAOfc9zyeblNg=";
+    };
+  };
 }

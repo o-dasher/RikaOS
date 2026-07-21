@@ -62,11 +62,6 @@
       openrgb.enable = true;
       gnome-keyring.enable = true;
       sunshine.enable = true;
-      tailscale = {
-        enable = true;
-        trust = true;
-        loginServer = "https://wired.dshs.cc";
-      };
       transmission = {
         enable = true;
         openPeerPorts = true;
@@ -174,31 +169,10 @@
     firewall =
       let
         stardewValleyPort = 24642;
-        nicotineSoulseekPort = 2234;
       in
       {
         checkReversePath = "loose";
         allowedUDPPorts = [ stardewValleyPort ];
-        interfaces.wg-nicotine.allowedTCPPorts = [ nicotineSoulseekPort ];
-      };
-
-    wg-quick.interfaces.wg-nicotine =
-      let
-        table = toString 99;
-      in
-      lib.mkIf config.rika.utils.hasSecrets {
-        inherit table;
-        address = [ "10.72.0.2/24" ];
-        privateKeyFile = config.age.secrets.wireguard-hinamizawa-private-key.path;
-        peers = [
-          {
-            publicKey = "d1QgawQP+arz1fgRnAqmuSRrAWfc+FHyDIaN3Yuf0io=";
-            endpoint = "wired.dshs.cc:51820";
-            allowedIPs = [ "0.0.0.0/0" ];
-          }
-        ];
-        postUp = "ip rule add from 10.72.0.2 lookup ${table}";
-        preDown = "ip rule del from 10.72.0.2 lookup ${table}";
       };
   };
 

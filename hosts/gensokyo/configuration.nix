@@ -36,7 +36,6 @@
 
   profiles.secureServer.enable = true;
   features = {
-    services.tailscale.loginServer = "https://wired.dshs.cc";
     core.userPreferences.enable = true;
     nix = {
       enable = true;
@@ -135,7 +134,7 @@
           enable = true;
           autoStart = true;
           enableReload = true;
-          package = pkgs.purpurServers.purpur-26_1_2;
+          package = pkgs.purpurServers.purpur-26_2;
           jvmOpts = "-Xms3G -Xmx6G -Djava.net.preferIPv6Addresses=true -Djava.net.preferIPv4Stack=false";
 
           serverProperties = {
@@ -155,26 +154,18 @@
             let
               sources = pkgs.callPackage ../../_sources/generated.nix { };
               plugins = {
-                "Geyser-Spigot.jar" = sources.geyser-spigot.src;
-                "Floodgate-Spigot.jar" = sources.floodgate-spigot.src;
-                "ViaVersion.jar" = sources.viaversion.src;
                 "AuthMe.jar" = sources.authme.src;
                 "SkinsRestorer.jar" = sources.skinsrestorer.src;
+                "voicechat.jar" = sources.voicechat.src;
               };
             in
-            pkgs.lib.mapAttrs' (name: value: pkgs.lib.nameValuePair "plugins/${name}" value) plugins
-            // {
-              "plugins/floodgate/floodgate-sqlite-database.jar" = sources.floodgate-sqlite-database.src;
-            };
-
+            pkgs.lib.mapAttrs' (name: value: pkgs.lib.nameValuePair "plugins/${name}" value) plugins;
           files = {
-            "plugins/Geyser-Spigot/config.yml".value.java.auth-type = "floodgate";
-            "plugins/AuthMe/config.yml".value.settings.restrictions.allowedNicknameCharacters =
-              "[a-zA-Z0-9_\\.]*";
-            "plugins/floodgate/config.yml".value.player-link = {
-              enable-own-linking = true;
-              use-global-linking = false;
-              type = "sqlite";
+            "plugins/AuthMe/config.yml".value = {
+              settings = {
+                restrictions.allowedNicknameCharacters = "[a-zA-Z0-9_\\.]*";
+                Hooks.useUnsafeMethod = true;
+              };
             };
           };
         };
@@ -220,6 +211,9 @@
 
   networking.firewall.allowedTCPPorts = [
     2022
+  ];
+  networking.firewall.allowedUDPPorts = [
+    24454
   ];
 
   users = {

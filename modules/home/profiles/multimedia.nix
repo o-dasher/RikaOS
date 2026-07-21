@@ -39,12 +39,9 @@ with lib;
       krita
 
       # Music
-      nicotine-plus
       spotify
     ];
 
-    xdg.configFile =
-      (config.rika.utils.mkAutostartApp pkgs.nicotine-plus "${pkgs.nicotine-plus}/bin/nicotine")
-      // (config.rika.utils.mkAutostartApp pkgs.spotify (lib.getExe pkgs.spotify));
+    xdg.configFile = config.rika.utils.mkAutostartApp pkgs.spotify (lib.getExe pkgs.spotify);
   };
 }

@@ -144,17 +144,13 @@
           system = "x86_64-linux";
           users = [ "thiago" ];
         };
-        wired = {
-          stateVersion = "26.05";
-          system = "x86_64-linux";
-        };
       };
 
       homeConfigs = { };
 
       deploymentTargets = {
         wired = { };
-        gensokyo = { };
+        gensokyo.targetHost = "fuio.dshs.cc";
         hinamizawa = { };
       };
 
