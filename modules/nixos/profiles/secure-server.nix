@@ -11,20 +11,10 @@ with lib;
   options.profiles.secureServer.enable = mkEnableOption "secure server profile";
 
   config = mkIf cfg.enable {
-    features.services.tailscale = {
-      enable = true;
-      trust = true;
-    };
-
     services = {
       fail2ban = {
         enable = true;
         bantime = "24h";
-        ignoreIP =
-          let
-            tailscaleIP = "100.64.0.0/16";
-          in
-          [ tailscaleIP ];
       };
       openssh = {
         enable = true;

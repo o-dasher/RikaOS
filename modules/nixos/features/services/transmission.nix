@@ -22,32 +22,19 @@ with lib;
       default = true;
       description = "Open the firewall for Transmission's peer ports.";
     };
-    tailnetSetup = mkOption {
-      type = types.bool;
-      default = true;
-      description = "Setup the BitTorrent client for tailscale.";
-    };
   };
 
   config = mkIf (modCfg.enable && cfg.enable) (mkMerge [
     {
       services.transmission = {
+        inherit (cfg) openRPCPort openPeerPorts;
         enable = true;
         package = pkgs.transmission_4;
-        settings = mkMerge [
-          ((mkIf cfg.tailnetSetup) {
-            rpc-username = "admin";
-            rpc-bind-address = "0.0.0.0";
-            rpc-whitelist-enabled = false;
-            rpc-host-whitelist-enabled = false;
-          })
-          {
-            incomplete-dir-enabled = true;
-            download-dir = "/shared/Media/Torrent";
-            incomplete-dir = "/shared/Media/Torrent/.incomplete";
-          }
-        ];
-        inherit (cfg) openRPCPort openPeerPorts;
+        settings = {
+          incomplete-dir-enabled = true;
+          download-dir = "/shared/Media/Torrent";
+          incomplete-dir = "/shared/Media/Torrent/.incomplete";
+        };
       };
 
       features.filesystem.sharedFolders = {

@@ -7,7 +7,6 @@ with lib;
     ./openssh.nix
     ./openrgb.nix
     ./sunshine.nix
-    ./tailscale.nix
     ./transmission.nix
     ./sddm.nix
   ];
