@@ -101,10 +101,7 @@ with lib;
           ++ optionals config.programs.nixcord.discord.vencord.enable [
             (execWhenEntering 3 "discord")
           ];
-        debug = {
-          disable_logs = false;
-          full_cm_proto = 1; # Gamescope.
-        };
+        debug.disable_logs = false;
         misc = {
           allow_session_lock_restore = true;
 
