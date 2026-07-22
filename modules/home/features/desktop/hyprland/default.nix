@@ -120,8 +120,8 @@ with lib;
           }
         ];
         render = {
-          # For some reason enabling is causing freezes on osu! lazer.
-          direct_scanout = false;
+          # For some reason it is still way too glitchy as off now.
+          direct_scanout = 0;
 
           # Keep output in SDR even if apps expose HDR content. My monitor's HDR is not that great.
           cm_auto_hdr = 0;
@@ -134,17 +134,23 @@ with lib;
           "match:namespace ^(walker)$, animation slide bottom"
           "match:namespace ^(selection|hyprpicker)$, animation off"
         ];
-        windowrule = [
-          "tag +floaty, match:class ^(.blueman-manager-wrapped|nemo|com.github.wwmm.easyeffects|com.saivert.pwvucontrol|org.gnome.FileRoller)$"
+        windowrule =
+          let
+            gameModifiers = "sync_fullscreen on, fullscreen on, immediate on, no_anim on, no_blur on, no_shadow on";
+            nonDirectScanoutGames = "osu!";
+          in
+          [
+            "match:class ^(steam_app_.*|gamescope|cs2)$, content game"
+            "match:class ^(${nonDirectScanoutGames})$, content none" # Tagged as non game so automatic direct scanout won't turn on for those.
+            "tag +floaty, match:class ^(.blueman-manager-wrapped|nemo|com.github.wwmm.easyeffects|com.saivert.pwvucontrol|org.gnome.FileRoller)$"
 
-          "match:class ^(steam_app_.*|gamescope|osu!|cs2)$, content game"
+            "match:content game, ${gameModifiers}"
+            "match:class ^(${nonDirectScanoutGames})$, ${gameModifiers}"
+            "match:class ^(cs2)$, immediate off"
 
-          "match:content game, sync_fullscreen on, fullscreen on, no_shadow on, no_blur on, no_anim on, immediate on"
-          "match:class ^(cs2)$, immediate off"
-
-          "match:tag floaty, float on, center on, size (monitor_w*0.6) (monitor_h*0.6)"
-          "match:class ^(spotify)$, workspace ${workspaces.music} silent"
-        ];
+            "match:tag floaty, float on, center on, size (monitor_w*0.6) (monitor_h*0.6)"
+            "match:class ^(spotify)$, workspace ${workspaces.music} silent"
+          ];
         group.groupbar =
           let
             indicator_height = 24;
