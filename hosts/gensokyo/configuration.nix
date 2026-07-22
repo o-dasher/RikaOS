@@ -160,8 +160,8 @@
               mods = pkgs.linkFarmFromDrvs "mods" (
                 builtins.attrValues {
                   fabric-api = sources.fabric-api.src;
-                  auth = sources.auth-fabric.src;
-                  voicechat = sources.voicechat.src;
+                  easyauth = sources.easyauth.src;
+                  skinsrestorer = sources.skinsrestorer.src;
                 }
               );
             };
@@ -209,9 +209,7 @@
   networking.firewall.allowedTCPPorts = [
     2022
   ];
-  networking.firewall.allowedUDPPorts = [
-    24454
-  ];
+  networking.firewall.allowedUDPPorts = [ ];
 
   users = {
     groups.users.members = [

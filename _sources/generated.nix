@@ -6,20 +6,20 @@
   dockerTools,
 }:
 {
-  auth-fabric = {
-    pname = "auth-fabric";
-    version = "v1.6.2";
+  easyauth = {
+    pname = "easyauth";
+    version = "3.4.3-SNAPSHOT.49";
     src = fetchurl {
-      url = "https://cdn.modrinth.com/data/RpXNx59A/versions/363AFEd4/auth-v1.6.2.jar";
-      name = "auth.jar";
-      sha256 = "sha256-kU/hatpr8R8TqNUQvW4/dh3dwhFvEAoMa1nSE/WWuzQ=";
+      url = "https://cdn.modrinth.com/data/aZj58GfX/versions/brHsihQ7/easyauth-mc26.2-3.4.3-SNAPSHOT.49.jar";
+      name = "easyauth.jar";
+      sha256 = "sha256-ZJ6yhQ8bXHaWJ1Q31ZWQFplfkx3MAPSCKpSXyCKjOo8=";
     };
   };
   fabric-api = {
     pname = "fabric-api";
     version = "0.155.2+26.2";
     src = fetchurl {
-      url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/lVXlbH4w/fabric-api-0.155.2%2B26.2.jar";
+      url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/lVXlbH4w/fabric-api-0.155.2+26.2.jar";
       name = "fabric-api.jar";
       sha256 = "sha256-1lGMdwAky+ilViSPFvzbuRxqYvUCJ6bDuugZBRHiwbg=";
     };
@@ -35,13 +35,13 @@
       sha256 = "sha256-t4vs2OEAssSY28XwQngNGv8wui1VKjlYLDpj3JZL/Fg=";
     };
   };
-  voicechat = {
-    pname = "voicechat";
-    version = "2.6.21+26.2";
+  skinsrestorer = {
+    pname = "skinsrestorer";
+    version = "15.12.5";
     src = fetchurl {
-      url = "https://cdn.modrinth.com/data/9eGKb6K1/versions/3SOh5iiX/voicechat-fabric-2.6.21%2B26.2.jar";
-      name = "voicechat-fabric.jar";
-      sha256 = "sha256-7V+hoRf6Jr+8hGPCf4io3/xT2id3gfJm7RESKB9/Zfc=";
+      url = "https://cdn.modrinth.com/data/TsLS8Py5/versions/wGTF2aVu/SkinsRestorer-Mod-Fabric-15.12.5.jar";
+      name = "skinsrestorer.jar";
+      sha256 = "sha256-Vp2CXFPKdKf79CnjnIswiNfhIa/tCUpTZeUaDMgChRk=";
     };
   };
 }

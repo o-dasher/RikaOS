@@ -1,23 +1,22 @@
 [fabric-api]
 src.webpage = "https://api.modrinth.com/v2/project/fabric-api/version"
-src.regex = "fabric-api-([0-9]+\\.[0-9]+\\.[0-9]+\\+[0-9]+\\.[0-9]+)\\.jar"
+src.regex = "fabric-api-([0-9]+\\.[0-9]+\\.[0-9]+\\+26\\.2)\\.jar"
 fetch.url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/lVXlbH4w/fabric-api-$ver.jar"
 url.name = "fabric-api.jar"
-
-[auth-fabric]
-src.webpage = "https://api.modrinth.com/v2/project/auth/version"
-src.regex = "auth-(v[0-9]+\\.[0-9]+\\.[0-9]+)\\.jar"
-fetch.url = "https://cdn.modrinth.com/data/RpXNx59A/versions/363AFEd4/auth-$ver.jar"
-url.name = "auth.jar"
 
 [ps4-pkg-tools]
 src.github = "xXJSONDeruloXx/ps4-pkg-tools"
 fetch.github = "xXJSONDeruloXx/ps4-pkg-tools"
 git.fetchSubmodules = true
 
-[voicechat]
-src.webpage = "https://api.modrinth.com/v2/project/simple-voice-chat/version"
-src.regex = "voicechat-fabric-([0-9]+\\.[0-9]+\\.[0-9]+\\+[0-9]+\\.[0-9]+)\\.jar"
-fetch.url = "https://cdn.modrinth.com/data/9eGKb6K1/versions/3SOh5iiX/voicechat-fabric-$ver.jar"
-url.name = "voicechat-fabric.jar"
+[easyauth]
+src.webpage = "https://api.modrinth.com/v2/project/easyauth/version"
+src.regex = "easyauth-mc26\\.2-([0-9]+\\.[0-9]+\\.[0-9]+-SNAPSHOT\\.[0-9]+)\\.jar"
+fetch.url = "https://cdn.modrinth.com/data/aZj58GfX/versions/brHsihQ7/easyauth-mc26.2-$ver.jar"
+url.name = "easyauth.jar"
 
+[skinsrestorer]
+src.webpage = "https://api.modrinth.com/v2/project/skinsrestorer/version"
+src.regex = "SkinsRestorer-Mod-Fabric-([0-9]+\\.[0-9]+\\.[0-9]+)\\.jar"
+fetch.url = "https://cdn.modrinth.com/data/TsLS8Py5/versions/wGTF2aVu/SkinsRestorer-Mod-Fabric-$ver.jar"
+url.name = "skinsrestorer.jar"
