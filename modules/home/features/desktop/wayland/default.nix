@@ -38,7 +38,7 @@ in
         NIXOS_OZONE_WL = "1";
 
         # SDL
-        SDL_VIDEODRIVER = "wayland";
+        SDL_VIDEO_DRIVER = "wayland";
 
         # Fixes ghostty dead keys.
         GTK_IM_MODULE = "simple";
