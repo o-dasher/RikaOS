@@ -6,40 +6,22 @@
   dockerTools,
 }:
 {
-  authme = {
-    pname = "authme";
-    version = "5.7.0";
+  easyauth = {
+    pname = "easyauth";
+    version = "3.4.3-SNAPSHOT.49";
     src = fetchurl {
-      url = "https://github.com/AuthMe/AuthMeReloaded/releases/download/5.7.0/AuthMe-5.7.0.jar";
-      name = "AuthMe.jar";
-      sha256 = "sha256-Z8xcGSMxXO3BUmFqvOgc950ATUTLj+mrTQsmJyjyPgg=";
+      url = "https://cdn.modrinth.com/data/aZj58GfX/versions/brHsihQ7/easyauth-mc26.2-3.4.3-SNAPSHOT.49.jar";
+      name = "easyauth.jar";
+      sha256 = "sha256-ZJ6yhQ8bXHaWJ1Q31ZWQFplfkx3MAPSCKpSXyCKjOo8=";
     };
   };
-  floodgate-spigot = {
-    pname = "floodgate-spigot";
-    version = "latest";
+  fabric-api = {
+    pname = "fabric-api";
+    version = "0.155.2+26.2";
     src = fetchurl {
-      url = "https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot";
-      name = "Floodgate-Spigot.jar";
-      sha256 = "sha256-ZR31ephvY1BqEcLyxrJxR+3snFkJT6ffzCGhMdqKEDA=";
-    };
-  };
-  floodgate-sqlite-database = {
-    pname = "floodgate-sqlite-database";
-    version = "latest";
-    src = fetchurl {
-      url = "https://ci.opencollab.dev/job/GeyserMC/job/Floodgate/job/fix-weird-via-issue/lastSuccessfulBuild/artifact/database/sqlite/build/libs/floodgate-sqlite-database.jar";
-      name = "floodgate-sqlite-database.jar";
-      sha256 = "sha256-30rpHkUvcSTxG5fWJTV7ALEyCMBW5oxUc+FZmx5EMxc=";
-    };
-  };
-  geyser-spigot = {
-    pname = "geyser-spigot";
-    version = "latest";
-    src = fetchurl {
-      url = "https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot";
-      name = "Geyser-Spigot.jar";
-      sha256 = "sha256-VMqrzkEnvSMtfQ4jNYW0FTMt68jOcFuRlnQ3gMQbf/k=";
+      url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/lVXlbH4w/fabric-api-0.155.2+26.2.jar";
+      name = "fabric-api.jar";
+      sha256 = "sha256-1lGMdwAky+ilViSPFvzbuRxqYvUCJ6bDuugZBRHiwbg=";
     };
   };
   ps4-pkg-tools = {
@@ -55,29 +37,11 @@
   };
   skinsrestorer = {
     pname = "skinsrestorer";
-    version = "15.12.0";
+    version = "15.12.5";
     src = fetchurl {
-      url = "https://github.com/SkinsRestorer/SkinsRestorer/releases/download/15.12.0/SkinsRestorer.jar";
-      name = "SkinsRestorer.jar";
-      sha256 = "sha256-ZeHxBpXNl4+k/Q0ufnxKB4Y6MQlNFvha7imO/vMd4dc=";
-    };
-  };
-  viaversion = {
-    pname = "viaversion";
-    version = "5.9.0";
-    src = fetchurl {
-      url = "https://github.com/ViaVersion/ViaVersion/releases/download/5.9.0/ViaVersion-5.9.0.jar";
-      name = "ViaVersion.jar";
-      sha256 = "sha256-MidRdoskjwx7tc7mOl5FovE/GNDtYnS5PNOvmXRMeok=";
-    };
-  };
-  voicechat = {
-    pname = "voicechat";
-    version = "2.6.21";
-    src = fetchurl {
-      url = "https://cdn.modrinth.com/data/9eGKb6K1/versions/62MVmInV/voicechat-bukkit-2.6.21.jar";
-      name = "voicechat-bukkit.jar";
-      sha256 = "sha256-wIFFdwwZ7FVQiBsTyJfio1fkPsQZ99pAOfc9zyeblNg=";
+      url = "https://cdn.modrinth.com/data/TsLS8Py5/versions/wGTF2aVu/SkinsRestorer-Mod-Fabric-15.12.5.jar";
+      name = "skinsrestorer.jar";
+      sha256 = "sha256-Vp2CXFPKdKf79CnjnIswiNfhIa/tCUpTZeUaDMgChRk=";
     };
   };
 }
