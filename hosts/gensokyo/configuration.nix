@@ -130,45 +130,42 @@
         eula = true;
         openFirewall = true;
 
-        servers.survival = {
-          enable = true;
-          autoStart = true;
-          enableReload = true;
-          package = pkgs.purpurServers.purpur-26_2;
-          jvmOpts = "-Xms3G -Xmx6G -Djava.net.preferIPv6Addresses=true -Djava.net.preferIPv4Stack=false";
+        servers.survival =
+          let
+            sources = pkgs.callPackage ../../_sources/generated.nix { };
+          in
+          {
+            enable = true;
+            autoStart = true;
+            package = pkgs.fabricServers.fabric-26_2.override {
+              jre_headless = pkgs.jdk25_headless;
+            };
+            jvmOpts = "-Xms3G -Xmx6G -Djava.net.preferIPv6Addresses=true -Djava.net.preferIPv4Stack=false";
 
-          serverProperties = {
-            server-ip = "::";
-            server-port = 6967;
-            motd = "Gensokyo Survival";
-            max-players = 16;
-            difficulty = "hard";
-            gamemode = "survival";
-            online-mode = false;
-            spawn-protection = 0;
-            view-distance = 16;
-            simulation-distance = 16;
-          };
+            serverProperties = {
+              server-ip = "::";
+              server-port = 6967;
+              motd = "Gensokyo Survival";
+              max-players = 16;
+              difficulty = "hard";
+              gamemode = "survival";
+              online-mode = false;
+              enforce-secure-profile = false;
+              spawn-protection = 0;
+              view-distance = 16;
+              simulation-distance = 16;
+            };
 
-          symlinks =
-            let
-              sources = pkgs.callPackage ../../_sources/generated.nix { };
-              plugins = {
-                "AuthMe.jar" = sources.authme.src;
-                "SkinsRestorer.jar" = sources.skinsrestorer.src;
-                "voicechat.jar" = sources.voicechat.src;
-              };
-            in
-            pkgs.lib.mapAttrs' (name: value: pkgs.lib.nameValuePair "plugins/${name}" value) plugins;
-          files = {
-            "plugins/AuthMe/config.yml".value = {
-              settings = {
-                restrictions.allowedNicknameCharacters = "[a-zA-Z0-9_\\.]*";
-                Hooks.useUnsafeMethod = true;
-              };
+            symlinks = {
+              mods = pkgs.linkFarmFromDrvs "mods" (
+                builtins.attrValues {
+                  fabric-api = sources.fabric-api.src;
+                  auth = sources.auth-fabric.src;
+                  voicechat = sources.voicechat.src;
+                }
+              );
             };
           };
-        };
       };
       sftpgo = {
         enable = true;

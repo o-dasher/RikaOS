@@ -1,34 +1,14 @@
-[geyser-spigot]
-src.manual = "latest"
-fetch.url = "https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot"
-url.name = "Geyser-Spigot.jar"
-fetch.force = true
+[fabric-api]
+src.webpage = "https://api.modrinth.com/v2/project/fabric-api/version"
+src.regex = "fabric-api-([0-9]+\\.[0-9]+\\.[0-9]+\\+[0-9]+\\.[0-9]+)\\.jar"
+fetch.url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/lVXlbH4w/fabric-api-$ver.jar"
+url.name = "fabric-api.jar"
 
-[floodgate-spigot]
-src.manual = "latest"
-fetch.url = "https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot"
-url.name = "Floodgate-Spigot.jar"
-fetch.force = true
-
-[floodgate-sqlite-database]
-src.manual = "latest"
-fetch.url = "https://ci.opencollab.dev/job/GeyserMC/job/Floodgate/job/fix-weird-via-issue/lastSuccessfulBuild/artifact/database/sqlite/build/libs/floodgate-sqlite-database.jar"
-url.name = "floodgate-sqlite-database.jar"
-
-[viaversion]
-src.github = "ViaVersion/ViaVersion"
-fetch.url = "https://github.com/ViaVersion/ViaVersion/releases/download/$ver/ViaVersion-$ver.jar"
-url.name = "ViaVersion.jar"
-
-[authme]
-src.github = "AuthMe/AuthMeReloaded"
-fetch.url = "https://github.com/AuthMe/AuthMeReloaded/releases/download/$ver/AuthMe-$ver-Paper.jar"
-url.name = "AuthMe.jar"
-
-[skinsrestorer]
-src.github = "SkinsRestorer/SkinsRestorer"
-fetch.url = "https://github.com/SkinsRestorer/SkinsRestorer/releases/download/$ver/SkinsRestorer.jar"
-url.name = "SkinsRestorer.jar"
+[auth-fabric]
+src.webpage = "https://api.modrinth.com/v2/project/auth/version"
+src.regex = "auth-(v[0-9]+\\.[0-9]+\\.[0-9]+)\\.jar"
+fetch.url = "https://cdn.modrinth.com/data/RpXNx59A/versions/363AFEd4/auth-$ver.jar"
+url.name = "auth.jar"
 
 [ps4-pkg-tools]
 src.github = "xXJSONDeruloXx/ps4-pkg-tools"
@@ -36,7 +16,8 @@ fetch.github = "xXJSONDeruloXx/ps4-pkg-tools"
 git.fetchSubmodules = true
 
 [voicechat]
-src.manual = "2.6.21"
-fetch.url = "https://cdn.modrinth.com/data/9eGKb6K1/versions/62MVmInV/voicechat-bukkit-$ver.jar"
-url.name = "voicechat-bukkit.jar"
+src.webpage = "https://api.modrinth.com/v2/project/simple-voice-chat/version"
+src.regex = "voicechat-fabric-([0-9]+\\.[0-9]+\\.[0-9]+\\+[0-9]+\\.[0-9]+)\\.jar"
+fetch.url = "https://cdn.modrinth.com/data/9eGKb6K1/versions/3SOh5iiX/voicechat-fabric-$ver.jar"
+url.name = "voicechat-fabric.jar"
 
