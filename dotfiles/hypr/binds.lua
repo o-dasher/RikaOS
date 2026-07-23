@@ -6,9 +6,9 @@ end
 
 -- Window management
 hl.bind(mod .. " + RETURN", exec("xdg-terminal-exec"))
-hl.bind(mod .. " + F", hl.dsp.exec_raw("fullscreen", "0"))
+hl.bind(mod .. " + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
 hl.bind(mod .. " + C", hl.dsp.window.close())
-hl.bind(mod .. " + M", hl.dsp.exec_raw("fullscreen", "1"))
+hl.bind(mod .. " + M", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" }))
 
 -- Groups
 hl.bind(mod .. " + S", hl.dsp.group.toggle())
@@ -29,15 +29,15 @@ hl.bind(mod .. " + J", hl.dsp.focus({ direction = "down" }))
 -- Group window movement & Move into/out of group
 hl.bind(mod .. " + SHIFT + H", function()
 	hl.dispatch(hl.dsp.group.move_window("b"))
-	hl.dispatch(hl.dsp.exec_raw("moveintogroup", "l"))
+	hl.dispatch(hl.dsp.window.move({ into_group = "l" }))
 end)
+hl.bind(mod .. " + SHIFT + J", hl.dsp.window.move({ into_group = "d" }))
+hl.bind(mod .. " + SHIFT + K", hl.dsp.window.move({ into_group = "u" }))
 hl.bind(mod .. " + SHIFT + L", function()
 	hl.dispatch(hl.dsp.group.move_window("f"))
-	hl.dispatch(hl.dsp.exec_raw("moveintogroup", "r"))
+	hl.dispatch(hl.dsp.window.move({ into_group = "r" }))
 end)
-hl.bind(mod .. " + SHIFT + K", hl.dsp.exec_raw("moveintogroup", "u"))
-hl.bind(mod .. " + SHIFT + J", hl.dsp.exec_raw("moveintogroup", "d"))
-hl.bind(mod .. " + SHIFT + U", hl.dsp.exec_raw("moveoutofgroup"))
+hl.bind(mod .. " + SHIFT + U", hl.dsp.window.move({ out_of_group = true }))
 
 -- Screenshots
 hl.bind(mod .. " + P", exec("grimblast --freeze --notify copy screen"))
