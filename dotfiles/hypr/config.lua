@@ -4,8 +4,8 @@ local rounding = 4
 local indicator_height = 24
 
 -- Logging
-hl.env("AQ_TRACE", "1")
-hl.env("HYPRLAND_TRACE", "1")
+hl.env("AQ_TRACE", "0")
+hl.env("HYPRLAND_TRACE", "0")
 
 -- Hyprland environment
 hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
@@ -14,7 +14,7 @@ hl.config({
 	xwayland = { enabled = true },
 
 	debug = {
-		disable_logs = false,
+		disable_logs = true,
 	},
 
 	cursor = {
