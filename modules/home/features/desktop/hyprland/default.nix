@@ -7,28 +7,40 @@
   ...
 }:
 let
-  modCfg = config.features.desktop.hyprland;
   hasStylix = options ? stylix;
   hasUWSM = osConfig != null && osConfig.programs.hyprland.withUWSM;
-
-  gaps = 2;
-  border_size = 2;
-  rounding = 4;
-
-  exec = cmd: "exec, ${lib.getExe pkgs.app2unit} ${cmd}";
-  workspaces = {
-    music = toString 6;
-  };
 in
 with lib;
 {
   options.features.desktop.hyprland.enable = mkEnableOption "hyprland";
 
-  config = mkIf (config.features.desktop.enable && modCfg.enable) {
+  config = mkIf (config.features.desktop.enable && config.features.desktop.hyprland.enable) {
     features.desktop.wayland.enable = true;
     programs.hyprlock.enable = true;
-    wayland.windowManager.hyprland.configType = "hyprlang";
+    home = {
+      packages =
+        with pkgs;
+        [
+          app2unit
+          grimblast
+          playerctl
+          wireplumber
+          xdg-terminal-exec
+        ]
+        ++ optionals (!hasUWSM) [ hyprshutdown ];
 
+      file = config.rika.utils.xdgConfigSelectiveSymLink "hypr" [
+        "config.lua"
+        "monitors.lua"
+        "rules.lua"
+        "binds.lua"
+      ] { };
+
+      pointerCursor = {
+        enable = true;
+        hyprcursor.enable = mkIf (hasStylix && config.features.desktop.theme.enable) true;
+      };
+    };
     services = {
       hyprpolkitagent.enable = true;
       hypridle = {
@@ -59,11 +71,6 @@ with lib;
       };
     };
 
-    home.pointerCursor = {
-      enable = true;
-      hyprcursor.enable = mkIf (hasStylix && config.features.desktop.theme.enable) true;
-    };
-
     xdg.portal = {
       enable = true;
       extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
@@ -75,207 +82,45 @@ with lib;
 
     wayland.windowManager.hyprland = {
       enable = true;
+      extraLuaFiles.init = ./../../../../../dotfiles/hypr/init.lua;
       systemd = {
         enable = !hasUWSM;
         enableXdgAutostart = true;
         variables = [ "--all" ];
       };
-      settings = {
-        xwayland.enabled = true;
-        env = [
-          # Logging
-          "AQ_TRACE,1"
-          "HYPRLAND_TRACE,1"
 
-          # Hyprland environment
-          "XDG_CURRENT_DESKTOP,Hyprland"
-        ];
-        workspace =
-          let
-            execWhenEntering = ws: pkg: "${toString ws}, on-created-empty:${getExe pkgs.app2unit} ${pkg}";
-          in
-          with pkgs;
-          optionals config.profiles.browser.enable [
-            (execWhenEntering 2 (getExe config.programs.chromium.package))
-          ]
-          ++ optionals config.programs.nixcord.discord.vencord.enable [
-            (execWhenEntering 3 "discord")
-          ];
-        debug.disable_logs = false;
-        misc = {
-          allow_session_lock_restore = true;
-
-          # Keep display output at 10-bit while forcing screencopy clients to 8-bit buffers.
-          # Fixes screen sharing on apps which use chromium. e.g. Discord.
-          screencopy_force_8b = true;
-        };
-        monitorv2 = [
-          {
-            output = "HDMI-A-1";
-            mode = "highres@highrr";
-            position = "0x0";
-            bitdepth = 10;
-            min_luminance = 0;
-            max_luminance = 400;
-          }
-        ];
-        render = {
-          # For some reason it is still way too glitchy as off now.
-          direct_scanout = 0;
-
-          # Keep output in SDR even if apps expose HDR content. My monitor's HDR is not that great.
-          cm_auto_hdr = 0;
-        };
-        layerrule = [
-          "match:namespace ^(waybar|notifications|walker)$, blur on"
-          "match:namespace ^(walker)$, ignore_alpha 0.5"
-          "match:namespace ^(waybar)$, animation slide top"
-          "match:namespace ^(notifications)$, animation slide right"
-          "match:namespace ^(walker)$, animation slide bottom"
-          "match:namespace ^(selection|hyprpicker)$, animation off"
-        ];
-        windowrule =
-          let
-            gameModifiers = "sync_fullscreen on, fullscreen on, immediate on, no_anim on, no_blur on, no_shadow on";
-            nonDirectScanoutGames = "osu!";
-          in
-          [
-            "match:class ^(steam_app_.*|gamescope|cs2)$, content game"
-            "match:class ^(${nonDirectScanoutGames})$, content none" # Tagged as non game so automatic direct scanout won't turn on for those.
-            "tag +floaty, match:class ^(.blueman-manager-wrapped|nemo|com.github.wwmm.easyeffects|com.saivert.pwvucontrol|org.gnome.FileRoller)$"
-
-            "match:content game, ${gameModifiers}"
-            "match:class ^(${nonDirectScanoutGames})$, ${gameModifiers}"
-            "match:class ^(cs2)$, immediate off"
-
-            "match:tag floaty, float on, center on, size (monitor_w*0.6) (monitor_h*0.6)"
-            "match:class ^(spotify)$, workspace ${workspaces.music} silent"
-          ];
-        group.groupbar =
-          let
-            indicator_height = 24;
-          in
-          {
-            inherit rounding indicator_height;
-
-            "col.inactive" = mkIf hasStylix (
-              mkForce (
-                config.lib.stylix.mkOpacityHexColor config.lib.stylix.colors.base03 config.stylix.opacity.desktop
-              )
-            );
-
-            height = 1;
-            font_size = 12;
-
-            # Render text inside group bar indicator
-            text_offset = -(indicator_height / 2);
-          };
-        general = {
-          allow_tearing = true;
-          gaps_out = gaps;
-          gaps_in = gaps;
-          inherit border_size;
-        };
-        decoration = {
-          inherit rounding;
-          blur.passes = 2;
-        };
-        input = {
-          kb_layout = "br";
-          kb_variant = "abnt2";
-          accel_profile = "flat";
-        };
-        animations = {
-          enabled = true;
-          animation = [
-            "layers, 1, 1, default, slide"
-            "windows, 1, 1, default, slide"
-          ]
-          ++ (map (name: "${name}, 1, 1, default") [
-            "border"
-            "borderangle"
-            "fade"
-            "workspaces"
-          ]);
-        };
-        bindm = [
-          "SUPER, mouse:272, movewindow"
-          "SUPER, mouse:273, resizewindow"
-        ];
-        binde =
-          with pkgs;
-          with lib;
-          let
-            audioStep = toString 1;
-          in
-          [
-            ", XF86AudioRaiseVolume, ${exec "${wireplumber}/bin/wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ ${audioStep}%+"}"
-            ", XF86AudioLowerVolume, ${exec "${wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ ${audioStep}%-"}"
-          ];
-        bind =
-          let
-            mod = "SUPER";
-          in
-          with pkgs;
-          (optionals config.features.desktop.wayland.walker.enable [
-            "${mod}, D, ${exec "${getExe walker} --nohints"}"
-          ])
-          ++ [
-            "${mod}, RETURN, ${exec (getExe xdg-terminal-exec)}"
-
-            "${mod}, F, fullscreen, 0"
-            "${mod}, C, killactive"
-            "${mod}, M, fullscreen, 1"
-
-            "${mod}, S, togglegroup"
-            "${mod} SHIFT, F, togglefloating"
-
-            "${mod}, H, movefocus, l"
-            "${mod}, L, movefocus, r"
-            "${mod}, K, movefocus, u"
-            "${mod}, J, movefocus, d"
-
-            "${mod}, H, changegroupactive, b"
-            "${mod}, L, changegroupactive, f"
-
-            "${mod} SHIFT, H, movegroupwindow, b"
-            "${mod} SHIFT, L, movegroupwindow, f"
-
-            "${mod} SHIFT, H, moveintogroup, l"
-            "${mod} SHIFT, L, moveintogroup, r"
-            "${mod} SHIFT, K, moveintogroup, u"
-            "${mod} SHIFT, J, moveintogroup, d"
-            "${mod} SHIFT, U, moveoutofgroup"
-
-            "${mod}, P, ${exec "${getExe grimblast} --freeze --notify copy screen"}"
-            "${mod} SHIFT, P, ${exec "${getExe grimblast} --freeze --notify copy area"}"
-            "${mod} ALT, P, ${exec "${getExe grimblast} --freeze --notify copy active"}"
-
-            "CTRL SHIFT, L, ${exec (getExe hyprlock)}"
-            "CTRL SHIFT, Q, ${exec (if hasUWSM then "${getExe uwsm} stop" else (getExe hyprshutdown))}"
-
-            ", XF86AudioPlay, ${exec "${getExe playerctl} play-pause"}"
-            ", XF86AudioPrev, ${exec "${getExe playerctl} previous"}"
-            ", XF86AudioNext, ${exec "${getExe playerctl} next"}"
-            ", XF86AudioStop, ${exec "${getExe playerctl} stop"}"
-
-            ", XF86AudioMicMute, ${exec "${wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"}"
-            ", XF86AudioMute, ${exec "${wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"}"
-          ]
-          ++ (builtins.concatLists (
-            builtins.genList (
-              x:
-              let
-                workspace = x + 1;
-                key = toString (workspace - ((workspace / 10) * 10));
-              in
-              [
-                "${mod}, ${key}, workspace, ${toString workspace}"
-                "${mod} SHIFT, ${key}, movetoworkspace, ${toString workspace}"
-              ]
-            ) 10
-          ));
-      };
+      extraConfig = concatStringsSep "\n" (
+        optionals config.features.desktop.wayland.walker.enable [
+          #lua
+          ''hl.bind("SUPER + D", hl.dsp.exec_cmd("app2unit walker --nohints"))''
+        ]
+        ++ [
+          #lua
+          ''hl.bind("CTRL + SHIFT + Q", hl.dsp.exec_cmd("app2unit ${
+            if hasUWSM then "uwsm stop" else "hyprshutdown"
+          }"))''
+        ]
+        ++ optionals config.profiles.browser.enable [
+          #lua
+          ''hl.workspace_rule({ workspace = 2, on_created_empty = "app2unit ${getExe config.programs.chromium.package}" })''
+        ]
+        ++ optionals config.programs.nixcord.discord.vencord.enable [
+          #lua
+          ''hl.workspace_rule({ workspace = 3, on_created_empty = "app2unit discord" })''
+        ]
+        ++ optionals (hasStylix && config.features.desktop.theme.enable) [
+          #lua
+          ''
+            hl.config({
+              group = {
+                groupbar = {
+                  ["col.inactive"] = "${config.lib.stylix.mkOpacityHexColor config.lib.stylix.colors.base03 config.stylix.opacity.desktop}",
+                },
+              },
+            })
+          ''
+        ]
+      );
     };
   };
 }
