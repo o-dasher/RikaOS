@@ -153,10 +153,6 @@ with lib;
                     @apply bg-[@base00];
                 }
 
-                #workspaces.active {
-                    @apply mx-0.5;
-                }
-
                 #tray, #cpu, #temperature, #memory {
                     @apply border-r px-1;
                     ${border_definition}

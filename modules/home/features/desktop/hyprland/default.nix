@@ -106,7 +106,7 @@ with lib;
         ]
         ++ optionals config.programs.nixcord.discord.vencord.enable [
           #lua
-          ''hl.workspace_rule({ workspace = 3, on_created_empty = "app2unit discord" })''
+          ''hl.window_rule({ match = { class = "^(discord)$" }, workspace = "3 silent" })''
         ]
         ++ optionals (hasStylix && config.features.desktop.theme.enable) [
           #lua
