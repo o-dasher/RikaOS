@@ -17,6 +17,11 @@ hl.config({
 		disable_logs = false,
 	},
 
+	cursor = {
+		-- Fixes graphical glitches on gpu intensive works that switches between hardware cursor and app. (e.g. games).
+		no_hardware_cursors = 1,
+	},
+
 	misc = {
 		allow_session_lock_restore = true,
 

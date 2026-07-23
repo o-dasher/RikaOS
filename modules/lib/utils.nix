@@ -80,6 +80,7 @@ with lib;
                 '';
           }
           ''
+            export BROWSERSLIST_IGNORE_OLD_DATA=1
             ln -s $tailwindConfig tailwind.config.js
             cat > input.css <<EOF
             ${content}
