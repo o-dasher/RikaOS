@@ -21,7 +21,7 @@ hl.layer_rule({ match = { namespace = "^(selection|hyprpicker)$" }, animation = 
 local non_direct_scanout_games = "osu!"
 
 -- Game content detection
-hl.window_rule({ match = { class = "^(steam_app_.*|gamescope|Minecraft.*)$" }, content = "game" })
+hl.window_rule({ match = { class = "^(steam_app_.*|gamescope|Minecraft.*|cs2)$" }, content = "game" })
 hl.window_rule({ match = { xdg_tag = "^(proton-game)$" }, content = "game" })
 hl.window_rule({
 	match = { class = "^(" .. non_direct_scanout_games .. ")$" },
