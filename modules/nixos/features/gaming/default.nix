@@ -49,10 +49,26 @@ with lib;
               disable_splitlock = 1;
               inhibit_screensaver = 1;
             };
-            custom = mkIf modCfg.suppressNotifications.enable {
-              start = "${pkgs.mako}/bin/makoctl mode -s dnd";
-              end = "${pkgs.mako}/bin/makoctl mode -s default";
-            };
+            custom =
+              let
+                makoctl = lib.getExe' pkgs.mako "makoctl";
+                lact = lib.getExe pkgs.lact;
+                bash = lib.getExe pkgs.bash;
+
+                mkScript =
+                  name: profile: makoMode:
+                  lib.getExe (
+                    pkgs.writeScriptBin "gamemode-${name}" ''
+                      #!${bash}
+                      ${lib.optionalString modCfg.suppressNotifications.enable "${makoctl} mode -s ${makoMode}"}
+                      ${lact} cli profile set "${profile}" || true
+                    ''
+                  );
+              in
+              {
+                start = mkScript "start" "Gaming" "dnd";
+                end = mkScript "end" "Default" "default";
+              };
           };
         };
 
