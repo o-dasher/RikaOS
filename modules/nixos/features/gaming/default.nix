@@ -30,7 +30,11 @@ with lib;
       modCfg = config.features.gaming;
     in
     mkIf modCfg.enable {
-      boot.kernelModules = [ "ntsync" ];
+      boot = {
+        kernelModules = [ "ntsync" ];
+        # CS2 and Vulkan games allocate massive memory maps; default value causes stalls.
+        kernel.sysctl."vm.max_map_count" = 2147483642;
+      };
 
       programs = {
         gamemode = {
