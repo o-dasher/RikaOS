@@ -41,6 +41,21 @@ with lib;
       })
     ];
 
+    # WORKAROUND: Fix non-functioning TTY switching under Hyprland.
+    # Hyprland forwards VT switch requests to systemd-logind via DBus
+    # (org.freedesktop.login1.chvt). Logind denies these requests by default
+    # for SDDM's greeter session and unprivileged users, causing Ctrl+Alt+Fx
+    # shortcuts to fail. This rule permits VT switching for SDDM and regular users (UID >= 1000).
+    security.polkit.extraConfig = # js
+      ''
+        polkit.addRule(function(action, subject) {
+          if ((action.id == "org.freedesktop.login1.chvt" || action.id == "org.freedesktop.login1.chvt-own-session") &&
+              (subject.user == "sddm" || subject.uid >= 1000)) {
+            return polkit.Result.YES;
+          }
+        });
+      '';
+
     services.displayManager.sddm = {
       enable = true;
       theme = "catppuccin-${cfg.flavor}-${cfg.accent}";
@@ -54,7 +69,8 @@ with lib;
           let
             sddmConfig = ../../../../dotfiles/hypr/sddm.lua;
           in
-          "env HYPRLAND_CONFIG=${sddmConfig} start-hyprland";
+          #bash
+          "start-hyprland -- --config ${sddmConfig}";
       };
     };
   };
