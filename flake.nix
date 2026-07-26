@@ -193,13 +193,7 @@
             pkgs: system:
             import pkgs {
               inherit system;
-              config = {
-                allowUnfree = true;
-                permittedInsecurePackages = [
-                  "electron-39.8.10" # stale: bitwarden.
-                  "pnpm-10.29.2" # stale: vesktop.
-                ];
-              };
+              config.allowUnfree = true;
             };
         in
         lib.genAttrs targetSystems (
@@ -207,7 +201,7 @@
           (mkPkgs nixpkgs system).appendOverlays [
             nix-minecraft.overlay
             nur.overlays.default
-            (final: prev: {
+            (final: prev: rec {
               stable = mkPkgs nixpkgs-stable system;
               master = mkPkgs nixpkgs-master system;
 
@@ -227,7 +221,7 @@
                 ;
 
               # Fix gnome-keyring detection in Antigravity IDE
-              antigravity = prev.antigravity.override {
+              antigravity-ide = prev.antigravity-ide.override {
                 commandLineArgs = "--password-store=gnome-libsecret";
               };
 
@@ -242,7 +236,7 @@
               };
 
               # TODO: wait for https://github.com/nixos/nixpkgs/issues/526914
-              bitwarden-desktop = prev.bitwarden-desktop.override { electron_39 = final.electron_39-bin; };
+              bitwarden-desktop = master.bitwarden-desktop;
 
               # Gamescope
               gamescope = prev.gamescope.overrideAttrs (old: {
