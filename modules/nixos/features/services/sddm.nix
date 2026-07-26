@@ -35,8 +35,7 @@ with lib;
     environment.systemPackages = [
       themeLib.cursor.package
       (pkgs.catppuccin-sddm.override {
-        flavor = cfg.flavor;
-        accent = cfg.accent;
+        inherit (cfg) accent flavor;
         background = "${cfg.background}";
         loginBackground = true;
       })
@@ -45,28 +44,17 @@ with lib;
     services.displayManager.sddm = {
       enable = true;
       theme = "catppuccin-${cfg.flavor}-${cfg.accent}";
+      settings.Theme = {
+        CursorTheme = themeLib.cursor.name;
+        CursorSize = toString themeLib.cursor.size;
+      };
       wayland = {
         enable = true;
         compositorCommand =
           let
-            config =
-              pkgs.writeText "hyprland-sddm.conf" # hyprlang
-                ''
-                  monitor = , highres@highrr, auto, 1
-
-                  animations {
-                    enabled = false
-                  }
-
-                  misc {
-                    disable_hyprland_logo = true
-                    disable_splash_rendering = true
-                  }
-
-                  exec-once = hyprctl setcursor ${themeLib.cursor.name} ${toString themeLib.cursor.size}
-                '';
+            sddmConfig = ../../../../dotfiles/hypr/sddm.lua;
           in
-          "env HYPRLAND_CONFIG=${config} start-hyprland";
+          "env HYPRLAND_CONFIG=${sddmConfig} start-hyprland";
       };
     };
   };
