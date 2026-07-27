@@ -17,6 +17,7 @@ with lib;
       enable = true;
       email.enable = true;
       discord.enable = true;
+      zapzap.enable = true;
     };
   };
 }
