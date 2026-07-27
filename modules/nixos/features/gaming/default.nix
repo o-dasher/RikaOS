@@ -36,6 +36,13 @@ with lib;
         kernel.sysctl."vm.max_map_count" = 2147483642;
       };
 
+      zramSwap = {
+        enable = true;
+        algorithm = "zstd";
+        memoryPercent = 100;
+        priority = 100;
+      };
+
       programs = {
         gamemode = {
           enable = true;
