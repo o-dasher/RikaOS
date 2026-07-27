@@ -52,7 +52,7 @@ with lib;
             custom =
               let
                 makoctl = lib.getExe' pkgs.mako "makoctl";
-                lact = lib.getExe pkgs.lact;
+                lact = lib.getExe config.services.lact.package;
                 bash = lib.getExe pkgs.bash;
 
                 mkScript =
@@ -61,7 +61,7 @@ with lib;
                     pkgs.writeScriptBin "gamemode-${name}" ''
                       #!${bash}
                       ${lib.optionalString modCfg.suppressNotifications.enable "${makoctl} mode -s ${makoMode}"}
-                      ${lact} cli profile set "${profile}" || true
+                      ${lib.optionalString config.services.lact.enable "${lact} cli profile set \"${profile}\" || true}"}
                     ''
                   );
               in
