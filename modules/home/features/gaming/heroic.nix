@@ -7,17 +7,23 @@
 let
   modCfg = config.features.gaming;
   cfg = modCfg.heroic;
+  extraProtons = {
+    "GE-Proton" = pkgs.proton-ge-bin.steamcompattool;
+    "Proton-Cachyos" = pkgs.nur.repos.forkprince.proton-cachyos-v3-bin;
+  };
 in
-with lib;
 {
-  options.features.gaming.heroic.enable = mkEnableOption "heroic";
+  options.features.gaming.heroic.enable = lib.mkEnableOption "heroic";
 
-  config = mkIf (modCfg.enable && cfg.enable) {
+  config = lib.mkIf (modCfg.enable && cfg.enable) {
     home.packages = [ pkgs.heroic ];
     xdg.configFile =
-      config.rika.utils.mkAutostartApp pkgs.heroic (getExe pkgs.heroic)
-      // {
-        "heroic/tools/proton/GE-Proton".source = pkgs.proton-ge-bin.steamcompattool;
-      };
+      (config.rika.utils.mkAutostartApp pkgs.heroic (lib.getExe pkgs.heroic))
+      // (lib.mapAttrs' (
+        name: pkg:
+        lib.nameValuePair "heroic/tools/proton/${name}" {
+          source = pkg;
+        }
+      ) extraProtons);
   };
 }
