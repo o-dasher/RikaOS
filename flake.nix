@@ -205,6 +205,8 @@
               stable = mkPkgs nixpkgs-stable system;
               master = mkPkgs nixpkgs-master system;
 
+              inherit (master) lact;
+
               # Lix
               inherit (getLixRevision prev)
                 nixpkgs-review
@@ -234,9 +236,6 @@
                   wrapProgram $out/bin/foliate --set GDK_BACKEND x11
                 '';
               };
-
-              # TODO: wait for https://github.com/nixos/nixpkgs/issues/526914
-              bitwarden-desktop = master.bitwarden-desktop;
 
               # Gamescope
               gamescope = prev.gamescope.overrideAttrs (old: {
