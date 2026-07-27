@@ -15,6 +15,7 @@ with lib;
     programs.zapzap = {
       enable = true;
       settings = {
+        onboarding.initial_setup_completed = true;
         web.scroll_animator = false;
         website.open_page = false;
         storage-whats.notification = false;
@@ -26,6 +27,10 @@ with lib;
         notification = {
           app = false;
           donation_message = true;
+        };
+        permissions = {
+          "auto_grant/microphone" = true;
+          "auto_grant/camera_microphone" = true;
         };
         system = {
           start_background = true;
