@@ -14,7 +14,6 @@ with lib;
   };
 
   config = mkIf (modCfg.enable && cfg.enable) {
-    boot.kernelModules = [ "uinput" ];
     hardware = {
       uinput.enable = true;
       opentabletdriver = {
