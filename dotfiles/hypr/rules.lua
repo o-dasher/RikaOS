@@ -40,7 +40,6 @@ local game_modifiers = {
 
 hl.window_rule(merge(game_modifiers, { match = { content = "game" } }))
 hl.window_rule(merge(game_modifiers, { match = { class = "^(" .. non_direct_scanout_games .. ")$" } }))
-hl.window_rule({ match = { class = "^(cs2)$" }, stay_focused = true })
 -- !GAMES!
 
 -- Float rules
