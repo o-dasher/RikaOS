@@ -32,11 +32,7 @@ with lib;
     mkIf modCfg.enable {
       boot = {
         kernelModules = [ "ntsync" ];
-        kernelParams = [
-          "zswap.enabled=1"
-          "zswap.compressor=zstd"
-          "zswap.zpool=zsmalloc"
-        ];
+        kernelParams = [ "zswap.enabled=1" ];
       };
 
       programs = {
