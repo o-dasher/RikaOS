@@ -22,7 +22,7 @@ hl.config({
 
 	misc = {
 		allow_session_lock_restore = true,
-		anr_missed_pings = 10, -- cs2 pulls too many resources on launch, which causes anr, without it actually being anr.
+		anr_missed_pings = 15, -- cs2 pulls too many resources on launch, which causes anr, without it actually being anr.
 	},
 
 	render = {
