@@ -65,6 +65,7 @@ with lib;
               name = "modules-center";
               modules = [
                 "clock"
+                "notifications"
               ];
             }
           ];
@@ -94,6 +95,15 @@ with lib;
         border-color = "border-accent";
       };
 
+      notifications = {
+        icon-show = true;
+        label-show = true;
+        border-show = true;
+        border-color = "border-accent";
+        icon-bg-color = "accent";
+        label-color = "accent";
+      };
+
       hyprland-workspaces = mkIf config.features.desktop.hyprland.enable {
         min-workspace-count = 10;
         monitor-specific = false;
@@ -116,6 +126,7 @@ with lib;
         icon-show = false;
         border-show = true;
         border-color = "border-accent";
+        label-color = "accent";
       };
 
       ram = {
@@ -124,6 +135,7 @@ with lib;
         icon-show = false;
         border-show = true;
         border-color = "border-accent";
+        label-color = "accent";
       };
 
       systray = {
