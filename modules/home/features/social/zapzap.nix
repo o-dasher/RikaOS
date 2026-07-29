@@ -39,6 +39,7 @@ with lib;
           menubar = false;
           sidebar = false;
           notificationCounter = true;
+          theme = "dark";
         };
       };
     };
