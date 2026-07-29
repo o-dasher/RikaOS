@@ -38,7 +38,7 @@ with lib;
           wayland = true;
           menubar = false;
           sidebar = false;
-          notificationCounter = true;
+          notificationCounter = false;
           theme = "dark";
         };
       };

@@ -13,8 +13,7 @@ in
 {
   imports = [
     ./walker.nix
-    ./mako.nix
-    ./waybar.nix
+    ./wayle.nix
   ];
 
   options.features.desktop.wayland.enable = mkEnableOption "Wayland base integration";

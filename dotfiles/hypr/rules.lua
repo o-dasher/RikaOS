@@ -10,9 +10,9 @@ local function merge(t1, t2)
 end
 
 -- Layer rules
-hl.layer_rule({ match = { namespace = "^(waybar|notifications|walker)$" }, blur = true })
+hl.layer_rule({ match = { namespace = "^(wayle|notifications|walker)$" }, blur = true })
 hl.layer_rule({ match = { namespace = "^(walker)$" }, ignore_alpha = 0.5 })
-hl.layer_rule({ match = { namespace = "^(waybar)$" }, animation = "slide top" })
+hl.layer_rule({ match = { namespace = "^(wayle)$" }, animation = "slide top" })
 hl.layer_rule({ match = { namespace = "^(notifications)$" }, animation = "slide right" })
 hl.layer_rule({ match = { namespace = "^(walker)$" }, animation = "slide bottom" })
 hl.layer_rule({ match = { namespace = "^(selection|hyprpicker)$" }, animation = "off" })

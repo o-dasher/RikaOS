@@ -91,13 +91,6 @@
         systems.follows = "systems";
       };
     };
-    waybar = {
-      url = "github:alexays/waybar";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-compat.follows = "flake-compat";
-      };
-    };
     nix-minecraft = {
       url = "github:Infinidoge/nix-minecraft";
       inputs = {
@@ -125,7 +118,6 @@
       nixcord,
       nixpkgs-stable,
       walker,
-      waybar,
       nix-minecraft,
       playit-nixos-module,
       llm-agents,
@@ -209,7 +201,6 @@
           (mkPkgs nixpkgs system).appendOverlays [
             nix-minecraft.overlay
             nur.overlays.default
-            waybar.overlays.default
             (final: prev: rec {
               stable = mkPkgs nixpkgs-stable system;
               master = mkPkgs nixpkgs-master system;
