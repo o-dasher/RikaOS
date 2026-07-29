@@ -18,7 +18,7 @@ with lib;
       default = true;
     };
     suppressNotifications.enable =
-      mkEnableOption "suppress notifications during gaming (requires mako)"
+      mkEnableOption "suppress notifications during gaming (requires wayle)"
       // {
         default = true;
       };
@@ -50,20 +50,20 @@ with lib;
             };
             custom =
               let
-                makoctl = lib.getExe' pkgs.mako "makoctl";
+                wayle = lib.getExe pkgs.wayle;
                 lact = lib.getExe config.services.lact.package or pkgs.lact;
                 mkScript =
-                  name: profile: makoMode:
+                  name: profile:
                   lib.getExe (
                     pkgs.writeShellScriptBin "gamemode-${name}" ''
-                      ${lib.optionalString modCfg.suppressNotifications.enable "${makoctl} mode -s ${makoMode}"}
+                      ${lib.optionalString modCfg.suppressNotifications.enable "${wayle} notify dnd || true"}
                       ${lib.optionalString config.services.lact.enable "${lact} cli profile set \"${profile}\" || true"}
                     ''
                   );
               in
               {
-                start = mkScript "start" "Gaming" "dnd";
-                end = mkScript "end" "Default" "default";
+                start = mkScript "start" "Gaming";
+                end = mkScript "end" "Default";
               };
           };
         };

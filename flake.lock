@@ -581,7 +581,6 @@
         "stylix": "stylix",
         "systems": "systems",
         "walker": "walker",
-        "waybar": "waybar",
         "zen-browser": "zen-browser"
       }
     },
@@ -745,29 +744,6 @@
       "original": {
         "owner": "abenz1267",
         "repo": "walker",
-        "type": "github"
-      }
-    },
-    "waybar": {
-      "inputs": {
-        "flake-compat": [
-          "flake-compat"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1784661194,
-        "narHash": "sha256-pSbVf9mMWazkaTgNM0X4pfkIS/6AzoAfs7YTS27udOE=",
-        "owner": "alexays",
-        "repo": "waybar",
-        "rev": "30610d3b68f109e950d924bc7d9c42b8cbbc5df8",
-        "type": "github"
-      },
-      "original": {
-        "owner": "alexays",
-        "repo": "waybar",
         "type": "github"
       }
     },
