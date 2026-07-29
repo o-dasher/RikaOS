@@ -50,11 +50,25 @@ hl.window_rule({
 	size = "monitor_w*0.6 monitor_h*0.6",
 })
 
+-- Extension & App class matches
+local bitwarden_class = "chrome-nngceckbapebfimnlniiiahkandclblb-Default"
+
+local floaty_classes = string.format(
+	[[^(
+	.blueman-manager-wrapped
+	|nemo
+	|com.github.wwmm.easyeffects
+	|com.saivert.pwvucontrol
+	|org.gnome.FileRoller
+	|%s
+)$]],
+	bitwarden_class
+)
+
 hl.window_rule({
 	tag = "+floaty",
 	match = {
-		class = "^(.blueman-manager-wrapped|nemo|com.github.wwmm.easyeffects|com.saivert.pwvucontrol|org.gnome.FileRoller)$",
-		title = "^(Bitwarden)$",
+		class = floaty_classes:gsub("%s+", ""),
 	},
 })
 
