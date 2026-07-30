@@ -124,7 +124,7 @@ with lib;
         ]
         ++ optionals config.profiles.browser.enable [
           #lua
-          ''hl.workspace_rule({ workspace = 2, on_created_empty = "app2unit ${getExe config.programs.chromium.package}" })''
+          ''hl.workspace_rule({ workspace = 2, on_created_empty = "app2unit ${getExe config.programs.chromium.finalPackage}" })''
         ]
         ++ optionals config.programs.nixcord.discord.vencord.enable [
           #lua
