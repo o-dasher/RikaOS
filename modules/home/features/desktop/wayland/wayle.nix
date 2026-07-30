@@ -47,9 +47,9 @@ with lib;
           button-border-location = "right";
           button-border-width = 1;
           button-rounding = "none";
-          button-label-size = 0.8;
-          button-icon-size = 0.8;
-          button-label-padding = 0.4;
+          button-label-size = 0.75;
+          button-icon-size = 0.75;
+          button-label-padding = 0.5;
           button-icon-padding = 0.25;
           button-gap = 0.25;
 
@@ -77,9 +77,8 @@ with lib;
                 {
                   name = "modules-right";
                   modules = [
-                    "custom-cpu-temp"
-                    "custom-gpu-temp"
                     "cpu"
+                    "custom-gpu-temp"
                     "ram"
                     "systray"
                     "volume"
@@ -95,16 +94,19 @@ with lib;
           clock = {
             format = "%H:%M | %a %b %d";
             icon-show = true;
+            icon-bg-color = "accent";
+            icon-color = "fg-on-accent";
             border-show = true;
             border-color = "border-accent";
           };
 
           notifications = {
             icon-show = true;
+            icon-bg-color = "accent";
+            icon-color = "fg-on-accent";
             label-show = true;
             border-show = true;
             border-color = "border-accent";
-            icon-bg-color = "accent";
             label-color = "accent";
           };
 
@@ -115,7 +117,7 @@ with lib;
             display-mode = "label";
             numbering = "absolute";
             label-size = 0.8;
-            workspace-padding = 0.35;
+            workspace-padding = 0.25;
             active-indicator = "background";
             active-color = "accent";
             occupied-color = "fg-default";
@@ -126,8 +128,10 @@ with lib;
           };
 
           cpu = {
-            format = "  {{ percent }}%";
-            icon-show = false;
+            format = "{{ percent }}% | {{ temp_c }}°C";
+            icon-show = true;
+            icon-bg-color = "accent";
+            icon-color = "fg-on-accent";
             border-show = true;
             border-color = "border-accent";
             label-color = "accent";
@@ -135,8 +139,10 @@ with lib;
 
           ram = {
             poll-interval-ms = 30000;
-            format = "  {{ used_gib }}GB";
-            icon-show = false;
+            format = "{{ used_gib }}GB";
+            icon-show = true;
+            icon-bg-color = "accent";
+            icon-color = "fg-on-accent";
             border-show = true;
             border-color = "border-accent";
             label-color = "accent";
@@ -144,13 +150,18 @@ with lib;
 
           systray = {
             icon-scale = 0.8;
-            item-gap = 0.15;
+            item-gap = 0.25;
+            sort-by = "alphabetical";
             border-show = true;
             border-color = "border-accent";
           };
 
           microphone = {
             left-click = getExe pkgs.pwvucontrol;
+            icon-show = true;
+            icon-bg-color = "accent";
+            icon-color = "fg-on-accent";
+            label-color = "accent";
             border-show = true;
             border-color = "border-accent";
           };
@@ -159,28 +170,26 @@ with lib;
             left-click = getExe pkgs.pwvucontrol;
             scroll-up = "${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%+";
             scroll-down = "${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%-";
+            icon-show = true;
+            icon-bg-color = "accent";
+            icon-color = "fg-on-accent";
+            label-color = "accent";
             border-show = true;
             border-color = "border-accent";
           };
 
           custom = [
             {
-              id = "cpu-temp";
-              mode = "poll";
-              poll-interval-ms = 2000;
-              command = "cat /sys/bus/pci/devices/0000:00:18.3/hwmon/hwmon*/temp1_input 2>/dev/null | head -n1 | awk '{printf \"CPU %.0f°C\", $1/1000}'";
-              format = "{{ output }}";
-              icon-show = false;
-              border-show = true;
-              border-color = "border-accent";
-            }
-            {
               id = "gpu-temp";
               mode = "poll";
-              poll-interval-ms = 2000;
-              command = "cat /sys/bus/pci/devices/0000:03:00.0/hwmon/hwmon*/temp1_input 2>/dev/null | head -n1 | awk '{printf \"GPU %.0f°C\", $1/1000}'";
+              poll-interval-ms = 1000;
+              command = "u=$(cat /sys/bus/pci/devices/0000:03:00.0/gpu_busy_percent 2>/dev/null || echo 0); t=$(cat /sys/bus/pci/devices/0000:03:00.0/hwmon/hwmon*/temp1_input 2>/dev/null | head -n1); awk -v u=\"$u\" -v t=\"$t\" 'BEGIN {printf \"%d%% | %.0f°C\", u, t/1000}'";
               format = "{{ output }}";
-              icon-show = false;
+              icon-name = "gpu-symbolic";
+              icon-show = true;
+              icon-bg-color = "accent";
+              icon-color = "fg-on-accent";
+              label-color = "accent";
               border-show = true;
               border-color = "border-accent";
             }
