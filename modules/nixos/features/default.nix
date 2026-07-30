@@ -3,6 +3,7 @@
     ./audio
     ./boot
     ./core
+    ./desktop
     ./filesystem
     ./gaming
     ./graphics
