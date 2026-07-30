@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 let
@@ -12,6 +13,9 @@ with lib;
   options.features.social.zapzap.enable = mkEnableOption "ZapZap";
 
   config = mkIf (modCfg.enable && cfg.enable) {
+    xdg.configFile = config.rika.utils.mkAutostartApp pkgs.zapzap "zapzap";
+    # Mitigate QtWebEngine / Chromium memory accumulation & lag bombing over long sessions
+    home.sessionVariables.QTWEBENGINE_CHROMIUM_FLAGS = "--js-flags=--max-old-space-size=1024 --disk-cache-size=52428800 --disable-gpu-memory-buffer-video-frames";
     programs.zapzap = {
       enable = true;
       settings = {
@@ -43,8 +47,5 @@ with lib;
         };
       };
     };
-
-    # Mitigate QtWebEngine / Chromium memory accumulation & lag bombing over long sessions
-    home.sessionVariables.QTWEBENGINE_CHROMIUM_FLAGS = "--js-flags=--max-old-space-size=1024 --disk-cache-size=52428800 --disable-gpu-memory-buffer-video-frames";
   };
 }

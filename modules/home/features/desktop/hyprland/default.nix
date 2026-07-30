@@ -116,11 +116,20 @@ with lib;
         ]
         ++ optionals config.profiles.browser.enable [
           #lua
-          ''hl.workspace_rule({ workspace = 2, on_created_empty = "app2unit ${getExe config.programs.chromium.finalPackage}" })''
+          ''
+            hl.window_rule({ match = { class = "^(helium)$" }, workspace = "2", no_initial_focus = true })
+            hl.on("hyprland.start", function()
+              hl.exec_cmd("app2unit ${getExe config.programs.chromium.finalPackage}")
+            end)
+          ''
         ]
         ++ optionals config.programs.nixcord.discord.vencord.enable [
           #lua
-          ''hl.window_rule({ match = { class = "^(discord)$" }, workspace = "3 silent" })''
+          ''hl.window_rule({ match = { class = "^(discord)$" }, workspace = "3", no_initial_focus = true })''
+        ]
+        ++ optionals config.features.social.zapzap.enable [
+          #lua
+          ''hl.window_rule({ match = { class = "^(com\\.rtosta\\.zapzap)$" }, workspace = "10", no_initial_focus = true })''
         ]
         ++ optionals (hasStylix && config.features.desktop.theme.enable) [
           #lua
