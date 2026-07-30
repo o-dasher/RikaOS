@@ -106,6 +106,10 @@
         flake-parts.follows = "flake-parts";
       };
     };
+    hyprselect = {
+      url = "github:jmanc3/hyprselect";
+      flake = false;
+    };
   };
 
   outputs =

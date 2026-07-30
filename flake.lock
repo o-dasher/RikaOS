@@ -324,6 +324,22 @@
         "type": "github"
       }
     },
+    "hyprselect": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1784597051,
+        "narHash": "sha256-ssvPEIXapSuRV+23hdBInj+HG2FwhQenMw+Bdh3cvzY=",
+        "owner": "jmanc3",
+        "repo": "hyprselect",
+        "rev": "53d84cb7a77a4183128891977aa92a5d8a268f55",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jmanc3",
+        "repo": "hyprselect",
+        "type": "github"
+      }
+    },
     "llm-agents": {
       "inputs": {
         "bun2nix": "bun2nix",
@@ -568,6 +584,7 @@
         "flake-utils": "flake-utils",
         "git-hooks": "git-hooks",
         "home-manager": "home-manager",
+        "hyprselect": "hyprselect",
         "llm-agents": "llm-agents",
         "mnw": "mnw",
         "nix-gaming": "nix-gaming",
