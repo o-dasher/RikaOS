@@ -37,6 +37,10 @@ let
         image = ../../../assets/Wallpapers/cirnosunset.jpg;
       };
 
+      lucky-star = mkBaseWhiteSur "rose-pine" {
+        image = ../../../assets/Wallpapers/luckystar.png;
+      };
+
       graduation = mkBaseWhiteSur "rose-pine" {
         image = ../../../assets/Wallpapers/graduation.png;
       };

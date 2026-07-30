@@ -25,7 +25,7 @@
     };
     desktop = {
       hyprland.enable = true;
-      theme.cirnosunset.enable = true;
+      theme.lucky-star.enable = true;
     };
     core.xdg = {
       enable = true;
