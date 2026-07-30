@@ -4,6 +4,7 @@
   config,
   options,
   osConfig ? null,
+  inputs,
   ...
 }:
 let
@@ -85,6 +86,24 @@ with lib;
 
     wayland.windowManager.hyprland = {
       enable = true;
+      plugins = [
+        (pkgs.hyprlandPlugins.mkHyprlandPlugin {
+          pluginName = "hyprselect";
+          version = "unstable";
+          src = inputs.hyprselect;
+          installPhase = ''
+            runHook preInstall
+            mkdir -p $out/lib
+            cp hyprselect.so $out/lib/hyprselect.so
+            ln -s hyprselect.so $out/lib/libhyprselect.so
+            runHook postInstall
+          '';
+          meta = {
+            description = "A desktop selection box plugin for Hyprland";
+            homepage = "https://github.com/jmanc3/hyprselect";
+          };
+        })
+      ];
       extraLuaFiles.init = ./../../../../../dotfiles/hypr/init.lua;
       systemd = {
         enable = !hasUWSM;
