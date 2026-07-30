@@ -110,7 +110,15 @@ with lib;
       };
 
       extraConfig = concatStringsSep "\n" (
-        optionals config.features.desktop.wayland.walker.enable [
+        optionals (!hasUWSM) [
+          #lua
+          ''
+            hl.on("hyprland.shutdown", function()
+              os.execute("systemctl --user stop hyprland-session.target && sleep 0.1")
+            end)
+          ''
+        ]
+        ++ optionals config.features.desktop.wayland.walker.enable [
           #lua
           ''hl.bind("SUPER + D", hl.dsp.exec_cmd("app2unit walker --nohints"))''
         ]
