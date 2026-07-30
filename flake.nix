@@ -205,8 +205,6 @@
               stable = mkPkgs nixpkgs-stable system;
               master = mkPkgs nixpkgs-master system;
 
-              inherit (master) lact;
-
               # Lix
               inherit (getLixRevision prev)
                 nixpkgs-review
