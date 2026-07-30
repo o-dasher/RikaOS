@@ -20,6 +20,7 @@ with lib;
   };
 
   config = mkIf (modCfg.enable && cfg.enable) {
+    xdg.configFile = config.rika.utils.mkAutostartApp pkgs.discord "discord";
     programs.nixcord = {
       enable = true;
       discord = {
@@ -32,7 +33,5 @@ with lib;
         webScreenShareFixes.enable = true;
       };
     };
-
-    xdg.configFile = config.rika.utils.mkAutostartApp pkgs.discord "discord";
   };
 }
