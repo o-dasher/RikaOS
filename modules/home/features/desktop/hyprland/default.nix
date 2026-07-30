@@ -19,16 +19,14 @@ with lib;
     features.desktop.wayland.enable = true;
     programs.hyprlock.enable = true;
     home = {
-      packages =
-        with pkgs;
-        [
-          app2unit
-          grimblast
-          playerctl
-          wireplumber
-          xdg-terminal-exec
-        ]
-        ++ optionals (!hasUWSM) [ hyprshutdown ];
+      packages = with pkgs; [
+        app2unit
+        grimblast
+        hyprshutdown
+        playerctl
+        wireplumber
+        xdg-terminal-exec
+      ];
 
       file = config.rika.utils.xdgConfigSelectiveSymLink "hypr" [
         "config.lua"
@@ -115,12 +113,6 @@ with lib;
         optionals config.features.desktop.wayland.walker.enable [
           #lua
           ''hl.bind("SUPER + D", hl.dsp.exec_cmd("app2unit walker --nohints"))''
-        ]
-        ++ [
-          #lua
-          ''hl.bind("CTRL + SHIFT + Q", hl.dsp.exec_cmd("app2unit ${
-            if hasUWSM then "uwsm stop" else "hyprshutdown"
-          }"))''
         ]
         ++ optionals config.profiles.browser.enable [
           #lua
