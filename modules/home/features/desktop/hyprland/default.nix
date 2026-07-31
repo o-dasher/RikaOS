@@ -117,7 +117,7 @@ with lib;
         ++ optionals config.profiles.browser.enable [
           #lua
           ''
-            hl.window_rule({ match = { class = "^([hH]elium)$" }, workspace = "2 silent" })
+            hl.window_rule({ match = { class = "^(brave-origin)$" }, workspace = "2 silent" })
             hl.on("hyprland.start", function()
               hl.exec_cmd("app2unit ${getExe config.programs.chromium.finalPackage}")
             end)
