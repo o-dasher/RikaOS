@@ -15,14 +15,6 @@
         home-manager.follows = "home-manager";
       };
     };
-    llm-agents = {
-      url = "github:numtide/llm-agents.nix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-        systems.follows = "systems";
-      };
-    };
     flake-utils = {
       url = "github:numtide/flake-utils";
       inputs.systems.follows = "systems";
@@ -123,7 +115,6 @@
       walker,
       nix-minecraft,
       playit-nixos-module,
-      llm-agents,
       nur,
       nixpkgs-master,
       zen-browser,
@@ -218,10 +209,6 @@
 
               # Bleeding edge
               inherit (walker.packages.${system}) walker;
-              inherit (llm-agents.packages.${system})
-                codex
-                copilot-cli
-                ;
 
               # Fix gnome-keyring detection in Antigravity IDE
               antigravity-ide = prev.antigravity-ide.override {
