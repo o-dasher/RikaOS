@@ -8,7 +8,7 @@ let
   modCfg = config.features.services;
   cfg = modCfg.openrgb;
 
-  openrgbProfile = "/var/lib/OpenRGB/${config.services.hardware.openrgb.startupProfile}";
+  openrgbProfile = config.services.hardware.openrgb.startupProfile;
   openrgbReloadCmd = "${pkgs.openrgb}/bin/openrgb --profile ${openrgbProfile}";
 in
 with lib;
@@ -18,15 +18,13 @@ with lib;
   config = mkIf (modCfg.enable && cfg.enable) {
     services.hardware.openrgb = {
       enable = true;
-      startupProfile = "black.orp";
+      startupProfile = "/var/lib/OpenRGB/black.orp";
     };
 
     systemd = {
-      tmpfiles.rules = [
-        "d /var/lib/OpenRGB 0755 root root -"
-        "L+ /var/lib/OpenRGB/black.orp - - - - ${../../../../assets/OpenRGB/black.orp}"
-      ];
+      tmpfiles.rules = [ "L+ ${openrgbProfile} - - - - ${../../../../assets/OpenRGB/black.orp}" ];
       services = {
+        openrgb.serviceConfig.ExecStartPost = lib.mkAfter [ openrgbReloadCmd ];
         systemd-suspend.serviceConfig.ExecStartPost = lib.mkAfter [ openrgbReloadCmd ];
         systemd-hibernate.serviceConfig.ExecStartPost = lib.mkAfter [ openrgbReloadCmd ];
         systemd-hybrid-sleep.serviceConfig.ExecStartPost = lib.mkAfter [ openrgbReloadCmd ];
