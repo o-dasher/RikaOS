@@ -144,8 +144,6 @@
             "https://cache.nixos.org"
             "https://playit-nixos-module.cachix.org"
             "https://nix-community.cachix.org"
-            "https://attic.xuyh0120.win/lantian"
-            "https://cache.garnix.io"
             "https://hercules-ci.cachix.org"
             "https://cache.numtide.com"
           ];
@@ -153,8 +151,6 @@
             "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
             "playit-nixos-module.cachix.org-1:22hBXWXBbd/7o1cOnh+p0hpFUVk9lPdRLX3p5YSfRz4="
             "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-            "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
-            "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
             "hercules-ci.cachix.org-1:ZZeDl9Va+xe9j+KqdzoBZMFJHVQ42Uu/c/1/KMC5Lw0="
             "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
           ];
@@ -175,7 +171,7 @@
           (mkPkgs nixpkgs system).appendOverlays [
             nix-minecraft.overlay
             nur.overlays.default
-            (final: prev: rec {
+            (final: prev: {
               stable = mkPkgs nixpkgs-stable system;
               master = mkPkgs nixpkgs-master system;
 
