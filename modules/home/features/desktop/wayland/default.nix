@@ -19,36 +19,37 @@ in
   options.features.desktop.wayland.enable = mkEnableOption "Wayland base integration";
 
   config = mkIf (desktopCfg.enable && modCfg.enable) {
-    home.packages = with pkgs; [ wl-clipboard ];
-
     services.udiskie = {
       enable = true;
       automount = true;
       notify = true;
     };
 
-    home.sessionVariables = lib.mkMerge [
-      {
-        # Ensure OpenSSL-backed apps find CA certs.
-        SSL_CERT_DIR = "${pkgs.cacert}/etc/ssl/certs";
-        SSL_CERT_FILE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
+    home = {
+      packages = with pkgs; [ wl-clipboard ];
+      sessionVariables = lib.mkMerge [
+        {
+          # Ensure OpenSSL-backed apps find CA certs.
+          SSL_CERT_DIR = "${pkgs.cacert}/etc/ssl/certs";
+          SSL_CERT_FILE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
 
-        # Electron
-        NIXOS_OZONE_WL = "1";
+          # Electron
+          NIXOS_OZONE_WL = "1";
 
-        # SDL
-        SDL_VIDEO_DRIVER = "wayland,x11";
+          # SDL
+          SDL_VIDEO_DRIVER = "wayland,x11";
 
-        # Fixes ghostty dead keys.
-        GTK_IM_MODULE = "simple";
+          # Fixes ghostty dead keys.
+          GTK_IM_MODULE = "simple";
 
-        # App2Unit
-        APP2UNIT_TYPE = "service";
-      }
-      (lib.mkIf (osConfig != null && osConfig.programs.uwsm.enable) {
-        UWSM_APP_UNIT_TYPE = "service";
-        APP2UNIT_SLICES = "a=app-graphical.slice b=background-graphical.slice s=session-graphical.slice";
-      })
-    ];
+          # App2Unit
+          APP2UNIT_TYPE = "service";
+        }
+        (lib.mkIf (osConfig != null && osConfig.programs.uwsm.enable) {
+          UWSM_APP_UNIT_TYPE = "service";
+          APP2UNIT_SLICES = "a=app-graphical.slice b=background-graphical.slice s=session-graphical.slice";
+        })
+      ];
+    };
   };
 }
