@@ -64,7 +64,6 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
-        flake-compat.follows = "flake-compat";
       };
     };
     stylix = {
