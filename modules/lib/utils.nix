@@ -2,6 +2,7 @@
   lib,
   config,
   pkgs,
+  osConfig ? null,
   ...
 }:
 with lib;
@@ -17,17 +18,23 @@ with lib;
   config.rika.utils = {
     hasSecrets = builtins.hasAttr "gemini-api-key" config.age.secrets;
 
-    mkAutostartApp = package: command: {
-      "autostart/${getName package}.desktop".text = generators.toINI { } {
-        "Desktop Entry" = {
-          Type = "Application";
-          Version = "1.0";
-          Name = getName package;
-          Exec = command;
-          Terminal = "false";
+    mkAutostartApp =
+      package: command:
+      let
+        hasUWSM = osConfig != null && osConfig.programs.uwsm.enable;
+        execCmd = if hasUWSM then command else "${getExe pkgs.app2unit} -- ${command}";
+      in
+      {
+        "autostart/${getName package}.desktop".text = generators.toINI { } {
+          "Desktop Entry" = {
+            Type = "Application";
+            Version = "1.0";
+            Name = getName package;
+            Exec = execCmd;
+            Terminal = "false";
+          };
         };
       };
-    };
 
     selectiveSymLink =
       from: to: paths: opts:

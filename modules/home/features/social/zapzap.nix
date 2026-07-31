@@ -37,8 +37,6 @@ with lib;
           "auto_grant/camera_microphone" = true;
         };
         system = {
-          start_background = true;
-          start_system = true;
           wayland = true;
           menubar = false;
           sidebar = false;
