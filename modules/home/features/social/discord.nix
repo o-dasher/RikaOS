@@ -1,12 +1,12 @@
 {
   lib,
   config,
-  pkgs,
   ...
 }:
 let
   modCfg = config.features.social;
   cfg = modCfg.discord;
+  discordPackage = config.programs.nixcord.finalPackage.discord;
 in
 with lib;
 {
@@ -20,7 +20,7 @@ with lib;
   };
 
   config = mkIf (modCfg.enable && cfg.enable) {
-    xdg.configFile = config.rika.utils.mkAutostartApp pkgs.discord "discord";
+    xdg.autostart.entries = [ (config.rika.utils.mkAutostartApp { pkg = discordPackage; }) ];
     programs.nixcord = {
       enable = true;
       discord = {

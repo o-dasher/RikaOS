@@ -19,22 +19,25 @@ with lib;
     hasSecrets = builtins.hasAttr "gemini-api-key" config.age.secrets;
 
     mkAutostartApp =
-      package: command:
+      {
+        pkg,
+        args ? "",
+        command ? "${getExe pkg}${optionalString (args != "") " ${args}"}",
+      }:
       let
         hasUWSM = osConfig != null && osConfig.programs.uwsm.enable;
         execCmd = if hasUWSM then command else "${getExe pkgs.app2unit} -- ${command}";
-      in
-      {
-        "autostart/${getName package}.desktop".text = generators.toINI { } {
-          "Desktop Entry" = {
-            Type = "Application";
-            Version = "1.0";
-            Name = getName package;
-            Exec = execCmd;
-            Terminal = "false";
-          };
+        pkgName = getName pkg;
+        desktopItem = pkgs.makeDesktopItem {
+          name = pkgName;
+          desktopName = pkgName;
+          exec = execCmd;
+          terminal = false;
+          type = "Application";
+          noDisplay = true;
         };
-      };
+      in
+      "${desktopItem}/share/applications/${pkgName}.desktop";
 
     selectiveSymLink =
       from: to: paths: opts:
