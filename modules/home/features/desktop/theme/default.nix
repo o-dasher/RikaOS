@@ -21,7 +21,7 @@ in
         icons.enable = true;
         targets = {
           nixcord.enable = false;
-          zen-browser.profileNames = [ "default" ];
+          floorp.profileNames = [ "default" ];
         };
       };
     }

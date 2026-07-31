@@ -14,7 +14,7 @@ with lib;
   config = mkIf cfg.enable {
     home.packages = with pkgs; [ ungoogled-chromium ];
     programs = {
-      zen-browser = {
+      floorp = {
         enable = true;
         profiles.default = {
           id = 0;

@@ -507,8 +507,7 @@
         "nur": "nur",
         "playit-nixos-module": "playit-nixos-module",
         "stylix": "stylix",
-        "systems": "systems",
-        "zen-browser": "zen-browser"
+        "systems": "systems"
       }
     },
     "stylix": {
@@ -647,29 +646,6 @@
       "original": {
         "owner": "numtide",
         "repo": "treefmt-nix",
-        "type": "github"
-      }
-    },
-    "zen-browser": {
-      "inputs": {
-        "home-manager": [
-          "home-manager"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1785456211,
-        "narHash": "sha256-q+5Exb733cSl8HATB7DwZ50VNRaBxiy8sr+VSqYXuFM=",
-        "owner": "0xc000022070",
-        "repo": "zen-browser-flake",
-        "rev": "e1a0481218312579ad67eda819ad964176fbe28b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "0xc000022070",
-        "repo": "zen-browser-flake",
         "type": "github"
       }
     }

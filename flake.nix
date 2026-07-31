@@ -8,13 +8,6 @@
     flake-compat.url = "github:edolstra/flake-compat";
     systems.url = "github:nix-systems/default";
     mnw.url = "github:Gerg-L/mnw";
-    zen-browser = {
-      url = "github:0xc000022070/zen-browser-flake";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home-manager";
-      };
-    };
     flake-utils = {
       url = "github:numtide/flake-utils";
       inputs.systems.follows = "systems";
@@ -109,7 +102,6 @@
       playit-nixos-module,
       nur,
       nixpkgs-master,
-      zen-browser,
       ...
     }@inputs:
     let
@@ -238,7 +230,6 @@
           ./hosts/${hostName}/users/${username}
           agenix.homeManagerModules.default
           nixcord.homeModules.nixcord
-          zen-browser.homeModules.twilight
           {
             home = {
               homeDirectory = "/home/${username}";
