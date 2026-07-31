@@ -82,12 +82,6 @@ with lib;
       ];
     };
 
-    systemd.user.targets.hyprland-session =
-      lib.mkIf config.wayland.windowManager.hyprland.systemd.enable
-        {
-          Unit.PropagatesStopTo = [ "graphical-session.target" ];
-        };
-
     wayland.windowManager.hyprland = {
       enable = true;
       plugins = [
@@ -116,15 +110,7 @@ with lib;
       };
 
       extraConfig = concatStringsSep "\n" (
-        optionals (!hasUWSM) [
-          #lua
-          ''
-            hl.on("hyprland.shutdown", function()
-              os.execute("systemctl --user stop hyprland-session.target && sleep 0.1")
-            end)
-          ''
-        ]
-        ++ optionals config.features.desktop.wayland.walker.enable [
+        optionals config.features.desktop.wayland.walker.enable [
           #lua
           ''hl.bind("SUPER + D", hl.dsp.exec_cmd("app2unit walker --nohints"))''
         ]
