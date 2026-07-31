@@ -75,13 +75,6 @@
         systems.follows = "systems";
       };
     };
-    walker = {
-      url = "github:abenz1267/walker";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
-    };
     nix-minecraft = {
       url = "github:Infinidoge/nix-minecraft";
       inputs = {
@@ -112,7 +105,6 @@
       flake-parts,
       nixcord,
       nixpkgs-stable,
-      walker,
       nix-minecraft,
       playit-nixos-module,
       nur,
@@ -163,8 +155,6 @@
             "https://attic.xuyh0120.win/lantian"
             "https://cache.garnix.io"
             "https://hercules-ci.cachix.org"
-            "https://walker.cachix.org"
-            "https://walker-git.cachix.org"
             "https://cache.numtide.com"
           ];
           extra-trusted-public-keys = [
@@ -174,8 +164,6 @@
             "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
             "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
             "hercules-ci.cachix.org-1:ZZeDl9Va+xe9j+KqdzoBZMFJHVQ42Uu/c/1/KMC5Lw0="
-            "walker.cachix.org-1:fG8q+uAaMqhsMxWjwvk0IMb4mFPFLqHjuvfwQxE4oJM="
-            "walker-git.cachix.org-1:vmC0ocfPWh0S/vRAQGtChuiZBTAe4wiKDeyyXM0/7pM="
             "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
           ];
         };
@@ -206,9 +194,6 @@
                 nix-fast-build
                 colmena
                 ;
-
-              # Bleeding edge
-              inherit (walker.packages.${system}) walker;
 
               # Fix gnome-keyring detection in Antigravity IDE
               antigravity-ide = prev.antigravity-ide.override {
@@ -254,7 +239,6 @@
           agenix.homeManagerModules.default
           nixcord.homeModules.nixcord
           zen-browser.homeModules.twilight
-          walker.homeManagerModules.default
           {
             home = {
               homeDirectory = "/home/${username}";
