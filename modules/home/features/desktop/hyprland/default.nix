@@ -82,6 +82,12 @@ with lib;
       ];
     };
 
+    systemd.user.targets.hyprland-session =
+      lib.mkIf config.wayland.windowManager.hyprland.systemd.enable
+        {
+          Unit.PropagatesStopTo = [ "graphical-session.target" ];
+        };
+
     wayland.windowManager.hyprland = {
       enable = true;
       plugins = [
@@ -125,7 +131,7 @@ with lib;
         ++ optionals config.profiles.browser.enable [
           #lua
           ''
-            hl.window_rule({ match = { class = "^(helium)$" }, workspace = "2", no_initial_focus = true })
+            hl.window_rule({ match = { class = "^([hH]elium)$" }, workspace = "2 silent" })
             hl.on("hyprland.start", function()
               hl.exec_cmd("app2unit ${getExe config.programs.chromium.finalPackage}")
             end)
@@ -133,11 +139,11 @@ with lib;
         ]
         ++ optionals config.programs.nixcord.discord.vencord.enable [
           #lua
-          ''hl.window_rule({ match = { class = "^(discord)$" }, workspace = "3", no_initial_focus = true })''
+          ''hl.window_rule({ match = { class = "^(discord)$" }, workspace = "3 silent" })''
         ]
         ++ optionals config.features.social.zapzap.enable [
           #lua
-          ''hl.window_rule({ match = { class = "^(com\\.rtosta\\.zapzap)$" }, workspace = "10", no_initial_focus = true })''
+          ''hl.window_rule({ match = { class = "^(com\\.rtosta\\.zapzap)$" }, workspace = "10 silent" })''
         ]
         ++ optionals (hasStylix && config.features.desktop.theme.enable) [
           #lua
