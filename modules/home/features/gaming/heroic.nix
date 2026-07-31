@@ -9,7 +9,6 @@ let
   cfg = modCfg.heroic;
   extraProtons = {
     "GE-Proton" = pkgs.proton-ge-bin.steamcompattool;
-    "Proton-Cachyos" = pkgs.nur.repos.forkprince.proton-cachyos-v3-bin;
   };
 in
 with lib;
