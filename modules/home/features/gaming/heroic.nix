@@ -12,18 +12,20 @@ let
     "Proton-Cachyos" = pkgs.nur.repos.forkprince.proton-cachyos-v3-bin;
   };
 in
+with lib;
 {
   options.features.gaming.heroic.enable = lib.mkEnableOption "heroic";
 
-  config = lib.mkIf (modCfg.enable && cfg.enable) {
+  config = mkIf (modCfg.enable && cfg.enable) {
     home.packages = [ pkgs.heroic ];
-    xdg.configFile =
-      (config.rika.utils.mkAutostartApp pkgs.heroic (lib.getExe pkgs.heroic))
-      // (lib.mapAttrs' (
+    xdg = {
+      autostart.entries = [ (config.rika.utils.mkAutostartApp { pkg = pkgs.heroic; }) ];
+      configFile = mapAttrs' (
         name: pkg:
-        lib.nameValuePair "heroic/tools/proton/${name}" {
+        nameValuePair "heroic/tools/proton/${name}" {
           source = pkg;
         }
-      ) extraProtons);
+      ) extraProtons;
+    };
   };
 }

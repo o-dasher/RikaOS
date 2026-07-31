@@ -42,6 +42,6 @@ with lib;
       spotify
     ];
 
-    xdg.configFile = config.rika.utils.mkAutostartApp pkgs.spotify (lib.getExe pkgs.spotify);
+    xdg.autostart.entries = [ (config.rika.utils.mkAutostartApp { pkg = pkgs.spotify; }) ];
   };
 }

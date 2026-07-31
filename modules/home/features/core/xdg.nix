@@ -17,6 +17,10 @@ with lib;
   config = mkIf (modCfg.enable && cfg.enable) {
     xdg = {
       enable = true;
+      autostart = {
+        enable = true;
+        readOnly = true;
+      };
       mime.enable = true;
       portal = mkIf cfg.portal.enable {
         enable = true;
