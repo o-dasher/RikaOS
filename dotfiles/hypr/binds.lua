@@ -10,34 +10,27 @@ hl.bind(mod .. " + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = 
 hl.bind(mod .. " + C", hl.dsp.window.close())
 hl.bind(mod .. " + M", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" }))
 
--- Groups
-hl.bind(mod .. " + S", hl.dsp.group.toggle())
+-- Scrolling layout & Stacking controls
+hl.bind(mod .. " + S", hl.dsp.layout("consume_or_expel prev"))
+hl.bind(mod .. " + SHIFT + S", hl.dsp.layout("consume_or_expel next"))
 hl.bind(mod .. " + SHIFT + F", hl.dsp.window.float({ action = "toggle" }))
+hl.bind(mod .. " + SHIFT + U", hl.dsp.layout("expel"))
 
--- Focus & Group navigation (vim keys)
-hl.bind(mod .. " + H", function()
-	hl.dispatch(hl.dsp.focus({ direction = "left" }))
-	hl.dispatch(hl.dsp.group.prev())
-end)
-hl.bind(mod .. " + L", function()
-	hl.dispatch(hl.dsp.focus({ direction = "right" }))
-	hl.dispatch(hl.dsp.group.next())
-end)
-hl.bind(mod .. " + K", hl.dsp.focus({ direction = "up" }))
-hl.bind(mod .. " + J", hl.dsp.focus({ direction = "down" }))
+-- Focus navigation (vim keys)
+hl.bind(mod .. " + H", hl.dsp.layout("focus l"))
+hl.bind(mod .. " + L", hl.dsp.layout("focus r"))
+hl.bind(mod .. " + K", hl.dsp.layout("focus u"))
+hl.bind(mod .. " + J", hl.dsp.layout("focus d"))
 
--- Group window movement & Move into/out of group
-hl.bind(mod .. " + SHIFT + H", function()
-	hl.dispatch(hl.dsp.group.move_window("b"))
-	hl.dispatch(hl.dsp.window.move({ into_group = "l" }))
-end)
-hl.bind(mod .. " + SHIFT + J", hl.dsp.window.move({ into_group = "d" }))
-hl.bind(mod .. " + SHIFT + K", hl.dsp.window.move({ into_group = "u" }))
-hl.bind(mod .. " + SHIFT + L", function()
-	hl.dispatch(hl.dsp.group.move_window("f"))
-	hl.dispatch(hl.dsp.window.move({ into_group = "r" }))
-end)
-hl.bind(mod .. " + SHIFT + U", hl.dsp.window.move({ out_of_group = true }))
+-- Window movement & Column swaps
+hl.bind(mod .. " + SHIFT + H", hl.dsp.layout("swapcol l"))
+hl.bind(mod .. " + SHIFT + L", hl.dsp.layout("swapcol r"))
+hl.bind(mod .. " + SHIFT + K", hl.dsp.window.move({ direction = "up" }))
+hl.bind(mod .. " + SHIFT + J", hl.dsp.window.move({ direction = "down" }))
+
+-- Column sizing controls
+hl.bind(mod .. " + R", hl.dsp.layout("colresize +conf"))
+hl.bind(mod .. " + SHIFT + R", hl.dsp.layout("colresize -conf"))
 
 -- Screenshots
 hl.bind(mod .. " + P", exec("grimblast --freeze --notify copy screen"))

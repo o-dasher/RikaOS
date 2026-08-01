@@ -38,6 +38,15 @@ hl.config({
 		gaps_out = gaps,
 		gaps_in = gaps,
 		border_size = border_size,
+		layout = "scrolling",
+	},
+
+	scrolling = {
+		column_width = 0.5,
+		explicit_column_widths = "0.333, 0.5, 0.667, 1.0",
+		fullscreen_on_one_column = true,
+		focus_fit_method = 1,
+		follow_focus = true,
 	},
 
 	decoration = {
@@ -49,18 +58,6 @@ hl.config({
 		kb_layout = "br",
 		kb_variant = "abnt2",
 		accel_profile = "flat",
-	},
-
-	group = {
-		groupbar = {
-			rounding = rounding,
-			indicator_height = indicator_height,
-			height = 1,
-			font_size = 12,
-
-			-- Render text inside group bar indicator
-			text_offset = -math.floor(indicator_height / 2),
-		},
 	},
 })
 
