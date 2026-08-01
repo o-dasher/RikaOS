@@ -1,19 +1,16 @@
 { lib, ... }:
-with lib;
 {
   imports = [
     ./bluetooth.nix
     ./gnome-keyring.nix
-    ./openssh.nix
     ./openrgb.nix
+    ./openssh.nix
+    ./sddm.nix
     ./sunshine.nix
     ./transmission.nix
-    ./sddm.nix
   ];
 
-  options.features.services = {
-    enable = mkEnableOption "service features" // {
-      default = true;
-    };
+  options.features.services.enable = lib.mkEnableOption "services features" // {
+    default = true;
   };
 }

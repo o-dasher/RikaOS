@@ -5,7 +5,8 @@
   ...
 }:
 let
-  cfg = config.features.services.transmission;
+  modCfg = config.features.services;
+  cfg = modCfg.transmission;
 in
 {
   options.features.services.transmission = {
@@ -22,7 +23,7 @@ in
     };
   };
 
-  config = lib.mkIf (config.features.services.enable && cfg.enable) {
+  config = lib.mkIf (modCfg.enable && cfg.enable) {
     services.transmission = {
       inherit (cfg) openRPCPort openPeerPorts;
       enable = true;

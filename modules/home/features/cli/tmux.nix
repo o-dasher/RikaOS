@@ -1,11 +1,12 @@
 { lib, config, ... }:
 let
-  cfg = config.features.cli.tmux;
+  modCfg = config.features.cli;
+  cfg = modCfg.tmux;
 in
 {
   options.features.cli.tmux.enable = lib.mkEnableOption "tmux";
 
-  config = lib.mkIf (config.features.cli.enable && cfg.enable) {
+  config = lib.mkIf (modCfg.enable && cfg.enable) {
     programs.tmux = {
       enable = true;
       mouse = true;

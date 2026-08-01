@@ -1,7 +1,6 @@
 {
   imports = [
-    ./theme
+    ./theme.nix
     ./utils.nix
-    ./filesystem.nix
   ];
 }

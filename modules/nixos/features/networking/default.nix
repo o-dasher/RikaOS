@@ -6,7 +6,6 @@
 let
   cfg = config.features.networking;
 in
-with lib;
 {
   imports = [
     ./cloudflare.nix
@@ -14,26 +13,26 @@ with lib;
   ];
 
   options.features.networking = {
-    enable = mkEnableOption "networking";
-    privacyIPv6.enable = mkEnableOption "Privacy IPv6 address generation";
-    primaryInterface = mkOption {
-      type = types.str;
+    enable = lib.mkEnableOption "networking";
+    privacyIPv6.enable = lib.mkEnableOption "Privacy IPv6 address generation";
+    primaryInterface = lib.mkOption {
+      type = lib.types.str;
       description = "The primary networking interface for operations.";
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     networking.useNetworkd = true;
     systemd.network = {
       enable = true;
-      networks."99-network" = mkMerge [
-        (mkIf cfg.privacyIPv6.enable {
+      networks."99-network" = lib.mkMerge [
+        (lib.mkIf cfg.privacyIPv6.enable {
           networkConfig = {
             IPv6LinkLocalAddressGenerationMode = "stable-privacy";
             IPv6PrivacyExtensions = "yes";
           };
         })
-        (mkIf cfg.cloudflare.dns.enable {
+        (lib.mkIf cfg.cloudflare.dns.enable {
           dhcpV4Config.UseDNS = false;
           ipv6AcceptRAConfig.UseDNS = false;
         })

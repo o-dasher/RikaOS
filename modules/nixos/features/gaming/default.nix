@@ -4,32 +4,27 @@
   config,
   ...
 }:
-with lib;
 {
-  imports = [
-    ./opentabletdriver.nix
-  ];
+  imports = [ ./opentabletdriver.nix ];
 
   options.features.gaming = {
-    steam.enable = mkEnableOption "Steam" // {
+    steam.enable = lib.mkEnableOption "Steam" // {
       default = true;
     };
-    controllers.enable = mkEnableOption "Xbox controllers" // {
+    controllers.enable = lib.mkEnableOption "Xbox controllers" // {
       default = true;
     };
-    suppressNotifications.enable =
-      mkEnableOption "suppress notifications during gaming (requires wayle)"
-      // {
-        default = true;
-      };
-    enable = mkEnableOption "gaming features";
+    suppressNotifications.enable = lib.mkEnableOption "suppress notifications during gaming" // {
+      default = true;
+    };
+    enable = lib.mkEnableOption "gaming features";
   };
 
   config =
     let
       modCfg = config.features.gaming;
     in
-    mkIf modCfg.enable {
+    lib.mkIf modCfg.enable {
       boot = {
         kernelModules = [ "ntsync" ];
         zswap.enable = true;
@@ -51,7 +46,7 @@ with lib;
             custom =
               let
                 wayle = lib.getExe pkgs.wayle;
-                lact = lib.getExe config.services.lact.package or pkgs.lact;
+                lact = lib.getExe (config.services.lact.package or pkgs.lact);
                 mkScript =
                   name: profile:
                   lib.getExe (
@@ -67,18 +62,16 @@ with lib;
               };
           };
         };
-
         gamescope = {
           enable = true;
           enableWsi = true;
           capSysNice = false;
         };
-
-        steam = mkIf modCfg.steam.enable {
+        steam = lib.mkIf modCfg.steam.enable {
           enable = true;
           remotePlay.openFirewall = true;
           protontricks.enable = true;
-          extraCompatPackages = with pkgs; [ proton-ge-bin ];
+          extraCompatPackages = [ pkgs.proton-ge-bin ];
           gamescopeSession = {
             enable = true;
             steamArgs = [
@@ -90,11 +83,11 @@ with lib;
         };
       };
 
-      hardware = mkIf modCfg.controllers.enable {
+      hardware = lib.mkIf modCfg.controllers.enable {
         xpadneo.enable = true;
         xone.enable = true;
         uinput.enable = true;
-        steam-hardware.enable = mkIf modCfg.steam.enable true;
+        steam-hardware.enable = lib.mkIf modCfg.steam.enable true;
       };
 
       services.ananicy = {

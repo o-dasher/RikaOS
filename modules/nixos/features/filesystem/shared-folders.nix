@@ -13,10 +13,9 @@ let
     lib.types.either (lib.types.listOf lib.types.str) folderTreeType
   );
 in
-with lib;
 {
   options.features.filesystem.sharedFolders = {
-    folders = mkOption {
+    folders = lib.mkOption {
       type = folderTreeType;
       default = { };
       description = ''
@@ -24,12 +23,12 @@ with lib;
         Example: { shared.Media = [ "Music" "Movies" ]; }
       '';
     };
-    folderNames = mkOption {
-      type = types.listOf types.str;
+    folderNames = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
       default = [ ];
       description = "Shared folders with group write access (2770, users group). Computed from `folders`.";
     };
-    rootFolders = mkOption {
+    rootFolders = lib.mkOption {
       type = folderTreeType;
       default = { };
       description = ''
@@ -37,14 +36,14 @@ with lib;
         Example: { shared.Media = [ ]; }
       '';
     };
-    rootFolderNames = mkOption {
-      type = types.listOf types.str;
+    rootFolderNames = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
       description = "Folders owned by root with 755 permissions, suitable for SSH chroot. Computed from `rootFolders`.";
       default = [ ];
     };
   };
 
-  config = mkIf (modCfg.enable && cfg.enable) {
+  config = lib.mkIf (modCfg.enable && cfg.enable) {
     programs.git.config.safe.directory = cfg.folderNames;
 
     features.filesystem.sharedFolders =
@@ -72,7 +71,7 @@ with lib;
       {
         rootFolderNames = flattenFolderTree cfg.rootFolders;
         folderNames = flattenFolderTree (
-          recursiveUpdate cfg.folders {
+          lib.recursiveUpdate cfg.folders {
             shared.".config" = [
               "public"
               "private"
@@ -85,7 +84,7 @@ with lib;
       let
         mkSharedFolderEntry =
           path:
-          nameValuePair path {
+          lib.nameValuePair path {
             d = {
               mode = "2770";
               user = "root";
@@ -98,7 +97,7 @@ with lib;
 
         mkRootFolderEntry =
           path:
-          nameValuePair path {
+          lib.nameValuePair path {
             d = {
               mode = "0755";
               user = "root";

@@ -36,15 +36,8 @@
 
   profiles.secureServer.enable = true;
   features = {
-    core.userPreferences.enable = true;
-    nix = {
-      enable = true;
-      nixpkgs.enable = true;
-    };
-    boot = {
-      kernel.enable = true;
-      limine.enable = true;
-    };
+    nix.nixpkgs.enable = true;
+    boot.kernel.enable = true;
     filesystem.sharedFolders = {
       enable = true;
       rootFolders.shared.Media = [ ];

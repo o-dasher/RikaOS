@@ -7,11 +7,10 @@
 let
   cfg = config.profiles.utilities;
 in
-with lib;
 {
-  options.profiles.utilities.enable = mkEnableOption "Utilities profile";
+  options.profiles.utilities.enable = lib.mkEnableOption "Utilities profile";
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     programs = {
       htop.enable = true;
       yazi = {

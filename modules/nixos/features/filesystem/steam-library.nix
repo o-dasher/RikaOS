@@ -15,28 +15,27 @@ let
     "temp"
   ];
 in
-with lib;
 {
   options.features.filesystem.steamLibrary = {
-    enable = mkEnableOption "shared steam library location";
-    path = mkOption {
-      type = types.str;
+    enable = lib.mkEnableOption "shared steam library location";
+    path = lib.mkOption {
+      type = lib.types.str;
       default = "/shared/SteamGames";
       description = "Path to the shared steam library";
     };
-    group = mkOption {
-      type = types.str;
+    group = lib.mkOption {
+      type = lib.types.str;
       default = "steam-gamers";
       description = "Group that owns the shared library";
     };
-    users = mkOption {
-      type = types.listOf types.str;
+    users = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
       default = [ ];
       description = "Users to add to the shared group";
     };
   };
 
-  config = mkIf (modCfg.enable && cfg.enable) {
+  config = lib.mkIf (modCfg.enable && cfg.enable) {
     users.groups.${cfg.group}.members = cfg.users;
 
     systemd.tmpfiles.settings.steam-library =
@@ -44,19 +43,23 @@ with lib;
         libraryPaths = [
           cfg.path
           "${cfg.path}/steamapps"
-        ] ++ map (d: "${cfg.path}/steamapps/${d}") steamDirs;
+        ]
+        ++ map (d: "${cfg.path}/steamapps/${d}") steamDirs;
       in
       builtins.listToAttrs (
-        map (path: nameValuePair path {
-          d = {
-            mode = "2775";
-            user = "root";
-            group = cfg.group;
-          };
-          "a+" = {
-            argument = "g:${cfg.group}:rwx,d:g:${cfg.group}:rwx";
-          };
-        }) libraryPaths
+        map (
+          path:
+          lib.nameValuePair path {
+            d = {
+              mode = "2775";
+              user = "root";
+              group = cfg.group;
+            };
+            "a+" = {
+              argument = "g:${cfg.group}:rwx,d:g:${cfg.group}:rwx";
+            };
+          }
+        ) libraryPaths
       );
 
     systemd.user.services.setup-shared-steam-library = {

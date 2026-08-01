@@ -10,30 +10,12 @@
   ];
 
   time.hardwareClockInLocalTime = true;
-  services = {
-    gvfs.enable = true;
-    printing.enable = true;
-    openssh = {
-      enable = true;
-      openFirewall = false;
-      settings = {
-        PasswordAuthentication = false;
-        KbdInteractiveAuthentication = false;
-      };
-    };
-  };
+
+  profiles.desktop.enable = true;
 
   features = {
-    audio.enable = true;
-    virtualization.enable = true;
-    graphics.enable = true;
-    gaming.enable = true;
     desktop.theme.lain.enable = true;
-    core.userPreferences.enable = true;
-    hardware = {
-      amdgpu.enable = true;
-      keyboard.enable = true;
-    };
+    hardware.amdgpu.enable = true;
     networking = {
       enable = true;
       privacyIPv6.enable = true;
@@ -43,21 +25,14 @@
         dns.enable = true;
       };
     };
-    boot = {
-      kernel.enable = true;
-      limine = {
-        enable = true;
-        secure = {
-          enable = true;
-          encryptionUnlock.enable = true;
-        };
-      };
-    };
-    nix = {
+    boot.kernel.enable = true;
+    boot.limine.secure = {
       enable = true;
-      nixpkgs.enable = true;
+      encryptionUnlock.enable = true;
     };
+    nix.nixpkgs.enable = true;
     services = {
+      openssh.enable = true;
       bluetooth.enable = true;
       openrgb.enable = true;
       gnome-keyring.enable = true;
@@ -178,7 +153,6 @@
 
   fonts.enableDefaultPackages = true;
   programs = {
-    fish.enable = true;
     dconf.enable = true;
     nix-ld.enable = true;
     hyprland = {
@@ -198,9 +172,5 @@
       "--rt"
       "--expose-wayland"
     ];
-    neovim = {
-      enable = true;
-      defaultEditor = true;
-    };
   };
 }

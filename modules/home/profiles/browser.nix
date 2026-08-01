@@ -7,11 +7,10 @@
 let
   cfg = config.profiles.browser;
 in
-with lib;
 {
-  options.profiles.browser.enable = mkEnableOption "browser profile";
+  options.profiles.browser.enable = lib.mkEnableOption "browser profile";
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [ ungoogled-chromium ];
     programs = {
       floorp = {

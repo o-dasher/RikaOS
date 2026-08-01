@@ -6,7 +6,8 @@
   ...
 }:
 let
-  cfg = config.features.editors.jetbrains;
+  modCfg = config.features.editors;
+  cfg = modCfg.jetbrains;
 
   basePackages = {
     inherit (pkgs) android-studio;
@@ -14,9 +15,10 @@ let
   };
 
   ides =
-    if cfg.wayland.enable
-    then lib.mapAttrs (_: p: p.override { forceWayland = true; }) basePackages
-    else basePackages;
+    if cfg.wayland.enable then
+      lib.mapAttrs (_: p: p.override { forceWayland = true; }) basePackages
+    else
+      basePackages;
 in
 {
   options.features.editors.jetbrains = {
@@ -30,25 +32,27 @@ in
     };
   };
 
-  config = lib.mkIf (config.features.editors.enable && cfg.enable) (lib.mkMerge [
-    {
-      home = {
-        file = config.rika.utils.xdgConfigSelectiveSymLink "ideavim" [
-          "ideavimrc"
-        ] { };
+  config = lib.mkIf (modCfg.enable && cfg.enable) (
+    lib.mkMerge [
+      {
+        home = {
+          file = config.rika.utils.xdgConfigSelectiveSymLink "ideavim" [
+            "ideavimrc"
+          ] { };
 
-        packages =
-          lib.optionals cfg.datagrip.enable [ ides.datagrip ]
-          ++ lib.optionals cfg.rider.enable [ ides.rider ]
-          ++ lib.optionals cfg.clion.enable [ ides.clion ]
-          ++ lib.optionals cfg.android-studio.enable [
-            pkgs.android-tools
-            ides.android-studio
-          ];
-      };
-    }
-    (lib.mkIf (osConfig == null || !osConfig.home-manager.useGlobalPkgs) {
-      nixpkgs.config.android_sdk.accept_license = cfg.android-studio.enable;
-    })
-  ]);
+          packages =
+            lib.optionals cfg.datagrip.enable [ ides.datagrip ]
+            ++ lib.optionals cfg.rider.enable [ ides.rider ]
+            ++ lib.optionals cfg.clion.enable [ ides.clion ]
+            ++ lib.optionals cfg.android-studio.enable [
+              pkgs.android-tools
+              ides.android-studio
+            ];
+        };
+      }
+      (lib.mkIf (osConfig == null || !osConfig.home-manager.useGlobalPkgs) {
+        nixpkgs.config.android_sdk.accept_license = cfg.android-studio.enable;
+      })
+    ]
+  );
 }

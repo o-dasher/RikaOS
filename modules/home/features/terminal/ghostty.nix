@@ -1,11 +1,12 @@
 { lib, config, ... }:
 let
-  cfg = config.features.terminal.ghostty;
+  modCfg = config.features.terminal;
+  cfg = modCfg.ghostty;
 in
 {
   options.features.terminal.ghostty.enable = lib.mkEnableOption "ghostty";
 
-  config = lib.mkIf (config.features.terminal.enable && cfg.enable) {
+  config = lib.mkIf (modCfg.enable && cfg.enable) {
     programs.ghostty = {
       enable = true;
       settings = lib.mkAfter {

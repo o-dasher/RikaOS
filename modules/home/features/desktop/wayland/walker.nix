@@ -10,13 +10,12 @@ let
   cfg = modCfg.walker;
   hasStylix = options ? stylix;
 in
-with lib;
 {
-  options.features.desktop.wayland.walker.enable = (mkEnableOption "walker") // {
+  options.features.desktop.wayland.walker.enable = (lib.mkEnableOption "walker") // {
     default = true;
   };
 
-  config = mkIf (hasStylix && config.features.desktop.enable && modCfg.enable && cfg.enable) {
+  config = lib.mkIf (hasStylix && config.features.desktop.enable && modCfg.enable && cfg.enable) {
     home.packages = [ pkgs.app2unit ];
     services = {
       elephant.enable = true;
@@ -26,7 +25,7 @@ with lib;
         systemd.enable = true;
         settings = {
           list.max_entries = 10;
-          terminal = getExe pkgs.xdg-terminal-exec;
+          terminal = lib.getExe pkgs.xdg-terminal-exec;
         };
         theme = {
           name = "stylix";

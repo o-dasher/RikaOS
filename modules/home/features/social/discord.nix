@@ -4,7 +4,8 @@
   ...
 }:
 let
-  cfg = config.features.social.discord;
+  modCfg = config.features.social;
+  cfg = modCfg.discord;
 in
 {
   options.features.social.discord = {
@@ -16,7 +17,7 @@ in
     };
   };
 
-  config = lib.mkIf (config.features.social.enable && cfg.enable) {
+  config = lib.mkIf (modCfg.enable && cfg.enable) {
     xdg.autostart.entries = [
       (config.rika.utils.mkAutostartApp { pkg = config.programs.nixcord.finalPackage.discord; })
     ];

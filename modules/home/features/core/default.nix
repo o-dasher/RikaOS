@@ -1,13 +1,12 @@
 { lib, ... }:
-with lib;
 {
   imports = [
-    ./xdg.nix
     ./nix.nix
+    ./xdg.nix
   ];
 
   options.features.core = {
-    enable = mkEnableOption "core features" // {
+    enable = lib.mkEnableOption "core features" // {
       default = true;
     };
   };

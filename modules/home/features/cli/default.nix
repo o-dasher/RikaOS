@@ -1,5 +1,4 @@
 { lib, ... }:
-with lib;
 {
   imports = [
     ./fish.nix
@@ -9,7 +8,7 @@ with lib;
   ];
 
   options.features.cli = {
-    enable = mkEnableOption "cli features" // {
+    enable = lib.mkEnableOption "cli features" // {
       default = true;
     };
   };

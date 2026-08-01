@@ -6,11 +6,10 @@
 let
   cfg = config.profiles.secureServer;
 in
-with lib;
 {
-  options.profiles.secureServer.enable = mkEnableOption "secure server profile";
+  options.profiles.secureServer.enable = lib.mkEnableOption "secure server profile";
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     services = {
       fail2ban = {
         enable = true;

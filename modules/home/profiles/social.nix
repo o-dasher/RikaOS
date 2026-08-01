@@ -7,11 +7,10 @@
 let
   cfg = config.profiles.social;
 in
-with lib;
 {
-  options.profiles.social.enable = mkEnableOption "social profile";
+  options.profiles.social.enable = lib.mkEnableOption "social profile";
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [ signal-desktop ];
     features.social = {
       enable = true;

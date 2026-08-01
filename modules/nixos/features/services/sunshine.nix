@@ -4,13 +4,14 @@
   ...
 }:
 let
-  cfg = config.features.services.sunshine;
+  modCfg = config.features.services;
+  cfg = modCfg.sunshine;
 in
 {
   options.features.services.sunshine.enable =
     lib.mkEnableOption "Sunshine game streaming server (for Moonlight clients)";
 
-  config = lib.mkIf (config.features.services.enable && cfg.enable) {
+  config = lib.mkIf (modCfg.enable && cfg.enable) {
     services.sunshine = {
       enable = true;
       autoStart = true;

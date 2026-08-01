@@ -9,29 +9,28 @@ let
   modCfg = config.features.services;
   cfg = modCfg.sddm;
 in
-with lib;
 {
   imports = [
     ../../../lib
   ];
 
   options.features.services.sddm = {
-    enable = mkEnableOption "SDDM Display Manager";
-    background = mkOption {
-      type = types.path;
+    enable = lib.mkEnableOption "SDDM Display Manager";
+    background = lib.mkOption {
+      type = lib.types.path;
       description = "Background image for SDDM";
     };
-    flavor = mkOption {
-      type = types.str;
+    flavor = lib.mkOption {
+      type = lib.types.str;
       description = "Catppuccin flavor for SDDM (e.g., mocha, latte)";
     };
-    accent = mkOption {
-      type = types.str;
+    accent = lib.mkOption {
+      type = lib.types.str;
       description = "Catppuccin accent color for SDDM (e.g., mauve, pink)";
     };
   };
 
-  config = mkIf (modCfg.enable && cfg.enable) {
+  config = lib.mkIf (modCfg.enable && cfg.enable) {
     environment.systemPackages = [
       themeLib.cursor.package
       (pkgs.catppuccin-sddm.override {

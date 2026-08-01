@@ -1,8 +1,7 @@
 { lib, ... }:
-with lib;
 {
   options.features.filesystem = {
-    enable = mkEnableOption "filesystem features" // {
+    enable = lib.mkEnableOption "filesystem features" // {
       default = true;
     };
   };

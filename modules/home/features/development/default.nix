@@ -1,5 +1,4 @@
 { lib, ... }:
-with lib;
 {
   imports = [
     ./direnv.nix
@@ -9,7 +8,7 @@ with lib;
   ];
 
   options.features.development = {
-    enable = mkEnableOption "development features" // {
+    enable = lib.mkEnableOption "development features" // {
       default = true;
     };
   };

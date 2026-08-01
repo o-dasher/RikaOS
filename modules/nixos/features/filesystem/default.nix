@@ -1,5 +1,4 @@
 { lib, ... }:
-with lib;
 {
   imports = [
     ./bitlocker.nix
@@ -7,9 +6,7 @@ with lib;
     ./steam-library.nix
   ];
 
-  options.features.filesystem = {
-    enable = mkEnableOption "filesystem features" // {
-      default = true;
-    };
+  options.features.filesystem.enable = lib.mkEnableOption "filesystem features" // {
+    default = true;
   };
 }
