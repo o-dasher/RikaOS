@@ -4,27 +4,26 @@
   ...
 }:
 let
-  modCfg = config.features.social;
-  cfg = modCfg.discord;
-  discordPackage = config.programs.nixcord.finalPackage.discord;
+  cfg = config.features.social.discord;
 in
-with lib;
 {
   options.features.social.discord = {
-    enable = mkEnableOption "Discord with Krisp";
-    enableKrispPatch = mkOption {
-      type = types.bool;
+    enable = lib.mkEnableOption "Discord with Krisp";
+    enableKrispPatch = lib.mkOption {
+      type = lib.types.bool;
       default = true;
       description = "Enable the Krisp noise suppression patch for Discord";
     };
   };
 
-  config = mkIf (modCfg.enable && cfg.enable) {
-    xdg.autostart.entries = [ (config.rika.utils.mkAutostartApp { pkg = discordPackage; }) ];
+  config = lib.mkIf (config.features.social.enable && cfg.enable) {
+    xdg.autostart.entries = [
+      (config.rika.utils.mkAutostartApp { pkg = config.programs.nixcord.finalPackage.discord; })
+    ];
     programs.nixcord = {
       enable = true;
       discord = {
-        krisp.enable = true;
+        krisp.enable = cfg.enableKrispPatch;
         vencord.enable = true;
       };
       config.plugins = {

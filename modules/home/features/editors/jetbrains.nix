@@ -6,23 +6,31 @@
   ...
 }:
 let
-  modCfg = config.features.editors;
-  cfg = modCfg.jetbrains;
+  cfg = config.features.editors.jetbrains;
+
+  basePackages = {
+    inherit (pkgs) android-studio;
+    inherit (pkgs.jetbrains) clion datagrip rider;
+  };
+
+  ides =
+    if cfg.wayland.enable
+    then lib.mapAttrs (_: p: p.override { forceWayland = true; }) basePackages
+    else basePackages;
 in
-with lib;
 {
   options.features.editors.jetbrains = {
-    enable = mkEnableOption "JetBrains IDEs configuration";
-    android-studio.enable = mkEnableOption "Android Studio";
-    datagrip.enable = mkEnableOption "DataGrip";
-    rider.enable = mkEnableOption "Rider";
-    clion.enable = mkEnableOption "Clion";
-    wayland.enable = mkEnableOption "Force native Wayland for JetBrains IDEs" // {
+    enable = lib.mkEnableOption "JetBrains IDEs configuration";
+    android-studio.enable = lib.mkEnableOption "Android Studio";
+    datagrip.enable = lib.mkEnableOption "DataGrip";
+    rider.enable = lib.mkEnableOption "Rider";
+    clion.enable = lib.mkEnableOption "Clion";
+    wayland.enable = lib.mkEnableOption "Force native Wayland for JetBrains IDEs" // {
       default = true;
     };
   };
 
-  config = mkIf (modCfg.enable && cfg.enable) (mkMerge [
+  config = lib.mkIf (config.features.editors.enable && cfg.enable) (lib.mkMerge [
     {
       home = {
         file = config.rika.utils.xdgConfigSelectiveSymLink "ideavim" [
@@ -30,26 +38,16 @@ with lib;
         ] { };
 
         packages =
-          with pkgs;
-          with (
-            let
-              base = {
-                inherit (pkgs) android-studio;
-                inherit (pkgs.jetbrains) clion datagrip rider;
-              };
-            in
-            if cfg.wayland.enable then mapAttrs (_: p: p.override { forceWayland = true; }) base else base
-          );
-          optionals cfg.datagrip.enable [ datagrip ]
-          ++ optionals cfg.rider.enable [ rider ]
-          ++ optionals cfg.clion.enable [ clion ]
-          ++ optionals cfg.android-studio.enable [
-            android-tools
-            android-studio
+          lib.optionals cfg.datagrip.enable [ ides.datagrip ]
+          ++ lib.optionals cfg.rider.enable [ ides.rider ]
+          ++ lib.optionals cfg.clion.enable [ ides.clion ]
+          ++ lib.optionals cfg.android-studio.enable [
+            pkgs.android-tools
+            ides.android-studio
           ];
       };
     }
-    (mkIf (osConfig == null || !osConfig.home-manager.useGlobalPkgs) {
+    (lib.mkIf (osConfig == null || !osConfig.home-manager.useGlobalPkgs) {
       nixpkgs.config.android_sdk.accept_license = cfg.android-studio.enable;
     })
   ]);

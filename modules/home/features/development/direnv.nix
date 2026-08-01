@@ -1,13 +1,11 @@
 { lib, config, ... }:
 let
-  modCfg = config.features.development;
-  cfg = modCfg.direnv;
+  cfg = config.features.development.direnv;
 in
-with lib;
 {
-  options.features.development.direnv.enable = mkEnableOption "direnv";
+  options.features.development.direnv.enable = lib.mkEnableOption "direnv";
 
-  config = mkIf (modCfg.enable && cfg.enable) {
+  config = lib.mkIf (config.features.development.enable && cfg.enable) {
     programs.direnv = {
       enable = true;
       nix-direnv.enable = true;

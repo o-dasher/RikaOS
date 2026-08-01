@@ -4,17 +4,15 @@
   ...
 }:
 let
-  modCfg = config.features.core;
-  cfg = modCfg.xdg;
+  cfg = config.features.core.xdg;
 in
-with lib;
 {
   options.features.core.xdg = {
-    enable = mkEnableOption "xdg";
-    portal.enable = mkEnableOption "portal";
+    enable = lib.mkEnableOption "xdg";
+    portal.enable = lib.mkEnableOption "portal";
   };
 
-  config = mkIf (modCfg.enable && cfg.enable) {
+  config = lib.mkIf (config.features.core.enable && cfg.enable) {
     xdg = {
       enable = true;
       autostart = {
@@ -22,7 +20,7 @@ with lib;
         readOnly = true;
       };
       mime.enable = true;
-      portal = mkIf cfg.portal.enable {
+      portal = lib.mkIf cfg.portal.enable {
         enable = true;
         xdgOpenUsePortal = true;
       };

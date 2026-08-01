@@ -5,36 +5,31 @@
 }:
 let
   cfg = config.features.networking;
+  cf = cfg.cloudflare;
 in
-with lib;
 {
   options.features.networking.cloudflare = {
-    warp.enable = mkEnableOption "Warp";
-    dns.enable = mkEnableOption "DNS";
+    warp.enable = lib.mkEnableOption "Warp";
+    dns.enable = lib.mkEnableOption "DNS";
   };
 
-  config = mkIf cfg.enable (mkMerge [
+  config = lib.mkIf cfg.enable (lib.mkMerge [
     {
-      services.cloudflare-warp.enable = cfg.cloudflare.warp.enable;
+      services.cloudflare-warp.enable = cf.warp.enable;
     }
-    (mkIf cfg.cloudflare.dns.enable {
-      services =
-        let
-          dnsAddress = "127.0.0.1";
-          dohPort = 5053;
-        in
-        {
-          resolved = {
-            enable = true;
-            settings.Resolve.DNS = [ "${dnsAddress}:${toString dohPort}" ];
-          };
-          https-dns-proxy = {
-            enable = true;
-            address = dnsAddress;
-            port = dohPort;
-            provider.kind = "cloudflare";
-          };
+    (lib.mkIf cf.dns.enable {
+      services = {
+        resolved = {
+          enable = true;
+          settings.Resolve.DNS = [ "127.0.0.1:5053" ];
         };
+        https-dns-proxy = {
+          enable = true;
+          address = "127.0.0.1";
+          port = 5053;
+          provider.kind = "cloudflare";
+        };
+      };
     })
   ]);
 }

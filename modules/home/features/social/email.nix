@@ -4,10 +4,8 @@
   pkgs,
   ...
 }:
-with lib;
 let
-  modCfg = config.features.social;
-  cfg = modCfg.email;
+  cfg = config.features.social.email;
   thunderbirdProfile = "thiago-gmail";
 
   mkMail =
@@ -16,11 +14,11 @@ let
       profile ? thunderbirdProfile,
       ...
     }:
-    (recursiveUpdate {
-      imap.authentication = mkDefault "plain";
-      smtp.authentication = mkDefault "plain";
+    (lib.recursiveUpdate {
+      imap.authentication = lib.mkDefault "plain";
+      smtp.authentication = lib.mkDefault "plain";
     } (removeAttrs args [ "profile" ]))
-    // optionalAttrs (profile != null) {
+    // lib.optionalAttrs (profile != null) {
       thunderbird = {
         enable = true;
         profiles = [ profile ];
@@ -37,9 +35,9 @@ let
     };
 in
 {
-  options.features.social.email.enable = mkEnableOption "declarative email accounts";
+  options.features.social.email.enable = lib.mkEnableOption "declarative email accounts";
 
-  config = mkIf (modCfg.enable && cfg.enable && config.rika.utils.hasSecrets) {
+  config = lib.mkIf (config.features.social.enable && cfg.enable && config.rika.utils.hasSecrets) {
     home.packages = [ pkgs.protonmail-desktop ];
     programs.thunderbird = {
       enable = true;
@@ -48,7 +46,7 @@ in
 
     accounts.email = {
       maildirBasePath = "Mail";
-      accounts = mapAttrs mkMail {
+      accounts = lib.mapAttrs mkMail {
         thiago-gmail = mkGmail { primary = true; };
       };
     };

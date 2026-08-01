@@ -5,14 +5,12 @@
   ...
 }:
 let
-  modCfg = config.features.utilities;
-  cfg = modCfg.nemo;
+  cfg = config.features.utilities.nemo;
 in
-with lib;
 {
-  options.features.utilities.nemo.enable = mkEnableOption "nemo";
+  options.features.utilities.nemo.enable = lib.mkEnableOption "nemo";
 
-  config = mkIf (modCfg.enable && cfg.enable) {
+  config = lib.mkIf (config.features.utilities.enable && cfg.enable) {
     home.packages = with pkgs; [
       nemo-with-extensions
       nemo-fileroller # Archive integration

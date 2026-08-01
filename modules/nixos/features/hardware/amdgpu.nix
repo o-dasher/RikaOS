@@ -4,14 +4,12 @@
   ...
 }:
 let
-  modCfg = config.features.hardware;
-  cfg = modCfg.amdgpu;
+  cfg = config.features.hardware.amdgpu;
 in
-with lib;
 {
-  options.features.hardware.amdgpu.enable = mkEnableOption "AMDGPU support";
+  options.features.hardware.amdgpu.enable = lib.mkEnableOption "AMDGPU support";
 
-  config = mkIf (modCfg.enable && cfg.enable) {
+  config = lib.mkIf (config.features.hardware.enable && cfg.enable) {
     services.lact.enable = true;
 
     # AMD Anti-Lag 2 Vulkan layer — reduces click-to-photon input latency

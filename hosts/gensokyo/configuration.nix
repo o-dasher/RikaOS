@@ -209,7 +209,6 @@
   networking.firewall.allowedTCPPorts = [
     2022
   ];
-  networking.firewall.allowedUDPPorts = [ ];
 
   users = {
     groups.users.members = [

@@ -6,20 +6,18 @@
   ...
 }:
 let
-  modCfg = config.features.core;
-  cfg = modCfg.nix;
+  cfg = config.features.core.nix;
 in
-with lib;
 {
   options.features.core.nix = {
-    enable = mkEnableOption "nix" // {
+    enable = lib.mkEnableOption "nix" // {
       default = true;
     };
-    nixpkgs.enable = mkEnableOption "nixpkgs";
+    nixpkgs.enable = lib.mkEnableOption "nixpkgs";
   };
 
-  config = mkMerge [
-    (mkIf (modCfg.enable && cfg.enable) {
+  config = lib.mkMerge [
+    (lib.mkIf (config.features.core.enable && cfg.enable) {
       nix.settings = nixCaches;
       programs.nh = {
         enable = true;
@@ -27,9 +25,9 @@ with lib;
         flake = "${config.features.filesystem.sharedFolders.configurationRoot}/private";
       };
     })
-    (mkIf
+    (lib.mkIf
       (
-        modCfg.enable
+        config.features.core.enable
         && cfg.enable
         && cfg.nixpkgs.enable
         && (osConfig == null || !osConfig.home-manager.useGlobalPkgs)
