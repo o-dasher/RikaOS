@@ -183,11 +183,6 @@
                 colmena
                 ;
 
-              # Fix gnome-keyring detection in Antigravity IDE
-              antigravity-ide = prev.antigravity-ide.override {
-                commandLineArgs = "--password-store=gnome-libsecret";
-              };
-
               # Fixes keyboard input when switching workspace.
               foliate = prev.symlinkJoin {
                 inherit (prev.foliate) name meta;
