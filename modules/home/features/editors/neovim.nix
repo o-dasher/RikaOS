@@ -17,7 +17,7 @@ in
 
   config = lib.mkIf (modCfg.enable && cfg.enable) (
     lib.mkMerge [
-      (lib.mkIf (cfg.neovide.enable) {
+      (lib.mkIf cfg.neovide.enable {
         programs.neovide.enable = true;
         home.packages = [ pkgs.source-code-pro ];
       })
@@ -25,8 +25,8 @@ in
         programs.lazygit.enable = true;
         home.packages = [
           (import ../../../../flakes/neovim/package.nix {
+            inherit (inputs) mnw;
             inherit pkgs;
-            mnw = inputs.mnw;
           })
         ];
       }

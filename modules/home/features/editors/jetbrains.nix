@@ -50,9 +50,11 @@ in
             ];
         };
       }
-      (lib.mkIf (osConfig == null || !osConfig.home-manager.useGlobalPkgs) {
-        nixpkgs.config.android_sdk.accept_license = cfg.android-studio.enable;
-      })
+      (lib.mkIf ((osConfig == null || !osConfig.home-manager.useGlobalPkgs) && cfg.android-studio.enable)
+        {
+          nixpkgs.config.android_sdk.accept_license = cfg.android-studio.enable;
+        }
+      )
     ]
   );
 }
