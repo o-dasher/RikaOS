@@ -111,10 +111,12 @@
       lixSet = pkgs: pkgs.lixPackageSets.git;
 
       # Helper to import a nixpkgs revision with standard config
-      mkPkgs = system: p: import p {
-        inherit system;
-        config.allowUnfree = true;
-      };
+      mkPkgs =
+        system: p:
+        import p {
+          inherit system;
+          config.allowUnfree = true;
+        };
 
       systemConfigs = {
         hinamizawa = {
@@ -216,9 +218,13 @@
 
       mkHomeModules =
         hostName:
-        { username, stateVersion, system, ... }:
+        {
+          username,
+          stateVersion,
+          system,
+          ...
+        }:
         [
-          { nix.package = (lixSet pkgsFor.${system}).lix; }
           ./modules/home
           ./hosts/${hostName}/users/${username}
           agenix.homeManagerModules.default
@@ -307,7 +313,10 @@
             home-manager.lib.homeManagerConfiguration {
               inherit extraSpecialArgs;
               pkgs = pkgsFor.${system};
-              modules = mkHomeModules hostName (cfg // { inherit username; });
+              modules = {
+                nix.package = (lixSet pkgsFor.${system}).lix;
+              }
+              // mkHomeModules hostName (cfg // { inherit username; });
             }
           )
         ) homeConfigs;
