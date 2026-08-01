@@ -106,7 +106,14 @@
     }@inputs:
     let
       inherit (nixpkgs) lib;
-      getLixRevision = pkgs: pkgs.lixPackageSets.git;
+
+      getLixSet = pkgs: pkgs.lixPackageSets.git;
+      mkPkgs =
+        pkgs: system:
+        import pkgs {
+          inherit system;
+          config.allowUnfree = true;
+        };
 
       systemConfigs = {
         hinamizawa = {
@@ -133,8 +140,7 @@
       };
 
       targetSystems = lib.unique (
-        (lib.mapAttrsToList (_: { system, ... }: system) systemConfigs)
-        ++ (lib.mapAttrsToList (_: { system, ... }: system) homeConfigs)
+        map (c: c.system) (lib.attrValues systemConfigs ++ lib.attrValues homeConfigs)
       );
 
       extraSpecialArgs = {
@@ -157,18 +163,12 @@
         };
       };
 
-      pkgsFor =
-        let
-          mkPkgs =
-            pkgs: system:
-            import pkgs {
-              inherit system;
-              config.allowUnfree = true;
-            };
-        in
-        lib.genAttrs targetSystems (
-          system:
-          (mkPkgs nixpkgs system).appendOverlays [
+      pkgsFor = lib.genAttrs targetSystems (
+        system:
+        import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+          overlays = [
             nix-minecraft.overlay
             nur.overlays.default
             (final: prev: {
@@ -176,7 +176,7 @@
               master = mkPkgs nixpkgs-master system;
 
               # Lix
-              inherit (getLixRevision prev)
+              inherit (getLixSet prev)
                 nixpkgs-review
                 nix-eval-jobs
                 nix-fast-build
@@ -211,11 +211,12 @@
                 ];
               });
             })
-          ]
-        );
+          ];
+        }
+      );
 
       mkCommonModules = system: [
-        { nix.package = (getLixRevision pkgsFor.${system}).lix; }
+        { nix.package = (getLixSet pkgsFor.${system}).lix; }
       ];
 
       mkHomeModules =
@@ -255,23 +256,19 @@
             nixpkgs.pkgs = pkgsFor.${system};
             networking = { inherit hostName; };
             system = { inherit stateVersion; };
-            features.core.colmena.enable = builtins.hasAttr hostName deploymentTargets;
+            features.core.colmena.enable = deploymentTargets ? ${hostName};
             home-manager = {
               inherit extraSpecialArgs;
               useGlobalPkgs = true;
               useUserPackages = true;
-              users = lib.listToAttrs (
-                map (
-                  username:
-                  lib.nameValuePair username (
-                    { ... }:
-                    {
-                      imports = mkHomeModules hostName {
-                        inherit stateVersion username;
-                      };
-                    }
-                  )
-                ) users
+              users = lib.genAttrs users (
+                username:
+                { ... }:
+                {
+                  imports = mkHomeModules hostName {
+                    inherit stateVersion username;
+                  };
+                }
               );
             };
           }
@@ -298,41 +295,36 @@
 
       flake = {
         nixosConfigurations = lib.mapAttrs (
-          hostName:
-          systemConfig@{ system, ... }:
+          hostName: cfg:
           lib.nixosSystem {
-            inherit system;
             specialArgs = extraSpecialArgs;
-            modules = mkSystemModules hostName systemConfig;
+            inherit (cfg) system;
+            modules = mkSystemModules hostName cfg;
           }
         ) systemConfigs;
 
-        homeConfigurations = lib.listToAttrs (
-          lib.flatten (
-            lib.mapAttrsToList (
-              hostName:
-              homeConfig@{ system, users, ... }:
-              map (username: {
-                name = username;
-                value = home-manager.lib.homeManagerConfiguration {
-                  inherit extraSpecialArgs;
-                  pkgs = pkgsFor.${system};
-                  modules = mkCommonModules system ++ mkHomeModules hostName (homeConfig // { inherit username; });
-                };
-              }) users
-            ) homeConfigs
+        homeConfigurations = lib.concatMapAttrs (
+          hostName:
+          cfg@{ system, users, ... }:
+          lib.genAttrs users (
+            username:
+            home-manager.lib.homeManagerConfiguration {
+              inherit extraSpecialArgs;
+              pkgs = pkgsFor.${system};
+              modules = mkCommonModules system ++ mkHomeModules hostName (cfg // { inherit username; });
+            }
           )
-        );
+        ) homeConfigs;
 
         colmena = {
           meta = {
             nixpkgs = pkgsFor.${lib.head targetSystems};
-            nodeNixpkgs = lib.mapAttrs (_: systemConfig: pkgsFor.${systemConfig.system}) systemConfigs;
+            nodeNixpkgs = lib.mapAttrs (_: cfg: pkgsFor.${cfg.system}) systemConfigs;
             specialArgs = extraSpecialArgs;
           };
         }
-        // lib.mapAttrs (hostName: systemConfig: {
-          imports = mkSystemModules hostName systemConfig;
+        // lib.mapAttrs (hostName: cfg: {
+          imports = mkSystemModules hostName cfg;
 
           # Workaround: Colmena's eval.nix injects its evaluator package config (meta.nixpkgs.config)
           # into the node. However, NixOS asserts that nixpkgs.config must be empty when
@@ -344,7 +336,7 @@
             tags = [ hostName ];
             buildOnTarget = false;
           }
-          // (lib.attrByPath [ hostName ] { } deploymentTargets);
+          // (deploymentTargets.${hostName} or { });
         }) systemConfigs;
       };
     };
