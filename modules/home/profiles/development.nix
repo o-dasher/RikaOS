@@ -46,7 +46,6 @@ with lib;
       grep.enable = true;
       ripgrep.enable = true;
       zed-editor.enable = true;
-      antigravity.enable = true;
       antigravity-cli.enable = true;
       github-copilot-cli.enable = true;
       codex.enable = true;
