@@ -5,14 +5,12 @@
   ...
 }:
 let
-  modCfg = config.features.development;
-  cfg = modCfg.godot;
+  cfg = config.features.development.godot;
 in
-with lib;
 {
-  options.features.development.godot.enable = mkEnableOption "godot";
+  options.features.development.godot.enable = lib.mkEnableOption "godot";
 
-  config = mkIf (modCfg.enable && cfg.enable) {
+  config = lib.mkIf (config.features.development.enable && cfg.enable) {
     home.packages = [ pkgs.godot ];
   };
 }

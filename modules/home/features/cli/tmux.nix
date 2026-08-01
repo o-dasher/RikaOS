@@ -1,20 +1,17 @@
 { lib, config, ... }:
 let
-  modCfg = config.features.cli;
-  cfg = modCfg.tmux;
+  cfg = config.features.cli.tmux;
 in
-with lib;
 {
-  options.features.cli.tmux.enable = mkEnableOption "tmux";
+  options.features.cli.tmux.enable = lib.mkEnableOption "tmux";
 
-  config = mkIf (modCfg.enable && cfg.enable) {
+  config = lib.mkIf (config.features.cli.enable && cfg.enable) {
     programs.tmux = {
       enable = true;
       mouse = true;
-      extraConfig = # tmux
-        ''
-          bind-key v split-window -h
-        '';
+      extraConfig = ''
+        bind-key v split-window -h
+      '';
     };
   };
 }

@@ -1,18 +1,14 @@
 { lib, config, ... }:
 let
-  modCfg = config.features.cli;
-  cfg = modCfg.starship;
+  cfg = config.features.cli.starship;
 in
-with lib;
 {
-  options.features.cli.starship.enable = mkEnableOption "starship";
+  options.features.cli.starship.enable = lib.mkEnableOption "starship";
 
-  config = mkIf (modCfg.enable && cfg.enable) {
+  config = lib.mkIf (config.features.cli.enable && cfg.enable) {
     programs.starship = {
       enable = true;
-      settings = {
-        gcloud.disabled = true;
-      };
+      settings.gcloud.disabled = true;
     };
   };
 }

@@ -23,7 +23,6 @@ with lib;
         app2unit
         grimblast
         hyprshutdown
-        playerctl
         wireplumber
         xdg-terminal-exec
       ];
@@ -45,6 +44,7 @@ with lib;
     };
     services = {
       hyprpolkitagent.enable = true;
+      playerctld.enable = true;
       hypridle = {
         enable = true;
         settings = {

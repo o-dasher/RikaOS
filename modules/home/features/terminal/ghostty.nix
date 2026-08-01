@@ -1,16 +1,14 @@
 { lib, config, ... }:
 let
-  modCfg = config.features.terminal;
-  cfg = modCfg.ghostty;
+  cfg = config.features.terminal.ghostty;
 in
-with lib;
 {
-  options.features.terminal.ghostty.enable = mkEnableOption "ghostty";
+  options.features.terminal.ghostty.enable = lib.mkEnableOption "ghostty";
 
-  config = mkIf (modCfg.enable && cfg.enable) {
+  config = lib.mkIf (config.features.terminal.enable && cfg.enable) {
     programs.ghostty = {
       enable = true;
-      settings = mkAfter {
+      settings = lib.mkAfter {
         scrollback-limit = 10000;
         clipboard-read = "allow";
         gtk-titlebar = false;

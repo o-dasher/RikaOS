@@ -5,14 +5,12 @@
   ...
 }:
 let
-  modCfg = config.features.hardware;
-  cfg = modCfg.keyboard;
+  cfg = config.features.hardware.keyboard;
 in
-with lib;
 {
-  options.features.hardware.keyboard.enable = mkEnableOption "keyboard configuration (QMK/Via)";
+  options.features.hardware.keyboard.enable = lib.mkEnableOption "keyboard configuration (QMK/Via)";
 
-  config = mkIf (modCfg.enable && cfg.enable) {
+  config = lib.mkIf (config.features.hardware.enable && cfg.enable) {
     hardware.keyboard.qmk.enable = true;
     services.udev.packages = [ pkgs.via ];
   };

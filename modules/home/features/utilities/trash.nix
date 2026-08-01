@@ -5,34 +5,32 @@
   ...
 }:
 let
-  modCfg = config.features.utilities;
-  cfg = modCfg.trash;
+  cfg = config.features.utilities.trash;
 in
-with lib;
 {
   options.features.utilities.trash = {
-    enable = mkEnableOption "trash alias + cleanup";
-    retentionDays = mkOption {
-      type = types.int;
+    enable = lib.mkEnableOption "trash alias + cleanup";
+    retentionDays = lib.mkOption {
+      type = lib.types.int;
       default = 14;
       description = "Delete Trash items older than this many days";
     };
-    schedule = mkOption {
-      type = types.str;
+    schedule = lib.mkOption {
+      type = lib.types.str;
       default = "daily";
       description = "systemd user timer OnCalendar schedule";
     };
-    aliasRm = mkOption {
-      type = types.bool;
+    aliasRm = lib.mkOption {
+      type = lib.types.bool;
       default = true;
       description = "Alias rm to trash-put in fish";
     };
   };
 
-  config = mkIf (modCfg.enable && cfg.enable) {
+  config = lib.mkIf (config.features.utilities.enable && cfg.enable) {
     home.packages = [ pkgs.trash-cli ];
 
-    home.shellAliases = mkIf cfg.aliasRm {
+    home.shellAliases = lib.mkIf cfg.aliasRm {
       rm = "trash-put";
     };
 

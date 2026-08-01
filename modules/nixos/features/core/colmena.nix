@@ -4,22 +4,16 @@
   ...
 }:
 let
-  modCfg = config.features.core;
-  cfg = modCfg.colmena;
+  cfg = config.features.core.colmena;
 in
-with lib;
 {
-  options.features.core.colmena.enable = mkEnableOption "colmena deployment user";
+  options.features.core.colmena.enable = lib.mkEnableOption "colmena deployment user";
 
-  config = mkIf (modCfg.enable && cfg.enable) {
+  config = lib.mkIf (config.features.core.enable && cfg.enable) {
     users.users.colmena = {
       isNormalUser = true;
       extraGroups = [ "wheel" ];
-      openssh.authorizedKeys.keys =
-        let
-          inherit (config.features.services.openssh.keys) rika;
-        in
-        [ rika ];
+      openssh.authorizedKeys.keys = [ config.features.services.openssh.keys.rika ];
     };
 
     security.sudo.extraRules = [
