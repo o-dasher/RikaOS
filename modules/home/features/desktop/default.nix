@@ -1,15 +1,14 @@
 { lib, ... }:
-with lib;
 {
   imports = [
-    ./fonts.nix
     ./hyprland
     ./theme
     ./wayland
+    ./fonts.nix
   ];
 
   options.features.desktop = {
-    enable = mkEnableOption "desktop features" // {
+    enable = lib.mkEnableOption "desktop features" // {
       default = true;
     };
   };

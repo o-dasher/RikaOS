@@ -10,11 +10,15 @@ let
   cfg = modCfg.steam;
   steamPackage = if osConfig != null then osConfig.programs.steam.package else pkgs.steam;
 in
-with lib;
 {
-  options.features.gaming.steam.enable = mkEnableOption "Steam";
+  options.features.gaming.steam.enable = lib.mkEnableOption "Steam";
 
-  config = mkIf (modCfg.enable && cfg.enable) {
-    xdg.autostart.entries = [ (config.rika.utils.mkAutostartApp { pkg = steamPackage; args = "-silent"; }) ];
+  config = lib.mkIf (modCfg.enable && cfg.enable) {
+    xdg.autostart.entries = [
+      (config.rika.utils.mkAutostartApp {
+        pkg = steamPackage;
+        args = "-silent";
+      })
+    ];
   };
 }

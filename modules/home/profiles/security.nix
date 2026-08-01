@@ -7,11 +7,10 @@
 let
   cfg = config.profiles.security;
 in
-with lib;
 {
-  options.profiles.security.enable = mkEnableOption "security profile";
+  options.profiles.security.enable = lib.mkEnableOption "security profile";
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [ bitwarden-desktop ];
   };
 }

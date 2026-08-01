@@ -1,5 +1,4 @@
 { lib, ... }:
-with lib;
 {
   imports = [
     ./discord.nix
@@ -7,9 +6,7 @@ with lib;
     ./zapzap.nix
   ];
 
-  options.features.social = {
-    enable = mkEnableOption "social features" // {
-      default = true;
-    };
+  options.features.social.enable = lib.mkEnableOption "social features" // {
+    default = true;
   };
 }

@@ -3,9 +3,8 @@
   lib,
   ...
 }:
-with lib;
 {
-  config = mkIf config.programs.hyprland.enable {
+  config = lib.mkIf config.programs.hyprland.enable {
     # Ensure PAM service for hyprlock is configured in NixOS (/etc/pam.d/hyprlock)
     security.pam.services.hyprlock = { };
 

@@ -22,11 +22,10 @@ let
     '';
   };
 in
-with lib;
 {
-  options.profiles.gaming.enable = mkEnableOption "Gaming profile";
+  options.profiles.gaming.enable = lib.mkEnableOption "Gaming profile";
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       goverlay-fhs
       vkbasalt

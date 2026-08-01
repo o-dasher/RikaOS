@@ -44,11 +44,10 @@ let
     };
   };
 in
-with lib;
 {
-  options.features.gaming.ps4.enable = mkEnableOption "ps4";
+  options.features.gaming.ps4.enable = lib.mkEnableOption "ps4";
 
-  config = mkIf (modCfg.enable && cfg.enable) {
+  config = lib.mkIf (modCfg.enable && cfg.enable) {
     home.packages = with pkgs; [
       ps4-pkg-tools
       shadps4-qtlauncher

@@ -6,13 +6,12 @@
 let
   modCfg = config.features.virtualization;
 in
-with lib;
 {
-  options.features.virtualization = {
-    enable = mkEnableOption "virtualization features";
+  options.features.virtualization.enable = lib.mkEnableOption "virtualization features" // {
+    default = true;
   };
 
-  config = mkIf modCfg.enable {
+  config = lib.mkIf modCfg.enable {
     programs.virt-manager.enable = true;
     virtualisation = {
       spiceUSBRedirection.enable = true;

@@ -5,7 +5,6 @@
   osConfig ? null,
   ...
 }:
-with lib;
 let
   desktopCfg = config.features.desktop;
   modCfg = desktopCfg.wayland;
@@ -16,14 +15,10 @@ in
     ./wayle.nix
   ];
 
-  options.features.desktop.wayland.enable = mkEnableOption "Wayland base integration";
+  options.features.desktop.wayland.enable = lib.mkEnableOption "Wayland base integration";
 
-  config = mkIf (desktopCfg.enable && modCfg.enable) {
-    services.udiskie = {
-      enable = true;
-      automount = true;
-      notify = true;
-    };
+  config = lib.mkIf (desktopCfg.enable && modCfg.enable) {
+    services.udiskie.enable = true;
 
     home = {
       packages = with pkgs; [ wl-clipboard ];

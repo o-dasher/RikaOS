@@ -8,17 +8,16 @@ let
   modCfg = config.features.filesystem;
   cfg = modCfg.bitlocker;
 in
-with lib;
 {
   options.features.filesystem.bitlocker = {
-    enable = mkEnableOption "BitLocker declarative unlock";
-    defaultKeyFile = mkOption {
-      type = types.nullOr types.path;
+    enable = lib.mkEnableOption "BitLocker declarative unlock";
+    defaultKeyFile = lib.mkOption {
+      type = lib.types.nullOr lib.types.path;
       default = null;
       description = "Default path to the decrypted secret provided by agenix.";
     };
-    mountOptions = mkOption {
-      type = types.listOf types.str;
+    mountOptions = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
       default = [
         "rw"
         "noatime"
@@ -28,23 +27,23 @@ with lib;
         "iocharset=utf8"
       ];
     };
-    drives = mkOption {
+    drives = lib.mkOption {
       default = { };
-      type = types.attrsOf (
-        types.submodule (
+      type = lib.types.attrsOf (
+        lib.types.submodule (
           { name, ... }:
           {
             options = {
-              device = mkOption {
-                type = types.str;
+              device = lib.mkOption {
+                type = lib.types.str;
                 example = "/dev/disk/by-partlabel/Windows";
               };
-              mountPoint = mkOption {
-                type = types.str;
+              mountPoint = lib.mkOption {
+                type = lib.types.str;
                 default = "/${name}";
               };
-              keyFile = mkOption {
-                type = types.path;
+              keyFile = lib.mkOption {
+                type = lib.types.path;
                 default = cfg.defaultKeyFile;
                 description = "Path to the decrypted secret provided by agenix.";
               };
@@ -55,7 +54,7 @@ with lib;
     };
   };
 
-  config = mkIf (modCfg.enable && cfg.enable) {
+  config = lib.mkIf (modCfg.enable && cfg.enable) {
     services.udisks2.enable = true;
     boot.supportedFilesystems.ntfs = true;
 
@@ -81,7 +80,7 @@ with lib;
         Type = "oneshot";
         RemainAfterExit = "yes";
         Environment = "PATH=${
-          makeBinPath (
+          lib.makeBinPath (
             with pkgs;
             [
               coreutils
@@ -94,11 +93,11 @@ with lib;
         }";
       };
 
-      script = concatStringsSep "\n" (
-        mapAttrsToList (
-          name: drive:
+      script = lib.concatStringsSep "\n" (
+        lib.mapAttrsToList (
+          _: drive:
           let
-            mountOpts = concatStringsSep "," cfg.mountOptions;
+            mountOpts = lib.concatStringsSep "," cfg.mountOptions;
           in
           # bash
           ''

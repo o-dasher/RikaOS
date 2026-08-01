@@ -8,11 +8,10 @@ let
   modCfg = config.features.gaming;
   cfg = modCfg.minecraft;
 in
-with lib;
 {
-  options.features.gaming.minecraft.enable = mkEnableOption "minecraft";
+  options.features.gaming.minecraft.enable = lib.mkEnableOption "minecraft";
 
-  config = mkIf (modCfg.enable && cfg.enable) {
+  config = lib.mkIf (modCfg.enable && cfg.enable) {
     programs.prismlauncher = {
       enable = true;
       package = pkgs.prismlauncher.override {

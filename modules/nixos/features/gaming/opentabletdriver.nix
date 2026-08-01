@@ -7,13 +7,12 @@ let
   modCfg = config.features.gaming;
   cfg = modCfg.otd;
 in
-with lib;
 {
-  options.features.gaming.otd.enable = mkEnableOption "OpenTabletDriver" // {
+  options.features.gaming.otd.enable = lib.mkEnableOption "OpenTabletDriver" // {
     default = true;
   };
 
-  config = mkIf (modCfg.enable && cfg.enable) {
+  config = lib.mkIf (modCfg.enable && cfg.enable) {
     hardware = {
       uinput.enable = true;
       opentabletdriver = {

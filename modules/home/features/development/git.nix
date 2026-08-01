@@ -9,11 +9,10 @@ let
   cfg = modCfg.git;
   localHostName = if osConfig != null then osConfig.networking.hostName else null;
 in
-with lib;
 {
-  options.features.development.git.enable = mkEnableOption "git";
+  options.features.development.git.enable = lib.mkEnableOption "git";
 
-  config = mkIf (modCfg.enable && cfg.enable) {
+  config = lib.mkIf (modCfg.enable && cfg.enable) {
     programs = {
       gh.enable = true;
       ssh = {
@@ -36,7 +35,7 @@ with lib;
             IdentityFile = "~/.ssh/id_ed25519-thiago";
           };
         }
-        // optionalAttrs (localHostName != null) {
+        // lib.optionalAttrs (localHostName != null) {
           "${localHostName}" = {
             HostName = "127.0.0.1";
             User = "root";
@@ -47,7 +46,7 @@ with lib;
       git = {
         enable = true;
         signing.format = null;
-        settings.safe.directory = mkIf (
+        settings.safe.directory = lib.mkIf (
           osConfig != null
         ) osConfig.features.filesystem.sharedFolders.folderNames;
       };

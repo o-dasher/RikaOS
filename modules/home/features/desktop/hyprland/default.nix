@@ -11,11 +11,10 @@ let
   hasStylix = options ? stylix;
   hasUWSM = osConfig != null && osConfig.programs.hyprland.withUWSM;
 in
-with lib;
 {
-  options.features.desktop.hyprland.enable = mkEnableOption "hyprland";
+  options.features.desktop.hyprland.enable = lib.mkEnableOption "hyprland";
 
-  config = mkIf (config.features.desktop.enable && config.features.desktop.hyprland.enable) {
+  config = lib.mkIf (config.features.desktop.enable && config.features.desktop.hyprland.enable) {
     features.desktop.wayland.enable = true;
     programs.hyprlock.enable = true;
     home = {
@@ -36,7 +35,7 @@ with lib;
 
       pointerCursor = {
         enable = true;
-        hyprcursor.enable = mkIf (hasStylix && config.features.desktop.theme.enable) true;
+        hyprcursor.enable = lib.mkIf (hasStylix && config.features.desktop.theme.enable) true;
       };
 
       # Prevent hyprland from picking the wrong gpu as the primary, which can hurt performance badly on reboots.
@@ -49,7 +48,7 @@ with lib;
         enable = true;
         settings = {
           general = {
-            lock_cmd = "${pkgs.procps}/bin/pidof hyprlock || ${getExe pkgs.hyprlock}";
+            lock_cmd = "${pkgs.procps}/bin/pidof hyprlock || ${lib.getExe pkgs.hyprlock}";
             before_sleep_cmd = "${pkgs.systemd}/bin/loginctl lock-session";
             after_sleep_cmd = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
             inhibit_sleep = 3;
@@ -109,29 +108,29 @@ with lib;
         variables = [ "--all" ];
       };
 
-      extraConfig = concatStringsSep "\n" (
-        optionals config.features.desktop.wayland.walker.enable [
+      extraConfig = lib.concatStringsSep "\n" (
+        lib.optionals config.features.desktop.wayland.walker.enable [
           #lua
           ''hl.bind("SUPER + D", hl.dsp.exec_cmd("app2unit walker --nohints"))''
         ]
-        ++ optionals config.profiles.browser.enable [
+        ++ lib.optionals config.profiles.browser.enable [
           #lua
           ''
             hl.window_rule({ match = { class = "^(brave-origin)$" }, workspace = "2 silent" })
             hl.on("hyprland.start", function()
-              hl.exec_cmd("app2unit ${getExe config.programs.chromium.finalPackage}")
+              hl.exec_cmd("app2unit ${lib.getExe config.programs.chromium.finalPackage}")
             end)
           ''
         ]
-        ++ optionals config.programs.nixcord.discord.vencord.enable [
+        ++ lib.optionals config.programs.nixcord.discord.vencord.enable [
           #lua
           ''hl.window_rule({ match = { class = "^(discord)$" }, workspace = "3 silent" })''
         ]
-        ++ optionals config.features.social.zapzap.enable [
+        ++ lib.optionals config.features.social.zapzap.enable [
           #lua
           ''hl.window_rule({ match = { class = "^(com\\.rtosta\\.zapzap)$" }, workspace = "10 silent" })''
         ]
-        ++ optionals (hasStylix && config.features.desktop.theme.enable) [
+        ++ lib.optionals (hasStylix && config.features.desktop.theme.enable) [
           #lua
           ''
             hl.config({

@@ -1,12 +1,11 @@
 { lib, ... }:
-with lib;
 {
   imports = [
     ./setup.nix
   ];
 
   options.features.nix = {
-    enable = mkEnableOption "nix" // {
+    enable = lib.mkEnableOption "nix" // {
       default = true;
     };
   };

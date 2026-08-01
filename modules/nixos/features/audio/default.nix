@@ -7,13 +7,14 @@
 let
   modCfg = config.features.audio;
 in
-with lib;
 {
   imports = [ inputs.nix-gaming.nixosModules.pipewireLowLatency ];
 
-  options.features.audio.enable = mkEnableOption "audio features";
+  options.features.audio.enable = lib.mkEnableOption "audio features" // {
+    default = true;
+  };
 
-  config = mkIf modCfg.enable {
+  config = lib.mkIf modCfg.enable {
     security.rtkit.enable = true;
     services.pipewire = {
       enable = true;

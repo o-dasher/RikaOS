@@ -1,14 +1,11 @@
 { lib, ... }:
-with lib;
 {
   imports = [
-    ./neovim.nix
     ./jetbrains.nix
+    ./neovim.nix
   ];
 
-  options.features.editors = {
-    enable = mkEnableOption "editor features" // {
-      default = true;
-    };
+  options.features.editors.enable = lib.mkEnableOption "editor features" // {
+    default = true;
   };
 }

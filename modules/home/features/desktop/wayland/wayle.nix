@@ -12,13 +12,12 @@ let
   cfg = modCfg.wayle;
   hasStylix = options ? stylix;
 in
-with lib;
 {
-  options.features.desktop.wayland.wayle.enable = (mkEnableOption "wayle") // {
+  options.features.desktop.wayland.wayle.enable = (lib.mkEnableOption "wayle") // {
     default = true;
   };
 
-  config = mkIf (hasStylix && config.features.desktop.enable && modCfg.enable && cfg.enable) {
+  config = lib.mkIf (hasStylix && config.features.desktop.enable && modCfg.enable && cfg.enable) {
     # Fixes blurry icons due to vulkan render antialiasing.
     systemd.user.services.wayle.Service.Environment = [ "GSK_RENDERER=cairo" ];
     services.wayle = {
@@ -26,8 +25,8 @@ with lib;
 
       settings = {
         general = {
-          font-sans = mkForce config.stylix.fonts.sansSerif.name;
-          font-mono = mkForce config.stylix.fonts.monospace.name;
+          font-sans = lib.mkForce config.stylix.fonts.sansSerif.name;
+          font-mono = lib.mkForce config.stylix.fonts.monospace.name;
         };
 
         bar = {
@@ -56,7 +55,7 @@ with lib;
           layout = [
             {
               monitor = "*";
-              left = optionals config.features.desktop.hyprland.enable [
+              left = lib.optionals config.features.desktop.hyprland.enable [
                 {
                   name = "modules-left";
                   modules = [
@@ -110,7 +109,7 @@ with lib;
             label-color = "accent";
           };
 
-          hyprland-workspaces = mkIf config.features.desktop.hyprland.enable {
+          hyprland-workspaces = lib.mkIf config.features.desktop.hyprland.enable {
             min-workspace-count = 10;
             monitor-specific = false;
             show-special = true;
@@ -157,7 +156,7 @@ with lib;
           };
 
           microphone = {
-            left-click = getExe pkgs.pwvucontrol;
+            left-click = lib.getExe pkgs.pwvucontrol;
             icon-show = true;
             icon-bg-color = "accent";
             icon-color = "fg-on-accent";
@@ -167,7 +166,7 @@ with lib;
           };
 
           volume = {
-            left-click = getExe pkgs.pwvucontrol;
+            left-click = lib.getExe pkgs.pwvucontrol;
             scroll-up = "${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%+";
             scroll-down = "${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%-";
             icon-show = true;

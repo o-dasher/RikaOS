@@ -9,26 +9,27 @@ let
   modCfg = config.features.editors;
   cfg = modCfg.neovim;
 in
-with lib;
 {
   options.features.editors.neovim = {
-    enable = mkEnableOption "neovim";
-    neovide.enable = mkEnableOption "neovide";
+    enable = lib.mkEnableOption "neovim";
+    neovide.enable = lib.mkEnableOption "neovide";
   };
 
-  config = mkIf (modCfg.enable && cfg.enable) (mkMerge [
-    (mkIf (cfg.neovide.enable) {
-      programs.neovide.enable = true;
-      home.packages = [ pkgs.source-code-pro ];
-    })
-    {
-      programs.lazygit.enable = true;
-      home.packages = [
-        (import ../../../../flakes/neovim/package.nix {
-          inherit pkgs;
-          mnw = inputs.mnw;
-        })
-      ];
-    }
-  ]);
+  config = lib.mkIf (modCfg.enable && cfg.enable) (
+    lib.mkMerge [
+      (lib.mkIf (cfg.neovide.enable) {
+        programs.neovide.enable = true;
+        home.packages = [ pkgs.source-code-pro ];
+      })
+      {
+        programs.lazygit.enable = true;
+        home.packages = [
+          (import ../../../../flakes/neovim/package.nix {
+            inherit pkgs;
+            mnw = inputs.mnw;
+          })
+        ];
+      }
+    ]
+  );
 }

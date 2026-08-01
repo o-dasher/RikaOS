@@ -1,7 +1,8 @@
-{ lib, ... }:
-with lib;
+{ ... }:
 {
   imports = [
+    ./core.nix
+    ./desktop.nix
     ./secure-server.nix
   ];
 }

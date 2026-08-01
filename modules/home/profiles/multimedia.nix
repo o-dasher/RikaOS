@@ -7,11 +7,10 @@
 let
   cfg = config.profiles.multimedia;
 in
-with lib;
 {
-  options.profiles.multimedia.enable = mkEnableOption "multimedia profile";
+  options.profiles.multimedia.enable = lib.mkEnableOption "multimedia profile";
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     services.easyeffects.enable = true;
     programs = {
       # Video

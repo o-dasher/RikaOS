@@ -1,5 +1,4 @@
 { lib, ... }:
-with lib;
 {
   imports = [
     ./heroic.nix
@@ -11,7 +10,7 @@ with lib;
   ];
 
   options.features.gaming = {
-    enable = mkEnableOption "Gaming" // {
+    enable = lib.mkEnableOption "Gaming" // {
       default = true;
     };
   };

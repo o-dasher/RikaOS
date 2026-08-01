@@ -7,29 +7,28 @@ let
   modCfg = config.features.networking;
   cfg = modCfg.ddns;
 in
-with lib;
 {
   options.features.networking.ddns = {
-    enable = mkEnableOption "Cloudflare DDNS";
-    domains = mkOption {
-      type = types.listOf types.str;
+    enable = lib.mkEnableOption "Cloudflare DDNS";
+    domains = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
       description = "DNS records to update (for example host.example.com)";
     };
-    zone = mkOption {
-      type = types.str;
+    zone = lib.mkOption {
+      type = lib.types.str;
       description = "Cloudflare zone name (for example example.com)";
     };
-    useWebIPv6 = mkOption {
-      type = types.bool;
+    useWebIPv6 = lib.mkOption {
+      type = lib.types.bool;
       description = "Use webv6 lookup instead of interface address for DDNS";
     };
-    updateIPv4 = mkOption {
-      type = types.bool;
+    updateIPv4 = lib.mkOption {
+      type = lib.types.bool;
       description = "Whether to update IPv4 (A) records as well";
     };
   };
 
-  config = mkIf (modCfg.enable && cfg.enable && config.rika.utils.hasSecrets) {
+  config = lib.mkIf (modCfg.enable && cfg.enable && config.rika.utils.hasSecrets) {
     services.ddclient = {
       enable = true;
       inherit (cfg) domains zone;

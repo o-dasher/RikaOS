@@ -7,20 +7,19 @@
 let
   modCfg = config.features.boot;
 in
-with lib;
 {
   imports = [
     ./limine.nix
   ];
 
   options.features.boot = {
-    kernel.enable = mkEnableOption "Install latest linux kernel";
-    enable = mkEnableOption "boot features" // {
+    kernel.enable = lib.mkEnableOption "Install latest linux kernel";
+    enable = lib.mkEnableOption "boot features" // {
       default = true;
     };
   };
 
-  config = mkIf (modCfg.enable && modCfg.kernel.enable) {
+  config = lib.mkIf (modCfg.enable && modCfg.kernel.enable) {
     boot.kernelPackages = pkgs.linuxPackages_latest;
   };
 }

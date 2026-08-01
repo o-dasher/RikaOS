@@ -5,11 +5,18 @@
   osConfig ? null,
   ...
 }:
-with lib;
 {
-  options.rika = {
-    utils = mkOption {
-      type = types.attrs;
+  options = {
+    features.filesystem.sharedFolders = {
+      enable = lib.mkEnableOption "sharedFolders";
+      configurationRoot = lib.mkOption {
+        default = "/shared/.config";
+        type = lib.types.str;
+      };
+    };
+
+    rika.utils = lib.mkOption {
+      type = lib.types.attrs;
       default = { };
       description = "Utility functions for RikaOS configuration";
     };
@@ -22,12 +29,12 @@ with lib;
       {
         pkg,
         args ? "",
-        command ? "${getExe pkg}${optionalString (args != "") " ${args}"}",
+        command ? "${lib.getExe pkg}${lib.optionalString (args != "") " ${args}"}",
       }:
       let
         hasUWSM = osConfig != null && osConfig.programs.uwsm.enable;
-        execCmd = if hasUWSM then command else "${getExe pkgs.app2unit} -- ${command}";
-        pkgName = getName pkg;
+        execCmd = if hasUWSM then command else "${lib.getExe pkgs.app2unit} -- ${command}";
+        pkgName = lib.getName pkg;
         desktopItem = pkgs.makeDesktopItem {
           name = pkgName;
           desktopName = pkgName;
@@ -43,12 +50,9 @@ with lib;
       from: to: paths: opts:
       builtins.listToAttrs (
         map (
-          filePath:
-          lib.nameValuePair "${to}/${filePath}" (
-            {
-              source = config.lib.file.mkOutOfStoreSymlink "${from}/${filePath}";
-            }
-            // opts
+          p:
+          lib.nameValuePair "${to}/${p}" (
+            { source = config.lib.file.mkOutOfStoreSymlink "${from}/${p}"; } // opts
           )
         ) paths
       );
@@ -60,7 +64,7 @@ with lib;
     prefixset =
       prefix: kvpairs:
       builtins.mapAttrs (
-        name: value: if builtins.typeOf prefix == "lambda" then prefix value else prefix + " " + value
+        _: v: if builtins.typeOf prefix == "lambda" then prefix v else prefix + " " + v
       ) kvpairs;
 
     css.tailwindCSS =
@@ -68,12 +72,10 @@ with lib;
       let
         # Filter to only include base16/24 color names (base00-base0F, base10-base17)
         # Excludes derivatives like base00-hex, base00-rgb-r, etc.
-        colors = filterAttrs (
-          name: _: builtins.match "base[0-1][0-9A-Fa-f]" name != null
+        colors = lib.filterAttrs (
+          n: _: builtins.match "base[0-1][0-9A-Fa-f]" n != null
         ) config.lib.stylix.colors;
-        colorEntries = builtins.concatStringsSep ", " (
-          mapAttrsToList (name: value: "${name}: \"#${value}\"") colors
-        );
+        colorEntries = builtins.concatStringsSep ", " (lib.mapAttrsToList (n: v: "${n}: \"#${v}\"") colors);
       in
       builtins.readFile (
         pkgs.runCommand "tailwindify.css"

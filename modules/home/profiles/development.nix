@@ -7,11 +7,10 @@
 let
   cfg = config.profiles.development;
 in
-with lib;
 {
-  options.profiles.development.enable = mkEnableOption "Development profile";
+  options.profiles.development.enable = lib.mkEnableOption "Development profile";
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     services.gnome-keyring.enable = true;
     features = {
       terminal.ghostty.enable = true;

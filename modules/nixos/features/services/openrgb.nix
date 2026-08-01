@@ -11,11 +11,10 @@ let
   openrgbProfile = config.services.hardware.openrgb.startupProfile;
   openrgbReloadCmd = "${pkgs.openrgb}/bin/openrgb --profile ${openrgbProfile}";
 in
-with lib;
 {
-  options.features.services.openrgb.enable = mkEnableOption "openrgb";
+  options.features.services.openrgb.enable = lib.mkEnableOption "openrgb";
 
-  config = mkIf (modCfg.enable && cfg.enable) {
+  config = lib.mkIf (modCfg.enable && cfg.enable) {
     services.hardware.openrgb = {
       enable = true;
       startupProfile = "/var/lib/OpenRGB/black.orp";

@@ -90,30 +90,31 @@
   };
 
   outputs =
-    {
+    inputs@{
       nixpkgs,
       home-manager,
-      stylix,
       agenix,
       flake-parts,
-      nixcord,
-      nixpkgs-stable,
-      nix-minecraft,
       playit-nixos-module,
+      nix-minecraft,
+      nixcord,
+      stylix,
       nur,
+      nixpkgs-stable,
       nixpkgs-master,
       ...
-    }@inputs:
+    }:
     let
       inherit (nixpkgs) lib;
 
-      getLixSet = pkgs: pkgs.lixPackageSets.git;
-      mkPkgs =
-        pkgs: system:
-        import pkgs {
-          inherit system;
-          config.allowUnfree = true;
-        };
+      # Single source of truth for the Lix revision package set used across the flake
+      lixSet = pkgs: pkgs.lixPackageSets.git;
+
+      # Helper to import a nixpkgs revision with standard config
+      mkPkgs = system: p: import p {
+        inherit system;
+        config.allowUnfree = true;
+      };
 
       systemConfigs = {
         hinamizawa = {
@@ -132,7 +133,6 @@
       };
 
       homeConfigs = { };
-
       deploymentTargets = {
         wired = { };
         gensokyo.targetHost = "fuio.dshs.cc";
@@ -171,53 +171,54 @@
           overlays = [
             nix-minecraft.overlay
             nur.overlays.default
-            (final: prev: {
-              stable = mkPkgs nixpkgs-stable system;
-              master = mkPkgs nixpkgs-master system;
+            (
+              final: prev:
+              let
+                lix = lixSet prev;
+              in
+              {
+                stable = mkPkgs system nixpkgs-stable;
+                master = mkPkgs system nixpkgs-master;
 
-              # Lix
-              inherit (getLixSet prev)
-                nixpkgs-review
-                nix-eval-jobs
-                nix-fast-build
-                colmena
-                ;
+                # Lix
+                inherit (lix)
+                  nixpkgs-review
+                  nix-eval-jobs
+                  nix-fast-build
+                  colmena
+                  ;
 
-              # Fixes keyboard input when switching workspace.
-              foliate = prev.symlinkJoin {
-                inherit (prev.foliate) name meta;
-                paths = [ prev.foliate ];
-                nativeBuildInputs = [ prev.makeWrapper ];
-                postBuild = ''
-                  wrapProgram $out/bin/foliate --set GDK_BACKEND x11
-                '';
-              };
+                # Fixes keyboard input when switching workspace.
+                foliate = prev.symlinkJoin {
+                  inherit (prev.foliate) name meta;
+                  paths = [ prev.foliate ];
+                  nativeBuildInputs = [ prev.makeWrapper ];
+                  postBuild = "wrapProgram $out/bin/foliate --set GDK_BACKEND x11";
+                };
 
-              # Gamescope
-              gamescope = prev.gamescope.overrideAttrs (old: {
-                # Blur fix: https://github.com/ValveSoftware/gamescope/issues/1622.
-                NIX_CFLAGS_COMPILE = (old.NIX_CFLAGS_COMPILE or [ ]) ++ [ "-fno-fast-math" ];
-                patches = (old.patches or [ ]) ++ [
-                  # Fix Gamescope not closing https://github.com/ValveSoftware/gamescope/pull/1908
-                  (prev.fetchpatch {
-                    url = "https://github.com/ValveSoftware/gamescope/commit/fa900b0694ffc8b835b91ef47a96ed90ac94823b.diff";
-                    hash = "sha256-eIHhgonP6YtSqvZx2B98PT1Ej4/o0pdU+4ubdiBgBM4=";
-                  })
-                ];
-              });
-            })
+                # Gamescope
+                gamescope = prev.gamescope.overrideAttrs (old: {
+                  # Blur fix: https://github.com/ValveSoftware/gamescope/issues/1622.
+                  NIX_CFLAGS_COMPILE = (old.NIX_CFLAGS_COMPILE or [ ]) ++ [ "-fno-fast-math" ];
+                  patches = (old.patches or [ ]) ++ [
+                    # Fix Gamescope not closing https://github.com/ValveSoftware/gamescope/pull/1908
+                    (prev.fetchpatch {
+                      url = "https://github.com/ValveSoftware/gamescope/commit/fa900b0694ffc8b835b91ef47a96ed90ac94823b.diff";
+                      hash = "sha256-eIHhgonP6YtSqvZx2B98PT1Ej4/o0pdU+4ubdiBgBM4=";
+                    })
+                  ];
+                });
+              }
+            )
           ];
         }
       );
 
-      mkCommonModules = system: [
-        { nix.package = (getLixSet pkgsFor.${system}).lix; }
-      ];
-
       mkHomeModules =
         hostName:
-        { username, stateVersion, ... }:
+        { username, stateVersion, system, ... }:
         [
+          { nix.package = (lixSet pkgsFor.${system}).lix; }
           ./modules/home
           ./hosts/${hostName}/users/${username}
           agenix.homeManagerModules.default
@@ -238,8 +239,8 @@
           users ? [ ],
           ...
         }:
-        mkCommonModules system
-        ++ [
+        [
+          { nix.package = (lixSet pkgsFor.${system}).lix; }
           ./modules/nixos
           ./hosts/${hostName}/configuration.nix
           stylix.nixosModules.stylix
@@ -261,7 +262,7 @@
                 { ... }:
                 {
                   imports = mkHomeModules hostName {
-                    inherit stateVersion username;
+                    inherit stateVersion username system;
                   };
                 }
               );
@@ -306,7 +307,7 @@
             home-manager.lib.homeManagerConfiguration {
               inherit extraSpecialArgs;
               pkgs = pkgsFor.${system};
-              modules = mkCommonModules system ++ mkHomeModules hostName (cfg // { inherit username; });
+              modules = mkHomeModules hostName (cfg // { inherit username; });
             }
           )
         ) homeConfigs;

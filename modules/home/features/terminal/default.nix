@@ -1,13 +1,10 @@
 { lib, ... }:
-with lib;
 {
   imports = [
     ./ghostty.nix
   ];
 
-  options.features.terminal = {
-    enable = mkEnableOption "terminal features" // {
-      default = true;
-    };
+  options.features.terminal.enable = lib.mkEnableOption "terminal features" // {
+    default = true;
   };
 }

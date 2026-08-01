@@ -7,19 +7,18 @@
 let
   cfg = config.features.nix;
 in
-with lib;
 {
   options.features.nix = {
-    nixpkgs.enable = mkEnableOption "nixpkgs";
-    trusted-users = mkOption {
+    nixpkgs.enable = lib.mkEnableOption "nixpkgs";
+    trusted-users = lib.mkOption {
       default = [ ];
-      type = types.listOf types.str;
+      type = lib.types.listOf lib.types.str;
     };
-    optimise = mkEnableOption "optmise";
+    optimise = lib.mkEnableOption "optmise";
   };
 
-  config = mkIf cfg.enable {
-    nix = mkMerge [
+  config = lib.mkIf cfg.enable {
+    nix = lib.mkMerge [
       {
         settings = {
           trusted-users = [ "@wheel" ] ++ cfg.trusted-users;
@@ -30,7 +29,7 @@ with lib;
         }
         // nixCaches;
       }
-      (mkIf cfg.optimise {
+      (lib.mkIf cfg.optimise {
         settings.auto-optimise-store = true;
         optimise.automatic = true;
         gc = {
