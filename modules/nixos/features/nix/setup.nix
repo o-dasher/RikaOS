@@ -9,7 +9,6 @@ let
 in
 {
   options.features.nix = {
-    nixpkgs.enable = lib.mkEnableOption "nixpkgs";
     trusted-users = lib.mkOption {
       default = [ ];
       type = lib.types.listOf lib.types.str;

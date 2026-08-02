@@ -36,7 +36,6 @@
 
   profiles.secureServer.enable = true;
   features = {
-    nix.nixpkgs.enable = true;
     boot.kernel.enable = true;
     filesystem.sharedFolders = {
       enable = true;

@@ -25,12 +25,13 @@
         dns.enable = true;
       };
     };
-    boot.kernel.enable = true;
-    boot.limine.secure = {
-      enable = true;
-      encryptionUnlock.enable = true;
+    boot = {
+      kernel.enable = true;
+      limine.secure = {
+        enable = true;
+        encryptionUnlock.enable = true;
+      };
     };
-    nix.nixpkgs.enable = true;
     services = {
       openssh.enable = true;
       bluetooth.enable = true;
