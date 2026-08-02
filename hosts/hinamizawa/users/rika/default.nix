@@ -41,7 +41,6 @@
   home.packages = with pkgs; [
     # I love my keyboard.
     via
-    vial
 
     # tools
     pwvucontrol
