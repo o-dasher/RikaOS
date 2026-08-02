@@ -12,6 +12,14 @@ in
 
   config = lib.mkIf cfg.enable {
     services.easyeffects.enable = true;
+    systemd.user.services.easyeffects = {
+      Service.Environment = [ "QT_QPA_PLATFORM=wayland;xcb;offscreen" ];
+      Unit = {
+        After = [ "pipewire.service" ];
+        Wants = [ "pipewire.service" ];
+        PartOf = [ "pipewire.service" ];
+      };
+    };
     programs = {
       # Video
       mpv.enable = true;
