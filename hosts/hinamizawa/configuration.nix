@@ -77,12 +77,11 @@
     initrd.luks.devices."luks-36bb58a5-3907-4ecc-99b8-3133907e4ab3".device =
       "/dev/disk/by-uuid/36bb58a5-3907-4ecc-99b8-3133907e4ab3";
 
-    # BUG: I use bitlocker. I need to wait for: https://codeberg.org/Limine/Limine/issues/12
-    # loader.limine.extraEntries = ''
-    #   /Windows 11
-    #     protocol: efi
-    #     path: guid(a4b6a0ac-5aee-457c-8854-26cd6375d45f):/EFI/Microsoft/Boot/bootmgfw.efi
-    # '';
+    loader.limine.extraEntries = ''
+      /Windows 11
+        protocol: efi_boot_entry
+        entry: Windows Boot Manager
+    '';
   };
 
   fileSystems =
@@ -121,11 +120,6 @@
             "podman"
           ]
           ++ commonGroups;
-          openssh.authorizedKeys.keys =
-            let
-              inherit (config.features.services.openssh.keys) rika;
-            in
-            [ rika ];
         };
         satoko = {
           isNormalUser = true;
