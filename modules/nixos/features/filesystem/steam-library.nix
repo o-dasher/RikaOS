@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  pkgs,
   ...
 }:
 let
@@ -62,34 +61,10 @@ in
         ) libraryPaths
       );
 
-    systemd.user.services.setup-shared-steam-library = {
-      description = "Setup shared Steam library symlinks";
-      wantedBy = [ "default.target" ];
-      after = [ "default.target" ];
-      serviceConfig = {
-        Type = "oneshot";
-        RemainAfterExit = true;
-      };
-      path = with pkgs; [ coreutils ];
-      script = ''
-        SHARED="$HOME/.steam/shared/steamapps"
-        LOCAL_STEAM="$HOME/.local/share/Steam/steamapps"
-        SRC="${cfg.path}/steamapps"
-
-        # Link all steam apps to the shared folder
-        mkdir -p "$SHARED"
-        for dir in ${lib.escapeShellArgs steamDirs}; do
-          ln -sfnv "$SRC/$dir" "$SHARED/$dir"
-        done
-
-        # Link compatdata from user's local Steam install (not shared)
-        if [ -d "$LOCAL_STEAM/compatdata" ]; then
-          ln -sfnv "$LOCAL_STEAM/compatdata" "$SHARED/compatdata"
-        else
-          echo "WARNING: Local compatdata not found at $LOCAL_STEAM/compatdata."
-          echo "         Please run Steam at least once to generate it."
-        fi
-      '';
-    };
+    systemd.user.tmpfiles.rules = [
+      "d %h/.steam/shared/steamapps 0755 - - -"
+      "d %h/.local/share/Steam/steamapps/compatdata 0755 - - -"
+      "L+ %h/.steam/shared/steamapps/compatdata - - - - %h/.local/share/Steam/steamapps/compatdata"
+    ] ++ map (d: "L+ %h/.steam/shared/steamapps/${d} - - - - ${cfg.path}/steamapps/${d}") steamDirs;
   };
 }
