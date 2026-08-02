@@ -51,7 +51,7 @@ hl.window_rule({
 })
 
 -- Extension & App class matches
-local bitwarden_class = "chrome-nngceckbapebfimnlniiiahkandclblb-Default"
+local bitwarden_class = "brave-nngceckbapebfimnlniiiahkandclblb-Default"
 
 local floaty_classes = string.format(
 	[[^(
