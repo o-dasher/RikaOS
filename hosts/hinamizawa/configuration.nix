@@ -120,11 +120,6 @@
             "podman"
           ]
           ++ commonGroups;
-          openssh.authorizedKeys.keys =
-            let
-              inherit (config.features.services.openssh.keys) rika;
-            in
-            [ rika ];
         };
         satoko = {
           isNormalUser = true;
