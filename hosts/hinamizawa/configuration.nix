@@ -145,10 +145,7 @@
   programs = {
     dconf.enable = true;
     nix-ld.enable = true;
-    hyprland = {
-      enable = true;
-      withUWSM = true;
-    };
+    hyprland.enable = true;
     obs-studio = {
       enable = true;
       enableVirtualCamera = true;
