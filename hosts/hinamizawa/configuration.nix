@@ -38,16 +38,11 @@
       openrgb.enable = true;
       gnome-keyring.enable = true;
       sunshine.enable = true;
+      sddm.enable = true;
       transmission = {
         enable = true;
         openPeerPorts = true;
         openRPCPort = false;
-      };
-      sddm = {
-        enable = true;
-        flavor = "mocha";
-        accent = "mauve";
-        background = ../../assets/Wallpapers/lain.jpg;
       };
     };
     filesystem = {
