@@ -1,11 +1,20 @@
 local mod = "SUPER"
 
-local function exec(cmd)
-	return hl.dsp.exec_cmd("app2unit " .. cmd)
+local function exec(cmd, slice)
+	slice = slice or "b"
+	return hl.dsp.exec_cmd("app2unit -s " .. slice .. " -- " .. cmd)
+end
+
+local function exec_app(cmd)
+	return exec(cmd, "a")
+end
+
+local function exec_session(cmd)
+	return exec(cmd, "s")
 end
 
 -- Window management
-hl.bind(mod .. " + RETURN", exec("xdg-terminal-exec"))
+hl.bind(mod .. " + RETURN", exec_app("xdg-terminal-exec"))
 hl.bind(mod .. " + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
 hl.bind(mod .. " + C", hl.dsp.window.close())
 hl.bind(mod .. " + M", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" }))
@@ -38,8 +47,8 @@ hl.bind(mod .. " + SHIFT + P", exec("grimblast --freeze --notify copy area"))
 hl.bind(mod .. " + ALT + P", exec("grimblast --freeze --notify copy active"))
 
 -- Lock & Shutdown
-hl.bind("CTRL + SHIFT + L", hl.dsp.exec_cmd("hyprlock"))
-hl.bind("CTRL + SHIFT + Q", exec("hyprshutdown"))
+hl.bind("CTRL + SHIFT + L", exec_session("hyprlock"))
+hl.bind("CTRL + SHIFT + Q", exec_session("hyprshutdown"))
 
 -- Media keys
 hl.bind("XF86AudioPlay", exec("playerctl play-pause"), { locked = true })
@@ -50,7 +59,7 @@ hl.bind("XF86AudioStop", exec("playerctl stop"), { locked = true })
 hl.bind("XF86AudioMicMute", exec("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"), { locked = true })
 hl.bind("XF86AudioMute", exec("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), { locked = true })
 
--- Volume (repeating)
+-- Volume
 local audio_step = "1"
 hl.bind(
 	"XF86AudioRaiseVolume",
