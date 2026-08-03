@@ -37,9 +37,6 @@ in
         enable = true;
         hyprcursor.enable = lib.mkIf (hasStylix && config.features.desktop.theme.enable) true;
       };
-
-      # Prevent hyprland from picking the wrong gpu as the primary, which can hurt performance badly on reboots.
-      sessionVariables.AQ_DRM_DEVICES = "/dev/dri/card0:/dev/dri/card1";
     };
     services = {
       hyprpolkitagent.enable = true;
