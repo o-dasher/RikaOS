@@ -178,9 +178,11 @@
               let
                 lix = lixSet prev;
               in
-              {
+              rec {
                 stable = mkPkgs system nixpkgs-stable;
                 master = mkPkgs system nixpkgs-master;
+
+                inherit (master) app2unit;
 
                 # Lix
                 inherit (lix)
