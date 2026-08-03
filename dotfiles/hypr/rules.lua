@@ -16,6 +16,11 @@ hl.layer_rule({ match = { namespace = "^(wayle)$" }, animation = "slide top" })
 hl.layer_rule({ match = { namespace = "^(notifications)$" }, animation = "slide right" })
 hl.layer_rule({ match = { namespace = "^(walker)$" }, animation = "slide bottom" })
 hl.layer_rule({ match = { namespace = "^(selection|hyprpicker)$" }, animation = "off" })
+hl.layer_rule({
+	match = { namespace = "hyprshutdown" },
+	blur = true,
+	animation = "fade",
+})
 
 -- !GAMES!
 local non_direct_scanout_games = "osu!"
