@@ -83,10 +83,6 @@
         flake-parts.follows = "flake-parts";
       };
     };
-    hyprselect = {
-      url = "github:jmanc3/hyprselect";
-      flake = false;
-    };
   };
 
   outputs =
@@ -266,9 +262,7 @@
               useGlobalPkgs = true;
               useUserPackages = true;
               users = lib.genAttrs users (
-                username:
-                { ... }:
-                {
+                username: { ... }: {
                   imports = mkHomeModules hostName {
                     inherit stateVersion username system;
                   };
@@ -281,21 +275,19 @@
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = import inputs.systems;
 
-      perSystem =
-        { pkgs, ... }:
-        {
-          devShells.default = pkgs.mkShell {
-            packages = with pkgs; [
-              nixfmt
-              treefmt
-              stylua
-              lua-language-server
-              nixd
-              nil
-              statix
-            ];
-          };
+      perSystem = { pkgs, ... }: {
+        devShells.default = pkgs.mkShell {
+          packages = with pkgs; [
+            nixfmt
+            nixfmt-tree
+            stylua
+            lua-language-server
+            nixd
+            nil
+            statix
+          ];
         };
+      };
 
       flake = {
         nixosConfigurations = lib.mapAttrs (
