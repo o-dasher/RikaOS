@@ -98,11 +98,19 @@ in
           ''hl.bind("SUPER + D", hl.dsp.exec_cmd("app2unit walker --nohints"))''
         ]
         ++ lib.optionals config.profiles.browser.enable [
-          #lua
-          ''
-            hl.window_rule({ match = { class = "^(brave-origin)$" }, workspace = "2 silent" })
-            hl.exec_once("app2unit ${lib.getExe config.programs.chromium.finalPackage}")
-          ''
+          (
+            let
+              pkg = config.programs.chromium.finalPackage;
+              desktop = "${pkg}/share/applications/${pkg.meta.mainProgram or pkg.pname}.desktop";
+            in
+            #lua
+            ''
+              hl.window_rule({ match = { class = "^(brave-origin)$" }, workspace = "2 silent" })
+              hl.on("hyprland.start", function()
+                hl.exec_cmd("sh -c 'while ! systemctl --user is-active --quiet graphical-session.target; do sleep 0.1; done; app2unit ${desktop}'")
+              end)
+            ''
+          )
         ]
         ++ lib.optionals config.programs.nixcord.discord.vencord.enable [
           #lua
