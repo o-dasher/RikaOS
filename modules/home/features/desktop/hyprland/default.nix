@@ -41,32 +41,37 @@ in
     services = {
       hyprpolkitagent.enable = true;
       playerctld.enable = true;
-      hypridle = {
-        enable = true;
-        settings = {
-          general = {
-            lock_cmd = "${pkgs.procps}/bin/pidof hyprlock || ${lib.getExe pkgs.hyprlock}";
-            before_sleep_cmd = "${pkgs.systemd}/bin/loginctl lock-session";
-            after_sleep_cmd = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
-            inhibit_sleep = 3;
+      hypridle =
+        let
+          exec = cmd: "${lib.getExe pkgs.app2unit} -s session -- ${cmd}";
+          exec-sh = cmd: exec "sh -c '${cmd}'";
+        in
+        {
+          enable = true;
+          settings = {
+            general = {
+              lock_cmd = exec-sh "${lib.getExe' pkgs.procps "pidof"} hyprlock || ${lib.getExe pkgs.hyprlock}";
+              before_sleep_cmd = exec "${lib.getExe' pkgs.systemd "loginctl"} lock-session";
+              after_sleep_cmd = exec "${lib.getExe' pkgs.hyprland "hyprctl"} dispatch dpms on";
+              inhibit_sleep = 3;
+            };
+            listener = [
+              {
+                timeout = 300;
+                on-timeout = exec "${lib.getExe' pkgs.systemd "loginctl"} lock-session";
+              }
+              {
+                timeout = 600;
+                on-timeout = exec "${lib.getExe' pkgs.hyprland "hyprctl"} dispatch dpms off";
+                on-resume = exec "${lib.getExe' pkgs.hyprland "hyprctl"} dispatch dpms on";
+              }
+              {
+                timeout = 1800;
+                on-timeout = exec "${lib.getExe' pkgs.systemd "systemctl"} suspend-then-hibernate";
+              }
+            ];
           };
-          listener = [
-            {
-              timeout = 300;
-              on-timeout = "${pkgs.systemd}/bin/loginctl lock-session";
-            }
-            {
-              timeout = 600;
-              on-timeout = "${pkgs.hyprland}/bin/hyprctl dispatch dpms off";
-              on-resume = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
-            }
-            {
-              timeout = 1800;
-              on-timeout = "${pkgs.systemd}/bin/systemctl suspend-then-hibernate";
-            }
-          ];
         };
-      };
     };
 
     xdg.portal = {
