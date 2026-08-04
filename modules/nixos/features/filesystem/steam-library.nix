@@ -65,6 +65,7 @@ in
       "d %h/.steam/shared/steamapps 0755 - - -"
       "d %h/.local/share/Steam/steamapps/compatdata 0755 - - -"
       "L+ %h/.steam/shared/steamapps/compatdata - - - - %h/.local/share/Steam/steamapps/compatdata"
-    ] ++ map (d: "L+ %h/.steam/shared/steamapps/${d} - - - - ${cfg.path}/steamapps/${d}") steamDirs;
+    ]
+    ++ map (d: "L+ %h/.steam/shared/steamapps/${d} - - - - ${cfg.path}/steamapps/${d}") steamDirs;
   };
 }
