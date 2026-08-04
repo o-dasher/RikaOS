@@ -101,9 +101,7 @@ in
           #lua
           ''
             hl.window_rule({ match = { class = "^(brave-origin)$" }, workspace = "2 silent" })
-            hl.on("hyprland.start", function()
-              hl.exec_cmd("app2unit ${lib.getExe config.programs.chromium.finalPackage}")
-            end)
+            hl.exec_once("app2unit ${lib.getExe config.programs.chromium.finalPackage}")
           ''
         ]
         ++ lib.optionals config.programs.nixcord.discord.vencord.enable [
