@@ -39,8 +39,8 @@ hl.bind(mod .. " + SHIFT + P", exec("grimblast --freeze --notify copy area"))
 hl.bind(mod .. " + ALT + P", exec("grimblast --freeze --notify copy active"))
 
 -- Lock & Shutdown
-hl.bind("CTRL + SHIFT + L", exec("hyprlock", "s"))
-hl.bind("CTRL + SHIFT + Q", exec("hyprshutdown", "s"))
+hl.bind("CTRL + SHIFT + L", exec("pidof hyprlock || hyprlock", "s"))
+hl.bind("CTRL + SHIFT + Q", exec("pidof hyprshutdown || hyprshutdown", "s"))
 
 -- Media keys
 hl.bind("XF86AudioPlay", exec("playerctl play-pause"), { locked = true })
