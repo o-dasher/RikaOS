@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 let
@@ -16,7 +17,10 @@ in
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
       {
-        services.cloudflare-warp.enable = cf.warp.enable;
+        services.cloudflare-warp = {
+          enable = cf.warp.enable;
+          package = pkgs.cloudflare-warp.override { headless = true; };
+        };
       }
       (lib.mkIf cf.dns.enable {
         services = {
