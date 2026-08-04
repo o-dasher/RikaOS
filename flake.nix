@@ -8,10 +8,6 @@
     flake-compat.url = "github:edolstra/flake-compat";
     systems.url = "github:nix-systems/default";
     mnw.url = "github:Gerg-L/mnw";
-    flake-utils = {
-      url = "github:numtide/flake-utils";
-      inputs.systems.follows = "systems";
-    };
     playit-nixos-module = {
       url = "github:pedorich-n/playit-nixos-module";
       inputs = {
@@ -26,14 +22,6 @@
         nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "flake-compat";
         flake-parts.follows = "flake-parts";
-        git-hooks.follows = "git-hooks";
-      };
-    };
-    git-hooks = {
-      url = "github:cachix/git-hooks.nix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-compat.follows = "flake-compat";
       };
     };
     flake-parts = {
