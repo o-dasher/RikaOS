@@ -34,33 +34,33 @@ hl.bind(mod .. " + R", hl.dsp.layout("colresize +conf"))
 hl.bind(mod .. " + SHIFT + R", hl.dsp.layout("colresize -conf"))
 
 -- Screenshots
-hl.bind(mod .. " + P", exec("grimblast --freeze --notify copy screen"))
-hl.bind(mod .. " + SHIFT + P", exec("grimblast --freeze --notify copy area"))
-hl.bind(mod .. " + ALT + P", exec("grimblast --freeze --notify copy active"))
+hl.bind(mod .. " + P", hl.dsp.exec_cmd("app2unit -s b -- grimblast --freeze --notify copy screen"))
+hl.bind(mod .. " + SHIFT + P", hl.dsp.exec_cmd("app2unit -s b -- grimblast --freeze --notify copy area"))
+hl.bind(mod .. " + ALT + P", hl.dsp.exec_cmd("app2unit -s b -- grimblast --freeze --notify copy active"))
 
 -- Lock & Shutdown
-hl.bind("CTRL + SHIFT + L", exec("sh -c 'pidof hyprlock || hyprlock'"))
-hl.bind("CTRL + SHIFT + Q", exec("sh -c 'pidof hyprshutdown || hyprshutdown'"))
+hl.bind("CTRL + SHIFT + L", exec("sh -c 'pidof hyprlock || hyprlock'", "s"))
+hl.bind("CTRL + SHIFT + Q", exec("sh -c 'pidof hyprshutdown || hyprshutdown'", "s"))
 
 -- Media keys
-hl.bind("XF86AudioPlay", exec("playerctl play-pause"), { locked = true })
-hl.bind("XF86AudioPrev", exec("playerctl previous"), { locked = true })
-hl.bind("XF86AudioNext", exec("playerctl next"), { locked = true })
-hl.bind("XF86AudioStop", exec("playerctl stop"), { locked = true })
+hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
+hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
+hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
+hl.bind("XF86AudioStop", hl.dsp.exec_cmd("playerctl stop"), { locked = true })
 
-hl.bind("XF86AudioMicMute", exec("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"), { locked = true })
-hl.bind("XF86AudioMute", exec("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), { locked = true })
+hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"), { locked = true })
+hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), { locked = true })
 
 -- Volume
 local audio_step = "1"
 hl.bind(
 	"XF86AudioRaiseVolume",
-	exec("wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ " .. audio_step .. "%+"),
+	hl.dsp.exec_cmd("wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ " .. audio_step .. "%+"),
 	{ locked = true, repeating = true }
 )
 hl.bind(
 	"XF86AudioLowerVolume",
-	exec("wpctl set-volume @DEFAULT_AUDIO_SINK@ " .. audio_step .. "%-"),
+	hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ " .. audio_step .. "%-"),
 	{ locked = true, repeating = true }
 )
 
