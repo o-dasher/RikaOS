@@ -66,17 +66,6 @@
           enable = true;
           enableWsi = true;
           capSysNice = false;
-          package = pkgs.gamescope.overrideAttrs (old: {
-            # Blur fix: https://github.com/ValveSoftware/gamescope/issues/1622.
-            NIX_CFLAGS_COMPILE = (old.NIX_CFLAGS_COMPILE or [ ]) ++ [ "-fno-fast-math" ];
-            patches = (old.patches or [ ]) ++ [
-              # Fix Gamescope not closing https://github.com/ValveSoftware/gamescope/pull/1908
-              (pkgs.fetchpatch {
-                url = "https://github.com/ValveSoftware/gamescope/commit/fa900b0694ffc8b835b91ef47a96ed90ac94823b.diff";
-                hash = "sha256-eIHhgonP6YtSqvZx2B98PT1Ej4/o0pdU+4ubdiBgBM4=";
-              })
-            ];
-          });
         };
         steam = lib.mkIf modCfg.steam.enable {
           enable = true;
