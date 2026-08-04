@@ -18,7 +18,6 @@ hl.layer_rule({ match = { namespace = "^(walker)$" }, animation = "slide bottom"
 hl.layer_rule({ match = { namespace = "^(selection|hyprpicker)$" }, animation = "off" })
 hl.layer_rule({
 	match = { namespace = "hyprshutdown" },
-	blur = true,
 	animation = "fade",
 })
 
