@@ -1,20 +1,12 @@
 local mod = "SUPER"
 
 local function exec(cmd, slice)
-	slice = slice or "b"
+	slice = slice or "a"
 	return hl.dsp.exec_cmd("app2unit -s " .. slice .. " -- " .. cmd)
 end
 
-local function exec_app(cmd)
-	return exec(cmd, "a")
-end
-
-local function exec_session(cmd)
-	return exec(cmd, "s")
-end
-
 -- Window management
-hl.bind(mod .. " + RETURN", exec_app("xdg-terminal-exec"))
+hl.bind(mod .. " + RETURN", exec("xdg-terminal-exec"))
 hl.bind(mod .. " + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
 hl.bind(mod .. " + C", hl.dsp.window.close())
 hl.bind(mod .. " + M", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" }))
@@ -47,8 +39,8 @@ hl.bind(mod .. " + SHIFT + P", exec("grimblast --freeze --notify copy area"))
 hl.bind(mod .. " + ALT + P", exec("grimblast --freeze --notify copy active"))
 
 -- Lock & Shutdown
-hl.bind("CTRL + SHIFT + L", exec_session("hyprlock"))
-hl.bind("CTRL + SHIFT + Q", exec_session("hyprshutdown"))
+hl.bind("CTRL + SHIFT + L", exec("hyprlock", "s"))
+hl.bind("CTRL + SHIFT + Q", exec("hyprshutdown", "s"))
 
 -- Media keys
 hl.bind("XF86AudioPlay", exec("playerctl play-pause"), { locked = true })
