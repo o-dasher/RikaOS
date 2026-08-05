@@ -21,11 +21,15 @@ in
           aliase = pkg: kvpairs: prefixset (lib.getExe pkg) kvpairs;
           mkUpdateUtils =
             let
-              publicFlake = "${config.features.filesystem.sharedFolders.configurationRoot}/public";
+              getFlakeFromRoot = sub: "${config.features.filesystem.sharedFolders.configurationRoot}/${sub}";
+
+              publicFlake = getFlakeFromRoot "public";
+              privateFlake = getFlakeFromRoot "private";
+
               updateFlake = flake: "${lib.getExe pkgs.nix} flake update --flake ${flake}";
             in
             suffix: with pkgs; rec {
-              meh = "${lib.getExe nh} ${suffix}";
+              meh = "${updateFlake privateFlake} && ${lib.getExe nh} ${suffix}";
               yay = "${updateFlake publicFlake} && ${meh}";
             };
         in
