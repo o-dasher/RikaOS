@@ -43,7 +43,7 @@ in
       playerctld.enable = true;
       hypridle =
         let
-          exec = cmd: "${lib.getExe pkgs.app2unit} -s session -- ${cmd}";
+          exec = cmd: "${lib.getExe pkgs.app2unit} -s s -- ${cmd}";
           exec-sh = cmd: exec "sh -c '${cmd}'";
         in
         {
