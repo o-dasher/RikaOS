@@ -1,4 +1,5 @@
 {
+  pkgs,
   lib,
   config,
   ...
@@ -11,7 +12,9 @@ in
 
   config = lib.mkIf (config.features.core.enable && cfg.enable) {
     users.users.colmena = {
-      isNormalUser = true;
+      isSystemUser = true;
+      group = "colmena";
+      shell = pkgs.bashInteractive;
       extraGroups = [ "wheel" ];
       openssh.authorizedKeys.keys = [ config.features.services.openssh.keys.rika ];
     };
