@@ -163,7 +163,7 @@
               stable = mkPkgs system nixpkgs-stable [ ];
               master = mkPkgs system nixpkgs-master [ ];
 
-              inherit (master) app2unit;
+              inherit (master) app2unit hyprland;
 
               # Lix
               inherit (lix)

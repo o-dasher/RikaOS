@@ -25,7 +25,7 @@ in
               updateFlake = flake: "${lib.getExe pkgs.nix} flake update --flake ${flake}";
             in
             suffix: with pkgs; rec {
-              meh = "${lib.getExe nh} ${suffix} --impure";
+              meh = "${lib.getExe nh} ${suffix}";
               yay = "${updateFlake publicFlake} && ${meh}";
             };
         in
