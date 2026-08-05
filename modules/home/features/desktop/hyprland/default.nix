@@ -4,7 +4,6 @@
   config,
   options,
   osConfig ? null,
-  inputs,
   ...
 }:
 let
@@ -39,6 +38,7 @@ in
       };
     };
     services = {
+      caffeine.enable = true;
       hyprpolkitagent.enable = true;
       playerctld.enable = true;
       hypridle =
