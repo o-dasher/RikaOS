@@ -96,9 +96,9 @@
 
       # Helper to import a nixpkgs revision with standard config
       mkPkgs =
-        system: p:
+        system: p: overlays:
         import p {
-          inherit system;
+          inherit system overlays;
           config.allowUnfree = true;
         };
 
@@ -151,34 +151,30 @@
 
       pkgsFor = lib.genAttrs targetSystems (
         system:
-        import nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
-          overlays = [
-            nix-minecraft.overlay
-            nur.overlays.default
-            (
-              final: prev:
-              let
-                lix = lixSet prev;
-              in
-              rec {
-                stable = mkPkgs system nixpkgs-stable;
-                master = mkPkgs system nixpkgs-master;
+        mkPkgs system nixpkgs [
+          nix-minecraft.overlay
+          nur.overlays.default
+          (
+            final: prev:
+            let
+              lix = lixSet prev;
+            in
+            rec {
+              stable = mkPkgs system nixpkgs-stable [ ];
+              master = mkPkgs system nixpkgs-master [ ];
 
-                inherit (master) app2unit;
+              inherit (master) app2unit;
 
-                # Lix
-                inherit (lix)
-                  nixpkgs-review
-                  nix-eval-jobs
-                  nix-fast-build
-                  colmena
-                  ;
-              }
-            )
-          ];
-        }
+              # Lix
+              inherit (lix)
+                nixpkgs-review
+                nix-eval-jobs
+                nix-fast-build
+                colmena
+                ;
+            }
+          )
+        ]
       );
 
       mkHomeModules =
