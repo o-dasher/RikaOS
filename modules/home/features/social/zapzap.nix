@@ -13,8 +13,6 @@ in
 
   config = lib.mkIf (modCfg.enable && cfg.enable) {
     xdg.autostart.entries = [ (config.rika.utils.mkAutostartApp { pkg = pkgs.zapzap; }) ];
-    # Mitigate QtWebEngine / Chromium memory accumulation & lag bombing over long sessions
-    home.sessionVariables.QTWEBENGINE_CHROMIUM_FLAGS = "--js-flags=--max-old-space-size=1024 --disk-cache-size=52428800 --disable-gpu-memory-buffer-video-frames";
     programs.zapzap = {
       enable = true;
       settings = {
