@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    hyprland-nixpkgs.url = "github:NixOS/nixpkgs/33b9069d16f6f02f2b1ac717e2f4dd6aeeb56a13";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     nixpkgs-stable.url = "https://flakehub.com/f/NixOS/nixpkgs/0";
     flake-compat.url = "github:edolstra/flake-compat";
@@ -76,6 +77,7 @@
   outputs =
     inputs@{
       nixpkgs,
+      hyprland-nixpkgs,
       home-manager,
       agenix,
       flake-parts,
@@ -158,12 +160,29 @@
             final: prev:
             let
               lix = lixSet prev;
+              hyprPkgs = mkPkgs system hyprland-nixpkgs [ ];
             in
             rec {
               stable = mkPkgs system nixpkgs-stable [ ];
               master = mkPkgs system nixpkgs-master [ ];
 
-              inherit (master) app2unit hyprland;
+              inherit (master) app2unit;
+              inherit (hyprPkgs)
+                hyprland
+                hyprwire
+                hyprcursor
+                hyprgraphics
+                hyprland-qtutils
+                hyprland-qt-support
+                hyprlang
+                hypridle
+                hyprlock
+                hyprtoolkit
+                hyprpolkitagent
+                hyprshutdown
+                hyprpaper
+                xdg-desktop-portal-hyprland
+                ;
 
               # Lix
               inherit (lix)
