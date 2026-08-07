@@ -56,7 +56,7 @@ in
           enable = true;
           compositorCommand =
             let
-              sddmConfig = ../../../../dotfiles/hypr/sddm.lua;
+              sddmConfig = "${../../../../dotfiles/hypr}/sddm.lua";
             in
             #bash
             "start-hyprland -- --config ${sddmConfig}";
