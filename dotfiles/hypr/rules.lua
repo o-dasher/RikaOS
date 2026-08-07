@@ -36,6 +36,7 @@ hl.window_rule({
 local game_modifiers = {
 	sync_fullscreen = true,
 	fullscreen = true,
+	stay_focused = true,
 	immediate = true,
 	no_anim = true,
 	no_blur = true,

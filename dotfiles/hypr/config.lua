@@ -1,7 +1,6 @@
 local gaps = 2
 local border_size = 2
 local rounding = 4
-local indicator_height = 24
 
 -- Logging
 hl.env("AQ_TRACE", "0")
@@ -9,6 +8,8 @@ hl.env("HYPRLAND_TRACE", "0")
 
 -- Hyprland environment
 hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
+hl.env("RADV_DEBUG", "nodcc")
+hl.env("AMD_DEBUG", "nodcc")
 
 hl.config({
 	debug = {
@@ -16,7 +17,6 @@ hl.config({
 	},
 
 	cursor = {
-		-- Fixes graphical glitches on gpu intensive works that switches between hardware and software cursors. (e.g. games).
 		no_hardware_cursors = 1,
 	},
 
@@ -26,7 +26,7 @@ hl.config({
 	},
 
 	render = {
-		-- For some reason it is still way too glitchy so off now.
+		-- Just no...
 		direct_scanout = 0,
 
 		-- Keep output in SDR even if apps expose HDR content. My monitor's HDR is not that great.

@@ -1,10 +1,6 @@
-hl.monitor({ output = "HDMI-A-1", mode = "highres@highrr", position = "auto", scale = 1 })
+require("monitors")
 
 hl.config({
-	cursor = {
-		no_hardware_cursors = 1,
-	},
-
 	animations = {
 		enabled = false,
 	},
