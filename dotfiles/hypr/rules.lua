@@ -37,10 +37,12 @@ local game_modifiers = {
 	sync_fullscreen = true,
 	fullscreen = true,
 	stay_focused = true,
+	focus_on_activate = true,
 	immediate = true,
 	no_anim = true,
 	no_blur = true,
 	no_shadow = true,
+	confine_pointer = true,
 }
 
 hl.window_rule(merge(game_modifiers, { match = { content = "game" } }))
