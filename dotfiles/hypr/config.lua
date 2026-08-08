@@ -16,6 +16,10 @@ hl.config({
 		anr_missed_pings = 30, -- cs2 pulls too many resources on launch, which causes anr, without it actually being anr.
 	},
 
+	cursor = {
+		no_hardware_cursors = 1,
+	},
+
 	render = {
 		-- Just no...
 		direct_scanout = 0,
