@@ -42,7 +42,6 @@ local game_modifiers = {
 	no_anim = true,
 	no_blur = true,
 	no_shadow = true,
-	confine_pointer = true,
 }
 
 hl.window_rule(merge(game_modifiers, { match = { content = "game" } }))
