@@ -14,8 +14,8 @@ in
     services.lact.enable = true;
 
     environment.sessionVariables = {
-      AMD_DEBUG = "nodcc";
-      RADV_DEBUG = "nodcc";
+      AMD_DEBUG = "nodisplaydcc";
+      RADV_DEBUG = "nodisplaydcc";
       ENABLE_LAYER_MESA_ANTI_LAG = "1";
     };
 
