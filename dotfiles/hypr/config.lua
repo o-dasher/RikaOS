@@ -6,18 +6,9 @@ local rounding = 4
 hl.env("AQ_TRACE", "0")
 hl.env("HYPRLAND_TRACE", "0")
 
--- Hyprland environment
-hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
-hl.env("RADV_DEBUG", "nodcc")
-hl.env("AMD_DEBUG", "nodcc")
-
 hl.config({
 	debug = {
 		disable_logs = true,
-	},
-
-	cursor = {
-		no_hardware_cursors = 1,
 	},
 
 	misc = {
