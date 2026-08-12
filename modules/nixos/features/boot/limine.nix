@@ -35,12 +35,18 @@ in
         environment.systemPackages =
           with pkgs;
           ([ sbctl ] ++ lib.optionals cfg.secure.encryptionUnlock.enable [ tpm2-tss ]);
+
         boot = {
           loader.limine.secureBoot.enable = true;
           initrd.systemd = lib.mkIf cfg.secure.encryptionUnlock.enable {
             enable = true;
             tpm2.enable = true;
           };
+        };
+
+        security.tpm2 = lib.mkIf cfg.secure.encryptionUnlock.enable {
+          enable = true;
+          tctiEnvironment.enable = true;
         };
       })
     ]
