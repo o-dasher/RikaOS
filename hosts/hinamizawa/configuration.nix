@@ -154,8 +154,6 @@
       "-w 1920"
       "-h 1080"
       "-r 240"
-      "--fullscreen"
-      "--force-grab-cursor"
       "--rt"
       "--expose-wayland"
     ];
