@@ -1,22 +1,15 @@
 [fabric-api]
 src.webpage = "https://api.modrinth.com/v2/project/fabric-api/version"
 src.regex = "fabric-api-([0-9]+\\.[0-9]+\\.[0-9]+\\+26\\.2)\\.jar"
-fetch.url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/lVXlbH4w/fabric-api-$ver.jar"
+fetch.url = "https://maven.fabricmc.net/net/fabricmc/fabric-api/fabric-api/$ver/fabric-api-$ver.jar"
 url.name = "fabric-api.jar"
 
-[ps4-pkg-tools]
-src.github = "xXJSONDeruloXx/ps4-pkg-tools"
-fetch.github = "xXJSONDeruloXx/ps4-pkg-tools"
-git.fetchSubmodules = true
-
 [easyauth]
-src.webpage = "https://api.modrinth.com/v2/project/easyauth/version"
-src.regex = "easyauth-mc26\\.2-([0-9]+\\.[0-9]+\\.[0-9]+-SNAPSHOT\\.[0-9]+)\\.jar"
-fetch.url = "https://cdn.modrinth.com/data/aZj58GfX/versions/brHsihQ7/easyauth-mc26.2-$ver.jar"
+src.github_tag = "NikitaCartes/EasyAuth"
+fetch.url = "https://github.com/NikitaCartes/EasyAuth/releases/download/$ver/easyauth-mc26.2-$ver.jar"
 url.name = "easyauth.jar"
 
 [skinsrestorer]
-src.webpage = "https://api.modrinth.com/v2/project/skinsrestorer/version"
-src.regex = "SkinsRestorer-Mod-Fabric-([0-9]+\\.[0-9]+\\.[0-9]+)\\.jar"
-fetch.url = "https://cdn.modrinth.com/data/TsLS8Py5/versions/wGTF2aVu/SkinsRestorer-Mod-Fabric-$ver.jar"
+src.github = "SkinsRestorer/SkinsRestorer"
+fetch.url = "https://github.com/SkinsRestorer/SkinsRestorer/releases/download/$ver/SkinsRestorer-Mod-Fabric-$ver.jar"
 url.name = "skinsrestorer.jar"

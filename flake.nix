@@ -4,7 +4,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     hyprland-nixpkgs.url = "github:NixOS/nixpkgs/33b9069d16f6f02f2b1ac717e2f4dd6aeeb56a13";
-    nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     nixpkgs-stable.url = "https://flakehub.com/f/NixOS/nixpkgs/0";
     flake-compat.url = "github:edolstra/flake-compat";
     systems.url = "github:nix-systems/default";
@@ -87,7 +86,6 @@
       stylix,
       nur,
       nixpkgs-stable,
-      nixpkgs-master,
       ...
     }:
     let
@@ -164,9 +162,8 @@
             in
             rec {
               stable = mkPkgs system nixpkgs-stable [ ];
-              master = mkPkgs system nixpkgs-master [ ];
 
-              inherit (master) app2unit;
+              inherit (stable) ananicy-cpp;
               inherit (hyprPkgs)
                 hyprland
                 hyprwire
