@@ -8,11 +8,11 @@
         "pinned": false,
         "src": {
             "name": "easyauth.jar",
-            "sha256": "sha256-ZJ6yhQ8bXHaWJ1Q31ZWQFplfkx3MAPSCKpSXyCKjOo8=",
+            "sha256": "sha256-GUXDf5imDfWqM8GCYUE7UjqpSVhaDj17hw08+gLmT2I=",
             "type": "url",
-            "url": "https://cdn.modrinth.com/data/aZj58GfX/versions/brHsihQ7/easyauth-mc26.2-3.4.3-SNAPSHOT.49.jar"
+            "url": "https://github.com/NikitaCartes/EasyAuth/releases/download/3.4.4/easyauth-mc26.2-3.4.4.jar"
         },
-        "version": "3.4.3-SNAPSHOT.49"
+        "version": "3.4.4"
     },
     "fabric-api": {
         "cargoLock": null,
@@ -23,32 +23,11 @@
         "pinned": false,
         "src": {
             "name": "fabric-api.jar",
-            "sha256": "sha256-1lGMdwAky+ilViSPFvzbuRxqYvUCJ6bDuugZBRHiwbg=",
+            "sha256": "sha256-rLfckKBDBRnElUgHTT+/b9gdEwY/CPCvNEsqawikJiA=",
             "type": "url",
-            "url": "https://cdn.modrinth.com/data/P7dR8mSH/versions/lVXlbH4w/fabric-api-0.155.2+26.2.jar"
+            "url": "https://maven.fabricmc.net/net/fabricmc/fabric-api/fabric-api/0.157.0+26.2/fabric-api-0.157.0+26.2.jar"
         },
-        "version": "0.155.2+26.2"
-    },
-    "ps4-pkg-tools": {
-        "cargoLock": null,
-        "date": null,
-        "extract": null,
-        "name": "ps4-pkg-tools",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": true,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "xXJSONDeruloXx",
-            "repo": "ps4-pkg-tools",
-            "rev": "v20250825-123142-e7c40358",
-            "sha256": "sha256-t4vs2OEAssSY28XwQngNGv8wui1VKjlYLDpj3JZL/Fg=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "v20250825-123142-e7c40358"
+        "version": "0.157.0+26.2"
     },
     "skinsrestorer": {
         "cargoLock": null,
@@ -61,7 +40,7 @@
             "name": "skinsrestorer.jar",
             "sha256": "sha256-Vp2CXFPKdKf79CnjnIswiNfhIa/tCUpTZeUaDMgChRk=",
             "type": "url",
-            "url": "https://cdn.modrinth.com/data/TsLS8Py5/versions/wGTF2aVu/SkinsRestorer-Mod-Fabric-15.12.5.jar"
+            "url": "https://github.com/SkinsRestorer/SkinsRestorer/releases/download/15.12.5/SkinsRestorer-Mod-Fabric-15.12.5.jar"
         },
         "version": "15.12.5"
     }

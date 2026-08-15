@@ -8,38 +8,27 @@
 {
   easyauth = {
     pname = "easyauth";
-    version = "3.4.3-SNAPSHOT.49";
+    version = "3.4.4";
     src = fetchurl {
-      url = "https://cdn.modrinth.com/data/aZj58GfX/versions/brHsihQ7/easyauth-mc26.2-3.4.3-SNAPSHOT.49.jar";
+      url = "https://github.com/NikitaCartes/EasyAuth/releases/download/3.4.4/easyauth-mc26.2-3.4.4.jar";
       name = "easyauth.jar";
-      sha256 = "sha256-ZJ6yhQ8bXHaWJ1Q31ZWQFplfkx3MAPSCKpSXyCKjOo8=";
+      sha256 = "sha256-GUXDf5imDfWqM8GCYUE7UjqpSVhaDj17hw08+gLmT2I=";
     };
   };
   fabric-api = {
     pname = "fabric-api";
-    version = "0.155.2+26.2";
+    version = "0.157.0+26.2";
     src = fetchurl {
-      url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/lVXlbH4w/fabric-api-0.155.2+26.2.jar";
+      url = "https://maven.fabricmc.net/net/fabricmc/fabric-api/fabric-api/0.157.0+26.2/fabric-api-0.157.0+26.2.jar";
       name = "fabric-api.jar";
-      sha256 = "sha256-1lGMdwAky+ilViSPFvzbuRxqYvUCJ6bDuugZBRHiwbg=";
-    };
-  };
-  ps4-pkg-tools = {
-    pname = "ps4-pkg-tools";
-    version = "v20250825-123142-e7c40358";
-    src = fetchFromGitHub {
-      owner = "xXJSONDeruloXx";
-      repo = "ps4-pkg-tools";
-      rev = "v20250825-123142-e7c40358";
-      fetchSubmodules = true;
-      sha256 = "sha256-t4vs2OEAssSY28XwQngNGv8wui1VKjlYLDpj3JZL/Fg=";
+      sha256 = "sha256-rLfckKBDBRnElUgHTT+/b9gdEwY/CPCvNEsqawikJiA=";
     };
   };
   skinsrestorer = {
     pname = "skinsrestorer";
     version = "15.12.5";
     src = fetchurl {
-      url = "https://cdn.modrinth.com/data/TsLS8Py5/versions/wGTF2aVu/SkinsRestorer-Mod-Fabric-15.12.5.jar";
+      url = "https://github.com/SkinsRestorer/SkinsRestorer/releases/download/15.12.5/SkinsRestorer-Mod-Fabric-15.12.5.jar";
       name = "skinsrestorer.jar";
       sha256 = "sha256-Vp2CXFPKdKf79CnjnIswiNfhIa/tCUpTZeUaDMgChRk=";
     };
