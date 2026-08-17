@@ -98,6 +98,7 @@
     users =
       let
         commonGroups = [
+          "networkmanager"
           "video"
           "dialout"
           "input"

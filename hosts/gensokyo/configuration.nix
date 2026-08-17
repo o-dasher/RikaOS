@@ -223,6 +223,7 @@
         ];
       extraGroups = [
         "wheel"
+        "networkmanager"
       ];
     };
   };
