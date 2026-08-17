@@ -150,7 +150,6 @@ in
           systray = {
             icon-scale = 0.8;
             item-gap = 0.25;
-            sort-by = "alphabetical";
             border-show = true;
             border-color = "border-accent";
           };
