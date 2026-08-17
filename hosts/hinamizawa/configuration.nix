@@ -19,6 +19,7 @@
     networking = {
       enable = true;
       privacyIPv6.enable = true;
+      vpn.enable = true;
       primaryInterface = "enp6s0";
       cloudflare = {
         warp.enable = true;

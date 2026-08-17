@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 let
@@ -15,6 +16,7 @@ in
   options.features.networking = {
     enable = lib.mkEnableOption "networking";
     privacyIPv6.enable = lib.mkEnableOption "Privacy IPv6 address generation";
+    vpn.enable = lib.mkEnableOption "VPN plugins for NetworkManager";
     primaryInterface = lib.mkOption {
       type = lib.types.str;
       description = "The primary networking interface for operations.";
@@ -22,19 +24,21 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    networking.useNetworkd = true;
-    systemd.network = {
+    networking.networkmanager = {
       enable = true;
-      networks."99-network" = lib.mkMerge [
+      plugins = lib.mkIf cfg.vpn.enable (with pkgs; [
+        networkmanager-openvpn
+        networkmanager-openconnect
+      ]);
+      dns = lib.mkIf cfg.cloudflare.dns.enable "systemd-resolved";
+      settings.connection = lib.mkMerge [
         (lib.mkIf cfg.privacyIPv6.enable {
-          networkConfig = {
-            IPv6LinkLocalAddressGenerationMode = "stable-privacy";
-            IPv6PrivacyExtensions = "yes";
-          };
+          "ipv6.ip6-privacy" = 2;
+          "ipv6.addr-gen-mode" = 1;
         })
         (lib.mkIf cfg.cloudflare.dns.enable {
-          dhcpV4Config.UseDNS = false;
-          ipv6AcceptRAConfig.UseDNS = false;
+          "ipv4.ignore-auto-dns" = true;
+          "ipv6.ignore-auto-dns" = true;
         })
       ];
     };

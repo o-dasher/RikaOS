@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  osConfig ? null,
   ...
 }:
 let
@@ -18,7 +17,10 @@ in
   options.features.desktop.wayland.enable = lib.mkEnableOption "Wayland base integration";
 
   config = lib.mkIf (desktopCfg.enable && modCfg.enable) {
-    services.udiskie.enable = true;
+    services = {
+      udiskie.enable = true;
+      network-manager-applet.enable = true;
+    };
 
     home = {
       packages = with pkgs; [ wl-clipboard ];
