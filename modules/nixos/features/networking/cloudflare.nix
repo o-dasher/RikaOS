@@ -26,7 +26,10 @@ in
         services = {
           resolved = {
             enable = true;
-            settings.Resolve.DNS = [ "127.0.0.1:5053" ];
+            settings.Resolve = {
+              DNS = [ "127.0.0.1:5053" ];
+              Domains = [ "~." ];
+            };
           };
           https-dns-proxy = {
             enable = true;

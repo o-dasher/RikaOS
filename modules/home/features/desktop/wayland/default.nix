@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  osConfig ? null,
   ...
 }:
 let
@@ -18,10 +17,17 @@ in
   options.features.desktop.wayland.enable = lib.mkEnableOption "Wayland base integration";
 
   config = lib.mkIf (desktopCfg.enable && modCfg.enable) {
-    services.udiskie.enable = true;
+    services = {
+      udiskie.enable = true;
+      network-manager-applet.enable = true;
+    };
 
     home = {
-      packages = with pkgs; [ wl-clipboard ];
+      packages = with pkgs; [
+        networkmanagerapplet
+        wl-clipboard
+      ];
+
       sessionVariables = {
         # Ensure OpenSSL-backed apps find CA certs.
         SSL_CERT_DIR = "${pkgs.cacert}/etc/ssl/certs";
