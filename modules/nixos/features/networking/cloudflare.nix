@@ -37,11 +37,25 @@ in
               ];
             };
           };
-          https-dns-proxy = {
+          dnsproxy = {
             enable = true;
-            address = "127.0.0.1";
-            port = 5053;
-            provider.kind = "cloudflare";
+            flags = [
+              "-l"
+              "127.0.0.1"
+              "-p"
+              "5053"
+              "-u"
+              "https://cloudflare-dns.com/dns-query"
+              "-b"
+              "1.1.1.1"
+              "-b"
+              "1.0.0.1"
+              "-b"
+              "2606:4700:4700::1111"
+              "-b"
+              "2606:4700:4700::1001"
+              "--upstream-mode=parallel"
+            ];
           };
         };
       })
