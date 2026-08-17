@@ -8,17 +8,6 @@
 let
   modCfg = config.features.editors;
   cfg = modCfg.jetbrains;
-
-  basePackages = {
-    inherit (pkgs) android-studio;
-    inherit (pkgs.jetbrains) clion datagrip rider;
-  };
-
-  ides =
-    if cfg.wayland.enable then
-      lib.mapAttrs (_: p: p.override { forceWayland = true; }) basePackages
-    else
-      basePackages;
 in
 {
   options.features.editors.jetbrains = {
@@ -41,12 +30,13 @@ in
           ] { };
 
           packages =
-            lib.optionals cfg.datagrip.enable [ ides.datagrip ]
-            ++ lib.optionals cfg.rider.enable [ ides.rider ]
-            ++ lib.optionals cfg.clion.enable [ ides.clion ]
+            with pkgs;
+            lib.optionals cfg.datagrip.enable [ jetbrains.datagrip ]
+            ++ lib.optionals cfg.rider.enable [ jetbrains.rider ]
+            ++ lib.optionals cfg.clion.enable [ jetbrains.clion ]
             ++ lib.optionals cfg.android-studio.enable [
-              pkgs.android-tools
-              ides.android-studio
+              android-tools
+              android-studio
             ];
         };
       }
