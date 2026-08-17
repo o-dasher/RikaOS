@@ -23,7 +23,11 @@ in
     };
 
     home = {
-      packages = with pkgs; [ wl-clipboard ];
+      packages = with pkgs; [
+        networkmanagerapplet
+        wl-clipboard
+      ];
+
       sessionVariables = {
         # Ensure OpenSSL-backed apps find CA certs.
         SSL_CERT_DIR = "${pkgs.cacert}/etc/ssl/certs";
