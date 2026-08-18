@@ -22,8 +22,8 @@ in
         storage-whats.notification = false;
         performance = {
           cache_size_max = 100;
-          force_software_rendering = true;
-          hw_accel = false;
+          force_software_rendering = false;
+          hw_accel = true;
         };
         notification = {
           app = false;
