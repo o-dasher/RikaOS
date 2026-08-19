@@ -57,6 +57,7 @@ mnw.lib.wrap pkgs {
 
     # C and CPP
     llvmPackages.clang-tools
+    cppcheck
 
     # Nix
     nixd
