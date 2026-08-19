@@ -4,8 +4,8 @@ return {
 	after = function()
 		require("lint").linters_by_ft = {
 			rust = { "clippy" },
-			c = { "clangtidy" },
-			cpp = { "clangtidy" },
+			c = { "clangtidy", "cppcheck" },
+			cpp = { "clangtidy", "cppcheck" },
 			python = { "ruff" },
 			php = { "phpstan" },
 			yaml = { "yamllint" },
