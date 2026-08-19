@@ -2,7 +2,10 @@ return {
 	"nvim-lint",
 	event = "BufRead",
 	after = function()
-		require("lint").linters_by_ft = {
+		local lint = require("lint")
+
+		lint.linters.cppcheck.args = vim.list_extend({ "--check-level=exhaustive" }, lint.linters.cppcheck.args)
+		lint.linters_by_ft = {
 			rust = { "clippy" },
 			c = { "clangtidy", "cppcheck" },
 			cpp = { "clangtidy", "cppcheck" },
