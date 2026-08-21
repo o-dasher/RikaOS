@@ -21,9 +21,18 @@ in
       nix.settings = nixCaches;
       programs.nh = {
         enable = true;
-        clean.enable = true;
+        clean = {
+          enable = true;
+          extraArgs = "--keep 4 --keep-since 8d";
+        };
         flake = "${config.features.filesystem.sharedFolders.configurationRoot}/private";
       };
+
+      systemd.user.tmpfiles.rules = [
+        "d %h/.cache/thumbnails 0700 - - 8d -"
+        "d %h/.cache/nix 0700 - - 16d -"
+        "d %h/.local/share/Trash 0700 - - 16d -"
+      ];
     })
     (lib.mkIf
       (
