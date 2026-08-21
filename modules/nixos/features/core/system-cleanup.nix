@@ -20,10 +20,11 @@ in
     # Clean /tmp directory on boot
     boot.tmp.cleanOnBoot = true;
 
-    # Purge old temporary files via systemd-tmpfiles
+    # Purge old temporary files and caches via systemd-tmpfiles
     systemd.tmpfiles.rules = [
       "d /tmp 1777 root root 8d"
       "d /var/tmp 1777 root root 16d"
+      "e /var/cache - - - 16d -"
     ];
   };
 }
