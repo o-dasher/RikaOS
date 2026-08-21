@@ -13,7 +13,9 @@ in
       default = [ ];
       type = lib.types.listOf lib.types.str;
     };
-    optimise = lib.mkEnableOption "optmise";
+    optimise = lib.mkEnableOption "Nix store optimisation and garbage collection" // {
+      default = true;
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -25,17 +27,26 @@ in
             "flakes"
             "nix-command"
           ];
+          min-free = 8 * 1024 * 1024 * 1024; # 8 GiB
+          max-free = 32 * 1024 * 1024 * 1024; # 32 GiB
         }
         // nixCaches;
       }
       (lib.mkIf cfg.optimise {
         settings.auto-optimise-store = true;
-        optimise.automatic = true;
-        gc = {
+        optimise = {
           automatic = true;
-          options = "-d";
+          dates = [ "weekly" ];
         };
       })
     ];
+
+    programs.nh = {
+      enable = true;
+      clean = {
+        enable = true;
+        extraArgs = "--keep 4 --keep-since 8d";
+      };
+    };
   };
 }

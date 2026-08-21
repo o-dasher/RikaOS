@@ -12,7 +12,7 @@ in
     enable = lib.mkEnableOption "trash alias + cleanup";
     retentionDays = lib.mkOption {
       type = lib.types.int;
-      default = 14;
+      default = 16;
       description = "Delete Trash items older than this many days";
     };
     schedule = lib.mkOption {
