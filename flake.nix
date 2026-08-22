@@ -162,11 +162,10 @@
               lix = lixSet prev;
               hyprPkgs = mkPkgs system hyprland-nixpkgs [ ];
             in
-            rec {
+            {
               stable = mkPkgs system nixpkgs-stable [ ];
               master = mkPkgs system nixpkgs-master [ ];
 
-              inherit (master) ananicy-cpp;
               inherit (hyprPkgs)
                 hyprland
                 hyprwire

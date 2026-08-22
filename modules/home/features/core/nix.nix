@@ -28,29 +28,6 @@ in
         };
         flake = "${config.features.filesystem.sharedFolders.configurationRoot}/private";
       };
-
-      systemd.user.tmpfiles.rules = [
-        # Recursively clean all stale files in ~/.cache older than 16 days
-        "e %h/.cache - - - 16d -"
-      ];
-
-      # Automatically run user tmpfiles cleanup on a daily schedule
-      systemd.user.services.tmpfiles-clean = {
-        Unit.Description = "Cleanup stale user cache and temporary files";
-        Service = {
-          Type = "oneshot";
-          ExecStart = "${pkgs.systemd}/bin/systemd-tmpfiles --user --clean";
-        };
-      };
-
-      systemd.user.timers.tmpfiles-clean = {
-        Unit.Description = "Scheduled cleanup of user cache and temporary files";
-        Timer = {
-          OnCalendar = "daily";
-          Persistent = true;
-        };
-        Install.WantedBy = [ "timers.target" ];
-      };
     })
     (lib.mkIf
       (
