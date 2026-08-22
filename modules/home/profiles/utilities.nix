@@ -24,6 +24,7 @@ in
       scrcpy
       # general
       gdu
+      czkawka
       unzip
       # monitor
       mission-center
