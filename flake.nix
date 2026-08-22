@@ -161,27 +161,15 @@
             let
               lix = lixSet prev;
               hyprPkgs = mkPkgs system hyprland-nixpkgs [ ];
+              hyprAttrs = lib.filterAttrs (
+                name: _:
+                lib.hasPrefix "hypr" name || name == "xdg-desktop-portal-hyprland"
+              ) hyprPkgs;
             in
-            {
+            hyprAttrs
+            // {
               stable = mkPkgs system nixpkgs-stable [ ];
               master = mkPkgs system nixpkgs-master [ ];
-
-              inherit (hyprPkgs)
-                hyprland
-                hyprwire
-                hyprcursor
-                hyprgraphics
-                hyprland-qtutils
-                hyprland-qt-support
-                hyprlang
-                hypridle
-                hyprlock
-                hyprtoolkit
-                hyprpolkitagent
-                hyprshutdown
-                hyprpaper
-                xdg-desktop-portal-hyprland
-                ;
 
               # Lix
               inherit (lix)
