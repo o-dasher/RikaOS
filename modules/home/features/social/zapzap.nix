@@ -19,7 +19,6 @@ in
       "--js-flags=--max-old-space-size=2048"
       "--disk-cache-size=${toString (128 * 1024 * 1024)}"
       "--renderer-process-limit=1"
-      "--enable-low-end-device-mode"
       "--disable-background-timer-throttling=false"
     ];
 
