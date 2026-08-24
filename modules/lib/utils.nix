@@ -23,6 +23,16 @@
   };
 
   config.rika.utils = {
+    idleTimers =
+      let
+        minute = 60;
+      in
+      {
+        lock = 5 * minute;
+        dpms = 10 * minute;
+        suspend = 30 * minute;
+      };
+
     hasSecrets = builtins.hasAttr "gemini-api-key" config.age.secrets;
 
     mkAutostartApp =

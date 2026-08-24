@@ -22,12 +22,41 @@ in
           CursorTheme = themeLib.cursor.name;
         };
       };
+
+      inherit (config.rika.utils) idleTimers;
+
+      sddmHypridleConfig = pkgs.writeText "sddm-hypridle.conf" ''
+        general {
+          after_sleep_cmd = ${lib.getExe' pkgs.hyprland "hyprctl"} 'dispatch(dpms, on)'
+          inhibit_sleep = 3
+        }
+
+        listener {
+          timeout = ${toString idleTimers.dpms}
+          on-timeout = ${lib.getExe' pkgs.hyprland "hyprctl"} 'dispatch(dpms, off)'
+          on-resume = ${lib.getExe' pkgs.hyprland "hyprctl"} 'dispatch(dpms, on)'
+        }
+
+        listener {
+          timeout = ${toString idleTimers.suspend}
+          on-timeout = ${lib.getExe' pkgs.systemd "systemctl"} suspend-then-hibernate
+        }
+      '';
+
+      sddmHyprlandConfig = pkgs.writeText "sddm-hyprland.lua" ''
+        package.path = "${../../../../dotfiles/hypr}/?.lua;" .. package.path
+        require("sddm")
+        hl.on("hyprland.start", function()
+          hl.exec_cmd("${lib.getExe pkgs.hypridle} -c ${sddmHypridleConfig}")
+        end)
+      '';
     in
     lib.mkIf (modCfg.enable && cfg.enable) {
       environment.systemPackages = with pkgs; [
         sddm-astronaut-override
         kdePackages.qtmultimedia
         themeLib.cursor.package
+        hypridle
       ];
 
       # WORKAROUND: Fix non-functioning TTY switching under Hyprland.
@@ -55,11 +84,8 @@ in
         wayland = {
           enable = true;
           compositorCommand =
-            let
-              sddmConfig = "${../../../../dotfiles/hypr}/sddm.lua";
-            in
             #bash
-            "start-hyprland -- --config ${sddmConfig}";
+            "start-hyprland -- --config ${sddmHyprlandConfig}";
         };
       };
     };

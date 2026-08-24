@@ -45,6 +45,7 @@ in
         let
           exec = cmd: "${lib.getExe pkgs.app2unit} -s s -- ${cmd}";
           exec-sh = cmd: exec "sh -c '${cmd}'";
+          inherit (config.rika.utils) idleTimers;
         in
         {
           enable = true;
@@ -57,16 +58,16 @@ in
             };
             listener = [
               {
-                timeout = 300;
+                timeout = idleTimers.lock;
                 on-timeout = exec "${lib.getExe' pkgs.systemd "loginctl"} lock-session";
               }
               {
-                timeout = 600;
+                timeout = idleTimers.dpms;
                 on-timeout = exec "${lib.getExe' pkgs.hyprland "hyprctl"} 'dispatch(dpms, off)'";
                 on-resume = exec "${lib.getExe' pkgs.hyprland "hyprctl"} 'dispatch(dpms, on)'";
               }
               {
-                timeout = 1800;
+                timeout = idleTimers.suspend;
                 on-timeout = exec "${lib.getExe' pkgs.systemd "systemctl"} suspend-then-hibernate";
               }
             ];
