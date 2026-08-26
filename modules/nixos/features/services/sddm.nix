@@ -52,9 +52,8 @@ in
       '';
     in
     lib.mkIf (modCfg.enable && cfg.enable) {
-      environment.systemPackages = with pkgs; [
+      environment.systemPackages = [
         sddm-astronaut-override
-        kdePackages.qtmultimedia
         themeLib.cursor.package
       ];
 
@@ -75,11 +74,7 @@ in
 
       services.displayManager.sddm = {
         enable = true;
-        extraPackages = [
-          sddm-astronaut-override
-          pkgs.kdePackages.qtmultimedia
-          themeLib.cursor.package
-        ];
+        extraPackages = [ pkgs.kdePackages.qtmultimedia ];
         theme = "sddm-astronaut-theme";
         settings.Theme = {
           CursorTheme = themeLib.cursor.name;
