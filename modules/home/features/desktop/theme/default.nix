@@ -21,7 +21,7 @@ in
         icons.enable = true;
         targets = {
           nixcord.enable = false;
-          floorp.profileNames = [ "default" ];
+          librewolf.profileNames = [ "default" ];
         };
       };
     }

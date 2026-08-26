@@ -46,7 +46,6 @@
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
         flake-parts.follows = "flake-parts";
-        nur.follows = "nur";
       };
     };
     agenix = {
@@ -65,13 +64,6 @@
         flake-compat.follows = "flake-compat";
       };
     };
-    nur = {
-      url = "github:nix-community/NUR";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-      };
-    };
   };
 
   outputs =
@@ -85,7 +77,6 @@
       nix-minecraft,
       nixcord,
       stylix,
-      nur,
       nixpkgs-stable,
       nixpkgs-master,
       ...
@@ -155,15 +146,13 @@
         system:
         mkPkgs system nixpkgs [
           nix-minecraft.overlay
-          nur.overlays.default
           (
             final: prev:
             let
               lix = lixSet prev;
               hyprPkgs = mkPkgs system hyprland-nixpkgs [ ];
               hyprAttrs = lib.filterAttrs (
-                name: _:
-                lib.hasPrefix "hypr" name || name == "xdg-desktop-portal-hyprland"
+                name: _: lib.hasPrefix "hypr" name || name == "xdg-desktop-portal-hyprland"
               ) hyprPkgs;
             in
             hyprAttrs
