@@ -7,7 +7,10 @@
 let
   cfg = config.features.social.zapzap;
   pkg = pkgs.writeShellScriptBin "zapzap" ''
-    exec ${lib.getExe pkgs.brave-origin} --app=https://web.whatsapp.com "$@"
+    exec ${lib.getExe pkgs.brave-origin} \
+      --app=https://web.whatsapp.com \
+      --user-data-dir="''${XDG_DATA_HOME:-$HOME/.local/share}/zapzap" \
+      "$@"
   '';
 in
 {
