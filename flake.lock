@@ -421,18 +421,20 @@
     "nur": {
       "inputs": {
         "flake-parts": [
+          "stylix",
           "flake-parts"
         ],
         "nixpkgs": [
+          "stylix",
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1787622228,
-        "narHash": "sha256-ZmcPbJj7EQHhhvt38h/xlf1zl1FgHfL+yAF8RaDAjfA=",
+        "lastModified": 1787773349,
+        "narHash": "sha256-FzObUt+XeN17rlXs5zfo6juTTkr6n/rKL02y3wKc+uY=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "1603376f44d18f4ff4abfc2f2d83472a4ccb0988",
+        "rev": "be9273b53a41aaad75f2c72cf8459650d139bfdc",
         "type": "github"
       },
       "original": {
@@ -481,7 +483,6 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-stable": "nixpkgs-stable",
-        "nur": "nur",
         "playit-nixos-module": "playit-nixos-module",
         "stylix": "stylix",
         "systems": "systems"
@@ -501,9 +502,7 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "nur": [
-          "nur"
-        ],
+        "nur": "nur",
         "systems": [
           "systems"
         ],

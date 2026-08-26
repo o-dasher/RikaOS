@@ -18,16 +18,33 @@ in
         ];
       in
       {
-        floorp = {
+        librewolf = {
           enable = true;
-          profiles.default = {
-            id = 0;
-            isDefault = true;
-            extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
-              ublock-origin
-              darkreader
-              bitwarden
-            ];
+          settings."privacy.resistFingerprinting.letterboxing" = false;
+          policies = {
+            SearchEngines = {
+              Default = "Google";
+              Add = [
+                {
+                  Name = "Google";
+                  URLTemplate = "https://www.google.com/search?q={searchTerms}";
+                  Method = "GET";
+                  IconURL = "https://www.google.com/favicon.ico";
+                  Alias = "@g";
+                }
+              ];
+            };
+            ExtensionSettings =
+              builtins.mapAttrs
+                (_: slug: {
+                  installation_mode = "force_installed";
+                  install_url = "https://addons.mozilla.org/firefox/downloads/latest/${slug}/latest.xpi";
+                })
+                {
+                  "uBlock0@raymondhill.net" = "ublock-origin";
+                  "addon@darkreader.org" = "darkreader";
+                  "{446900e4-71c2-419f-a6a7-df9c091e268b}" = "bitwarden-password-manager";
+                };
           };
         };
         brave = {
