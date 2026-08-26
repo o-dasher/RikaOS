@@ -15,8 +15,10 @@ in
   config = lib.mkIf (modCfg.enable && cfg.enable) {
     home = {
       sessionVariables.OSU_SDL3 = 1;
-      packages = with inputs.nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}; [
-        osu-lazer-bin
+      packages = [
+        (inputs.nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.osu-lazer-bin.override {
+          pipewire_latency = "32/48000";
+        })
       ];
     };
   };
