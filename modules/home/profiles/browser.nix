@@ -11,7 +11,6 @@ in
   options.profiles.browser.enable = lib.mkEnableOption "browser profile";
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [ ungoogled-chromium ];
     programs = {
       floorp = {
         enable = true;
@@ -25,7 +24,7 @@ in
           ];
         };
       };
-      chromium = {
+      brave = {
         enable = true;
         package = pkgs.brave-origin;
         extensions = [
@@ -33,6 +32,10 @@ in
           "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
           "ehdehfcjlmekjdolbbmjgokdfeoocccd" # osu! subdivide nations
         ];
+      };
+      chromium = {
+        enable = true;
+        package = pkgs.ungoogled-chromium;
       };
     };
   };

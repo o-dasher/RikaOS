@@ -76,6 +76,11 @@ in
 
       services.displayManager.sddm = {
         enable = true;
+        extraPackages = [
+          sddm-astronaut-override
+          pkgs.kdePackages.qtmultimedia
+          themeLib.cursor.package
+        ];
         theme = "sddm-astronaut-theme";
         settings.Theme = {
           CursorTheme = themeLib.cursor.name;

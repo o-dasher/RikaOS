@@ -24,7 +24,6 @@ in
 
     home = {
       packages = with pkgs; [
-        networkmanagerapplet
         wl-clipboard
       ];
 
