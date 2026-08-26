@@ -52,6 +52,13 @@ in
       '';
     in
     lib.mkIf (modCfg.enable && cfg.enable) {
+      environment.systemPackages = with pkgs; [
+        sddm-astronaut-override
+        kdePackages.qtmultimedia
+        themeLib.cursor.package
+        hypridle
+      ];
+
       # WORKAROUND: Fix non-functioning TTY switching under Hyprland.
       # Hyprland forwards VT switch requests to systemd-logind via DBus
       # (org.freedesktop.login1.chvt). Logind denies these requests by default
