@@ -56,7 +56,6 @@ in
         sddm-astronaut-override
         kdePackages.qtmultimedia
         themeLib.cursor.package
-        hypridle
       ];
 
       # WORKAROUND: Fix non-functioning TTY switching under Hyprland.
