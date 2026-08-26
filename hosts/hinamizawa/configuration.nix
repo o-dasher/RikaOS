@@ -105,6 +105,7 @@
           "render"
           "libvirtd"
           "gamemode"
+          "pipewire"
         ];
       in
       {
