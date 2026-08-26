@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   config,
   ...
 }:
@@ -12,5 +13,6 @@ in
 
   config = lib.mkIf (modCfg.enable && cfg.enable) {
     hardware.keyboard.qmk.enable = true;
+    services.udev.packages = [ pkgs.vial ];
   };
 }

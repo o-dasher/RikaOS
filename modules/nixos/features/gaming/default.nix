@@ -83,7 +83,9 @@
         };
       };
 
-      hardware = lib.mkIf modCfg.controllers.enable {
+      hardware = {
+        graphics.extraPackages = [ pkgs.vkbasalt ];
+      } // lib.optionalAttrs modCfg.controllers.enable {
         xpadneo.enable = true;
         xone.enable = true;
         uinput.enable = true;

@@ -229,6 +229,7 @@
   };
 
   programs = {
+    fuse.userAllowOther = true;
     fish.enable = true;
     neovim = {
       enable = true;

@@ -21,7 +21,6 @@ in
         app2unit
         grimblast
         hyprshutdown
-        wireplumber
         xdg-terminal-exec
       ];
 
@@ -101,7 +100,7 @@ in
         ++ lib.optionals config.profiles.browser.enable [
           (
             let
-              pkg = config.programs.chromium.finalPackage;
+              pkg = config.programs.brave.finalPackage;
               desktop = "${pkg}/share/applications/${pkg.meta.mainProgram or pkg.pname}.desktop";
             in
             #lua

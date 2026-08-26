@@ -32,9 +32,7 @@ in
         };
       }
       (lib.mkIf cfg.secure.enable {
-        environment.systemPackages =
-          with pkgs;
-          ([ sbctl ] ++ lib.optionals cfg.secure.encryptionUnlock.enable [ tpm2-tss ]);
+        environment.systemPackages = [ pkgs.sbctl ];
 
         boot = {
           loader.limine.secureBoot.enable = true;
