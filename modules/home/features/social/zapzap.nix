@@ -7,10 +7,7 @@
 let
   cfg = config.features.social.zapzap;
   pkg = pkgs.writeShellScriptBin "zapzap" ''
-    exec ${lib.getExe pkgs.brave-origin} \
-      --app=https://web.whatsapp.com \
-      --user-data-dir="''${XDG_DATA_HOME:-$HOME/.local/share}/zapzap" \
-      "$@"
+    exec ${lib.getExe pkgs.brave-origin} --app=https://web.whatsapp.com "$@"
   '';
 in
 {
@@ -26,6 +23,5 @@ in
         icon = "whatsapp";
       })
     ];
-    xdg.autostart.entries = [ (config.rika.utils.mkAutostartApp { inherit pkg; }) ];
   };
 }
