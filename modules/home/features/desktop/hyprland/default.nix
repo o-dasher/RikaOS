@@ -118,7 +118,7 @@ in
         ]
         ++ lib.optionals config.features.social.zapzap.enable [
           #lua
-          ''hl.window_rule({ match = { class = "^(brave.*whatsapp.*)$" }, workspace = "10 silent" })''
+          ''hl.window_rule({ match = { class = "^(com\\.github\\.dagmoller\\.whatsapp-electron)$" }, workspace = "10 silent" })''
         ]
         ++ lib.optionals (hasStylix && config.features.desktop.theme.enable) [
           #lua
