@@ -26,10 +26,6 @@ in
       discord = {
         krisp.enable = cfg.enableKrispPatch;
         vencord.enable = true;
-        commandLineArgs = [
-          "--enable-features=Vulkan"
-          "--use-vulkan=native"
-        ];
       };
       config.plugins = {
         fakeNitro.enable = true;
