@@ -55,6 +55,7 @@ in
       environment.systemPackages = [
         sddm-astronaut-override
         themeLib.cursor.package
+        pkgs.kdePackages.qtmultimedia
       ];
 
       # WORKAROUND: Fix non-functioning TTY switching under Hyprland.
@@ -74,7 +75,6 @@ in
 
       services.displayManager.sddm = {
         enable = true;
-        extraPackages = [ pkgs.kdePackages.qtmultimedia ];
         theme = "sddm-astronaut-theme";
         settings.Theme = {
           CursorTheme = themeLib.cursor.name;
