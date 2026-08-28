@@ -9,6 +9,15 @@
 let
   hasStylix = options ? stylix;
   hasUWSM = osConfig != null && osConfig.programs.hyprland.withUWSM;
+  onGraphicalStart = pkg:
+    let
+      desktop = "${pkg}/share/applications/${pkg.meta.mainProgram or (lib.getName pkg)}.desktop";
+    in
+    ''
+      hl.on("hyprland.start", function()
+        hl.exec_cmd("sh -c 'while ! systemctl --user is-active --quiet graphical-session.target; do sleep 0.1; done; app2unit ${desktop}'")
+      end)
+    '';
 in
 {
   options.features.desktop.hyprland.enable = lib.mkEnableOption "hyprland";
@@ -98,19 +107,11 @@ in
           ''hl.bind("SUPER + D", hl.dsp.exec_cmd("app2unit walker --nohints"))''
         ]
         ++ lib.optionals config.profiles.browser.enable [
-          (
-            let
-              pkg = config.programs.brave.finalPackage;
-              desktop = "${pkg}/share/applications/${pkg.meta.mainProgram or pkg.pname}.desktop";
-            in
-            #lua
-            ''
-              hl.window_rule({ match = { class = "^(brave-origin)$" }, workspace = "2 silent" })
-              hl.on("hyprland.start", function()
-                hl.exec_cmd("sh -c 'while ! systemctl --user is-active --quiet graphical-session.target; do sleep 0.1; done; app2unit ${desktop}'")
-              end)
-            ''
-          )
+          #lua
+          ''
+            hl.window_rule({ match = { class = "^(brave-origin)$" }, workspace = "2 silent" })
+            ${onGraphicalStart config.programs.brave.finalPackage}
+          ''
         ]
         ++ lib.optionals config.programs.nixcord.discord.vencord.enable [
           #lua
@@ -118,7 +119,10 @@ in
         ]
         ++ lib.optionals config.features.social.zapzap.enable [
           #lua
-          ''hl.window_rule({ match = { class = "^(com\\.github\\.dagmoller\\.whatsapp-electron)$" }, workspace = "10 silent" })''
+          ''
+            hl.window_rule({ match = { class = "^(brave-web.whatsapp.com__-Default)$" }, workspace = "10 silent" })
+            ${onGraphicalStart config.features.social.zapzap.package}
+          ''
         ]
         ++ lib.optionals (hasStylix && config.features.desktop.theme.enable) [
           #lua
