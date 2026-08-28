@@ -8,12 +8,38 @@ let
   cfg = config.features.social.zapzap;
 in
 {
-  options.features.social.zapzap.enable = lib.mkEnableOption "WhatsApp via whatsapp-electron";
+  options.features.social.zapzap = {
+    enable = lib.mkEnableOption "WhatsApp PWA via Brave";
+    package = lib.mkOption {
+      type = lib.types.package;
+      default = pkgs.symlinkJoin {
+        name = "zapzap";
+        pname = "zapzap";
+        meta.mainProgram = "zapzap";
+        paths = [
+          (pkgs.writeShellScriptBin "zapzap" ''
+            exec ${lib.getExe pkgs.brave-origin} --app=https://web.whatsapp.com "$@"
+          '')
+          (pkgs.makeDesktopItem {
+            name = "zapzap";
+            desktopName = "WhatsApp";
+            exec = "zapzap %U";
+            icon = "whatsapp";
+            categories = [
+              "Network"
+              "InstantMessaging"
+              "Chat"
+            ];
+            terminal = false;
+            type = "Application";
+          })
+        ];
+      };
+      description = "The WhatsApp package to use.";
+    };
+  };
 
   config = lib.mkIf (config.features.social.enable && cfg.enable) {
-    home.packages = [ pkgs.whatsapp-electron ];
-    xdg.autostart.entries = [
-      (config.rika.utils.mkAutostartApp { pkg = pkgs.whatsapp-electron; })
-    ];
+    home.packages = [ cfg.package ];
   };
 }
