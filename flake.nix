@@ -150,6 +150,20 @@
           nix-minecraft.overlay
           hyprland.overlays.hyprland-packages
           hyprland.overlays.hyprland-extras
+          # PR #15580: refactor rendermonitor and early out on no damage frames
+          # https://github.com/hyprwm/Hyprland/pull/15580
+          # When this PR is merged, the patch will fail to apply and the build
+          # will break — remove this overlay at that point.
+          (final: prev: {
+            hyprland = prev.hyprland.overrideAttrs (old: {
+              patches = (old.patches or [ ]) ++ [
+                (prev.fetchpatch {
+                  url = "https://github.com/hyprwm/Hyprland/pull/15580.diff";
+                  hash = "sha256-t+r+gplvIoGslj3G662qUW4WAofaDaahvFNXrmWKsII=";
+                })
+              ];
+            });
+          })
           (
             final: prev:
             let
