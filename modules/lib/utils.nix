@@ -35,6 +35,10 @@
 
     hasSecrets = builtins.hasAttr "gemini-api-key" config.age.secrets;
 
+    nixAccessTokens = lib.optionalString (config.age.secrets ? nix-access-tokens) ''
+      !include ${config.age.secrets.nix-access-tokens.path}
+    '';
+
     mkAutostartApp =
       {
         pkg,

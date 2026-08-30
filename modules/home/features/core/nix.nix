@@ -19,7 +19,10 @@ in
 
   config = lib.mkMerge [
     (lib.mkIf (config.features.core.enable && cfg.enable) {
-      nix.settings = nixCaches;
+      nix = {
+        settings = nixCaches;
+        extraOptions = config.rika.utils.nixAccessTokens;
+      };
       programs.nh = {
         enable = true;
         clean = {
