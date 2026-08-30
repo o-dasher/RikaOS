@@ -9,13 +9,18 @@
 let
   hasStylix = options ? stylix;
   hasUWSM = osConfig != null && osConfig.programs.hyprland.withUWSM;
-  onGraphicalStart = pkg:
+  onGraphicalStart =
+    pkg:
+    {
+      delay ? 0,
+    }:
     let
       desktop = "${pkg}/share/applications/${pkg.meta.mainProgram or (lib.getName pkg)}.desktop";
+      sleepCmd = lib.optionalString (delay > 0) "sleep ${toString delay};";
     in
     ''
       hl.on("hyprland.start", function()
-        hl.exec_cmd("sh -c 'while ! systemctl --user is-active --quiet graphical-session.target; do sleep 0.1; done; app2unit ${desktop}'")
+        hl.exec_cmd("sh -c 'while ! systemctl --user is-active --quiet graphical-session.target; do sleep 0.1; done; ${sleepCmd} app2unit ${desktop}'")
       end)
     '';
 in
@@ -110,19 +115,19 @@ in
           #lua
           ''
             hl.window_rule({ match = { class = "^(brave-origin)$" }, workspace = "2 silent" })
-            ${onGraphicalStart config.programs.brave.finalPackage}
+            ${onGraphicalStart config.programs.brave.finalPackage { delay = 1; }}
           ''
-        ]
-        ++ lib.optionals config.programs.nixcord.discord.vencord.enable [
-          #lua
-          ''hl.window_rule({ match = { class = "^(discord)$" }, workspace = "3 silent" })''
         ]
         ++ lib.optionals config.features.social.zapzap.enable [
           #lua
           ''
             hl.window_rule({ match = { class = "^(brave-web.whatsapp.com__-Default)$" }, workspace = "10 silent" })
-            ${onGraphicalStart config.features.social.zapzap.package}
+            ${onGraphicalStart config.features.social.zapzap.package { delay = 2; }}
           ''
+        ]
+        ++ lib.optionals config.programs.nixcord.discord.vencord.enable [
+          #lua
+          ''hl.window_rule({ match = { class = "^(discord)$" }, workspace = "3 silent" })''
         ]
         ++ lib.optionals (hasStylix && config.features.desktop.theme.enable) [
           #lua
