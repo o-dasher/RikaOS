@@ -18,7 +18,7 @@ hl.config({
 
 	render = {
 		-- Just no...
-		direct_scanout = 2,
+		direct_scanout = 0,
 
 		-- Keep output in SDR even if apps expose HDR content. My monitor's HDR is not that great.
 		cm_auto_hdr = 0,
