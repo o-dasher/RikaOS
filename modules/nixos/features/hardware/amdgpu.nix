@@ -18,6 +18,7 @@ in
       RADV_DEBUG = "nodisplaydcc";
       AMD_DEBUG = "nodisplaydcc";
     };
+
     hardware.amdgpu = {
       initrd.enable = true;
       opencl.enable = true;
