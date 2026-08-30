@@ -13,19 +13,17 @@ hl.config({
 
 	misc = {
 		allow_session_lock_restore = true,
-		anr_missed_pings = 30, -- cs2 pulls too many resources on launch, which causes anr, without it actually being anr.
-	},
-
-	cursor = {
-		no_hardware_cursors = 1,
+		anr_missed_pings = 20, -- cs2 pulls too many resources on launch, which causes anr, without it actually being anr.
 	},
 
 	render = {
 		-- Just no...
-		direct_scanout = 0,
+		direct_scanout = 2,
 
 		-- Keep output in SDR even if apps expose HDR content. My monitor's HDR is not that great.
 		cm_auto_hdr = 0,
+
+		async_commit = true, -- Lower mouse latency,
 	},
 
 	general = {
