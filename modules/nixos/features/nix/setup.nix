@@ -31,6 +31,7 @@ in
           max-free = 32 * 1024 * 1024 * 1024; # 32 GiB
         }
         // nixCaches;
+        extraOptions = config.rika.utils.nixAccessTokens;
       }
       (lib.mkIf cfg.optimise {
         settings.auto-optimise-store = true;

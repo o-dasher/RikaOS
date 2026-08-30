@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:NixOS/nixpkgs";
-    hyprland-nixpkgs.url = "github:NixOS/nixpkgs/33b9069d16f6f02f2b1ac717e2f4dd6aeeb56a13";
+    hyprland.url = "github:hyprwm/Hyprland";
     nixpkgs-stable.url = "https://flakehub.com/f/NixOS/nixpkgs/0";
     flake-compat.url = "github:edolstra/flake-compat";
     systems.url = "github:nix-systems/default";
@@ -69,7 +69,7 @@
   outputs =
     inputs@{
       nixpkgs,
-      hyprland-nixpkgs,
+      hyprland,
       home-manager,
       agenix,
       flake-parts,
@@ -127,6 +127,7 @@
         nixCaches = {
           extra-substituters = [
             "https://cache.nixos.org"
+            "https://hyprland.cachix.org"
             "https://playit-nixos-module.cachix.org"
             "https://nix-community.cachix.org"
             "https://hercules-ci.cachix.org"
@@ -134,6 +135,7 @@
           ];
           extra-trusted-public-keys = [
             "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+            "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
             "playit-nixos-module.cachix.org-1:22hBXWXBbd/7o1cOnh+p0hpFUVk9lPdRLX3p5YSfRz4="
             "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
             "hercules-ci.cachix.org-1:ZZeDl9Va+xe9j+KqdzoBZMFJHVQ42Uu/c/1/KMC5Lw0="
@@ -146,17 +148,14 @@
         system:
         mkPkgs system nixpkgs [
           nix-minecraft.overlay
+          hyprland.overlays.hyprland-packages
+          hyprland.overlays.hyprland-extras
           (
             final: prev:
             let
               lix = lixSet prev;
-              hyprPkgs = mkPkgs system hyprland-nixpkgs [ ];
-              hyprAttrs = lib.filterAttrs (
-                name: _: lib.hasPrefix "hypr" name || name == "xdg-desktop-portal-hyprland"
-              ) hyprPkgs;
             in
-            hyprAttrs
-            // {
+            {
               stable = mkPkgs system nixpkgs-stable [ ];
               master = mkPkgs system nixpkgs-master [ ];
 
