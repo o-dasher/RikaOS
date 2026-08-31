@@ -22,8 +22,6 @@ hl.config({
 
 		-- Keep output in SDR even if apps expose HDR content. My monitor's HDR is not that great.
 		cm_auto_hdr = 0,
-
-		async_commit = true, -- Lower mouse latency,
 	},
 
 	general = {
