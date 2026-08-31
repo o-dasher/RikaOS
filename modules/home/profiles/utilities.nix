@@ -26,6 +26,7 @@ in
       gdu
       czkawka
       unzip
+      psmisc
       # monitor
       mission-center
       lm_sensors
