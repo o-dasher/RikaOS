@@ -72,6 +72,7 @@
           remotePlay.openFirewall = true;
           protontricks.enable = true;
           extraCompatPackages = [ pkgs.proton-ge-bin ];
+          extraPackages = [ pkgs.pulseaudio ];
           gamescopeSession = {
             enable = true;
             steamArgs = [
@@ -85,7 +86,8 @@
 
       hardware = {
         graphics.extraPackages = [ pkgs.vkbasalt ];
-      } // lib.optionalAttrs modCfg.controllers.enable {
+      }
+      // lib.optionalAttrs modCfg.controllers.enable {
         xpadneo.enable = true;
         xone.enable = true;
         uinput.enable = true;
