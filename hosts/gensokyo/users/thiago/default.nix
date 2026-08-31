@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   features = {
     utilities.trash.enable = true;
@@ -11,5 +11,6 @@
     };
   };
 
+  home.packages = with pkgs; [ wol ];
   programs.home-manager.enable = true;
 }
