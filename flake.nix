@@ -3,12 +3,18 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    hyprland-nixpkgs.url = "github:NixOS/nixpkgs/33b9069d16f6f02f2b1ac717e2f4dd6aeeb56a13";
     nixpkgs-master.url = "github:NixOS/nixpkgs";
     nixpkgs-stable.url = "https://flakehub.com/f/NixOS/nixpkgs/0";
     flake-compat.url = "github:edolstra/flake-compat";
     systems.url = "github:nix-systems/default";
     mnw.url = "github:Gerg-L/mnw";
+    hyprland = {
+      url = "github:hyprwm/hyprland/v0.56.0";
+      inputs = {
+        systems.follows = "systems";
+        pre-commit-hooks.inputs.flake-compat.follows = "flake-compat";
+      };
+    };
     playit-nixos-module = {
       url = "github:pedorich-n/playit-nixos-module";
       inputs = {
@@ -69,7 +75,7 @@
   outputs =
     inputs@{
       nixpkgs,
-      hyprland-nixpkgs,
+      hyprland,
       home-manager,
       agenix,
       flake-parts,
@@ -131,6 +137,7 @@
             "https://nix-community.cachix.org"
             "https://hercules-ci.cachix.org"
             "https://cache.numtide.com"
+            "https://hyprland.cachix.org"
           ];
           extra-trusted-public-keys = [
             "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
@@ -138,6 +145,7 @@
             "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
             "hercules-ci.cachix.org-1:ZZeDl9Va+xe9j+KqdzoBZMFJHVQ42Uu/c/1/KMC5Lw0="
             "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
+            "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
           ];
         };
       };
@@ -150,13 +158,10 @@
             final: prev:
             let
               lix = lixSet prev;
-              hyprPkgs = mkPkgs system hyprland-nixpkgs [ ];
-              hyprAttrs = lib.filterAttrs (
-                name: _: lib.hasPrefix "hypr" name || name == "xdg-desktop-portal-hyprland"
-              ) hyprPkgs;
             in
-            hyprAttrs
-            // {
+            {
+              inherit (hyprland.packages.${system}) hyprland xdg-desktop-portal-hyprland;
+
               stable = mkPkgs system nixpkgs-stable [ ];
               master = mkPkgs system nixpkgs-master [ ];
 

@@ -21,6 +21,14 @@ sudo nixos-rebuild switch --flake .#hostname
 ```
 *Replace `hostname` with a defined host (e.g. `gensokyo`, `hinamizawa`).*
 
+**First Build (with Binary Caches):**
+When building for the first time before caches are configured on the system, pass substituters and public keys explicitly to avoid building from source:
+```bash
+sudo nixos-rebuild switch --flake .#hostname \
+  --option extra-substituters "https://cache.nixos.org https://playit-nixos-module.cachix.org https://nix-community.cachix.org https://hercules-ci.cachix.org https://cache.numtide.com https://hyprland.cachix.org" \
+  --option extra-trusted-public-keys "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= playit-nixos-module.cachix.org-1:22hBXWXBbd/7o1cOnh+p0hpFUVk9lPdRLX3p5YSfRz4= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= hercules-ci.cachix.org-1:ZZeDl9Va+xe9j+KqdzoBZMFJHVQ42Uu/c/1/KMC5Lw0= niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g= hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+```
+
 **Home Manager (User only):**
 ```bash
 home-manager switch --flake .#username

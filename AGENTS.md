@@ -30,6 +30,10 @@ nix flake check
 
 Use `nix flake check --no-build` if you only want evaluation without running builds.
 
+### Keep Binary Cache Commands in README Synchronized
+
+Whenever binary caches (`nixCaches` substituters or trusted public keys) in `flake.nix` are added, removed, or modified, always update the first-build command under **Installation** in `README.md` so that the `--option extra-substituters` and `--option extra-trusted-public-keys` arguments stay in sync.
+
 ## Apply Changes Safely
 
 Do not use `colmena`, `nh`, or `nixos-rebuild switch` from this public repository. It does not contain everything required to apply system changes as intended, including the necessary private Agenix material.
