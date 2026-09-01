@@ -122,7 +122,7 @@ in
           #lua
           ''
             hl.window_rule({ match = { class = "^(brave-web.whatsapp.com__-Default)$" }, workspace = "10 silent" })
-            ${onGraphicalStart config.features.social.zapzap.package { delay = 2; }}
+            ${onGraphicalStart config.features.social.zapzap.package { delay = 3; }}
           ''
         ]
         ++ lib.optionals config.programs.nixcord.discord.vencord.enable [
