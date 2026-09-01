@@ -15,14 +15,6 @@
         pre-commit-hooks.inputs.flake-compat.follows = "flake-compat";
       };
     };
-    playit-nixos-module = {
-      url = "github:pedorich-n/playit-nixos-module";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-        systems.follows = "systems";
-      };
-    };
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
       inputs = {
@@ -79,7 +71,6 @@
       home-manager,
       agenix,
       flake-parts,
-      playit-nixos-module,
       nix-minecraft,
       nixcord,
       stylix,
@@ -133,7 +124,6 @@
         nixCaches = {
           extra-substituters = [
             "https://cache.nixos.org"
-            "https://playit-nixos-module.cachix.org"
             "https://nix-community.cachix.org"
             "https://hercules-ci.cachix.org"
             "https://cache.numtide.com"
@@ -141,7 +131,6 @@
           ];
           extra-trusted-public-keys = [
             "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-            "playit-nixos-module.cachix.org-1:22hBXWXBbd/7o1cOnh+p0hpFUVk9lPdRLX3p5YSfRz4="
             "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
             "hercules-ci.cachix.org-1:ZZeDl9Va+xe9j+KqdzoBZMFJHVQ42Uu/c/1/KMC5Lw0="
             "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
@@ -211,7 +200,6 @@
           ./hosts/${hostName}/configuration.nix
           stylix.nixosModules.stylix
           agenix.nixosModules.default
-          playit-nixos-module.nixosModules.default
           nix-minecraft.nixosModules.minecraft-servers
           home-manager.nixosModules.home-manager
           {

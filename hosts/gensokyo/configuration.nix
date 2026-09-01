@@ -100,10 +100,6 @@
         tokenKeyFile = config.age.secrets.kavita-token-key.path;
         settings.Port = 8082;
       };
-      playit = {
-        enable = true;
-        secretPath = config.age.secrets.playit-secret.path;
-      };
       navidrome = {
         enable = true;
         environmentFile = config.age.secrets.navidrome-secrets.path;
