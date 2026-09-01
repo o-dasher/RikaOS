@@ -133,15 +133,6 @@
       enable = true;
       policy = [ "magic" ];
     };
-
-    firewall =
-      let
-        stardewValleyPort = 24642;
-      in
-      {
-        checkReversePath = "loose";
-        allowedUDPPorts = [ stardewValleyPort ];
-      };
   };
 
   fonts.enableDefaultPackages = true;
