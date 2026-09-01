@@ -10,11 +10,6 @@ in
 {
   options.features.social.discord = {
     enable = lib.mkEnableOption "Discord with Krisp";
-    enableKrispPatch = lib.mkOption {
-      type = lib.types.bool;
-      default = true;
-      description = "Enable the Krisp noise suppression patch for Discord";
-    };
   };
 
   config = lib.mkIf (modCfg.enable && cfg.enable) {
@@ -24,7 +19,7 @@ in
     programs.nixcord = {
       enable = true;
       discord = {
-        krisp.enable = cfg.enableKrispPatch;
+        krisp.enable = true;
         vencord.enable = true;
       };
       config.plugins = {
