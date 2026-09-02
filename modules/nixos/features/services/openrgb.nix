@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 let
@@ -16,8 +17,12 @@ in
       startupProfile = "black.orp";
     };
 
-    systemd.tmpfiles.rules = [
-      "L+ /var/lib/OpenRGB/${config.services.hardware.openrgb.startupProfile} - - - - ${../../../../assets/OpenRGB/black.orp}"
-    ];
+    systemd = {
+      # Wait for sata-based usb rgb devices.
+      services.openrgb.serviceConfig.ExecStartPre = "${lib.getExe' pkgs.coreutils "sleep"} 3";
+      tmpfiles.rules = [
+        "L+ /var/lib/OpenRGB/${config.services.hardware.openrgb.startupProfile} - - - - ${../../../../assets/OpenRGB/black.orp}"
+      ];
+    };
   };
 }

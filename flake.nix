@@ -150,9 +150,12 @@
             in
             {
               inherit (hyprland.packages.${system}) hyprland xdg-desktop-portal-hyprland;
-
+            }
+            // rec {
               stable = mkPkgs system nixpkgs-stable [ ];
               master = mkPkgs system nixpkgs-master [ ];
+
+              inherit (master) antigravity-cli;
 
               # Lix
               inherit (lix)
