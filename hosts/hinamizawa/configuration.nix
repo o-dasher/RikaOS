@@ -20,7 +20,7 @@
       enable = true;
       privacyIPv6.enable = true;
       vpn.enable = true;
-      primaryInterface = "enp6s0";
+      primaryInterface = "enp9s0";
       cloudflare = {
         warp.enable = true;
         dns.enable = true;

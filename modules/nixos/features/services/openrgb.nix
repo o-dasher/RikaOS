@@ -1,15 +1,12 @@
 {
   lib,
-  pkgs,
   config,
+  pkgs,
   ...
 }:
 let
   modCfg = config.features.services;
   cfg = modCfg.openrgb;
-
-  openrgbProfile = config.services.hardware.openrgb.startupProfile;
-  openrgbReloadCmd = "${pkgs.openrgb}/bin/openrgb --profile ${openrgbProfile}";
 in
 {
   options.features.services.openrgb.enable = lib.mkEnableOption "openrgb";
@@ -17,18 +14,15 @@ in
   config = lib.mkIf (modCfg.enable && cfg.enable) {
     services.hardware.openrgb = {
       enable = true;
-      startupProfile = "/var/lib/OpenRGB/black.orp";
+      startupProfile = "black.orp";
     };
 
     systemd = {
-      tmpfiles.rules = [ "L+ ${openrgbProfile} - - - - ${../../../../assets/OpenRGB/black.orp}" ];
-      services = {
-        openrgb.serviceConfig.ExecStartPost = lib.mkAfter [ openrgbReloadCmd ];
-        systemd-suspend.serviceConfig.ExecStartPost = lib.mkAfter [ openrgbReloadCmd ];
-        systemd-hibernate.serviceConfig.ExecStartPost = lib.mkAfter [ openrgbReloadCmd ];
-        systemd-hybrid-sleep.serviceConfig.ExecStartPost = lib.mkAfter [ openrgbReloadCmd ];
-        systemd-suspend-then-hibernate.serviceConfig.ExecStartPost = lib.mkAfter [ openrgbReloadCmd ];
-      };
+      # Wait for sata-based usb rgb devices.
+      services.openrgb.serviceConfig.ExecStartPre = "${lib.getExe' pkgs.coreutils "sleep"} 3";
+      tmpfiles.rules = [
+        "L+ /var/lib/OpenRGB/${config.services.hardware.openrgb.startupProfile} - - - - ${../../../../assets/OpenRGB/black.orp}"
+      ];
     };
   };
 }

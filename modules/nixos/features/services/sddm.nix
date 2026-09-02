@@ -27,14 +27,14 @@ in
 
       sddmHypridleConfig = pkgs.writeText "sddm-hypridle.conf" ''
         general {
-          after_sleep_cmd = ${lib.getExe' pkgs.hyprland "hyprctl"} 'dispatch(dpms, on)'
+          after_sleep_cmd = ${lib.getExe' pkgs.hyprland "hyprctl"} eval "hl.dispatch(hl.dsp.dpms('on'))"
           inhibit_sleep = 3
         }
 
         listener {
           timeout = ${toString idleTimers.dpms}
-          on-timeout = ${lib.getExe' pkgs.hyprland "hyprctl"} 'dispatch(dpms, off)'
-          on-resume = ${lib.getExe' pkgs.hyprland "hyprctl"} 'dispatch(dpms, on)'
+          on-timeout = ${lib.getExe' pkgs.hyprland "hyprctl"} eval "hl.dispatch(hl.dsp.dpms('off'))"
+          on-resume = ${lib.getExe' pkgs.hyprland "hyprctl"} eval "hl.dispatch(hl.dsp.dpms('on'))"
         }
 
         listener {
