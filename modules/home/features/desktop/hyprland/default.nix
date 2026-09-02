@@ -66,7 +66,7 @@ in
             general = {
               lock_cmd = exec-sh "${lib.getExe' pkgs.procps "pidof"} hyprlock || ${lib.getExe pkgs.hyprlock}";
               before_sleep_cmd = exec "${lib.getExe' pkgs.systemd "loginctl"} lock-session";
-              after_sleep_cmd = exec "${lib.getExe' pkgs.hyprland "hyprctl"} 'dispatch(dpms, on)'";
+              after_sleep_cmd = exec "${lib.getExe' pkgs.hyprland "hyprctl"} eval \"hl.dispatch(hl.dsp.dpms('on'))\"";
               inhibit_sleep = 3;
             };
             listener = [
@@ -76,8 +76,8 @@ in
               }
               {
                 timeout = idleTimers.dpms;
-                on-timeout = exec "${lib.getExe' pkgs.hyprland "hyprctl"} 'dispatch(dpms, off)'";
-                on-resume = exec "${lib.getExe' pkgs.hyprland "hyprctl"} 'dispatch(dpms, on)'";
+                on-timeout = exec "${lib.getExe' pkgs.hyprland "hyprctl"} eval \"hl.dispatch(hl.dsp.dpms('off'))\"";
+                on-resume = exec "${lib.getExe' pkgs.hyprland "hyprctl"} eval \"hl.dispatch(hl.dsp.dpms('on'))\"";
               }
               {
                 timeout = idleTimers.suspend;
