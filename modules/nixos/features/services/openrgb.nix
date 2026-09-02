@@ -13,11 +13,11 @@ in
   config = lib.mkIf (modCfg.enable && cfg.enable) {
     services.hardware.openrgb = {
       enable = true;
-      startupProfile = "/var/lib/OpenRGB/black.orp";
+      startupProfile = "black.orp";
     };
 
     systemd.tmpfiles.rules = [
-      "L+ ${config.services.hardware.openrgb.startupProfile} - - - - ${../../../../assets/OpenRGB/black.orp}"
+      "L+ /var/lib/OpenRGB/${config.services.hardware.openrgb.startupProfile} - - - - ${../../../../assets/OpenRGB/black.orp}"
     ];
   };
 }
