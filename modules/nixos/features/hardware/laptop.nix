@@ -9,7 +9,8 @@ let
   cfg = modCfg.laptop;
 in
 {
-  options.features.hardware.laptop.enable = lib.mkEnableOption "laptop hardware optimizations";
+  options.features.hardware.laptop.enable =
+    lib.mkEnableOption "laptop-specific hardware support (UPower battery daemon and brightnessctl udev rules)";
 
   config = lib.mkIf (modCfg.enable && cfg.enable) {
     services = {

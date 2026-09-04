@@ -10,11 +10,11 @@ let
 in
 {
   options.features.boot.limine = {
-    enable = lib.mkEnableOption "Limine boot loader";
+    enable = lib.mkEnableOption "Limine modern bootloader with EFI management";
     secure = {
-      enable = lib.mkEnableOption "Setup secure boot";
+      enable = lib.mkEnableOption "UEFI Secure Boot support via sbctl";
       # Reference for auto unlocking encrypted drive: https://discourse.nixos.org/t/full-disk-encryption-tpm2/29454
-      encryptionUnlock.enable = lib.mkEnableOption "Unlock encrypted drives automatically";
+      encryptionUnlock.enable = lib.mkEnableOption "automatic TPM2-based decryption for encrypted system drives";
     };
   };
 

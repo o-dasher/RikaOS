@@ -51,9 +51,11 @@ let
 in
 {
   options.features.desktop.theme =
-    (lib.mapAttrs (name: _: { enable = lib.mkEnableOption "${name} theme"; }) themes)
+    (lib.mapAttrs (name: _: {
+      enable = lib.mkEnableOption "the ${name} desktop theme and wallpaper";
+    }) themes)
     // {
-      enable = lib.mkEnableOption "themes" // {
+      enable = lib.mkEnableOption "desktop theming via Stylix" // {
         default = true;
       };
     };

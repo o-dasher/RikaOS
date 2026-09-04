@@ -10,7 +10,7 @@ let
 in
 {
   options.features.services.transmission = {
-    enable = lib.mkEnableOption "Transmission BitTorrent client";
+    enable = lib.mkEnableOption "Transmission BitTorrent daemon configured with shared torrent storage";
     openRPCPort = lib.mkOption {
       type = lib.types.bool;
       default = true;

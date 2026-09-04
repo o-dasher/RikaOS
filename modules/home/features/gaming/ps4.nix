@@ -9,7 +9,8 @@ let
   cfg = modCfg.ps4;
 in
 {
-  options.features.gaming.ps4.enable = lib.mkEnableOption "ps4";
+  options.features.gaming.ps4.enable =
+    lib.mkEnableOption "PlayStation 4 emulation tooling (shadps4 and liborbispkg)";
 
   config = lib.mkIf (modCfg.enable && cfg.enable) {
     home.packages = with pkgs; [

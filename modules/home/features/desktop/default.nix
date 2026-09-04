@@ -12,7 +12,7 @@
   ];
 
   options.features.desktop = {
-    enable = lib.mkEnableOption "desktop features" // {
+    enable = lib.mkEnableOption "desktop environment and Wayland session features" // {
       default = true;
     };
     laptop.enable = lib.mkOption {

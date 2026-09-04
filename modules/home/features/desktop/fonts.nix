@@ -10,9 +10,11 @@ let
   modCfg = desktopCfg.fonts;
 in
 {
-  options.features.desktop.fonts.enable = lib.mkEnableOption "common fonts" // {
-    default = true;
-  };
+  options.features.desktop.fonts.enable =
+    lib.mkEnableOption "system fonts (JetBrainsMono Nerd Font, Noto Sans/Serif, and CJK fonts)"
+    // {
+      default = true;
+    };
 
   config = lib.mkIf (desktopCfg.enable && modCfg.enable) (
     lib.mkMerge [

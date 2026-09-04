@@ -8,7 +8,7 @@ let
   cfg = config.profiles.utilities;
 in
 {
-  options.profiles.utilities.enable = lib.mkEnableOption "Utilities profile";
+  options.profiles.utilities.enable = lib.mkEnableOption "system utilities profile (htop, yazi file manager, mission-center, czkawka, nvfetcher, etc.)";
 
   config = lib.mkIf cfg.enable {
     programs = {

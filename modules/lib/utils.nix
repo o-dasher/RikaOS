@@ -8,10 +8,11 @@
 {
   options = {
     features.filesystem.sharedFolders = {
-      enable = lib.mkEnableOption "sharedFolders";
+      enable = lib.mkEnableOption "shared multi-user folders and repository permissions";
       configurationRoot = lib.mkOption {
         default = "/shared/.config";
         type = lib.types.str;
+        description = "Root path for shared configuration repositories and state.";
       };
     };
 

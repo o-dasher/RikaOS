@@ -11,7 +11,8 @@ let
   inherit (config.rika.utils) prefixset;
 in
 {
-  options.features.cli.fish.enable = lib.mkEnableOption "fish";
+  options.features.cli.fish.enable =
+    lib.mkEnableOption "Fish shell configuration, aliases, abbreviations, and update shortcuts";
 
   config = lib.mkIf (modCfg.enable && cfg.enable) {
     programs.fish = {

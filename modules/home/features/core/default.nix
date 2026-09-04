@@ -7,8 +7,10 @@
   ];
 
   options.features.core = {
-    enable = lib.mkEnableOption "core features" // {
-      default = true;
-    };
+    enable =
+      lib.mkEnableOption "core user configuration (Nix tools, system cleanup, and XDG directories)"
+      // {
+        default = true;
+      };
   };
 }

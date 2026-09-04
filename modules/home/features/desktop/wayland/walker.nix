@@ -11,9 +11,11 @@ let
   hasStylix = options ? stylix;
 in
 {
-  options.features.desktop.wayland.walker.enable = (lib.mkEnableOption "walker") // {
-    default = true;
-  };
+  options.features.desktop.wayland.walker.enable =
+    (lib.mkEnableOption "Walker application launcher and runner with Elephant desktop integration")
+    // {
+      default = true;
+    };
 
   config = lib.mkIf (hasStylix && config.features.desktop.enable && modCfg.enable && cfg.enable) {
     home.packages = [ pkgs.app2unit ];

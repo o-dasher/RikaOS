@@ -11,9 +11,9 @@ in
   imports = [ ./cloudflare.nix ];
 
   options.features.networking = {
-    enable = lib.mkEnableOption "networking";
-    privacyIPv6.enable = lib.mkEnableOption "Privacy IPv6 address generation";
-    vpn.enable = lib.mkEnableOption "VPN plugins for NetworkManager";
+    enable = lib.mkEnableOption "NetworkManager networking stack and network configuration";
+    privacyIPv6.enable = lib.mkEnableOption "IPv6 RFC 4941 privacy extensions for randomized address generation";
+    vpn.enable = lib.mkEnableOption "VPN plugins for NetworkManager (OpenVPN and OpenConnect)";
     primaryInterface = lib.mkOption {
       type = lib.types.str;
       description = "The primary networking interface for operations.";

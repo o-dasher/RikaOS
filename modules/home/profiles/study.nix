@@ -8,7 +8,7 @@ let
   cfg = config.profiles.study;
 in
 {
-  options.profiles.study.enable = lib.mkEnableOption "study profile";
+  options.profiles.study.enable = lib.mkEnableOption "document and reading profile (Zathura PDF reader and Foliate eBook viewer)";
 
   config = lib.mkIf cfg.enable {
     programs = {

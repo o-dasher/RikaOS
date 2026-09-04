@@ -8,7 +8,8 @@ let
   cfg = modCfg.amdgpu;
 in
 {
-  options.features.hardware.amdgpu.enable = lib.mkEnableOption "AMDGPU support";
+  options.features.hardware.amdgpu.enable =
+    lib.mkEnableOption "AMDGPU kernel drivers, LACT control daemon, OpenCL, and gaming optimizations";
 
   config = lib.mkIf (modCfg.enable && cfg.enable) {
     services.lact.enable = true;

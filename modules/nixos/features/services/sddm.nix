@@ -10,8 +10,8 @@ let
   cfg = modCfg.sddm;
 in
 {
-  imports = [ ../../../lib ];
-  options.features.services.sddm.enable = lib.mkEnableOption "SDDM Display Manager";
+  options.features.services.sddm.enable =
+    lib.mkEnableOption "SDDM display manager with themed Astronaut theme and idle power management";
 
   config =
     let

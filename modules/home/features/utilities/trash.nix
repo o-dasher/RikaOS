@@ -9,7 +9,7 @@ let
 in
 {
   options.features.utilities.trash = {
-    enable = lib.mkEnableOption "trash alias + cleanup";
+    enable = lib.mkEnableOption "trash-cli integration with safe rm aliasing and scheduled trash purging";
     retentionDays = lib.mkOption {
       type = lib.types.int;
       default = 16;

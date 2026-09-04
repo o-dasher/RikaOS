@@ -8,7 +8,7 @@
   ];
 
   options.features.development = {
-    enable = lib.mkEnableOption "development features" // {
+    enable = lib.mkEnableOption "software development tools (git, direnv, godot, and user secrets)" // {
       default = true;
     };
   };
