@@ -8,22 +8,16 @@
   imports = [ ./opentabletdriver.nix ];
 
   options.features.gaming = {
-    steam.enable =
-      lib.mkEnableOption "system-wide Steam package, firewall rules, and dedicated server ports"
-      // {
-        default = true;
-      };
-    controllers.enable =
-      lib.mkEnableOption "Xbox and compatible controller hardware support via xpadneo"
-      // {
-        default = true;
-      };
-    suppressNotifications.enable =
-      lib.mkEnableOption "automatic 'Do Not Disturb' notification suppression during GameMode sessions"
-      // {
-        default = true;
-      };
-    enable = lib.mkEnableOption "system gaming stack (GameMode, ntsync kernel module, and zswap)";
+    steam.enable = lib.mkEnableOption "Steam." // {
+      default = true;
+    };
+    controllers.enable = lib.mkEnableOption "Xbox controller support." // {
+      default = true;
+    };
+    suppressNotifications.enable = lib.mkEnableOption "Notification suppression during gaming." // {
+      default = true;
+    };
+    enable = lib.mkEnableOption "Gaming features.";
   };
 
   config =

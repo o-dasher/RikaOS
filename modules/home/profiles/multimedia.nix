@@ -8,7 +8,7 @@ let
   cfg = config.profiles.multimedia;
 in
 {
-  options.profiles.multimedia.enable = lib.mkEnableOption "multimedia suite profile (EasyEffects, MPV, OBS Studio, Kdenlive, Jellyfin, Feishin, Krita, and Spotify)";
+  options.profiles.multimedia.enable = lib.mkEnableOption "Multimedia profile.";
 
   config = lib.mkIf cfg.enable {
     services.easyeffects.enable = true;

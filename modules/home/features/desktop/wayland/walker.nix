@@ -12,7 +12,7 @@ let
 in
 {
   options.features.desktop.wayland.walker.enable =
-    (lib.mkEnableOption "Walker application launcher and runner with Elephant desktop integration")
+    (lib.mkEnableOption "Walker application launcher.")
     // {
       default = true;
     };

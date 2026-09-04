@@ -4,8 +4,7 @@ let
   cfg = modCfg.tmux;
 in
 {
-  options.features.cli.tmux.enable =
-    lib.mkEnableOption "tmux terminal multiplexer with mouse support and split keybindings";
+  options.features.cli.tmux.enable = lib.mkEnableOption "Tmux.";
 
   config = lib.mkIf (modCfg.enable && cfg.enable) {
     programs.tmux = {

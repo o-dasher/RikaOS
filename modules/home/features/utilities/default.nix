@@ -6,7 +6,7 @@
   ];
 
   options.features.utilities = {
-    enable = lib.mkEnableOption "desktop utility applications and automated maintenance timers" // {
+    enable = lib.mkEnableOption "Utility features." // {
       default = true;
     };
   };

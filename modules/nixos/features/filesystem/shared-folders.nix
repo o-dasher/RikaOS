@@ -18,10 +18,7 @@ in
     folders = lib.mkOption {
       type = folderTreeType;
       default = { };
-      description = ''
-        Tree-based folder declaration using nested attrsets.
-        Example: { shared.Media = [ "Music" "Movies" ]; }
-      '';
+      description = "Tree-based folder declaration using nested attrsets.";
     };
     folderNames = lib.mkOption {
       type = lib.types.listOf lib.types.str;
@@ -31,10 +28,7 @@ in
     rootFolders = lib.mkOption {
       type = folderTreeType;
       default = { };
-      description = ''
-        Tree-based declaration for root-owned folders (755 permissions).
-        Example: { shared.Media = [ ]; }
-      '';
+      description = "Tree-based declaration for root-owned folders (755 permissions).";
     };
     rootFolderNames = lib.mkOption {
       type = lib.types.listOf lib.types.str;

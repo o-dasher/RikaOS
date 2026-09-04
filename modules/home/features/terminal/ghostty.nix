@@ -4,8 +4,7 @@ let
   cfg = modCfg.ghostty;
 in
 {
-  options.features.terminal.ghostty.enable =
-    lib.mkEnableOption "Ghostty hardware-accelerated terminal emulator with custom window settings";
+  options.features.terminal.ghostty.enable = lib.mkEnableOption "Ghostty.";
 
   config = lib.mkIf (modCfg.enable && cfg.enable) {
     programs.ghostty = {

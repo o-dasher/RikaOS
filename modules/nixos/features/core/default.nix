@@ -6,9 +6,7 @@
     ./user-preferences.nix
   ];
 
-  options.features.core.enable =
-    lib.mkEnableOption "core system features (deployment user, cleanup, and user preferences)"
-    // {
-      default = true;
-    };
+  options.features.core.enable = lib.mkEnableOption "Core system features." // {
+    default = true;
+  };
 }

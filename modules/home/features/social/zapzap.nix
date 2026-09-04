@@ -9,7 +9,7 @@ let
 in
 {
   options.features.social.zapzap = {
-    enable = lib.mkEnableOption "WhatsApp web progressive web app wrapper via Brave";
+    enable = lib.mkEnableOption "WhatsApp web wrapper.";
     package = lib.mkOption {
       type = lib.types.package;
       default = pkgs.symlinkJoin {

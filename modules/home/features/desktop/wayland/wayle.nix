@@ -15,14 +15,14 @@ let
 in
 {
   options.features.desktop.wayland.wayle = {
-    enable = (lib.mkEnableOption "Wayle Wayland status bar with Stylix theming") // {
+    enable = (lib.mkEnableOption "Wayle status bar.") // {
       default = true;
     };
     laptop.enable = lib.mkOption {
       type = lib.types.bool;
       default = config.features.desktop.laptop.enable;
       defaultText = lib.literalExpression "config.features.desktop.laptop.enable";
-      description = "Enable laptop-specific wayle modules (e.g. battery).";
+      description = "Laptop-specific Wayle modules.";
     };
   };
 

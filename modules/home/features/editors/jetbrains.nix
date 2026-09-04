@@ -11,11 +11,11 @@ let
 in
 {
   options.features.editors.jetbrains = {
-    enable = lib.mkEnableOption "JetBrains IDE suite with ideavimrc configuration";
-    android-studio.enable = lib.mkEnableOption "Android Studio IDE and SDK platform tools";
-    datagrip.enable = lib.mkEnableOption "DataGrip database IDE";
-    rider.enable = lib.mkEnableOption "Rider .NET and game development IDE";
-    clion.enable = lib.mkEnableOption "CLion C/C++ cross-platform IDE";
+    enable = lib.mkEnableOption "JetBrains IDEs.";
+    android-studio.enable = lib.mkEnableOption "Android Studio.";
+    datagrip.enable = lib.mkEnableOption "DataGrip.";
+    rider.enable = lib.mkEnableOption "Rider.";
+    clion.enable = lib.mkEnableOption "CLion.";
   };
 
   config = lib.mkIf (modCfg.enable && cfg.enable) (

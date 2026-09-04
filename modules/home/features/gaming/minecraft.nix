@@ -9,8 +9,7 @@ let
   cfg = modCfg.minecraft;
 in
 {
-  options.features.gaming.minecraft.enable =
-    lib.mkEnableOption "Prism Launcher Minecraft client with Temurin JRE runtime packages";
+  options.features.gaming.minecraft.enable = lib.mkEnableOption "Minecraft.";
 
   config = lib.mkIf (modCfg.enable && cfg.enable) {
     programs.prismlauncher = {

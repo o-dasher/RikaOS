@@ -4,7 +4,7 @@
   ...
 }:
 {
-  options.features.graphics.enable = lib.mkEnableOption "OpenGL and Vulkan graphics stack with 32-bit driver support";
+  options.features.graphics.enable = lib.mkEnableOption "Graphics stack.";
 
   config = lib.mkIf config.features.graphics.enable {
     hardware.graphics = {

@@ -9,16 +9,14 @@ let
 in
 {
   options.profiles.browser = {
-    enable = lib.mkEnableOption "web browser profile (LibreWolf, Brave, and Ungoogled Chromium)";
-    librewolf.enable =
-      lib.mkEnableOption "LibreWolf privacy-focused browser with default extensions"
-      // {
-        default = true;
-      };
-    brave.enable = lib.mkEnableOption "Brave browser with default extensions" // {
+    enable = lib.mkEnableOption "Browser profile.";
+    librewolf.enable = lib.mkEnableOption "LibreWolf browser." // {
       default = true;
     };
-    chromium.enable = lib.mkEnableOption "Ungoogled Chromium browser with default extensions";
+    brave.enable = lib.mkEnableOption "Brave browser." // {
+      default = true;
+    };
+    chromium.enable = lib.mkEnableOption "Chromium browser.";
   };
 
   config = lib.mkIf cfg.enable {

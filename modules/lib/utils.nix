@@ -8,7 +8,7 @@
 {
   options = {
     features.filesystem.sharedFolders = {
-      enable = lib.mkEnableOption "shared multi-user folders and repository permissions";
+      enable = lib.mkEnableOption "Shared folders.";
       configurationRoot = lib.mkOption {
         default = "/shared/.config";
         type = lib.types.str;
@@ -19,7 +19,7 @@
     rika.utils = lib.mkOption {
       type = lib.types.attrs;
       default = { };
-      description = "Utility functions for RikaOS configuration";
+      description = "Utility functions for RikaOS configuration.";
     };
   };
 

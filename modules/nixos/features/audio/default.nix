@@ -7,11 +7,9 @@ let
   modCfg = config.features.audio;
 in
 {
-  options.features.audio.enable =
-    lib.mkEnableOption "PipeWire audio subsystem with low-latency configuration and ALSA/Pulse/JACK support"
-    // {
-      default = true;
-    };
+  options.features.audio.enable = lib.mkEnableOption "PipeWire audio." // {
+    default = true;
+  };
 
   config = lib.mkIf modCfg.enable {
     security.rtkit.enable = true;

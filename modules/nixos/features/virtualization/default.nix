@@ -7,7 +7,7 @@ let
   modCfg = config.features.virtualization;
 in
 {
-  options.features.virtualization.enable = lib.mkEnableOption "virtualization stack (Podman container runtime with Docker emulation, QEMU/KVM via libvirtd, and virt-manager)";
+  options.features.virtualization.enable = lib.mkEnableOption "Virtualization stack.";
 
   config = lib.mkIf modCfg.enable {
     programs.virt-manager.enable = true;

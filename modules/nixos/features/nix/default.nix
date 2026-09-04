@@ -5,10 +5,8 @@
   ];
 
   options.features.nix = {
-    enable =
-      lib.mkEnableOption "Nix daemon settings, binary caches, and garbage collection configuration"
-      // {
-        default = true;
-      };
+    enable = lib.mkEnableOption "Nix daemon configuration." // {
+      default = true;
+    };
   };
 }

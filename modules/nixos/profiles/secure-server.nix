@@ -7,7 +7,7 @@ let
   cfg = config.profiles.secureServer;
 in
 {
-  options.profiles.secureServer.enable = lib.mkEnableOption "secure server profile with hardened OpenSSH and fail2ban intrusion prevention";
+  options.profiles.secureServer.enable = lib.mkEnableOption "Secure server profile.";
 
   config = lib.mkIf cfg.enable {
     services = {

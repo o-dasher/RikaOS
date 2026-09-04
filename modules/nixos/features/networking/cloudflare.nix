@@ -10,8 +10,8 @@ let
 in
 {
   options.features.networking.cloudflare = {
-    warp.enable = lib.mkEnableOption "Cloudflare WARP headless client daemon";
-    dns.enable = lib.mkEnableOption "Cloudflare DNS-over-HTTPS resolution via dnsproxy and systemd-resolved";
+    warp.enable = lib.mkEnableOption "Cloudflare WARP.";
+    dns.enable = lib.mkEnableOption "Cloudflare DNS resolution.";
   };
 
   config = lib.mkIf cfg.enable (

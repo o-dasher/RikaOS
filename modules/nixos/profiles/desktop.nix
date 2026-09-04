@@ -4,9 +4,9 @@ let
 in
 {
   options.profiles.desktop = {
-    enable = lib.mkEnableOption "desktop host profile with audio, graphics, printing, and peripherals";
-    gaming.enable = lib.mkEnableOption "desktop gaming stack including Steam and controller support";
-    virtualization.enable = lib.mkEnableOption "desktop virtualization features (Podman and libvirtd)";
+    enable = lib.mkEnableOption "Desktop host profile.";
+    gaming.enable = lib.mkEnableOption "Desktop gaming features.";
+    virtualization.enable = lib.mkEnableOption "Desktop virtualization features.";
   };
 
   config = lib.mkIf cfg.enable {
