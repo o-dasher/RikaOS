@@ -56,7 +56,6 @@ in
 
     home.packages = with pkgs; [
       wget
-      heroku
     ];
   };
 }
