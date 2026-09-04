@@ -111,7 +111,7 @@
       homeConfigs = { };
       deploymentTargets = {
         wired = { };
-        gensokyo.targetHost = "fuio.dshs.cc";
+        gensokyo = { };
         hinamizawa = { };
       };
 

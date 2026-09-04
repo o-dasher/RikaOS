@@ -8,10 +8,7 @@ let
   cfg = config.features.networking;
 in
 {
-  imports = [
-    ./cloudflare.nix
-    ./ddns.nix
-  ];
+  imports = [ ./cloudflare.nix ];
 
   options.features.networking = {
     enable = lib.mkEnableOption "networking";
@@ -26,10 +23,13 @@ in
   config = lib.mkIf cfg.enable {
     networking.networkmanager = {
       enable = true;
-      plugins = lib.mkIf cfg.vpn.enable (with pkgs; [
-        networkmanager-openvpn
-        networkmanager-openconnect
-      ]);
+      plugins = lib.mkIf cfg.vpn.enable (
+        with pkgs;
+        [
+          networkmanager-openvpn
+          networkmanager-openconnect
+        ]
+      );
       dns = lib.mkIf cfg.cloudflare.dns.enable "systemd-resolved";
       settings.connection = lib.mkMerge [
         (lib.mkIf cfg.privacyIPv6.enable {

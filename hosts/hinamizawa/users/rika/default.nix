@@ -4,13 +4,21 @@
 }:
 {
   profiles = {
-    development.enable = true;
+    development = {
+      enable = true;
+      jetbrains.enable = true;
+      zed.enable = true;
+    };
     utilities.enable = true;
     gaming.enable = true;
     multimedia.enable = true;
     social.enable = true;
-    browser.enable = true;
+    browser = {
+      enable = true;
+      chromium.enable = true;
+    };
     security.enable = true;
+    study.enable = true;
   };
 
   features = {
@@ -49,18 +57,5 @@
   programs = {
     home-manager.enable = true;
     imv.enable = true;
-    foliate = {
-      enable = true;
-      package = pkgs.symlinkJoin {
-        name = "foliate-x11";
-        paths = [
-          (pkgs.writeShellScriptBin "foliate" ''
-            export GDK_BACKEND=x11
-            exec ${pkgs.foliate}/bin/foliate "$@"
-          '')
-          pkgs.foliate
-        ];
-      };
-    };
   };
 }

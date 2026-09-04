@@ -1,7 +1,6 @@
 {
   pkgs,
   config,
-  lib,
   ...
 }:
 {
@@ -9,226 +8,70 @@
     ./hardware-configuration.nix
   ];
 
-  environment.systemPackages = with pkgs; [
-    mergerfs
-  ];
-
-  fileSystems = {
-    "/mnt/media-hdd" = {
-      device = "/dev/disk/by-uuid/749d870c-a88c-4c37-82ea-a9807c24cfea";
-      fsType = "ext4";
-      options = [ "noatime" ];
-    };
-    "/shared/Media" = {
-      device = "/shared/.media-local:/mnt/media-hdd";
-      fsType = "fuse.mergerfs";
-      depends = [ "/mnt/media-hdd" ];
-      options = [
-        "defaults"
-        "allow_other"
-        "use_ino"
-        "cache.files=partial"
-        "category.create=mfs"
-      ];
-    };
+  fileSystems."/mnt/data" = {
+    device = "/dev/disk/by-uuid/749d870c-a88c-4c37-82ea-a9807c24cfea";
+    fsType = "ext4";
+    options = [
+      "noatime"
+      "nofail"
+      "x-systemd.automount"
+      "x-systemd.idle-timeout=60"
+    ];
   };
 
-  profiles.secureServer.enable = true;
+  time.hardwareClockInLocalTime = true;
+  profiles.desktop = {
+    enable = true;
+    virtualization.enable = true;
+  };
+
   features = {
+    desktop.theme.cirnosunset.enable = true;
     boot.kernel.enable = true;
-    filesystem.sharedFolders = {
-      enable = true;
-      rootFolders.shared.Media = [ ];
-      folders.shared.Media = {
-        Music = [ ];
-        Movies = [ ];
-        Series = [ ];
-        Anime = [ ];
-        Books = [ ];
-        Comics = [ ];
-      };
-    };
     networking = {
       enable = true;
       cloudflare.dns.enable = true;
       privacyIPv6.enable = true;
       primaryInterface = "enp1s0";
-      ddns = {
-        enable = true;
-        updateIPv4 = false;
-        useWebIPv6 = false;
-        zone = "dshs.cc";
-        domains = [
-          "fuio.dshs.cc"
-          "files.dshs.cc"
-          "comics.dshs.cc"
-          "books.dshs.cc"
-          "navidrome.dshs.cc"
-          "jellyfin.dshs.cc"
-        ];
-      };
+    };
+    services = {
+      openssh.enable = true;
+      bluetooth.enable = true;
+      gnome-keyring.enable = true;
+      sddm.enable = true;
     };
   };
 
-  systemd.services = {
-    sftpgo.serviceConfig = {
-      Restart = "on-failure";
-      RestartSec = "3s";
-    };
-    console-backlight-powerdown = {
-      description = "Power down console display when idle";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "getty@tty1.service" ];
-      serviceConfig = {
-        Type = "oneshot";
-        Environment = [ "TERM=linux" ];
-      };
-      script = ''
-        ${pkgs.util-linux}/bin/setterm \
-          --blank 1 \
-          --powersave powerdown \
-          --powerdown 1 \
-          < /dev/tty1 > /dev/tty1
-      '';
-    };
-  };
-
-  services = lib.mkMerge [
-    (lib.mkIf config.rika.utils.hasSecrets {
-      kavita = {
-        enable = true;
-        tokenKeyFile = config.age.secrets.kavita-token-key.path;
-        settings.Port = 8082;
-      };
-      navidrome = {
-        enable = true;
-        environmentFile = config.age.secrets.navidrome-secrets.path;
-        settings.MusicFolder = "/shared/Media/Music";
-      };
-    })
-    {
-      jellyfin.enable = true;
-      komga = {
-        enable = true;
-        settings.server.port = 8081;
-      };
-      minecraft-servers = {
-        enable = true;
-        eula = true;
-        openFirewall = true;
-
-        servers.survival =
-          let
-            sources = pkgs.callPackage ../../_sources/generated.nix { };
-          in
-          {
-            enable = true;
-            autoStart = true;
-            package = pkgs.fabricServers.fabric-26_2.override {
-              jre_headless = pkgs.jdk25_headless;
-            };
-            jvmOpts = "-Xms3G -Xmx6G -Djava.net.preferIPv6Addresses=true -Djava.net.preferIPv4Stack=false";
-
-            serverProperties = {
-              server-ip = "::";
-              server-port = 6967;
-              motd = "Gensokyo Survival";
-              max-players = 16;
-              difficulty = "hard";
-              gamemode = "survival";
-              online-mode = false;
-              enforce-secure-profile = false;
-              spawn-protection = 0;
-              view-distance = 16;
-              simulation-distance = 16;
-            };
-
-            symlinks = {
-              mods = pkgs.linkFarmFromDrvs "mods" (
-                builtins.attrValues {
-                  fabric-api = sources.fabric-api.src;
-                  easyauth = sources.easyauth.src;
-                  skinsrestorer = sources.skinsrestorer.src;
-                }
-              );
-            };
-          };
-      };
-      sftpgo = {
-        enable = true;
-        extraReadWriteDirs = [ "/shared/Media" ];
-        settings = {
-          sftpd.bindings = [
-            {
-              address = "";
-              port = 2022;
-            }
-          ];
-          httpd.bindings = [
-            {
-              port = 8080;
-              address = "127.0.0.1";
-              enable_web_admin = true;
-              enable_web_client = true;
-            }
-          ];
-        };
-      };
-      caddy = {
-        enable = true;
-        openFirewall = true;
-        virtualHosts = {
-          "jellyfin.dshs.cc".extraConfig = "reverse_proxy 127.0.0.1:8096";
-          "navidrome.dshs.cc".extraConfig = "reverse_proxy 127.0.0.1:4533";
-          "comics.dshs.cc".extraConfig = "reverse_proxy 127.0.0.1:8081";
-          "books.dshs.cc".extraConfig = "reverse_proxy 127.0.0.1:8082";
-          "files.dshs.cc".extraConfig = ''
-            reverse_proxy 127.0.0.1:8080
-            request_body {
-              max_size 32GB
-            }
-          '';
-        };
-      };
-    }
-  ];
-
-  networking.firewall.allowedTCPPorts = [
-    2022
-  ];
-
-  users = {
-    groups.users.members = [
-      "sftpgo"
-      "jellyfin"
-      "komga"
-      "kavita"
-      "navidrome"
-    ];
-    users.thiago = {
-      isNormalUser = true;
-      shell = pkgs.fish;
-      openssh.authorizedKeys.keys =
-        let
-          inherit (config.features.services.openssh.keys) rika termius_s23;
-        in
-        [
-          rika
-          termius_s23
-        ];
-      extraGroups = [
-        "wheel"
-        "networkmanager"
+  users.users.thiago = {
+    isNormalUser = true;
+    shell = pkgs.fish;
+    openssh.authorizedKeys.keys =
+      let
+        inherit (config.features.services.openssh.keys) rika termius_s23;
+      in
+      [
+        rika
+        termius_s23
       ];
-    };
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "video"
+      "input"
+      "render"
+      "pipewire"
+    ];
   };
 
+  fonts.enableDefaultPackages = true;
   programs = {
-    fuse.userAllowOther = true;
-    fish.enable = true;
-    neovim = {
-      enable = true;
-      defaultEditor = true;
-    };
+    dconf.enable = true;
+    nix-ld.enable = true;
+    hyprland.enable = true;
+  };
+
+  services = {
+    tailscale.enable = true;
+    tlp.enable = true;
   };
 }

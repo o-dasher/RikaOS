@@ -8,7 +8,11 @@ let
   cfg = config.profiles.development;
 in
 {
-  options.profiles.development.enable = lib.mkEnableOption "Development profile";
+  options.profiles.development = {
+    enable = lib.mkEnableOption "Development profile";
+    jetbrains.enable = lib.mkEnableOption "JetBrains IDEs (DataGrip)";
+    zed.enable = lib.mkEnableOption "Zed editor";
+  };
 
   config = lib.mkIf cfg.enable {
     services.gnome-keyring.enable = true;
@@ -20,7 +24,7 @@ in
           enable = true;
           neovide.enable = true;
         };
-        jetbrains = {
+        jetbrains = lib.mkIf cfg.jetbrains.enable {
           enable = true;
           datagrip.enable = true;
         };
@@ -44,7 +48,7 @@ in
       jq.enable = true;
       grep.enable = true;
       ripgrep.enable = true;
-      zed-editor.enable = true;
+      zed-editor.enable = cfg.zed.enable;
       antigravity-cli.enable = true;
       github-copilot-cli.enable = true;
       codex.enable = true;
