@@ -11,7 +11,11 @@
 
   time.hardwareClockInLocalTime = true;
 
-  profiles.desktop.enable = true;
+  profiles.desktop = {
+    enable = true;
+    gaming.enable = true;
+    virtualization.enable = true;
+  };
 
   features = {
     desktop.theme.lain.enable = true;
@@ -126,13 +130,6 @@
           extraGroups = commonGroups;
         };
       };
-  };
-
-  networking = {
-    interfaces.${config.features.networking.primaryInterface}.wakeOnLan = {
-      enable = true;
-      policy = [ "magic" ];
-    };
   };
 
   fonts.enableDefaultPackages = true;

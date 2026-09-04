@@ -8,7 +8,16 @@ let
   cfg = config.profiles.browser;
 in
 {
-  options.profiles.browser.enable = lib.mkEnableOption "browser profile";
+  options.profiles.browser = {
+    enable = lib.mkEnableOption "browser profile";
+    librewolf.enable = lib.mkEnableOption "LibreWolf" // {
+      default = true;
+    };
+    brave.enable = lib.mkEnableOption "Brave Browser" // {
+      default = true;
+    };
+    chromium.enable = lib.mkEnableOption "Chromium (ungoogled-chromium)";
+  };
 
   config = lib.mkIf cfg.enable {
     programs =
@@ -18,7 +27,7 @@ in
         ];
       in
       {
-        librewolf = {
+        librewolf = lib.mkIf cfg.librewolf.enable {
           enable = true;
           settings."privacy.resistFingerprinting.letterboxing" = false;
           policies = {
@@ -47,7 +56,7 @@ in
                 };
           };
         };
-        brave = {
+        brave = lib.mkIf cfg.brave.enable {
           enable = true;
           package = pkgs.brave-origin;
           extensions = commonExtensions ++ [
@@ -55,7 +64,7 @@ in
             "ehdehfcjlmekjdolbbmjgokdfeoocccd" # osu! subdivide nations
           ];
         };
-        chromium = {
+        chromium = lib.mkIf cfg.chromium.enable {
           enable = true;
           package = pkgs.ungoogled-chromium;
           extensions = commonExtensions;

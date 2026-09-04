@@ -99,6 +99,7 @@ in
 
     wayland.windowManager.hyprland = {
       enable = true;
+      configType = "lua";
       extraLuaFiles.init = ./../../../../../dotfiles/hypr/init.lua;
       systemd = {
         enable = !hasUWSM;
@@ -111,7 +112,7 @@ in
           #lua
           ''hl.bind("SUPER + D", hl.dsp.exec_cmd("app2unit walker --nohints"))''
         ]
-        ++ lib.optionals config.profiles.browser.enable [
+        ++ lib.optionals (config.profiles.browser.enable && config.profiles.browser.brave.enable) [
           #lua
           ''
             hl.window_rule({ match = { class = "^(brave-origin)$" }, workspace = "2 silent" })

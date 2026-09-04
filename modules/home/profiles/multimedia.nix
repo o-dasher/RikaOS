@@ -20,6 +20,7 @@ in
         PartOf = [ "pipewire.service" ];
       };
     };
+    profiles.study.enable = lib.mkDefault true;
     programs = {
       # Video
       mpv.enable = true;
@@ -27,10 +28,6 @@ in
         enable = true;
         plugins = with pkgs.obs-studio-plugins; [ obs-vaapi ];
       };
-
-      # documents / study
-      zathura.enable = true;
-
     };
 
     home.packages = with pkgs; [

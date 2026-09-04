@@ -5,6 +5,7 @@
   pkgs,
   config,
   options,
+  osConfig ? null,
   ...
 }:
 let
@@ -75,14 +76,15 @@ in
               right = [
                 {
                   name = "modules-right";
-                  modules = [
-                    "cpu"
-                    "custom-gpu-temp"
-                    "ram"
-                    "systray"
-                    "volume"
-                    "microphone"
-                  ];
+                  modules =
+                    [ "cpu" ]
+                    ++ lib.optionals (osConfig != null && osConfig.features.hardware.amdgpu.enable) [ "custom-gpu-temp" ]
+                    ++ [
+                      "ram"
+                      "systray"
+                      "volume"
+                      "microphone"
+                    ];
                 }
               ];
             }

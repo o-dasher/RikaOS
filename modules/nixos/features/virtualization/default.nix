@@ -7,9 +7,7 @@ let
   modCfg = config.features.virtualization;
 in
 {
-  options.features.virtualization.enable = lib.mkEnableOption "virtualization features" // {
-    default = true;
-  };
+  options.features.virtualization.enable = lib.mkEnableOption "virtualization features";
 
   config = lib.mkIf modCfg.enable {
     programs.virt-manager.enable = true;
