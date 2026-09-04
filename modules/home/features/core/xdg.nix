@@ -8,8 +8,8 @@ let
 in
 {
   options.features.core.xdg = {
-    enable = lib.mkEnableOption "xdg";
-    portal.enable = lib.mkEnableOption "portal";
+    enable = lib.mkEnableOption "XDG user directories, autostart entries, and MIME associations";
+    portal.enable = lib.mkEnableOption "XDG desktop portal integration with xdg-open portal redirection";
   };
 
   config = lib.mkIf (config.features.core.enable && cfg.enable) {

@@ -9,7 +9,7 @@ let
 in
 {
   options.features.services.sunshine.enable =
-    lib.mkEnableOption "Sunshine game streaming server (for Moonlight clients)";
+    lib.mkEnableOption "Sunshine game streaming host server (for Moonlight streaming clients)";
 
   config = lib.mkIf (modCfg.enable && cfg.enable) {
     services.sunshine = {

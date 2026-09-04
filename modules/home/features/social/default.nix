@@ -6,7 +6,9 @@
     ./zapzap.nix
   ];
 
-  options.features.social.enable = lib.mkEnableOption "social features" // {
-    default = true;
+  options.features.social = {
+    enable = lib.mkEnableOption "social communication apps and clients" // {
+      default = true;
+    };
   };
 }

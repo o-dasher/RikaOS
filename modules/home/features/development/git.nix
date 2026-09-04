@@ -10,7 +10,8 @@ let
   localHostName = if osConfig != null then osConfig.networking.hostName else null;
 in
 {
-  options.features.development.git.enable = lib.mkEnableOption "git";
+  options.features.development.git.enable =
+    lib.mkEnableOption "Git version control, GitHub CLI (gh), and SSH client host configurations";
 
   config = lib.mkIf (modCfg.enable && cfg.enable) {
     programs = {

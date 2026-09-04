@@ -5,7 +5,9 @@
     ./neovim.nix
   ];
 
-  options.features.editors.enable = lib.mkEnableOption "editor features" // {
-    default = true;
+  options.features.editors = {
+    enable = lib.mkEnableOption "code editors and development environments (Neovim and JetBrains)" // {
+      default = true;
+    };
   };
 }

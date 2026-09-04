@@ -4,7 +4,9 @@
     ./ghostty.nix
   ];
 
-  options.features.terminal.enable = lib.mkEnableOption "terminal features" // {
-    default = true;
+  options.features.terminal = {
+    enable = lib.mkEnableOption "terminal emulators and console environments" // {
+      default = true;
+    };
   };
 }

@@ -9,9 +9,9 @@ let
 in
 {
   options.profiles.development = {
-    enable = lib.mkEnableOption "Development profile";
-    jetbrains.enable = lib.mkEnableOption "JetBrains IDEs (DataGrip)";
-    zed.enable = lib.mkEnableOption "Zed editor";
+    enable = lib.mkEnableOption "software development workstation profile (editors, CLI tools, git, and AI tooling)";
+    jetbrains.enable = lib.mkEnableOption "JetBrains IDE suite (DataGrip database IDE)";
+    zed.enable = lib.mkEnableOption "Zed high-performance code editor";
   };
 
   config = lib.mkIf cfg.enable {

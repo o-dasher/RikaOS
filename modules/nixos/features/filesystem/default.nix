@@ -6,7 +6,9 @@
     ./steam-library.nix
   ];
 
-  options.features.filesystem.enable = lib.mkEnableOption "filesystem features" // {
-    default = true;
-  };
+  options.features.filesystem.enable =
+    lib.mkEnableOption "system filesystem features (BitLocker unlock, shared folders, steam library)"
+    // {
+      default = true;
+    };
 }

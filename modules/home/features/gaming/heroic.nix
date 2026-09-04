@@ -12,7 +12,8 @@ let
   };
 in
 {
-  options.features.gaming.heroic.enable = lib.mkEnableOption "heroic";
+  options.features.gaming.heroic.enable =
+    lib.mkEnableOption "Heroic Games Launcher with GE-Proton compatibility tools and autostart";
 
   config = lib.mkIf (modCfg.enable && cfg.enable) {
     home.packages = [ pkgs.heroic ];

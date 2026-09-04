@@ -23,7 +23,7 @@ let
   };
 in
 {
-  options.profiles.gaming.enable = lib.mkEnableOption "Gaming profile";
+  options.profiles.gaming.enable = lib.mkEnableOption "gaming desktop profile (Steam, Heroic Launcher, MangoHud, goverlay, and Vulkan utilities)";
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [

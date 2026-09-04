@@ -108,16 +108,12 @@
         };
       };
 
-      homeConfigs = { };
       deploymentTargets = {
-        wired = { };
         gensokyo = { };
         hinamizawa = { };
       };
 
-      targetSystems = lib.unique (
-        map (c: c.system) (lib.attrValues systemConfigs ++ lib.attrValues homeConfigs)
-      );
+      targetSystems = lib.unique (map (c: c.system) (lib.attrValues systemConfigs));
 
       extraSpecialArgs = {
         inherit inputs;
@@ -255,18 +251,27 @@
         homeConfigurations = lib.concatMapAttrs (
           hostName:
           cfg@{ system, users, ... }:
-          lib.genAttrs users (
-            username:
-            home-manager.lib.homeManagerConfiguration {
-              inherit extraSpecialArgs;
-              pkgs = pkgsFor.${system};
-              modules = {
-                nix.package = (lixSet pkgsFor.${system}).lix;
+          lib.foldl' lib.mergeAttrs { } (
+            map (
+              username:
+              let
+                hmConfig = home-manager.lib.homeManagerConfiguration {
+                  inherit extraSpecialArgs;
+                  pkgs = pkgsFor.${system};
+                  modules = [
+                    { nix.package = (lixSet pkgsFor.${system}).lix; }
+                    stylix.homeModules.stylix
+                  ]
+                  ++ mkHomeModules hostName (cfg // { inherit username; });
+                };
+              in
+              {
+                "${username}" = hmConfig;
+                "${username}@${hostName}" = hmConfig;
               }
-              // mkHomeModules hostName (cfg // { inherit username; });
-            }
+            ) users
           )
-        ) homeConfigs;
+        ) systemConfigs;
 
         colmena = {
           meta = {

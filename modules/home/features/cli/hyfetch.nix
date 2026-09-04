@@ -4,7 +4,8 @@ let
   cfg = modCfg.hyfetch;
 in
 {
-  options.features.cli.hyfetch.enable = lib.mkEnableOption "hyfetch";
+  options.features.cli.hyfetch.enable =
+    lib.mkEnableOption "HyFetch and Fastfetch system information display on shell startup";
 
   config = lib.mkIf (modCfg.enable && cfg.enable) {
     programs = {

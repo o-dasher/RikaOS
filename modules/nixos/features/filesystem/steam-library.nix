@@ -16,7 +16,7 @@ let
 in
 {
   options.features.filesystem.steamLibrary = {
-    enable = lib.mkEnableOption "shared steam library location";
+    enable = lib.mkEnableOption "shared multi-user Steam library directory with POSIX ACL permissions";
     path = lib.mkOption {
       type = lib.types.str;
       default = "/shared/SteamGames";

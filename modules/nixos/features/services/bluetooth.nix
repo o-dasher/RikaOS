@@ -8,7 +8,8 @@ let
   cfg = modCfg.bluetooth;
 in
 {
-  options.features.services.bluetooth.enable = lib.mkEnableOption "bluetooth";
+  options.features.services.bluetooth.enable =
+    lib.mkEnableOption "Bluetooth hardware subsystem and Blueman management tray application";
 
   config = lib.mkIf (modCfg.enable && cfg.enable) {
     hardware.bluetooth.enable = true;

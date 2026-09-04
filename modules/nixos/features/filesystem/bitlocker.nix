@@ -10,11 +10,11 @@ let
 in
 {
   options.features.filesystem.bitlocker = {
-    enable = lib.mkEnableOption "BitLocker declarative unlock";
+    enable = lib.mkEnableOption "declarative BitLocker drive unlocking and mounting via dislocker";
     defaultKeyFile = lib.mkOption {
       type = lib.types.nullOr lib.types.path;
       default = null;
-      description = "Default path to the decrypted secret provided by agenix.";
+      description = "Default path to the decrypted secret key file provided by agenix.";
     };
     mountOptions = lib.mkOption {
       type = lib.types.listOf lib.types.str;
@@ -27,6 +27,7 @@ in
         "iocharset=utf8"
         "nofail"
       ];
+      description = "Mount options for the decrypted NTFS loopback filesystem.";
     };
     drives = lib.mkOption {
       default = { };
@@ -38,10 +39,12 @@ in
               device = lib.mkOption {
                 type = lib.types.str;
                 example = "/dev/disk/by-partlabel/Windows";
+                description = "Path to the encrypted block device partition.";
               };
               mountPoint = lib.mkOption {
                 type = lib.types.str;
                 default = "/${name}";
+                description = "Directory mount point for the unlocked partition.";
               };
               keyFile = lib.mkOption {
                 type = lib.types.path;
@@ -52,6 +55,7 @@ in
           }
         )
       );
+      description = "BitLocker encrypted partitions to unlock with dislocker and mount during boot.";
     };
   };
 

@@ -10,10 +10,6 @@ let
   hasStylix = options ? stylix;
 in
 {
-  imports = [
-    ../../../../lib
-  ];
-
   config = lib.optionalAttrs hasStylix (
     lib.mkIf (config.features.desktop.enable && modCfg.enable) {
       stylix = {

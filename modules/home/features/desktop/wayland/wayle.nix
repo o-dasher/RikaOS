@@ -15,7 +15,7 @@ let
 in
 {
   options.features.desktop.wayland.wayle = {
-    enable = (lib.mkEnableOption "wayle") // {
+    enable = (lib.mkEnableOption "Wayle Wayland status bar with Stylix theming") // {
       default = true;
     };
     laptop.enable = lib.mkOption {

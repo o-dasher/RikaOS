@@ -10,7 +10,9 @@
     ./transmission.nix
   ];
 
-  options.features.services.enable = lib.mkEnableOption "services features" // {
-    default = true;
-  };
+  options.features.services.enable =
+    lib.mkEnableOption "system background services (SSH, SDDM, Bluetooth, etc.)"
+    // {
+      default = true;
+    };
 }
