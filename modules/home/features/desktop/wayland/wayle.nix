@@ -14,8 +14,16 @@ let
   hasStylix = options ? stylix;
 in
 {
-  options.features.desktop.wayland.wayle.enable = (lib.mkEnableOption "wayle") // {
-    default = true;
+  options.features.desktop.wayland.wayle = {
+    enable = (lib.mkEnableOption "wayle") // {
+      default = true;
+    };
+    laptop.enable = lib.mkOption {
+      type = lib.types.bool;
+      default = config.features.desktop.laptop.enable;
+      defaultText = lib.literalExpression "config.features.desktop.laptop.enable";
+      description = "Enable laptop-specific wayle modules (e.g. battery).";
+    };
   };
 
   config = lib.mkIf (hasStylix && config.features.desktop.enable && modCfg.enable && cfg.enable) {
@@ -76,15 +84,19 @@ in
               right = [
                 {
                   name = "modules-right";
-                  modules =
-                    [ "cpu" ]
-                    ++ lib.optionals (osConfig != null && osConfig.features.hardware.amdgpu.enable) [ "custom-gpu-temp" ]
-                    ++ [
-                      "ram"
-                      "systray"
-                      "volume"
-                      "microphone"
-                    ];
+                  modules = [
+                    "cpu"
+                  ]
+                  ++ lib.optionals (osConfig != null && osConfig.features.hardware.amdgpu.enable) [
+                    "custom-gpu-temp"
+                  ]
+                  ++ [ "ram" ]
+                  ++ lib.optionals cfg.laptop.enable [ "battery" ]
+                  ++ [
+                    "systray"
+                    "volume"
+                    "microphone"
+                  ];
                 }
               ];
             }
@@ -147,6 +159,28 @@ in
             border-show = true;
             border-color = "border-accent";
             label-color = "accent";
+          };
+
+          battery = lib.mkIf cfg.laptop.enable {
+            format = "{{ percent }}%";
+            icon-show = true;
+            icon-bg-color = "accent";
+            icon-color = "fg-on-accent";
+            border-show = true;
+            border-color = "border-accent";
+            label-color = "accent";
+            thresholds = [
+              {
+                below = 40;
+                icon-bg-color = "status-warning";
+                label-color = "status-warning";
+              }
+              {
+                below = 20;
+                icon-bg-color = "status-error";
+                label-color = "status-error";
+              }
+            ];
           };
 
           systray = {

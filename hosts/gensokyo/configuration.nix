@@ -28,6 +28,7 @@
   features = {
     desktop.theme.cirnosunset.enable = true;
     boot.kernel.enable = true;
+    hardware.laptop.enable = true;
     networking = {
       enable = true;
       cloudflare.dns.enable = true;

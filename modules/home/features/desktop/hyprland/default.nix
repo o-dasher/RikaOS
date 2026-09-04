@@ -7,6 +7,7 @@
   ...
 }:
 let
+  cfg = config.features.desktop.hyprland;
   hasStylix = options ? stylix;
   hasUWSM = osConfig != null && osConfig.programs.hyprland.withUWSM;
   onGraphicalStart =
@@ -25,18 +26,29 @@ let
     '';
 in
 {
-  options.features.desktop.hyprland.enable = lib.mkEnableOption "hyprland";
+  options.features.desktop.hyprland = {
+    enable = lib.mkEnableOption "hyprland";
+    laptop.enable = lib.mkOption {
+      type = lib.types.bool;
+      default = config.features.desktop.laptop.enable;
+      defaultText = lib.literalExpression "config.features.desktop.laptop.enable";
+      description = "Enable laptop-specific Hyprland configuration (brightness keys, touchpad natural scroll/tap-to-click, gestures).";
+    };
+  };
 
-  config = lib.mkIf (config.features.desktop.enable && config.features.desktop.hyprland.enable) {
+  config = lib.mkIf (config.features.desktop.enable && cfg.enable) {
     features.desktop.wayland.enable = true;
     programs.hyprlock.enable = true;
     home = {
-      packages = with pkgs; [
-        app2unit
-        grimblast
-        hyprshutdown
-        xdg-terminal-exec
-      ];
+      packages =
+        with pkgs;
+        [
+          app2unit
+          grimblast
+          hyprshutdown
+          xdg-terminal-exec
+        ]
+        ++ lib.optionals cfg.laptop.enable [ brightnessctl ];
 
       file = config.rika.utils.xdgConfigSelectiveSymLink "hypr" [
         "config.lua"
@@ -142,6 +154,39 @@ in
             })
           ''
         ]
+        ++ lib.optionals cfg.laptop.enable (
+          let
+            brightnessctl = lib.getExe pkgs.brightnessctl;
+          in
+          [
+            #lua
+            ''
+              -- Laptop brightness keys
+              hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("${brightnessctl} -e4 -n2 set 5%+"), { locked = true, repeating = true })
+              hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("${brightnessctl} -e4 -n2 set 5%-"), { locked = true, repeating = true })
+              hl.bind("XF86KbdBrightnessUp", hl.dsp.exec_cmd("${brightnessctl} -d '*kbd_backlight*' set 10%+"), { locked = true, repeating = true })
+              hl.bind("XF86KbdBrightnessDown", hl.dsp.exec_cmd("${brightnessctl} -d '*kbd_backlight*' set 10%-"), { locked = true, repeating = true })
+
+              hl.config({
+                input = {
+                  touchpad = {
+                    natural_scroll = true,
+                    ["tap-to-click"] = true,
+                  },
+                },
+                gestures = {
+                  workspace_swipe = true,
+                },
+              })
+
+              hl.gesture({
+                fingers = 3,
+                direction = "horizontal",
+                action = "workspace",
+              })
+            ''
+          ]
+        )
       );
     };
   };
