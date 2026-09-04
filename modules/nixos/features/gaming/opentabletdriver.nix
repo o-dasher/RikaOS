@@ -8,11 +8,9 @@ let
   cfg = modCfg.otd;
 in
 {
-  options.features.gaming.otd.enable =
-    lib.mkEnableOption "OpenTabletDriver daemon and uinput support for graphics tablets"
-    // {
-      default = true;
-    };
+  options.features.gaming.otd.enable = lib.mkEnableOption "OpenTabletDriver." // {
+    default = true;
+  };
 
   config = lib.mkIf (modCfg.enable && cfg.enable) {
     hardware = {

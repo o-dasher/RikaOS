@@ -6,7 +6,7 @@
   ];
 
   options.features.editors = {
-    enable = lib.mkEnableOption "code editors and development environments (Neovim and JetBrains)" // {
+    enable = lib.mkEnableOption "Editor features." // {
       default = true;
     };
   };

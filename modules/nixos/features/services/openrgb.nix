@@ -9,8 +9,7 @@ let
   cfg = modCfg.openrgb;
 in
 {
-  options.features.services.openrgb.enable =
-    lib.mkEnableOption "OpenRGB lighting control daemon with default black stealth profile";
+  options.features.services.openrgb.enable = lib.mkEnableOption "OpenRGB.";
 
   config = lib.mkIf (modCfg.enable && cfg.enable) {
     services.hardware.openrgb = {

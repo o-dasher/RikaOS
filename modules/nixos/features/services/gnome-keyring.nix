@@ -8,8 +8,7 @@ let
   cfg = modCfg.gnome-keyring;
 in
 {
-  options.features.services.gnome-keyring.enable =
-    lib.mkEnableOption "GNOME Keyring daemon, Seahorse GUI secret manager, and Polkit integration";
+  options.features.services.gnome-keyring.enable = lib.mkEnableOption "GNOME Keyring.";
 
   config = lib.mkIf (modCfg.enable && cfg.enable) {
     programs.seahorse.enable = true;

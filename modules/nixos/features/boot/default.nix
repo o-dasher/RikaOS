@@ -13,8 +13,8 @@ in
   ];
 
   options.features.boot = {
-    kernel.enable = lib.mkEnableOption "latest Linux kernel packages instead of default LTS kernel";
-    enable = lib.mkEnableOption "system boot features and kernel configuration" // {
+    kernel.enable = lib.mkEnableOption "Latest Linux kernel.";
+    enable = lib.mkEnableOption "Boot features." // {
       default = true;
     };
   };

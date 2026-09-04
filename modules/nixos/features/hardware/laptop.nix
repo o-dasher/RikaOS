@@ -9,8 +9,7 @@ let
   cfg = modCfg.laptop;
 in
 {
-  options.features.hardware.laptop.enable =
-    lib.mkEnableOption "laptop-specific hardware support (UPower battery daemon and brightnessctl udev rules)";
+  options.features.hardware.laptop.enable = lib.mkEnableOption "Laptop hardware support.";
 
   config = lib.mkIf (modCfg.enable && cfg.enable) {
     services = {

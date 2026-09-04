@@ -4,8 +4,8 @@ let
 in
 {
   options.features.development.direnv = {
-    enable = lib.mkEnableOption "direnv environment switcher with nix-direnv integration";
-    autoPrune = lib.mkEnableOption "automatic background pruning of stale direnv environments" // {
+    enable = lib.mkEnableOption "Direnv.";
+    autoPrune = lib.mkEnableOption "Automatic direnv pruning." // {
       default = true;
     };
   };

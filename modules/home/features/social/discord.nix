@@ -9,7 +9,7 @@ let
 in
 {
   options.features.social.discord = {
-    enable = lib.mkEnableOption "Discord client via Nixcord with Vencord, Krisp, and autostart";
+    enable = lib.mkEnableOption "Discord.";
   };
 
   config = lib.mkIf (modCfg.enable && cfg.enable) {

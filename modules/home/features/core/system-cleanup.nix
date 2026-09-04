@@ -9,18 +9,18 @@ let
 in
 {
   options.features.core.systemCleanup = {
-    enable = lib.mkEnableOption "automatic user cache and temporary file cleanup" // {
+    enable = lib.mkEnableOption "Automatic user cache cleanup." // {
       default = true;
     };
     cacheRetentionDays = lib.mkOption {
       type = lib.types.int;
       default = 16;
-      description = "Age threshold (in days) to purge stale user cache files";
+      description = "Age threshold (in days) to purge stale user cache files.";
     };
     schedule = lib.mkOption {
       type = lib.types.str;
       default = "daily";
-      description = "Schedule for systemd user cleanup timer";
+      description = "Schedule for systemd user cleanup timer.";
     };
   };
 

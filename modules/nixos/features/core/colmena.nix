@@ -8,8 +8,7 @@ let
   cfg = config.features.core.colmena;
 in
 {
-  options.features.core.colmena.enable =
-    lib.mkEnableOption "dedicated colmena deployment user with passwordless sudo";
+  options.features.core.colmena.enable = lib.mkEnableOption "Colmena deployment user.";
 
   config = lib.mkIf (config.features.core.enable && cfg.enable) {
     users = {

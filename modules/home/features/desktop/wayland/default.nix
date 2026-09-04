@@ -14,8 +14,7 @@ in
     ./wayle.nix
   ];
 
-  options.features.desktop.wayland.enable =
-    lib.mkEnableOption "Wayland session core integrations (wl-clipboard, udiskie, network-manager applet, and environment variables)";
+  options.features.desktop.wayland.enable = lib.mkEnableOption "Wayland session integration.";
 
   config = lib.mkIf (desktopCfg.enable && modCfg.enable) {
     services = {

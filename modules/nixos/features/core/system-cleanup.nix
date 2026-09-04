@@ -4,11 +4,9 @@ let
 in
 {
   options.features.core.systemCleanup = {
-    enable =
-      lib.mkEnableOption "system maintenance tasks, journald log size limits, and tmpfiles cleanup"
-      // {
-        default = true;
-      };
+    enable = lib.mkEnableOption "System maintenance and cleanup." // {
+      default = true;
+    };
   };
 
   config = lib.mkIf (config.features.core.enable && cfg.enable) {

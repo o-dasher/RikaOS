@@ -16,21 +16,21 @@ let
 in
 {
   options.features.filesystem.steamLibrary = {
-    enable = lib.mkEnableOption "shared multi-user Steam library directory with POSIX ACL permissions";
+    enable = lib.mkEnableOption "Shared Steam library.";
     path = lib.mkOption {
       type = lib.types.str;
       default = "/shared/SteamGames";
-      description = "Path to the shared steam library";
+      description = "Path to the shared Steam library.";
     };
     group = lib.mkOption {
       type = lib.types.str;
       default = "steam-gamers";
-      description = "Group that owns the shared library";
+      description = "Group that owns the shared Steam library.";
     };
     users = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [ ];
-      description = "Users to add to the shared group";
+      description = "Users to add to the shared Steam group.";
     };
   };
 

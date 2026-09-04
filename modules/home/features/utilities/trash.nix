@@ -9,21 +9,21 @@ let
 in
 {
   options.features.utilities.trash = {
-    enable = lib.mkEnableOption "trash-cli integration with safe rm aliasing and scheduled trash purging";
+    enable = lib.mkEnableOption "Trash utilities.";
     retentionDays = lib.mkOption {
       type = lib.types.int;
       default = 16;
-      description = "Delete Trash items older than this many days";
+      description = "Retention period (in days) before deleting trash items.";
     };
     schedule = lib.mkOption {
       type = lib.types.str;
       default = "daily";
-      description = "systemd user timer OnCalendar schedule";
+      description = "Schedule for the cleanup timer.";
     };
     aliasRm = lib.mkOption {
       type = lib.types.bool;
       default = true;
-      description = "Alias rm to trash-put in fish";
+      description = "Whether to alias rm to trash-put.";
     };
   };
 

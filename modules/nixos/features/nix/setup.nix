@@ -14,11 +14,9 @@ in
       type = lib.types.listOf lib.types.str;
       description = "Additional users allowed to connect to the Nix daemon as trusted users.";
     };
-    optimise =
-      lib.mkEnableOption "automatic Nix store hard-link deduplication and weekly store optimization"
-      // {
-        default = true;
-      };
+    optimise = lib.mkEnableOption "Automatic Nix store optimization." // {
+      default = true;
+    };
   };
 
   config = lib.mkIf cfg.enable {

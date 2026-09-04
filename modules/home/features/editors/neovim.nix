@@ -11,8 +11,8 @@ let
 in
 {
   options.features.editors.neovim = {
-    enable = lib.mkEnableOption "custom Neovim distribution packaged via mnw with lazygit integration";
-    neovide.enable = lib.mkEnableOption "Neovide graphical user interface for Neovim";
+    enable = lib.mkEnableOption "Neovim.";
+    neovide.enable = lib.mkEnableOption "Neovide.";
   };
 
   config = lib.mkIf (modCfg.enable && cfg.enable) (

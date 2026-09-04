@@ -5,7 +5,7 @@ let
 in
 {
   options.features.services.openssh = {
-    enable = lib.mkEnableOption "OpenSSH secure shell daemon with hardened key-only authentication";
+    enable = lib.mkEnableOption "OpenSSH.";
     keys = lib.mkOption {
       type = with lib.types; attrsOf str;
       default = {

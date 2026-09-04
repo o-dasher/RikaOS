@@ -5,7 +5,7 @@
   ];
 
   options.features.terminal = {
-    enable = lib.mkEnableOption "terminal emulators and console environments" // {
+    enable = lib.mkEnableOption "Terminal features." // {
       default = true;
     };
   };

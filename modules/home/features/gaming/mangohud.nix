@@ -7,8 +7,7 @@ let
   cfg = config.features.gaming.mangohud;
 in
 {
-  options.features.gaming.mangohud.enable =
-    lib.mkEnableOption "MangoHud gaming overlay and performance monitor";
+  options.features.gaming.mangohud.enable = lib.mkEnableOption "MangoHud.";
 
   config = lib.mkIf (config.features.gaming.enable && cfg.enable) {
     programs.mangohud = {

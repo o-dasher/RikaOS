@@ -8,7 +8,7 @@
   ];
 
   options.features.cli = {
-    enable = lib.mkEnableOption "command-line utilities and shell environments" // {
+    enable = lib.mkEnableOption "CLI features." // {
       default = true;
     };
   };

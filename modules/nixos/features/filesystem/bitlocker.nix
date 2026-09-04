@@ -10,7 +10,7 @@ let
 in
 {
   options.features.filesystem.bitlocker = {
-    enable = lib.mkEnableOption "declarative BitLocker drive unlocking and mounting via dislocker";
+    enable = lib.mkEnableOption "BitLocker declarative unlock.";
     defaultKeyFile = lib.mkOption {
       type = lib.types.nullOr lib.types.path;
       default = null;

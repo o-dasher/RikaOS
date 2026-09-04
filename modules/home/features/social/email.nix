@@ -35,8 +35,7 @@ let
     };
 in
 {
-  options.features.social.email.enable =
-    lib.mkEnableOption "declarative email accounts and Thunderbird email profile configuration";
+  options.features.social.email.enable = lib.mkEnableOption "Email accounts.";
 
   config = lib.mkIf (config.features.social.enable && cfg.enable && config.rika.utils.hasSecrets) {
     home.packages = [ pkgs.protonmail-desktop ];

@@ -11,8 +11,7 @@ let
   steamPackage = if osConfig != null then osConfig.programs.steam.package else pkgs.steam;
 in
 {
-  options.features.gaming.steam.enable =
-    lib.mkEnableOption "Steam client autostart in silent background mode";
+  options.features.gaming.steam.enable = lib.mkEnableOption "Steam autostart.";
 
   config = lib.mkIf (modCfg.enable && cfg.enable) {
     xdg.autostart.entries = [

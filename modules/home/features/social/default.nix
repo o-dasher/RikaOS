@@ -7,7 +7,7 @@
   ];
 
   options.features.social = {
-    enable = lib.mkEnableOption "social communication apps and clients" // {
+    enable = lib.mkEnableOption "Social features." // {
       default = true;
     };
   };

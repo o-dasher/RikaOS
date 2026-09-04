@@ -8,7 +8,7 @@ let
   cfg = config.profiles.social;
 in
 {
-  options.profiles.social.enable = lib.mkEnableOption "social communication suite (Discord, Thunderbird email, ZapZap WhatsApp, and Signal)";
+  options.profiles.social.enable = lib.mkEnableOption "Social profile.";
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [ signal-desktop ];

@@ -8,11 +8,9 @@ let
   cfg = config.profiles.core;
 in
 {
-  options.profiles.core.enable =
-    lib.mkEnableOption "core host profile (Fish shell, Neovim editor, Limine bootloader, Nix setup, user preferences)"
-    // {
-      default = true;
-    };
+  options.profiles.core.enable = lib.mkEnableOption "Core host profile." // {
+    default = true;
+  };
 
   config = lib.mkIf cfg.enable {
     users.defaultUserShell = pkgs.fish;

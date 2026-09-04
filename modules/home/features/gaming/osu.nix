@@ -10,8 +10,7 @@ let
   cfg = modCfg.osu;
 in
 {
-  options.features.gaming.osu.enable =
-    lib.mkEnableOption "osu!lazer rhythm game client with low-latency PipeWire audio";
+  options.features.gaming.osu.enable = lib.mkEnableOption "osu!lazer.";
 
   config = lib.mkIf (modCfg.enable && cfg.enable) {
     home = {

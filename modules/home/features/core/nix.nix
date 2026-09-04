@@ -11,12 +11,10 @@ let
 in
 {
   options.features.core.nix = {
-    enable =
-      lib.mkEnableOption "Nix configuration and helper tools (nh, cache substituters, and access tokens)"
-      // {
-        default = true;
-      };
-    nixpkgs.enable = lib.mkEnableOption "unfree package allowance in standalone Home Manager" // {
+    enable = lib.mkEnableOption "Nix configuration and tools." // {
+      default = true;
+    };
+    nixpkgs.enable = lib.mkEnableOption "Unfree package allowance." // {
       default = true;
     };
   };

@@ -27,12 +27,12 @@ let
 in
 {
   options.features.desktop.hyprland = {
-    enable = lib.mkEnableOption "Hyprland Wayland compositor with custom Lua configuration, hypridle, and hyprlock";
+    enable = lib.mkEnableOption "Hyprland.";
     laptop.enable = lib.mkOption {
       type = lib.types.bool;
       default = config.features.desktop.laptop.enable;
       defaultText = lib.literalExpression "config.features.desktop.laptop.enable";
-      description = "Enable laptop-specific Hyprland configuration (brightness keys, touchpad natural scroll/tap-to-click, gestures).";
+      description = "Laptop-specific Hyprland configuration.";
     };
   };
 

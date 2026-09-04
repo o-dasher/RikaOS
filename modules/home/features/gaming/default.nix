@@ -10,7 +10,7 @@
   ];
 
   options.features.gaming = {
-    enable = lib.mkEnableOption "gaming applications and launcher integrations" // {
+    enable = lib.mkEnableOption "Gaming features." // {
       default = true;
     };
   };
