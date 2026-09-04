@@ -26,11 +26,7 @@
     };
   };
 
-  home.packages = with pkgs; [
-    pwvucontrol
-    wol
-  ];
-
+  home.packages = with pkgs; [ pwvucontrol ];
   programs = {
     home-manager.enable = true;
     imv.enable = true;
