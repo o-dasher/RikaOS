@@ -145,7 +145,7 @@
               lix = lixSet prev;
             in
             {
-              inherit (hyprland.packages.${system}) hyprland xdg-desktop-portal-hyprland;
+              inherit (hyprland.packages.${system}) hyprland;
             }
             // rec {
               stable = mkPkgs system nixpkgs-stable [ ];

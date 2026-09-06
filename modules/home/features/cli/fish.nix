@@ -37,14 +37,7 @@ in
           with pkgs;
           [
             (aliase bash { sail = "vendor/bin/sail"; })
-            (lib.mkIf (osConfig != null) (mkUpdateUtils "os switch"))
-            (
-              (lib.mkIf (
-                config.features.filesystem.sharedFolders.enable
-                && (osConfig == null || !osConfig.home-manager.useGlobalPkgs)
-              ))
-              (mkUpdateUtils "home switch")
-            )
+            (mkUpdateUtils (if osConfig != null then "os switch" else "home switch"))
             ((lib.mkIf config.programs.lazygit.enable) {
               lg = lib.getExe lazygit;
             })
