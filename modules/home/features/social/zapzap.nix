@@ -18,7 +18,40 @@ in
         meta.mainProgram = "zapzap";
         paths = [
           (pkgs.writeShellScriptBin "zapzap" ''
-            exec ${lib.getExe pkgs.brave-origin} --app=https://web.whatsapp.com "$@"
+            userDataDir="''${XDG_DATA_HOME:-$HOME/.local/share}/zapzap"
+            lockFile="''${XDG_RUNTIME_DIR:-/tmp}/zapzap.lock"
+
+            # Single-instance enforcement: lock to prevent concurrent or duplicate launches
+            exec 9>"$lockFile"
+            if ! ${lib.getExe' pkgs.util-linux "flock"} -n 9; then
+              if command -v hyprctl >/dev/null 2>&1; then
+                hyprctl dispatch "hl.dsp.focus({ workspace = 10 })" >/dev/null 2>&1 || true
+              fi
+              exit 0
+            fi
+
+            # Check if a WhatsApp window already exists in Hyprland
+            if command -v hyprctl >/dev/null 2>&1; then
+              if hyprctl clients -j 2>/dev/null | grep -q '"class": "brave-web.whatsapp.com__-Default"'; then
+                hyprctl dispatch "hl.dsp.focus({ workspace = 10 })" >/dev/null 2>&1 || true
+                exit 0
+              fi
+            fi
+
+            # Clean up stale session restore files and singleton locks so Chromium opens
+            # strictly the single window specified by --app and never restores previous
+            # sessions after an abnormal shutdown or reboot
+            mkdir -p "$userDataDir"
+            rm -rf "$userDataDir/Default/Sessions"
+            rm -f "$userDataDir/Singleton"*
+
+            exec ${lib.getExe pkgs.brave-origin} \
+              --app=https://web.whatsapp.com \
+              --user-data-dir="$userDataDir" \
+              --disable-session-crashed-bubble \
+              --no-first-run \
+              --no-default-browser-check \
+              "$@"
           '')
           (pkgs.makeDesktopItem {
             name = "zapzap";
