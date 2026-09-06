@@ -76,6 +76,14 @@ Whenever binary caches (`nixCaches.extra-substituters` or `nixCaches.extra-trust
 >
 > At most, only perform **dry runs** or **build checks** (e.g. `nixos-rebuild dry-run`, `nh os test --dry`, `home-manager switch -n`, `home-manager build`, or `nix build`).
 
+> [!CAUTION]
+> ### Do Not Disrupt the User's Active Desktop Session
+> **Refrain from performing actions that disrupt the user's graphical environment**, such as focusing windows, switching workspaces, or closing windows unless you are sure it will not bother the end user (e.g. when they are playing games, typing, or working).
+>
+> If closing or interacting with windows is ever necessary:
+> - **Never target the active or focused window** (e.g. calling `hl.dsp.window.close()` or generic dispatchers without explicit targets), which inadvertently targets Ghostty or whatever application the user is currently focused on.
+> - **Always target exact, explicit window identifiers** (such as specific window addresses or verified unique IDs) after confirming the target is strictly the intended window.
+
 ### Safe Verification & Dry Runs
 
 Configurations should only ever be verified via dry runs or builds, never switched on this computer:
