@@ -32,6 +32,10 @@
     };
     boot = {
       kernel.enable = true;
+      hibernation = {
+        enable = true;
+        workarounds.enable = true;
+      };
       limine.secure = {
         enable = true;
         encryptionUnlock.enable = true;

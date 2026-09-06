@@ -10,6 +10,7 @@ in
 {
   imports = [
     ./limine.nix
+    ./hibernation.nix
   ];
 
   options.features.boot = {
