@@ -38,7 +38,7 @@ Follow conventional commit style where appropriate:
 Nix Flakes only see files that are tracked by Git. Any newly created file is completely invisible to Nix until added to the Git staging index.
 
 > [!IMPORTANT]
-> Always run `git add` on new or modified files before running `nix flake check`, building, or switching configurations.
+> Always run `git add` on new or modified files before running `nix flake check`, building, or dry-running configurations.
 
 ### Test Changes Before Applying
 
@@ -69,27 +69,28 @@ Whenever binary caches (`nixCaches.extra-substituters` or `nixCaches.extra-trust
 
 ## Applying Changes Safely
 
-### Public vs. Private Repository Architecture
+> [!CAUTION]
+> ### NEVER Switch Configuration on the Host Machine
+> **Never switch, apply, or activate configurations directly on the host machine.**
+> Under no circumstances should you run `nixos-rebuild switch`, `home-manager switch`, `nh os switch`, `nh home switch`, `colmena apply`, or any command that activates or applies configuration changes to this computer.
+>
+> At most, only perform **dry runs** or **build checks** (e.g. `nixos-rebuild dry-run`, `nh os test --dry`, `home-manager switch -n`, `home-manager build`, or `nix build`).
 
-1. **Public Repository (`/shared/.config/public` / `o-dasher/RikaOS`)**:
-   - Contains all public system modules, home configurations, dotfiles, themes, and machine declarations.
-   - Evaluates cleanly without secrets thanks to conditional guards (`config.rika.utils.hasSecrets`).
-   - **Do not run `nixos-rebuild switch`, `nh`, or `colmena apply` directly from this public repository** if the system relies on encrypted secrets (e.g. BitLocker keys, DDNS tokens, API tokens).
+### Safe Verification & Dry Runs
 
-2. **Private Repository (`/shared/.config/private`)**:
-   - Extends the public flake using `inputs.rikaos.url = "path:/shared/.config/public"`.
-   - Injects encrypted Agenix secrets, private email credentials, and deployment keys.
-   - System deployments and remote Colmena applies must be executed from the private repository.
-
-### Home Manager Deployment
-
-Standalone Home Manager configurations can be applied directly from this repository for individual users:
+Configurations should only ever be verified via dry runs or builds, never switched on this computer:
 
 ```bash
-git add .
-home-manager switch --flake .#<username>
+# Home Manager dry run (inspect actions without switching):
+home-manager switch --flake .#<username> -n
+
+# Or build the Home Manager generation without activating:
+home-manager build --flake .#<username>
 # Or specifying host target:
-home-manager switch --flake .#<username>@<hostname>
+home-manager build --flake .#<username>@<hostname>
+
+# NixOS dry run:
+nixos-rebuild dry-run --flake .#<hostname>
 ```
 
 Available user targets:
