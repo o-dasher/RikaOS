@@ -26,6 +26,7 @@ in
         "discard"
         "iocharset=utf8"
         "nofail"
+        "force"
       ];
       description = "Mount options for the decrypted NTFS loopback filesystem.";
     };
