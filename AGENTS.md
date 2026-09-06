@@ -2,60 +2,146 @@
 
 ## Project Overview
 
-**RikaOS** is a modular NixOS and Home Manager configuration repository built with **Nix Flakes**. It manages system configurations, dotfiles, themes via Stylix, and secrets via Agenix.
+**RikaOS** is a modular NixOS and Home Manager configuration repository built with **Nix Flakes** and **Lix** (the modern Nix implementation). It manages system configurations, dotfiles, themes via Stylix, and secrets via a two-tier Agenix architecture.
 
 Key components:
-- **Flake-based**: keeps configurations reproducible.
-- **Modular**: configuration is split across `modules/nixos`, `modules/home`, and `hosts`.
-- **Neovim**: managed declaratively through `mnw` (My Neovim Wrapper).
+- **Flake-based & Lix**: Fully reproducible builds using Lix (`pkgs.lixPackageSets.git`) as the package set and runtime evaluator across all systems.
+- **Modular Design**: Separated into granular `features` and high-level `profiles` across `modules/nixos` and `modules/home`.
+- **Hyprland in Lua**: Hyprland configuration is written and managed entirely in **Lua** (`dotfiles/hypr/`), utilizing custom Lua bindings rather than traditional `.conf` files.
+- **Neovim via `mnw`**: Declarative Neovim wrapper (`flakes/neovim`) with out-of-store Lua configurations for rapid development and testing.
+- **Two-tier Repository Model**: The public repository (`/shared/.config/public`) is open-source and self-contained; sensitive Agenix secrets and deployment keys live in the private repository (`/shared/.config/private`).
+
+---
+
+## Agent Git & Commit Guidelines
+
+### 1. Always Commit Changes
+Whenever you make a functional change, bugfix, refactor, or documentation update and verify it, you **must create a git commit**. Do not leave unstaged or uncommitted working trees at the end of a task.
+
+### 2. Prefer Amending for Follow-up Fixes
+If you are fixing an issue caused by your previous commit, addressing review feedback, or making a minor polish/typo adjustment to the immediate previous commit, **prefer amending the previous commit** (`git commit --amend` or `git commit --amend --no-edit`) rather than creating trivial "fix typo" or "fix lint" commits.
+
+### 3. Clear Commit Messages
+Follow conventional commit style where appropriate:
+- `feat(...)`: New feature or configuration option
+- `fix(...)`: Bug fix or configuration correction
+- `refactor(...)`: Code reorganization or cleanup without behavior changes
+- `docs(...)`: Documentation updates (e.g. `AGENTS.md`, `README.md`)
+- `style(...)`: Formatting or option description normalization
+
+---
 
 ## Critical Flake Workflows
 
 ### Git Tracking Is Mandatory
 
-Nix Flakes only see files that are tracked by git. A newly created file is invisible to Nix until it has been added to the git index.
+Nix Flakes only see files that are tracked by Git. Any newly created file is completely invisible to Nix until added to the Git staging index.
 
-Important:
-- Always run `git add` on new or changed files before building or checking.
-- If you add a file and Nix reports it as missing, the usual cause is that the file is not tracked yet.
+> [!IMPORTANT]
+> Always run `git add` on new or modified files before running `nix flake check`, building, or switching configurations.
 
 ### Test Changes Before Applying
 
-Before applying changes, verify that the flake still evaluates correctly.
+Always verify flake evaluation before proposing or committing major modifications:
 
 ```bash
 git add .
-nix flake check
+nix flake check --no-build
 ```
 
-Use `nix flake check --no-build` if you only want evaluation without running builds.
+*(Note: A warning about unknown flake output `'colmena'` is expected and harmless, as Colmena uses a custom flake output schema).*
+
+To verify building a specific host system toplevel:
+```bash
+nix build .#nixosConfigurations.<hostname>.config.system.build.toplevel
+```
+
+To verify a specific Home Manager activation package:
+```bash
+nix build .#homeConfigurations."<username>@<hostname>".activationPackage
+```
 
 ### Keep Binary Cache Commands in README Synchronized
 
-Whenever binary caches (`nixCaches` substituters or trusted public keys) in `flake.nix` are added, removed, or modified, always update the first-build command under **Installation** in `README.md` so that the `--option extra-substituters` and `--option extra-trusted-public-keys` arguments stay in sync.
+Whenever binary caches (`nixCaches.extra-substituters` or `nixCaches.extra-trusted-public-keys`) in `flake.nix` are added, removed, or modified, **always update the first-build command under Installation in `README.md`** so the flags match identically.
 
-## Apply Changes Safely
+---
 
-Do not use `colmena`, `nh`, or `nixos-rebuild switch` from this public repository. It does not contain everything required to apply system changes as intended, including the necessary private Agenix material.
+## Applying Changes Safely
 
-Use Home Manager instead:
+### Public vs. Private Repository Architecture
+
+1. **Public Repository (`/shared/.config/public` / `o-dasher/RikaOS`)**:
+   - Contains all public system modules, home configurations, dotfiles, themes, and machine declarations.
+   - Evaluates cleanly without secrets thanks to conditional guards (`config.rika.utils.hasSecrets`).
+   - **Do not run `nixos-rebuild switch`, `nh`, or `colmena apply` directly from this public repository** if the system relies on encrypted secrets (e.g. BitLocker keys, DDNS tokens, API tokens).
+
+2. **Private Repository (`/shared/.config/private`)**:
+   - Extends the public flake using `inputs.rikaos.url = "path:/shared/.config/public"`.
+   - Injects encrypted Agenix secrets, private email credentials, and deployment keys.
+   - System deployments and remote Colmena applies must be executed from the private repository.
+
+### Home Manager Deployment
+
+Standalone Home Manager configurations can be applied directly from this repository for individual users:
 
 ```bash
 git add .
-home-manager switch --flake .
+home-manager switch --flake .#<username>
+# Or specifying host target:
+home-manager switch --flake .#<username>@<hostname>
 ```
 
-For a specific user:
+Available user targets:
+- `rika` or `rika@hinamizawa`
+- `satoko` or `satoko@hinamizawa`
+- `thiago` or `thiago@gensokyo`
 
-```bash
-git add .
-home-manager switch --flake .#username
-```
+---
 
 ## Repository Structure
 
-- `flake.nix`: flake entry point.
-- `hosts/<hostname>`: machine-specific configuration.
-- `modules/nixos`: reusable NixOS modules.
-- `modules/home`: reusable Home Manager modules.
-- `dotfiles`: raw dotfiles such as Neovim Lua config.
+```
+├── flake.nix                # Flake entry point (Lix, inputs, NixOS/HM configs, Colmena)
+├── flake.lock               # Pinned input locks
+├── hosts/                   # Machine-specific configurations
+│   ├── hinamizawa/          # Workstation (AMD GPU, Limine Secure Boot, LUKS, Btrfs, BitLocker)
+│   │   ├── configuration.nix
+│   │   ├── hardware-configuration.nix
+│   │   └── users/           # User configurations for rika and satoko
+│   └── gensokyo/            # Laptop (TLP, Tailscale, automounted /mnt/data)
+│       ├── configuration.nix
+│       ├── hardware-configuration.nix
+│       └── users/           # User configuration for thiago
+├── modules/
+│   ├── nixos/               # NixOS modules
+│   │   ├── features/        # Granular system capabilities (audio, boot, core, filesystem, etc.)
+│   │   └── profiles/        # High-level system roles (core, desktop, secure-server)
+│   ├── home/                # Home Manager modules
+│   │   ├── features/        # Granular user capabilities (cli, desktop, editors, gaming, etc.)
+│   │   └── profiles/        # High-level user profiles (browser, dev, gaming, multimedia, etc.)
+│   └── lib/                 # Shared helper libraries
+│       ├── utils.nix        # rika.utils (idleTimers, symlink helpers, autostart, tailwind)
+│       └── theme.nix        # Stylix theme definitions & base16 paletting
+├── dotfiles/                # Out-of-store configuration files symlinked via rika.utils
+│   ├── hypr/                # Hyprland Lua configuration (init, binds, config, monitors, rules)
+│   ├── nvim/                # Declarative Neovim configuration files
+│   └── ideavim/             # IdeaVim configuration
+├── flakes/
+│   └── neovim/              # Standalone mnw-wrapped Neovim subflake with devMode
+├── assets/                  # Wallpapers, OpenRGB profiles, QMK layouts, Ascii art
+├── _sources/                # nvfetcher generated sources
+├── nvfetcher.toml           # Package version tracking (e.g. Minecraft Fabric mods)
+├── README.md                # Public user-facing documentation
+└── AGENTS.md                # Agent instructions & development workflows
+```
+
+---
+
+## Coding Conventions & Key Patterns
+
+- **Lua for Hyprland**: Never write standard `hyprland.conf` directives. Hyprland is configured in Lua (`dotfiles/hypr/`) using the `hl` Lua table API (`hl.bind`, `hl.config`, `hl.window_rule`, `hl.dsp`).
+- **Selective Symlinks**: Use `rika.utils.xdgConfigSelectiveSymLink` or `rika.utils.selectiveSymLink` for dotfiles so edits take effect immediately without requiring full activation rebuilds.
+- **Stylix Theming**: Theme palettes are generated and propagated through `modules/lib/theme.nix`.
+- **Code Formatting**: The flake devShell (`nix develop`) provides `nixfmt`, `stylua`, `nil`, and `statix`. Maintain consistent formatting across Nix and Lua code.
+
