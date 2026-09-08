@@ -18,6 +18,7 @@ in
     services.gnome-keyring.enable = true;
     features = {
       terminal.ghostty.enable = true;
+      ai.enable = true;
 
       editors = {
         neovim = {
@@ -49,8 +50,6 @@ in
       grep.enable = true;
       ripgrep.enable = true;
       zed-editor.enable = cfg.zed.enable;
-      antigravity-cli.enable = true;
-      github-copilot-cli.enable = true;
       codex.enable = true;
     };
 
