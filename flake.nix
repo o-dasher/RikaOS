@@ -224,19 +224,22 @@
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = import inputs.systems;
 
-      perSystem = { pkgs, ... }: {
-        devShells.default = pkgs.mkShell {
-          packages = with pkgs; [
-            nixfmt
-            nixfmt-tree
-            stylua
-            lua-language-server
-            nixd
-            nil
-            statix
-          ];
+      perSystem =
+        { pkgs, ... }:
+        {
+          formatter = pkgs.nixfmt;
+          devShells.default = pkgs.mkShell {
+            packages = with pkgs; [
+              nixfmt
+              nixfmt-tree
+              stylua
+              lua-language-server
+              nixd
+              nil
+              statix
+            ];
+          };
         };
-      };
 
       flake = {
         nixosConfigurations = lib.mapAttrs (
