@@ -11,11 +11,11 @@ in
 
   config = lib.mkIf (config.features.core.enable && cfg.enable) {
     # Limit journald log size to prevent unbounded growth
-    services.journald.extraConfig = ''
-      SystemMaxUse=512M
-      SystemMaxFileSize=128M
-      MaxRetentionSec=16day
-    '';
+    services.journald.settings.Journal = {
+      SystemMaxUse = "512M";
+      SystemMaxFileSize = "128M";
+      MaxRetentionSec = "16day";
+    };
 
     # Clean /tmp directory on boot
     boot.tmp.cleanOnBoot = true;
