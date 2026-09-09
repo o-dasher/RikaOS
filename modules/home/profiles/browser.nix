@@ -16,7 +16,6 @@ in
     brave.enable = lib.mkEnableOption "Brave browser." // {
       default = true;
     };
-    chromium.enable = lib.mkEnableOption "Chromium browser.";
   };
 
   config = lib.mkIf cfg.enable {
@@ -59,15 +58,11 @@ in
         brave = lib.mkIf cfg.brave.enable {
           enable = true;
           package = pkgs.brave-origin;
+          commandLineArgs = [ "--remote-debugging-port=9222" ];
           extensions = commonExtensions ++ [
             "eimadpbcbfnmbkopoojfekhnkhdbieeh" # Dark Reader
             "ehdehfcjlmekjdolbbmjgokdfeoocccd" # osu! subdivide nations
           ];
-        };
-        chromium = lib.mkIf cfg.chromium.enable {
-          enable = true;
-          package = pkgs.ungoogled-chromium;
-          extensions = commonExtensions;
         };
       };
   };

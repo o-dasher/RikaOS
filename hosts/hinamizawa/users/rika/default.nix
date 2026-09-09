@@ -13,10 +13,7 @@
     gaming.enable = true;
     multimedia.enable = true;
     social.enable = true;
-    browser = {
-      enable = true;
-      chromium.enable = true;
-    };
+    browser.enable = true;
     security.enable = true;
     study.enable = true;
   };

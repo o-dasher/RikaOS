@@ -6,6 +6,10 @@
 }:
 let
   cfg = config.features.ai;
+  chromeDevToolsMcp = pkgs.writeShellScript "chrome-devtools-mcp" ''
+    export PATH="${lib.makeBinPath [ pkgs.nodejs ]}:$PATH"
+    exec ${lib.getExe' pkgs.nodejs "npx"} --yes chrome-devtools-mcp@latest "$@"
+  '';
 in
 {
   options.features.ai = {
@@ -13,7 +17,22 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    home.packages = with pkgs; [
+      antigravity-acp
+    ];
+
     programs = {
+      mcp = {
+        enable = true;
+        servers.chrome_devtools = {
+          command = "${chromeDevToolsMcp}";
+          args = [
+            "--browserUrl"
+            "http://127.0.0.1:9222"
+          ];
+        };
+      };
+
       github-copilot-cli = {
         enable = true;
         enableMcpIntegration = true;
@@ -41,9 +60,5 @@ in
         };
       };
     };
-
-    home.packages = with pkgs; [
-      antigravity-acp
-    ];
   };
 }
