@@ -836,8 +836,29 @@
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-stable": "nixpkgs-stable",
+        "sidra": "sidra",
         "stylix": "stylix",
         "systems": "systems"
+      }
+    },
+    "sidra": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1788938623,
+        "narHash": "sha256-kjrFdFoqSNSV0PnGj7zza115RitQsq6KVKOfV6e30GM=",
+        "owner": "wimpysworld",
+        "repo": "sidra",
+        "rev": "7739b86a08bc1bc0154475f4649ec6187baa5cce",
+        "type": "github"
+      },
+      "original": {
+        "owner": "wimpysworld",
+        "repo": "sidra",
+        "type": "github"
       }
     },
     "stylix": {

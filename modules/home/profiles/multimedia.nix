@@ -2,10 +2,12 @@
   pkgs,
   lib,
   config,
+  inputs,
   ...
 }:
 let
   cfg = config.profiles.multimedia;
+  sidra-pkg = inputs.sidra.packages.${pkgs.stdenv.hostPlatform.system}.default;
 in
 {
   options.profiles.multimedia.enable = lib.mkEnableOption "Multimedia profile.";
@@ -41,9 +43,9 @@ in
       krita
 
       # Music
-      cider-2
+      sidra-pkg
     ];
 
-    xdg.autostart.entries = [ (config.rika.utils.mkAutostartApp { pkg = pkgs.cider-2; }) ];
+    xdg.autostart.entries = [ (config.rika.utils.mkAutostartApp { pkg = sidra-pkg; }) ];
   };
 }

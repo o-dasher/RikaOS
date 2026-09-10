@@ -62,6 +62,10 @@
         flake-compat.follows = "flake-compat";
       };
     };
+    sidra = {
+      url = "github:wimpysworld/sidra";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
