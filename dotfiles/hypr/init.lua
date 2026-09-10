@@ -1,4 +1,5 @@
 require("config")
+require("utils")
 require("monitors")
 require("rules")
 require("binds")

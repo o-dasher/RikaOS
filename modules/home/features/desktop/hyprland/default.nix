@@ -51,6 +51,7 @@ in
         "monitors.lua"
         "rules.lua"
         "binds.lua"
+        "utils.lua"
       ] { };
 
       pointerCursor = {
@@ -129,8 +130,31 @@ in
         ]
         ++ lib.optionals config.programs.nixcord.discord.vencord.enable [
           #lua
-          ''hl.window_rule({ match = { class = "^(discord)$" }, workspace = "3 silent" })''
+          ''
+            hl.window_rule({ match = { class = "^(discord)$", title = "^(Discord Updater)$" }, float = true })
+            hl.window_rule({ match = { class = "^(discord)$", initial_title = "^(Discord)$" }, workspace = "3 silent", maximize = true })
+            hl.window_rule({ match = { class = "^(discord)$" }, workspace = "3 silent" })
+          ''
         ]
+        ++ lib.optionals config.features.social.signal.enable [
+          #lua
+          ''hl.window_rule({ match = { class = "^(signal)$" }, workspace = "3 silent", maximize = true })''
+        ]
+        ++
+          lib.optionals
+            (config.programs.nixcord.discord.vencord.enable && config.features.social.signal.enable)
+            [
+              #lua
+              ''
+                require("utils").organize_side_by_side({
+                  workspace = 3,
+                  left = { class = "discord", exclude_title = "Updater" },
+                  right = "signal",
+                  maximize = true,
+                  focus_left = true,
+                })
+              ''
+            ]
         ++ lib.optionals (hasStylix && config.features.desktop.theme.enable) [
           #lua
           ''

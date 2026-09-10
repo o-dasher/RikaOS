@@ -11,11 +11,11 @@ in
   options.profiles.social.enable = lib.mkEnableOption "Social profile.";
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [ signal-desktop ];
     features.social = {
       enable = true;
       email.enable = true;
       discord.enable = true;
+      signal.enable = true;
     };
   };
 }

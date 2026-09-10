@@ -44,11 +44,22 @@
       {
         pkg,
         args ? "",
+        delay ? 0,
         command ? "${lib.getExe pkg}${lib.optionalString (args != "") " ${args}"}",
       }:
       let
         hasUWSM = osConfig != null && osConfig.programs.uwsm.enable;
-        execCmd = if hasUWSM then command else "${lib.getExe pkgs.app2unit} -- ${command}";
+        delayArg = lib.optionalString (
+          delay > 0
+        ) "-p \"ExecStartPre=${lib.getExe' pkgs.coreutils "sleep"} ${toString delay}\" ";
+        execCmd =
+          if hasUWSM then
+            if delay > 0 then
+              "sh -c '${lib.getExe' pkgs.coreutils "sleep"} ${toString delay} && exec ${command}'"
+            else
+              command
+          else
+            "${lib.getExe pkgs.app2unit} ${delayArg}-- ${command}";
         pkgName = lib.getName pkg;
         desktopItem = pkgs.makeDesktopItem {
           name = pkgName;

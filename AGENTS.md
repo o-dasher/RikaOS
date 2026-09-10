@@ -150,7 +150,11 @@ Available user targets:
 ## Coding Conventions & Key Patterns
 
 - **Lua for Hyprland**: Never write standard `hyprland.conf` directives. Hyprland is configured in Lua (`dotfiles/hypr/`) using the `hl` Lua table API (`hl.bind`, `hl.config`, `hl.window_rule`, `hl.dsp`).
+- **Hyprland Window Rules & Class Matching**: Never guess window classes with speculative or overly broad regex patterns (such as `^([sS]omething|something-desktop)$`). Always inspect running application instances using `hyprctl clients -j | jq '.[] | {class, initialClass, title}'` to identify the exact, definitive `class` or `initialClass` before authoring `hl.window_rule`.
+- **Autostart Apps via Attributes**: Always use `rika.utils.mkAutostartApp` with `xdg.autostart.entries` to configure application autostarts within their feature modules rather than creating ad-hoc shell loops, wrapper scripts, or `hl.on("hyprland.start", ...)` hooks. If a startup delay is ever strictly required by a service, use the `delay` attribute on `rika.utils.mkAutostartApp { pkg = ...; delay = ...; }` to leverage systemd's `ExecStartPre` natively.
+- **Lua Event-Driven Window Organization Over Startup Delays**: When multiple applications open on the same workspace and require a deterministic ordering or layout (e.g. Discord on the left and Signal alongside on the right), do not use arbitrary sleep or startup delays that waste CPU and prolong session boot. Instead, allow both applications to launch concurrently and use Hyprland Lua event hooks (`hl.on("window.open", ...)`, `hl.on("window.move_to_workspace", ...)`) with layout dispatchers (such as `hl.dsp.window.swap`) to automatically reorganize the workspace into the desired arrangement.
 - **Selective Symlinks**: Use `rika.utils.xdgConfigSelectiveSymLink` or `rika.utils.selectiveSymLink` for dotfiles so edits take effect immediately without requiring full activation rebuilds.
 - **Stylix Theming**: Theme palettes are generated and propagated through `modules/lib/theme.nix`.
 - **Code Formatting**: The flake devShell (`nix develop`) provides `nixfmt`, `stylua`, `nil`, and `statix`. Maintain consistent formatting across Nix and Lua code.
+
 
