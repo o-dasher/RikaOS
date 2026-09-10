@@ -148,10 +148,9 @@ in
               ''
                 require("utils").organize_side_by_side({
                   workspace = 3,
-                  left = { class = "discord", exclude_title = "Updater" },
+                  left = { class = "discord", exclude = "Updater" },
                   right = "signal",
                   maximize = true,
-                  focus_left = true,
                 })
               ''
             ]
