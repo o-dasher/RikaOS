@@ -41,9 +41,9 @@ in
       krita
 
       # Music
-      spotify
+      cider-2
     ];
 
-    xdg.autostart.entries = [ (config.rika.utils.mkAutostartApp { pkg = pkgs.spotify; }) ];
+    xdg.autostart.entries = [ (config.rika.utils.mkAutostartApp { pkg = pkgs.cider-2; }) ];
   };
 }

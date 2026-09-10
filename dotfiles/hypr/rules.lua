@@ -70,4 +70,4 @@ hl.window_rule({
 })
 
 -- Music workspace
-hl.window_rule({ match = { class = "^(spotify)$" }, workspace = "6 silent" })
+hl.window_rule({ match = { class = "^(cider)$" }, workspace = "6 silent" })
