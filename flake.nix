@@ -35,7 +35,7 @@
       url = "github:FlameFlag/nixcord";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
+        home-manager.follows = "home-manager";
       };
     };
     stylix = {
