@@ -19,6 +19,7 @@ in
     programs.nixcord = {
       enable = true;
       discord = {
+        openASAR.enable = false;
         krisp.enable = true;
         vencord.enable = true;
       };
