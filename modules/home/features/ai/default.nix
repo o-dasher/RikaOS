@@ -6,22 +6,68 @@
 }:
 let
   cfg = config.features.ai;
+
+  pow = base: exp: if exp == 0 then 1 else base * (pow base (exp - 1));
+  pow2 = pow 2;
+
+  openRouterApiUrl = "https://openrouter.ai/api/v1";
+
   chromeDevToolsMcp = pkgs.writeShellScript "chrome-devtools-mcp" ''
     export PATH="${lib.makeBinPath [ pkgs.nodejs ]}:$PATH"
     exec ${lib.getExe' pkgs.nodejs "npx"} --yes chrome-devtools-mcp@latest "$@"
   '';
+
+  museModels = [
+    {
+      id = "meta/muse-spark-1.3-contributor";
+      name = "Meta: Muse Spark 1.3 Contributor";
+      profile = "muse-spark-1-3-contributor";
+      maxTokens = pow2 20;
+    }
+    {
+      id = "meta/muse-spark-1.2-contributor";
+      name = "Meta: Muse Spark 1.2 Contributor";
+      profile = "muse-spark-1-2-contributor";
+      maxTokens = pow2 20;
+    }
+    {
+      id = "meta/muse-glimmer-30b";
+      name = "Meta: Muse Glimmer 30B";
+      profile = "muse-glimmer";
+      maxTokens = pow2 17;
+    }
+    {
+      id = "meta/muse-spark-1.3";
+      name = "Meta: Muse Spark 1.3";
+      profile = "muse-spark";
+      maxTokens = pow2 20;
+    }
+  ];
+
+  defaultMuseModel = builtins.head museModels;
+
+  codexMuseProfile = model: {
+    inherit model;
+    model_provider = "openrouter";
+  };
 in
 {
-  options.features.ai = {
-    enable = lib.mkEnableOption "Personal AI agents, ACP, and MCP integration.";
-  };
+  options.features.ai.enable = lib.mkEnableOption "Personal AI agents, ACP, and MCP integration.";
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [
-      antigravity-acp
-    ];
+    home.packages = with pkgs; [ antigravity-acp ];
 
     programs = {
+      antigravity-cli = {
+        enable = true;
+        enableMcpIntegration = true;
+      };
+
+      github-copilot-cli = {
+        enable = true;
+        enableMcpIntegration = true;
+      };
+
       mcp = {
         enable = true;
         servers.chrome_devtools = {
@@ -33,39 +79,17 @@ in
         };
       };
 
-      github-copilot-cli = {
-        enable = true;
-        enableMcpIntegration = true;
-      };
-
-      antigravity-cli = {
-        enable = true;
-        enableMcpIntegration = true;
-      };
-
       opencode = {
         enable = true;
         enableMcpIntegration = true;
         settings = {
-          model = "openrouter/meta/muse-spark-1.3-contributor";
-          provider = {
-            openrouter = {
-              models = {
-                "meta/muse-spark-1.3-contributor" = {
-                  name = "Meta: Muse Spark 1.3 Contributor";
-                };
-                "meta/muse-spark-1.2-contributor" = {
-                  name = "Meta: Muse Spark 1.2 Contributor";
-                };
-                "meta/muse-glimmer-30b" = {
-                  name = "Meta: Muse Glimmer 30B";
-                };
-                "meta/muse-spark-1.3" = {
-                  name = "Meta: Muse Spark 1.3";
-                };
-              };
-            };
-          };
+          model = "openrouter/${defaultMuseModel.id}";
+          provider.openrouter.models = lib.listToAttrs (
+            map (m: {
+              name = m.id;
+              value = { inherit (m) name; };
+            }) museModels
+          );
         };
       };
 
@@ -73,39 +97,24 @@ in
         enable = true;
         enableMcpIntegration = true;
         settings = {
+          model = defaultMuseModel.id;
           model_provider = "openrouter";
-          model = "meta/muse-spark-1.3-contributor";
-          model_providers = {
-            openrouter = {
-              name = "OpenRouter";
-              base_url = "https://openrouter.ai/api/v1";
-              env_key = "OPENROUTER_API_KEY";
-              wire_api = "responses";
-            };
+          model_providers.openrouter = {
+            base_url = openRouterApiUrl;
+            env_key = "OPENROUTER_API_KEY";
+            name = "OpenRouter";
+            wire_api = "responses";
           };
         };
         profiles = {
-          muse = {
-            model_provider = "openrouter";
-            model = "meta/muse-spark-1.3-contributor";
-          };
-          muse-spark-1-3-contributor = {
-            model_provider = "openrouter";
-            model = "meta/muse-spark-1.3-contributor";
-          };
-          muse-spark-1-2-contributor = {
-            model_provider = "openrouter";
-            model = "meta/muse-spark-1.2-contributor";
-          };
-          muse-glimmer = {
-            model_provider = "openrouter";
-            model = "meta/muse-glimmer-30b";
-          };
-          muse-spark = {
-            model_provider = "openrouter";
-            model = "meta/muse-spark-1.3";
-          };
-        };
+          muse = codexMuseProfile defaultMuseModel.id;
+        }
+        // lib.listToAttrs (
+          map (m: {
+            name = m.profile;
+            value = codexMuseProfile m.id;
+          }) museModels
+        );
       };
 
       # ACP (Agent Client Protocol) agent servers & MCP context servers for Zed
@@ -113,51 +122,26 @@ in
         enableMcpIntegration = true;
         userSettings = {
           agent_servers = {
-            copilot = {
-              type = "custom";
-              command = lib.getExe pkgs.github-copilot-cli;
-              args = [ "--acp" ];
-            };
             antigravity = {
-              type = "custom";
-              command = lib.getExe pkgs.antigravity-acp;
               args = [ ];
+              command = lib.getExe pkgs.antigravity-acp;
+              type = "custom";
+            };
+            copilot = {
+              args = [ "--acp" ];
+              command = lib.getExe pkgs.github-copilot-cli;
+              type = "custom";
             };
           };
-          language_models = {
-            open_router = {
-              api_url = "https://openrouter.ai/api/v1";
-              available_models = [
-                {
-                  name = "meta/muse-spark-1.3-contributor";
-                  display_name = "Meta: Muse Spark 1.3 Contributor";
-                  max_tokens = 1048576;
-                  supports_tools = true;
-                  supports_images = true;
-                }
-                {
-                  name = "meta/muse-spark-1.2-contributor";
-                  display_name = "Meta: Muse Spark 1.2 Contributor";
-                  max_tokens = 1048576;
-                  supports_tools = true;
-                  supports_images = true;
-                }
-                {
-                  name = "meta/muse-glimmer-30b";
-                  display_name = "Meta: Muse Glimmer 30B";
-                  max_tokens = 131072;
-                  supports_tools = true;
-                  supports_images = true;
-                }
-                {
-                  name = "meta/muse-spark-1.3";
-                  display_name = "Meta: Muse Spark 1.3";
-                  max_tokens = 1048576;
-                  supports_tools = true;
-                  supports_images = true;
-                }
-              ];
-            };
+          language_models.open_router = {
+            api_url = openRouterApiUrl;
+            available_models = map (m: {
+              name = m.id;
+              display_name = m.name;
+              max_tokens = m.maxTokens;
+              supports_tools = true;
+              supports_images = true;
+            }) museModels;
           };
         };
       };

@@ -155,6 +155,26 @@ Available user targets:
 - **Lua Event-Driven Window Organization Over Startup Delays**: When multiple applications open on the same workspace and require a deterministic ordering or layout (e.g. Discord on the left and Signal alongside on the right), do not use arbitrary sleep or startup delays that waste CPU and prolong session boot. Instead, allow both applications to launch concurrently and use Hyprland Lua event hooks (`hl.on("window.open", ...)`, `hl.on("window.move_to_workspace", ...)`) with layout dispatchers (such as `hl.dsp.window.swap`) to automatically reorganize the workspace into the desired arrangement.
 - **Selective Symlinks**: Use `rika.utils.xdgConfigSelectiveSymLink` or `rika.utils.selectiveSymLink` for dotfiles so edits take effect immediately without requiring full activation rebuilds.
 - **Stylix Theming**: Theme palettes are generated and propagated through `modules/lib/theme.nix`.
+- **Flatten Single-Child Attribute Paths**: Avoid introducing nested attribute set blocks when defining only a single child attribute under a namespace. Collapse lone nested attributes into dotted notation (e.g. `services.openssh.enable = true;`). Reserve braced attribute set blocks (`{ ... }`) strictly for scopes containing two or more sibling keys sharing the same prefix.
+  ```nix
+  # Preferred (collapsed single children, braced multi-attributes):
+  nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  programs.mcp.enable = true;
+
+  inputs.hyprland = {
+    url = "github:hyprwm/hyprland/v0.56.0";
+    inputs.systems.follows = "systems";
+  };
+
+  # Avoid (redundant block wrapping a lone child):
+  programs = {
+    mcp = {
+      enable = true;
+    };
+  };
+  ```
+- **Attribute Ordering by Complexity**: Structure bindings within attribute sets progressively by cognitive load and visual weight. Place simple, compact scalar declarations (such as booleans, primitive values, package references, and short single-line strings) at the top of the enclosing block. Position multi-line attribute sets, nested blocks, custom generators, and complex functions at the bottom.
 - **Code Formatting**: The flake devShell (`nix develop`) provides `nixfmt`, `stylua`, `nil`, and `statix`. Maintain consistent formatting across Nix and Lua code.
+
 
 
