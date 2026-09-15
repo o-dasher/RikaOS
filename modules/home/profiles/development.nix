@@ -50,7 +50,6 @@ in
       grep.enable = true;
       ripgrep.enable = true;
       zed-editor.enable = cfg.zed.enable;
-      codex.enable = true;
     };
 
     home.packages = with pkgs; [
