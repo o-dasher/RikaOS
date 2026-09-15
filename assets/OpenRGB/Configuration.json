@@ -1,0 +1,784 @@
+{
+    "controllers": [
+        {
+            "active_mode": 0,
+            "colors": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "description": "Nollie Controller Device",
+            "display_name": "",
+            "flags": 1,
+            "leds": [
+                {
+                    "name": "Channel 1, LED 0"
+                },
+                {
+                    "name": "Channel 1, LED 1"
+                },
+                {
+                    "name": "Channel 1, LED 2"
+                },
+                {
+                    "name": "Channel 1, LED 3"
+                },
+                {
+                    "name": "Channel 1, LED 4"
+                },
+                {
+                    "name": "Channel 1, LED 5"
+                },
+                {
+                    "name": "Channel 1, LED 6"
+                },
+                {
+                    "name": "Channel 1, LED 7"
+                },
+                {
+                    "name": "Channel 1, LED 8"
+                },
+                {
+                    "name": "Channel 1, LED 9"
+                },
+                {
+                    "name": "Channel 1, LED 10"
+                },
+                {
+                    "name": "Channel 1, LED 11"
+                },
+                {
+                    "name": "Channel 1, LED 12"
+                },
+                {
+                    "name": "Channel 1, LED 13"
+                },
+                {
+                    "name": "Channel 1, LED 14"
+                },
+                {
+                    "name": "Channel 1, LED 15"
+                },
+                {
+                    "name": "Channel 1, LED 16"
+                },
+                {
+                    "name": "Channel 1, LED 17"
+                },
+                {
+                    "name": "Channel 1, LED 18"
+                },
+                {
+                    "name": "Channel 1, LED 19"
+                },
+                {
+                    "name": "Channel 2, LED 0"
+                },
+                {
+                    "name": "Channel 2, LED 1"
+                },
+                {
+                    "name": "Channel 2, LED 2"
+                },
+                {
+                    "name": "Channel 2, LED 3"
+                },
+                {
+                    "name": "Channel 2, LED 4"
+                },
+                {
+                    "name": "Channel 2, LED 5"
+                },
+                {
+                    "name": "Channel 2, LED 6"
+                },
+                {
+                    "name": "Channel 2, LED 7"
+                },
+                {
+                    "name": "Channel 2, LED 8"
+                },
+                {
+                    "name": "Channel 2, LED 9"
+                },
+                {
+                    "name": "Channel 2, LED 10"
+                },
+                {
+                    "name": "Channel 2, LED 11"
+                },
+                {
+                    "name": "Channel 2, LED 12"
+                },
+                {
+                    "name": "Channel 2, LED 13"
+                },
+                {
+                    "name": "Channel 2, LED 14"
+                },
+                {
+                    "name": "Channel 2, LED 15"
+                },
+                {
+                    "name": "Channel 2, LED 16"
+                },
+                {
+                    "name": "Channel 2, LED 17"
+                },
+                {
+                    "name": "Channel 2, LED 18"
+                },
+                {
+                    "name": "Channel 2, LED 19"
+                },
+                {
+                    "name": "Channel 3, LED 0"
+                },
+                {
+                    "name": "Channel 3, LED 1"
+                },
+                {
+                    "name": "Channel 3, LED 2"
+                },
+                {
+                    "name": "Channel 3, LED 3"
+                },
+                {
+                    "name": "Channel 3, LED 4"
+                },
+                {
+                    "name": "Channel 3, LED 5"
+                },
+                {
+                    "name": "Channel 3, LED 6"
+                },
+                {
+                    "name": "Channel 3, LED 7"
+                },
+                {
+                    "name": "Channel 3, LED 8"
+                },
+                {
+                    "name": "Channel 3, LED 9"
+                },
+                {
+                    "name": "Channel 3, LED 10"
+                },
+                {
+                    "name": "Channel 3, LED 11"
+                },
+                {
+                    "name": "Channel 3, LED 12"
+                },
+                {
+                    "name": "Channel 3, LED 13"
+                },
+                {
+                    "name": "Channel 3, LED 14"
+                },
+                {
+                    "name": "Channel 3, LED 15"
+                },
+                {
+                    "name": "Channel 3, LED 16"
+                },
+                {
+                    "name": "Channel 3, LED 17"
+                },
+                {
+                    "name": "Channel 3, LED 18"
+                },
+                {
+                    "name": "Channel 3, LED 19"
+                },
+                {
+                    "name": "Channel 4, LED 0"
+                },
+                {
+                    "name": "Channel 4, LED 1"
+                },
+                {
+                    "name": "Channel 4, LED 2"
+                },
+                {
+                    "name": "Channel 4, LED 3"
+                },
+                {
+                    "name": "Channel 4, LED 4"
+                },
+                {
+                    "name": "Channel 4, LED 5"
+                },
+                {
+                    "name": "Channel 4, LED 6"
+                },
+                {
+                    "name": "Channel 4, LED 7"
+                },
+                {
+                    "name": "Channel 4, LED 8"
+                },
+                {
+                    "name": "Channel 4, LED 9"
+                },
+                {
+                    "name": "Channel 4, LED 10"
+                },
+                {
+                    "name": "Channel 4, LED 11"
+                },
+                {
+                    "name": "Channel 4, LED 12"
+                },
+                {
+                    "name": "Channel 4, LED 13"
+                },
+                {
+                    "name": "Channel 4, LED 14"
+                },
+                {
+                    "name": "Channel 4, LED 15"
+                },
+                {
+                    "name": "Channel 4, LED 16"
+                },
+                {
+                    "name": "Channel 4, LED 17"
+                },
+                {
+                    "name": "Channel 4, LED 18"
+                },
+                {
+                    "name": "Channel 4, LED 19"
+                },
+                {
+                    "name": "Channel 5, LED 0"
+                },
+                {
+                    "name": "Channel 5, LED 1"
+                },
+                {
+                    "name": "Channel 5, LED 2"
+                },
+                {
+                    "name": "Channel 5, LED 3"
+                },
+                {
+                    "name": "Channel 5, LED 4"
+                },
+                {
+                    "name": "Channel 5, LED 5"
+                },
+                {
+                    "name": "Channel 5, LED 6"
+                },
+                {
+                    "name": "Channel 5, LED 7"
+                },
+                {
+                    "name": "Channel 5, LED 8"
+                },
+                {
+                    "name": "Channel 5, LED 9"
+                },
+                {
+                    "name": "Channel 5, LED 10"
+                },
+                {
+                    "name": "Channel 5, LED 11"
+                },
+                {
+                    "name": "Channel 5, LED 12"
+                },
+                {
+                    "name": "Channel 5, LED 13"
+                },
+                {
+                    "name": "Channel 5, LED 14"
+                },
+                {
+                    "name": "Channel 5, LED 15"
+                },
+                {
+                    "name": "Channel 5, LED 16"
+                },
+                {
+                    "name": "Channel 5, LED 17"
+                },
+                {
+                    "name": "Channel 5, LED 18"
+                },
+                {
+                    "name": "Channel 5, LED 19"
+                },
+                {
+                    "name": "Channel 6, LED 0"
+                },
+                {
+                    "name": "Channel 6, LED 1"
+                },
+                {
+                    "name": "Channel 6, LED 2"
+                },
+                {
+                    "name": "Channel 6, LED 3"
+                },
+                {
+                    "name": "Channel 6, LED 4"
+                },
+                {
+                    "name": "Channel 6, LED 5"
+                },
+                {
+                    "name": "Channel 6, LED 6"
+                },
+                {
+                    "name": "Channel 6, LED 7"
+                },
+                {
+                    "name": "Channel 6, LED 8"
+                },
+                {
+                    "name": "Channel 6, LED 9"
+                },
+                {
+                    "name": "Channel 6, LED 10"
+                },
+                {
+                    "name": "Channel 6, LED 11"
+                },
+                {
+                    "name": "Channel 6, LED 12"
+                },
+                {
+                    "name": "Channel 6, LED 13"
+                },
+                {
+                    "name": "Channel 6, LED 14"
+                },
+                {
+                    "name": "Channel 6, LED 15"
+                },
+                {
+                    "name": "Channel 6, LED 16"
+                },
+                {
+                    "name": "Channel 6, LED 17"
+                },
+                {
+                    "name": "Channel 6, LED 18"
+                },
+                {
+                    "name": "Channel 6, LED 19"
+                },
+                {
+                    "name": "Channel 7, LED 0"
+                },
+                {
+                    "name": "Channel 7, LED 1"
+                },
+                {
+                    "name": "Channel 7, LED 2"
+                },
+                {
+                    "name": "Channel 7, LED 3"
+                },
+                {
+                    "name": "Channel 7, LED 4"
+                },
+                {
+                    "name": "Channel 7, LED 5"
+                },
+                {
+                    "name": "Channel 7, LED 6"
+                },
+                {
+                    "name": "Channel 7, LED 7"
+                },
+                {
+                    "name": "Channel 7, LED 8"
+                },
+                {
+                    "name": "Channel 7, LED 9"
+                },
+                {
+                    "name": "Channel 7, LED 10"
+                },
+                {
+                    "name": "Channel 7, LED 11"
+                },
+                {
+                    "name": "Channel 7, LED 12"
+                },
+                {
+                    "name": "Channel 7, LED 13"
+                },
+                {
+                    "name": "Channel 7, LED 14"
+                },
+                {
+                    "name": "Channel 7, LED 15"
+                },
+                {
+                    "name": "Channel 7, LED 16"
+                },
+                {
+                    "name": "Channel 7, LED 17"
+                },
+                {
+                    "name": "Channel 7, LED 18"
+                },
+                {
+                    "name": "Channel 7, LED 19"
+                },
+                {
+                    "name": "Channel 8, LED 0"
+                },
+                {
+                    "name": "Channel 8, LED 1"
+                },
+                {
+                    "name": "Channel 8, LED 2"
+                },
+                {
+                    "name": "Channel 8, LED 3"
+                },
+                {
+                    "name": "Channel 8, LED 4"
+                },
+                {
+                    "name": "Channel 8, LED 5"
+                },
+                {
+                    "name": "Channel 8, LED 6"
+                },
+                {
+                    "name": "Channel 8, LED 7"
+                },
+                {
+                    "name": "Channel 8, LED 8"
+                },
+                {
+                    "name": "Channel 8, LED 9"
+                },
+                {
+                    "name": "Channel 8, LED 10"
+                },
+                {
+                    "name": "Channel 8, LED 11"
+                },
+                {
+                    "name": "Channel 8, LED 12"
+                },
+                {
+                    "name": "Channel 8, LED 13"
+                },
+                {
+                    "name": "Channel 8, LED 14"
+                },
+                {
+                    "name": "Channel 8, LED 15"
+                },
+                {
+                    "name": "Channel 8, LED 16"
+                },
+                {
+                    "name": "Channel 8, LED 17"
+                },
+                {
+                    "name": "Channel 8, LED 18"
+                },
+                {
+                    "name": "Channel 8, LED 19"
+                }
+            ],
+            "location": "HID: /dev/hidraw12",
+            "modes": [
+                {
+                    "brightness": 0,
+                    "brightness_max": 0,
+                    "brightness_min": 0,
+                    "color_mode": 1,
+                    "colors_max": 0,
+                    "colors_min": 0,
+                    "direction": 0,
+                    "flags": 32,
+                    "name": "Direct",
+                    "speed": 0,
+                    "speed_max": 0,
+                    "speed_min": 0
+                }
+            ],
+            "name": "Nollie 8CH",
+            "serial": "CDAB33F514BD145E",
+            "type": 4,
+            "vendor": "Nollie",
+            "version": "",
+            "zones": [
+                {
+                    "display_name": "",
+                    "flags": 4158,
+                    "leds_count": 20,
+                    "leds_max": 126,
+                    "leds_min": 0,
+                    "matrix_map": {
+                        "height": 0,
+                        "width": 0
+                    },
+                    "name": "Channel 1",
+                    "type": 1
+                },
+                {
+                    "display_name": "",
+                    "flags": 4158,
+                    "leds_count": 20,
+                    "leds_max": 126,
+                    "leds_min": 0,
+                    "matrix_map": {
+                        "height": 0,
+                        "width": 0
+                    },
+                    "name": "Channel 2",
+                    "type": 1
+                },
+                {
+                    "display_name": "",
+                    "flags": 4158,
+                    "leds_count": 20,
+                    "leds_max": 126,
+                    "leds_min": 0,
+                    "matrix_map": {
+                        "height": 0,
+                        "width": 0
+                    },
+                    "name": "Channel 3",
+                    "type": 1
+                },
+                {
+                    "display_name": "",
+                    "flags": 4158,
+                    "leds_count": 20,
+                    "leds_max": 126,
+                    "leds_min": 0,
+                    "matrix_map": {
+                        "height": 0,
+                        "width": 0
+                    },
+                    "name": "Channel 4",
+                    "type": 1
+                },
+                {
+                    "display_name": "",
+                    "flags": 4158,
+                    "leds_count": 20,
+                    "leds_max": 126,
+                    "leds_min": 0,
+                    "matrix_map": {
+                        "height": 0,
+                        "width": 0
+                    },
+                    "name": "Channel 5",
+                    "type": 1
+                },
+                {
+                    "display_name": "",
+                    "flags": 4158,
+                    "leds_count": 20,
+                    "leds_max": 126,
+                    "leds_min": 0,
+                    "matrix_map": {
+                        "height": 0,
+                        "width": 0
+                    },
+                    "name": "Channel 6",
+                    "type": 1
+                },
+                {
+                    "display_name": "",
+                    "flags": 4158,
+                    "leds_count": 20,
+                    "leds_max": 126,
+                    "leds_min": 0,
+                    "matrix_map": {
+                        "height": 0,
+                        "width": 0
+                    },
+                    "name": "Channel 7",
+                    "type": 1
+                },
+                {
+                    "display_name": "",
+                    "flags": 4158,
+                    "leds_count": 20,
+                    "leds_max": 126,
+                    "leds_min": 0,
+                    "matrix_map": {
+                        "height": 0,
+                        "width": 0
+                    },
+                    "name": "Channel 8",
+                    "type": 1
+                }
+            ]
+        }
+    ],
+    "profile_name": "Controller Configuration",
+    "profile_version": 6
+}

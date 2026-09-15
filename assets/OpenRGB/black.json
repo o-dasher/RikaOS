@@ -1,0 +1,1194 @@
+{
+    "controllers": [
+        {
+            "active_mode": 1,
+            "colors": [
+                255,
+                16711680,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255
+            ],
+            "description": "ENE SMBus Device",
+            "display_name": "",
+            "flags": 2,
+            "leds": [
+                {
+                    "name": "DRAM LED 1"
+                },
+                {
+                    "name": "DRAM LED 2"
+                },
+                {
+                    "name": "DRAM LED 3"
+                },
+                {
+                    "name": "DRAM LED 4"
+                },
+                {
+                    "name": "DRAM LED 5"
+                },
+                {
+                    "name": "DRAM LED 6"
+                },
+                {
+                    "name": "DRAM LED 7"
+                },
+                {
+                    "name": "DRAM LED 8"
+                }
+            ],
+            "location": "I2C: SMBus PIIX4 adapter port 0 at 0b00 (/dev/i2c-18), address 0x70",
+            "modes": [
+                {
+                    "brightness": 0,
+                    "brightness_max": 0,
+                    "brightness_min": 0,
+                    "color_mode": 1,
+                    "colors_max": 0,
+                    "colors_min": 0,
+                    "direction": 0,
+                    "flags": 32,
+                    "name": "Direct",
+                    "speed": 0,
+                    "speed_max": 0,
+                    "speed_min": 0
+                },
+                {
+                    "brightness": 0,
+                    "brightness_max": 0,
+                    "brightness_min": 0,
+                    "color_mode": 0,
+                    "colors_max": 0,
+                    "colors_min": 0,
+                    "direction": 0,
+                    "flags": 0,
+                    "name": "Off",
+                    "speed": 0,
+                    "speed_max": 0,
+                    "speed_min": 0
+                },
+                {
+                    "brightness": 0,
+                    "brightness_max": 0,
+                    "brightness_min": 0,
+                    "color_mode": 1,
+                    "colors_max": 0,
+                    "colors_min": 0,
+                    "direction": 0,
+                    "flags": 32,
+                    "name": "Static",
+                    "speed": 0,
+                    "speed_max": 0,
+                    "speed_min": 0
+                },
+                {
+                    "brightness": 0,
+                    "brightness_max": 0,
+                    "brightness_min": 0,
+                    "color_mode": 1,
+                    "colors_max": 0,
+                    "colors_min": 0,
+                    "direction": 0,
+                    "flags": 161,
+                    "name": "Breathing",
+                    "speed": 2,
+                    "speed_max": 0,
+                    "speed_min": 4
+                },
+                {
+                    "brightness": 0,
+                    "brightness_max": 0,
+                    "brightness_min": 0,
+                    "color_mode": 1,
+                    "colors_max": 0,
+                    "colors_min": 0,
+                    "direction": 0,
+                    "flags": 33,
+                    "name": "Flashing",
+                    "speed": 2,
+                    "speed_max": 0,
+                    "speed_min": 4
+                },
+                {
+                    "brightness": 0,
+                    "brightness_max": 0,
+                    "brightness_min": 0,
+                    "color_mode": 0,
+                    "colors_max": 0,
+                    "colors_min": 0,
+                    "direction": 0,
+                    "flags": 1,
+                    "name": "Spectrum Cycle",
+                    "speed": 2,
+                    "speed_max": 0,
+                    "speed_min": 4
+                },
+                {
+                    "brightness": 0,
+                    "brightness_max": 0,
+                    "brightness_min": 0,
+                    "color_mode": 0,
+                    "colors_max": 0,
+                    "colors_min": 0,
+                    "direction": 0,
+                    "flags": 3,
+                    "name": "Rainbow",
+                    "speed": 4,
+                    "speed_max": 0,
+                    "speed_min": 4
+                },
+                {
+                    "brightness": 0,
+                    "brightness_max": 0,
+                    "brightness_min": 0,
+                    "color_mode": 1,
+                    "colors_max": 0,
+                    "colors_min": 0,
+                    "direction": 0,
+                    "flags": 163,
+                    "name": "Chase Fade",
+                    "speed": 2,
+                    "speed_max": 0,
+                    "speed_min": 4
+                },
+                {
+                    "brightness": 0,
+                    "brightness_max": 0,
+                    "brightness_min": 0,
+                    "color_mode": 1,
+                    "colors_max": 0,
+                    "colors_min": 0,
+                    "direction": 0,
+                    "flags": 163,
+                    "name": "Chase",
+                    "speed": 2,
+                    "speed_max": 0,
+                    "speed_min": 4
+                },
+                {
+                    "brightness": 0,
+                    "brightness_max": 0,
+                    "brightness_min": 0,
+                    "color_mode": 0,
+                    "colors_max": 0,
+                    "colors_min": 0,
+                    "direction": 0,
+                    "flags": 1,
+                    "name": "Random Flicker",
+                    "speed": 2,
+                    "speed_max": 0,
+                    "speed_min": 4
+                }
+            ],
+            "name": "ENE DRAM",
+            "serial": "",
+            "type": 1,
+            "vendor": "ENE",
+            "version": "AUDA0-E6K5-0101",
+            "zones": [
+                {
+                    "display_name": "",
+                    "flags": 4096,
+                    "leds_count": 8,
+                    "leds_max": 8,
+                    "leds_min": 8,
+                    "matrix_map": {
+                        "height": 0,
+                        "width": 0
+                    },
+                    "name": "DRAM",
+                    "type": 1
+                }
+            ]
+        },
+        {
+            "active_mode": 1,
+            "colors": [
+                255,
+                16711680,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255
+            ],
+            "description": "ENE SMBus Device",
+            "display_name": "",
+            "flags": 2,
+            "leds": [
+                {
+                    "name": "DRAM LED 1"
+                },
+                {
+                    "name": "DRAM LED 2"
+                },
+                {
+                    "name": "DRAM LED 3"
+                },
+                {
+                    "name": "DRAM LED 4"
+                },
+                {
+                    "name": "DRAM LED 5"
+                },
+                {
+                    "name": "DRAM LED 6"
+                },
+                {
+                    "name": "DRAM LED 7"
+                },
+                {
+                    "name": "DRAM LED 8"
+                }
+            ],
+            "location": "I2C: SMBus PIIX4 adapter port 0 at 0b00 (/dev/i2c-18), address 0x72",
+            "modes": [
+                {
+                    "brightness": 0,
+                    "brightness_max": 0,
+                    "brightness_min": 0,
+                    "color_mode": 1,
+                    "colors_max": 0,
+                    "colors_min": 0,
+                    "direction": 0,
+                    "flags": 32,
+                    "name": "Direct",
+                    "speed": 0,
+                    "speed_max": 0,
+                    "speed_min": 0
+                },
+                {
+                    "brightness": 0,
+                    "brightness_max": 0,
+                    "brightness_min": 0,
+                    "color_mode": 0,
+                    "colors_max": 0,
+                    "colors_min": 0,
+                    "direction": 0,
+                    "flags": 0,
+                    "name": "Off",
+                    "speed": 0,
+                    "speed_max": 0,
+                    "speed_min": 0
+                },
+                {
+                    "brightness": 0,
+                    "brightness_max": 0,
+                    "brightness_min": 0,
+                    "color_mode": 1,
+                    "colors_max": 0,
+                    "colors_min": 0,
+                    "direction": 0,
+                    "flags": 32,
+                    "name": "Static",
+                    "speed": 0,
+                    "speed_max": 0,
+                    "speed_min": 0
+                },
+                {
+                    "brightness": 0,
+                    "brightness_max": 0,
+                    "brightness_min": 0,
+                    "color_mode": 1,
+                    "colors_max": 0,
+                    "colors_min": 0,
+                    "direction": 0,
+                    "flags": 161,
+                    "name": "Breathing",
+                    "speed": 2,
+                    "speed_max": 0,
+                    "speed_min": 4
+                },
+                {
+                    "brightness": 0,
+                    "brightness_max": 0,
+                    "brightness_min": 0,
+                    "color_mode": 1,
+                    "colors_max": 0,
+                    "colors_min": 0,
+                    "direction": 0,
+                    "flags": 33,
+                    "name": "Flashing",
+                    "speed": 2,
+                    "speed_max": 0,
+                    "speed_min": 4
+                },
+                {
+                    "brightness": 0,
+                    "brightness_max": 0,
+                    "brightness_min": 0,
+                    "color_mode": 0,
+                    "colors_max": 0,
+                    "colors_min": 0,
+                    "direction": 0,
+                    "flags": 1,
+                    "name": "Spectrum Cycle",
+                    "speed": 2,
+                    "speed_max": 0,
+                    "speed_min": 4
+                },
+                {
+                    "brightness": 0,
+                    "brightness_max": 0,
+                    "brightness_min": 0,
+                    "color_mode": 0,
+                    "colors_max": 0,
+                    "colors_min": 0,
+                    "direction": 0,
+                    "flags": 3,
+                    "name": "Rainbow",
+                    "speed": 4,
+                    "speed_max": 0,
+                    "speed_min": 4
+                },
+                {
+                    "brightness": 0,
+                    "brightness_max": 0,
+                    "brightness_min": 0,
+                    "color_mode": 1,
+                    "colors_max": 0,
+                    "colors_min": 0,
+                    "direction": 0,
+                    "flags": 163,
+                    "name": "Chase Fade",
+                    "speed": 2,
+                    "speed_max": 0,
+                    "speed_min": 4
+                },
+                {
+                    "brightness": 0,
+                    "brightness_max": 0,
+                    "brightness_min": 0,
+                    "color_mode": 1,
+                    "colors_max": 0,
+                    "colors_min": 0,
+                    "direction": 0,
+                    "flags": 163,
+                    "name": "Chase",
+                    "speed": 2,
+                    "speed_max": 0,
+                    "speed_min": 4
+                },
+                {
+                    "brightness": 0,
+                    "brightness_max": 0,
+                    "brightness_min": 0,
+                    "color_mode": 0,
+                    "colors_max": 0,
+                    "colors_min": 0,
+                    "direction": 0,
+                    "flags": 1,
+                    "name": "Random Flicker",
+                    "speed": 2,
+                    "speed_max": 0,
+                    "speed_min": 4
+                }
+            ],
+            "name": "ENE DRAM",
+            "serial": "",
+            "type": 1,
+            "vendor": "ENE",
+            "version": "AUDA0-E6K5-0101",
+            "zones": [
+                {
+                    "display_name": "",
+                    "flags": 4096,
+                    "leds_count": 8,
+                    "leds_max": 8,
+                    "leds_min": 8,
+                    "matrix_map": {
+                        "height": 0,
+                        "width": 0
+                    },
+                    "name": "DRAM",
+                    "type": 1
+                }
+            ]
+        },
+        {
+            "active_mode": 0,
+            "colors": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "description": "Nollie Controller Device",
+            "display_name": "",
+            "flags": 2,
+            "leds": [
+                {
+                    "name": "LED 1"
+                },
+                {
+                    "name": "LED 2"
+                },
+                {
+                    "name": "LED 3"
+                },
+                {
+                    "name": "LED 4"
+                },
+                {
+                    "name": "LED 5"
+                },
+                {
+                    "name": "LED 6"
+                },
+                {
+                    "name": "LED 7"
+                },
+                {
+                    "name": "LED 8"
+                },
+                {
+                    "name": "LED 9"
+                },
+                {
+                    "name": "LED 10"
+                },
+                {
+                    "name": "LED 11"
+                },
+                {
+                    "name": "LED 12"
+                },
+                {
+                    "name": "LED 13"
+                },
+                {
+                    "name": "LED 14"
+                },
+                {
+                    "name": "LED 15"
+                },
+                {
+                    "name": "LED 16"
+                },
+                {
+                    "name": "LED 17"
+                },
+                {
+                    "name": "LED 18"
+                },
+                {
+                    "name": "LED 19"
+                },
+                {
+                    "name": "LED 20"
+                },
+                {
+                    "name": "LED 1"
+                },
+                {
+                    "name": "LED 2"
+                },
+                {
+                    "name": "LED 3"
+                },
+                {
+                    "name": "LED 4"
+                },
+                {
+                    "name": "LED 5"
+                },
+                {
+                    "name": "LED 6"
+                },
+                {
+                    "name": "LED 7"
+                },
+                {
+                    "name": "LED 8"
+                },
+                {
+                    "name": "LED 9"
+                },
+                {
+                    "name": "LED 10"
+                },
+                {
+                    "name": "LED 11"
+                },
+                {
+                    "name": "LED 12"
+                },
+                {
+                    "name": "LED 13"
+                },
+                {
+                    "name": "LED 14"
+                },
+                {
+                    "name": "LED 15"
+                },
+                {
+                    "name": "LED 16"
+                },
+                {
+                    "name": "LED 17"
+                },
+                {
+                    "name": "LED 18"
+                },
+                {
+                    "name": "LED 19"
+                },
+                {
+                    "name": "LED 20"
+                },
+                {
+                    "name": "LED 1"
+                },
+                {
+                    "name": "LED 2"
+                },
+                {
+                    "name": "LED 3"
+                },
+                {
+                    "name": "LED 4"
+                },
+                {
+                    "name": "LED 5"
+                },
+                {
+                    "name": "LED 6"
+                },
+                {
+                    "name": "LED 7"
+                },
+                {
+                    "name": "LED 8"
+                },
+                {
+                    "name": "LED 9"
+                },
+                {
+                    "name": "LED 10"
+                },
+                {
+                    "name": "LED 11"
+                },
+                {
+                    "name": "LED 12"
+                },
+                {
+                    "name": "LED 13"
+                },
+                {
+                    "name": "LED 14"
+                },
+                {
+                    "name": "LED 15"
+                },
+                {
+                    "name": "LED 16"
+                },
+                {
+                    "name": "LED 17"
+                },
+                {
+                    "name": "LED 18"
+                },
+                {
+                    "name": "LED 19"
+                },
+                {
+                    "name": "LED 20"
+                },
+                {
+                    "name": "LED 1"
+                },
+                {
+                    "name": "LED 2"
+                },
+                {
+                    "name": "LED 3"
+                },
+                {
+                    "name": "LED 4"
+                },
+                {
+                    "name": "LED 5"
+                },
+                {
+                    "name": "LED 6"
+                },
+                {
+                    "name": "LED 7"
+                },
+                {
+                    "name": "LED 8"
+                },
+                {
+                    "name": "LED 9"
+                },
+                {
+                    "name": "LED 10"
+                },
+                {
+                    "name": "LED 11"
+                },
+                {
+                    "name": "LED 12"
+                },
+                {
+                    "name": "LED 13"
+                },
+                {
+                    "name": "LED 14"
+                },
+                {
+                    "name": "LED 15"
+                },
+                {
+                    "name": "LED 16"
+                },
+                {
+                    "name": "LED 17"
+                },
+                {
+                    "name": "LED 18"
+                },
+                {
+                    "name": "LED 19"
+                },
+                {
+                    "name": "LED 20"
+                },
+                {
+                    "name": "LED 1"
+                },
+                {
+                    "name": "LED 2"
+                },
+                {
+                    "name": "LED 3"
+                },
+                {
+                    "name": "LED 4"
+                },
+                {
+                    "name": "LED 5"
+                },
+                {
+                    "name": "LED 6"
+                },
+                {
+                    "name": "LED 7"
+                },
+                {
+                    "name": "LED 8"
+                },
+                {
+                    "name": "LED 9"
+                },
+                {
+                    "name": "LED 10"
+                },
+                {
+                    "name": "LED 11"
+                },
+                {
+                    "name": "LED 12"
+                },
+                {
+                    "name": "LED 13"
+                },
+                {
+                    "name": "LED 14"
+                },
+                {
+                    "name": "LED 15"
+                },
+                {
+                    "name": "LED 16"
+                },
+                {
+                    "name": "LED 17"
+                },
+                {
+                    "name": "LED 18"
+                },
+                {
+                    "name": "LED 19"
+                },
+                {
+                    "name": "LED 20"
+                },
+                {
+                    "name": "LED 1"
+                },
+                {
+                    "name": "LED 2"
+                },
+                {
+                    "name": "LED 3"
+                },
+                {
+                    "name": "LED 4"
+                },
+                {
+                    "name": "LED 5"
+                },
+                {
+                    "name": "LED 6"
+                },
+                {
+                    "name": "LED 7"
+                },
+                {
+                    "name": "LED 8"
+                },
+                {
+                    "name": "LED 9"
+                },
+                {
+                    "name": "LED 10"
+                },
+                {
+                    "name": "LED 11"
+                },
+                {
+                    "name": "LED 12"
+                },
+                {
+                    "name": "LED 13"
+                },
+                {
+                    "name": "LED 14"
+                },
+                {
+                    "name": "LED 15"
+                },
+                {
+                    "name": "LED 16"
+                },
+                {
+                    "name": "LED 17"
+                },
+                {
+                    "name": "LED 18"
+                },
+                {
+                    "name": "LED 19"
+                },
+                {
+                    "name": "LED 20"
+                },
+                {
+                    "name": "LED 1"
+                },
+                {
+                    "name": "LED 2"
+                },
+                {
+                    "name": "LED 3"
+                },
+                {
+                    "name": "LED 4"
+                },
+                {
+                    "name": "LED 5"
+                },
+                {
+                    "name": "LED 6"
+                },
+                {
+                    "name": "LED 7"
+                },
+                {
+                    "name": "LED 8"
+                },
+                {
+                    "name": "LED 9"
+                },
+                {
+                    "name": "LED 10"
+                },
+                {
+                    "name": "LED 11"
+                },
+                {
+                    "name": "LED 12"
+                },
+                {
+                    "name": "LED 13"
+                },
+                {
+                    "name": "LED 14"
+                },
+                {
+                    "name": "LED 15"
+                },
+                {
+                    "name": "LED 16"
+                },
+                {
+                    "name": "LED 17"
+                },
+                {
+                    "name": "LED 18"
+                },
+                {
+                    "name": "LED 19"
+                },
+                {
+                    "name": "LED 20"
+                },
+                {
+                    "name": "LED 1"
+                },
+                {
+                    "name": "LED 2"
+                },
+                {
+                    "name": "LED 3"
+                },
+                {
+                    "name": "LED 4"
+                },
+                {
+                    "name": "LED 5"
+                },
+                {
+                    "name": "LED 6"
+                },
+                {
+                    "name": "LED 7"
+                },
+                {
+                    "name": "LED 8"
+                },
+                {
+                    "name": "LED 9"
+                },
+                {
+                    "name": "LED 10"
+                },
+                {
+                    "name": "LED 11"
+                },
+                {
+                    "name": "LED 12"
+                },
+                {
+                    "name": "LED 13"
+                },
+                {
+                    "name": "LED 14"
+                },
+                {
+                    "name": "LED 15"
+                },
+                {
+                    "name": "LED 16"
+                },
+                {
+                    "name": "LED 17"
+                },
+                {
+                    "name": "LED 18"
+                },
+                {
+                    "name": "LED 19"
+                },
+                {
+                    "name": "LED 20"
+                }
+            ],
+            "location": "HID: /dev/hidraw11",
+            "modes": [
+                {
+                    "brightness": 0,
+                    "brightness_max": 0,
+                    "brightness_min": 0,
+                    "color_mode": 1,
+                    "colors_max": 0,
+                    "colors_min": 0,
+                    "direction": 0,
+                    "flags": 32,
+                    "name": "Direct",
+                    "speed": 0,
+                    "speed_max": 0,
+                    "speed_min": 0
+                }
+            ],
+            "name": "Nollie 8CH",
+            "serial": "CDAB33F514BD145E",
+            "type": 4,
+            "vendor": "Nollie",
+            "version": "",
+            "zones": [
+                {
+                    "display_name": "",
+                    "flags": 4098,
+                    "leds_count": 20,
+                    "leds_max": 126,
+                    "leds_min": 0,
+                    "matrix_map": {
+                        "height": 0,
+                        "width": 0
+                    },
+                    "name": "Channel 1",
+                    "type": 1
+                },
+                {
+                    "display_name": "",
+                    "flags": 4098,
+                    "leds_count": 20,
+                    "leds_max": 126,
+                    "leds_min": 0,
+                    "matrix_map": {
+                        "height": 0,
+                        "width": 0
+                    },
+                    "name": "Channel 2",
+                    "type": 1
+                },
+                {
+                    "display_name": "",
+                    "flags": 4098,
+                    "leds_count": 20,
+                    "leds_max": 126,
+                    "leds_min": 0,
+                    "matrix_map": {
+                        "height": 0,
+                        "width": 0
+                    },
+                    "name": "Channel 3",
+                    "type": 1
+                },
+                {
+                    "display_name": "",
+                    "flags": 4098,
+                    "leds_count": 20,
+                    "leds_max": 126,
+                    "leds_min": 0,
+                    "matrix_map": {
+                        "height": 0,
+                        "width": 0
+                    },
+                    "name": "Channel 4",
+                    "type": 1
+                },
+                {
+                    "display_name": "",
+                    "flags": 4098,
+                    "leds_count": 20,
+                    "leds_max": 126,
+                    "leds_min": 0,
+                    "matrix_map": {
+                        "height": 0,
+                        "width": 0
+                    },
+                    "name": "Channel 5",
+                    "type": 1
+                },
+                {
+                    "display_name": "",
+                    "flags": 4098,
+                    "leds_count": 20,
+                    "leds_max": 126,
+                    "leds_min": 0,
+                    "matrix_map": {
+                        "height": 0,
+                        "width": 0
+                    },
+                    "name": "Channel 6",
+                    "type": 1
+                },
+                {
+                    "display_name": "",
+                    "flags": 4098,
+                    "leds_count": 20,
+                    "leds_max": 126,
+                    "leds_min": 0,
+                    "matrix_map": {
+                        "height": 0,
+                        "width": 0
+                    },
+                    "name": "Channel 7",
+                    "type": 1
+                },
+                {
+                    "display_name": "",
+                    "flags": 4098,
+                    "leds_count": 20,
+                    "leds_max": 126,
+                    "leds_min": 0,
+                    "matrix_map": {
+                        "height": 0,
+                        "width": 0
+                    },
+                    "name": "Channel 8",
+                    "type": 1
+                }
+            ]
+        }
+    ],
+    "profile_name": "black",
+    "profile_version": 6
+}
