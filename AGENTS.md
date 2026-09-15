@@ -29,6 +29,12 @@ Follow conventional commit style where appropriate:
 - `docs(...)`: Documentation updates (e.g. `AGENTS.md`, `README.md`)
 - `style(...)`: Formatting or option description normalization
 
+### 4. Scope Commits to a Single Responsibility (Avoid Task Cross-Contamination)
+Each commit should represent a single, atomic responsibility or feature.
+- **Never blindly commit everything in the index**: Multiple agents or the user may have staged or modified unrelated files in the working tree. Always inspect `git status` and `git diff --cached` before committing.
+- **Stage only relevant files**: Explicitly stage only files pertinent to your task (`git add <file1> <file2>`) rather than blanket staging (`git add .` or `git add -A`) when unrelated changes might exist.
+- **Prevent bleeding changes**: Never allow work from your task to bleed into another agent's or feature's commit, and never bundle another ongoing task's changes into your own commit.
+
 ---
 
 ## Critical Flake Workflows
