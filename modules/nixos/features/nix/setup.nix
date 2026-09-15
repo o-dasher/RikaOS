@@ -9,13 +9,13 @@ let
 in
 {
   options.features.nix = {
+    optimise = lib.mkEnableOption "Automatic Nix store optimization." // {
+      default = true;
+    };
     trusted-users = lib.mkOption {
       default = [ ];
       type = lib.types.listOf lib.types.str;
       description = "Additional users allowed to connect to the Nix daemon as trusted users.";
-    };
-    optimise = lib.mkEnableOption "Automatic Nix store optimization." // {
-      default = true;
     };
   };
 

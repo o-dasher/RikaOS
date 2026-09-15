@@ -6,9 +6,7 @@
     ./xdg.nix
   ];
 
-  options.features.core = {
-    enable = lib.mkEnableOption "Core features." // {
-      default = true;
-    };
+  options.features.core.enable = lib.mkEnableOption "Core features." // {
+    default = true;
   };
 }

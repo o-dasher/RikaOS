@@ -18,8 +18,6 @@ in
     ];
 
     # Set nemo as default file manager
-    xdg.mimeApps.defaultApplications = {
-      "inode/directory" = "nemo.desktop";
-    };
+    xdg.mimeApps.defaultApplications."inode/directory" = "nemo.desktop";
   };
 }

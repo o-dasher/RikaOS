@@ -8,9 +8,7 @@ let
   cfg = modCfg.discord;
 in
 {
-  options.features.social.discord = {
-    enable = lib.mkEnableOption "Discord.";
-  };
+  options.features.social.discord.enable = lib.mkEnableOption "Discord.";
 
   config = lib.mkIf (modCfg.enable && cfg.enable) {
     xdg.autostart.entries = [

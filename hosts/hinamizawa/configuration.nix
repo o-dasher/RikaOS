@@ -10,6 +10,7 @@
   ];
 
   time.hardwareClockInLocalTime = true;
+  fonts.enableDefaultPackages = true;
 
   profiles.desktop = {
     enable = true;
@@ -136,7 +137,6 @@
       };
   };
 
-  fonts.enableDefaultPackages = true;
   programs = {
     dconf.enable = true;
     nix-ld.enable = true;

@@ -14,19 +14,21 @@ in
 
   config = lib.mkIf cfg.enable {
     users.defaultUserShell = pkgs.fish;
+
+    programs = {
+      fish.enable = true;
+      neovim = {
+        enable = true;
+        defaultEditor = true;
+      };
+    };
+
     features = {
       core.userPreferences.enable = true;
       nix.enable = true;
       boot = {
         enable = true;
         limine.enable = true;
-      };
-    };
-    programs = {
-      fish.enable = true;
-      neovim = {
-        enable = true;
-        defaultEditor = true;
       };
     };
   };

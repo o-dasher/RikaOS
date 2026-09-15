@@ -3,6 +3,13 @@
   ...
 }:
 {
+  home.packages = with pkgs; [ pwvucontrol ];
+
+  programs = {
+    home-manager.enable = true;
+    imv.enable = true;
+  };
+
   profiles = {
     browser.enable = true;
     development.enable = true;
@@ -24,11 +31,5 @@
       enable = true;
       portal.enable = true;
     };
-  };
-
-  home.packages = with pkgs; [ pwvucontrol ];
-  programs = {
-    home-manager.enable = true;
-    imv.enable = true;
   };
 }

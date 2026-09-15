@@ -3,12 +3,20 @@
   ...
 }:
 {
+  programs = {
+    home-manager.enable = true;
+    imv.enable = true;
+  };
+
+  home.packages = with pkgs; [
+    # I love my keyboard.
+    vial
+
+    # tools
+    pwvucontrol
+  ];
+
   profiles = {
-    development = {
-      enable = true;
-      jetbrains.enable = true;
-      zed.enable = true;
-    };
     utilities.enable = true;
     gaming.enable = true;
     multimedia.enable = true;
@@ -16,6 +24,11 @@
     browser.enable = true;
     security.enable = true;
     study.enable = true;
+    development = {
+      enable = true;
+      jetbrains.enable = true;
+      zed.enable = true;
+    };
   };
 
   features = {
@@ -41,18 +54,5 @@
       osu.enable = true;
       ps4.enable = true;
     };
-  };
-
-  home.packages = with pkgs; [
-    # I love my keyboard.
-    vial
-
-    # tools
-    pwvucontrol
-  ];
-
-  programs = {
-    home-manager.enable = true;
-    imv.enable = true;
   };
 }

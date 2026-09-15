@@ -52,29 +52,23 @@ in
     # Graphical session slices for app2unit. BindTo graphical-session.target
     # ensures processes in these slices are cleaned up if the session ends.
     systemd.user.slices = {
-      "app-graphical" = {
-        Unit = {
-          Description = "User Graphical Application Slice";
-          Documentation = "man:systemd.special(7)";
-          BindTo = "graphical-session.target";
-          After = "graphical-session.target";
-        };
+      "app-graphical".Unit = {
+        Description = "User Graphical Application Slice";
+        Documentation = "man:systemd.special(7)";
+        BindTo = "graphical-session.target";
+        After = "graphical-session.target";
       };
-      "background-graphical" = {
-        Unit = {
-          Description = "User Graphical Background Application Slice";
-          Documentation = "man:systemd.special(7)";
-          BindTo = "graphical-session.target";
-          After = "graphical-session.target";
-        };
+      "background-graphical".Unit = {
+        Description = "User Graphical Background Application Slice";
+        Documentation = "man:systemd.special(7)";
+        BindTo = "graphical-session.target";
+        After = "graphical-session.target";
       };
-      "session-graphical" = {
-        Unit = {
-          Description = "User Graphical Session Application Slice";
-          Documentation = "man:systemd.special(7)";
-          BindTo = "graphical-session.target";
-          After = "graphical-session.target";
-        };
+      "session-graphical".Unit = {
+        Description = "User Graphical Session Application Slice";
+        Documentation = "man:systemd.special(7)";
+        BindTo = "graphical-session.target";
+        After = "graphical-session.target";
       };
     };
   };

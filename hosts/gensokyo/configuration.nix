@@ -8,6 +8,25 @@
     ./hardware-configuration.nix
   ];
 
+  time.hardwareClockInLocalTime = true;
+  fonts.enableDefaultPackages = true;
+
+  programs = {
+    dconf.enable = true;
+    nix-ld.enable = true;
+    hyprland.enable = true;
+  };
+
+  services = {
+    tailscale.enable = true;
+    tlp.enable = true;
+  };
+
+  profiles.desktop = {
+    enable = true;
+    virtualization.enable = true;
+  };
+
   fileSystems."/mnt/data" = {
     device = "/dev/disk/by-uuid/749d870c-a88c-4c37-82ea-a9807c24cfea";
     fsType = "ext4";
@@ -17,12 +36,6 @@
       "x-systemd.automount"
       "x-systemd.idle-timeout=60"
     ];
-  };
-
-  time.hardwareClockInLocalTime = true;
-  profiles.desktop = {
-    enable = true;
-    virtualization.enable = true;
   };
 
   features = {
@@ -62,17 +75,5 @@
       "render"
       "pipewire"
     ];
-  };
-
-  fonts.enableDefaultPackages = true;
-  programs = {
-    dconf.enable = true;
-    nix-ld.enable = true;
-    hyprland.enable = true;
-  };
-
-  services = {
-    tailscale.enable = true;
-    tlp.enable = true;
   };
 }

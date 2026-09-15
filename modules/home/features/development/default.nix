@@ -7,9 +7,7 @@
     ./secrets.nix
   ];
 
-  options.features.development = {
-    enable = lib.mkEnableOption "Development features." // {
-      default = true;
-    };
+  options.features.development.enable = lib.mkEnableOption "Development features." // {
+    default = true;
   };
 }

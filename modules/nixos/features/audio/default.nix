@@ -46,9 +46,7 @@ in
       wireplumber.extraConfig."99-alsa-lowlatency-headroom"."monitor.alsa.rules" = [
         {
           matches = [ { "node.name" = "~alsa_output.*"; } ];
-          actions.update-props = {
-            "api.alsa.headroom" = 0;
-          };
+          actions.update-props."api.alsa.headroom" = 0;
         }
       ];
     };

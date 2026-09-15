@@ -7,9 +7,7 @@
     ./tmux.nix
   ];
 
-  options.features.cli = {
-    enable = lib.mkEnableOption "CLI features." // {
-      default = true;
-    };
+  options.features.cli.enable = lib.mkEnableOption "CLI features." // {
+    default = true;
   };
 }

@@ -16,6 +16,18 @@ in
 
   config = lib.mkIf cfg.enable {
     services.gnome-keyring.enable = true;
+
+    home.packages = with pkgs; [
+      wget
+    ];
+
+    programs = {
+      jq.enable = true;
+      grep.enable = true;
+      ripgrep.enable = true;
+      zed-editor.enable = cfg.zed.enable;
+    };
+
     features = {
       terminal.ghostty.enable = true;
       ai.enable = true;
@@ -44,16 +56,5 @@ in
         tmux.enable = true;
       };
     };
-
-    programs = {
-      jq.enable = true;
-      grep.enable = true;
-      ripgrep.enable = true;
-      zed-editor.enable = cfg.zed.enable;
-    };
-
-    home.packages = with pkgs; [
-      wget
-    ];
   };
 }

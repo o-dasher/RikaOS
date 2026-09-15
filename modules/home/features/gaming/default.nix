@@ -9,9 +9,7 @@
     ./steam.nix
   ];
 
-  options.features.gaming = {
-    enable = lib.mkEnableOption "Gaming features." // {
-      default = true;
-    };
+  options.features.gaming.enable = lib.mkEnableOption "Gaming features." // {
+    default = true;
   };
 }

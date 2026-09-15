@@ -5,9 +5,7 @@
     ./trash.nix
   ];
 
-  options.features.utilities = {
-    enable = lib.mkEnableOption "Utility features." // {
-      default = true;
-    };
+  options.features.utilities.enable = lib.mkEnableOption "Utility features." // {
+    default = true;
   };
 }

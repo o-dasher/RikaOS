@@ -14,14 +14,13 @@ in
 
   config = lib.mkIf cfg.enable {
     services.easyeffects.enable = true;
-    systemd.user.services.easyeffects = {
-      Unit = {
-        After = [ "pipewire.service" ];
-        Wants = [ "pipewire.service" ];
-        PartOf = [ "pipewire.service" ];
-      };
-    };
     profiles.study.enable = lib.mkDefault true;
+
+    systemd.user.services.easyeffects.Unit = {
+      After = [ "pipewire.service" ];
+      Wants = [ "pipewire.service" ];
+      PartOf = [ "pipewire.service" ];
+    };
     programs = {
       # Video
       mpv.enable = true;

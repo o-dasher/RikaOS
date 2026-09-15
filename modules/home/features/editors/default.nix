@@ -5,9 +5,7 @@
     ./neovim.nix
   ];
 
-  options.features.editors = {
-    enable = lib.mkEnableOption "Editor features." // {
-      default = true;
-    };
+  options.features.editors.enable = lib.mkEnableOption "Editor features." // {
+    default = true;
   };
 }

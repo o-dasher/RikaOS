@@ -6,9 +6,7 @@
     ./signal.nix
   ];
 
-  options.features.social = {
-    enable = lib.mkEnableOption "Social features." // {
-      default = true;
-    };
+  options.features.social.enable = lib.mkEnableOption "Social features." // {
+    default = true;
   };
 }

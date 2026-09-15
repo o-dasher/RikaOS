@@ -2,6 +2,8 @@
   ...
 }:
 {
+  programs.home-manager.enable = true;
+
   features = {
     terminal.ghostty.enable = true;
     gaming.mangohud.enable = true;
@@ -15,6 +17,4 @@
       portal.enable = true;
     };
   };
-
-  programs.home-manager.enable = true;
 }
