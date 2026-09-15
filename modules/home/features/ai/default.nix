@@ -25,18 +25,6 @@ let
       maxTokens = pow2 20;
     }
     {
-      id = "meta/muse-spark-1.2-contributor";
-      name = "Meta: Muse Spark 1.2 Contributor";
-      profile = "muse-spark-1-2-contributor";
-      maxTokens = pow2 20;
-    }
-    {
-      id = "meta/muse-glimmer-30b";
-      name = "Meta: Muse Glimmer 30B";
-      profile = "muse-glimmer";
-      maxTokens = pow2 17;
-    }
-    {
       id = "meta/muse-spark-1.3";
       name = "Meta: Muse Spark 1.3";
       profile = "muse-spark";
