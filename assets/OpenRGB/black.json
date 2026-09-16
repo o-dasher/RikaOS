@@ -2,16 +2,7 @@
     "controllers": [
         {
             "active_mode": 1,
-            "colors": [
-                255,
-                16711680,
-                255,
-                255,
-                255,
-                255,
-                255,
-                255
-            ],
+            "colors": [255, 16711680, 255, 255, 255, 255, 255, 255],
             "description": "ENE SMBus Device",
             "display_name": "",
             "flags": 2,
@@ -207,16 +198,7 @@
         },
         {
             "active_mode": 1,
-            "colors": [
-                255,
-                16711680,
-                255,
-                255,
-                255,
-                255,
-                255,
-                255
-            ],
+            "colors": [255, 16711680, 255, 255, 255, 255, 255, 255],
             "description": "ENE SMBus Device",
             "display_name": "",
             "flags": 2,
