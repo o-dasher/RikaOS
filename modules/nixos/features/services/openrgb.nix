@@ -1,4 +1,5 @@
 {
+  pkgs,
   lib,
   config,
   ...
@@ -15,6 +16,7 @@ in
     services.hardware.openrgb = {
       enable = true;
       startupProfile = "black";
+      package = pkgs.openrgb.withPlugins [ pkgs.openrgb-plugin-effects ];
     };
 
     systemd.tmpfiles.rules = [
