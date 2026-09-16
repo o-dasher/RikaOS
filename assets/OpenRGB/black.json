@@ -412,654 +412,10 @@
         },
         {
             "active_mode": 0,
-            "colors": [
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0
-            ],
             "description": "Nollie Controller Device",
             "display_name": "",
             "flags": 2,
-            "leds": [
-                {
-                    "name": "LED 1"
-                },
-                {
-                    "name": "LED 2"
-                },
-                {
-                    "name": "LED 3"
-                },
-                {
-                    "name": "LED 4"
-                },
-                {
-                    "name": "LED 5"
-                },
-                {
-                    "name": "LED 6"
-                },
-                {
-                    "name": "LED 7"
-                },
-                {
-                    "name": "LED 8"
-                },
-                {
-                    "name": "LED 9"
-                },
-                {
-                    "name": "LED 10"
-                },
-                {
-                    "name": "LED 11"
-                },
-                {
-                    "name": "LED 12"
-                },
-                {
-                    "name": "LED 13"
-                },
-                {
-                    "name": "LED 14"
-                },
-                {
-                    "name": "LED 15"
-                },
-                {
-                    "name": "LED 16"
-                },
-                {
-                    "name": "LED 17"
-                },
-                {
-                    "name": "LED 18"
-                },
-                {
-                    "name": "LED 19"
-                },
-                {
-                    "name": "LED 20"
-                },
-                {
-                    "name": "LED 1"
-                },
-                {
-                    "name": "LED 2"
-                },
-                {
-                    "name": "LED 3"
-                },
-                {
-                    "name": "LED 4"
-                },
-                {
-                    "name": "LED 5"
-                },
-                {
-                    "name": "LED 6"
-                },
-                {
-                    "name": "LED 7"
-                },
-                {
-                    "name": "LED 8"
-                },
-                {
-                    "name": "LED 9"
-                },
-                {
-                    "name": "LED 10"
-                },
-                {
-                    "name": "LED 11"
-                },
-                {
-                    "name": "LED 12"
-                },
-                {
-                    "name": "LED 13"
-                },
-                {
-                    "name": "LED 14"
-                },
-                {
-                    "name": "LED 15"
-                },
-                {
-                    "name": "LED 16"
-                },
-                {
-                    "name": "LED 17"
-                },
-                {
-                    "name": "LED 18"
-                },
-                {
-                    "name": "LED 19"
-                },
-                {
-                    "name": "LED 20"
-                },
-                {
-                    "name": "LED 1"
-                },
-                {
-                    "name": "LED 2"
-                },
-                {
-                    "name": "LED 3"
-                },
-                {
-                    "name": "LED 4"
-                },
-                {
-                    "name": "LED 5"
-                },
-                {
-                    "name": "LED 6"
-                },
-                {
-                    "name": "LED 7"
-                },
-                {
-                    "name": "LED 8"
-                },
-                {
-                    "name": "LED 9"
-                },
-                {
-                    "name": "LED 10"
-                },
-                {
-                    "name": "LED 11"
-                },
-                {
-                    "name": "LED 12"
-                },
-                {
-                    "name": "LED 13"
-                },
-                {
-                    "name": "LED 14"
-                },
-                {
-                    "name": "LED 15"
-                },
-                {
-                    "name": "LED 16"
-                },
-                {
-                    "name": "LED 17"
-                },
-                {
-                    "name": "LED 18"
-                },
-                {
-                    "name": "LED 19"
-                },
-                {
-                    "name": "LED 20"
-                },
-                {
-                    "name": "LED 1"
-                },
-                {
-                    "name": "LED 2"
-                },
-                {
-                    "name": "LED 3"
-                },
-                {
-                    "name": "LED 4"
-                },
-                {
-                    "name": "LED 5"
-                },
-                {
-                    "name": "LED 6"
-                },
-                {
-                    "name": "LED 7"
-                },
-                {
-                    "name": "LED 8"
-                },
-                {
-                    "name": "LED 9"
-                },
-                {
-                    "name": "LED 10"
-                },
-                {
-                    "name": "LED 11"
-                },
-                {
-                    "name": "LED 12"
-                },
-                {
-                    "name": "LED 13"
-                },
-                {
-                    "name": "LED 14"
-                },
-                {
-                    "name": "LED 15"
-                },
-                {
-                    "name": "LED 16"
-                },
-                {
-                    "name": "LED 17"
-                },
-                {
-                    "name": "LED 18"
-                },
-                {
-                    "name": "LED 19"
-                },
-                {
-                    "name": "LED 20"
-                },
-                {
-                    "name": "LED 1"
-                },
-                {
-                    "name": "LED 2"
-                },
-                {
-                    "name": "LED 3"
-                },
-                {
-                    "name": "LED 4"
-                },
-                {
-                    "name": "LED 5"
-                },
-                {
-                    "name": "LED 6"
-                },
-                {
-                    "name": "LED 7"
-                },
-                {
-                    "name": "LED 8"
-                },
-                {
-                    "name": "LED 9"
-                },
-                {
-                    "name": "LED 10"
-                },
-                {
-                    "name": "LED 11"
-                },
-                {
-                    "name": "LED 12"
-                },
-                {
-                    "name": "LED 13"
-                },
-                {
-                    "name": "LED 14"
-                },
-                {
-                    "name": "LED 15"
-                },
-                {
-                    "name": "LED 16"
-                },
-                {
-                    "name": "LED 17"
-                },
-                {
-                    "name": "LED 18"
-                },
-                {
-                    "name": "LED 19"
-                },
-                {
-                    "name": "LED 20"
-                },
-                {
-                    "name": "LED 1"
-                },
-                {
-                    "name": "LED 2"
-                },
-                {
-                    "name": "LED 3"
-                },
-                {
-                    "name": "LED 4"
-                },
-                {
-                    "name": "LED 5"
-                },
-                {
-                    "name": "LED 6"
-                },
-                {
-                    "name": "LED 7"
-                },
-                {
-                    "name": "LED 8"
-                },
-                {
-                    "name": "LED 9"
-                },
-                {
-                    "name": "LED 10"
-                },
-                {
-                    "name": "LED 11"
-                },
-                {
-                    "name": "LED 12"
-                },
-                {
-                    "name": "LED 13"
-                },
-                {
-                    "name": "LED 14"
-                },
-                {
-                    "name": "LED 15"
-                },
-                {
-                    "name": "LED 16"
-                },
-                {
-                    "name": "LED 17"
-                },
-                {
-                    "name": "LED 18"
-                },
-                {
-                    "name": "LED 19"
-                },
-                {
-                    "name": "LED 20"
-                },
-                {
-                    "name": "LED 1"
-                },
-                {
-                    "name": "LED 2"
-                },
-                {
-                    "name": "LED 3"
-                },
-                {
-                    "name": "LED 4"
-                },
-                {
-                    "name": "LED 5"
-                },
-                {
-                    "name": "LED 6"
-                },
-                {
-                    "name": "LED 7"
-                },
-                {
-                    "name": "LED 8"
-                },
-                {
-                    "name": "LED 9"
-                },
-                {
-                    "name": "LED 10"
-                },
-                {
-                    "name": "LED 11"
-                },
-                {
-                    "name": "LED 12"
-                },
-                {
-                    "name": "LED 13"
-                },
-                {
-                    "name": "LED 14"
-                },
-                {
-                    "name": "LED 15"
-                },
-                {
-                    "name": "LED 16"
-                },
-                {
-                    "name": "LED 17"
-                },
-                {
-                    "name": "LED 18"
-                },
-                {
-                    "name": "LED 19"
-                },
-                {
-                    "name": "LED 20"
-                },
-                {
-                    "name": "LED 1"
-                },
-                {
-                    "name": "LED 2"
-                },
-                {
-                    "name": "LED 3"
-                },
-                {
-                    "name": "LED 4"
-                },
-                {
-                    "name": "LED 5"
-                },
-                {
-                    "name": "LED 6"
-                },
-                {
-                    "name": "LED 7"
-                },
-                {
-                    "name": "LED 8"
-                },
-                {
-                    "name": "LED 9"
-                },
-                {
-                    "name": "LED 10"
-                },
-                {
-                    "name": "LED 11"
-                },
-                {
-                    "name": "LED 12"
-                },
-                {
-                    "name": "LED 13"
-                },
-                {
-                    "name": "LED 14"
-                },
-                {
-                    "name": "LED 15"
-                },
-                {
-                    "name": "LED 16"
-                },
-                {
-                    "name": "LED 17"
-                },
-                {
-                    "name": "LED 18"
-                },
-                {
-                    "name": "LED 19"
-                },
-                {
-                    "name": "LED 20"
-                }
-            ],
-            "location": "HID: /dev/hidraw11",
+            "location": "HID: /dev/hidraw12",
             "modes": [
                 {
                     "brightness": 0,
@@ -1084,8 +440,8 @@
             "zones": [
                 {
                     "display_name": "",
-                    "flags": 4098,
-                    "leds_count": 20,
+                    "flags": 2,
+                    "leds_count": 0,
                     "leds_max": 126,
                     "leds_min": 0,
                     "matrix_map": {
@@ -1097,8 +453,8 @@
                 },
                 {
                     "display_name": "",
-                    "flags": 4098,
-                    "leds_count": 20,
+                    "flags": 2,
+                    "leds_count": 0,
                     "leds_max": 126,
                     "leds_min": 0,
                     "matrix_map": {
@@ -1110,8 +466,8 @@
                 },
                 {
                     "display_name": "",
-                    "flags": 4098,
-                    "leds_count": 20,
+                    "flags": 2,
+                    "leds_count": 0,
                     "leds_max": 126,
                     "leds_min": 0,
                     "matrix_map": {
@@ -1123,8 +479,8 @@
                 },
                 {
                     "display_name": "",
-                    "flags": 4098,
-                    "leds_count": 20,
+                    "flags": 2,
+                    "leds_count": 0,
                     "leds_max": 126,
                     "leds_min": 0,
                     "matrix_map": {
@@ -1136,8 +492,8 @@
                 },
                 {
                     "display_name": "",
-                    "flags": 4098,
-                    "leds_count": 20,
+                    "flags": 2,
+                    "leds_count": 0,
                     "leds_max": 126,
                     "leds_min": 0,
                     "matrix_map": {
@@ -1149,8 +505,8 @@
                 },
                 {
                     "display_name": "",
-                    "flags": 4098,
-                    "leds_count": 20,
+                    "flags": 2,
+                    "leds_count": 0,
                     "leds_max": 126,
                     "leds_min": 0,
                     "matrix_map": {
@@ -1162,8 +518,8 @@
                 },
                 {
                     "display_name": "",
-                    "flags": 4098,
-                    "leds_count": 20,
+                    "flags": 2,
+                    "leds_count": 0,
                     "leds_max": 126,
                     "leds_min": 0,
                     "matrix_map": {
@@ -1175,8 +531,8 @@
                 },
                 {
                     "display_name": "",
-                    "flags": 4098,
-                    "leds_count": 20,
+                    "flags": 2,
+                    "leds_count": 0,
                     "leds_max": 126,
                     "leds_min": 0,
                     "matrix_map": {

@@ -21,10 +21,7 @@ in
 
     systemd.tmpfiles.rules = [
       "d /var/lib/OpenRGB/profiles 0755 root root -"
-      "L+ /var/lib/OpenRGB/Configuration.json - - - - ${../../../../assets/OpenRGB/Configuration.json}"
       "L+ /var/lib/OpenRGB/profiles/${profileName}.json - - - - ${../../../../assets/OpenRGB/black.json}"
-      "L+ /var/lib/OpenRGB/black.orp - - - - ${../../../../assets/OpenRGB/black.orp}"
-      "L+ /var/lib/OpenRGB/sizes.ors - - - - ${../../../../assets/OpenRGB/sizes.ors}"
     ];
   };
 }
