@@ -32,12 +32,6 @@ let
     }
   ];
 
-  defaultMuseModel = builtins.head museModels;
-
-  codexMuseProfile = model: {
-    inherit model;
-    model_provider = "openrouter";
-  };
 in
 {
   options.features.ai.enable = lib.mkEnableOption "Personal AI agents, ACP, and MCP integration.";
@@ -65,44 +59,6 @@ in
             "http://127.0.0.1:9222"
           ];
         };
-      };
-
-      opencode = {
-        enable = true;
-        enableMcpIntegration = true;
-        settings = {
-          model = "openrouter/${defaultMuseModel.id}";
-          provider.openrouter.models = lib.listToAttrs (
-            map (m: {
-              name = m.id;
-              value = { inherit (m) name; };
-            }) museModels
-          );
-        };
-      };
-
-      codex = {
-        enable = true;
-        enableMcpIntegration = true;
-        settings = {
-          model = defaultMuseModel.id;
-          model_provider = "openrouter";
-          model_providers.openrouter = {
-            base_url = openRouterApiUrl;
-            env_key = "OPENROUTER_API_KEY";
-            name = "OpenRouter";
-            wire_api = "responses";
-          };
-        };
-        profiles = {
-          muse = codexMuseProfile defaultMuseModel.id;
-        }
-        // lib.listToAttrs (
-          map (m: {
-            name = m.profile;
-            value = codexMuseProfile m.id;
-          }) museModels
-        );
       };
 
       # ACP (Agent Client Protocol) agent servers & MCP context servers for Zed
