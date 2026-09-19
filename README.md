@@ -15,7 +15,7 @@ Personal NixOS and Home Manager configurations for my desktop and laptop, manage
 
 | Host | Type | Users | Notes |
 |---|---|---|---|
-| `hinamizawa` | Desktop | `rika`, `satoko` | AMD GPU, Limine Secure Boot + LUKS, Btrfs, Sunshine, Steam. |
+| `hinamizawa` | Desktop | `rika`, `satoko` | AMD GPU, Limine Secure Boot + LUKS, Btrfs, Steam. |
 | `gensokyo` | Laptop | `thiago` | Power management via TLP, Tailscale, automounted `/mnt/data`, Hyprland. |
 
 ## Usage & Testing

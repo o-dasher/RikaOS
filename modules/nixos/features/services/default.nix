@@ -6,7 +6,6 @@
     ./openrgb.nix
     ./openssh.nix
     ./sddm.nix
-    ./sunshine.nix
     ./transmission.nix
   ];
 
