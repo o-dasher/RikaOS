@@ -14,10 +14,6 @@ in
     enable = lib.mkEnableOption "NetworkManager networking.";
     privacyIPv6.enable = lib.mkEnableOption "IPv6 privacy extensions.";
     vpn.enable = lib.mkEnableOption "NetworkManager VPN plugins.";
-    primaryInterface = lib.mkOption {
-      type = lib.types.str;
-      description = "The primary networking interface for operations.";
-    };
   };
 
   config = lib.mkIf cfg.enable {

@@ -8,22 +8,15 @@ let
   cfg = config.features.nix;
 in
 {
-  options.features.nix = {
-    optimise = lib.mkEnableOption "Automatic Nix store optimization." // {
-      default = true;
-    };
-    trusted-users = lib.mkOption {
-      default = [ ];
-      type = lib.types.listOf lib.types.str;
-      description = "Additional users allowed to connect to the Nix daemon as trusted users.";
-    };
+  options.features.nix.optimise = lib.mkEnableOption "Automatic Nix store optimization." // {
+    default = true;
   };
 
   config = lib.mkIf cfg.enable {
     nix = lib.mkMerge [
       {
         settings = {
-          trusted-users = [ "@wheel" ] ++ cfg.trusted-users;
+          trusted-users = [ "@wheel" ];
           experimental-features = [
             "flakes"
             "nix-command"

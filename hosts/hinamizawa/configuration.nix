@@ -25,7 +25,6 @@
       enable = true;
       privacyIPv6.enable = true;
       vpn.enable = true;
-      primaryInterface = "enp9s0";
       cloudflare = {
         warp.enable = true;
         dns.enable = true;
@@ -33,10 +32,7 @@
     };
     boot = {
       kernel.enable = true;
-      hibernation = {
-        enable = true;
-        workarounds.enable = true;
-      };
+      hibernation.enable = true;
       limine.secure = {
         enable = true;
         encryptionUnlock.enable = true;

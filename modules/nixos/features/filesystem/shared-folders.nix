@@ -25,46 +25,31 @@ in
       default = [ ];
       description = "Shared folders with group write access (2770, users group). Computed from `folders`.";
     };
-    rootFolders = lib.mkOption {
-      type = folderTreeType;
-      default = { };
-      description = "Tree-based declaration for root-owned folders (755 permissions).";
-    };
-    rootFolderNames = lib.mkOption {
-      type = lib.types.listOf lib.types.str;
-      description = "Folders owned by root with 755 permissions, suitable for SSH chroot. Computed from `rootFolders`.";
-      default = [ ];
-    };
   };
 
   config = lib.mkIf (modCfg.enable && cfg.enable) {
     programs.git.config.safe.directory = cfg.folderNames;
 
-    features.filesystem.sharedFolders =
-      let
-        # flattenFolderTree { shared.Media = [ "Music" "Movies" ]; }
-        # => [ "/shared" "/shared/Media" "/shared/Media/Music" "/shared/Media/Movies" ]
-        flattenFolderTree =
-          let
-            flattenPath =
-              prefix: tree:
-              builtins.concatMap (
-                name:
-                let
-                  subPath = "${prefix}/${name}";
-                  value = tree.${name};
-                in
-                [ subPath ]
-                ++ (
-                  if builtins.isList value then map (item: "${subPath}/${item}") value else flattenPath subPath value
-                )
-              ) (builtins.attrNames tree);
-          in
-          flattenPath "";
-      in
-      {
-        rootFolderNames = flattenFolderTree cfg.rootFolders;
-        folderNames = flattenFolderTree (
+    features.filesystem.sharedFolders = {
+      folderNames =
+        let
+          # flattenFolderTree { shared.Media = [ "Music" "Movies" ]; }
+          # => [ "/shared" "/shared/Media" "/shared/Media/Music" "/shared/Media/Movies" ]
+          flattenPath =
+            prefix: tree:
+            builtins.concatMap (
+              name:
+              let
+                subPath = "${prefix}/${name}";
+                value = tree.${name};
+              in
+              [ subPath ]
+              ++ (
+                if builtins.isList value then map (item: "${subPath}/${item}") value else flattenPath subPath value
+              )
+            ) (builtins.attrNames tree);
+        in
+        flattenPath "" (
           lib.recursiveUpdate cfg.folders {
             shared.".config" = [
               "public"
@@ -72,7 +57,7 @@ in
             ];
           }
         );
-      };
+    };
 
     systemd.tmpfiles.settings.shared-folders =
       let
@@ -88,18 +73,7 @@ in
               argument = "g:users:rwx,d:g:users:rwx";
             };
           };
-
-        mkRootFolderEntry =
-          path:
-          lib.nameValuePair path {
-            d = {
-              mode = "0755";
-              user = "root";
-              group = "root";
-            };
-          };
       in
-      builtins.listToAttrs (map mkSharedFolderEntry cfg.folderNames)
-      // builtins.listToAttrs (map mkRootFolderEntry cfg.rootFolderNames);
+      builtins.listToAttrs (map mkSharedFolderEntry cfg.folderNames);
   };
 }
