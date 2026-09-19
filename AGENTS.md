@@ -145,8 +145,6 @@ Available user targets:
 ├── flakes/
 │   └── neovim/              # Standalone mnw-wrapped Neovim subflake with devMode
 ├── assets/                  # Wallpapers, OpenRGB profiles, QMK layouts, Ascii art
-├── _sources/                # nvfetcher generated sources
-├── nvfetcher.toml           # Package version tracking (e.g. Minecraft Fabric mods)
 ├── README.md                # Public user-facing documentation
 └── AGENTS.md                # Agent instructions & development workflows
 ```

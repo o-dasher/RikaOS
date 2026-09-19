@@ -74,5 +74,4 @@ nix build .#homeConfigurations."username@hostname".activationPackage
 | `dotfiles/` | Out-of-store configuration files (Lua Hyprland setup, Neovim, IdeaVim). |
 | `flakes/neovim/` | Standalone `mnw` Neovim wrapper package and devMode flake. |
 | `assets/` | Wallpapers, OpenRGB profiles, QMK layouts, and ASCII artwork. |
-| `_sources/` & `nvfetcher.toml` | Package tracking specifications and generated sources via `nvfetcher`. |
 | `AGENTS.md` | Guide and development instructions for AI agents and contributors. |

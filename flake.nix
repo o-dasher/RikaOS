@@ -54,14 +54,6 @@
         systems.follows = "systems";
       };
     };
-    nix-minecraft = {
-      url = "github:Infinidoge/nix-minecraft";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-        flake-compat.follows = "flake-compat";
-      };
-    };
     sidra = {
       url = "github:wimpysworld/sidra";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -75,7 +67,6 @@
       home-manager,
       agenix,
       flake-parts,
-      nix-minecraft,
       nixcord,
       stylix,
       nixpkgs-stable,
@@ -142,7 +133,6 @@
       pkgsFor = lib.genAttrs targetSystems (
         system:
         mkPkgs system nixpkgs [
-          nix-minecraft.overlay
           (
             final: prev:
             let
@@ -203,7 +193,6 @@
           ./hosts/${hostName}/configuration.nix
           stylix.nixosModules.stylix
           agenix.nixosModules.default
-          nix-minecraft.nixosModules.minecraft-servers
           home-manager.nixosModules.home-manager
           {
             nixpkgs.pkgs = pkgsFor.${system};
