@@ -30,7 +30,6 @@ in
       with pkgs;
       [
         lspmux
-        antigravity-acp
         mcp-language-server
       ]
       ++ lsp.packages;
@@ -96,17 +95,10 @@ in
       zed-editor = {
         enableMcpIntegration = true;
         userSettings = {
-          agent_servers = {
-            antigravity = {
-              args = [ ];
-              command = lib.getExe pkgs.antigravity-acp;
-              type = "custom";
-            };
-            copilot = {
-              args = [ "--acp" ];
-              command = lib.getExe pkgs.github-copilot-cli;
-              type = "custom";
-            };
+          agent_servers.copilot = {
+            args = [ "--acp" ];
+            command = lib.getExe pkgs.github-copilot-cli;
+            type = "custom";
           };
           lsp = lib.mapAttrs (srv: _: {
             binary = {
