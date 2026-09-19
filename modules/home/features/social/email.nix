@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  pkgs,
   ...
 }:
 let
@@ -12,7 +11,6 @@ in
   options.features.social.email.enable = lib.mkEnableOption "Email accounts.";
 
   config = lib.mkIf (config.features.social.enable && cfg.enable && config.rika.utils.hasSecrets) {
-    home.packages = [ pkgs.protonmail-desktop ];
     programs.thunderbird = {
       enable = true;
       profiles.${thunderbirdProfile}.isDefault = true;
