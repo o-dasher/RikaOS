@@ -22,7 +22,7 @@ in
 
           nixExe = lib.getExe pkgs.nix;
           update = repo: "${nixExe} flake update --flake ${root}/${repo}";
-          switch = "${update "private"} && ${lib.getExe pkgs.nh} ${switchTarget}";
+          switch = "${update "private"} && ${lib.getExe pkgs.nh} ${switchTarget} -v";
         in
         {
           sail = "${lib.getExe pkgs.bash} vendor/bin/sail";
