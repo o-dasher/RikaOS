@@ -65,5 +65,9 @@ in
           ];
         };
       };
+
+    xdg.autostart.entries = lib.optionals cfg.brave.enable [
+      (config.rika.utils.mkAutostartApp { pkg = config.programs.brave.finalPackage; })
+    ];
   };
 }

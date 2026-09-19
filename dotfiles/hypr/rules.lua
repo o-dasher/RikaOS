@@ -1,14 +1,3 @@
-local function merge(t1, t2)
-	local t = {}
-	for k, v in pairs(t1) do
-		t[k] = v
-	end
-	for k, v in pairs(t2) do
-		t[k] = v
-	end
-	return t
-end
-
 -- Layer rules
 hl.layer_rule({ match = { namespace = "^(wayle|notifications|walker)$" }, blur = true })
 hl.layer_rule({ match = { namespace = "^(walker)$" }, ignore_alpha = 0.5 })
@@ -27,7 +16,8 @@ hl.window_rule({ match = { class = "^(steam_app_.*|gamescope|Minecraft.*|cs2)$" 
 hl.window_rule({ match = { xdg_tag = "^(proton-game)$" }, content = "game" })
 
 -- Game modifiers
-hl.window_rule(merge({
+hl.window_rule({
+	match = { content = "game" },
 	sync_fullscreen = true,
 	fullscreen = true,
 	stay_focused = true,
@@ -36,7 +26,7 @@ hl.window_rule(merge({
 	no_anim = true,
 	no_blur = true,
 	no_shadow = true,
-}, { match = { content = "game" } }))
+})
 -- !GAMES!
 
 -- Float rules
@@ -49,23 +39,14 @@ hl.window_rule({
 
 -- Extension & App class matches
 local bitwarden_class = "brave-nngceckbapebfimnlniiiahkandclblb-Default"
-
-local floaty_classes = string.format(
-	[[^(
-	.blueman-manager-wrapped
-	|nemo
-	|com.github.wwmm.easyeffects
-	|com.saivert.pwvucontrol
-	|org.gnome.FileRoller
-	|%s
-)$]],
-	bitwarden_class
-)
+local floaty_classes = "^(\\.blueman-manager-wrapped|nemo|com\\.github\\.wwmm\\.easyeffects|com\\.saivert\\.pwvucontrol|org\\.gnome\\.FileRoller|"
+	.. bitwarden_class
+	.. ")$"
 
 hl.window_rule({
 	tag = "+floaty",
 	match = {
-		class = floaty_classes:gsub("%s+", ""),
+		class = floaty_classes,
 	},
 })
 

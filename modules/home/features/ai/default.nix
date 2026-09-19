@@ -7,9 +7,6 @@
 let
   cfg = config.features.ai;
 
-  pow = base: exp: if exp == 0 then 1 else base * (pow base (exp - 1));
-  pow2 = pow 2;
-
   openRouterApiUrl = "https://openrouter.ai/api/v1";
 
   chromeDevToolsMcp = pkgs.writeShellScript "chrome-devtools-mcp" ''
@@ -21,14 +18,12 @@ let
     {
       id = "meta/muse-spark-1.3-contributor";
       name = "Meta: Muse Spark 1.3 Contributor";
-      profile = "muse-spark-1-3-contributor";
-      maxTokens = pow2 20;
+      maxTokens = 1048576;
     }
     {
       id = "meta/muse-spark-1.3";
       name = "Meta: Muse Spark 1.3";
-      profile = "muse-spark";
-      maxTokens = pow2 20;
+      maxTokens = 1048576;
     }
   ];
 

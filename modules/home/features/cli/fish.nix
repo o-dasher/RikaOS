@@ -8,7 +8,6 @@
 let
   modCfg = config.features.cli;
   cfg = modCfg.fish;
-  inherit (config.rika.utils) prefixset;
 in
 {
   options.features.cli.fish.enable = lib.mkEnableOption "Fish shell.";
@@ -18,31 +17,21 @@ in
       enable = true;
       shellAbbrs =
         let
-          aliase = pkg: kvpairs: prefixset (lib.getExe pkg) kvpairs;
-          mkUpdateUtils =
-            let
-              getFlakeFromRoot = sub: "${config.features.filesystem.sharedFolders.configurationRoot}/${sub}";
+          switchTarget = if osConfig != null then "os switch" else "home switch";
+          root = config.features.filesystem.sharedFolders.configurationRoot;
 
-              publicFlake = getFlakeFromRoot "public";
-              privateFlake = getFlakeFromRoot "private";
-
-              updateFlake = flake: "${lib.getExe pkgs.nix} flake update --flake ${flake}";
-            in
-            suffix: with pkgs; rec {
-              meh = "${updateFlake privateFlake} && ${lib.getExe nh} ${suffix}";
-              yay = "${updateFlake publicFlake} && ${meh}";
-            };
+          nixExe = lib.getExe pkgs.nix;
+          update = repo: "${nixExe} flake update --flake ${root}/${repo}";
+          switch = "${update "private"} && ${lib.getExe pkgs.nh} ${switchTarget}";
         in
-        lib.mkMerge (
-          with pkgs;
-          [
-            (aliase bash { sail = "vendor/bin/sail"; })
-            (mkUpdateUtils (if osConfig != null then "os switch" else "home switch"))
-            ((lib.mkIf config.programs.lazygit.enable) {
-              lg = lib.getExe lazygit;
-            })
-          ]
-        );
+        {
+          sail = "${lib.getExe pkgs.bash} vendor/bin/sail";
+          meh = switch;
+          yay = "${update "public"} && ${switch}";
+        }
+        // lib.optionalAttrs config.programs.lazygit.enable {
+          lg = lib.getExe pkgs.lazygit;
+        };
       interactiveShellInit = # fish
         ''
           function launch-bg --description "Launch a program in the background and disown it"

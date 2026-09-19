@@ -10,16 +10,6 @@ let
   cfg = config.features.desktop.hyprland;
   hasStylix = options ? stylix;
   hasUWSM = osConfig != null && osConfig.programs.hyprland.withUWSM;
-  onGraphicalStart =
-    pkg:
-    let
-      desktop = "${pkg}/share/applications/${pkg.meta.mainProgram or (lib.getName pkg)}.desktop";
-    in
-    ''
-      hl.on("hyprland.start", function()
-        hl.exec_cmd("sh -c 'while ! systemctl --user is-active --quiet graphical-session.target; do sleep 0.1; done; app2unit ${desktop}'")
-      end)
-    '';
 in
 {
   options.features.desktop.hyprland = {
@@ -123,10 +113,7 @@ in
         ]
         ++ lib.optionals (config.profiles.browser.enable && config.profiles.browser.brave.enable) [
           #lua
-          ''
-            hl.window_rule({ match = { class = "^(brave-origin)$" }, workspace = "2 silent" })
-            ${onGraphicalStart config.programs.brave.finalPackage}
-          ''
+          ''hl.window_rule({ match = { class = "^(brave-origin)$" }, workspace = "2 silent" })''
         ]
         ++ lib.optionals config.programs.nixcord.discord.vencord.enable [
           #lua

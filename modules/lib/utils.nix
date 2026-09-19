@@ -87,12 +87,6 @@
       to: paths: opts:
       config.rika.utils.selectiveSymLink ../../dotfiles/${to} ".config/${to}" paths opts;
 
-    prefixset =
-      prefix: kvpairs:
-      builtins.mapAttrs (
-        _: v: if builtins.typeOf prefix == "lambda" then prefix v else prefix + " " + v
-      ) kvpairs;
-
     css.tailwindCSS =
       content:
       let
