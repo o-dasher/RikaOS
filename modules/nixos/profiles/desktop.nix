@@ -11,6 +11,7 @@ in
 
   config = lib.mkIf cfg.enable {
     profiles.core.enable = true;
+    hardware.keyboard.qmk.enable = true;
     services = {
       gvfs.enable = true;
       printing.enable = true;
@@ -20,7 +21,6 @@ in
       graphics.enable = true;
       gaming.enable = cfg.gaming.enable;
       virtualization.enable = cfg.virtualization.enable;
-      hardware.keyboard.enable = true;
     };
   };
 }

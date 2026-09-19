@@ -2,7 +2,6 @@
 {
   imports = [
     ./amdgpu.nix
-    ./keyboard.nix
     ./laptop.nix
   ];
 
