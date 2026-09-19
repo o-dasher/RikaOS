@@ -26,6 +26,17 @@ return {
 			end,
 		})
 
+		local lspconfig = require("lspconfig")
+		local default_on_new_config = lspconfig.util.default_config.on_new_config
+		lspconfig.util.default_config.on_new_config = function(config, root_dir)
+			if default_on_new_config then
+				default_on_new_config(config, root_dir)
+			end
+			if config.cmd and config.cmd[1] ~= "lspmux" then
+				config.cmd = { "lspmux", "client", "--server-path", config.cmd[1], unpack(config.cmd, 2) }
+			end
+		end
+
 		vim.lsp.enable({
 			"yamlls", -- yaml
 

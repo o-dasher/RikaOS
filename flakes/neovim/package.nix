@@ -34,64 +34,49 @@ mnw.lib.wrap pkgs {
   };
 
   extraBinPath = with pkgs; [
+    lspmux
+
     # Bash
-    bash-language-server
     shfmt
     shellcheck
 
     # Lua
-    lua-language-server
     stylua
 
     # Yaml
-    yaml-language-server
     yamllint
 
     # C-sharp
-    omnisharp-roslyn
     csharpier
 
     # Rust
-    rust-analyzer
     clippy
     rustfmt
 
     # C and CPP
-    llvmPackages.clang-tools
     cppcheck
 
     # Nix
-    nixd
     statix
     nixfmt
 
     # Python
-    pyright
     ruff
 
     # PHP
     intelephense
-    phpactor
     phpstan
     phpPackages.php-cs-fixer
 
-    # Web development
-    tailwindcss-language-server
-    vscode-langservers-extracted
-
     # Typescript
-    svelte-language-server
     typescript
     biome
-    typescript-language-server
 
     # latex
     texliveFull
-    texlab
 
     # Typst
     typst
-    tinymist
     typstyle
 
     # Dependencies
@@ -106,5 +91,9 @@ mnw.lib.wrap pkgs {
 
     # Integrated cli tools
     lazygit
-  ];
+  ]
+  ++ (import ./lsp.nix {
+    inherit pkgs;
+    inherit (pkgs) lib;
+  }).packages;
 }
