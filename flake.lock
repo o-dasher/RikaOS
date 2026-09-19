@@ -740,20 +740,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-stable": {
-      "locked": {
-        "lastModified": 1789654592,
-        "narHash": "sha256-vrwAiXmz+0hs/IWXZalFG/Ws6xQRcW+gClUDlfvcfjQ=",
-        "rev": "ecc58f32d1069a3e3f8a991e2233d365689f748d",
-        "revCount": 1014280,
-        "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/NixOS/nixpkgs/0.2605.1014280%2Brev-ecc58f32d1069a3e3f8a991e2233d365689f748d/01a0b599-51db-7d81-b274-7b1835f88148/source.tar.gz"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://flakehub.com/f/NixOS/nixpkgs/0"
-      }
-    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1789684949,
@@ -831,7 +817,6 @@
         "nixcord": "nixcord",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-master": "nixpkgs-master",
-        "nixpkgs-stable": "nixpkgs-stable",
         "sidra": "sidra",
         "stylix": "stylix",
         "systems": "systems"

@@ -4,7 +4,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:NixOS/nixpkgs";
-    nixpkgs-stable.url = "https://flakehub.com/f/NixOS/nixpkgs/0";
     flake-compat.url = "github:edolstra/flake-compat";
     systems.url = "github:nix-systems/default";
     mnw.url = "github:Gerg-L/mnw";
@@ -69,7 +68,6 @@
       flake-parts,
       nixcord,
       stylix,
-      nixpkgs-stable,
       nixpkgs-master,
       ...
     }:
@@ -142,7 +140,6 @@
               inherit (hyprland.packages.${system}) hyprland;
             }
             // rec {
-              stable = mkPkgs system nixpkgs-stable [ ];
               master = mkPkgs system nixpkgs-master [ ];
 
               inherit (master) antigravity-cli;
