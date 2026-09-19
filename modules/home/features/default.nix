@@ -3,7 +3,6 @@
     ./ai
     ./cli
     ./core
-    ./filesystem
     ./desktop
     ./editors
     ./development
