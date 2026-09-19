@@ -19,6 +19,9 @@ in
 
     home.packages = with pkgs; [
       wget
+      typst
+      typstyle
+      tinymist
     ];
 
     programs = {

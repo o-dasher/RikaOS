@@ -9,6 +9,7 @@ return {
 	{ import = "thiago.plugins.snacks" },
 	{ import = "thiago.plugins.treesitter" },
 	{ import = "thiago.plugins.vimtex" },
+	{ import = "thiago.plugins.typst_preview" },
 	{ import = "thiago.plugins.mini" },
 	{
 		"rose-pine",

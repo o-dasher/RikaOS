@@ -37,6 +37,7 @@ return {
 				cs = { "csharpier" },
 				sh = { "shfmt" },
 				bash = { "shfmt" },
+				typst = { "typstyle" },
 			},
 		})
 	end,

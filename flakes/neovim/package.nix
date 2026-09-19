@@ -27,6 +27,7 @@ mnw.lib.wrap pkgs {
       snacks-nvim
       cord-nvim
       friendly-snippets
+      typst-preview-nvim
     ];
 
     dev.config.pure = ../../dotfiles/nvim;
@@ -87,6 +88,11 @@ mnw.lib.wrap pkgs {
     # latex
     texliveFull
     texlab
+
+    # Typst
+    typst
+    tinymist
+    typstyle
 
     # Dependencies
     nodejs

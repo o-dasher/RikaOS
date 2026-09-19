@@ -55,6 +55,7 @@ return {
 
 			"svelte", -- svelte
 			"texlab", -- tex
+			"tinymist", -- typst
 
 			"lua_ls", -- lua
 			"omnisharp", -- dotnet
