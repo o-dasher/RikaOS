@@ -29,11 +29,12 @@ Follow conventional commit style where appropriate:
 - `docs(...)`: Documentation updates (e.g. `AGENTS.md`, `README.md`)
 - `style(...)`: Formatting or option description normalization
 
-### 4. Scope Commits to a Single Responsibility (Avoid Task Cross-Contamination)
-Each commit should represent a single, atomic responsibility or feature.
-- **Never blindly commit everything in the index**: Multiple agents or the user may have staged or modified unrelated files in the working tree. Always inspect `git status` and `git diff --cached` before committing.
-- **Stage only relevant files**: Explicitly stage only files pertinent to your task (`git add <file1> <file2>`) rather than blanket staging (`git add .` or `git add -A`) when unrelated changes might exist.
-- **Prevent bleeding changes**: Never allow work from your task to bleed into another agent's or feature's commit, and never bundle another ongoing task's changes into your own commit.
+### 4. Enforce Atomic, Single-Subject Commits (No Blanket Staging)
+Every commit must be atomic and adhere strictly to a single subject or feature.
+- **Never `git add` everything and commit at once**: Never run `git add .` or `git add -A` to commit all changes blindly. Multi-feature changes or concurrent agent edits will contaminate the repository.
+- **One subject per commit**: If multiple features, bugfixes, or components were modified, split them into separate, atomic commits. Each commit message must accurately describe only that specific change.
+- **Stage only relevant files**: Explicitly stage only files pertinent to the specific subject (`git add <file1> <file2>`).
+- **Inspect before committing**: Always inspect `git status` and `git diff --cached` prior to committing to ensure no unrelated changes are staged.
 
 ---
 
@@ -44,14 +45,14 @@ Each commit should represent a single, atomic responsibility or feature.
 Nix Flakes only see files that are tracked by Git. Any newly created file is completely invisible to Nix until added to the Git staging index.
 
 > [!IMPORTANT]
-> Always run `git add` on new or modified files before running `nix flake check`, building, or dry-running configurations.
+> Run `git add -N <file>` or `git add <file>` on newly created or modified files relevant to your task before evaluating. Never run `git add .`.
 
 ### Test Changes Before Applying
 
 Always verify flake evaluation before proposing or committing major modifications:
 
 ```bash
-git add .
+git add <modified-files>
 nix flake check --no-build
 ```
 
