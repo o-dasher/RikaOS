@@ -17,11 +17,20 @@ return {
 			nix = { "statix" },
 		}
 
+		local function linter_is_available(linter)
+			local command = linter.cmd
+			if type(command) == "function" then
+				command = command()
+			end
+			return type(command) == "string" and vim.fn.executable(command) == 1
+		end
+
 		vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 			callback = function()
-				-- try_lint without arguments runs the linters defined in `linters_by_ft`
-				-- for the current filetype
-				require("lint").try_lint()
+				-- Skip linters supplied by a dev shell that is not currently active.
+				require("lint").try_lint(nil, {
+					filter = linter_is_available,
+				})
 			end,
 		})
 	end,
