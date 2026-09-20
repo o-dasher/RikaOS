@@ -24,7 +24,7 @@ in
         collaboration_panel.dock = "right";
         format_on_save = "on";
         git_panel.button = false;
-        theme = lib.mkForce "Catppuccin Mocha Heavy";
+        theme = lib.mkForce "Catppuccin Mocha (Blur) [Heavy]";
 
         gutter.folds = false;
         hard_tabs = false;
