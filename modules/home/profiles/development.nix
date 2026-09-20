@@ -16,13 +16,7 @@ in
 
   config = lib.mkIf cfg.enable {
     services.gnome-keyring.enable = true;
-
-    home.packages = with pkgs; [
-      wget
-      typst
-      typstyle
-      tinymist
-    ];
+    home.packages = with pkgs; [ wget ];
 
     programs = {
       jq.enable = true;
