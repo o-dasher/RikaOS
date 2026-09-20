@@ -6,6 +6,7 @@
 }:
 let
   cfg = config.features.ai;
+  browserMcp = lib.getExe pkgs.playwright-mcp;
 
   # Multiplexed LSP servers from flakes/neovim/lsp.nix
   lsp = import ../../../../flakes/neovim/lsp.nix;
@@ -60,6 +61,14 @@ in
         enable = true;
         enableMcpIntegration = true;
         lspServers = lspClientServers;
+      };
+
+      mcp = {
+        enable = true;
+        servers.browser = {
+          command = browserMcp;
+          args = [ "--cdp-endpoint=http://127.0.0.1:9222" ];
+        };
       };
 
       # ACP (Agent Client Protocol) agent servers & MCP context servers for Zed
