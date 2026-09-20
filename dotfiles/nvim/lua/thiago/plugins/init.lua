@@ -3,7 +3,6 @@ return {
 	{ import = "thiago.plugins.lsp" },
 	{ import = "thiago.plugins.conform" },
 	{ import = "thiago.plugins.cord" },
-	{ import = "thiago.plugins.nvim_lint" },
 	{ import = "thiago.plugins.markdown" },
 	{ import = "thiago.plugins.oil" },
 	{ import = "thiago.plugins.snacks" },
