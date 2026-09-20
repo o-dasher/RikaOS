@@ -1,119 +1,119 @@
 {
-  "version": 2,
-  "root-markers": [".git/"],
-  "languages": {
-    "sh": [
-      {
-        "lint-command": "shellcheck -f gcc -x ${INPUT}",
-        "lint-formats": ["%f:%l:%c: %t: %m"]
-      },
-      {
-        "format-command": "shfmt -filename ${INPUT}",
-        "format-stdin": true
-      }
-    ],
-    "bash": [
-      {
-        "lint-command": "shellcheck -f gcc -x ${INPUT}",
-        "lint-formats": ["%f:%l:%c: %t: %m"]
-      },
-      {
-        "format-command": "shfmt -filename ${INPUT}",
-        "format-stdin": true
-      }
-    ],
-    "c": [
-      {
-        "lint-command": "cppcheck --enable=warning,style,performance,portability --template=gcc ${INPUT}",
-        "lint-formats": ["%f:%l:%c: (%t) %m"]
-      },
-      {
-        "lint-command": "clang-tidy ${INPUT}",
-        "lint-formats": ["%f:%l:%c: %t: %m"],
-        "require-marker": true,
-        "root-markers": ["compile_commands.json", "compile_flags.txt"]
-      },
-      {
-        "format-command": "clang-format --assume-filename=${INPUT}",
-        "format-stdin": true
-      }
-    ],
-    "cpp": [
-      {
-        "lint-command": "cppcheck --enable=warning,style,performance,portability --template=gcc ${INPUT}",
-        "lint-formats": ["%f:%l:%c: (%t) %m"]
-      },
-      {
-        "lint-command": "clang-tidy ${INPUT}",
-        "lint-formats": ["%f:%l:%c: %t: %m"],
-        "require-marker": true,
-        "root-markers": ["compile_commands.json", "compile_flags.txt"]
-      },
-      {
-        "format-command": "clang-format --assume-filename=${INPUT}",
-        "format-stdin": true
-      }
-    ],
-    "cmake": [
-      {
-        "lint-command": "cmakelint ${INPUT}",
-        "lint-formats": ["%f:%l: %m"]
-      },
-      {
-        "format-command": "cmake-format -",
-        "format-stdin": true
-      }
-    ],
-    "markdown": [
-      {
-        "lint-command": "markdownlint ${INPUT}",
-        "lint-formats": ["%f:%l %m"]
-      }
-    ],
-    "json": [
-      {
-        "format-command": "biome format --stdin-file-path ${INPUT}",
-        "format-stdin": true
-      }
-    ],
-    "rust": [
-      {
-        "lint-command": "cargo clippy --message-format=short",
-        "lint-formats": ["%f:%l:%c: %m"],
-        "lint-workspace": true
-      }
-    ],
-    "python": [
-      {
-        "lint-command": "ruff check --output-format=concise ${INPUT}",
-        "lint-formats": ["%f:%l:%c: %m"]
-      }
-    ],
-    "php": [
-      {
-        "lint-command": "phpstan analyze --error-format=raw ${INPUT}",
-        "lint-formats": ["%f:%l: %m"]
-      }
-    ],
-    "yaml": [
-      {
-        "lint-command": "yamllint -f parsable ${INPUT}",
-        "lint-formats": ["%f:%l:%c: [%t] %m"]
-      }
-    ],
-    "nix": [
-      {
-        "lint-command": "statix check ${INPUT}",
-        "lint-formats": ["%f:%l:%c: %m"]
-      },
-      {
-        "lint-command": "deadnix ${INPUT}",
-        "lint-formats": ["%f:%l:%c: %m"]
-      },
-      {
-        "format-command": "nixfmt",
-        "format-stdin": true
-      }
-    ]
-  }
+    "version": 2,
+    "root-markers": [".git/"],
+    "languages": {
+        "sh": [
+            {
+                "lint-command": "shellcheck -f gcc -x ${INPUT}",
+                "lint-formats": ["%f:%l:%c: %t: %m"]
+            },
+            {
+                "format-command": "shfmt -filename ${INPUT}",
+                "format-stdin": true
+            }
+        ],
+        "bash": [
+            {
+                "lint-command": "shellcheck -f gcc -x ${INPUT}",
+                "lint-formats": ["%f:%l:%c: %t: %m"]
+            },
+            {
+                "format-command": "shfmt -filename ${INPUT}",
+                "format-stdin": true
+            }
+        ],
+        "c": [
+            {
+                "lint-command": "cppcheck --enable=warning,style,performance,portability --template=gcc ${INPUT}",
+                "lint-formats": ["%f:%l:%c: (%t) %m"]
+            },
+            {
+                "lint-command": "clang-tidy ${INPUT}",
+                "lint-formats": ["%f:%l:%c: %t: %m"],
+                "require-marker": true,
+                "root-markers": ["compile_commands.json", "compile_flags.txt"]
+            },
+            {
+                "format-command": "clang-format --assume-filename=${INPUT}",
+                "format-stdin": true
+            }
+        ],
+        "cpp": [
+            {
+                "lint-command": "cppcheck --enable=warning,style,performance,portability --template=gcc ${INPUT}",
+                "lint-formats": ["%f:%l:%c: (%t) %m"]
+            },
+            {
+                "lint-command": "clang-tidy ${INPUT}",
+                "lint-formats": ["%f:%l:%c: %t: %m"],
+                "require-marker": true,
+                "root-markers": ["compile_commands.json", "compile_flags.txt"]
+            },
+            {
+                "format-command": "clang-format --assume-filename=${INPUT}",
+                "format-stdin": true
+            }
+        ],
+        "cmake": [
+            {
+                "lint-command": "cmake-lint ${INPUT}",
+                "lint-formats": ["%f:%l: %m"]
+            },
+            {
+                "format-command": "cmake-format -",
+                "format-stdin": true
+            }
+        ],
+        "markdown": [
+            {
+                "lint-command": "markdownlint ${INPUT}",
+                "lint-formats": ["%f:%l %m"]
+            }
+        ],
+        "json": [
+            {
+                "format-command": "biome format --stdin-file-path ${INPUT}",
+                "format-stdin": true
+            }
+        ],
+        "rust": [
+            {
+                "lint-command": "cargo clippy --message-format=short",
+                "lint-formats": ["%f:%l:%c: %m"],
+                "lint-workspace": true
+            }
+        ],
+        "python": [
+            {
+                "lint-command": "ruff check --output-format=concise ${INPUT}",
+                "lint-formats": ["%f:%l:%c: %m"]
+            }
+        ],
+        "php": [
+            {
+                "lint-command": "phpstan analyze --error-format=raw ${INPUT}",
+                "lint-formats": ["%f:%l: %m"]
+            }
+        ],
+        "yaml": [
+            {
+                "lint-command": "yamllint -f parsable ${INPUT}",
+                "lint-formats": ["%f:%l:%c: [%t] %m"]
+            }
+        ],
+        "nix": [
+            {
+                "lint-command": "statix check ${INPUT}",
+                "lint-formats": ["%f:%l:%c: %m"]
+            },
+            {
+                "lint-command": "deadnix ${INPUT}",
+                "lint-formats": ["%f:%l:%c: %m"]
+            },
+            {
+                "format-command": "nixfmt",
+                "format-stdin": true
+            }
+        ]
+    }
 }

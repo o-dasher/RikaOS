@@ -83,16 +83,11 @@ return {
 		}
 
 		local available_servers = vim.tbl_filter(function(server)
-			local cfg = vim.lsp.config[server]
-				or (
-					lspconfig[server]
-					and lspconfig[server].document_config
-					and lspconfig[server].document_config.default_config
-				)
-			if not cfg or not cfg.cmd or not cfg.cmd[1] then
-				return false
-			end
-			return vim.fn.executable(cfg.cmd[1]) == 1
+			local ok, mod = pcall(require, "lspconfig.configs." .. server)
+			local cmd = (vim.lsp.config[server] or (ok and mod.default_config) or {}).cmd
+			local bin = type(cmd) == "table" and cmd[1]
+				or (type(cmd) == "function" and (pcall(cmd) and select(2, pcall(cmd))[1]))
+			return bin and vim.fn.executable(bin) == 1
 		end, servers)
 
 		vim.lsp.enable(available_servers)

@@ -17,17 +17,20 @@ in
       enable = true;
       shellAbbrs =
         let
-          switchTarget = if osConfig != null then "os switch" else "home switch";
           root = config.features.filesystem.sharedFolders.configurationRoot;
-
           nixExe = lib.getExe pkgs.nix;
+
           update = repo: "${nixExe} flake update --flake ${root}/${repo}";
-          switch = "${update "private"} && ${lib.getExe pkgs.nh} ${switchTarget} -v";
+          rebuildCmd =
+            if osConfig != null then
+              "sudo nixos-rebuild switch --flake ${root}/public"
+            else
+              "${lib.getExe pkgs.home-manager} switch --flake ${root}/public";
         in
-        {
+        rec {
           sail = "${lib.getExe pkgs.bash} vendor/bin/sail";
-          meh = switch;
-          yay = "${update "public"} && ${switch}";
+          meh = "${update "private"} && ${rebuildCmd}";
+          yay = "${update "public"} && ${meh}";
         }
         // lib.optionalAttrs config.programs.lazygit.enable {
           lg = lib.getExe pkgs.lazygit;
