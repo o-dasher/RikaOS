@@ -15,26 +15,22 @@ Key components:
 
 ## Agent Git & Commit Guidelines
 
-### 1. Always Commit Changes
-Whenever you make a functional change, bugfix, refactor, or documentation update and verify it, you **must create a git commit**. Do not leave unstaged or uncommitted working trees at the end of a task.
+### 1. Commit Automatically After Verification
+After making and validating a functional change, create an atomic git commit automatically. Do not leave verified work unstaged or uncommitted merely waiting for another prompt. Never commit unverified changes, and never activate or switch a configuration to verify it.
 
-### 2. Prefer Amending for Follow-up Fixes
-If you are fixing an issue caused by your previous commit, addressing review feedback, or making a minor polish/typo adjustment to the immediate previous commit, **prefer amending the previous commit** (`git commit --amend` or `git commit --amend --no-edit`) rather than creating trivial "fix typo" or "fix lint" commits.
-
-### 3. Clear Commit Messages
-Follow conventional commit style where appropriate:
+### 2. Keep Commits Atomic
+Each commit must contain one coherent subject or feature. If a task produces independent changes, split them into separate commits rather than combining them into a blanket commit. Use conventional commit messages where appropriate:
 - `feat(...)`: New feature or configuration option
 - `fix(...)`: Bug fix or configuration correction
 - `refactor(...)`: Code reorganization or cleanup without behavior changes
 - `docs(...)`: Documentation updates (e.g. `AGENTS.md`, `README.md`)
-- `style(...)`: Formatting or option description normalization
+- `style(...)`: Code formatting or option description normalization
 
-### 4. Enforce Atomic, Single-Subject Commits (No Blanket Staging)
-Every commit must be atomic and adhere strictly to a single subject or feature.
-- **Never `git add` everything and commit at once**: Never run `git add .` or `git add -A` to commit all changes blindly. Multi-feature changes or concurrent agent edits will contaminate the repository.
-- **One subject per commit**: If multiple features, bugfixes, or components were modified, split them into separate, atomic commits. Each commit message must accurately describe only that specific change.
-- **Stage only relevant files**: Explicitly stage only files pertinent to the specific subject (`git add <file1> <file2>`).
-- **Inspect before committing**: Always inspect `git status` and `git diff --cached` prior to committing to ensure no unrelated changes are staged.
+### 3. Stage Explicitly and Inspect First
+- **Never use `git add .` or `git add -A`**. Stage only the files belonging to the current atomic subject (`git add <file1> <file2>`).
+- Inspect `git status` and `git diff --cached` before every commit so unrelated user or agent work is not included.
+- If a follow-up fixes the immediately preceding commit, prefer `git commit --amend --no-edit`; otherwise create a new focused commit.
+- Push only when explicitly requested; committing verified work is automatic.
 
 ---
 
@@ -180,6 +176,3 @@ Available user targets:
   ```
 - **Attribute Ordering by Complexity**: Structure bindings within attribute sets progressively by cognitive load and visual weight. Place simple, compact scalar declarations (such as booleans, primitive values, package references, and short single-line strings) at the top of the enclosing block. Position multi-line attribute sets, nested blocks, custom generators, and complex functions at the bottom.
 - **Code Formatting**: The flake devShell (`nix develop`) provides `nixfmt`, `stylua`, `nil`, and `statix`. Maintain consistent formatting across Nix and Lua code.
-
-
-
