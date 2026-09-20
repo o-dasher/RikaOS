@@ -8,7 +8,6 @@
       "space p e": "file_finder::Toggle",
       "space p v": "project_panel::ToggleFocus",
       "space p p": "editor::Paste",
-      "space l g": "git_panel::ToggleFocus",
       "space a": "pane::TogglePinTab",
       "space h": "tab_switcher::Toggle",
       "space 1": [
@@ -59,7 +58,7 @@
       "space ?": "zed::OpenKeymap",
       "space s k": "zed::OpenKeymap",
       "escape": "editor::Cancel",
-      "ctrl-h": "pane::ActivatePrevItem",
+      "ctrl-h": "pane::ActivatePreviousItem",
       "ctrl-l": "pane::ActivateNextItem",
       "ctrl-w v": "pane::SplitRight",
       "ctrl-w s": "pane::SplitDown",
@@ -88,6 +87,16 @@
       "ctrl-space": "editor::ShowCompletions"
     }
   },
+
+  {
+    "context": "BufferSearchBar",
+    "bindings": {
+      "ctrl-k": "search::SelectPreviousMatch",
+      "ctrl-j": "search::SelectNextMatch",
+      "f2": null,
+      "f3": null
+    }
+  },
   {
     "context": "Picker || menu",
     "bindings": {
@@ -101,17 +110,8 @@
       "space p f": "file_finder::Toggle",
       "space p s": "pane::DeploySearch",
       "space p v": "project_panel::ToggleFocus",
-      "space l g": "git_panel::ToggleFocus",
       "space ?": "zed::OpenKeymap",
       "q": "project_panel::ToggleFocus"
-    }
-  },
-  {
-    "context": "GitPanel && not_editing",
-    "bindings": {
-      "space l g": "git_panel::ToggleFocus",
-      "space ?": "zed::OpenKeymap",
-      "q": "git_panel::ToggleFocus"
     }
   },
   {
@@ -120,7 +120,6 @@
       "space p f": "file_finder::Toggle",
       "space p s": "pane::DeploySearch",
       "space p v": "project_panel::ToggleFocus",
-      "space l g": "git_panel::ToggleFocus",
       "space ?": "zed::OpenKeymap"
     }
   },

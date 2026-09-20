@@ -21,7 +21,8 @@ in
         base_keymap = "VSCode";
         collaboration_panel.dock = "right";
         format_on_save = "on";
-        git_panel.dock = "right";
+        git_panel.button = false;
+
         gutter.folds = false;
         hard_tabs = false;
         outline_panel.dock = "right";
@@ -36,6 +37,7 @@ in
         vim_mode = true;
         which_key.enabled = false;
         wrap_guides = [ 80 ];
+        load_direnv = "direct";
         agent = {
           auto_compact.threshold = "75%";
           sandbox_permissions = {
