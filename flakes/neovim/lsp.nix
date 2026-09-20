@@ -1,4 +1,4 @@
-{ pkgs }:
+{ pkgs, ... }:
 {
   # Server executable name -> list of supported file extensions
   servers = {
