@@ -1,12 +1,20 @@
-{ pkgs, lib }:
+{ pkgs }:
 {
   # Server executable name -> list of supported file extensions
   servers = {
     # Bash
-    bash-language-server = [ ".sh" ".bash" ];
+    bash-language-server = [
+      ".sh"
+      ".bash"
+    ];
 
     # C and CPP
-    clangd = [ ".c" ".cpp" ".h" ".hpp" ];
+    clangd = [
+      ".c"
+      ".cpp"
+      ".h"
+      ".hpp"
+    ];
 
     # Lua
     lua-language-server = [ ".lua" ];
@@ -28,7 +36,12 @@
 
     # Typescript / Svelte
     svelteserver = [ ".svelte" ];
-    typescript-language-server = [ ".ts" ".tsx" ".js" ".jsx" ];
+    typescript-language-server = [
+      ".ts"
+      ".tsx"
+      ".js"
+      ".jsx"
+    ];
 
     # Web development
     tailwindcss-language-server = [ ".css" ];
@@ -43,7 +56,10 @@
     tinymist = [ ".typ" ];
 
     # Yaml
-    yaml-language-server = [ ".yaml" ".yml" ];
+    yaml-language-server = [
+      ".yaml"
+      ".yml"
+    ];
   };
 
   # The nixpkgs packages providing all of the above language servers

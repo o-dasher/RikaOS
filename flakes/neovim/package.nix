@@ -33,67 +33,69 @@ mnw.lib.wrap pkgs {
     dev.config.pure = ../../dotfiles/nvim;
   };
 
-  extraBinPath = with pkgs; [
-    lspmux
+  extraBinPath =
+    with pkgs;
+    [
+      lspmux
 
-    # Bash
-    shfmt
-    shellcheck
+      # Bash
+      shfmt
+      shellcheck
 
-    # Lua
-    stylua
+      # Lua
+      stylua
 
-    # Yaml
-    yamllint
+      # Yaml
+      yamllint
 
-    # C-sharp
-    csharpier
+      # C-sharp
+      csharpier
 
-    # Rust
-    clippy
-    rustfmt
+      # Rust
+      clippy
+      rustfmt
 
-    # C and CPP
-    cppcheck
+      # C and CPP
+      cppcheck
 
-    # Nix
-    statix
-    nixfmt
+      # Nix
+      statix
+      nixfmt
 
-    # Python
-    ruff
+      # Python
+      ruff
 
-    # PHP
-    intelephense
-    phpstan
-    phpPackages.php-cs-fixer
+      # PHP
+      intelephense
+      phpstan
+      phpPackages.php-cs-fixer
 
-    # Typescript
-    typescript
-    biome
+      # Typescript
+      typescript
+      biome
 
-    # latex
-    texliveFull
+      # latex
+      texliveFull
 
-    # Typst
-    typst
-    typstyle
+      # Typst
+      typst
+      typstyle
 
-    # Dependencies
-    nodejs
+      # Dependencies
+      nodejs
 
-    # Some tools
-    tree-sitter # Tree-sitting
-    ripgrep # Telescope fzf
+      # Some tools
+      tree-sitter # Tree-sitting
+      ripgrep # Telescope fzf
 
-    # pdf viewer
-    zathura
+      # pdf viewer
+      zathura
 
-    # Integrated cli tools
-    lazygit
-  ]
-  ++ (import ./lsp.nix {
-    inherit pkgs;
-    inherit (pkgs) lib;
-  }).packages;
+      # Integrated cli tools
+      lazygit
+    ]
+    ++ (import ./lsp.nix {
+      inherit pkgs;
+      inherit (pkgs) lib;
+    }).packages;
 }
