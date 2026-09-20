@@ -17,6 +17,7 @@ in
 
     programs.zed-editor = {
       enable = true;
+      mutableUserSettings = false;
       userSettings = {
         base_keymap = "VSCode";
         collaboration_panel.dock = "right";
