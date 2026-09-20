@@ -80,12 +80,19 @@ in
             command = lib.getExe pkgs.github-copilot-cli;
             type = "custom";
           };
-          lsp = lib.mapAttrs (srv: _: {
+          lsp = (lib.mapAttrs (srv: _: {
             binary = {
               path = lspmuxBin;
               arguments = lspmuxClient srv;
             };
-          }) lsp.servers;
+          }) lsp.servers) // {
+            # The Nix clang-wrapper compiles with -nostdsysteminc and injects glibc/compiler-rt
+            # include paths itself. Without --query-driver, clangd cannot interrogate the
+            # wrapper to discover those paths and fails to resolve any system headers.
+            clangd.binary.arguments = lspmuxClient "clangd" ++ [
+              "--query-driver=/nix/store/*/clang-wrapper-*/bin/clang"
+            ];
+          };
         };
       };
     };
