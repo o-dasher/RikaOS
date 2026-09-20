@@ -18,11 +18,13 @@ in
     programs.zed-editor = {
       enable = true;
       mutableUserSettings = false;
+      extensions = [ "catppuccin-blur" ];
       userSettings = {
         base_keymap = "VSCode";
         collaboration_panel.dock = "right";
         format_on_save = "on";
         git_panel.button = false;
+        theme = lib.mkForce "Catppuccin Mocha Heavy";
 
         gutter.folds = false;
         hard_tabs = false;

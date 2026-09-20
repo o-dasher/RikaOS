@@ -44,7 +44,10 @@ in
         enable = true;
         servers.browser = {
           command = browserMcp;
-          args = [ "--cdp-endpoint=http://127.0.0.1:9222" ];
+          args = [
+            "--cdp-endpoint=http://127.0.0.1:9222"
+            "--caps=core"
+          ];
         };
       };
 
