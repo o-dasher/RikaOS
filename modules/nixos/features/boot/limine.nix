@@ -27,7 +27,7 @@ in
           systemd-boot.enable = false;
           limine = {
             enable = true;
-            maxGenerations = 3;
+            maxGenerations = config.features.core.systemCleanup.generationLimit;
           };
         };
       }

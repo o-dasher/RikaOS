@@ -40,7 +40,7 @@ in
       enable = true;
       clean = {
         enable = true;
-        extraArgs = "--keep 4 --keep-since 8d";
+        extraArgs = "--keep ${toString config.features.core.systemCleanup.generationLimit}";
       };
     };
   };

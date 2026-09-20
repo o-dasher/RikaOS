@@ -3,11 +3,16 @@ let
   cfg = config.features.core.systemCleanup;
 in
 {
-  options.features.core.systemCleanup.enable =
-    lib.mkEnableOption "System maintenance and cleanup."
-    // {
+  options.features.core.systemCleanup = {
+    enable = lib.mkEnableOption "System maintenance and cleanup." // {
       default = true;
     };
+    generationLimit = lib.mkOption {
+      type = lib.types.ints.positive;
+      default = 3;
+      description = "Number of latest system and user generations to retain.";
+    };
+  };
 
   config = lib.mkIf (config.features.core.enable && cfg.enable) {
     # Clean /tmp directory on boot
