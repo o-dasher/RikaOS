@@ -43,7 +43,7 @@ return {
 			root_markers = { ".git" },
 		})
 
-		vim.lsp.enable({
+		local servers = {
 			"efm",
 			"yamlls", -- yaml
 
@@ -80,6 +80,21 @@ return {
 			"marksman", -- markdown
 			"omnisharp", -- dotnet
 			"bashls", -- bash
-		})
+		}
+
+		local available_servers = vim.tbl_filter(function(server)
+			local cfg = vim.lsp.config[server]
+				or (
+					lspconfig[server]
+					and lspconfig[server].document_config
+					and lspconfig[server].document_config.default_config
+				)
+			if not cfg or not cfg.cmd or not cfg.cmd[1] then
+				return false
+			end
+			return vim.fn.executable(cfg.cmd[1]) == 1
+		end, servers)
+
+		vim.lsp.enable(available_servers)
 	end,
 }
