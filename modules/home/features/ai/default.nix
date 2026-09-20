@@ -28,6 +28,8 @@ in
   options.features.ai.enable = lib.mkEnableOption "Personal AI agents, ACP, and MCP integration.";
 
   config = lib.mkIf cfg.enable {
+    home.packages = [ pkgs.lspmux ];
+
     xdg.configFile = {
       "efm-langserver/config.yaml".source = ../../../../dotfiles/nvim/efm-config.json;
       "lspmux/config.toml".text = ''

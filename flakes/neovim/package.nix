@@ -34,7 +34,6 @@ mnw.lib.wrap pkgs {
   };
 
   extraBinPath = with pkgs; [
-    lspmux
     ripgrep
     tree-sitter
     lazygit
