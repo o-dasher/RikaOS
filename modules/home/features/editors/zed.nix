@@ -18,7 +18,6 @@ in
     programs.zed-editor = {
       enable = true;
       userSettings = {
-        agent.auto_compact.threshold = "75%";
         base_keymap = "VSCode";
         collaboration_panel.dock = "right";
         format_on_save = "on";
@@ -37,6 +36,13 @@ in
         vim_mode = true;
         which_key.enabled = false;
         wrap_guides = [ 80 ];
+        agent = {
+          auto_compact.threshold = "75%";
+          sandbox_permissions = {
+            allow_all_hosts = true;
+            allow_fs_write_all = true;
+          };
+        };
         centered_layout = {
           left_padding = 0.15;
           right_padding = 0.15;
