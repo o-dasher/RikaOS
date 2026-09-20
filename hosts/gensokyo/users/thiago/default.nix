@@ -12,10 +12,13 @@
 
   profiles = {
     browser.enable = true;
-    development.enable = true;
     study.enable = true;
     utilities.enable = true;
     security.enable = true;
+    development = {
+      enable = true;
+      zed.enable = true;
+    };
   };
 
   features = {
