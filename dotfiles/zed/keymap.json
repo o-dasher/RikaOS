@@ -1,0 +1,135 @@
+[
+  {
+    "context": "vim_mode == normal",
+    "bindings": {
+      "space p f": "file_finder::Toggle",
+      "space p s": "pane::DeploySearch",
+      "space p w": "pane::DeploySearch",
+      "space p e": "file_finder::Toggle",
+      "space p v": "project_panel::ToggleFocus",
+      "space p p": "editor::Paste",
+      "space l g": "git_panel::ToggleFocus",
+      "space a": "pane::TogglePinTab",
+      "space h": "tab_switcher::Toggle",
+      "space 1": [
+        "pane::ActivateItem",
+        0
+      ],
+      "space 2": [
+        "pane::ActivateItem",
+        1
+      ],
+      "space 3": [
+        "pane::ActivateItem",
+        2
+      ],
+      "space 4": [
+        "pane::ActivateItem",
+        3
+      ],
+      "space 5": [
+        "pane::ActivateItem",
+        4
+      ],
+      "space v d": "editor::Hover",
+      "space v r": "editor::FindAllReferences",
+      "space r n": "editor::Rename",
+      "space c a": "editor::ToggleCodeActions",
+      "space g d": "editor::GoToDefinition",
+      "space g shift-d": "editor::GoToDeclaration",
+      "space g i": "editor::GoToTypeDefinition",
+      "space g s": "editor::ShowSignatureHelp",
+      "g d": "editor::GoToDefinition",
+      "g shift-d": "editor::GoToDeclaration",
+      "g i": "editor::GoToTypeDefinition",
+      "g s": "editor::ShowSignatureHelp",
+      "shift-k": "editor::Hover",
+      "space f": "editor::Format",
+      "space z": "workspace::ToggleCenteredLayout",
+      "space shift-z": "workspace::ToggleZoom",
+      "space y": "editor::Copy",
+      "space shift-y": [
+        "workspace::SendKeystrokes",
+        "\" + y $"
+      ],
+      "space shift-p": [
+        "workspace::SendKeystrokes",
+        "\" + shift-p"
+      ],
+      "space ?": "zed::OpenKeymap",
+      "space s k": "zed::OpenKeymap",
+      "escape": "editor::Cancel",
+      "ctrl-h": "pane::ActivatePrevItem",
+      "ctrl-l": "pane::ActivateNextItem",
+      "ctrl-w v": "pane::SplitRight",
+      "ctrl-w s": "pane::SplitDown",
+      "ctrl-w q": "pane::CloseActiveItem",
+      "ctrl-w c": "pane::CloseActiveItem",
+      "ctrl-w h": "workspace::ActivatePaneLeft",
+      "ctrl-w j": "workspace::ActivatePaneDown",
+      "ctrl-w k": "workspace::ActivatePaneUp",
+      "ctrl-w l": "workspace::ActivatePaneRight"
+    }
+  },
+  {
+    "context": "vim_mode == visual",
+    "bindings": {
+      "shift-j": "editor::MoveLineDown",
+      "shift-k": "editor::MoveLineUp",
+      "space y": "editor::Copy",
+      "space shift-y": "editor::Copy",
+      "space p": "editor::Paste",
+      "space shift-p": "editor::Paste"
+    }
+  },
+  {
+    "context": "vim_mode == insert",
+    "bindings": {
+      "ctrl-space": "editor::ShowCompletions"
+    }
+  },
+  {
+    "context": "Picker || menu",
+    "bindings": {
+      "ctrl-k": "menu::SelectPrevious",
+      "ctrl-j": "menu::SelectNext"
+    }
+  },
+  {
+    "context": "ProjectPanel && not_editing",
+    "bindings": {
+      "space p f": "file_finder::Toggle",
+      "space p s": "pane::DeploySearch",
+      "space p v": "project_panel::ToggleFocus",
+      "space l g": "git_panel::ToggleFocus",
+      "space ?": "zed::OpenKeymap",
+      "q": "project_panel::ToggleFocus"
+    }
+  },
+  {
+    "context": "GitPanel && not_editing",
+    "bindings": {
+      "space l g": "git_panel::ToggleFocus",
+      "space ?": "zed::OpenKeymap",
+      "q": "git_panel::ToggleFocus"
+    }
+  },
+  {
+    "context": "EmptyPane",
+    "bindings": {
+      "space p f": "file_finder::Toggle",
+      "space p s": "pane::DeploySearch",
+      "space p v": "project_panel::ToggleFocus",
+      "space l g": "git_panel::ToggleFocus",
+      "space ?": "zed::OpenKeymap"
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-`": null,
+      "ctrl-~": null,
+      "alt-f12": null
+    }
+  }
+]
