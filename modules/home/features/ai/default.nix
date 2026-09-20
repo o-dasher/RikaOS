@@ -36,6 +36,7 @@ in
 
       github-copilot-cli = {
         enable = true;
+        enableMcpIntegration = true;
         lspServers = lspClientServers;
       };
 
