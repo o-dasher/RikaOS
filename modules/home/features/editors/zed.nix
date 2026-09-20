@@ -36,7 +36,6 @@ in
         vim_mode = true;
         which_key.enabled = false;
         wrap_guides = [ 80 ];
-
         centered_layout = {
           left_padding = 0.15;
           right_padding = 0.15;

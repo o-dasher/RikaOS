@@ -139,10 +139,8 @@
             {
               inherit (hyprland.packages.${system}) hyprland;
             }
-            // rec {
+            // {
               master = mkPkgs system nixpkgs-master [ ];
-
-              inherit (master) antigravity-cli;
 
               # Lix
               inherit (lix)
