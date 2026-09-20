@@ -18,6 +18,7 @@ in
     programs.zed-editor = {
       enable = true;
       userSettings = {
+        agent.auto_compact.threshold = "75%";
         base_keymap = "VSCode";
         collaboration_panel.dock = "right";
         format_on_save = "on";
@@ -26,7 +27,7 @@ in
         hard_tabs = false;
         outline_panel.dock = "right";
         project_panel.dock = "right";
-        relative_line_numbers = true;
+        relative_line_numbers = "enabled";
         scrollbar.show = "never";
         show_wrap_guides = true;
         tab_bar.show = false;

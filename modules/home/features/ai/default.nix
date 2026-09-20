@@ -21,18 +21,19 @@ let
     "--server-path"
     srv
   ];
+
+  lspClientServers = lib.mapAttrs (srv: exts: {
+    command = lspmuxBin;
+    args = lspmuxClient srv;
+    fileExtensions = lib.genAttrs exts (_: srv);
+  }) lsp.servers;
+
 in
 {
   options.features.ai.enable = lib.mkEnableOption "Personal AI agents, ACP, and MCP integration.";
 
   config = lib.mkIf cfg.enable {
-    home.packages =
-      with pkgs;
-      [
-        lspmux
-        mcp-language-server
-      ]
-      ++ lsp.packages;
+    home.packages = with pkgs; [ lspmux ] ++ lsp.packages;
 
     systemd.user.services.lspmux = {
       Install.WantedBy = [ "default.target" ];
@@ -57,11 +58,7 @@ in
       github-copilot-cli = {
         enable = true;
         enableMcpIntegration = true;
-        lspServers = lib.mapAttrs (srv: exts: {
-          command = lspmuxBin;
-          args = lspmuxClient srv;
-          fileExtensions = lib.genAttrs exts (_: srv);
-        }) lsp.servers;
+        lspServers = lspClientServers;
       };
 
       mcp = {
@@ -74,21 +71,7 @@ in
               "http://127.0.0.1:9222"
             ];
           };
-        }
-        // lib.mapAttrs' (
-          srv: _:
-          lib.nameValuePair "lsp_${srv}" {
-            command = lib.getExe pkgs.mcp-language-server;
-            args = [
-              "-workspace"
-              "."
-              "-lsp"
-              lspmuxBin
-              "--"
-            ]
-            ++ (lspmuxClient srv);
-          }
-        ) lsp.servers;
+        };
       };
 
       # ACP (Agent Client Protocol) agent servers & MCP context servers for Zed
