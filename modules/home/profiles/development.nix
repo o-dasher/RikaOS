@@ -28,7 +28,6 @@ in
       jq.enable = true;
       grep.enable = true;
       ripgrep.enable = true;
-      zed-editor.enable = cfg.zed.enable;
     };
 
     features = {
@@ -36,6 +35,7 @@ in
       ai.enable = true;
 
       editors = {
+        zed.enable = cfg.zed.enable;
         neovim = {
           enable = true;
           neovide.enable = true;
