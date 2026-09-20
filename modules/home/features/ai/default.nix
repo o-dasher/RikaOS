@@ -56,6 +56,7 @@ in
         enable = true;
         enableMcpIntegration = true;
       };
+
       antigravity-cli = {
         enable = true;
         enableMcpIntegration = true;

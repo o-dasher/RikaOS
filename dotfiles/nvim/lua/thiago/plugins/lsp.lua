@@ -39,7 +39,7 @@ return {
 
 		vim.lsp.config("efm", {
 			cmd = { "efm-langserver" },
-			filetypes = { "sh", "bash", "c", "cpp", "rs", "python", "php", "yaml", "nix" },
+			filetypes = { "sh", "bash", "c", "cpp", "cmake", "markdown", "json", "rs", "python", "php", "yaml", "nix" },
 			root_markers = { ".git" },
 		})
 
@@ -52,6 +52,7 @@ return {
 			"phpactor",
 
 			"clangd", -- C and cpp
+			"cmake", -- CMake
 
 			-- python
 			"pyright",
@@ -76,6 +77,7 @@ return {
 			"tinymist", -- typst
 
 			"lua_ls", -- lua
+			"marksman", -- markdown
 			"omnisharp", -- dotnet
 			"bashls", -- bash
 		})

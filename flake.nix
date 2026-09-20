@@ -218,11 +218,20 @@
           formatter = pkgs.nixfmt-tree;
           devShells.default = pkgs.mkShell {
             packages = with pkgs; [
-              stylua
-              lua-language-server
+              # lsps
+              marksman
               nixd
               nil
+              lua-language-server
+              biome
+
+              # formatters
+              nixfmt
+              stylua
+
+              # linters
               statix
+              deadnix
             ];
           };
         };

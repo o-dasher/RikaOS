@@ -6,12 +6,20 @@
       {
         "lint-command": "shellcheck -f gcc -x ${INPUT}",
         "lint-formats": ["%f:%l:%c: %t: %m"]
+      },
+      {
+        "format-command": "shfmt -filename ${INPUT}",
+        "format-stdin": true
       }
     ],
     "bash": [
       {
         "lint-command": "shellcheck -f gcc -x ${INPUT}",
         "lint-formats": ["%f:%l:%c: %t: %m"]
+      },
+      {
+        "format-command": "shfmt -filename ${INPUT}",
+        "format-stdin": true
       }
     ],
     "c": [
@@ -24,6 +32,10 @@
         "lint-formats": ["%f:%l:%c: %t: %m"],
         "require-marker": true,
         "root-markers": ["compile_commands.json", "compile_flags.txt"]
+      },
+      {
+        "format-command": "clang-format --assume-filename=${INPUT}",
+        "format-stdin": true
       }
     ],
     "cpp": [
@@ -36,6 +48,32 @@
         "lint-formats": ["%f:%l:%c: %t: %m"],
         "require-marker": true,
         "root-markers": ["compile_commands.json", "compile_flags.txt"]
+      },
+      {
+        "format-command": "clang-format --assume-filename=${INPUT}",
+        "format-stdin": true
+      }
+    ],
+    "cmake": [
+      {
+        "lint-command": "cmakelint ${INPUT}",
+        "lint-formats": ["%f:%l: %m"]
+      },
+      {
+        "format-command": "cmake-format -",
+        "format-stdin": true
+      }
+    ],
+    "markdown": [
+      {
+        "lint-command": "markdownlint ${INPUT}",
+        "lint-formats": ["%f:%l %m"]
+      }
+    ],
+    "json": [
+      {
+        "format-command": "biome format --stdin-file-path ${INPUT}",
+        "format-stdin": true
       }
     ],
     "rust": [
@@ -67,6 +105,14 @@
       {
         "lint-command": "statix check ${INPUT}",
         "lint-formats": ["%f:%l:%c: %m"]
+      },
+      {
+        "lint-command": "deadnix ${INPUT}",
+        "lint-formats": ["%f:%l:%c: %m"]
+      },
+      {
+        "format-command": "nixfmt",
+        "format-stdin": true
       }
     ]
   }

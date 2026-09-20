@@ -20,6 +20,7 @@ return {
 				nix = { "nixfmt" },
 				c = { "clang_format" },
 				cpp = { "clang_format" },
+				cmake = { "cmake_format" },
 				javascript = { "biome", "biome-organize-imports" },
 				javascriptreact = { "biome", "biome-organize-imports" },
 				typescript = { "biome", "biome-organize-imports" },
