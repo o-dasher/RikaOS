@@ -33,69 +33,11 @@ mnw.lib.wrap pkgs {
     dev.config.pure = ../../dotfiles/nvim;
   };
 
-  extraBinPath =
-    with pkgs;
-    [
-      lspmux
-
-      # Bash
-      shfmt
-      shellcheck
-
-      # Lua
-      stylua
-
-      # Yaml
-      yamllint
-
-      # C-sharp
-      csharpier
-
-      # Rust
-      clippy
-      rustfmt
-
-      # C and CPP
-      cppcheck
-
-      # Nix
-      statix
-      nixfmt
-
-      # Python
-      ruff
-
-      # PHP
-      intelephense
-      phpstan
-      phpPackages.php-cs-fixer
-
-      # Typescript
-      typescript
-      biome
-
-      # latex
-      texliveFull
-
-      # Typst
-      typst
-      typstyle
-
-      # Dependencies
-      nodejs
-
-      # Some tools
-      tree-sitter # Tree-sitting
-      ripgrep # Telescope fzf
-
-      # pdf viewer
-      zathura
-
-      # Integrated cli tools
-      lazygit
-    ]
-    ++ (import ./lsp.nix {
-      inherit pkgs;
-      inherit (pkgs) lib;
-    }).packages;
+  extraBinPath = with pkgs; [
+    lspmux
+    ripgrep
+    tree-sitter
+    lazygit
+    zathura
+  ];
 }

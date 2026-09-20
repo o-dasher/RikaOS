@@ -7,15 +7,10 @@
 let
   cfg = config.features.ai;
 
-  chromeDevToolsMcp = pkgs.writeShellScript "chrome-devtools-mcp" ''
-    export PATH="${lib.makeBinPath [ pkgs.nodejs ]}:$PATH"
-    exec ${lib.getExe' pkgs.nodejs "npx"} --yes chrome-devtools-mcp@latest "$@"
-  '';
-
   # Multiplexed LSP servers from flakes/neovim/lsp.nix
-  lsp = import ../../../../flakes/neovim/lsp.nix { inherit pkgs lib; };
-
+  lsp = import ../../../../flakes/neovim/lsp.nix;
   lspmuxBin = lib.getExe pkgs.lspmux;
+
   lspmuxClient = srv: [
     "client"
     "--server-path"
@@ -33,7 +28,12 @@ in
   options.features.ai.enable = lib.mkEnableOption "Personal AI agents, ACP, and MCP integration.";
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [ lspmux ] ++ lsp.packages;
+    xdg.configFile = {
+      "efm-langserver/config.yaml".source = ../../../../dotfiles/nvim/efm-config.json;
+      "lspmux/config.toml".text = ''
+        pass_environment = ["PATH"]
+      '';
+    };
 
     systemd.user.services.lspmux = {
       Install.WantedBy = [ "default.target" ];
@@ -42,10 +42,9 @@ in
         After = [ "network.target" ];
       };
       Service = {
+        ExecStart = "${lspmuxBin} server";
         Restart = "on-failure";
         RestartSec = 3;
-        ExecStart = "${lspmuxBin} server";
-        Environment = [ "PATH=${lib.makeBinPath lsp.packages}:/run/current-system/sw/bin" ];
       };
     };
 
@@ -59,19 +58,6 @@ in
         enable = true;
         enableMcpIntegration = true;
         lspServers = lspClientServers;
-      };
-
-      mcp = {
-        enable = true;
-        servers = {
-          chrome_devtools = {
-            command = "${chromeDevToolsMcp}";
-            args = [
-              "--browserUrl"
-              "http://127.0.0.1:9222"
-            ];
-          };
-        };
       };
 
       # ACP (Agent Client Protocol) agent servers & MCP context servers for Zed

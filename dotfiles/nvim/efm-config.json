@@ -1,0 +1,73 @@
+{
+  "version": 2,
+  "root-markers": [".git/"],
+  "languages": {
+    "sh": [
+      {
+        "lint-command": "shellcheck -f gcc -x ${INPUT}",
+        "lint-formats": ["%f:%l:%c: %t: %m"]
+      }
+    ],
+    "bash": [
+      {
+        "lint-command": "shellcheck -f gcc -x ${INPUT}",
+        "lint-formats": ["%f:%l:%c: %t: %m"]
+      }
+    ],
+    "c": [
+      {
+        "lint-command": "cppcheck --enable=warning,style,performance,portability --template=gcc ${INPUT}",
+        "lint-formats": ["%f:%l:%c: (%t) %m"]
+      },
+      {
+        "lint-command": "clang-tidy ${INPUT}",
+        "lint-formats": ["%f:%l:%c: %t: %m"],
+        "require-marker": true,
+        "root-markers": ["compile_commands.json", "compile_flags.txt"]
+      }
+    ],
+    "cpp": [
+      {
+        "lint-command": "cppcheck --enable=warning,style,performance,portability --template=gcc ${INPUT}",
+        "lint-formats": ["%f:%l:%c: (%t) %m"]
+      },
+      {
+        "lint-command": "clang-tidy ${INPUT}",
+        "lint-formats": ["%f:%l:%c: %t: %m"],
+        "require-marker": true,
+        "root-markers": ["compile_commands.json", "compile_flags.txt"]
+      }
+    ],
+    "rust": [
+      {
+        "lint-command": "cargo clippy --message-format=short",
+        "lint-formats": ["%f:%l:%c: %m"],
+        "lint-workspace": true
+      }
+    ],
+    "python": [
+      {
+        "lint-command": "ruff check --output-format=concise ${INPUT}",
+        "lint-formats": ["%f:%l:%c: %m"]
+      }
+    ],
+    "php": [
+      {
+        "lint-command": "phpstan analyze --error-format=raw ${INPUT}",
+        "lint-formats": ["%f:%l: %m"]
+      }
+    ],
+    "yaml": [
+      {
+        "lint-command": "yamllint -f parsable ${INPUT}",
+        "lint-formats": ["%f:%l:%c: [%t] %m"]
+      }
+    ],
+    "nix": [
+      {
+        "lint-command": "statix check ${INPUT}",
+        "lint-formats": ["%f:%l:%c: %m"]
+      }
+    ]
+  }
+}

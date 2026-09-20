@@ -1,7 +1,22 @@
-{ pkgs, ... }:
 {
   # Server executable name -> list of supported file extensions
   servers = {
+    # EFM diagnostics and formatting bridge
+    efm-langserver = [
+      ".sh"
+      ".bash"
+      ".c"
+      ".cpp"
+      ".h"
+      ".hpp"
+      ".rs"
+      ".py"
+      ".php"
+      ".yaml"
+      ".yml"
+      ".nix"
+    ];
+
     # Bash
     bash-language-server = [
       ".sh"
@@ -49,60 +64,16 @@
     vscode-html-language-server = [ ".html" ];
     vscode-json-language-server = [ ".json" ];
 
-    # latex
+    # LaTeX
     texlab = [ ".tex" ];
 
     # Typst
     tinymist = [ ".typ" ];
 
-    # Yaml
+    # YAML
     yaml-language-server = [
       ".yaml"
       ".yml"
     ];
   };
-
-  # The nixpkgs packages providing all of the above language servers
-  packages = with pkgs; [
-    # Bash
-    bash-language-server
-
-    # Lua
-    lua-language-server
-
-    # Yaml
-    yaml-language-server
-
-    # C-sharp
-    omnisharp-roslyn
-
-    # Rust
-    rust-analyzer
-
-    # C and CPP
-    llvmPackages.clang-tools
-
-    # Nix
-    nixd
-
-    # Python
-    pyright
-
-    # PHP
-    phpactor
-
-    # Web development
-    tailwindcss-language-server
-    vscode-langservers-extracted
-
-    # Typescript
-    svelte-language-server
-    typescript-language-server
-
-    # latex
-    texlab
-
-    # Typst
-    tinymist
-  ];
 }

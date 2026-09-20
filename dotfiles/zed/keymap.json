@@ -89,14 +89,30 @@
   },
 
   {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-n": "search::SelectNextMatch",
+      "ctrl-p": "search::SelectPreviousMatch"
+    }
+  },
+  {
     "context": "BufferSearchBar",
     "bindings": {
-      "ctrl-k": "search::SelectPreviousMatch",
-      "ctrl-j": "search::SelectNextMatch",
+      "ctrl-n": "search::SelectNextMatch",
+      "ctrl-p": "search::SelectPreviousMatch",
       "f2": null,
       "f3": null
     }
   },
+  {
+    "context": "Pane",
+    "use_key_equivalents": true,
+    "bindings": {
+      "ctrl-n": "search::SelectNextMatch",
+      "ctrl-p": "search::SelectPreviousMatch"
+    }
+  },
+
   {
     "context": "Picker || menu",
     "bindings": {
