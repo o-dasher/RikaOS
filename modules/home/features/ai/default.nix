@@ -10,21 +10,13 @@ let
 
   lsp = import ../../../../flakes/neovim/lsp.nix;
 
-  availableLspServers = lib.filterAttrs (
-    _: server: builtins.hasAttr server.package pkgs
-  ) lsp.servers;
-
-  lspPackages = lib.mapAttrsToList (
-    _: server: builtins.getAttr server.package pkgs
-  ) availableLspServers;
-
   lspClientServers = lib.mapAttrs (
     _: server: {
-      command = lib.getExe' (builtins.getAttr server.package pkgs) server.executable;
+      command = server.executable;
       args = server.args or [ ];
       fileExtensions = server.fileExtensions;
     }
-  ) availableLspServers;
+  ) lsp.servers;
 
 in
 {
@@ -32,7 +24,7 @@ in
 
   config = lib.mkIf cfg.enable {
     xdg.configFile."efm-langserver/config.yaml".source = ../../../../dotfiles/nvim/efm-config.json;
-    home.packages = lspPackages;
+    home.packages = [ pkgs.efm-langserver ];
 
     programs = {
       codex = {
