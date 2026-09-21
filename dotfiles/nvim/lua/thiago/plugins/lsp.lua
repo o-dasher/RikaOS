@@ -26,14 +26,7 @@ return {
 			end,
 		})
 
-		vim.lsp.config("efm", {
-			cmd = { "efm-langserver" },
-			filetypes = { "sh", "bash", "c", "cpp", "cmake", "markdown", "json", "rs", "python", "php", "yaml", "nix" },
-			root_markers = { ".git" },
-		})
-
 		local servers = {
-			"efm",
 			"yamlls", -- yaml
 
 			-- php

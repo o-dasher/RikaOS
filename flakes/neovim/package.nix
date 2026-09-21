@@ -22,6 +22,7 @@ mnw.lib.wrap pkgs {
       mini-icons
       mini-visits
       rose-pine
+      nvim-lint
       render-markdown-nvim
       snacks-nvim
       cord-nvim

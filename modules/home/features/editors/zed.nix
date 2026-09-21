@@ -6,7 +6,6 @@
 let
   modCfg = config.features.editors;
   cfg = modCfg.zed;
-  lsp = import ../../../../flakes/neovim/lsp.nix;
 in
 {
   options.features.editors.zed.enable = lib.mkEnableOption "Zed editor.";
@@ -26,15 +25,6 @@ in
         format_on_save = "on";
         git_panel.button = false;
         theme = lib.mkForce "Catppuccin Mocha (Blur) [Heavy]";
-        lsp = lib.mapAttrs (
-          _: server: {
-            binary = {
-              path = server.executable;
-              arguments = server.args or [ ];
-            };
-          }
-        ) lsp.servers;
-
         gutter.folds = false;
         hard_tabs = false;
         outline_panel.dock = "right";

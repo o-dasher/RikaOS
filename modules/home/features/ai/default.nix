@@ -23,9 +23,6 @@ in
   options.features.ai.enable = lib.mkEnableOption "Personal AI agents, ACP, and MCP integration.";
 
   config = lib.mkIf cfg.enable {
-    xdg.configFile."efm-langserver/config.yaml".source = ../../../../dotfiles/nvim/efm-config.json;
-    home.packages = [ pkgs.efm-langserver ];
-
     programs = {
       codex = {
         enable = true;

@@ -1,23 +1,6 @@
 {
   # Shared metadata for direct LSP clients.
   servers = {
-    efm-langserver = {
-      executable = "efm-langserver";
-      fileExtensions = {
-        ".sh" = "shellscript";
-        ".bash" = "shellscript";
-        ".c" = "c";
-        ".cpp" = "cpp";
-        ".h" = "c";
-        ".hpp" = "cpp";
-        ".rs" = "rust";
-        ".py" = "python";
-        ".php" = "php";
-        ".yaml" = "yaml";
-        ".yml" = "yaml";
-        ".nix" = "nix";
-      };
-    };
     bash-language-server = {
       executable = "bash-language-server";
       args = [ "start" ];
