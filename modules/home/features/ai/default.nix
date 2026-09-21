@@ -53,29 +53,9 @@ in
 
       mcp = {
         enable = true;
-        servers.browser = {
+        servers.cdp = {
           command = browserMcp;
           args = [ "--cdp-endpoint=http://127.0.0.1:9222" ];
-          tools = [
-            "browser_console_messages"
-            "browser_evaluate"
-            "browser_file_upload"
-            "browser_fill_form"
-            "browser_find"
-            "browser_handle_dialog"
-            "browser_navigate"
-            "browser_navigate_back"
-            "browser_network_request"
-            "browser_network_requests"
-            "browser_press_key"
-            "browser_resize"
-            "browser_select_option"
-            "browser_snapshot"
-            "browser_take_screenshot"
-            "browser_type"
-            "browser_wait_for"
-            "browser_tabs"
-          ];
         };
       };
 
