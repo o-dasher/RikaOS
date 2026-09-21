@@ -10,10 +10,21 @@ let
 
   lsp = import ../../../../flakes/neovim/lsp.nix;
 
-  lspClientServers = lib.mapAttrs (srv: exts: {
-    command = srv;
-    fileExtensions = lib.genAttrs exts (_: srv);
-  }) lsp.servers;
+  availableLspServers = lib.filterAttrs (
+    _: server: builtins.hasAttr server.package pkgs
+  ) lsp.servers;
+
+  lspPackages = lib.mapAttrsToList (
+    _: server: builtins.getAttr server.package pkgs
+  ) availableLspServers;
+
+  lspClientServers = lib.mapAttrs (
+    _: server: {
+      command = lib.getExe' (builtins.getAttr server.package pkgs) server.executable;
+      args = server.args or [ ];
+      fileExtensions = server.fileExtensions;
+    }
+  ) availableLspServers;
 
 in
 {
@@ -21,7 +32,7 @@ in
 
   config = lib.mkIf cfg.enable {
     xdg.configFile."efm-langserver/config.yaml".source = ../../../../dotfiles/nvim/efm-config.json;
-    home.packages = with pkgs; [ efm-langserver ];
+    home.packages = lspPackages;
 
     programs = {
       codex = {
@@ -77,11 +88,6 @@ in
             command = lib.getExe pkgs.github-copilot-cli;
             type = "custom";
           };
-          lsp = lib.mapAttrs (srv: _: {
-            binary = {
-              path = srv;
-            };
-          }) lsp.servers;
         };
       };
     };
