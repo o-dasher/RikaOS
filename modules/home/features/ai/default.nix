@@ -10,13 +10,11 @@ let
 
   lsp = import ../../../../flakes/neovim/lsp.nix;
 
-  lspClientServers = lib.mapAttrs (
-    _: server: {
-      command = server.executable;
-      args = server.args or [ ];
-      fileExtensions = server.fileExtensions;
-    }
-  ) lsp.servers;
+  lspClientServers = lib.mapAttrs (_: server: {
+    command = server.executable;
+    args = server.args or [ ];
+    fileExtensions = server.fileExtensions;
+  }) lsp.servers;
 
 in
 {
@@ -51,12 +49,10 @@ in
       # ACP (Agent Client Protocol) agent servers & MCP context servers for Zed
       zed-editor = {
         enableMcpIntegration = true;
-        userSettings = {
-          agent_servers.copilot = {
-            args = [ "--acp" ];
-            command = lib.getExe pkgs.github-copilot-cli;
-            type = "custom";
-          };
+        userSettings.agent_servers.copilot = {
+          args = [ "--acp" ];
+          command = lib.getExe pkgs.github-copilot-cli;
+          type = "custom";
         };
       };
     };

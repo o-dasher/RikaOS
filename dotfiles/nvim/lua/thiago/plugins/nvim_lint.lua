@@ -5,16 +5,25 @@ return {
 		local lint = require("lint")
 
 		lint.linters.cppcheck.args = vim.list_extend({ "--check-level=exhaustive" }, lint.linters.cppcheck.args)
+		lint.linters.clangtidy.args = {
+			"--quiet",
+			"-p",
+			function()
+				return vim.fs.root(0, { ".clang-tidy" }) .. "/build"
+			end,
+		}
 		lint.linters_by_ft = {
 			rust = { "clippy" },
 			c = { "clangtidy", "cppcheck" },
 			cpp = { "clangtidy", "cppcheck" },
+			cmake = { "cmake_lint" },
+			markdown = { "markdownlint" },
 			python = { "ruff" },
 			php = { "phpstan" },
 			yaml = { "yamllint" },
 			sh = { "shellcheck" },
 			bash = { "shellcheck" },
-			nix = { "statix" },
+			nix = { "statix", "deadnix" },
 		}
 
 		local function linter_is_available(linter)
@@ -25,7 +34,7 @@ return {
 			return type(command) == "string" and vim.fn.executable(command) == 1
 		end
 
-		vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+		vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost" }, {
 			callback = function()
 				-- Skip linters supplied by a dev shell that is not currently active.
 				require("lint").try_lint(nil, {
