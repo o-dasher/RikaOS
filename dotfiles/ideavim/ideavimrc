@@ -6,7 +6,11 @@ set multiple-cursors
 set highlightedyank
 set quickscope
 set ideavim
+set ideajoin
+set ideamarks
+set ideastatusicon=gray
 set idearefactormode=keep
+set VimEverywhere
 
 " -------- Splits (vim-like) --------
 nmap <C-w>v <Action>(SplitVertically)
@@ -73,6 +77,10 @@ imap <C-Space> <Action>(CodeCompletion)
 " Comment (like vim-commentary)
 nmap gcc <Action>(CommentByLineComment)
 vmap gcc <Action>(CommentByLineComment)
+
+" Zen layout
+nmap <leader>z <Action>(ToggleDistractionFreeMode)
+nmap <leader><S-z> <Action>(TogglePresentationMode)
 
 " Close editor
 nmap <C-w>c <Action>(CloseEditor)
