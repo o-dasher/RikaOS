@@ -47,8 +47,8 @@ return {
 			"jsonls",
 
 			-- nix
-			"statix",
 			"nixd",
+			"nil",
 
 			-- typescript
 			"ts_ls",

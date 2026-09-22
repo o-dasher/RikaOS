@@ -4,14 +4,25 @@ return {
 	after = function()
 		local lint = require("lint")
 
-		lint.linters.cppcheck.args = vim.list_extend({ "--check-level=exhaustive" }, lint.linters.cppcheck.args)
+		lint.linters.cppcheck.args = vim.list_extend({
+			"--enable=all",
+			"--inconclusive",
+			"--check-level=exhaustive",
+			"--force",
+			"--suppress=missingIncludeSystem",
+			"--suppress=unusedFunction",
+		}, lint.linters.cppcheck.args or {})
+
 		lint.linters.clangtidy.args = {
 			"--quiet",
 			"-p",
 			function()
-				return vim.fs.root(0, { ".clang-tidy" }) .. "/build"
+				local root = vim.fs.root(0, { "CMakeLists.txt", ".clang-tidy", ".git" })
+				local build = (root or ".") .. "/build"
+				return vim.uv.fs_stat(build .. "/compile_commands.json") and build or (root or ".")
 			end,
 		}
+
 		lint.linters_by_ft = {
 			rust = { "clippy" },
 			c = { "clangtidy", "cppcheck" },

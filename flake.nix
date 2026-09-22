@@ -221,7 +221,6 @@
               # lsps
               marksman
               nixd
-              nil
               lua-language-server
               vscode-json-languageserver
               biome
