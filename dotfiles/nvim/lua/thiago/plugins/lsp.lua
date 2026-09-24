@@ -34,7 +34,10 @@ return {
 			"phpactor",
 
 			"clangd", -- C and cpp
-			"cmake", -- CMake
+
+			-- cmake
+			"cmake",
+			"neocmake",
 
 			-- python
 			"pyright",
