@@ -132,7 +132,7 @@
         system:
         mkPkgs system nixpkgs [
           (
-            final: prev:
+            _final: prev:
             let
               lix = lixSet prev;
             in

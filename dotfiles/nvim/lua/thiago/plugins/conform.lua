@@ -6,16 +6,24 @@ return {
 		{
 			"<leader>f",
 			function()
-				require("conform").format({ async = true, lsp_fallback = true })
+				require("conform").format({ async = true, lsp_format = "fallback" })
 			end,
 		},
 	},
 	after = function()
 		require("conform").setup({
+			notify_on_error = false,
+			notify_no_formatters = false,
+
 			format_on_save = {
 				timeout_ms = 1000,
-				lsp_fallback = true,
+				lsp_format = "fallback",
 			},
+
+			default_format_opts = {
+				lsp_format = "fallback",
+			},
+
 			formatters_by_ft = {
 				nix = { "nixfmt" },
 				c = { "clang_format" },
