@@ -6,28 +6,20 @@ local rounding = 4
 hl.env("AQ_TRACE", "0")
 hl.env("HYPRLAND_TRACE", "0")
 
--- Primary GPU: dynamically detect and prioritize dedicated GPU over integrated GPU.
--- Note: AQ_DRM_DEVICES uses ':' as a delimiter, so paths containing ':' (like /dev/dri/by-path/)
--- cannot be passed directly. We resolve the PCI device to its /dev/dri/cardN node via sysfs.
-local function get_pci_drm_card(pci_id)
-	for i = 0, 7 do
-		local path = "/sys/bus/pci/devices/" .. pci_id .. "/drm/card" .. i
-		local f = io.open(path, "r")
-		if f then
-			f:close()
-			return "/dev/dri/card" .. i
+local cards = {}
+for _, id in ipairs({ "03:00.0", "11:00.0" }) do
+	local p = io.popen("readlink -e /dev/dri/by-path/pci-0000:" .. id .. "-card 2>/dev/null")
+	if p then
+		local card = p:read("*l")
+		p:close()
+		if card and card ~= "" then
+			cards[#cards + 1] = card
 		end
 	end
-	return nil
 end
 
-local dgpu_card = get_pci_drm_card("0000:03:00.0")
-local igpu_card = get_pci_drm_card("0000:11:00.0")
-
-if dgpu_card and igpu_card then
-	hl.env("AQ_DRM_DEVICES", dgpu_card .. ":" .. igpu_card)
-elseif dgpu_card then
-	hl.env("AQ_DRM_DEVICES", dgpu_card)
+if #cards > 0 then
+	hl.env("AQ_DRM_DEVICES", table.concat(cards, ":"))
 end
 
 hl.config({
