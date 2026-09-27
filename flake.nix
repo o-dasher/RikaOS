@@ -8,7 +8,7 @@
     systems.url = "github:nix-systems/default";
     mnw.url = "github:Gerg-L/mnw";
     hyprland = {
-      url = "github:hyprwm/hyprland/v0.56.0";
+      url = "github:hyprwm/hyprland";
       inputs = {
         systems.follows = "systems";
         pre-commit-hooks.inputs.flake-compat.follows = "flake-compat";
@@ -137,9 +137,6 @@
               lix = lixSet prev;
             in
             {
-              inherit (hyprland.packages.${system}) hyprland;
-            }
-            // {
               master = mkPkgs system nixpkgs-master [ ];
 
               # Lix
@@ -148,6 +145,12 @@
                 nix-eval-jobs
                 nix-fast-build
                 colmena
+                ;
+
+              # Hyprland & dependencies
+              inherit (hyprland.packages.${system})
+                hyprland
+                xdg-desktop-portal-hyprland
                 ;
             }
           )

@@ -12,7 +12,7 @@ hl.layer_rule({
 
 -- !GAMES!
 -- Game content detection
-hl.window_rule({ match = { class = "^(steam_app_.*|gamescope|Minecraft.*|cs2)$" }, content = "game" })
+hl.window_rule({ match = { class = "^(steam_app_.*|gamescope|Minecraft.*|cs2|osu!)$" }, content = "game" })
 hl.window_rule({ match = { xdg_tag = "^(proton-game)$" }, content = "game" })
 
 -- Game modifiers
