@@ -24,5 +24,30 @@ in
       "L+ /var/lib/OpenRGB/Configuration.json - - - - ${../../../../assets/OpenRGB/Configuration.json}"
       "L+ /var/lib/OpenRGB/profiles/${profileName}.json - - - - ${../../../../assets/OpenRGB/black.json}"
     ];
+
+    systemd.services = {
+      openrgb = {
+        after = [
+          "systemd-modules-load.service"
+          "systemd-udevd.service"
+        ];
+        wants = [
+          "systemd-modules-load.service"
+          "systemd-udevd.service"
+        ];
+      };
+
+      openrgb-resume = {
+        description = "Restart OpenRGB to restore ${profileName} profile after sleep";
+        wantedBy = [ "sleep.target" ];
+        before = [ "sleep.target" ];
+        unitConfig.StopWhenUnneeded = true;
+        serviceConfig = {
+          Type = "oneshot";
+          RemainAfterExit = true;
+          ExecStop = "${pkgs.systemd}/bin/systemctl try-restart openrgb.service";
+        };
+      };
+    };
   };
 }
