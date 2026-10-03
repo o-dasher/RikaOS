@@ -1,3 +1,4 @@
 .direnv/
 result
 .codex
+/.pre-commit-config.yaml

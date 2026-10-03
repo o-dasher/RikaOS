@@ -2,11 +2,23 @@
   description = "RikaOS";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-master.url = "github:NixOS/nixpkgs";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-compat.url = "github:edolstra/flake-compat";
     systems.url = "github:nix-systems/default";
     mnw.url = "github:Gerg-L/mnw";
+    home-manager = {
+      url = "github:nix-community/home-manager/release-26.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    stylix = {
+      url = "github:nix-community/stylix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+        flake-parts.follows = "flake-parts";
+      };
+    };
     hyprland = {
       url = "github:hyprwm/hyprland";
       inputs = {
@@ -26,10 +38,6 @@
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nixcord = {
       url = "github:FlameFlag/nixcord";
       inputs = {
@@ -37,45 +45,40 @@
         home-manager.follows = "home-manager";
       };
     };
-    stylix = {
-      url = "github:nix-community/stylix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-        flake-parts.follows = "flake-parts";
-      };
-    };
     agenix = {
       url = "github:ryantm/agenix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home-manager";
-        systems.follows = "systems";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     sidra = {
       url = "github:wimpysworld/sidra";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    git-hooks = {
+      url = "github:cachix/git-hooks.nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat";
+      };
     };
   };
 
   outputs =
     inputs@{
       nixpkgs,
-      hyprland,
+      nixpkgs-unstable,
       home-manager,
       agenix,
       flake-parts,
       nixcord,
+      hyprland,
       stylix,
-      nixpkgs-master,
       ...
     }:
     let
       inherit (nixpkgs) lib;
 
       # Single source of truth for the Lix revision package set used across the flake
-      lixSet = pkgs: pkgs.lixPackageSets.git;
+      lixSet = pkgs: pkgs.lixPackageSets.stable;
 
       # Helper to import a nixpkgs revision with standard config
       mkPkgs =
@@ -133,20 +136,29 @@
         mkPkgs system nixpkgs [
           (
             _final: prev:
-            let
-              lix = lixSet prev;
-            in
-            {
-              master = mkPkgs system nixpkgs-master [ ];
+            rec {
+              unstable = mkPkgs system nixpkgs-unstable [ ];
+
+              # Packages still not packaged on stable or needing unstable
+              inherit (unstable)
+                antigravity-cli
+                brave-origin
+                gamescope
+                gamescope-wsi
+                openrgb
+                openrgb-plugin-effects
+                wayle
+                ;
 
               # Lix
-              inherit (lix)
+              inherit (lixSet prev)
                 nixpkgs-review
                 nix-eval-jobs
                 nix-fast-build
                 colmena
                 ;
-
+            }
+            // {
               # Hyprland & dependencies
               inherit (hyprland.packages.${system})
                 hyprland
@@ -204,7 +216,7 @@
               users = lib.genAttrs users (
                 username: { ... }: {
                   imports = mkHomeModules hostName {
-                    inherit stateVersion username system;
+                    inherit stateVersion username;
                   };
                 }
               );
@@ -214,28 +226,44 @@
     in
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = import inputs.systems;
+      imports = [ inputs.git-hooks.flakeModule ];
 
       perSystem =
-        { pkgs, ... }:
+        {
+          config,
+          pkgs,
+          ...
+        }:
         {
           formatter = pkgs.nixfmt-tree;
+
+          pre-commit.settings.hooks = {
+            # Formatters
+            nixfmt.enable = true;
+            stylua.enable = true;
+
+            # Linters & Static Analysis
+            biome.enable = true;
+            deadnix.enable = true;
+            statix.enable = true;
+
+            # Hygiene
+            trim-trailing-whitespace.enable = true;
+            end-of-file-fixer.enable = true;
+          };
+
           devShells.default = pkgs.mkShell {
-            packages = with pkgs; [
-              # lsps
-              marksman
-              nixd
-              lua-language-server
-              vscode-json-languageserver
-              biome
-
-              # formatters
-              nixfmt
-              stylua
-
-              # linters
-              statix
-              deadnix
-            ];
+            inherit (config.pre-commit) shellHook;
+            packages =
+              with pkgs;
+              [
+                # lsps
+                marksman
+                nixd
+                lua-language-server
+                vscode-json-languageserver
+              ]
+              ++ config.pre-commit.settings.enabledPackages;
           };
         };
 
