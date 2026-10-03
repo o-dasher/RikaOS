@@ -5,8 +5,8 @@
 }:
 {
   config = lib.mkIf config.programs.hyprland.enable {
-    # Ensure PAM service for hyprlock is configured in NixOS (/etc/pam.d/hyprlock)
-    security.pam.services.hyprlock = { };
+    # Ensure PAM service for swaylock is configured in NixOS (/etc/pam.d/swaylock)
+    security.pam.services.swaylock = { };
 
     # Fix xdg-desktop-portal-hyprland startup crash loop / portal hanging.
     # Reference: https://www.reddit.com/r/linuxquestions/comments/1u6iswb/xdgdesktopportalhyprland_broken/

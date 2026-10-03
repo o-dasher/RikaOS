@@ -24,7 +24,11 @@ in
 
   config = lib.mkIf (config.features.desktop.enable && cfg.enable) {
     features.desktop.wayland.enable = true;
-    programs.hyprlock.enable = true;
+    programs.swaylock = {
+      enable = true;
+      package = pkgs.swaylock-effects;
+    };
+
     home = {
       packages =
         with pkgs;
@@ -38,6 +42,8 @@ in
         ++ lib.optionals cfg.laptop.enable [ brightnessctl ];
 
       file = config.rika.utils.xdgConfigSelectiveSymLink "hypr" [
+        "init.lua"
+        "commons.lua"
         "config.lua"
         "monitors.lua"
         "rules.lua"
@@ -65,7 +71,7 @@ in
           enable = true;
           settings = {
             general = {
-              lock_cmd = exec-sh "${lib.getExe' pkgs.procps "pidof"} hyprlock || ${lib.getExe pkgs.hyprlock}";
+              lock_cmd = exec-sh "${lib.getExe' pkgs.procps "pidof"} swaylock || ${lib.getExe config.programs.swaylock.package}";
               before_sleep_cmd = exec "${lib.getExe' pkgs.systemd "loginctl"} lock-session";
               after_sleep_cmd = exec "${lib.getExe' pkgs.hyprland "hyprctl"} eval \"hl.dispatch(hl.dsp.dpms('on'))\"";
               inhibit_sleep = 3;
@@ -101,7 +107,6 @@ in
     wayland.windowManager.hyprland = {
       enable = true;
       configType = "lua";
-      extraLuaFiles.init = ./../../../../../dotfiles/hypr/init.lua;
       systemd = {
         enable = !hasUWSM;
         enableXdgAutostart = true;
@@ -109,7 +114,11 @@ in
       };
 
       extraConfig = lib.concatStringsSep "\n" (
-        lib.optionals config.features.desktop.wayland.walker.enable [
+        [
+          #lua
+          ''require("init")''
+        ]
+        ++ lib.optionals config.features.desktop.wayland.walker.enable [
           #lua
           ''hl.bind("SUPER + D", hl.dsp.exec_cmd("app2unit walker --nohints"))''
         ]

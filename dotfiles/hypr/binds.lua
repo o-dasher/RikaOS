@@ -39,7 +39,7 @@ hl.bind(mod .. " + SHIFT + P", hl.dsp.exec_cmd("app2unit -s b -- grimblast --fre
 hl.bind(mod .. " + ALT + P", hl.dsp.exec_cmd("app2unit -s b -- grimblast --freeze --notify copy active"))
 
 -- Lock & Shutdown
-hl.bind("CTRL + SHIFT + L", exec("sh -c 'pidof hyprlock || hyprlock'", "s"))
+hl.bind("CTRL + SHIFT + L", exec("sh -c 'pidof swaylock || swaylock'", "s"))
 hl.bind("CTRL + SHIFT + Q", exec("sh -c 'pidof hyprshutdown || hyprshutdown'", "s"))
 
 -- Media keys
