@@ -52,7 +52,7 @@ in
             d = {
               mode = "2775";
               user = "root";
-              group = cfg.group;
+              inherit (cfg) group;
             };
             "a+" = {
               argument = "g:${cfg.group}:rwx,d:g:${cfg.group}:rwx";
