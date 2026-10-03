@@ -145,8 +145,6 @@
               inherit (unstable)
                 antigravity-cli
                 brave-origin
-                gamescope
-                gamescope-wsi
                 openrgb
                 openrgb-plugin-effects
                 wayle

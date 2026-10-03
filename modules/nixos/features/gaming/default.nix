@@ -1,16 +1,11 @@
 {
   config,
-  inputs,
   lib,
   pkgs,
   ...
 }:
 {
-  disabledModules = [ "programs/gamescope.nix" ];
-  imports = [
-    ./opentabletdriver.nix
-    "${inputs.nixpkgs-unstable}/nixos/modules/programs/gamescope.nix"
-  ];
+  imports = [ ./opentabletdriver.nix ];
 
   options.features.gaming = {
     steam.enable = lib.mkEnableOption "Steam." // {
@@ -69,8 +64,8 @@
         };
         gamescope = {
           enable = true;
-          enableWsi = true;
           capSysNice = false;
+          package = pkgs.gamescope.override { enableWsi = true; };
         };
         steam = lib.mkIf modCfg.steam.enable {
           enable = true;
