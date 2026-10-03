@@ -1,11 +1,16 @@
 {
-  pkgs,
-  lib,
   config,
+  inputs,
+  lib,
+  pkgs,
   ...
 }:
 {
-  imports = [ ./opentabletdriver.nix ];
+  disabledModules = [ "programs/gamescope.nix" ];
+  imports = [
+    ./opentabletdriver.nix
+    "${inputs.nixpkgs-unstable}/nixos/modules/programs/gamescope.nix"
+  ];
 
   options.features.gaming = {
     steam.enable = lib.mkEnableOption "Steam." // {
