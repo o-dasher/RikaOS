@@ -85,7 +85,13 @@
       };
 
       hardware = {
-        graphics.extraPackages = [ pkgs.vkbasalt ];
+        graphics = {
+          extraPackages = [
+            pkgs.vkbasalt
+            pkgs.gamescope-wsi
+          ];
+          extraPackages32 = [ pkgs.pkgsi686Linux.gamescope-wsi ];
+        };
       }
       // lib.optionalAttrs modCfg.controllers.enable {
         xpadneo.enable = true;
