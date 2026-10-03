@@ -36,6 +36,9 @@ let
     cfg:
     {
       enable = true;
+      autoEnable = false;
+      # Stylix tracks master while NixOS and Home Manager stay on stable.
+      enableReleaseChecks = false;
       polarity = cfg.polarity or "dark";
     }
     // (lib.filterAttrs (
