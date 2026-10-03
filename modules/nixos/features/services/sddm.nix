@@ -83,7 +83,7 @@ in
           enable = true;
           compositorCommand =
             #bash
-            "start-hyprland -- --config ${sddmHyprlandConfig}";
+            "${lib.getExe' pkgs.hyprland "start-hyprland"} -- --config ${sddmHyprlandConfig}";
         };
       };
     };
