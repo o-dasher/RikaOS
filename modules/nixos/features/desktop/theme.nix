@@ -22,6 +22,7 @@
       font-packages.enable = true;
       fontconfig.enable = true;
       gtk.enable = true;
+      gnome.enable = true;
       limine.enable = true;
       qt.enable = true;
     };
