@@ -32,6 +32,7 @@
         nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "flake-compat";
         flake-parts.follows = "flake-parts";
+        git-hooks.follows = "git-hooks";
       };
     };
     flake-parts = {
@@ -42,6 +43,7 @@
       url = "github:FlameFlag/nixcord";
       inputs = {
         nixpkgs.follows = "nixpkgs";
+        nixpkgs-nixcord.follows = "nixpkgs";
         home-manager.follows = "home-manager";
       };
     };
@@ -51,7 +53,7 @@
     };
     sidra = {
       url = "github:wimpysworld/sidra";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     git-hooks = {
       url = "github:cachix/git-hooks.nix";
