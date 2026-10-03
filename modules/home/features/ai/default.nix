@@ -13,7 +13,7 @@ let
   lspClientServers = lib.mapAttrs (_: server: {
     command = server.executable;
     args = server.args or [ ];
-    fileExtensions = server.fileExtensions;
+    inherit (server) fileExtensions;
   }) lsp.servers;
 
 in

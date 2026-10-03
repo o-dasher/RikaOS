@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   config,
   osConfig ? null,
   nixCaches,

@@ -25,27 +25,29 @@ in
   };
 
   config = lib.mkIf (config.features.core.enable && cfg.enable) {
-    systemd.user.tmpfiles.rules = [
-      # Recursively clean stale files in ~/.cache older than cacheRetentionDays
-      "e %h/.cache - - - ${toString cfg.cacheRetentionDays}d -"
-    ];
+    systemd.user = {
+      tmpfiles.rules = [
+        # Recursively clean stale files in ~/.cache older than cacheRetentionDays
+        "e %h/.cache - - - ${toString cfg.cacheRetentionDays}d -"
+      ];
 
-    # Automatically run user tmpfiles cleanup on a schedule in the background
-    systemd.user.services.tmpfiles-clean = {
-      Unit.Description = "Cleanup stale user cache and temporary files";
-      Service = {
-        Type = "oneshot";
-        ExecStart = "${pkgs.systemd}/bin/systemd-tmpfiles --user --clean";
+      # Automatically run user tmpfiles cleanup on a schedule in the background
+      services.tmpfiles-clean = {
+        Unit.Description = "Cleanup stale user cache and temporary files";
+        Service = {
+          Type = "oneshot";
+          ExecStart = "${pkgs.systemd}/bin/systemd-tmpfiles --user --clean";
+        };
       };
-    };
 
-    systemd.user.timers.tmpfiles-clean = {
-      Unit.Description = "Scheduled cleanup of user cache and temporary files";
-      Timer = {
-        OnCalendar = cfg.schedule;
-        Persistent = true;
+      timers.tmpfiles-clean = {
+        Unit.Description = "Scheduled cleanup of user cache and temporary files";
+        Timer = {
+          OnCalendar = cfg.schedule;
+          Persistent = true;
+        };
+        Install.WantedBy = [ "timers.target" ];
       };
-      Install.WantedBy = [ "timers.target" ];
     };
   };
 }
