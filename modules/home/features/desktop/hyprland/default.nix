@@ -31,6 +31,7 @@ in
         [
           app2unit
           grimblast
+          hyprpaper
           hyprshutdown
           xdg-terminal-exec
         ]
@@ -51,6 +52,7 @@ in
     };
     services = {
       caffeine.enable = true;
+      hyprpaper.enable = true;
       hyprpolkitagent.enable = true;
       playerctld.enable = true;
       hypridle =

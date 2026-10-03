@@ -26,6 +26,7 @@ in
           ghostty.enable = true;
           gtk.enable = true;
           hyprland.enable = true;
+          hyprpaper.enable = true;
           kde.enable = true;
           lazygit.enable = true;
           mangohud.enable = true;
