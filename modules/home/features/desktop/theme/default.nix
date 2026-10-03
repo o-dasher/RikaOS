@@ -12,6 +12,7 @@ in
 {
   config = lib.optionalAttrs hasStylix (
     lib.mkIf (config.features.desktop.enable && modCfg.enable) {
+      gtk.colorScheme = config.stylix.polarity;
       stylix = {
         inherit (themeLib) cursor;
         icons.enable = true;

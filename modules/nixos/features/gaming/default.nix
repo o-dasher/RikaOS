@@ -86,18 +86,16 @@
 
       hardware = {
         graphics = {
-          extraPackages = [
-            pkgs.vkbasalt
-            pkgs.gamescope-wsi
-          ];
           extraPackages32 = [ pkgs.pkgsi686Linux.gamescope-wsi ];
+          extraPackages = with pkgs; [
+            vkbasalt
+            gamescope-wsi
+          ];
         };
       }
       // lib.optionalAttrs modCfg.controllers.enable {
         xpadneo.enable = true;
-        xone.enable = true;
         uinput.enable = true;
-        steam-hardware.enable = lib.mkIf modCfg.steam.enable true;
       };
 
       services.ananicy = {
