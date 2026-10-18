@@ -1,5 +1,4 @@
 -- Layer rules
-hl.layer_rule({ match = { namespace = "^(noctalia-bar-.*)$" }, blur = true, ignore_alpha = 0 })
 hl.layer_rule({
 	match = { namespace = "^(noctalia-panel|noctalia-notification|noctalia-osd)$" },
 	blur = true,

@@ -1,4 +1,5 @@
 {
+  inputs,
   lib,
   pkgs,
   config,
@@ -34,6 +35,10 @@ let
     }";
 in
 {
+  imports = [
+    "${inputs.home-manager-unstable}/modules/programs/noctalia"
+  ];
+
   options.features.desktop.wayland.noctalia = {
     enable = (lib.mkEnableOption "Noctalia shell.") // {
       default = true;
@@ -77,7 +82,7 @@ in
           setup_wizard_enabled = false;
           polkit_agent = true;
           clipboard_enabled = true;
-          disable_mipmaps = false;
+          disable_mipmaps = true;
           animation.enabled = false;
           time_format = "%H:%M:%S";
           date_format = "%A, %d/%m";
