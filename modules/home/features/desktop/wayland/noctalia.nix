@@ -71,7 +71,7 @@ in
           setup_wizard_enabled = false;
           polkit_agent = true;
           clipboard_enabled = true;
-          disable_mipmaps = false;
+          disable_mipmaps = true;
           animation.enabled = false;
           time_format = "%H:%M:%S";
           date_format = "%A, %d/%m";
