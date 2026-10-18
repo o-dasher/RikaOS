@@ -53,6 +53,15 @@ in
         idle.timeout = idleTimers.dpms;
         cursor.size = themeLib.cursor.size;
         output.refresh_rate = 999;
+        user.default =
+          let
+            normalUsers = builtins.filter (
+              name:
+              (config.users.users.${name}.isNormalUser or false)
+              && !(config.users.users.${name}.isSystemUser or false)
+            ) (builtins.attrNames config.users.users);
+          in
+          if normalUsers != [ ] then builtins.head normalUsers else null;
       }
       // lib.optionalAttrs hasStylix {
         appearance = {
