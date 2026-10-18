@@ -27,6 +27,11 @@ let
       padding = 6.0;
     }
     // attrs;
+  mkHyprshutdown =
+    args:
+    "${lib.getExe pkgs.app2unit} -s app.slice -c -- ${lib.getExe pkgs.hyprshutdown}${
+      lib.optionalString (args != "") " ${args}"
+    }";
 in
 {
   options.features.desktop.wayland.noctalia = {
@@ -80,8 +85,8 @@ in
           session = {
             power = {
               suspend = "systemctl suspend-then-hibernate";
-              reboot = "${lib.getExe pkgs.hyprshutdown} -p 'systemctl reboot'";
-              shutdown = "${lib.getExe pkgs.hyprshutdown} -p 'systemctl poweroff'";
+              reboot = mkHyprshutdown "-p 'systemctl reboot'";
+              shutdown = mkHyprshutdown "-p 'systemctl poweroff'";
             };
             actions = [
               {
@@ -89,18 +94,18 @@ in
               }
               {
                 action = "logout";
-                command = "${lib.getExe pkgs.hyprshutdown}";
+                command = mkHyprshutdown "";
               }
               {
                 action = "suspend";
               }
               {
                 action = "reboot";
-                command = "${lib.getExe pkgs.hyprshutdown} -p 'systemctl reboot'";
+                command = mkHyprshutdown "-p 'systemctl reboot'";
               }
               {
                 action = "shutdown";
-                command = "${lib.getExe pkgs.hyprshutdown} -p 'systemctl poweroff'";
+                command = mkHyprshutdown "-p 'systemctl poweroff'";
               }
             ];
           };
