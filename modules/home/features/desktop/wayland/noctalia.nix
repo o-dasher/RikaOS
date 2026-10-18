@@ -46,6 +46,7 @@ in
       brightnessctl
       cliphist
       ddcutil
+      hyprshutdown
       libnotify
       wl-clipboard
       wlsunset
@@ -71,12 +72,38 @@ in
           setup_wizard_enabled = false;
           polkit_agent = true;
           clipboard_enabled = true;
-          disable_mipmaps = true;
+          disable_mipmaps = false;
           animation.enabled = false;
           time_format = "%H:%M:%S";
           date_format = "%A, %d/%m";
           shadow.alpha = 0.0;
-          session.power.suspend = "systemctl suspend-then-hibernate";
+          session = {
+            power = {
+              suspend = "systemctl suspend-then-hibernate";
+              reboot = "${lib.getExe pkgs.hyprshutdown} -p 'systemctl reboot'";
+              shutdown = "${lib.getExe pkgs.hyprshutdown} -p 'systemctl poweroff'";
+            };
+            actions = [
+              {
+                action = "lock";
+              }
+              {
+                action = "logout";
+                command = "${lib.getExe pkgs.hyprshutdown}";
+              }
+              {
+                action = "suspend";
+              }
+              {
+                action = "reboot";
+                command = "${lib.getExe pkgs.hyprshutdown} -p 'systemctl reboot'";
+              }
+              {
+                action = "shutdown";
+                command = "${lib.getExe pkgs.hyprshutdown} -p 'systemctl poweroff'";
+              }
+            ];
+          };
           panel = {
             transparency_mode = "glass";
             borders = true;
