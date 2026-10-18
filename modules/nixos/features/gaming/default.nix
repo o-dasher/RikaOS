@@ -45,20 +45,20 @@
             };
             custom =
               let
-                wayle = lib.getExe pkgs.wayle;
+                noctalia = lib.getExe pkgs.noctalia;
                 lact = lib.getExe (config.services.lact.package or pkgs.lact);
                 mkScript =
-                  name: profile:
+                  name: dndState: profile:
                   lib.getExe (
                     pkgs.writeShellScriptBin "gamemode-${name}" ''
-                      ${lib.optionalString modCfg.suppressNotifications.enable "${wayle} notify dnd || true"}
+                      ${lib.optionalString modCfg.suppressNotifications.enable "${noctalia} msg notification-dnd-set ${dndState} || true"}
                       ${lib.optionalString config.services.lact.enable "${lact} cli profile set \"${profile}\" || true"}
                     ''
                   );
               in
               {
-                start = mkScript "start" "Gaming";
-                end = mkScript "end" "Default";
+                start = mkScript "start" "on" "Gaming";
+                end = mkScript "end" "off" "Default";
               };
           };
         };

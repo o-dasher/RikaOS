@@ -24,22 +24,12 @@ in
 
   config = lib.mkIf (config.features.desktop.enable && cfg.enable) {
     features.desktop.wayland.enable = true;
-    programs.swaylock = {
-      enable = true;
-      package = pkgs.swaylock-effects;
-    };
 
     home = {
-      packages =
-        with pkgs;
-        [
-          app2unit
-          grimblast
-          hyprpaper
-          hyprshutdown
-          xdg-terminal-exec
-        ]
-        ++ lib.optionals cfg.laptop.enable [ brightnessctl ];
+      packages = with pkgs; [
+        app2unit
+        xdg-terminal-exec
+      ];
 
       file = config.rika.utils.xdgConfigSelectiveSymLink "hypr" [
         "init.lua"
@@ -55,44 +45,6 @@ in
         enable = true;
         hyprcursor.enable = lib.mkIf (hasStylix && config.features.desktop.theme.enable) true;
       };
-    };
-    services = {
-      caffeine.enable = true;
-      hyprpaper.enable = true;
-      hyprpolkitagent.enable = true;
-      playerctld.enable = true;
-      hypridle =
-        let
-          exec = cmd: "${lib.getExe pkgs.app2unit} -s s -- ${cmd}";
-          exec-sh = cmd: exec "sh -c '${cmd}'";
-          inherit (config.rika.utils) idleTimers;
-        in
-        {
-          enable = true;
-          settings = {
-            general = {
-              lock_cmd = exec-sh "${lib.getExe' pkgs.procps "pidof"} swaylock || ${lib.getExe config.programs.swaylock.package}";
-              before_sleep_cmd = exec "${lib.getExe' pkgs.systemd "loginctl"} lock-session";
-              after_sleep_cmd = exec "${lib.getExe' pkgs.hyprland "hyprctl"} eval \"hl.dispatch(hl.dsp.dpms('on'))\"";
-              inhibit_sleep = 3;
-            };
-            listener = [
-              {
-                timeout = idleTimers.lock;
-                on-timeout = exec "${lib.getExe' pkgs.systemd "loginctl"} lock-session";
-              }
-              {
-                timeout = idleTimers.dpms;
-                on-timeout = exec "${lib.getExe' pkgs.hyprland "hyprctl"} eval \"hl.dispatch(hl.dsp.dpms('off'))\"";
-                on-resume = exec "${lib.getExe' pkgs.hyprland "hyprctl"} eval \"hl.dispatch(hl.dsp.dpms('on'))\"";
-              }
-              {
-                timeout = idleTimers.suspend;
-                on-timeout = exec "${lib.getExe' pkgs.systemd "systemctl"} suspend-then-hibernate";
-              }
-            ];
-          };
-        };
     };
 
     xdg.portal = {
@@ -117,10 +69,6 @@ in
         [
           #lua
           ''require("init")''
-        ]
-        ++ lib.optionals config.features.desktop.wayland.walker.enable [
-          #lua
-          ''hl.bind("SUPER + D", hl.dsp.exec_cmd("app2unit walker --nohints"))''
         ]
         ++ lib.optionals (config.profiles.browser.enable && config.profiles.browser.brave.enable) [
           #lua
@@ -164,39 +112,34 @@ in
             })
           ''
         ]
-        ++ lib.optionals cfg.laptop.enable (
-          let
-            brightnessctl = lib.getExe pkgs.brightnessctl;
-          in
-          [
-            #lua
-            ''
-              -- Laptop brightness keys
-              hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("${brightnessctl} -e4 -n2 set 5%+"), { locked = true, repeating = true })
-              hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("${brightnessctl} -e4 -n2 set 5%-"), { locked = true, repeating = true })
-              hl.bind("XF86KbdBrightnessUp", hl.dsp.exec_cmd("${brightnessctl} -d '*kbd_backlight*' set 10%+"), { locked = true, repeating = true })
-              hl.bind("XF86KbdBrightnessDown", hl.dsp.exec_cmd("${brightnessctl} -d '*kbd_backlight*' set 10%-"), { locked = true, repeating = true })
+        ++ lib.optionals cfg.laptop.enable [
+          #lua
+          ''
+            -- Laptop brightness keys
+            hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("noctalia msg brightness-up 5"), { locked = true, repeating = true })
+            hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("noctalia msg brightness-down 5"), { locked = true, repeating = true })
+            hl.bind("XF86KbdBrightnessUp", hl.dsp.exec_cmd("noctalia msg keyboard-backlight-up"), { locked = true, repeating = true })
+            hl.bind("XF86KbdBrightnessDown", hl.dsp.exec_cmd("noctalia msg keyboard-backlight-down"), { locked = true, repeating = true })
 
-              hl.config({
-                input = {
-                  touchpad = {
-                    natural_scroll = true,
-                    ["tap-to-click"] = true,
-                  },
+            hl.config({
+              input = {
+                touchpad = {
+                  natural_scroll = true,
+                  ["tap-to-click"] = true,
                 },
-                gestures = {
-                  workspace_swipe = true,
-                },
-              })
+              },
+              gestures = {
+                workspace_swipe = true,
+              },
+            })
 
-              hl.gesture({
-                fingers = 3,
-                direction = "horizontal",
-                action = "workspace",
-              })
-            ''
-          ]
-        )
+            hl.gesture({
+              fingers = 3,
+              direction = "horizontal",
+              action = "workspace",
+            })
+          ''
+        ]
       );
     };
   };

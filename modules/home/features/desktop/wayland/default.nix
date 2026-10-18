@@ -10,17 +10,13 @@ let
 in
 {
   imports = [
-    ./walker.nix
-    ./wayle.nix
+    ./noctalia.nix
   ];
 
   options.features.desktop.wayland.enable = lib.mkEnableOption "Wayland session integration.";
 
   config = lib.mkIf (desktopCfg.enable && modCfg.enable) {
-    services = {
-      udiskie.enable = true;
-      network-manager-applet.enable = true;
-    };
+    services.udiskie.enable = true;
 
     home = {
       packages = with pkgs; [

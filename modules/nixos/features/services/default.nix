@@ -3,9 +3,9 @@
   imports = [
     ./bluetooth.nix
     ./gnome-keyring.nix
+    ./noctalia-greeter.nix
     ./openrgb.nix
     ./openssh.nix
-    ./sddm.nix
     ./transmission.nix
   ];
 

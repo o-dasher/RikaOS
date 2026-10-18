@@ -1,13 +1,13 @@
 -- Layer rules
-hl.layer_rule({ match = { namespace = "^(wayle|notifications|walker)$" }, blur = true })
-hl.layer_rule({ match = { namespace = "^(walker)$" }, ignore_alpha = 0.5 })
-hl.layer_rule({ match = { namespace = "^(wayle)$" }, animation = "slide top" })
-hl.layer_rule({ match = { namespace = "^(notifications)$" }, animation = "slide right" })
-hl.layer_rule({ match = { namespace = "^(walker)$" }, animation = "slide bottom" })
-hl.layer_rule({ match = { namespace = "^(selection|hyprpicker)$" }, animation = "off" })
+hl.layer_rule({ match = { namespace = "^(noctalia-.*)$" }, blur = true, ignore_alpha = 0.2 })
+hl.layer_rule({ match = { namespace = "^(noctalia-bar-.*|noctalia-attached-panel)$" }, animation = "slide top" })
+hl.layer_rule({ match = { namespace = "^(noctalia-panel)$" }, animation = "slide bottom" })
+hl.layer_rule({ match = { namespace = "^(noctalia-notification|noctalia-osd)$" }, animation = "slide right" })
 hl.layer_rule({
-	match = { namespace = "hyprshutdown" },
-	animation = "fade",
+	match = {
+		namespace = "^(selection|hyprpicker|noctalia-screenshot-region|noctalia-annotate|noctalia-wallpaper|noctalia-backdrop)$",
+	},
+	animation = "off",
 })
 
 -- !GAMES!
@@ -39,7 +39,7 @@ hl.window_rule({
 
 -- Extension & App class matches
 local bitwarden_class = "brave-nngceckbapebfimnlniiiahkandclblb-Default"
-local floaty_classes = "^(\\.blueman-manager-wrapped|nemo|com\\.github\\.wwmm\\.easyeffects|com\\.saivert\\.pwvucontrol|org\\.gnome\\.FileRoller|"
+local floaty_classes = "^(nemo|com\\.github\\.wwmm\\.easyeffects|com\\.saivert\\.pwvucontrol|org\\.gnome\\.FileRoller|"
 	.. bitwarden_class
 	.. ")$"
 

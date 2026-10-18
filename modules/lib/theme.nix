@@ -26,10 +26,7 @@ let
     lucky-star = mkTheme ../../assets/Wallpapers/luckystar.png;
     graduation = mkTheme ../../assets/Wallpapers/graduation.png;
     lain-realism = mkTheme ../../assets/Wallpapers/lainrealism.jpg;
-    lain = {
-      base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
-      image = ../../assets/Wallpapers/lain.jpg;
-    };
+    lain = mkTheme ../../assets/Wallpapers/lain.jpg;
   };
 
   mkStylix =
@@ -40,6 +37,25 @@ let
       # Stylix tracks master while NixOS and Home Manager stay on stable.
       enableReleaseChecks = false;
       polarity = cfg.polarity or "dark";
+      fonts = {
+        monospace = {
+          package = pkgs.nerd-fonts.jetbrains-mono;
+          name = "JetBrainsMono Nerd Font";
+        };
+        sansSerif = {
+          package = pkgs.noto-fonts;
+          name = "Noto Sans";
+        };
+        serif = {
+          package = pkgs.noto-fonts;
+          name = "Noto Serif";
+        };
+        sizes = {
+          desktop = 9;
+          applications = 12;
+          popups = 12;
+        };
+      };
     }
     // (lib.filterAttrs (
       n: _:

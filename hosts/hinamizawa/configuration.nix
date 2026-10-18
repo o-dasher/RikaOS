@@ -43,7 +43,7 @@
       bluetooth.enable = true;
       openrgb.enable = true;
       gnome-keyring.enable = true;
-      sddm.enable = true;
+      noctalia-greeter.enable = true;
       transmission = {
         enable = true;
         openPeerPorts = true;

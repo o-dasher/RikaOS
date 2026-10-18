@@ -19,28 +19,31 @@ in
         targets = {
           bat.enable = true;
           btop.enable = true;
-          feh.enable = true;
           fish.enable = true;
           font-packages.enable = true;
           fontconfig.enable = true;
           fzf.enable = true;
           ghostty.enable = true;
           gtk.enable = true;
-          hyprland.enable = true;
-          hyprpaper.enable = true;
-          kde.enable = true;
           lazygit.enable = true;
           mangohud.enable = true;
           mpv.enable = true;
           nixcord.enable = false;
+          noctalia.enable = true;
           qt.enable = true;
           starship.enable = true;
-          swaylock.enable = true;
           tmux.enable = true;
-          wayle.enable = true;
           yazi.enable = true;
           zathura.enable = true;
           zed.enable = true;
+          hyprland = {
+            enable = true;
+            hyprpaper.enable = false;
+          };
+          kde = {
+            enable = true;
+            useWallpaper = false;
+          };
           librewolf = {
             enable = true;
             profileNames = [ "default" ];

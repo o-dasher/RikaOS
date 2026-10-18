@@ -17,7 +17,6 @@
     stylix.targets = {
       chromium.enable = true;
       console.enable = true;
-      feh.enable = true;
       fish.enable = true;
       font-packages.enable = true;
       fontconfig.enable = true;

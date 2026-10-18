@@ -51,7 +51,7 @@
       openssh.enable = true;
       bluetooth.enable = true;
       gnome-keyring.enable = true;
-      sddm.enable = true;
+      noctalia-greeter.enable = true;
     };
   };
 

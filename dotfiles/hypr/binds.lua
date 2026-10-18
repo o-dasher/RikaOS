@@ -33,34 +33,39 @@ hl.bind(mod .. " + SHIFT + J", hl.dsp.window.move({ direction = "down" }))
 hl.bind(mod .. " + R", hl.dsp.layout("colresize +conf"))
 hl.bind(mod .. " + SHIFT + R", hl.dsp.layout("colresize -conf"))
 
--- Screenshots
-hl.bind(mod .. " + P", hl.dsp.exec_cmd("app2unit -s b -- grimblast --freeze --notify copy screen"))
-hl.bind(mod .. " + SHIFT + P", hl.dsp.exec_cmd("app2unit -s b -- grimblast --freeze --notify copy area"))
-hl.bind(mod .. " + ALT + P", hl.dsp.exec_cmd("app2unit -s b -- grimblast --freeze --notify copy active"))
+-- Shell (Noctalia)
+hl.bind(mod .. " + D", hl.dsp.exec_cmd("noctalia msg panel-toggle launcher"))
+hl.bind(mod .. " + V", hl.dsp.exec_cmd("noctalia msg panel-toggle clipboard"))
+hl.bind(mod .. " + N", hl.dsp.exec_cmd("noctalia msg panel-toggle control-center"))
 
--- Lock & Shutdown
-hl.bind("CTRL + SHIFT + L", exec("sh -c 'pidof swaylock || swaylock'", "s"))
-hl.bind("CTRL + SHIFT + Q", exec("sh -c 'pidof hyprshutdown || hyprshutdown'", "s"))
+-- Screenshots
+hl.bind(mod .. " + P", hl.dsp.exec_cmd("noctalia msg screenshot-fullscreen"))
+hl.bind(mod .. " + SHIFT + P", hl.dsp.exec_cmd("noctalia msg screenshot-region"))
+hl.bind(mod .. " + ALT + P", hl.dsp.exec_cmd("noctalia msg screenshot-annotate"))
+
+-- Lock & Session
+hl.bind("CTRL + SHIFT + L", hl.dsp.exec_cmd("noctalia msg session lock"))
+hl.bind("CTRL + SHIFT + Q", hl.dsp.exec_cmd("noctalia msg panel-toggle session"))
 
 -- Media keys
-hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
-hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
-hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
-hl.bind("XF86AudioStop", hl.dsp.exec_cmd("playerctl stop"), { locked = true })
+hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("noctalia msg media toggle"), { locked = true })
+hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("noctalia msg media previous"), { locked = true })
+hl.bind("XF86AudioNext", hl.dsp.exec_cmd("noctalia msg media next"), { locked = true })
+hl.bind("XF86AudioStop", hl.dsp.exec_cmd("noctalia msg media stop"), { locked = true })
 
-hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"), { locked = true })
-hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), { locked = true })
+hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("noctalia msg mic-mute"), { locked = true })
+hl.bind("XF86AudioMute", hl.dsp.exec_cmd("noctalia msg volume-mute"), { locked = true })
 
 -- Volume
 local audio_step = "1"
 hl.bind(
 	"XF86AudioRaiseVolume",
-	hl.dsp.exec_cmd("wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ " .. audio_step .. "%+"),
+	hl.dsp.exec_cmd("noctalia msg volume-up " .. audio_step),
 	{ locked = true, repeating = true }
 )
 hl.bind(
 	"XF86AudioLowerVolume",
-	hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ " .. audio_step .. "%-"),
+	hl.dsp.exec_cmd("noctalia msg volume-down " .. audio_step),
 	{ locked = true, repeating = true }
 )
 

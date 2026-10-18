@@ -8,7 +8,7 @@
     systems.url = "github:nix-systems/default";
     mnw.url = "github:Gerg-L/mnw";
     home-manager = {
-      url = "github:nix-community/home-manager/release-26.05";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     stylix = {
@@ -144,9 +144,10 @@
               inherit (unstable)
                 antigravity-cli
                 brave-origin
+                noctalia
+                noctalia-greeter
                 openrgb
                 openrgb-plugin-effects
-                wayle
                 ;
 
               # Lix
@@ -182,6 +183,7 @@
           nixcord.homeModules.nixcord
           {
             home = {
+              enableNixpkgsReleaseCheck = false;
               homeDirectory = "/home/${username}";
               inherit username stateVersion;
             };

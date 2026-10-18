@@ -12,6 +12,5 @@ in
 
   config = lib.mkIf (modCfg.enable && cfg.enable) {
     hardware.bluetooth.enable = true;
-    services.blueman.enable = true;
   };
 }
