@@ -52,6 +52,7 @@ in
         session.default = "Hyprland";
         idle.timeout = idleTimers.dpms;
         cursor.size = themeLib.cursor.size;
+        output.refresh_rate = 999;
       }
       // lib.optionalAttrs hasStylix {
         appearance = {
