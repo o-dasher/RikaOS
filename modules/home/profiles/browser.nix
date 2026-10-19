@@ -8,6 +8,7 @@ let
   cfg = config.profiles.browser;
 in
 {
+
   options.profiles.browser = {
     enable = lib.mkEnableOption "Browser profile.";
     librewolf.enable = lib.mkEnableOption "LibreWolf browser." // {

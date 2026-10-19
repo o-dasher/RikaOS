@@ -175,4 +175,5 @@ Available user targets:
   };
   ```
 - **Attribute Ordering by Complexity**: Structure bindings within attribute sets progressively by cognitive load and visual weight. Place simple, compact scalar declarations (such as booleans, primitive values, package references, and short single-line strings) at the top of the enclosing block. Position multi-line attribute sets, nested blocks, custom generators, and complex functions at the bottom.
+- **Sequential Channel Fallback Hierarchy**: Default to `nixos-unstable` across all configurations. Only descend through secondary channels if compilation fails or a package is broken, traversing each level in strict sequential order: `nixos-unstable` (Level 1) -> `unstable-small` (Level 2) -> `nixpkgs-master` (Level 3) -> `stable` (Level 4). Recheck and prune secondary channel inputs back up to `nixos-unstable` as soon as it compiles cleanly.
 - **Code Formatting**: The flake devShell (`nix develop`) provides `nixfmt`, `stylua`, `nil`, and `statix`. Maintain consistent formatting across Nix and Lua code.

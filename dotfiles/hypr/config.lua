@@ -37,7 +37,24 @@ hl.config({
 
 	decoration = {
 		rounding = rounding,
-		blur = { passes = 2 },
+		blur = {
+			enabled = true,
+			size = 9,
+			passes = 4,
+			ignore_opacity = true,
+			new_optimizations = true,
+			xray = false,
+			noise = 0.0117,
+			contrast = 1.0,
+			brightness = 0.90,
+			vibrancy = 0.25,
+			vibrancy_darkness = 0.12,
+			special = true,
+			popups = true,
+			popups_ignorealpha = 0.2,
+			input_methods = true,
+			input_methods_ignorealpha = 0.2,
+		},
 	},
 
 	input = {

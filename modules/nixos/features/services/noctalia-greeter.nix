@@ -1,5 +1,4 @@
 {
-  inputs,
   lib,
   config,
   options,
@@ -14,16 +13,8 @@ let
   inherit (config.rika.utils) idleTimers;
 in
 {
-  imports = [
-    "${inputs.nixpkgs-unstable}/nixos/modules/services/display-managers/noctalia-greeter.nix"
-  ];
-
-  options = {
-    features.services.noctalia-greeter.enable = lib.mkEnableOption "Noctalia Greetd display manager.";
-
-    # Compatibility shim for nixpkgs-unstable noctalia-greeter module on stable nixos-26.05 polkit module
-    security.polkit.enablePkexecWrapper = lib.mkEnableOption "the setuid pkexec wrapper";
-  };
+  options.features.services.noctalia-greeter.enable =
+    lib.mkEnableOption "Noctalia Greetd display manager.";
 
   config = lib.mkIf (modCfg.enable && cfg.enable) {
     # WORKAROUND: Fix non-functioning TTY switching under Hyprland.

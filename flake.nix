@@ -2,18 +2,13 @@
   description = "RikaOS";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-compat.url = "github:edolstra/flake-compat";
     systems.url = "github:nix-systems/default";
     mnw.url = "github:Gerg-L/mnw";
     home-manager = {
-      url = "github:nix-community/home-manager/release-26.05";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    home-manager-unstable = {
       url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     stylix = {
       url = "github:nix-community/stylix";
@@ -27,6 +22,7 @@
       url = "github:hyprwm/hyprland";
       inputs = {
         systems.follows = "systems";
+        nixpkgs.follows = "nixpkgs";
         pre-commit-hooks.inputs.flake-compat.follows = "flake-compat";
       };
     };
@@ -56,7 +52,7 @@
     };
     sidra = {
       url = "github:wimpysworld/sidra";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     git-hooks = {
       url = "github:cachix/git-hooks.nix";
@@ -70,13 +66,12 @@
   outputs =
     inputs@{
       nixpkgs,
-      nixpkgs-unstable,
       home-manager,
       agenix,
       flake-parts,
       nixcord,
-      hyprland,
       stylix,
+      hyprland,
       ...
     }:
     let
@@ -139,37 +134,21 @@
       pkgsFor = lib.genAttrs targetSystems (
         system:
         mkPkgs system nixpkgs [
-          (
-            _final: prev:
-            rec {
-              unstable = mkPkgs system nixpkgs-unstable [ ];
+          (_final: prev: {
+            # Lix
+            inherit (lixSet prev)
+              nixpkgs-review
+              nix-eval-jobs
+              nix-fast-build
+              colmena
+              ;
 
-              # Packages still not packaged on stable or needing unstable
-              inherit (unstable)
-                antigravity-cli
-                brave-origin
-                noctalia
-                noctalia-greeter
-                openrgb
-                openrgb-plugin-effects
-                ;
-
-              # Lix
-              inherit (lixSet prev)
-                nixpkgs-review
-                nix-eval-jobs
-                nix-fast-build
-                colmena
-                ;
-            }
-            // {
-              # Hyprland & dependencies
-              inherit (hyprland.packages.${system})
-                hyprland
-                xdg-desktop-portal-hyprland
-                ;
-            }
-          )
+            # Hyprland & dependencies
+            inherit (hyprland.packages.${system})
+              hyprland
+              xdg-desktop-portal-hyprland
+              ;
+          })
         ]
       );
 

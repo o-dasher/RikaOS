@@ -36,7 +36,7 @@ let
 in
 {
   imports = [
-    "${inputs.home-manager-unstable}/modules/programs/noctalia"
+    "${inputs.home-manager}/modules/programs/noctalia"
   ];
 
   options.features.desktop.wayland.noctalia = {

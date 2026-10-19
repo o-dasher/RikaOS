@@ -34,14 +34,32 @@ in
         # SDL
         SDL_VIDEO_DRIVER = "wayland,x11";
 
-        # Fixes ghostty dead keys.
-        GTK_IM_MODULE = "simple";
-
         # App2Unit — always use the graphical-session-scoped slices so apps
         # are properly associated with the graphical session regardless of
         # whether UWSM is in use.
         APP2UNIT_TYPE = "service";
         APP2UNIT_SLICES = "a=app-graphical.slice b=background-graphical.slice s=session-graphical.slice";
+      };
+    };
+
+    i18n.inputMethod = {
+      enable = true;
+      type = "fcitx5";
+      fcitx5 = {
+        addons = with pkgs; [
+          fcitx5-gtk
+        ];
+        settings = {
+          inputMethod = {
+            GroupOrder."0" = "Default";
+            "Groups/0" = {
+              Name = "Default";
+              "Default Layout" = "br";
+              DefaultIM = "keyboard-br";
+            };
+            "Groups/0/Items/0".Name = "keyboard-br";
+          };
+        };
       };
     };
 
