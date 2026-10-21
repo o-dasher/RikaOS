@@ -15,7 +15,7 @@ in
 
     startupDelay = lib.mkOption {
       type = lib.types.ints.unsigned;
-      default = 5;
+      default = 3;
       description = "Startup delay in seconds to wait for hardware devices and kernel modules to initialize before launching OpenRGB.";
     };
   };
@@ -39,13 +39,15 @@ in
           "systemd-modules-load.service"
           "systemd-udevd.service"
         ];
+
         wants = [
           "systemd-modules-load.service"
           "systemd-udevd.service"
         ];
-        serviceConfig = lib.mkIf (cfg.startupDelay > 0) {
-          ExecStartPre = "${pkgs.coreutils}/bin/sleep ${toString cfg.startupDelay}";
-        };
+
+        serviceConfig.ExecStartPre = lib.mkIf (
+          cfg.startupDelay > 0
+        ) "${pkgs.coreutils}/bin/sleep ${toString cfg.startupDelay}";
       };
 
       openrgb-resume = {

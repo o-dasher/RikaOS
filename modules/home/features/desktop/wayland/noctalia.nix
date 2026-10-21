@@ -149,6 +149,11 @@ in
           capsule_border = "primary";
           capsule_opacity = config.stylix.opacity.desktop;
 
+          monitor.fallback = {
+            match = "FALLBACK";
+            enabled = false;
+          };
+
           start = [ "workspaces" ];
           center = [ "group:g4" ];
           end = [
@@ -364,13 +369,25 @@ in
         wallpaper = {
           enabled = true;
           fill_mode = "crop";
-          transition = [ "fade" ];
           transition_duration = 800.0;
+          transition = [ "fade" ];
+          monitor.fallback = {
+            match = "FALLBACK";
+            enabled = false;
+          };
         };
       }
       // lib.optionalAttrs cfg.laptop.enable {
         battery.warning_threshold = 25;
       };
+    };
+
+    systemd.user.services.noctalia = {
+      Unit = {
+        StartLimitIntervalSec = 30;
+        StartLimitBurst = 5;
+      };
+      Service.RestartSec = "2s";
     };
   };
 }
