@@ -10,7 +10,15 @@ let
   profileName = config.services.hardware.openrgb.startupProfile;
 in
 {
-  options.features.services.openrgb.enable = lib.mkEnableOption "OpenRGB.";
+  options.features.services.openrgb = {
+    enable = lib.mkEnableOption "OpenRGB.";
+
+    startupDelay = lib.mkOption {
+      type = lib.types.ints.unsigned;
+      default = 5;
+      description = "Startup delay in seconds to wait for hardware devices and kernel modules to initialize before launching OpenRGB.";
+    };
+  };
 
   config = lib.mkIf (modCfg.enable && cfg.enable) {
     services.hardware.openrgb = {
@@ -35,6 +43,9 @@ in
           "systemd-modules-load.service"
           "systemd-udevd.service"
         ];
+        serviceConfig = lib.mkIf (cfg.startupDelay > 0) {
+          ExecStartPre = "${pkgs.coreutils}/bin/sleep ${toString cfg.startupDelay}";
+        };
       };
 
       openrgb-resume = {
