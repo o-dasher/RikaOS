@@ -20,35 +20,49 @@
     };
     lua-language-server = {
       executable = "lua-language-server";
-      fileExtensions = { ".lua" = "lua"; };
+      fileExtensions = {
+        ".lua" = "lua";
+      };
     };
     nixd = {
       executable = "nixd";
-      fileExtensions = { ".nix" = "nix"; };
+      fileExtensions = {
+        ".nix" = "nix";
+      };
     };
     phpactor = {
       executable = "phpactor";
       args = [ "language-server" ];
-      fileExtensions = { ".php" = "php"; };
+      fileExtensions = {
+        ".php" = "php";
+      };
     };
     pyright-langserver = {
       executable = "pyright-langserver";
       args = [ "--stdio" ];
-      fileExtensions = { ".py" = "python"; };
+      fileExtensions = {
+        ".py" = "python";
+      };
     };
     rust-analyzer = {
       executable = "rust-analyzer";
-      fileExtensions = { ".rs" = "rust"; };
+      fileExtensions = {
+        ".rs" = "rust";
+      };
     };
     svelteserver = {
       executable = "svelteserver";
       args = [ "--stdio" ];
-      fileExtensions = { ".svelte" = "svelte"; };
+      fileExtensions = {
+        ".svelte" = "svelte";
+      };
     };
     tailwindcss-language-server = {
       executable = "tailwindcss-language-server";
       args = [ "--stdio" ];
-      fileExtensions = { ".css" = "css"; };
+      fileExtensions = {
+        ".css" = "css";
+      };
     };
     typescript-language-server = {
       executable = "typescript-language-server";
@@ -63,26 +77,36 @@
     vscode-css-language-server = {
       executable = "vscode-css-languageserver";
       args = [ "--stdio" ];
-      fileExtensions = { ".css" = "css"; };
+      fileExtensions = {
+        ".css" = "css";
+      };
     };
     vscode-html-language-server = {
       executable = "vscode-html-languageserver";
       args = [ "--stdio" ];
-      fileExtensions = { ".html" = "html"; };
+      fileExtensions = {
+        ".html" = "html";
+      };
     };
     vscode-json-language-server = {
       executable = "vscode-json-languageserver";
       args = [ "--stdio" ];
-      fileExtensions = { ".json" = "json"; };
+      fileExtensions = {
+        ".json" = "json";
+      };
     };
     texlab = {
       executable = "texlab";
-      fileExtensions = { ".tex" = "latex"; };
+      fileExtensions = {
+        ".tex" = "latex";
+      };
     };
     tinymist = {
       executable = "tinymist";
       args = [ "lsp" ];
-      fileExtensions = { ".typ" = "typst"; };
+      fileExtensions = {
+        ".typ" = "typst";
+      };
     };
     yaml-language-server = {
       executable = "yaml-language-server";

@@ -36,10 +36,7 @@ in
 
         boot = {
           loader.limine.secureBoot.enable = true;
-          initrd.systemd = lib.mkIf cfg.secure.encryptionUnlock.enable {
-            enable = true;
-            tpm2.enable = true;
-          };
+          initrd.systemd.tpm2.enable = lib.mkIf cfg.secure.encryptionUnlock.enable true;
         };
 
         security.tpm2 = lib.mkIf cfg.secure.encryptionUnlock.enable {
