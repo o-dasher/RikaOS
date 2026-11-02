@@ -76,7 +76,12 @@
         system: p: overlays:
         import p {
           inherit system overlays;
-          config.allowUnfree = true;
+          config = {
+            allowUnfree = true;
+            # Workaround: GTK 2 marked broken upstream (Nixpkgs#410814) while Home Manager
+            # i18n.inputMethod unconditionally evaluates gtk2Cache. Revisit and remove on next flake-update.
+            problems.handlers."gtk+".broken = "ignore";
+          };
         };
 
       systemConfigs = {
