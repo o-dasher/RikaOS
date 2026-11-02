@@ -44,7 +44,7 @@ hl.bind(mod .. " + SHIFT + P", hl.dsp.exec_cmd("noctalia msg screenshot-region")
 hl.bind(mod .. " + ALT + P", hl.dsp.exec_cmd("noctalia msg screenshot-annotate"))
 
 -- Lock & Session
-hl.bind("CTRL + SHIFT + L", hl.dsp.exec_cmd("noctalia msg session lock"))
+hl.bind("CTRL + SHIFT + L", exec("sh -c 'pidof swaylock || swaylock'", "s"))
 hl.bind("CTRL + SHIFT + Q", hl.dsp.exec_cmd("noctalia msg panel-toggle session"))
 
 -- Media keys

@@ -33,6 +33,7 @@ let
     "${lib.getExe pkgs.app2unit} -s app.slice -c -- ${lib.getExe pkgs.hyprshutdown}${
       lib.optionalString (args != "") " ${args}"
     }";
+  mkSwaylock = "${lib.getExe pkgs.app2unit} -s session.slice -c -- sh -c '${lib.getExe' pkgs.procps "pidof"} swaylock || ${lib.getExe config.programs.swaylock.package}'";
 in
 {
   imports = [
@@ -96,6 +97,7 @@ in
             actions = [
               {
                 action = "lock";
+                command = mkSwaylock;
               }
               {
                 action = "logout";
@@ -331,12 +333,7 @@ in
         };
 
         lockscreen = {
-          enabled = true;
-          lock_before_suspend = true;
-          blurred_desktop = true;
-          blur_intensity = 0.75;
-          tint_intensity = 0.35;
-          transition = [ "fade" ];
+          enabled = false;
         };
 
         idle = {
@@ -350,7 +347,8 @@ in
             lock = {
               enabled = true;
               timeout = idleTimers.lock;
-              action = "lock";
+              action = "command";
+              command = mkSwaylock;
             };
             screen-off = {
               enabled = true;

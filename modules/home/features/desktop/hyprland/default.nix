@@ -24,6 +24,18 @@ in
 
   config = lib.mkIf (config.features.desktop.enable && cfg.enable) {
     features.desktop.wayland.enable = true;
+    programs.swaylock = {
+      enable = true;
+      package = pkgs.swaylock-effects;
+    };
+
+    services.swayidle = {
+      enable = true;
+      events = {
+        before-sleep = "${lib.getExe' pkgs.procps "pidof"} swaylock || ${lib.getExe config.programs.swaylock.package}";
+        lock = "${lib.getExe' pkgs.procps "pidof"} swaylock || ${lib.getExe config.programs.swaylock.package}";
+      };
+    };
 
     home = {
       packages = with pkgs; [
