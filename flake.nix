@@ -18,14 +18,6 @@
         flake-parts.follows = "flake-parts";
       };
     };
-    hyprland = {
-      url = "github:hyprwm/hyprland";
-      inputs = {
-        systems.follows = "systems";
-        nixpkgs.follows = "nixpkgs";
-        pre-commit-hooks.inputs.flake-compat.follows = "flake-compat";
-      };
-    };
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
       inputs = {
@@ -71,7 +63,6 @@
       flake-parts,
       nixcord,
       stylix,
-      hyprland,
       ...
     }:
     let
@@ -119,14 +110,12 @@
             "https://nix-community.cachix.org"
             "https://hercules-ci.cachix.org"
             "https://cache.numtide.com"
-            "https://hyprland.cachix.org"
           ];
           extra-trusted-public-keys = [
             "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
             "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
             "hercules-ci.cachix.org-1:ZZeDl9Va+xe9j+KqdzoBZMFJHVQ42Uu/c/1/KMC5Lw0="
             "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
-            "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
           ];
         };
       };
@@ -141,12 +130,6 @@
               nix-eval-jobs
               nix-fast-build
               colmena
-              ;
-
-            # Hyprland & dependencies
-            inherit (hyprland.packages.${system})
-              hyprland
-              xdg-desktop-portal-hyprland
               ;
           })
         ]

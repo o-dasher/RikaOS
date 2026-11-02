@@ -162,9 +162,9 @@ Available user targets:
   nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   programs.mcp.enable = true;
 
-  inputs.hyprland = {
-    url = "github:hyprwm/hyprland/v0.56.0";
-    inputs.systems.follows = "systems";
+  inputs.stylix = {
+    url = "github:nix-community/stylix";
+    inputs.nixpkgs.follows = "nixpkgs";
   };
 
   # Avoid (redundant block wrapping a lone child):
