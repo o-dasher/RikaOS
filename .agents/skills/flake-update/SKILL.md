@@ -138,12 +138,24 @@ Categorize the failure into one of the following archetypes:
   2. Prevent glibc forward-incompatibility: never let a driver in `/run/opengl-driver` depend on a newer glibc than the host binaries dlopening it.
   3. Ensure buffer modifier negotiation and Wayland protocol versions match across compositor and driver components.
 
+#### Workaround Annotation Rule
+Whenever introducing a workaround, package override, or problem handler (e.g. `problems.handlers.<pkg>.broken = "ignore"`) to bypass an upstream breakage:
+- **Always add a comment** above the workaround explicitly stating the upstream cause and prompting its removal on future runs using `WORKAROUND:` in all caps:
+  ```nix
+  # WORKAROUND: <reason/issue URL> - revisit and remove on next flake-update.
+  ```
+
 ---
 
-### Step 5: Secondary Input Audit (Ascension & Pruning)
+### Step 5: Workaround & Secondary Input Audit (Ascension & Pruning)
 
-Whenever `flake.nix` contains secondary channel inputs (Level 2 `unstable-small`, Level 3 `nixpkgs-master`, or Level 4 `stable`):
-1. **Upward Ascension Test**:
+1. **Audit Temporary Workarounds**:
+   Search the codebase for `# WORKAROUND: ... revisit and remove on next flake-update` comments:
+   - For each workaround found, test removing or disabling the workaround to see if upstream (Nixpkgs or Home Manager) has addressed the issue.
+   - If evaluation and dry-run builds pass cleanly without the workaround, permanently remove the workaround and comment.
+
+2. **Upward Ascension Test for Secondary Channel Inputs**:
+   Whenever `flake.nix` contains secondary channel inputs (Level 2 `unstable-small`, Level 3 `nixpkgs-master`, or Level 4 `stable`):
    Always test ascending back towards Level 1:
    - **First, test Level 1 (`nixos-unstable`)**: Does the package now compile cleanly on the primary channel?
      - **If YES**: Delete the override from `pkgsFor`, remove the secondary input from `inputs` and `outputs` in `flake.nix`, update `flake.lock`, and stage the files. You're done!
