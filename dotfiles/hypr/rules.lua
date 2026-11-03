@@ -1,9 +1,4 @@
 -- Layer rules
-hl.layer_rule({
-	match = { namespace = "^(noctalia-panel|noctalia-attached-panel|noctalia-notification|noctalia-osd)$" },
-	blur = true,
-	ignore_alpha = 0.2,
-})
 hl.layer_rule({ match = { namespace = "^(noctalia-bar-.*|noctalia-attached-panel)$" }, animation = "slide top" })
 hl.layer_rule({ match = { namespace = "^(noctalia-panel)$" }, animation = "slide bottom" })
 hl.layer_rule({ match = { namespace = "^(noctalia-notification|noctalia-osd)$" }, animation = "slide right" })
