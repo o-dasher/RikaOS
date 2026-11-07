@@ -16,6 +16,14 @@ in
     # Fix: Skips restoring NVS memory so clean firmware tables are preserved.
     boot.kernelParams = [ "acpi_sleep=nonvs" ];
 
+    # Reason: AM5 Promontory chipset xHCI (1022:43f7, XH00) loses root hub power / resets during S3
+    # (USBSTS 0x411 / 0x401), asserting a spurious PME wakeup that either aborts CPU freeze
+    # ("Wakeup pending. Abort CPU freeze") or wakes the machine seconds into suspend-then-hibernate.
+    # Keyboard wakeup remains active via the CPU-integrated Raphael xHCI controller (1022:15b8).
+    services.udev.extraRules = ''
+      ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x1022", ATTR{device}=="0x43f7", ATTR{power/wakeup}="disabled"
+    '';
+
     systemd.sleep.settings.Sleep = {
       # Reason: Default SuspendState falls back from "mem" to "freeze" (s2idle) when an early wake event
       # aborts S3. On AM5 (Raphael iGPU + Navi 22 dGPU), s2idle is unsupported (-EINVAL) and leaves the
