@@ -335,8 +335,12 @@ in
           lock_before_suspend = true;
           blurred_desktop = true;
           blur_intensity = 0.75;
-          tint_intensity = 0.35;
+          tint_intensity = 0.25;
           transition = [ "fade" ];
+          monitors = [
+            "HDMI-A-1"
+            "eDP-1"
+          ];
         };
 
         idle = {
