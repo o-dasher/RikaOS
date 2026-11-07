@@ -10,6 +10,7 @@ hl.config({
 	misc = {
 		allow_session_lock_restore = true,
 		anr_missed_pings = 20, -- cs2 pulls too many resources on launch, which causes anr, without it actually being anr.
+		disable_hyprland_logo = true,
 	},
 
 	render = {
