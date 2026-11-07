@@ -32,7 +32,6 @@ in
           noctalia.enable = true;
           qt.enable = true;
           starship.enable = true;
-          swaylock.enable = true;
           tmux.enable = true;
           yazi.enable = true;
           zathura.enable = true;
