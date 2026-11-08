@@ -19,6 +19,7 @@ in
         targets = {
           bat.enable = true;
           btop.enable = true;
+          fcitx5.enable = true;
           fish.enable = true;
           font-packages.enable = true;
           fontconfig.enable = true;
