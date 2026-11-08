@@ -18,6 +18,7 @@ files = [
 xwayland = true
 xwayland_native_resolution = true
 mod_key = "Super"
+show_cheatsheet = false
 
 # ==============================================================================
 # Workspaces
@@ -128,7 +129,6 @@ workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
 [keybinds]
 # Applications and session
 "Mod+Return" = { action = "spawn:app2unit -s a -- xdg-terminal-exec", repeat = false }
-"Mod" = "spawn:noctalia msg panel-toggle launcher"
 "Mod+C" = { action = "window-close", repeat = false }
 "Mod+F" = { action = "window-toggle-fullscreen", repeat = false }
 "Mod+M" = { action = "window-toggle-maximize", repeat = false }

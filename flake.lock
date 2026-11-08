@@ -339,6 +339,22 @@
         "url": "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.zst"
       }
     },
+    "nixpkgs-master": {
+      "locked": {
+        "lastModified": 1794174275,
+        "narHash": "sha256-8KEGYSvsgpxRa/hn8SgE3UAAipzoahxc2GHxeJsv1Lk=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "3dbfe6d644e30c15bb7129d7669bd08ae99591ef",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "master",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-packages": {
       "locked": {
         "lastModified": 1792812153,
@@ -388,6 +404,7 @@
         "nix-gaming": "nix-gaming",
         "nixcord": "nixcord",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-master": "nixpkgs-master",
         "sidra": "sidra",
         "stylix": "stylix",
         "systems": "systems"

@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     flake-compat.url = "github:edolstra/flake-compat";
     systems.url = "github:nix-systems/default";
     mnw.url = "github:Gerg-L/mnw";
@@ -127,6 +128,9 @@
 
       pkgsFor = lib.genAttrs targetSystems (
         system:
+        let
+          pkgs-master = mkPkgs system inputs.nixpkgs-master [ ];
+        in
         mkPkgs system nixpkgs [
           (_final: prev: {
             # Lix
@@ -136,6 +140,9 @@
               nix-fast-build
               colmena
               ;
+
+            # Bleeding edge compositor from nixpkgs master
+            inherit (pkgs-master) umbriel;
           })
         ]
       );
