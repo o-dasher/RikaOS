@@ -27,7 +27,7 @@
       trash.enable = true;
     };
     desktop = {
-      hyprland.enable = true;
+      umbriel.enable = true;
       theme.cirnosunset.enable = true;
     };
     core.xdg = {

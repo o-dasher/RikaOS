@@ -1,0 +1,276 @@
+# ==============================================================================
+# Umbriel Configuration (RikaOS)
+# ==============================================================================
+
+# ==============================================================================
+# Includes
+# ==============================================================================
+[include.optional]
+files = [
+  "~/.config/umbriel/theme.toml",
+  "~/.config/umbriel/rules.toml",
+]
+
+# ==============================================================================
+# General
+# ==============================================================================
+[general]
+xwayland = true
+xwayland_native_resolution = true
+mod_key = "Super"
+
+# ==============================================================================
+# Workspaces
+# ==============================================================================
+[workspaces]
+empty_above = true
+back_and_forth = false
+
+# ==============================================================================
+# Appearance
+# ==============================================================================
+[appearance]
+border_width = 2
+corner_radius = 4
+
+[appearance.blur]
+enabled = true
+radius = 9
+passes = 4
+noise = 0.0117
+contrast = 1.0
+brightness = 0.90
+optimized = false
+
+# ==============================================================================
+# Animations (1:1 with Hyprland speed = 1, slide style)
+# ==============================================================================
+[animation]
+enabled = true
+duration_ms = 100
+curve = "easeout"
+
+[animation.layers]
+enabled = true
+duration_ms = 100
+curve = "easeout"
+
+[animation.windows_in]
+enabled = true
+style = "slide"
+duration_ms = 100
+curve = "easeout"
+
+[animation.windows_out]
+enabled = true
+style = "slide"
+duration_ms = 100
+curve = "easeout"
+
+[animation.windows_move]
+enabled = true
+duration_ms = 100
+curve = "easeout"
+
+[animation.workspaces]
+enabled = true
+style = "slide"
+duration_ms = 100
+curve = "easeout"
+
+[animation.border]
+enabled = true
+duration_ms = 100
+curve = "easeout"
+
+# ==============================================================================
+# Layout
+# ==============================================================================
+[layout]
+mode = "scrolling"
+gap = 2
+extent_presets = [0.333, 0.5, 0.667, 1.0]
+
+[layout.scrolling]
+default_extent_fraction = 1.0
+
+# ==============================================================================
+# Input
+# ==============================================================================
+[input.keyboard]
+layout = "br"
+variant = "abnt2"
+numlock_toggle = true
+
+[input.mouse]
+accel_profile = "flat"
+
+[input.cursor]
+hardware_cursor = false
+
+# ==============================================================================
+# Outputs
+# ==============================================================================
+[output.HDMI-A-1]
+mode = "1920x1080@240"
+position = [0, 0]
+bit_depth = 10
+hdr = "off"
+tearing = true
+workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+
+# ==============================================================================
+# Keybinds
+# ==============================================================================
+[keybinds]
+# Applications and session
+"Mod+Return" = { action = "spawn:app2unit -s a -- xdg-terminal-exec", repeat = false }
+"Mod" = "spawn:noctalia msg panel-toggle launcher"
+"Mod+C" = { action = "window-close", repeat = false }
+"Mod+F" = { action = "window-toggle-fullscreen", repeat = false }
+"Mod+M" = { action = "window-toggle-maximize", repeat = false }
+
+# Scrolling layout & Stacking controls
+"Mod+S" = "window-consume-or-expel-left"
+"Mod+Shift+S" = "window-consume-or-expel-right"
+"Mod+Shift+F" = { action = "window-toggle-floating", repeat = false }
+"Mod+Shift+U" = "window-consume-or-expel-left"
+"Mod+R" = "window-cycle-primary-extent"
+"Mod+Shift+R" = "window-cycle-primary-extent-back"
+"Mod+W" = { action = "column-toggle-tabbed", repeat = false }
+"Mod+Alt+Left" = "column-focus-tab-previous"
+"Mod+Alt+Right" = "column-focus-tab-next"
+
+# Focus navigation (vim keys & arrows)
+"Mod+H" = "window-focus-left"
+"Mod+L" = "window-focus-right"
+"Mod+K" = "window-focus-up"
+"Mod+J" = "window-focus-down"
+"Mod+Left" = "window-focus-left"
+"Mod+Right" = "window-focus-right"
+"Mod+Up" = "window-focus-up"
+"Mod+Down" = "window-focus-down"
+
+# Window movement & column swaps
+"Mod+Shift+H" = "column-move-left"
+"Mod+Shift+L" = "column-move-right"
+"Mod+Shift+K" = "window-move-up"
+"Mod+Shift+J" = "window-move-down"
+"Mod+Shift+Left" = "column-move-left"
+"Mod+Shift+Right" = "column-move-right"
+"Mod+Shift+Up" = "window-move-up"
+"Mod+Shift+Down" = "window-move-down"
+
+# Shell (Noctalia)
+"Mod+D" = "spawn:noctalia msg panel-toggle launcher"
+"Mod+V" = "spawn:noctalia msg panel-toggle clipboard"
+"Mod+N" = "spawn:noctalia msg panel-toggle control-center"
+"Ctrl+Shift+L" = "spawn:noctalia msg session lock"
+"Ctrl+Shift+Q" = "spawn:noctalia msg panel-toggle session"
+
+# Screenshots
+"Mod+P" = "spawn:noctalia msg screenshot-fullscreen"
+"Mod+Shift+P" = "spawn:noctalia msg screenshot-region"
+"Mod+Alt+P" = "spawn:noctalia msg screenshot-annotate"
+
+# Media keys
+"XF86AudioPlay" = { action = "spawn:noctalia msg media toggle", allow_when_locked = true, repeat = false }
+"XF86AudioPrev" = { action = "spawn:noctalia msg media previous", allow_when_locked = true }
+"XF86AudioNext" = { action = "spawn:noctalia msg media next", allow_when_locked = true }
+"XF86AudioStop" = { action = "spawn:noctalia msg media stop", allow_when_locked = true, repeat = false }
+"XF86AudioMicMute" = { action = "spawn:noctalia msg mic-mute", allow_when_locked = true, repeat = false }
+"XF86AudioMute" = { action = "spawn:noctalia msg volume-mute", allow_when_locked = true, repeat = false }
+"XF86AudioRaiseVolume" = { action = "spawn:noctalia msg volume-up 1", allow_when_locked = true }
+"XF86AudioLowerVolume" = { action = "spawn:noctalia msg volume-down 1", allow_when_locked = true }
+"XF86MonBrightnessUp" = { action = "spawn:noctalia msg brightness-up 5", allow_when_locked = true }
+"XF86MonBrightnessDown" = { action = "spawn:noctalia msg brightness-down 5", allow_when_locked = true }
+"XF86KbdBrightnessUp" = { action = "spawn:noctalia msg keyboard-backlight-up", allow_when_locked = true }
+"XF86KbdBrightnessDown" = { action = "spawn:noctalia msg keyboard-backlight-down", allow_when_locked = true }
+
+# Overview
+"Mod+O" = { action = "overview-toggle", repeat = false }
+
+# Mouse
+"Mod+MouseLeft" = "layout-scroll-drag"
+"Mod+WheelUp" = "window-focus-left"
+"Mod+WheelDown" = "window-focus-right"
+
+# Workspaces 1-10
+"Mod+1" = "workspace-switch:1"
+"Mod+2" = "workspace-switch:2"
+"Mod+3" = "workspace-switch:3"
+"Mod+4" = "workspace-switch:4"
+"Mod+5" = "workspace-switch:5"
+"Mod+6" = "workspace-switch:6"
+"Mod+7" = "workspace-switch:7"
+"Mod+8" = "workspace-switch:8"
+"Mod+9" = "workspace-switch:9"
+"Mod+0" = "workspace-switch:10"
+"Mod+Shift+1" = "window-move-to-workspace:1"
+"Mod+Shift+2" = "window-move-to-workspace:2"
+"Mod+Shift+3" = "window-move-to-workspace:3"
+"Mod+Shift+4" = "window-move-to-workspace:4"
+"Mod+Shift+5" = "window-move-to-workspace:5"
+"Mod+Shift+6" = "window-move-to-workspace:6"
+"Mod+Shift+7" = "window-move-to-workspace:7"
+"Mod+Shift+8" = "window-move-to-workspace:8"
+"Mod+Shift+9" = "window-move-to-workspace:9"
+"Mod+Shift+0" = "window-move-to-workspace:10"
+
+# ==============================================================================
+# Layer rules
+# ==============================================================================
+[[layer_rule]]
+blur = true
+blur_ignore_alpha = 0.5
+blur_popups = true
+blur_optimized = false
+
+# ==============================================================================
+# Window rules
+# ==============================================================================
+# Windows blur
+[[window_rule]]
+blur = true
+blur_optimized = false
+
+# Windows start maximized (matches Hyprland fullscreen_on_one_column)
+[[window_rule]]
+match.is_floating = false
+default_maximize = true
+
+# Gaming content
+[[window_rule]]
+match.app_id = "^(steam_app_.*|gamescope|Minecraft.*|cs2|osu!)$"
+default_fullscreen = true
+focus_on_activate = true
+tearing = true
+blur = false
+shadow = false
+
+[[window_rule]]
+match.xdg_tag = "^(proton-game)$"
+default_fullscreen = true
+focus_on_activate = true
+tearing = true
+blur = false
+shadow = false
+
+# Floating utilities
+[[window_rule]]
+match.app_id = "^(nemo|com\\.github\\.wwmm\\.easyeffects|com\\.saivert\\.pwvucontrol|org\\.gnome\\.FileRoller|brave-nngceckbapebfimnlniiiahkandclblb-Default)$"
+default_floating = true
+default_floating_size = { width = 0.6, height = 0.6 }
+
+# Music workspace
+[[window_rule]]
+match.app_id = "^(sidra)$"
+default_workspace = "6"
+default_focused = false
+
+# Picture in picture
+[[window_rule]]
+match.title = "^(Picture-in-Picture|Picture in picture)$"
+default_floating = true
+default_maximize = false
+default_position = { x = 20, y = 20, anchor = "bottom_right" }

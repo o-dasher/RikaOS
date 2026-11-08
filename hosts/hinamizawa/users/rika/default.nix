@@ -42,7 +42,7 @@
       trash.enable = true;
     };
     desktop = {
-      hyprland.enable = true;
+      umbriel.enable = true;
       theme.lucky-star.enable = true;
     };
     core.xdg = {

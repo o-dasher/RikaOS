@@ -40,7 +40,7 @@ in
       };
 
       settings = {
-        session.default = "Hyprland";
+        session.default = "umbriel";
         idle.timeout = idleTimers.dpms;
         cursor.size = themeLib.cursor.size;
         output.refresh_rate = 999;

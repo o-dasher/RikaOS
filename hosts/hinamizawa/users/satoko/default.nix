@@ -6,7 +6,7 @@ _: {
     gaming.mangohud.enable = true;
     utilities.trash.enable = true;
     desktop = {
-      hyprland.enable = true;
+      umbriel.enable = true;
       theme.graduation.enable = true;
     };
     core.xdg = {

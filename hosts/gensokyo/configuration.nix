@@ -14,7 +14,7 @@
   programs = {
     dconf.enable = true;
     nix-ld.enable = true;
-    hyprland.enable = true;
+    umbriel.enable = true;
   };
 
   services = {

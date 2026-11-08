@@ -37,7 +37,7 @@ in
           zathura.enable = true;
           zed.enable = true;
           hyprland = {
-            enable = true;
+            enable = config.features.desktop.hyprland.enable or false;
             hyprpaper.enable = false;
           };
           kde = {

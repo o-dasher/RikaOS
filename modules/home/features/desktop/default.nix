@@ -6,6 +6,7 @@
 {
   imports = [
     ./hyprland
+    ./umbriel
     ./theme
     ./wayland
     ./fonts.nix

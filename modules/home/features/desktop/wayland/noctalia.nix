@@ -28,11 +28,6 @@ let
       padding = 6.0;
     }
     // attrs;
-  mkHyprshutdown =
-    args:
-    "${lib.getExe pkgs.app2unit} -s app.slice -c -- ${lib.getExe pkgs.hyprshutdown}${
-      lib.optionalString (args != "") " ${args}"
-    }";
 in
 {
   imports = [
@@ -56,7 +51,6 @@ in
       brightnessctl
       cliphist
       ddcutil
-      hyprshutdown
       libnotify
       wl-clipboard
       wlsunset
@@ -90,8 +84,8 @@ in
           session = {
             power = {
               suspend = "systemctl suspend-then-hibernate";
-              reboot = mkHyprshutdown "-p 'systemctl reboot'";
-              shutdown = mkHyprshutdown "-p 'systemctl poweroff'";
+              reboot = "systemctl reboot";
+              shutdown = "systemctl poweroff";
             };
             actions = [
               {
@@ -99,18 +93,18 @@ in
               }
               {
                 action = "logout";
-                command = mkHyprshutdown "";
+                command = "umbriel msg session-quit:skip-confirmation";
               }
               {
                 action = "suspend";
               }
               {
                 action = "reboot";
-                command = mkHyprshutdown "-p 'systemctl reboot'";
+                command = "systemctl reboot";
               }
               {
                 action = "shutdown";
-                command = mkHyprshutdown "-p 'systemctl poweroff'";
+                command = "systemctl poweroff";
               }
             ];
           };
@@ -337,10 +331,6 @@ in
           blur_intensity = 0.75;
           tint_intensity = 0.25;
           transition = [ "fade" ];
-          monitors = [
-            "HDMI-A-1"
-            "eDP-1"
-          ];
         };
 
         idle = {
