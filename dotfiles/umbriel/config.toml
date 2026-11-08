@@ -43,7 +43,7 @@ brightness = 0.90
 optimized = false
 
 # ==============================================================================
-# Animations (1:1 with Hyprland speed = 1, slide style)
+# Animations
 # ==============================================================================
 [animation]
 enabled = true
@@ -93,6 +93,8 @@ extent_presets = [0.333, 0.5, 0.667, 1.0]
 
 [layout.scrolling]
 default_extent_fraction = 1.0
+center_focused = "always"
+center_underfull_strip = true
 
 # ==============================================================================
 # Input
@@ -234,7 +236,7 @@ blur_optimized = false
 blur = true
 blur_optimized = false
 
-# Windows start maximized (matches Hyprland fullscreen_on_one_column)
+# Windows start maximized
 [[window_rule]]
 match.is_floating = false
 default_maximize = true

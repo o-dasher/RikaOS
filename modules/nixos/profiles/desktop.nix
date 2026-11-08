@@ -18,6 +18,7 @@ in
     };
     features = {
       audio.enable = true;
+      desktop.umbriel.enable = true;
       graphics.enable = true;
       gaming.enable = cfg.gaming.enable;
       virtualization.enable = cfg.virtualization.enable;

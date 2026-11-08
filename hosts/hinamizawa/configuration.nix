@@ -137,7 +137,6 @@
   programs = {
     dconf.enable = true;
     nix-ld.enable = true;
-    umbriel.enable = true;
     obs-studio = {
       enable = true;
       enableVirtualCamera = true;

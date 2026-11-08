@@ -14,7 +14,6 @@
   programs = {
     dconf.enable = true;
     nix-ld.enable = true;
-    umbriel.enable = true;
   };
 
   services = {
