@@ -21,7 +21,7 @@ in
     # ("Wakeup pending. Abort CPU freeze") or wakes the machine seconds into suspend-then-hibernate.
     # Keyboard wakeup remains active via the CPU-integrated Raphael xHCI controller (1022:15b8).
     services.udev.extraRules = ''
-      ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x1022", ATTR{device}=="0x43f7", ATTR{power/wakeup}="disabled"
+      ACTION=="add|change", SUBSYSTEM=="pci", ATTR{vendor}=="0x1022", ATTR{device}=="0x43f7", ATTR{power/wakeup}="disabled"
     '';
 
     systemd.sleep.settings.Sleep = {
