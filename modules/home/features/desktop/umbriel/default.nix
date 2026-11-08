@@ -118,8 +118,8 @@ in
             tap = true
 
             [events]
-            lid_close = "output-disable:eDP-1"
-            lid_open = "output-enable:eDP-1"
+            lid_close = "umbriel msg output-disable eDP-1"
+            lid_open = "umbriel msg output-enable eDP-1"
           ''
         ]
       );

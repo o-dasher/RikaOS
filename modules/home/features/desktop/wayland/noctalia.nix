@@ -93,7 +93,7 @@ in
               }
               {
                 action = "logout";
-                command = "umbriel msg session-quit:skip-confirmation";
+                command = "umbriel msg session-quit skip-confirmation";
               }
               {
                 action = "suspend";

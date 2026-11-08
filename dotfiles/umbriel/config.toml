@@ -128,7 +128,7 @@ workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
 # ==============================================================================
 [keybinds]
 # Applications and session
-"Mod+Return" = { action = "spawn:app2unit -s a -- xdg-terminal-exec", repeat = false }
+"Mod+Return" = { action = "spawn app2unit -s a -- xdg-terminal-exec", repeat = false }
 "Mod+C" = { action = "window-close", repeat = false }
 "Mod+F" = { action = "window-toggle-fullscreen", repeat = false }
 "Mod+M" = { action = "window-toggle-maximize", repeat = false }
@@ -165,30 +165,30 @@ workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
 "Mod+Shift+Down" = "window-move-down"
 
 # Shell (Noctalia)
-"Mod+D" = "spawn:noctalia msg panel-toggle launcher"
-"Mod+V" = "spawn:noctalia msg panel-toggle clipboard"
-"Mod+N" = "spawn:noctalia msg panel-toggle control-center"
-"Ctrl+Shift+L" = "spawn:noctalia msg session lock"
-"Ctrl+Shift+Q" = "spawn:noctalia msg panel-toggle session"
+"Mod+D" = "spawn noctalia msg panel-toggle launcher"
+"Mod+V" = "spawn noctalia msg panel-toggle clipboard"
+"Mod+N" = "spawn noctalia msg panel-toggle control-center"
+"Ctrl+Shift+L" = "spawn noctalia msg session lock"
+"Ctrl+Shift+Q" = "spawn noctalia msg panel-toggle session"
 
 # Screenshots
-"Mod+P" = "spawn:noctalia msg screenshot-fullscreen"
-"Mod+Shift+P" = "spawn:noctalia msg screenshot-region"
-"Mod+Alt+P" = "spawn:noctalia msg screenshot-annotate"
+"Mod+P" = "spawn noctalia msg screenshot-fullscreen"
+"Mod+Shift+P" = "spawn noctalia msg screenshot-region"
+"Mod+Alt+P" = "spawn noctalia msg screenshot-annotate"
 
 # Media keys
-"XF86AudioPlay" = { action = "spawn:noctalia msg media toggle", allow_when_locked = true, repeat = false }
-"XF86AudioPrev" = { action = "spawn:noctalia msg media previous", allow_when_locked = true }
-"XF86AudioNext" = { action = "spawn:noctalia msg media next", allow_when_locked = true }
-"XF86AudioStop" = { action = "spawn:noctalia msg media stop", allow_when_locked = true, repeat = false }
-"XF86AudioMicMute" = { action = "spawn:noctalia msg mic-mute", allow_when_locked = true, repeat = false }
-"XF86AudioMute" = { action = "spawn:noctalia msg volume-mute", allow_when_locked = true, repeat = false }
-"XF86AudioRaiseVolume" = { action = "spawn:noctalia msg volume-up 1", allow_when_locked = true }
-"XF86AudioLowerVolume" = { action = "spawn:noctalia msg volume-down 1", allow_when_locked = true }
-"XF86MonBrightnessUp" = { action = "spawn:noctalia msg brightness-up 5", allow_when_locked = true }
-"XF86MonBrightnessDown" = { action = "spawn:noctalia msg brightness-down 5", allow_when_locked = true }
-"XF86KbdBrightnessUp" = { action = "spawn:noctalia msg keyboard-backlight-up", allow_when_locked = true }
-"XF86KbdBrightnessDown" = { action = "spawn:noctalia msg keyboard-backlight-down", allow_when_locked = true }
+"XF86AudioPlay" = { action = "spawn noctalia msg media toggle", allow_when_locked = true, repeat = false }
+"XF86AudioPrev" = { action = "spawn noctalia msg media previous", allow_when_locked = true }
+"XF86AudioNext" = { action = "spawn noctalia msg media next", allow_when_locked = true }
+"XF86AudioStop" = { action = "spawn noctalia msg media stop", allow_when_locked = true, repeat = false }
+"XF86AudioMicMute" = { action = "spawn noctalia msg mic-mute", allow_when_locked = true, repeat = false }
+"XF86AudioMute" = { action = "spawn noctalia msg volume-mute", allow_when_locked = true, repeat = false }
+"XF86AudioRaiseVolume" = { action = "spawn noctalia msg volume-up 1", allow_when_locked = true }
+"XF86AudioLowerVolume" = { action = "spawn noctalia msg volume-down 1", allow_when_locked = true }
+"XF86MonBrightnessUp" = { action = "spawn noctalia msg brightness-up 5", allow_when_locked = true }
+"XF86MonBrightnessDown" = { action = "spawn noctalia msg brightness-down 5", allow_when_locked = true }
+"XF86KbdBrightnessUp" = { action = "spawn noctalia msg keyboard-backlight-up", allow_when_locked = true }
+"XF86KbdBrightnessDown" = { action = "spawn noctalia msg keyboard-backlight-down", allow_when_locked = true }
 
 # Overview
 "Mod+O" = { action = "overview-toggle", repeat = false }
@@ -199,26 +199,26 @@ workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
 "Mod+WheelDown" = "window-focus-right"
 
 # Workspaces 1-10
-"Mod+1" = "workspace-switch:1"
-"Mod+2" = "workspace-switch:2"
-"Mod+3" = "workspace-switch:3"
-"Mod+4" = "workspace-switch:4"
-"Mod+5" = "workspace-switch:5"
-"Mod+6" = "workspace-switch:6"
-"Mod+7" = "workspace-switch:7"
-"Mod+8" = "workspace-switch:8"
-"Mod+9" = "workspace-switch:9"
-"Mod+0" = "workspace-switch:10"
-"Mod+Shift+1" = "window-move-to-workspace:1"
-"Mod+Shift+2" = "window-move-to-workspace:2"
-"Mod+Shift+3" = "window-move-to-workspace:3"
-"Mod+Shift+4" = "window-move-to-workspace:4"
-"Mod+Shift+5" = "window-move-to-workspace:5"
-"Mod+Shift+6" = "window-move-to-workspace:6"
-"Mod+Shift+7" = "window-move-to-workspace:7"
-"Mod+Shift+8" = "window-move-to-workspace:8"
-"Mod+Shift+9" = "window-move-to-workspace:9"
-"Mod+Shift+0" = "window-move-to-workspace:10"
+"Mod+1" = "workspace-switch 1"
+"Mod+2" = "workspace-switch 2"
+"Mod+3" = "workspace-switch 3"
+"Mod+4" = "workspace-switch 4"
+"Mod+5" = "workspace-switch 5"
+"Mod+6" = "workspace-switch 6"
+"Mod+7" = "workspace-switch 7"
+"Mod+8" = "workspace-switch 8"
+"Mod+9" = "workspace-switch 9"
+"Mod+0" = "workspace-switch 10"
+"Mod+Shift+1" = "window-move-to-workspace 1"
+"Mod+Shift+2" = "window-move-to-workspace 2"
+"Mod+Shift+3" = "window-move-to-workspace 3"
+"Mod+Shift+4" = "window-move-to-workspace 4"
+"Mod+Shift+5" = "window-move-to-workspace 5"
+"Mod+Shift+6" = "window-move-to-workspace 6"
+"Mod+Shift+7" = "window-move-to-workspace 7"
+"Mod+Shift+8" = "window-move-to-workspace 8"
+"Mod+Shift+9" = "window-move-to-workspace 9"
+"Mod+Shift+0" = "window-move-to-workspace 10"
 
 # ==============================================================================
 # Layer rules
