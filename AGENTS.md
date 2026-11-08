@@ -7,7 +7,7 @@
 Key components:
 - **Flake-based & Lix**: Fully reproducible builds using Lix (`pkgs.lixPackageSets.git`) as the package set and runtime evaluator across all systems.
 - **Modular Design**: Separated into granular `features` and high-level `profiles` across `modules/nixos` and `modules/home`.
-- **Hyprland in Lua**: Hyprland configuration is written and managed entirely in **Lua** (`dotfiles/hypr/`), utilizing custom Lua bindings rather than traditional `.conf` files.
+- **Umbriel Compositor**: Desktop compositor managed via declarative TOML (`dotfiles/umbriel/config.toml`) and dynamic Home Manager rules (`modules/home/features/desktop/umbriel/`).
 - **Neovim via `mnw`**: Declarative Neovim wrapper (`flakes/neovim`) with out-of-store Lua configurations for rapid development and testing.
 - **Two-tier Repository Model**: The public repository (`/shared/.config/public`) is open-source and self-contained; sensitive Agenix secrets and deployment keys live in the private repository (`/shared/.config/private`).
 
@@ -136,7 +136,7 @@ Available user targets:
 │       ├── utils.nix        # rika.utils (idleTimers, symlink helpers, autostart, tailwind)
 │       └── theme.nix        # Stylix theme definitions & base16 paletting
 ├── dotfiles/                # Out-of-store configuration files symlinked via rika.utils
-│   ├── hypr/                # Hyprland Lua configuration (init, binds, config, monitors, rules)
+│   ├── umbriel/             # Umbriel configuration (config.toml)
 │   ├── nvim/                # Declarative Neovim configuration files
 │   └── ideavim/             # IdeaVim configuration
 ├── flakes/
@@ -150,10 +150,8 @@ Available user targets:
 
 ## Coding Conventions & Key Patterns
 
-- **Lua for Hyprland**: Never write standard `hyprland.conf` directives. Hyprland is configured in Lua (`dotfiles/hypr/`) using the `hl` Lua table API (`hl.bind`, `hl.config`, `hl.window_rule`, `hl.dsp`).
-- **Hyprland Window Rules & Class Matching**: Never guess window classes with speculative or overly broad regex patterns (such as `^([sS]omething|something-desktop)$`). Always inspect running application instances using `hyprctl clients -j | jq '.[] | {class, initialClass, title}'` to identify the exact, definitive `class` or `initialClass` before authoring `hl.window_rule`.
-- **Autostart Apps via Attributes**: Always use `rika.utils.mkAutostartApp` with `xdg.autostart.entries` to configure application autostarts within their feature modules rather than creating ad-hoc shell loops, wrapper scripts, or `hl.on("hyprland.start", ...)` hooks. If a startup delay is ever strictly required by a service, use the `delay` attribute on `rika.utils.mkAutostartApp { pkg = ...; delay = ...; }` to leverage systemd's `ExecStartPre` natively.
-- **Lua Event-Driven Window Organization Over Startup Delays**: When multiple applications open on the same workspace and require a deterministic ordering or layout (e.g. Discord on the left and Signal alongside on the right), do not use arbitrary sleep or startup delays that waste CPU and prolong session boot. Instead, allow both applications to launch concurrently and use Hyprland Lua event hooks (`hl.on("window.open", ...)`, `hl.on("window.move_to_workspace", ...)`) with layout dispatchers (such as `hl.dsp.window.swap`) to automatically reorganize the workspace into the desired arrangement.
+- **Umbriel Compositor**: Umbriel is configured using TOML (`dotfiles/umbriel/config.toml`) with optional split includes (`theme.toml`, `rules.toml`) dynamically managed via Home Manager.
+- **Autostart Apps via Attributes**: Always use `rika.utils.mkAutostartApp` with `xdg.autostart.entries` to configure application autostarts within their feature modules rather than creating ad-hoc shell loops or wrapper scripts. If a startup delay is ever strictly required by a service, use the `delay` attribute on `rika.utils.mkAutostartApp { pkg = ...; delay = ...; }` to leverage systemd's `ExecStartPre` natively.
 - **Selective Symlinks**: Use `rika.utils.xdgConfigSelectiveSymLink` or `rika.utils.selectiveSymLink` for dotfiles so edits take effect immediately without requiring full activation rebuilds.
 - **Stylix Theming**: Theme palettes are generated and propagated through `modules/lib/theme.nix`.
 - **Flatten Single-Child Attribute Paths**: Avoid introducing nested attribute set blocks when defining only a single child attribute under a namespace. Collapse lone nested attributes into dotted notation (e.g. `services.openssh.enable = true;`). Reserve braced attribute set blocks (`{ ... }`) strictly for scopes containing two or more sibling keys sharing the same prefix.

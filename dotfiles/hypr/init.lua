@@ -1,5 +1,0 @@
-require("commons")
-require("config")
-require("utils")
-require("rules")
-require("binds")

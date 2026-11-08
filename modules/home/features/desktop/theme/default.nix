@@ -37,10 +37,6 @@ in
           yazi.enable = true;
           zathura.enable = true;
           zed.enable = true;
-          hyprland = {
-            enable = config.features.desktop.hyprland.enable or false;
-            hyprpaper.enable = false;
-          };
           kde = {
             enable = true;
             useWallpaper = false;

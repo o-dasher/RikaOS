@@ -5,7 +5,6 @@
 }:
 {
   imports = [
-    ./hyprland
     ./umbriel
     ./theme
     ./wayland

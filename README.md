@@ -6,7 +6,7 @@ Personal NixOS and Home Manager configurations for my desktop and laptop, manage
 
 - **Modules**: System and user configurations split into reusable `features` and `profiles` across `modules/nixos` and `modules/home`.
 - **Nix implementation**: Evaluated using [Lix](https://lix.systems).
-- **Desktop**: [Hyprland](https://hyprland.org/) configured with Lua (`dotfiles/hypr/`).
+- **Desktop**: [Umbriel](https://noctalia.dev) configured with TOML (`dotfiles/umbriel/config.toml`).
 - **Terminal & Shell**: [Ghostty](https://ghostty.org/) with [Fish](https://fishshell.com/) and [Starship](https://starship.rs/).
 - **Editor**: Neovim managed via [`mnw`](https://github.com/Gerg-L/mnw) with Lua config in `dotfiles/nvim/` (and a dev subflake in `flakes/neovim`).
 - **Theming**: System-wide theming handled by [Stylix](https://github.com/nix-community/stylix).
@@ -16,7 +16,7 @@ Personal NixOS and Home Manager configurations for my desktop and laptop, manage
 | Host | Type | Users | Notes |
 |---|---|---|---|
 | `hinamizawa` | Desktop | `rika`, `satoko` | AMD GPU, Limine Secure Boot + LUKS, Btrfs, Steam. |
-| `gensokyo` | Laptop | `thiago` | Power management via TLP, Tailscale, automounted `/mnt/data`, Hyprland. |
+| `gensokyo` | Laptop | `thiago` | Power management via TLP, Tailscale, automounted `/mnt/data`, Umbriel. |
 
 ## Usage & Testing
 
@@ -71,7 +71,7 @@ nix build .#homeConfigurations."username@hostname".activationPackage
 | `modules/nixos/` | Reusable NixOS system modules (`features/` and `profiles/`). |
 | `modules/home/` | Reusable Home Manager modules (`features/` and `profiles/`). |
 | `modules/lib/` | Shared utility library (`theme.nix`, `utils.nix`, Tailwind helper, symlink utilities). |
-| `dotfiles/` | Out-of-store configuration files (Lua Hyprland setup, Neovim, IdeaVim). |
+| `dotfiles/` | Out-of-store configuration files (Umbriel setup, Neovim, IdeaVim). |
 | `flakes/neovim/` | Standalone `mnw` Neovim wrapper package and devMode flake. |
 | `assets/` | Wallpapers, OpenRGB profiles, QMK layouts, and ASCII artwork. |
 | `AGENTS.md` | Guide and development instructions for AI agents and contributors. |

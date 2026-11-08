@@ -17,8 +17,8 @@ in
     lib.mkEnableOption "Noctalia Greetd display manager.";
 
   config = lib.mkIf (modCfg.enable && cfg.enable) {
-    # WORKAROUND: Fix non-functioning TTY switching under Hyprland.
-    # Hyprland forwards VT switch requests to systemd-logind via DBus
+    # WORKAROUND: Fix non-functioning TTY switching under Wayland compositors.
+    # Compositors forward VT switch requests to systemd-logind via DBus
     # (org.freedesktop.login1.chvt). Logind denies these requests by default
     # for the greeter session and unprivileged users, causing Ctrl+Alt+Fx
     # shortcuts to fail. This rule permits VT switching for greeter and regular users (UID >= 1000).
