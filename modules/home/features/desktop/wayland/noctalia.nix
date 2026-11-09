@@ -129,6 +129,7 @@ in
         bar.default = {
           position = "top";
           enabled = true;
+          compositor_blur = true;
           thickness = 24;
           scale = 1.0;
           background_opacity = 0.0;
