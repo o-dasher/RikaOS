@@ -110,9 +110,9 @@ in
           run mkdir -p -m 0700 "$cfgDir"
           tmp=$(mktemp)
           if [ -f "$cfgFile" ]; then
-            ${lib.getExe pkgs.jq} '.wrapper_mode = "managed"' "$cfgFile" > "$tmp"
+            ${lib.getExe pkgs.jq} '. + { wrapper_mode: "managed", audio_device: "default" }' "$cfgFile" > "$tmp"
           else
-            printf '{\n  "wrapper_mode": "managed"\n}\n' > "$tmp"
+            printf '{\n  "wrapper_mode": "managed",\n  "audio_device": "default"\n}\n' > "$tmp"
           fi
           run install -m 0600 "$tmp" "$cfgFile"
           rm -f "$tmp"
