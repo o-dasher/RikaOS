@@ -82,6 +82,16 @@ in
             default_maximize = true
           ''
         ]
+        ++ lib.optionals config.features.social.signal.enable [
+          ''
+            [[window_rule]]
+            match.app_id = "^(signal)$"
+            default_workspace = "3"
+            default_focused = false
+            default_maximize = true
+            default_scrolling_column_order = 1
+          ''
+        ]
         ++ lib.optionals config.programs.nixcord.discord.vencord.enable [
           ''
             [[window_rule]]
@@ -94,17 +104,17 @@ in
             default_workspace = "3"
             default_focused = false
             default_maximize = true
-            default_scrolling_column_order = 1
+            default_scrolling_column_order = 2
           ''
         ]
-        ++ lib.optionals config.features.social.signal.enable [
+        ++ lib.optionals config.features.social.zapfast.enable [
           ''
             [[window_rule]]
-            match.app_id = "^(signal)$"
+            match.app_id = "^(zapfast)$"
             default_workspace = "3"
             default_focused = false
             default_maximize = true
-            default_scrolling_column_order = 2
+            default_scrolling_column_order = 3
           ''
         ]
         ++ lib.optionals cfg.laptop.enable [

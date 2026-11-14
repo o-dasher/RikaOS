@@ -13,5 +13,8 @@ in
 
   config = lib.mkIf (modCfg.enable && cfg.enable) {
     home.packages = [ pkgs.zapfast ];
+    xdg.autostart.entries = [
+      (config.rika.utils.mkAutostartApp { pkg = pkgs.zapfast; })
+    ];
   };
 }

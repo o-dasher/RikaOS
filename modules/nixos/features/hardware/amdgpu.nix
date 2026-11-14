@@ -13,12 +13,7 @@ in
   config = lib.mkIf (modCfg.enable && cfg.enable) {
     services.lact.enable = true;
 
-    environment.sessionVariables = {
-      ENABLE_LAYER_MESA_ANTI_LAG = "1";
-      RADV_DEBUG = "nodisplaydcc";
-      AMD_DEBUG = "nodisplaydcc";
-    };
-
+    environment.sessionVariables.ENABLE_LAYER_MESA_ANTI_LAG = "1";
     hardware.amdgpu = {
       initrd.enable = true;
       opencl.enable = true;

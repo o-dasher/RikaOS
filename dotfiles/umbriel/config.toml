@@ -222,26 +222,6 @@ workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
 "Mod+Shift+0" = "window-move-to-workspace 10"
 
 # ==============================================================================
-# Layer rules
-# ==============================================================================
-[[layer_rule]]
-blur = true
-blur_ignore_alpha = 0.2
-blur_popups = true
-blur_optimized = false
-
-[[layer_rule]]
-match.namespace = "^(noctalia-wallpaper)$"
-blur = false
-
-[[layer_rule]]
-match.namespace = "^(noctalia-bar-.*|noctalia-panel|noctalia-attached-panel|noctalia-osd)$"
-blur = true
-blur_ignore_alpha = 0.2
-blur_popups = true
-blur_optimized = false
-
-# ==============================================================================
 # Window rules
 # ==============================================================================
 # Windows blur
