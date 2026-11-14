@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   config,
   ...
 }:
@@ -14,5 +15,9 @@ in
 
   config = lib.mkIf (desktopCfg.enable && modCfg.enable) {
     fonts.fontconfig.enable = true;
+
+    # Shallow XDG link so font scanners with bounded depth (e.g. fastframe-fonts depth 4) find CJK glyphs.
+    xdg.dataFile."fonts/noto-cjk/NotoSansCJK-Regular.ttc".source =
+      "${pkgs.noto-fonts-cjk-sans-static}/share/fonts/opentype/noto-cjk/NotoSansCJK-Regular.ttc";
   };
 }
