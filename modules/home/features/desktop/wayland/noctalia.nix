@@ -229,7 +229,7 @@ in
             label_source = "id";
             style = "regular";
             focused_color = "primary";
-            occupied_color = "surface_variant";
+            occupied_color = "surface_container";
             empty_color = "surface";
             urgent_color = "error";
             pill_scale = 1.0;
