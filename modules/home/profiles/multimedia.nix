@@ -9,72 +9,34 @@ let
   cfg = config.profiles.multimedia;
   melba-pkg = inputs.melba.packages.${pkgs.stdenv.hostPlatform.system}.melba-paired;
 
-  wrapperSources = {
-    x86_64-linux = {
-      arch = "x86_64";
-      sha256 = "4bf5ec7869c57baeab13832d14b5c8d1c1167a6dd492a837f1d9b8fb42c2d67a";
-    };
-    aarch64-linux = {
-      arch = "arm64";
-      sha256 = "8de5da67e375038ff5a08761c71ccaf90ac5ec711a6d0924ba7328b5e116e0a6";
-    };
+  wrapperZip = pkgs.fetchzip {
+    url = "https://github.com/WorldObservationLog/wrapper/releases/download/wrapper.x86_64.latest/Wrapper.x86_64.latest.zip";
+    stripRoot = false;
+    hash = "sha256-rKOOKG6x0j3srOij4KLqqN7rbL9R+ciH1Sc9DHEWHXk=";
   };
-  wrapperSrcInfo = wrapperSources.${pkgs.stdenv.hostPlatform.system};
-  melba-wrapper-zip = pkgs.fetchurl {
-    url = "https://github.com/WorldObservationLog/wrapper/releases/download/wrapper.${wrapperSrcInfo.arch}.latest/Wrapper.${wrapperSrcInfo.arch}.latest.zip";
-    inherit (wrapperSrcInfo) sha256;
-  };
-  melba-wrapper-tzdata = pkgs.fetchurl {
+  tzdata = pkgs.fetchurl {
     url = "https://raw.githubusercontent.com/WorldObservationLog/wrapper/2fd7e0eaef081f93cf687428b965674937832ba4/rootfs/system/usr/share/zoneinfo/tzdata";
     sha256 = "28d0689618cfb2796a52ba335ab9e535ba68948ad3ecd1a5670e24f762ff2117";
   };
+  runScript = pkgs.writeShellScript "run" ''
+    D="$(cd "$(dirname "$0")" && pwd)"
+    exec "$D/wrapper" -H 127.0.0.1 -B "$D/rootfs/data/data/com.apple.android.music/files" "$@"
+  '';
+  melba-wrapper = pkgs.runCommand "melba-wrapper" { nativeBuildInputs = [ pkgs.patchelf ]; } ''
+    mkdir -p "$out/rootfs/system/usr/share/zoneinfo" "$out/rootfs/data/data/com.apple.android.music/files"
+    install -m755 "${wrapperZip}/wrapper" "$out/wrapper"
+    install -m755 "${runScript}" "$out/run"
+    cp -a "${wrapperZip}/rootfs/system/." "$out/rootfs/system/"
+    chmod -R u+w "$out/rootfs/system"
+    chmod 755 "$out/rootfs/system/bin/main" "$out/rootfs/system/bin/linker64"
+    install -Dm644 "${tzdata}" "$out/rootfs/system/usr/share/zoneinfo/tzdata"
 
-  melba-wrapper = pkgs.stdenv.mkDerivation {
-    pname = "melba-wrapper";
-    version = "unstable-2026-10-19";
-    src = melba-wrapper-zip;
-
-    dontUnpack = true;
-    dontBuild = true;
-    dontStrip = true;
-    dontPatchELF = true;
-    dontPatchShebangs = true;
-
-    nativeBuildInputs = with pkgs; [
-      unzip
-      patchelf
-    ];
-
-    installPhase = ''
-      mkdir -p work
-      unzip -q "$src" -d work
-      nested=$(find work -mindepth 2 -maxdepth 2 -name wrapper -type f | head -n 1 || true)
-      if [ -n "$nested" ] && [ ! -e work/wrapper ]; then
-        base=$(dirname "$nested")
-        mv "$base"/* work/
-      fi
-
-      mkdir -p "$out/rootfs/system/usr/share/zoneinfo" "$out/rootfs/data/data/com.apple.android.music/files"
-      cp -a work/wrapper "$out/wrapper"
-      cp -a work/rootfs/system/. "$out/rootfs/system/"
-      install -Dm644 "${melba-wrapper-tzdata}" "$out/rootfs/system/usr/share/zoneinfo/tzdata"
-
-      # Patch only the host glibc launcher; keep bionic rootfs untouched so melbad ABI hashes match.
-      chmod 755 "$out/wrapper" "$out/rootfs/system/bin/main" "$out/rootfs/system/bin/linker64"
-      patchelf \
-        --set-interpreter "$(cat "$NIX_CC/nix-support/dynamic-linker")" \
-        --set-rpath "${pkgs.glibc.out}/lib" \
-        "$out/wrapper"
-
-      printf '%s\n' \
-        '#!${pkgs.runtimeShell}' \
-        'D="$(cd "$(dirname "$0")" && pwd)"' \
-        'exec "$D/wrapper" -H 127.0.0.1 \' \
-        '    -B "$D/rootfs/data/data/com.apple.android.music/files" "$@"' \
-        > "$out/run"
-      chmod 755 "$out/run"
-    '';
-  };
+    # Patch only the host glibc launcher; keep bionic rootfs untouched so melbad ABI hashes match.
+    patchelf \
+      --set-interpreter "${pkgs.stdenv.cc.bintools.dynamicLinker}" \
+      --set-rpath "${pkgs.glibc.out}/lib" \
+      "$out/wrapper"
+  '';
 in
 {
   options.profiles.multimedia.enable = lib.mkEnableOption "Multimedia profile.";
@@ -88,6 +50,7 @@ in
       Wants = [ "pipewire.service" ];
       PartOf = [ "pipewire.service" ];
     };
+
     programs = {
       # Video
       mpv.enable = true;
