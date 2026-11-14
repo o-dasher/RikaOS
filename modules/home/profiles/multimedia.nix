@@ -13,7 +13,23 @@ in
 
   config = lib.mkIf cfg.enable (
     let
-      melba-pkg = inputs.melba.packages.${pkgs.stdenv.hostPlatform.system}.melba-paired;
+      melba-pkg =
+        let
+          base = inputs.melba.packages.${pkgs.stdenv.hostPlatform.system}.melba-paired;
+        in
+        pkgs.symlinkJoin {
+          inherit (base) meta;
+          name = "melba";
+          paths = [ base ];
+          nativeBuildInputs = [ pkgs.makeWrapper ];
+          postBuild = ''
+            for name in melba melbad; do
+              rm "$out/bin/$name"
+              makeWrapper "${base}/bin/$name" "$out/bin/$name" \
+                --set-default MELBA_STORE br
+            done
+          '';
+        };
     in
     {
       services.easyeffects.enable = true;
