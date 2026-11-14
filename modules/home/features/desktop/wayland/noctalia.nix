@@ -110,6 +110,7 @@ in
           };
           panel = {
             transparency_mode = "glass";
+            control_center_placement = "floating";
             borders = true;
             shadow = false;
           };
