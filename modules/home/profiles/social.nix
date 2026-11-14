@@ -15,6 +15,7 @@ in
       email.enable = true;
       discord.enable = true;
       signal.enable = true;
+      zapfast.enable = true;
     };
   };
 }
