@@ -141,7 +141,6 @@ workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
 "Mod+Shift+U" = "window-consume-or-expel-left"
 "Mod+R" = "window-cycle-primary-extent"
 "Mod+Shift+R" = "window-cycle-primary-extent-back"
-"Mod+W" = { action = "column-toggle-tabbed", repeat = false }
 "Mod+Alt+Left" = "column-focus-tab-previous"
 "Mod+Alt+Right" = "column-focus-tab-next"
 

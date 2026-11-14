@@ -72,6 +72,37 @@
       in
       "${desktopItem}/share/applications/${pkgName}.desktop";
 
+    mkFlatFonts =
+      {
+        name ? "flat-fonts",
+        pkgsList,
+        subPath ? "share/fonts",
+      }:
+      let
+        uniquePkgs = lib.unique (map toString pkgsList);
+      in
+      pkgs.runCommand name { } ''
+        dest="$out${lib.optionalString (subPath != "") "/${subPath}"}"
+        mkdir -p "$dest"
+        font_regexp='.*\.(ttf|ttc|otb|otf|otc|pcf|pfa|pfb|bdf)(\.gz)?'
+        for pkg in ${lib.escapeShellArgs uniquePkgs}; do
+          [ -d "$pkg/share/fonts" ] || continue
+          while IFS= read -r -d "" file; do
+            base=$(basename "$file")
+            if [ -e "$dest/$base" ]; then
+              [ "$(readlink -f "$dest/$base" 2>/dev/null)" = "$(readlink -f "$file")" ] && continue
+              rel=''${file#"$pkg/share/fonts/"}
+              base=$(printf '%s' "$rel" | tr '/' '_')
+            fi
+            if [ -e "$dest/$base" ]; then
+              pkg_id=$(basename "$pkg" | cut -d- -f1)
+              base="''${pkg_id}_$base"
+            fi
+            [ -e "$dest/$base" ] || ln -s "$file" "$dest/$base"
+          done < <(find -L "$pkg/share/fonts" -type f -regextype posix-extended -iregex "$font_regexp" -print0)
+        done
+      '';
+
     selectiveSymLink =
       from: to: paths: opts:
       builtins.listToAttrs (

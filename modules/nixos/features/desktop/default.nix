@@ -1,6 +1,7 @@
 {
   imports = [
-    ./umbriel
+    ./fonts.nix
     ./theme.nix
+    ./umbriel
   ];
 }
