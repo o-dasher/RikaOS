@@ -259,8 +259,9 @@ shadow = false
 
 # Floating utilities
 [[window_rule]]
-match.app_id = "^(nemo|com\\.github\\.wwmm\\.easyeffects|com\\.saivert\\.pwvucontrol|org\\.gnome\\.FileRoller|brave-nngceckbapebfimnlniiiahkandclblb-Default)$"
+match.app_id = "^(nemo|com\\.github\\.wwmm\\.easyeffects|com\\.saivert\\.pwvucontrol|org\\.gnome\\.FileRoller|[Bb]itwarden|brave-nngceckbapebfimnlniiiahkandclblb-Default)$"
 default_floating = true
+default_maximize = false
 default_floating_size = { width = 0.6, height = 0.6 }
 
 # Music workspace
