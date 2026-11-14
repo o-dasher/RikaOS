@@ -217,6 +217,29 @@
         "type": "github"
       }
     },
+    "melba": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": "rust-overlay"
+      },
+      "locked": {
+        "dir": "crates/melba",
+        "lastModified": 1794595348,
+        "narHash": "sha256-TxC+JF4thNMHHEeaPktfPFqZbV/G13HUC1l7TAbPy0s=",
+        "owner": "nekomario28",
+        "repo": "melba",
+        "rev": "761c14694f4d26207e05584e8f40ab1ac3332ac2",
+        "type": "github"
+      },
+      "original": {
+        "dir": "crates/melba",
+        "owner": "nekomario28",
+        "repo": "melba",
+        "type": "github"
+      }
+    },
     "mnw": {
       "locked": {
         "lastModified": 1790357809,
@@ -384,32 +407,33 @@
         "flake-parts": "flake-parts",
         "git-hooks": "git-hooks",
         "home-manager": "home-manager",
+        "melba": "melba",
         "mnw": "mnw",
         "nix-gaming": "nix-gaming",
         "nixcord": "nixcord",
         "nixpkgs": "nixpkgs",
-        "sidra": "sidra",
         "stylix": "stylix",
         "systems": "systems"
       }
     },
-    "sidra": {
+    "rust-overlay": {
       "inputs": {
         "nixpkgs": [
+          "melba",
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1794592327,
-        "narHash": "sha256-zq54bTm7HJjKCVqeJWKzHVD39F5PHQ0wRUrjzcO8fxQ=",
-        "owner": "wimpysworld",
-        "repo": "sidra",
-        "rev": "fc5f3d1b012cad6c29a2be999a6874cd14cb60cd",
+        "lastModified": 1787834454,
+        "narHash": "sha256-jXSvqn04IOecJCvSvl8+g3PsbDVNP6qKs6dKUs/b16k=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "dc2fd1acc537f3583744e1373597a5731ff7a6e3",
         "type": "github"
       },
       "original": {
-        "owner": "wimpysworld",
-        "repo": "sidra",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
         "type": "github"
       }
     },

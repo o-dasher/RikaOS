@@ -7,7 +7,7 @@
 }:
 let
   cfg = config.profiles.multimedia;
-  sidra-pkg = inputs.sidra.packages.${pkgs.stdenv.hostPlatform.system}.default;
+  melba-pkg = inputs.melba.packages.${pkgs.stdenv.hostPlatform.system}.melba-paired;
 in
 {
   options.profiles.multimedia.enable = lib.mkEnableOption "Multimedia profile.";
@@ -41,9 +41,9 @@ in
       krita
 
       # Music
-      sidra-pkg
+      melba-pkg
     ];
 
-    xdg.autostart.entries = [ (config.rika.utils.mkAutostartApp { pkg = sidra-pkg; }) ];
+    xdg.autostart.entries = [ (config.rika.utils.mkAutostartApp { pkg = melba-pkg; }) ];
   };
 }

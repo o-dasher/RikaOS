@@ -42,8 +42,8 @@
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    sidra = {
-      url = "github:wimpysworld/sidra";
+    melba = {
+      url = "github:nekomario28/melba?dir=crates/melba";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     git-hooks = {

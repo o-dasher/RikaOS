@@ -265,7 +265,7 @@ default_floating_size = { width = 0.6, height = 0.6 }
 
 # Music workspace
 [[window_rule]]
-match.app_id = "^(sidra)$"
+match.app_id = "^(melba)$"
 default_workspace = "6"
 default_focused = false
 
