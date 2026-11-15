@@ -149,10 +149,14 @@ Whenever introducing a workaround, package override, or problem handler (e.g. `p
 
 ### Step 5: Workaround & Secondary Input Audit (Ascension & Pruning)
 
-1. **Audit Temporary Workarounds**:
-   Search the codebase for `# WORKAROUND: ... revisit and remove on next flake-update` comments:
-   - For each workaround found, test removing or disabling the workaround to see if upstream (Nixpkgs or Home Manager) has addressed the issue.
-   - If evaluation and dry-run builds pass cleanly without the workaround, permanently remove the workaround and comment.
+1. **Audit Workarounds, `TODO`, `FIXME`, and Similar Comments**:
+   Search the entire repository for temporary markers such as `WORKAROUND`, `TODO`, `FIXME`, `HACK`, and `XXX`:
+   ```bash
+   rg -n -i "(workaround|todo|fixme|hack|xxx)"
+   ```
+   - For every `WORKAROUND`, check whether upstream (Nixpkgs, Home Manager, or external flakes) has resolved the underlying issue after the update, and test removing or disabling the workaround cleanly.
+   - For every `TODO`, `FIXME`, `HACK`, or similar deferred note, inspect whether the updated inputs or current state now allow implementing the proper fix directly and cleanly.
+   - If verification passes (or the upstream fix is confirmed) without regressions, apply the fix, remove the stale workaround and comment, and otherwise leave still-needed comments accurate.
 
 2. **Upward Ascension Test for Secondary Channel Inputs**:
    Whenever `flake.nix` contains secondary channel inputs (Level 2 `unstable-small`, Level 3 `nixpkgs-master`, or Level 4 `stable`):
