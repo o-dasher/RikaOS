@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  osConfig ? null,
   nixCaches,
   ...
 }:
@@ -9,45 +8,22 @@ let
   cfg = config.features.core.nix;
 in
 {
-  options.features.core.nix = {
-    enable = lib.mkEnableOption "Nix configuration and tools." // {
-      default = true;
-    };
-    nixpkgs.enable = lib.mkEnableOption "Unfree package allowance." // {
-      default = true;
-    };
+  options.features.core.nix.enable = lib.mkEnableOption "Nix configuration and tools." // {
+    default = true;
   };
 
-  config = lib.mkMerge [
-    (lib.mkIf (config.features.core.enable && cfg.enable) {
-      nix = {
-        settings = nixCaches;
-        extraOptions = config.rika.utils.nixAccessTokens;
-      };
-      programs.nh = {
+  config = lib.mkIf cfg.enable {
+    nix = {
+      settings = nixCaches;
+      extraOptions = config.rika.utils.nixAccessTokens;
+    };
+    programs.nh = {
+      enable = true;
+      clean = {
         enable = true;
-        clean = {
-          enable = true;
-          extraArgs = "--keep 4 --keep-since 8d";
-        };
-        flake = "${config.features.filesystem.sharedFolders.configurationRoot}/private";
+        extraArgs = "--keep 4 --keep-since 8d";
       };
-    })
-    (lib.mkIf
-      (
-        config.features.core.enable
-        && cfg.enable
-        && cfg.nixpkgs.enable
-        && (osConfig == null || !osConfig.home-manager.useGlobalPkgs)
-      )
-      {
-        nixpkgs.config = {
-          allowUnfree = true;
-          # WORKAROUND: GTK 2 marked broken upstream (Nixpkgs#410814) while Home Manager
-          # i18n.inputMethod unconditionally evaluates gtk2Cache. Revisit and remove on next flake-update.
-          problems.handlers."gtk+".broken = "ignore";
-        };
-      }
-    )
-  ];
+      flake = "${config.rika.utils.configurationRoot}/private";
+    };
+  };
 }

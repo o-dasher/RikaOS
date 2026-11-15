@@ -10,7 +10,4 @@ return {
 			end,
 		})
 	end,
-	dep_of = {
-		"markdown",
-	},
 }

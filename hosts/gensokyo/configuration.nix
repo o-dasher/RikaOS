@@ -37,6 +37,8 @@
     ];
   };
 
+  hardware.bluetooth.enable = true;
+
   features = {
     desktop.theme.cirnosunset.enable = true;
     boot.kernel.enable = true;
@@ -48,7 +50,6 @@
     };
     services = {
       openssh.enable = true;
-      bluetooth.enable = true;
       gnome-keyring.enable = true;
       noctalia-greeter.enable = true;
     };

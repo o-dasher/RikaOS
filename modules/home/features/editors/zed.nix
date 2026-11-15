@@ -4,16 +4,13 @@
   ...
 }:
 let
-  modCfg = config.features.editors;
-  cfg = modCfg.zed;
+  cfg = config.features.editors.zed;
 in
 {
   options.features.editors.zed.enable = lib.mkEnableOption "Zed editor.";
 
-  config = lib.mkIf (modCfg.enable && cfg.enable) {
-    home.file = config.rika.utils.xdgConfigSelectiveSymLink "zed" [
-      "keymap.json"
-    ] { };
+  config = lib.mkIf cfg.enable {
+    xdg.configFile."zed/keymap.json".source = ../../../../dotfiles/zed/keymap.json;
 
     programs.zed-editor = {
       enable = true;

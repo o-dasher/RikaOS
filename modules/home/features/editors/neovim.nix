@@ -6,8 +6,7 @@
   ...
 }:
 let
-  modCfg = config.features.editors;
-  cfg = modCfg.neovim;
+  cfg = config.features.editors.neovim;
 in
 {
   options.features.editors.neovim = {
@@ -15,7 +14,7 @@ in
     neovide.enable = lib.mkEnableOption "Neovide.";
   };
 
-  config = lib.mkIf (modCfg.enable && cfg.enable) (
+  config = lib.mkIf cfg.enable (
     lib.mkMerge [
       (lib.mkIf cfg.neovide.enable {
         programs.neovide.enable = true;

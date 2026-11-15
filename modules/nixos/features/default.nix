@@ -3,10 +3,9 @@
     ./audio
     ./boot
     ./core
-    ./desktop
+    ./desktop/theme.nix
     ./filesystem
     ./gaming
-    ./graphics
     ./hardware
     ./networking
     ./nix

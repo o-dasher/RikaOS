@@ -1,7 +1,6 @@
 { lib, config, ... }:
 let
-  modCfg = config.features.services;
-  cfg = modCfg.openssh;
+  cfg = config.features.services.openssh;
 in
 {
   options.features.services.openssh = {
@@ -16,7 +15,7 @@ in
     };
   };
 
-  config = lib.mkIf (modCfg.enable && cfg.enable) {
+  config = lib.mkIf cfg.enable {
     services.openssh = {
       enable = true;
       openFirewall = lib.mkDefault false;

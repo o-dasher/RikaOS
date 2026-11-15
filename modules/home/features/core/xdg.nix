@@ -12,7 +12,7 @@ in
     portal.enable = lib.mkEnableOption "XDG desktop portal integration.";
   };
 
-  config = lib.mkIf (config.features.core.enable && cfg.enable) {
+  config = lib.mkIf cfg.enable {
     xdg = {
       enable = true;
       autostart = {

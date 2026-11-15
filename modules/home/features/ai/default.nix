@@ -7,15 +7,6 @@
 let
   cfg = config.features.ai;
   browserMcp = lib.getExe pkgs.playwright-mcp;
-
-  lsp = import ../../../../flakes/neovim/lsp.nix;
-
-  lspClientServers = lib.mapAttrs (_: server: {
-    command = server.executable;
-    args = server.args or [ ];
-    inherit (server) fileExtensions;
-  }) lsp.servers;
-
 in
 {
   options.features.ai.enable = lib.mkEnableOption "Personal AI agents, ACP, and MCP integration.";
@@ -35,7 +26,128 @@ in
       github-copilot-cli = {
         enable = true;
         enableMcpIntegration = true;
-        lspServers = lspClientServers;
+        lspServers = {
+          bash-language-server = {
+            command = "bash-language-server";
+            args = [ "start" ];
+            fileExtensions = {
+              ".sh" = "shellscript";
+              ".bash" = "shellscript";
+            };
+          };
+          clangd = {
+            command = "clangd";
+            args = [ ];
+            fileExtensions = {
+              ".c" = "c";
+              ".cpp" = "cpp";
+              ".h" = "c";
+              ".hpp" = "cpp";
+            };
+          };
+          lua-language-server = {
+            command = "lua-language-server";
+            args = [ ];
+            fileExtensions = {
+              ".lua" = "lua";
+            };
+          };
+          nixd = {
+            command = "nixd";
+            args = [ ];
+            fileExtensions = {
+              ".nix" = "nix";
+            };
+          };
+          phpactor = {
+            command = "phpactor";
+            args = [ "language-server" ];
+            fileExtensions = {
+              ".php" = "php";
+            };
+          };
+          pyright-langserver = {
+            command = "pyright-langserver";
+            args = [ "--stdio" ];
+            fileExtensions = {
+              ".py" = "python";
+            };
+          };
+          rust-analyzer = {
+            command = "rust-analyzer";
+            args = [ ];
+            fileExtensions = {
+              ".rs" = "rust";
+            };
+          };
+          svelteserver = {
+            command = "svelteserver";
+            args = [ "--stdio" ];
+            fileExtensions = {
+              ".svelte" = "svelte";
+            };
+          };
+          tailwindcss-language-server = {
+            command = "tailwindcss-language-server";
+            args = [ "--stdio" ];
+            fileExtensions = {
+              ".css" = "css";
+            };
+          };
+          typescript-language-server = {
+            command = "typescript-language-server";
+            args = [ "--stdio" ];
+            fileExtensions = {
+              ".ts" = "typescript";
+              ".tsx" = "typescriptreact";
+              ".js" = "javascript";
+              ".jsx" = "javascriptreact";
+            };
+          };
+          vscode-css-language-server = {
+            command = "vscode-css-languageserver";
+            args = [ "--stdio" ];
+            fileExtensions = {
+              ".css" = "css";
+            };
+          };
+          vscode-html-language-server = {
+            command = "vscode-html-languageserver";
+            args = [ "--stdio" ];
+            fileExtensions = {
+              ".html" = "html";
+            };
+          };
+          vscode-json-language-server = {
+            command = "vscode-json-languageserver";
+            args = [ "--stdio" ];
+            fileExtensions = {
+              ".json" = "json";
+            };
+          };
+          texlab = {
+            command = "texlab";
+            args = [ ];
+            fileExtensions = {
+              ".tex" = "latex";
+            };
+          };
+          tinymist = {
+            command = "tinymist";
+            args = [ "lsp" ];
+            fileExtensions = {
+              ".typ" = "typst";
+            };
+          };
+          yaml-language-server = {
+            command = "yaml-language-server";
+            args = [ "--stdio" ];
+            fileExtensions = {
+              ".yaml" = "yaml";
+              ".yml" = "yaml";
+            };
+          };
+        };
       };
 
       mcp = {

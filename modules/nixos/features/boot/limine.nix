@@ -5,8 +5,7 @@
   ...
 }:
 let
-  modCfg = config.features.boot;
-  cfg = modCfg.limine;
+  cfg = config.features.boot.limine;
 in
 {
   options.features.boot.limine = {
@@ -18,7 +17,7 @@ in
     };
   };
 
-  config = lib.mkIf (modCfg.enable && cfg.enable) (
+  config = lib.mkIf cfg.enable (
     lib.mkMerge [
       {
         boot.loader = {
@@ -27,7 +26,7 @@ in
           systemd-boot.enable = false;
           limine = {
             enable = true;
-            maxGenerations = config.features.core.systemCleanup.generationLimit;
+            maxGenerations = 3;
           };
         };
       }

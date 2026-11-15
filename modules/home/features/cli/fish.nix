@@ -6,18 +6,17 @@
   ...
 }:
 let
-  modCfg = config.features.cli;
-  cfg = modCfg.fish;
+  cfg = config.features.cli.fish;
 in
 {
   options.features.cli.fish.enable = lib.mkEnableOption "Fish shell.";
 
-  config = lib.mkIf (modCfg.enable && cfg.enable) {
+  config = lib.mkIf cfg.enable {
     programs.fish = {
       enable = true;
       shellAbbrs =
         let
-          root = config.features.filesystem.sharedFolders.configurationRoot;
+          root = config.rika.utils.configurationRoot;
           nixExe = lib.getExe pkgs.nix;
 
           update = repo: "${nixExe} flake update --flake ${root}/${repo}";

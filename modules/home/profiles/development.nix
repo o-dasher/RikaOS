@@ -22,6 +22,17 @@ in
       jq.enable = true;
       grep.enable = true;
       ripgrep.enable = true;
+      starship = {
+        enable = true;
+        settings.gcloud.disabled = true;
+      };
+      tmux = {
+        enable = true;
+        mouse = true;
+        extraConfig = ''
+          bind-key v split-window -h
+        '';
+      };
     };
 
     features = {
@@ -49,8 +60,6 @@ in
       cli = {
         hyfetch.enable = true;
         fish.enable = true;
-        starship.enable = true;
-        tmux.enable = true;
       };
     };
   };

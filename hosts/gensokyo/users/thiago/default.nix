@@ -3,7 +3,10 @@
   ...
 }:
 {
-  home.packages = with pkgs; [ pwvucontrol ];
+  home.packages = with pkgs; [
+    bitwarden-desktop
+    pwvucontrol
+  ];
 
   programs = {
     home-manager.enable = true;
@@ -14,7 +17,6 @@
     browser.enable = true;
     study.enable = true;
     utilities.enable = true;
-    security.enable = true;
     development = {
       enable = true;
       zed.enable = true;

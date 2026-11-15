@@ -6,8 +6,7 @@
   ...
 }:
 let
-  modCfg = config.features.services;
-  cfg = modCfg.noctalia-greeter;
+  cfg = config.features.services.noctalia-greeter;
   hasStylix = options ? stylix;
   colors = config.lib.stylix.colors;
   inherit (config.rika.utils) idleTimers;
@@ -16,7 +15,7 @@ in
   options.features.services.noctalia-greeter.enable =
     lib.mkEnableOption "Noctalia Greetd display manager.";
 
-  config = lib.mkIf (modCfg.enable && cfg.enable) {
+  config = lib.mkIf cfg.enable {
     # WORKAROUND: Fix non-functioning TTY switching under Wayland compositors.
     # Compositors forward VT switch requests to systemd-logind via DBus
     # (org.freedesktop.login1.chvt). Logind denies these requests by default
@@ -44,15 +43,9 @@ in
         idle.timeout = idleTimers.dpms;
         cursor.size = themeLib.cursor.size;
         output.refresh_rate = 999;
-        user.default =
-          let
-            normalUsers = builtins.filter (
-              name:
-              (config.users.users.${name}.isNormalUser or false)
-              && !(config.users.users.${name}.isSystemUser or false)
-            ) (builtins.attrNames config.users.users);
-          in
-          if normalUsers != [ ] then builtins.head normalUsers else null;
+        user.default = lib.findFirst (n: config.users.users.${n}.isNormalUser) null (
+          builtins.attrNames config.users.users
+        );
       }
       // lib.optionalAttrs hasStylix {
         appearance = {

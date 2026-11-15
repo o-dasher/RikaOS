@@ -2,10 +2,12 @@
   lib,
   config,
   pkgs,
+  osConfig ? null,
   ...
 }:
 let
   cfg = config.profiles.gaming;
+  steamPackage = if osConfig != null then osConfig.programs.steam.package else pkgs.steam;
   # Wrap goverlay in FHS environment so it can find vkbasalt
   goverlay-fhs = pkgs.buildFHSEnv {
     name = "goverlay";
@@ -32,8 +34,14 @@ in
       parsec-bin
     ];
 
+    xdg.autostart.entries = [
+      (config.rika.utils.mkAutostartApp {
+        pkg = steamPackage;
+        args = "-silent";
+      })
+    ];
+
     features.gaming = {
-      steam.enable = true;
       heroic.enable = true;
       mangohud.enable = true;
     };

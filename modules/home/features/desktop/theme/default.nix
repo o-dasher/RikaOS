@@ -11,7 +11,7 @@ let
 in
 {
   config = lib.optionalAttrs hasStylix (
-    lib.mkIf (config.features.desktop.enable && modCfg.enable) {
+    lib.mkIf modCfg.enable {
       gtk.colorScheme = config.stylix.polarity;
       stylix = {
         inherit (themeLib) cursor;

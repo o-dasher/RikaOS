@@ -5,16 +5,12 @@
   ...
 }:
 let
-  modCfg = config.features.gaming;
-  cfg = modCfg.heroic;
-  extraProtons = {
-    "GE-Proton" = pkgs.proton-ge-bin.steamcompattool;
-  };
+  cfg = config.features.gaming.heroic;
 in
 {
   options.features.gaming.heroic.enable = lib.mkEnableOption "Heroic Games Launcher.";
 
-  config = lib.mkIf (modCfg.enable && cfg.enable) {
+  config = lib.mkIf cfg.enable {
     home.packages = [ pkgs.heroic ];
     # Heroic owns config.json, so patch the key in place to silence "outdated" notifications.
     home.activation.heroicDisableUpdateCheck = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
@@ -27,12 +23,7 @@ in
     '';
     xdg = {
       autostart.entries = [ (config.rika.utils.mkAutostartApp { pkg = pkgs.heroic; }) ];
-      configFile = lib.mapAttrs' (
-        name: pkg:
-        lib.nameValuePair "heroic/tools/proton/${name}" {
-          source = pkg;
-        }
-      ) extraProtons;
+      configFile."heroic/tools/proton/GE-Proton".source = pkgs.proton-ge-bin.steamcompattool;
     };
   };
 }

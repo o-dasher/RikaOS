@@ -10,16 +10,19 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    profiles.core.enable = true;
-    hardware.keyboard.qmk.enable = true;
+    programs.umbriel.enable = true;
+    hardware = {
+      keyboard.qmk.enable = true;
+      graphics = {
+        enable = true;
+        enable32Bit = true;
+      };
+    };
     services = {
       gvfs.enable = true;
       printing.enable = true;
     };
     features = {
-      audio.enable = true;
-      desktop.umbriel.enable = true;
-      graphics.enable = true;
       gaming.enable = cfg.gaming.enable;
       virtualization.enable = cfg.virtualization.enable;
     };

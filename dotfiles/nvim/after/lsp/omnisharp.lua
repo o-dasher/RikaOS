@@ -4,9 +4,6 @@ return {
 			-- Enables support for reading code style, naming convention and analyzer
 			-- settings from .editorconfig.
 			EnableEditorConfigSupport = true,
-			-- Specifies whether 'using' directives should be grouped and sorted during
-			-- document formatting.
-			OrganizeImports = nil,
 		},
 		RoslynExtensionsOptions = {
 			-- Enables support for roslyn analyzers, code fixes and rulesets.

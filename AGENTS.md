@@ -133,11 +133,12 @@ Available user targets:
 │   │   ├── features/        # Granular user capabilities (cli, desktop, editors, gaming, etc.)
 │   │   └── profiles/        # High-level user profiles (browser, dev, gaming, multimedia, etc.)
 │   └── lib/                 # Shared helper libraries
-│       ├── utils.nix        # rika.utils (idleTimers, symlink helpers, autostart, tailwind)
+│       ├── utils.nix        # rika.utils (idleTimers, autostart, configurationRoot, secrets)
 │       └── theme.nix        # Stylix theme definitions & base16 paletting
-├── dotfiles/                # Out-of-store configuration files symlinked via rika.utils
+├── dotfiles/                # Configuration files linked into XDG config
 │   ├── umbriel/             # Umbriel configuration (config.toml)
 │   ├── nvim/                # Declarative Neovim configuration files
+│   ├── zed/                 # Zed keymap configuration
 │   └── ideavim/             # IdeaVim configuration
 ├── flakes/
 │   └── neovim/              # Standalone mnw-wrapped Neovim subflake with devMode
@@ -152,7 +153,7 @@ Available user targets:
 
 - **Umbriel Compositor**: Umbriel is configured using TOML (`dotfiles/umbriel/config.toml`) with optional split includes (`theme.toml`, `rules.toml`) dynamically managed via Home Manager.
 - **Autostart Apps via Attributes**: Always use `rika.utils.mkAutostartApp` with `xdg.autostart.entries` to configure application autostarts within their feature modules rather than creating ad-hoc shell loops or wrapper scripts. If a startup delay is ever strictly required by a service, use the `delay` attribute on `rika.utils.mkAutostartApp { pkg = ...; delay = ...; }` to leverage systemd's `ExecStartPre` natively.
-- **Selective Symlinks**: Use `rika.utils.xdgConfigSelectiveSymLink` or `rika.utils.selectiveSymLink` for dotfiles so edits take effect immediately without requiring full activation rebuilds.
+- **Direct XDG Config Links**: Link static dotfiles directly via `xdg.configFile."<target>".source = ...;` rather than wrapper helpers.
 - **Stylix Theming**: Theme palettes are generated and propagated through `modules/lib/theme.nix`.
 - **Flatten Single-Child Attribute Paths**: Avoid introducing nested attribute set blocks when defining only a single child attribute under a namespace. Collapse lone nested attributes into dotted notation (e.g. `services.openssh.enable = true;`). Reserve braced attribute set blocks (`{ ... }`) strictly for scopes containing two or more sibling keys sharing the same prefix.
   ```nix

@@ -5,14 +5,13 @@
   ...
 }:
 let
-  modCfg = config.features.development;
-  cfg = modCfg.git;
+  cfg = config.features.development.git;
   localHostName = if osConfig != null then osConfig.networking.hostName else null;
 in
 {
   options.features.development.git.enable = lib.mkEnableOption "Git and SSH client configuration.";
 
-  config = lib.mkIf (modCfg.enable && cfg.enable) {
+  config = lib.mkIf cfg.enable {
     programs = {
       gh.enable = true;
       ssh = {

@@ -70,8 +70,8 @@ nix build .#homeConfigurations."username@hostname".activationPackage
 | `hosts/` | Machine-specific configurations (`hinamizawa`, `gensokyo`) and user entries. |
 | `modules/nixos/` | Reusable NixOS system modules (`features/` and `profiles/`). |
 | `modules/home/` | Reusable Home Manager modules (`features/` and `profiles/`). |
-| `modules/lib/` | Shared utility library (`theme.nix`, `utils.nix`, Tailwind helper, symlink utilities). |
-| `dotfiles/` | Out-of-store configuration files (Umbriel setup, Neovim, IdeaVim). |
+| `modules/lib/` | Shared utility library (`theme.nix`, `utils.nix`). |
+| `dotfiles/` | Configuration files (Umbriel setup, Neovim, IdeaVim, Zed). |
 | `flakes/neovim/` | Standalone `mnw` Neovim wrapper package and devMode flake. |
 | `assets/` | Wallpapers, OpenRGB profiles, QMK layouts, and ASCII artwork. |
 | `AGENTS.md` | Guide and development instructions for AI agents and contributors. |

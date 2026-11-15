@@ -1,12 +1,11 @@
 { lib, config, ... }:
 let
-  modCfg = config.features.cli;
-  cfg = modCfg.hyfetch;
+  cfg = config.features.cli.hyfetch;
 in
 {
   options.features.cli.hyfetch.enable = lib.mkEnableOption "HyFetch.";
 
-  config = lib.mkIf (modCfg.enable && cfg.enable) {
+  config = lib.mkIf cfg.enable {
     programs = {
       fastfetch.enable = true;
       hyfetch = {

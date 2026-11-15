@@ -4,8 +4,9 @@
   ...
 }:
 let
-  modCfg = config.features.filesystem;
-  cfg = modCfg.steamLibrary;
+  cfg = config.features.filesystem.steamLibrary;
+  path = "/shared/SteamGames";
+  group = "steam-gamers";
   steamDirs = [
     "common"
     "downloading"
@@ -17,16 +18,6 @@ in
 {
   options.features.filesystem.steamLibrary = {
     enable = lib.mkEnableOption "Shared Steam library.";
-    path = lib.mkOption {
-      type = lib.types.str;
-      default = "/shared/SteamGames";
-      description = "Path to the shared Steam library.";
-    };
-    group = lib.mkOption {
-      type = lib.types.str;
-      default = "steam-gamers";
-      description = "Group that owns the shared Steam library.";
-    };
     users = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [ ];
@@ -34,28 +25,28 @@ in
     };
   };
 
-  config = lib.mkIf (modCfg.enable && cfg.enable) {
-    users.groups.${cfg.group}.members = cfg.users;
+  config = lib.mkIf cfg.enable {
+    users.groups.${group}.members = cfg.users;
 
     systemd.tmpfiles.settings.steam-library =
       let
         libraryPaths = [
-          cfg.path
-          "${cfg.path}/steamapps"
+          path
+          "${path}/steamapps"
         ]
-        ++ map (d: "${cfg.path}/steamapps/${d}") steamDirs;
+        ++ map (d: "${path}/steamapps/${d}") steamDirs;
       in
       builtins.listToAttrs (
         map (
-          path:
-          lib.nameValuePair path {
+          dirPath:
+          lib.nameValuePair dirPath {
             d = {
+              inherit group;
               mode = "2775";
               user = "root";
-              inherit (cfg) group;
             };
             "a+" = {
-              argument = "g:${cfg.group}:rwx,d:g:${cfg.group}:rwx";
+              argument = "g:${group}:rwx,d:g:${group}:rwx";
             };
           }
         ) libraryPaths
@@ -66,6 +57,6 @@ in
       "d %h/.local/share/Steam/steamapps/compatdata 0755 - - -"
       "L+ %h/.steam/shared/steamapps/compatdata - - - - %h/.local/share/Steam/steamapps/compatdata"
     ]
-    ++ map (d: "L+ %h/.steam/shared/steamapps/${d} - - - - ${cfg.path}/steamapps/${d}") steamDirs;
+    ++ map (d: "L+ %h/.steam/shared/steamapps/${d} - - - - ${path}/steamapps/${d}") steamDirs;
   };
 }

@@ -17,12 +17,6 @@ nmap <C-w>v <Action>(SplitVertically)
 nmap <C-w>s <Action>(SplitHorizontally)
 nmap <C-w>q <Action>(Unsplit)
 
-" Move between editor splits
-nmap <C-w>h <C-w>h
-nmap <C-w>l <C-w>l
-nmap <C-w>j <C-w>j
-nmap <C-w>k <C-w>k
-
 " Open file under cursor in split (approximation)
 nmap <C-w>f <Action>(SplitVertically)
 nmap gf <Action>(GotoDeclaration)

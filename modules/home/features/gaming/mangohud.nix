@@ -9,7 +9,7 @@ in
 {
   options.features.gaming.mangohud.enable = lib.mkEnableOption "MangoHud.";
 
-  config = lib.mkIf (config.features.gaming.enable && cfg.enable) {
+  config = lib.mkIf cfg.enable {
     programs.mangohud = {
       enable = true;
       settings = {

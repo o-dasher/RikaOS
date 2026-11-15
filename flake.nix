@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    flake-compat.url = "github:edolstra/flake-compat";
     systems.url = "github:nix-systems/default";
     mnw.url = "github:Gerg-L/mnw";
     home-manager = {
@@ -22,7 +21,7 @@
       url = "github:fufexan/nix-gaming";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-compat.follows = "flake-compat";
+        flake-compat.follows = "git-hooks/flake-compat";
         flake-parts.follows = "flake-parts";
         git-hooks.follows = "git-hooks";
       };
@@ -48,10 +47,7 @@
     };
     git-hooks = {
       url = "github:cachix/git-hooks.nix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-compat.follows = "flake-compat";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -71,19 +67,6 @@
       # Single source of truth for the Lix revision package set used across the flake
       lixSet = pkgs: pkgs.lixPackageSets.stable;
 
-      # Helper to import a nixpkgs revision with standard config
-      mkPkgs =
-        system: p: overlays:
-        import p {
-          inherit system overlays;
-          config = {
-            allowUnfree = true;
-            # WORKAROUND: GTK 2 marked broken upstream (Nixpkgs#410814) while Home Manager
-            # i18n.inputMethod unconditionally evaluates gtk2Cache. Revisit and remove on next flake-update.
-            problems.handlers."gtk+".broken = "ignore";
-          };
-        };
-
       systemConfigs = {
         hinamizawa = {
           stateVersion = "26.05";
@@ -98,11 +81,6 @@
           system = "x86_64-linux";
           users = [ "thiago" ];
         };
-      };
-
-      deploymentTargets = {
-        gensokyo = { };
-        hinamizawa = { };
       };
 
       targetSystems = lib.unique (map (c: c.system) (lib.attrValues systemConfigs));
@@ -127,17 +105,26 @@
 
       pkgsFor = lib.genAttrs targetSystems (
         system:
-        mkPkgs system nixpkgs [
-          (_final: prev: {
-            # Lix
-            inherit (lixSet prev)
-              nixpkgs-review
-              nix-eval-jobs
-              nix-fast-build
-              colmena
-              ;
-          })
-        ]
+        import nixpkgs {
+          inherit system;
+          overlays = [
+            (_final: prev: {
+              # Lix
+              inherit (lixSet prev)
+                nixpkgs-review
+                nix-eval-jobs
+                nix-fast-build
+                colmena
+                ;
+            })
+          ];
+          config = {
+            allowUnfree = true;
+            # WORKAROUND: GTK 2 marked broken upstream (Nixpkgs#410814) while Home Manager
+            # i18n.inputMethod unconditionally evaluates gtk2Cache. Revisit and remove on next flake-update.
+            problems.handlers."gtk+".broken = "ignore";
+          };
+        }
       );
 
       mkHomeModules =
@@ -180,7 +167,6 @@
             nixpkgs.pkgs = pkgsFor.${system};
             networking = { inherit hostName; };
             system = { inherit stateVersion; };
-            features.core.colmena.enable = deploymentTargets ? ${hostName};
             home-manager = {
               inherit extraSpecialArgs;
               useGlobalPkgs = true;
@@ -252,7 +238,7 @@
         homeConfigurations = lib.concatMapAttrs (
           hostName:
           cfg@{ system, users, ... }:
-          lib.foldl' lib.mergeAttrs { } (
+          lib.mergeAttrsList (
             map (
               username:
               let
@@ -293,8 +279,7 @@
             targetUser = "colmena";
             tags = [ hostName ];
             buildOnTarget = false;
-          }
-          // (deploymentTargets.${hostName} or { });
+          };
         }) systemConfigs;
       };
     };

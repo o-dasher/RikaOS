@@ -5,8 +5,6 @@
   ...
 }:
 {
-  imports = [ ./opentabletdriver.nix ];
-
   options.features.gaming = {
     steam.enable = lib.mkEnableOption "Steam." // {
       default = true;
@@ -85,6 +83,11 @@
       };
 
       hardware = {
+        uinput.enable = true;
+        opentabletdriver = {
+          enable = true;
+          daemon.enable = true;
+        };
         graphics = {
           extraPackages32 = [ pkgs.pkgsi686Linux.gamescope-wsi ];
           extraPackages = with pkgs; [
@@ -95,7 +98,6 @@
       }
       // lib.optionalAttrs modCfg.controllers.enable {
         xpadneo.enable = true;
-        uinput.enable = true;
       };
 
       services.ananicy = {

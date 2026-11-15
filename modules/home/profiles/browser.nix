@@ -20,52 +20,47 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    programs =
-      let
-        commonExtensions = [
-          "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
-        ];
-      in
-      {
-        librewolf = lib.mkIf cfg.librewolf.enable {
-          enable = true;
-          settings."privacy.resistFingerprinting.letterboxing" = false;
-          policies = {
-            SearchEngines = {
-              Default = "Google";
-              Add = [
-                {
-                  Name = "Google";
-                  URLTemplate = "https://www.google.com/search?q={searchTerms}";
-                  Method = "GET";
-                  IconURL = "https://www.google.com/favicon.ico";
-                  Alias = "@g";
-                }
-              ];
-            };
-            ExtensionSettings =
-              builtins.mapAttrs
-                (_: slug: {
-                  installation_mode = "force_installed";
-                  install_url = "https://addons.mozilla.org/firefox/downloads/latest/${slug}/latest.xpi";
-                })
-                {
-                  "uBlock0@raymondhill.net" = "ublock-origin";
-                  "addon@darkreader.org" = "darkreader";
-                  "{446900e4-71c2-419f-a6a7-df9c091e268b}" = "bitwarden-password-manager";
-                };
+    programs = {
+      librewolf = lib.mkIf cfg.librewolf.enable {
+        enable = true;
+        settings."privacy.resistFingerprinting.letterboxing" = false;
+        policies = {
+          SearchEngines = {
+            Default = "Google";
+            Add = [
+              {
+                Name = "Google";
+                URLTemplate = "https://www.google.com/search?q={searchTerms}";
+                Method = "GET";
+                IconURL = "https://www.google.com/favicon.ico";
+                Alias = "@g";
+              }
+            ];
           };
-        };
-        brave = lib.mkIf cfg.brave.enable {
-          enable = true;
-          package = pkgs.brave-origin;
-          commandLineArgs = [ "--remote-debugging-port=9222" ];
-          extensions = commonExtensions ++ [
-            "eimadpbcbfnmbkopoojfekhnkhdbieeh" # Dark Reader
-            "ehdehfcjlmekjdolbbmjgokdfeoocccd" # osu! subdivide nations
-          ];
+          ExtensionSettings =
+            builtins.mapAttrs
+              (_: slug: {
+                installation_mode = "force_installed";
+                install_url = "https://addons.mozilla.org/firefox/downloads/latest/${slug}/latest.xpi";
+              })
+              {
+                "uBlock0@raymondhill.net" = "ublock-origin";
+                "addon@darkreader.org" = "darkreader";
+                "{446900e4-71c2-419f-a6a7-df9c091e268b}" = "bitwarden-password-manager";
+              };
         };
       };
+      brave = lib.mkIf cfg.brave.enable {
+        enable = true;
+        package = pkgs.brave-origin;
+        commandLineArgs = [ "--remote-debugging-port=9222" ];
+        extensions = [
+          "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
+          "eimadpbcbfnmbkopoojfekhnkhdbieeh" # Dark Reader
+          "ehdehfcjlmekjdolbbmjgokdfeoocccd" # osu! subdivide nations
+        ];
+      };
+    };
 
     xdg.autostart.entries = lib.optionals cfg.brave.enable [
       (config.rika.utils.mkAutostartApp { pkg = config.programs.brave.finalPackage; })

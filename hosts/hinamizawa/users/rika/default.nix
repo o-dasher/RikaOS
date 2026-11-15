@@ -1,5 +1,6 @@
 {
   pkgs,
+  inputs,
   ...
 }:
 {
@@ -8,13 +9,24 @@
     imv.enable = true;
   };
 
-  home.packages = with pkgs; [
-    # I love my keyboard.
-    vial
+  home = {
+    sessionVariables.OSU_SDL3 = 1;
+    packages =
+      with pkgs;
+      [
+        # I love my keyboard.
+        vial
 
-    # tools
-    pwvucontrol
-  ];
+        # tools
+        bitwarden-desktop
+        pwvucontrol
+
+        # gaming
+        shadps4-qtlauncher
+        liborbispkg-pkgtool
+      ]
+      ++ [ inputs.nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.osu-lazer-bin ];
+  };
 
   profiles = {
     utilities.enable = true;
@@ -22,7 +34,6 @@
     multimedia.enable = true;
     social.enable = true;
     browser.enable = true;
-    security.enable = true;
     study.enable = true;
     development = {
       enable = true;
@@ -49,10 +60,6 @@
       enable = true;
       portal.enable = true;
     };
-    gaming = {
-      minecraft.enable = true;
-      osu.enable = true;
-      ps4.enable = true;
-    };
+    gaming.minecraft.enable = true;
   };
 }

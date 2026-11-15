@@ -18,6 +18,13 @@
     virtualization.enable = true;
   };
 
+  hardware.bluetooth.enable = true;
+
+  services.transmission = {
+    openPeerPorts = true;
+    openRPCPort = false;
+  };
+
   features = {
     desktop.theme.lain.enable = true;
     hardware.amdgpu.enable = true;
@@ -40,15 +47,10 @@
     };
     services = {
       openssh.enable = true;
-      bluetooth.enable = true;
       openrgb.enable = true;
       gnome-keyring.enable = true;
       noctalia-greeter.enable = true;
-      transmission = {
-        enable = true;
-        openPeerPorts = true;
-        openRPCPort = false;
-      };
+      transmission.enable = true;
     };
     filesystem = {
       steamLibrary = {
@@ -60,14 +62,14 @@
       };
       sharedFolders = {
         enable = true;
-        folders.shared.Games = [ ];
+        folderNames = [ "/shared/Games" ];
       };
       bitlocker = lib.mkIf config.rika.utils.hasSecrets {
         enable = true;
-        defaultKeyFile = config.age.secrets.bitlocker-hinamizawa-shared.path;
+        keyFile = config.age.secrets.bitlocker-hinamizawa-shared.path;
         drives = {
-          windows-shared.device = "/dev/disk/by-uuid/0cd42b48-325f-4851-8e4d-fc9ed4a4e08d";
-          windows-shared-plus.device = "/dev/disk/by-uuid/3abcc218-fe8c-4539-afb5-cc94357813aa";
+          windows-shared = "/dev/disk/by-uuid/0cd42b48-325f-4851-8e4d-fc9ed4a4e08d";
+          windows-shared-plus = "/dev/disk/by-uuid/3abcc218-fe8c-4539-afb5-cc94357813aa";
         };
       };
     };

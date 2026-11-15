@@ -5,27 +5,14 @@
   ...
 }:
 let
-  modCfg = config.features.services;
-  cfg = modCfg.transmission;
+  cfg = config.features.services.transmission;
 in
 {
-  options.features.services.transmission = {
-    enable = lib.mkEnableOption "Transmission BitTorrent client.";
-    openRPCPort = lib.mkOption {
-      type = lib.types.bool;
-      default = true;
-      description = "Open the firewall for Transmission's RPC port.";
-    };
-    openPeerPorts = lib.mkOption {
-      type = lib.types.bool;
-      default = true;
-      description = "Open the firewall for Transmission's peer ports.";
-    };
-  };
+  options.features.services.transmission.enable =
+    lib.mkEnableOption "Transmission BitTorrent client.";
 
-  config = lib.mkIf (modCfg.enable && cfg.enable) {
+  config = lib.mkIf cfg.enable {
     services.transmission = {
-      inherit (cfg) openRPCPort openPeerPorts;
       enable = true;
       package = pkgs.transmission_4;
       settings = {
@@ -37,7 +24,11 @@ in
 
     features.filesystem.sharedFolders = {
       enable = true;
-      folders.shared.Media.Torrent.".incomplete" = [ ];
+      folderNames = [
+        "/shared/Media"
+        "/shared/Media/Torrent"
+        "/shared/Media/Torrent/.incomplete"
+      ];
     };
   };
 }

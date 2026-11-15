@@ -2,12 +2,10 @@
   lib,
   config,
   pkgs,
-  osConfig ? null,
   ...
 }:
 let
-  modCfg = config.features.editors;
-  cfg = modCfg.jetbrains;
+  cfg = config.features.editors.jetbrains;
 in
 {
   options.features.editors.jetbrains = {
@@ -18,30 +16,17 @@ in
     clion.enable = lib.mkEnableOption "CLion.";
   };
 
-  config = lib.mkIf (modCfg.enable && cfg.enable) (
-    lib.mkMerge [
-      {
-        home = {
-          file = config.rika.utils.xdgConfigSelectiveSymLink "ideavim" [
-            "ideavimrc"
-          ] { };
+  config = lib.mkIf cfg.enable {
+    xdg.configFile."ideavim/ideavimrc".source = ../../../../dotfiles/ideavim/ideavimrc;
 
-          packages =
-            with pkgs;
-            lib.optionals cfg.datagrip.enable [ jetbrains.datagrip ]
-            ++ lib.optionals cfg.rider.enable [ jetbrains.rider ]
-            ++ lib.optionals cfg.clion.enable [ jetbrains.clion ]
-            ++ lib.optionals cfg.android-studio.enable [
-              android-tools
-              android-studio
-            ];
-        };
-      }
-      (lib.mkIf ((osConfig == null || !osConfig.home-manager.useGlobalPkgs) && cfg.android-studio.enable)
-        {
-          nixpkgs.config.android_sdk.accept_license = cfg.android-studio.enable;
-        }
-      )
-    ]
-  );
+    home.packages =
+      with pkgs;
+      lib.optionals cfg.datagrip.enable [ jetbrains.datagrip ]
+      ++ lib.optionals cfg.rider.enable [ jetbrains.rider ]
+      ++ lib.optionals cfg.clion.enable [ jetbrains.clion ]
+      ++ lib.optionals cfg.android-studio.enable [
+        android-tools
+        android-studio
+      ];
+  };
 }

@@ -7,7 +7,6 @@
     ./multimedia.nix
     ./social.nix
     ./browser.nix
-    ./security.nix
     ./study.nix
   ];
 }

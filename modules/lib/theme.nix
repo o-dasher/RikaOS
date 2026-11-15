@@ -6,9 +6,9 @@
   ...
 }:
 let
-  mkTheme = img: {
+  mkTheme = image: {
+    inherit image;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
-    image = img;
     icons = {
       package = pkgs.whitesur-icon-theme;
       dark = "WhiteSur-dark";
@@ -25,7 +25,6 @@ let
     cirnosunset = mkTheme ../../assets/Wallpapers/cirnosunset.jpg;
     lucky-star = mkTheme ../../assets/Wallpapers/luckystar.png;
     graduation = mkTheme ../../assets/Wallpapers/graduation.png;
-    lain-realism = mkTheme ../../assets/Wallpapers/lainrealism.jpg;
     lain = mkTheme ../../assets/Wallpapers/lain.jpg;
   };
 
@@ -36,7 +35,7 @@ let
       autoEnable = false;
       # Stylix tracks master while NixOS and Home Manager stay on stable.
       enableReleaseChecks = false;
-      polarity = cfg.polarity or "dark";
+      polarity = "dark";
       fonts = {
         monospace = {
           package = pkgs.nerd-fonts.jetbrains-mono;
@@ -57,16 +56,7 @@ let
         };
       };
     }
-    // (lib.filterAttrs (
-      n: _:
-      lib.elem n [
-        "base16Scheme"
-        "image"
-        "icons"
-        "opacity"
-        "polarity"
-      ]
-    ) cfg);
+    // cfg;
 in
 {
   options.features.desktop.theme =

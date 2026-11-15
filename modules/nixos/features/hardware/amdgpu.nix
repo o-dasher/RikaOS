@@ -4,13 +4,12 @@
   ...
 }:
 let
-  modCfg = config.features.hardware;
-  cfg = modCfg.amdgpu;
+  cfg = config.features.hardware.amdgpu;
 in
 {
   options.features.hardware.amdgpu.enable = lib.mkEnableOption "AMDGPU support.";
 
-  config = lib.mkIf (modCfg.enable && cfg.enable) {
+  config = lib.mkIf cfg.enable {
     services.lact.enable = true;
 
     environment.sessionVariables.ENABLE_LAYER_MESA_ANTI_LAG = "1";

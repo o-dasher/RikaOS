@@ -4,14 +4,13 @@
   ...
 }:
 let
-  modCfg = config.features.boot;
-  cfg = modCfg.hibernation;
+  cfg = config.features.boot.hibernation;
 in
 {
   options.features.boot.hibernation.enable =
     lib.mkEnableOption "Hibernation support and AM5 hardware freeze workarounds.";
 
-  config = lib.mkIf (modCfg.enable && cfg.enable) {
+  config = lib.mkIf cfg.enable {
     # Reason: Restoring stale ACPI NVS memory clobbers UEFI memory on AM5 during S3 sleep.
     # Fix: Skips restoring NVS memory so clean firmware tables are preserved.
     boot.kernelParams = [ "acpi_sleep=nonvs" ];

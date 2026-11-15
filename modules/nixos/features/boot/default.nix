@@ -5,7 +5,7 @@
   ...
 }:
 let
-  modCfg = config.features.boot;
+  cfg = config.features.boot;
 in
 {
   imports = [
@@ -13,14 +13,9 @@ in
     ./hibernation.nix
   ];
 
-  options.features.boot = {
-    kernel.enable = lib.mkEnableOption "Latest Linux kernel.";
-    enable = lib.mkEnableOption "Boot features." // {
-      default = true;
-    };
-  };
+  options.features.boot.kernel.enable = lib.mkEnableOption "Latest Linux kernel.";
 
-  config = lib.mkIf (modCfg.enable && modCfg.kernel.enable) {
+  config = lib.mkIf cfg.kernel.enable {
     boot.kernelPackages = pkgs.linuxPackages_latest;
   };
 }

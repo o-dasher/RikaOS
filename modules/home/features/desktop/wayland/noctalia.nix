@@ -3,19 +3,14 @@
   lib,
   pkgs,
   config,
-  options,
   osConfig ? null,
   ...
 }:
 let
-  modCfg = config.features.desktop.wayland;
-  cfg = modCfg.noctalia;
-  hasStylix = options ? stylix;
+  cfg = config.features.desktop.wayland.noctalia;
   hasAmdgpu = osConfig != null && osConfig.features.hardware.amdgpu.enable;
+  isLaptop = config.features.desktop.laptop.enable;
   inherit (config.rika.utils) idleTimers;
-  monoFont = lib.optionalAttrs hasStylix {
-    font_family = config.stylix.fonts.monospace.name;
-  };
   mkCapsuleGroup =
     attrs:
     {
@@ -28,31 +23,30 @@ let
       padding = 6.0;
     }
     // attrs;
+  mkSysmon = stat: {
+    inherit stat;
+    type = "sysmon";
+    visualization = "none";
+    show_value = true;
+    show_glyph = true;
+    font_family = config.stylix.fonts.monospace.name;
+  };
 in
 {
   imports = [
     "${inputs.home-manager}/modules/programs/noctalia"
   ];
 
-  options.features.desktop.wayland.noctalia = {
-    enable = (lib.mkEnableOption "Noctalia shell.") // {
-      default = true;
-    };
-    laptop.enable = lib.mkOption {
-      type = lib.types.bool;
-      default = config.features.desktop.laptop.enable;
-      defaultText = lib.literalExpression "config.features.desktop.laptop.enable";
-      description = "Laptop-specific Noctalia modules.";
-    };
+  options.features.desktop.wayland.noctalia.enable = (lib.mkEnableOption "Noctalia shell.") // {
+    default = true;
   };
 
-  config = lib.mkIf (hasStylix && config.features.desktop.enable && modCfg.enable && cfg.enable) {
+  config = lib.mkIf (config.features.desktop.wayland.enable && cfg.enable) {
     home.packages = with pkgs; [
       brightnessctl
       cliphist
       ddcutil
       libnotify
-      wl-clipboard
       wlsunset
     ];
 
@@ -177,7 +171,7 @@ in
                 "Separator"
                 "ram"
               ]
-              ++ lib.optionals cfg.laptop.enable [
+              ++ lib.optionals isLaptop [
                 "Separator"
                 "battery"
               ];
@@ -241,33 +235,13 @@ in
             tooltip_format = "%Y-%m-%d %H:%M:%S";
           };
 
-          cpu = {
-            type = "sysmon";
-            stat = "cpu_usage";
-            visualization = "none";
-            show_value = true;
-            show_glyph = true;
-          }
-          // monoFont;
+          cpu = mkSysmon "cpu_usage";
 
-          temp = {
-            type = "sysmon";
-            stat = "cpu_temp";
-            visualization = "none";
-            show_value = true;
-            show_glyph = true;
+          temp = mkSysmon "cpu_temp" // {
             capsule = true;
-          }
-          // monoFont;
+          };
 
-          ram = {
-            type = "sysmon";
-            stat = "ram_used";
-            visualization = "none";
-            show_value = true;
-            show_glyph = true;
-          }
-          // monoFont;
+          ram = mkSysmon "ram_used";
 
           output_volume = {
             type = "volume";
@@ -287,25 +261,10 @@ in
           };
         }
         // lib.optionalAttrs hasAmdgpu {
-          gpu_usage = {
-            type = "sysmon";
-            stat = "gpu_usage";
-            visualization = "none";
-            show_value = true;
-            show_glyph = true;
-          }
-          // monoFont;
-
-          gpu_temp = {
-            type = "sysmon";
-            stat = "gpu_temp";
-            visualization = "none";
-            show_value = true;
-            show_glyph = true;
-          }
-          // monoFont;
+          gpu_usage = mkSysmon "gpu_usage";
+          gpu_temp = mkSysmon "gpu_temp";
         }
-        // lib.optionalAttrs cfg.laptop.enable {
+        // lib.optionalAttrs isLaptop {
           battery = {
             display_mode = "glyph";
             show_label = true;
@@ -373,7 +332,7 @@ in
           };
         };
       }
-      // lib.optionalAttrs cfg.laptop.enable {
+      // lib.optionalAttrs isLaptop {
         battery.warning_threshold = 25;
       };
     };

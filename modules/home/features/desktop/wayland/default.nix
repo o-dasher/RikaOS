@@ -5,8 +5,7 @@
   ...
 }:
 let
-  desktopCfg = config.features.desktop;
-  modCfg = desktopCfg.wayland;
+  cfg = config.features.desktop.wayland;
 in
 {
   imports = [
@@ -15,7 +14,7 @@ in
 
   options.features.desktop.wayland.enable = lib.mkEnableOption "Wayland session integration.";
 
-  config = lib.mkIf (desktopCfg.enable && modCfg.enable) {
+  config = lib.mkIf cfg.enable {
     services.udiskie.enable = true;
 
     home = {
@@ -67,25 +66,20 @@ in
 
     # Graphical session slices for app2unit. BindTo graphical-session.target
     # ensures processes in these slices are cleaned up if the session ends.
-    systemd.user.slices = {
-      "app-graphical".Unit = {
-        Description = "User Graphical Application Slice";
-        Documentation = "man:systemd.special(7)";
-        BindTo = "graphical-session.target";
-        After = "graphical-session.target";
-      };
-      "background-graphical".Unit = {
-        Description = "User Graphical Background Application Slice";
-        Documentation = "man:systemd.special(7)";
-        BindTo = "graphical-session.target";
-        After = "graphical-session.target";
-      };
-      "session-graphical".Unit = {
-        Description = "User Graphical Session Application Slice";
-        Documentation = "man:systemd.special(7)";
-        BindTo = "graphical-session.target";
-        After = "graphical-session.target";
-      };
-    };
+    systemd.user.slices =
+      lib.mapAttrs
+        (_: Description: {
+          Unit = {
+            inherit Description;
+            Documentation = "man:systemd.special(7)";
+            BindTo = "graphical-session.target";
+            After = "graphical-session.target";
+          };
+        })
+        {
+          "app-graphical" = "User Graphical Application Slice";
+          "background-graphical" = "User Graphical Background Application Slice";
+          "session-graphical" = "User Graphical Session Application Slice";
+        };
   };
 }

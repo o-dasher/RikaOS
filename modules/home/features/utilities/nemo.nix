@@ -10,7 +10,7 @@ in
 {
   options.features.utilities.nemo.enable = lib.mkEnableOption "Nemo file manager.";
 
-  config = lib.mkIf (config.features.utilities.enable && cfg.enable) {
+  config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       nemo-with-extensions
       nemo-fileroller # Archive integration
