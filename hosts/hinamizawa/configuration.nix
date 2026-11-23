@@ -28,6 +28,11 @@
   features = {
     desktop.theme.lain.enable = true;
     hardware.amdgpu.enable = true;
+    nix.buildLimits = {
+      enable = true;
+      maxJobs = 1;
+      cores = 6;
+    };
     networking = {
       enable = true;
       privacyIPv6.enable = true;
